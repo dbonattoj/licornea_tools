@@ -2,35 +2,50 @@
 #include <libfreenect2/libfreenect2.hpp>
 #include <libfreenect2/registration.h>
 #include "lib/kinect_intrinsics.h"
+#include "lib/common.h"
+#include "lib/depth_io.h"
 #include <cstdlib>
 #include <iostream>
 #include <vector>
 #include <stdexcept>
 #include <fstream>
+#include <string>
 
-using ushort = std::uint16_t;
 
-constexpr std::size_t input_width = 512;
-constexpr std::size_t input_height = 424;
-constexpr std::size_t output_width = 1920;
-constexpr std::size_t output_height = 1080;
+void do_depth_reprojection_map(const cv::Mat_<ushort>& in, cv::Mat_<ushort>& out, cv::Mat_<uchar>& out_mask, const kinect_intrinsic_parameters& intrinsics) {
+	using namespace libfreenect2;	
 
-cv::Mat_<ushort> load_depth(const char* filename) {
-	cv::Mat mat = cv::imread(filename, CV_LOAD_IMAGE_ANYDEPTH);
-	if(mat.depth() != CV_16U) throw std::runtime_error("input depth map: must be 16 bit");
-	if(mat.rows != input_height || mat.cols != input_width) throw std::runtime_error("input depth map: wrong size");
-	cv::Mat_<ushort> mat_ = mat;
-	return mat_;
+	
+	static_assert(sizeof(float) == 4, "float must be 32 bit");
+	cv::Mat depth_mat(depth_height, depth_width, CV_32FC1);
+	in.convertTo(depth_mat, CV_32FC1);
+	Frame depth_frame(depth_width, depth_height, 4, depth_mat.data);
+	
+	Frame color_frame(texture_width, texture_height, 4);
+	Frame depth_undistorted_frame(depth_width, depth_height, 4);
+	Frame registered_color_frame(depth_width, depth_height, 4);
+	
+	cv::Mat bigdepth_mat(1082, 1920, CV_32FC1);
+	Frame bigdepth_frame(1920, 1082, 4, bigdepth_mat.data);
+	
+	Registration reg(intrinsics.ir, intrinsics.color);
+	
+	std::cout << "Registration::apply..." << std::endl;
+	reg.apply(
+		&color_frame,
+		&depth_frame,
+		&depth_undistorted_frame,
+		&registered_color_frame,
+		true,
+		&bigdepth_frame
+	);
+	std::cout << "Registration::apply." << std::endl;
+	
+	out = bigdepth_mat.rowRange(1, 1081);
 }
 
 
-void save_depth(const char* filename, const cv::Mat_<ushort>& depth) {
-	std::vector<int> params = { CV_IMWRITE_PNG_COMPRESSION, 0 };
-	cv::imwrite(filename, depth, params);
-}
-
-
-void do_depth_reprojection(const cv::Mat_<ushort>& in, cv::Mat_<ushort>& out, cv::Mat_<uchar>& out_mask, const kinect_intrinsic_parameters& intrinsics) {
+void do_depth_reprojection_splat(const cv::Mat_<ushort>& in, cv::Mat_<ushort>& out, cv::Mat_<uchar>& out_mask, const kinect_intrinsic_parameters& intrinsics) {
 	using namespace libfreenect2;
 	
 	out.setTo(0);
@@ -40,15 +55,15 @@ void do_depth_reprojection(const cv::Mat_<ushort>& in, cv::Mat_<ushort>& out, cv
 	
 	int splat_radius = 5;
 	
-	for(int dy = 0; dy < input_height; ++dy) for(int dx = 0; dx < input_width; ++dx) {
+	for(int dy = 0; dy < depth_height; ++dy) for(int dx = 0; dx < depth_width; ++dx) {
 		ushort dz = in(dy, dx);
 		if(dz == 0) continue;
 						
 		float cx, cy;
-		reg.apply(dx, dy, -dz, cx, cy);
+		reg.apply(dx, dy, dz, cx, cy);
 		
 		unsigned cx_int = cx, cy_int = cy;
-		if(cx_int >= output_width || cy_int >= output_height) continue;
+		if(cx_int >= texture_width || cy_int >= texture_height) continue;
 		
 		cv::circle(out, cv::Point(cx, cy), splat_radius, dz, -1);
 		cv::circle(out_mask, cv::Point(cx, cy), splat_radius, 0xff, -1);
@@ -57,14 +72,15 @@ void do_depth_reprojection(const cv::Mat_<ushort>& in, cv::Mat_<ushort>& out, cv
 
 
 int main(int argc, const char* argv[]) {
-	if(argc <= 4) {
-		std::cout << "usage: " << argv[0] << " input.png output.png output_mask.png intrinsics.json" << std::endl;
+	if(argc <= 5) {
+		std::cout << "usage: " << argv[0] << " input.png output.png output_mask.png intrinsics.json splat/map" << std::endl;
 		return EXIT_FAILURE;
 	}
 	const char* input_filename = argv[1];
 	const char* output_filename = argv[2];
 	const char* output_mask_filename = argv[3];
 	const char* intrinsics_filename = argv[4];
+	std::string mode = argv[5];
 	
 	std::cout << "reading intrinsics" << std::endl;
 	kinect_intrinsic_parameters intrinsics;
@@ -75,13 +91,18 @@ int main(int argc, const char* argv[]) {
 	
 	std::cout << "reading input depth map" << std::endl;
 	cv::Mat_<ushort> in_depth = load_depth(input_filename);
+	cv::flip(in_depth, in_depth, 1);
 	
 	std::cout << "preforming depth mapping" << std::endl;
-	cv::Mat_<ushort> out_depth(output_height, output_width);
-	cv::Mat_<uchar> out_mask(output_height, output_width);
-	do_depth_reprojection(in_depth, out_depth, out_mask, intrinsics);
+	cv::Mat_<ushort> out_depth(texture_height, texture_width);
+	cv::Mat_<uchar> out_mask(texture_height, texture_width);
+	if(mode == "splat")	do_depth_reprojection_splat(in_depth, out_depth, out_mask, intrinsics);
+	else if(mode == "map") do_depth_reprojection_map(in_depth, out_depth, out_mask, intrinsics);
+	else throw std::runtime_error("unknown mode");
 	
 	std::cout << "saving output depth map+mask" << std::endl;
+	cv::flip(out_depth, out_depth, 1);
+	cv::flip(out_mask, out_mask, 1);
 	save_depth(output_filename, out_depth);
 	cv::imwrite(output_mask_filename, out_mask);
 	

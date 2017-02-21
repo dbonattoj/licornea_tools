@@ -1,6 +1,4 @@
 /data/
-/external/
 /vsrs/
-/kinect_tools/build/
-/pointcloud/build/
-
+/kinect_tools/libfreenect2/
+build/

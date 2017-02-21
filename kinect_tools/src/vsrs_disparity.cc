@@ -1,22 +1,12 @@
 #include <opencv2/opencv.hpp>
+#include "lib/common.h"
+#include "lib/depth_io.h"
 #include <cstdlib>
 #include <cstdint>
 #include <cstring>
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
-
-using uchar = std::uint8_t;
-using ushort = std::uint16_t;
-using real = double;
-
-
-cv::Mat_<ushort> load_depth(const char* filename) {
-	cv::Mat mat = cv::imread(filename, CV_LOAD_IMAGE_ANYDEPTH);
-	if(mat.depth() != CV_16U) throw std::runtime_error("input depth map not 16 bit");
-	cv::Mat_<ushort> mat_ = mat;
-	return mat_;
-}
 
 
 void append_null_tail(std::ostream& output, std::streamsize length) {
