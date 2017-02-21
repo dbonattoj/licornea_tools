@@ -18,7 +18,6 @@ void do_texture_reprojection(
 	const cv::Mat_<cv::Vec3b>& in_texture,
 	cv::Mat_<ushort>& out_depth,
 	cv::Mat_<cv::Vec3b>& out_texture,
-	cv::Mat_<uchar>& out_mask,
 	const kinect_intrinsic_parameters& intrinsics
 ) {
 	using namespace libfreenect2;	
@@ -50,13 +49,12 @@ void do_texture_reprojection(
 
 	cv::cvtColor(registered_color_mat, out_texture, CV_BGRA2BGR);
 	out_depth = depth_undistorted_mat;
-	out_mask = (out_depth != 0);
 }
 
 
 int main(int argc, const char* argv[]) {
 	if(argc <= 6) {
-		std::cout << "usage: " << argv[0] << " input_depth.png input_texture.png output_depth.png output_texture.png output_mask.png intrinsics.json" << std::endl;
+		std::cout << "usage: " << argv[0] << " input_depth.png input_texture.png output_depth.png output_texture.png output_mask.png intrinsics.json [inpaint_radius ns/telea]" << std::endl;
 		return EXIT_FAILURE;
 	}
 	const char* input_depth_filename = argv[1];
@@ -65,7 +63,13 @@ int main(int argc, const char* argv[]) {
 	const char* output_texture_filename = argv[4];
 	const char* output_mask_filename = argv[5];
 	const char* intrinsics_filename = argv[6];
+	int inpaint_radius = 0;
+	std::string inpaint_method = "ns";
+	if(argc > 7) inpaint_radius = std::atoi(argv[7]);
+	if(argc > 8) inpaint_method = argv[8];
 	
+	cv::Vec3b black(0, 0, 0);
+
 	std::cout << "reading intrinsics" << std::endl;
 	kinect_intrinsic_parameters intrinsics;
 	{
@@ -84,8 +88,24 @@ int main(int argc, const char* argv[]) {
 	std::cout << "preforming texture mapping" << std::endl;
 	cv::Mat_<ushort> out_depth(depth_height, depth_width);
 	cv::Mat_<cv::Vec3b> out_texture(depth_height, depth_width);
+	do_texture_reprojection(in_depth, in_texture, out_depth, out_texture, intrinsics);
+	
+	if(inpaint_radius > 0) {
+		std::cout << "inpainting" << std::endl;
+
+		cv::Mat_<uchar> texture_holes(depth_height, depth_width);
+		cv::inRange(out_texture, black, black, texture_holes);
+
+		int flags = (inpaint_method == "telea" ? cv::INPAINT_TELEA : cv::INPAINT_NS);
+		cv::Mat_<cv::Vec3b> out_texture_inpainted(depth_height, depth_width);
+		cv::inpaint(out_texture, texture_holes, out_texture_inpainted, inpaint_radius, flags);
+		out_texture = out_texture_inpainted;
+	}
+	
+	std::cout << "determining mask" << std::endl;
 	cv::Mat_<uchar> out_mask(depth_height, depth_width);
-	do_texture_reprojection(in_depth, in_texture, out_depth, out_texture, out_mask, intrinsics);
+	cv::Mat_<uchar> texture_holes(depth_height, depth_width);
+	cv::inRange(out_texture, black, black, texture_holes);
 	
 	std::cout << "saving output texture+depth+mask" << std::endl;
 	cv::flip(out_texture, out_texture, 1);
