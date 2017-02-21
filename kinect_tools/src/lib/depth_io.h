@@ -4,7 +4,7 @@
 #include "common.h"
 #include <opencv2/opencv.hpp>
 
-cv::Mat_<ushort> load_depth(const char* filename);
+cv::Mat_<ushort> load_depth(const char* filename, bool any_size = false);
 void save_depth(const char* filename, const cv::Mat_<ushort>&);
 
 #endif

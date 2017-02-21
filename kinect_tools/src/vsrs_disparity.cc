@@ -58,7 +58,7 @@ int main(int argc, const char* argv[]) {
 	bool output_disparity_18bit = false;
 	if(argc > 5 && std::atoi(argv[5]) == 16) output_disparity_18bit = true;
 
-	cv::Mat_<ushort> depth = load_depth(argv[1]);
+	cv::Mat_<ushort> depth = load_depth(argv[1], true);
 
 	if(output_disparity_18bit) {
 		cv::Mat_<ushort> disparity;
