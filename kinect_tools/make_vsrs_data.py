@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import sys, os, subprocess
+from joblib import Parallel, delayed
 
 def usage_fail():
 	print("usage: {} data_directory output_directory up/down\n".format(sys.argv[0]))
@@ -8,20 +9,24 @@ def usage_fail():
 
 if len(sys.argv) <= 3: usage_fail()
 
+
 data_directory = sys.argv[1]
 output_directory = sys.argv[2]
 mode = sys.argv[3];
 if mode != "up" and mode != "down": usage_fail()
 
-tools_directory = "../build"
-intrinsics_filename = "../../data/kinect_intrinsics.json"
+parallel = True
+parallel_jobs = 8
+i_range = range(1, 851+1)
+tools_directory = "build"
+intrinsics_filename = "../data/kinect_intrinsics.json"
 z_near = 700.0
 z_far = 1600.0
 
 def png2yuv(png, yuv):
 	subprocess.call("ffmpeg -n -i {} -pix_fmt yuv420p {} > /dev/null 2>&1".format(png, yuv), shell=True)
 
-for i in range(1,851+1):
+def process_view(i):
 	print "## ## ## ## ## ## VIEW {:d} ## ## ## ## ## ##".format(i)
 
 	texture_filename = os.path.join(data_directory, "Kinect_out_texture_000_500.0z_0001_{:04d}.png".format(i))
@@ -96,4 +101,11 @@ for i in range(1,851+1):
 		os.remove(reprojected_depth_filename)
 		os.remove(reprojected_texture_filename)
 		os.remove(mask_filename)
+
+
+if __name__ == '__main__':
+	if not parallel:
+		for i in i_range: process_view(i)
+	else:
+		Parallel(n_jobs=parallel_jobs)(delayed(process_view)(i) for i in i_range)
 
