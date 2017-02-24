@@ -23,7 +23,7 @@ bool read_camera(std::istream& input, camera& cam) {
 	input >> cam.name;
 	if(input.eof() || input.fail()) return false;
 	
-	if(cam.name == "0") { // extra last row (0 0 0 1) of last extrinsic
+	if(cam.name == "0") { // extra last row (0 0 0 1) of previous extrinsic
 		int unused;
 		input >> unused >> unused >> unused;
 		return read_camera(input, cam);

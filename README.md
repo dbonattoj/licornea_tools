@@ -3,6 +3,7 @@ Tools for 3DLicorneA
 * `parameters_xml2vsrs.sh`: Convert XML camera parameters file to VSRS/DERS camera array format
 * `pointcloud/`: Generate XYZRGB `.ply` point cloud from VSRS config file and `.yuv` texture/disparity data
 * `camera_transform/`: Operations on extrinsic/intrinsic camera matrices, in VSRS/DERS camera array format
+* `epipolar_sketch/`: Visualizer for epipolar lines and corresponding points using camera matrices. Sketch written in p5.js.
 * `kinect_tools//fetch_intrinsics`: Fetch internal camera parameters from Kinect connected by USB, store in JSON file
 * `kinect_tools//depth_reprojection`: Reproject+upsample+undistort Kinect depth map into same coordinate system as color image
 * `kinect_tools//texture_reprojection`: Reproject+downsample Kinect color image into same coordinate system as depth image, undistort depth map

@@ -80,10 +80,10 @@ def process_view(i):
 			reprojected_texture_filename,
 			mask_filename,
 			intrinsics_filename,
-			"5",
+			"3",
 			"telea"
 		])
-
+		return
 		print "## {:d}: transforming to disparity".format(i)
 		subprocess.call([
 			os.path.join(tools_directory, "vsrs_disparity"),
@@ -99,7 +99,7 @@ def process_view(i):
 
 		# remove temporary files
 		os.remove(reprojected_depth_filename)
-		os.remove(reprojected_texture_filename)
+		#os.remove(reprojected_texture_filename)
 		os.remove(mask_filename)
 
 
