@@ -20,6 +20,7 @@ var ext = ".jpg";
 
 
 var param;
+var title;
 var left_im, right_im;
 
 // depth map
@@ -36,8 +37,6 @@ var z_far, z_near;
 // user interface
 var left_im_position, right_im_position, image_scale;
 var point_color = [255, 0, 0];
-var pt_rad = 5;
-var line_double = true;
 var line_color = [255, 0, 0];
 var line_width = 1;
 var depth_slider;
@@ -165,6 +164,7 @@ function convertRt(Rt_) {
 
 function setup() {
   // read config
+  title = param["title"];
   l_K = param[left+"_K"];
   l_Rt = param[left+"_Rt"];
   r_K = param[right+"_K"];
@@ -172,8 +172,8 @@ function setup() {
   w = param["w"];
   h = param["h"];
   image_scale = param["scale"];
-  left_im_position = [10, 10];
-  right_im_position = [w*image_scale + 20, 10];
+  left_im_position = [10, 40];
+  right_im_position = [w*image_scale + 20, 40];
   z_near = param["z_near"];
   z_far = param["z_far"];
 
@@ -202,15 +202,15 @@ function setup() {
   // setup ui
   createCanvas(
     right_im_position[0] + w*image_scale + 10,
-    right_im_position[1] + h*image_scale + 10 + 100
+    right_im_position[1] + h*image_scale + 10 + 200
   );
 
   depth_slider = createSlider(0, 1000, 0);
-  depth_slider.position(120, h*image_scale + 40);
+  depth_slider.position(120, h*image_scale + 50);
   depth_slider.input(updateFromSlider);
 
   dataset_menu = createSelect();
-  dataset_menu.position(right_im_position[0], h*image_scale + 40);
+  dataset_menu.position(right_im_position[0], 10);
   for(var i = 0; i < datasets.length; ++i) {
     dataset_menu.option(datasets[i]);
   }
@@ -222,7 +222,7 @@ function setup() {
   
   if(have_depth_map) {
     use_depth_map_checkbox = createCheckbox("use depth map", false);
-    use_depth_map_checkbox.position(600, h*image_scale + 40);
+    use_depth_map_checkbox.position(600, h*image_scale + 50);
     use_depth_map_checkbox.changed(function() {
         updateFromMouse();
     });
@@ -248,39 +248,46 @@ function updateFromSlider() {
 }
 
 
+function drawPoint(x, y) {
+	var rad = 7;
+	strokeWeight(2);
+	stroke(point_color);
+	line(x - rad, y - rad, x + rad, y + rad);
+	line(x + rad, y - rad, x - rad, y + rad);
+}
+
+
 function draw() {
   // clear and redraw...
   clear();
+
+  textSize(23);
+  textStyle(BOLD);
+  fill(90);
+  text(title, 10, 26);
 
   // images
   image(left_im, 0, 0, w, h, left_im_position[0], left_im_position[1], w*image_scale, h*image_scale);
   image(right_im, 0, 0, w, h, right_im_position[0], right_im_position[1], w*image_scale, h*image_scale);
   
   // left pt
-  noStroke();
-  fill(point_color);
   var l_x = left_point[0]*image_scale + left_im_position[0];
   var l_y = left_point[1]*image_scale + left_im_position[1];
-  ellipse(l_x, l_y, 2*pt_rad, 2*pt_rad);
-  
+  drawPoint(l_x, l_y)
   
   // epipolar line
   noFill();
-  if(line_double) {
-    stroke(255, 255, 255, 100);
-    strokeWeight(line_width + 3);
-    line(right_epipolar_line[0], right_epipolar_line[1], right_epipolar_line[2], right_epipolar_line[3]);
-  }
+  stroke(255, 255, 255, 100);
+  strokeWeight(line_width + 3);
+  line(right_epipolar_line[0], right_epipolar_line[1], right_epipolar_line[2], right_epipolar_line[3]);
   stroke(line_color);
   strokeWeight(line_width);
   line(right_epipolar_line[0], right_epipolar_line[1], right_epipolar_line[2], right_epipolar_line[3]);
 
   // right pt
-  noStroke();
-  fill(point_color);
   var r_x = right_point[0]*image_scale + right_im_position[0];
   var r_y = right_point[1]*image_scale + right_im_position[1];
-  if(r_x > right_im_position[0]) ellipse(r_x, r_y, 2*pt_rad, 2*pt_rad);
+  if(r_x > right_im_position[0]) drawPoint(r_x, r_y);
 
 
   // rect
@@ -291,14 +298,20 @@ function draw() {
   rect(right_im_position[0], right_im_position[1], w*image_scale, h*image_scale);
   
   // slider text
+  textStyle(NORMAL);
   fill(0);
   noStroke();
-  text("projected depth d: " , 10, h*image_scale + 55);
-  text("orthogonal distance z = " + floor(z * 100.0)/100.0, 350, h*image_scale + 55);
+  textSize(12);
+  text("projected depth d: " , 10, h*image_scale + 65);
+  text("orthogonal distance z = " + floor(z * 100.0)/100.0, 350, h*image_scale + 65);
+}
+
+function mouseInBounds() {
+	return (mouseX < right_im_position[0] && mouseY < left_im_position[1]+h*image_scale && mouseY >= left_im_position[1]);
 }
 
 function updateFromMouse() {
-  if(mouseX < right_im_position[0] && mouseY < left_im_position[0]+h*image_scale) {
+  if(mouseInBounds()) {
     left_point[0] = (mouseX - left_im_position[0]) / image_scale;
     left_point[1] = (mouseY - left_im_position[1]) / image_scale;
   }
@@ -308,7 +321,6 @@ function updateFromMouse() {
 
     slider_d = (map_d - depth_map_d_near) / (depth_map_d_far - depth_map_d_near);
     depth_slider.value(slider_d * depth_slider_max);
-    
   }
   calculateCorrespondingPoint();
   calculateEpipolarLine();
@@ -317,11 +329,11 @@ function updateFromMouse() {
 
 
 function mousePressed() {
-  if(mouseY < h*image_scale + 15) updateFromMouse();
+  if(mouseInBounds()) updateFromMouse();
   return true;
 }
 
 function mouseDragged() {
-  if(mouseY < h*image_scale + 15) updateFromMouse();
+  if(mouseInBounds()) updateFromMouse();
   return true;
 }
