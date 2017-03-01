@@ -42,7 +42,8 @@ var line_width = 1;
 var depth_slider;
 var depth_slider_max = 1000;
 var dataset_menu;
-var use_depth_map_checkbox;
+var use_depth_map_checkbox, view_depth_map_checkbox;
+var line_checkbox, point_checkbox;
 
 // ui state
 var left_point = [10.0, 10.0];
@@ -106,6 +107,7 @@ function projectionMatrix(K, d_near, d_far) {
     [0.0, 0.0, 1.0, 0.0]
   ];
 }
+
 
 function calculateCorrespondingPoint() {
   var d = slider_d;
@@ -221,13 +223,26 @@ function setup() {
   });
   
   if(have_depth_map) {
-    use_depth_map_checkbox = createCheckbox("use depth map", false);
+    use_depth_map_checkbox = createCheckbox("use depth map", true);
     use_depth_map_checkbox.position(600, h*image_scale + 50);
     use_depth_map_checkbox.changed(function() {
         updateFromMouse();
     });
-    use_depth_map_checkbox.checked(true);
+
+    view_depth_map_checkbox = createCheckbox("view depth map", false);
+    view_depth_map_checkbox.position(750, h*image_scale + 50);
+    view_depth_map_checkbox.changed(function() {
+        redraw();
+    });
   }
+  
+  line_checkbox = createCheckbox("epipolar line", true);
+  line_checkbox.position(1200, h*image_scale + 50);
+  line_checkbox.changed(redraw);
+
+  point_checkbox = createCheckbox("corresponding point", true);
+  point_checkbox.position(1350, h*image_scale + 50);
+  point_checkbox.changed(redraw);
 
   background(255);
 
@@ -267,7 +282,8 @@ function draw() {
   text(title, 10, 26);
 
   // images
-  image(left_im, 0, 0, w, h, left_im_position[0], left_im_position[1], w*image_scale, h*image_scale);
+  var view_depth = (have_depth_map && view_depth_map_checkbox.checked());
+  image(view_depth ? left_depth_map_im : left_im, 0, 0, w, h, left_im_position[0], left_im_position[1], w*image_scale, h*image_scale);
   image(right_im, 0, 0, w, h, right_im_position[0], right_im_position[1], w*image_scale, h*image_scale);
   
   // left pt
@@ -275,20 +291,23 @@ function draw() {
   var l_y = left_point[1]*image_scale + left_im_position[1];
   drawPoint(l_x, l_y)
   
-  // epipolar line
-  noFill();
-  stroke(255, 255, 255, 100);
-  strokeWeight(line_width + 3);
-  line(right_epipolar_line[0], right_epipolar_line[1], right_epipolar_line[2], right_epipolar_line[3]);
-  stroke(line_color);
-  strokeWeight(line_width);
-  line(right_epipolar_line[0], right_epipolar_line[1], right_epipolar_line[2], right_epipolar_line[3]);
+  if(line_checkbox.checked()) {
+    // epipolar line
+    noFill();
+    stroke(255, 255, 255, 100);
+    strokeWeight(line_width + 3);
+    line(right_epipolar_line[0], right_epipolar_line[1], right_epipolar_line[2], right_epipolar_line[3]);
+    stroke(line_color);
+    strokeWeight(line_width);
+    line(right_epipolar_line[0], right_epipolar_line[1], right_epipolar_line[2], right_epipolar_line[3]);
+  }
 
-  // right pt
-  var r_x = right_point[0]*image_scale + right_im_position[0];
-  var r_y = right_point[1]*image_scale + right_im_position[1];
-  if(r_x > right_im_position[0]) drawPoint(r_x, r_y);
-
+  if(point_checkbox.checked()) {
+    // right pt
+    var r_x = right_point[0]*image_scale + right_im_position[0];
+    var r_y = right_point[1]*image_scale + right_im_position[1];
+    if(r_x > right_im_position[0]) drawPoint(r_x, r_y);
+  }
 
   // rect
   noFill();
