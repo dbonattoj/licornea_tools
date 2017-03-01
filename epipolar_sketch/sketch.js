@@ -28,6 +28,7 @@ var have_depth_map;
 var left_depth_map_im;
 var depth_map_d_near;
 var depth_map_d_far;
+var depth_map_masked;
 
 // camera parameters
 var l_K, l_Rt, r_K, r_Rt, w, h;
@@ -186,6 +187,7 @@ function setup() {
      left_depth_map_im = loadImage("datasets/" + dir + "/" + left + "_depth" + ext);
      depth_map_d_near = param["depth_map"]["d_near"];
      depth_map_d_far = param["depth_map"]["d_far"];
+     depth_map_masked = param["depth_map"]["masked"];
   }
 
 
@@ -337,9 +339,10 @@ function updateFromMouse() {
   if(have_depth_map && use_depth_map_checkbox.checked()) {
     var depth_pixel = left_depth_map_im.get(left_point[0], left_point[1]);
     var map_d = depth_pixel[0];
-
-    slider_d = (map_d - depth_map_d_near) / (depth_map_d_far - depth_map_d_near);
-    depth_slider.value(slider_d * depth_slider_max);
+    if(map_d != 0 || !depth_map_masked) {
+      slider_d = (map_d - depth_map_d_near) / (depth_map_d_far - depth_map_d_near);
+      depth_slider.value(slider_d * depth_slider_max);
+    }
   }
   calculateCorrespondingPoint();
   calculateEpipolarLine();

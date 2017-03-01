@@ -12,7 +12,8 @@
 
 	"depth_map" : {
 		"d_near" : 255.0,
-		"d_far" : 0.0
+		"d_far" : 0.0,
+		"masked" : false
 	},
 
 	"L_K" : [
