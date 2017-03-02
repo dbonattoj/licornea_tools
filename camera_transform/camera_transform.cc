@@ -87,7 +87,7 @@ int main(int argc, const char* argv[]) {
 			cam.translation = -(cam.rotation * cam.translation);	
 					
 		} else if(operation == "flip_t") {
-			cam.translation = -cam.translation;
+			cam.translation = -cam.translation;			
 			
 		} else if(operation == "scale") {
 			if(argc <= 5) usage_fail();

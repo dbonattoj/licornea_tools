@@ -192,7 +192,7 @@ function setup() {
 
 
   // convert exterinsics from MPEG to standard format if necessary
-  if(param["mpeg_intrinsic"]) {
+  if(param["mpeg_extrinsic"]) {
     l_Rt = convertRt(l_Rt);
     r_Rt = convertRt(r_Rt);
   }

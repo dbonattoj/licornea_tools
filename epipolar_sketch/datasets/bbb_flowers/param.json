@@ -5,7 +5,7 @@
 	"h" : 768,
 	"scale" : 0.6,
 
-	"mpeg_intrinsic" : true,
+	"mpeg_extrinsic" : true,
 
 	"z_near" : 0.2,
 	"z_far" : 700.0,

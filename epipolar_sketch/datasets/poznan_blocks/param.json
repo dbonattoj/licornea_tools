@@ -5,7 +5,7 @@
 	"h" : 1080,
 	"scale" : 0.4,
 
-	"mpeg_intrinsic" : true,
+	"mpeg_extrinsic" : true,
 
 	"z_near" : 15.0,
 	"z_far" : 100.0,
