@@ -99,7 +99,7 @@ def process_view(i):
 
 		# remove temporary files
 		os.remove(reprojected_depth_filename)
-		#os.remove(reprojected_texture_filename)
+		os.remove(reprojected_texture_filename)
 		os.remove(mask_filename)
 
 
