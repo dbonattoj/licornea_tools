@@ -5,10 +5,10 @@ set(CMAKE_CXX_STANDARD 14)
 
 find_package(OpenCV REQUIRED)
 
-include_directories(SYSTEM external/include)
+include_directories(SYSTEM ../external/include)
+include_directories(SYSTEM ../external/freenect2/include)
 include_directories(SYSTEM ${OpenCV_INCLUDE_DIRS})
-include_directories(SYSTEM external/freenect2/include)
-link_directories(external/freenect2/lib)
+link_directories(../external/freenect2/lib)
 
 add_compile_options(-Wall -Wextra -Wno-sign-compare)
 
