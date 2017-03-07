@@ -49,12 +49,13 @@ var line_checkbox, point_checkbox;
 // ui state
 var left_point = [10.0, 10.0];
 var right_point = [10.0, 10.0];
+var left_epipolar_line = [0.0, 0.0, 0.0, 0.0];
 var right_epipolar_line = [0.0, 0.0, 0.0, 0.0];
 var z = 0.0; // orthogonal distance
 var slider_d = 0.0; // projected depth (from 0 to 1)
 
 
-function essentialMatrix() {
+function calculateRightEpipolarLine() {
   var poseTransformation = numeric.dot(l_Rt, r_Rt_inv);
   var t = [poseTransformation[0][3], poseTransformation[1][3], poseTransformation[2][3]];
   var R = numeric.getBlock(poseTransformation, [0, 0], [2, 2]);
@@ -64,19 +65,9 @@ function essentialMatrix() {
     [t[2], 0.0, -t[0]],
     [-t[1], t[0], 0.0]
   ];
-  var essential = numeric.dot(T, R);
-  return essential;
-}
+  var E = numeric.dot(T, R); // essential matrix
+  var F = numeric.dot(numeric.transpose(l_K_inv), numeric.dot(E, r_K_inv)); // fundamental matrix
 
-function fundamentalMatrix() {
-  var essential = essentialMatrix();
-  var fundamental = numeric.dot(numeric.transpose(l_K_inv), numeric.dot(essential, r_K_inv));
-  return fundamental;
-}
-
-
-function calculateEpipolarLine() {
-  var F = fundamentalMatrix();
   var x_L = left_point[0], y_L = left_point[1];
   function y_R(x_R) {
     var a = -F[2][2] - F[0][2]*x_L - F[2][0]*x_R - F[0][0]*x_L*x_R - F[1][2]*y_L - F[1][0]*x_R*y_L;
@@ -95,6 +86,40 @@ function calculateEpipolarLine() {
   
   right_epipolar_line = [x1, y1, x2, y2];
 }
+
+
+function calculateLeftEpipolarLine() {
+  var poseTransformation = numeric.inv(numeric.dot(l_Rt, r_Rt_inv));
+  var t = [poseTransformation[0][3], poseTransformation[1][3], poseTransformation[2][3]];
+  var R = numeric.getBlock(poseTransformation, [0, 0], [2, 2]);
+
+  var T = [
+    [0.0, -t[2], t[1]],
+    [t[2], 0.0, -t[0]],
+    [-t[1], t[0], 0.0]
+  ];
+  var E = numeric.dot(T, R); // essential matrix
+  var F = numeric.dot(numeric.transpose(r_K_inv), numeric.dot(E, l_K_inv)); // fundamental matrix
+
+  var x_R = right_point[0], y_R = right_point[1];
+  function y_L(x_L) {
+    var a = -F[2][2] - F[0][2]*x_R - F[2][0]*x_L - F[0][0]*x_R*x_L - F[1][2]*y_R - F[1][0]*x_L*y_R;
+    var b = F[2][1] + F[0][1]*x_R + F[1][1]*y_R;
+    return a/b;
+  }
+  
+  var x1 = 0, x2 = w;
+  var y1 = y_L(x1), y2 = y_L(x2);
+
+  // put it into screen pixel coordinates for user interface
+  x1 = x1*image_scale + left_im_position[0];
+  x2 = x2*image_scale + left_im_position[0];
+  y1 = y1*image_scale + left_im_position[1];
+  y2 = y2*image_scale + left_im_position[1];
+  
+  left_epipolar_line = [x1, y1, x2, y2];
+}
+
 
 function projectionMatrix(K, d_near, d_far) {
   var z_diff = z_far - z_near;
@@ -238,23 +263,25 @@ function setup() {
     });
   }
   
-  line_checkbox = createCheckbox("epipolar line", true);
-  line_checkbox.position(1200, h*image_scale + 50);
+  line_checkbox = createCheckbox("epipolar lines", true);
+  line_checkbox.position(1000, h*image_scale + 50);
   line_checkbox.changed(redraw);
 
   point_checkbox = createCheckbox("corresponding point", true);
-  point_checkbox.position(1350, h*image_scale + 50);
+  point_checkbox.position(1250, h*image_scale + 50);
   point_checkbox.changed(redraw);
 
   background(255);
-
   
   // initial state
   z = z_near;
   slider_d = 0.0;
   left_point = [100.0, 100.0];
   calculateCorrespondingPoint(0.0, 0.0, 1.0);
-  calculateEpipolarLine();
+  calculateLeftEpipolarLine();
+  calculateRightEpipolarLine();
+  
+  noLoop();
 }
 
 
@@ -294,7 +321,17 @@ function draw() {
   drawPoint(l_x, l_y)
   
   if(line_checkbox.checked()) {
-    // epipolar line
+	// left epipolar line
+    noFill();
+    stroke(255, 255, 255, 100);
+    strokeWeight(line_width + 3);
+    line(left_epipolar_line[0], left_epipolar_line[1], left_epipolar_line[2], left_epipolar_line[3]);
+    stroke(line_color);
+    strokeWeight(line_width);
+    line(left_epipolar_line[0], left_epipolar_line[1], left_epipolar_line[2], left_epipolar_line[3]);
+
+  	
+    // right epipolar line
     noFill();
     stroke(255, 255, 255, 100);
     strokeWeight(line_width + 3);
@@ -345,7 +382,8 @@ function updateFromMouse() {
     }
   }
   calculateCorrespondingPoint();
-  calculateEpipolarLine();
+  calculateLeftEpipolarLine();
+  calculateRightEpipolarLine();
   draw();
 }
 
