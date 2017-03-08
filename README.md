@@ -1,5 +1,4 @@
-# licornea_tools
-Tools for 3DLicorneA
+# Tools for 3DLicorneA
 
 ## Camera tools
 * `export_mpeg`: Convert JSON format to DERS/VSRS camera file, having MPEG matrix convention.
@@ -20,7 +19,7 @@ Tools for 3DLicorneA
 * `pointcloud`: Generate XYZRGB `.ply` point cloud from VSRS config file and `.yuv` texture/disparity data.
 
 ## Epipolar sketch
-`epipolar_sketch`: Visualizer for epipolar lines and corresponding points using camera matrices. Sketch written in p5.js.
+* `epipolar_sketch`: Visualizer for epipolar lines and corresponding points using camera matrices. Sketch written in p5.js.
 
 Online version:
 https://timlenertz.github.io/licornea_tools/epipolar_sketch/
