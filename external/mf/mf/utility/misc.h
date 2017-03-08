@@ -40,7 +40,8 @@ bool file_exists(const std::string& filename);
 template<typename Numeric> Numeric sq(Numeric n) { return n * n; }
 
 /// Clamp `value` between `minimum` and `maximum` value.
-template<typename T> T clamp(T value, T minimum, T maximum);
+template<typename T, typename T2, typename T3>
+T clamp(T value, T2 minimum, T3 maximum);
 
 /// Compute greatest common divisor of `a` and `b`.
 template<typename T> T gcd(T a, T b);

@@ -26,10 +26,6 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 #include "nd.h"
 
 namespace mf {
-	
-	
-
-
 
 /// RGB color, 8 bit.
 struct rgb_color {
@@ -39,7 +35,6 @@ struct rgb_color {
 	
 	rgb_color(const rgb_color&) = default;
 	rgb_color& operator=(const rgb_color&) = default;
-	
 	
 	std::uint8_t r; // red
 	std::uint8_t g; // green
@@ -54,7 +49,7 @@ bool operator!=(const rgb_color& a, const rgb_color& b);
 
 
 /// YCbCr color, 8 bit.
-struct alignas(4) ycbcr_color {
+struct ycbcr_color {
 	ycbcr_color() = default;
 	ycbcr_color(std::uint8_t ny, std::uint8_t ncr, std::uint8_t ncb) :
 		y(ny), cr(ncr), cb(ncb) { }

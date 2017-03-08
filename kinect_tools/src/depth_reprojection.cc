@@ -1,6 +1,8 @@
 #include <opencv2/opencv.hpp>
 #include <libfreenect2/libfreenect2.hpp>
 #include <libfreenect2/registration.h>
+#include <mf/point_cloud/point.h>
+#include <mf/io/ply_exporter.h>
 #include "lib/kinect_intrinsics.h"
 #include "lib/common.h"
 #include "lib/depth_io.h"
@@ -15,8 +17,6 @@
 void do_depth_reprojection_map(const cv::Mat_<ushort>& in, cv::Mat_<ushort>& out, cv::Mat_<uchar>& out_mask, const kinect_intrinsic_parameters& intrinsics) {
 	using namespace libfreenect2;	
 
-	
-	static_assert(sizeof(float) == 4, "float must be 32 bit");
 	cv::Mat depth_mat(depth_height, depth_width, CV_32FC1);
 	in.convertTo(depth_mat, CV_32FC1);
 	Frame depth_frame(depth_width, depth_height, 4, depth_mat.data);
@@ -92,11 +92,11 @@ int main(int argc, const char* argv[]) {
 	std::cout << "reading input depth map" << std::endl;
 	cv::Mat_<ushort> in_depth = load_depth(input_filename);
 	cv::flip(in_depth, in_depth, 1);
-	
+		
 	std::cout << "preforming depth mapping" << std::endl;
 	cv::Mat_<ushort> out_depth(texture_height, texture_width);
 	cv::Mat_<uchar> out_mask(texture_height, texture_width);
-	if(mode == "splat")	do_depth_reprojection_splat(in_depth, out_depth, out_mask, intrinsics);
+	if(mode == "splat") do_depth_reprojection_splat(in_depth, out_depth, out_mask, intrinsics);
 	else if(mode == "map") do_depth_reprojection_map(in_depth, out_depth, out_mask, intrinsics);
 	else throw std::runtime_error("unknown mode");
 	

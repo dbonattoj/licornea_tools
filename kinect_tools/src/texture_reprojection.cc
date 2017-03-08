@@ -26,7 +26,6 @@ void do_texture_reprojection(
 	cv::cvtColor(in_texture, color_mat, CV_BGR2BGRA);
 	Frame color_frame(texture_width, texture_height, 4, color_mat.data);
 	
-	static_assert(sizeof(float) == 4, "float must be 32 bit");
 	cv::Mat depth_mat(depth_height, depth_width, CV_32FC1);
 	in_depth.convertTo(depth_mat, CV_32FC1);
 	Frame depth_frame(depth_width, depth_height, 4, depth_mat.data);

@@ -7,7 +7,7 @@
 #include "lib/camera.h"
 
 [[noreturn]] void usage_fail() {
-	std::cout << "usage: camera_visualize in_cameras.txt out_view.ply\n";
+	std::cout << "usage: visualize in_cameras.txt out_view.ply\n";
 	std::cout << std::endl;
 	std::exit(1);
 }

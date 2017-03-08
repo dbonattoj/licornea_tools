@@ -27,9 +27,9 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 namespace mf {
 
 
-template<typename T>
-inline T clamp(T value, T minimum, T maximum) {
-	return std::min(std::max(value, minimum), maximum);
+template<typename T, typename T2, typename T3>
+inline T clamp(T value, T2 minimum, T3 maximum) {
+	return std::min(std::max(value, static_cast<T>(minimum)), static_cast<T>(maximum));
 }
 
 

@@ -19,6 +19,7 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 */
 
 #include "ply_exporter.h"
+#include "../common.h"
 #include <iomanip>
 #include <stdexcept>
 #include <cassert>
@@ -41,7 +42,7 @@ ply_exporter::ply_exporter(const std::string& filename, bool full, bool ascii, l
 	else if(host_is_little_endian) write_line_("format binary_little_endian 1.0");
 	else write_line_("format binary_big_endian 1.0");
 	
-	write_line_("comment PLY file generated using pcf::ply_exporter");
+	write_line_("comment PLY file generated using mf::ply_exporter");
 	
 	file_ << "element vertex ";
 	file_ << std::flush;
@@ -64,7 +65,6 @@ ply_exporter::ply_exporter(const std::string& filename, bool full, bool ascii, l
 		write_line_("property uchar red");
 		write_line_("property uchar green");
 		write_line_("property uchar blue");
-		write_line_("property " + scalar_type_name + " weight");
 	}
 	
 	write_line_("end_header");
@@ -86,53 +86,6 @@ void ply_exporter::close() {
 }
 
 
-void ply_exporter::write(const ndarray_view<1, const point_xyz>& arr) {
-	count_ += arr.size();
-	if(full_)
-		for(const point_xyz& pt : arr) {
-			point_full full_pt(pt);
-			if(ascii_) write_ascii_(full_pt);
-			else write_binary_(full_pt);
-		}
-	else
-		for(const point_xyz& pt : arr) {
-			if(ascii_) write_ascii_(pt);
-			else write_binary_(pt);
-		}
-}
-
-
-void ply_exporter::write(const ndarray_view<1, const point_xyzrgb>& arr) {
-	count_ += arr.size();
-	if(full_)
-		for(const point_xyzrgb& pt : arr) {
-			point_full full_pt(pt);
-			if(ascii_) write_ascii_(full_pt);
-			else write_binary_(full_pt);
-		}
-	else
-		for(const point_xyzrgb& pt : arr) {
-			if(ascii_) write_ascii_(get<point_xyz>(pt));
-			else write_binary_(get<point_xyz>(pt));
-		}
-}
-
-
-void ply_exporter::write(const ndarray_view<1, const point_full>& arr) {
-	count_ += arr.size();
-	if(full_)
-		for(const point_full& pt : arr) {
-			if(ascii_) write_ascii_(pt);
-			else write_binary_(pt);
-		}
-	else
-		for(const point_full& pt : arr) {
-			if(ascii_) write_ascii_(get<point_xyz>(pt));
-			else write_binary_(get<point_xyz>(pt));
-		}
-}
-
-
 void ply_exporter::write_line_(const std::string& ln) {
 	write_line(file_, ln, line_delimitor_);
 }
@@ -140,6 +93,7 @@ void ply_exporter::write_line_(const std::string& ln) {
 
 void ply_exporter::write_binary_(const point_xyz& p) {
 	file_.write(reinterpret_cast<const char*>( p.position().data() ), 3 * sizeof(Eigen_scalar));
+	count_++;
 }
 
 
@@ -147,33 +101,32 @@ void ply_exporter::write_ascii_(const point_xyz& p) {
 	Eigen_vec3 position = p.position();	
 	file_ << position[0] << ' ' << position[1] << ' ' << position[2];
 	end_line(file_, line_delimitor_);
+	count_++;
 }
 
 
-void ply_exporter::write_binary_(const point_full& p) {
+void ply_exporter::write_full_binary_(const point_full& p) {
 	Eigen_vec3 position = p.position();
 	Eigen_vec3 normal = p.normal();
-	Eigen_scalar weight = p.weight();
 	rgb_color col = p.color();
 	
 	file_.write(reinterpret_cast<const char*>( position.data() ), 3 * sizeof(Eigen_scalar));
 	file_.write(reinterpret_cast<const char*>( normal.data() ), 3 * sizeof(Eigen_scalar));
 	file_.write(reinterpret_cast<const char*>( &col ), 3);
-	file_.write(reinterpret_cast<const char*>( &weight ), sizeof(Eigen_scalar));
+	count_++;
 }
 
 
-void ply_exporter::write_ascii_(const point_full& p) {
+void ply_exporter::write_full_ascii_(const point_full& p) {
 	Eigen_vec3 position = p.position();
 	Eigen_vec3 normal = p.normal();
-	Eigen_scalar weight = p.weight();
 	rgb_color col = p.color();
 
 	file_ << position[0] << ' ' << position[1] << ' ' << position[2]
 		<< ' ' << normal[0] << ' ' << normal[1] << ' ' << normal[2]
-		<< ' ' << (unsigned)col.r << ' ' << (unsigned)col.g << ' ' << (unsigned)col.b
-		<< ' ' << weight;
+		<< ' ' << (unsigned)col.r << ' ' << (unsigned)col.g << ' ' << (unsigned)col.b;
 	end_line(file_, line_delimitor_);
+	count_++;
 }
 
 

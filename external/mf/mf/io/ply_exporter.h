@@ -18,6 +18,9 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#ifndef MF_PLY_EXPORTER_H_
+#define MF_PLY_EXPORTER_H_
+
 #include <fstream>
 #include <string>
 #include "../point_cloud/point.h"
@@ -42,8 +45,8 @@ private:
 	
 	void write_binary_(const point_xyz&);
 	void write_ascii_(const point_xyz&);
-	void write_binary_(const point_full&);
-	void write_ascii_(const point_full&);
+	void write_full_binary_(const point_full&);
+	void write_full_ascii_(const point_full&);
 
 
 public:
@@ -55,10 +58,13 @@ public:
 	);
 	~ply_exporter();
 	
-	void write(const ndarray_view<1, const point_xyz>&);
-	void write(const ndarray_view<1, const point_xyzrgb>&);
-	void write(const ndarray_view<1, const point_full>&);
+	template<typename It> void write(It begin, It end);
+	
 	void close();
 };
 
 }
+
+#include "ply_exporter.tcc"
+
+#endif

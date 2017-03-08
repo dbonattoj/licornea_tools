@@ -7,7 +7,7 @@
 #include "lib/camera.h"
 
 [[noreturn]] void usage_fail() {
-	std::cout << "usage: camera_transform in_cameras.txt out_cameras.txt operation\n";
+	std::cout << "usage: transform in_cameras.txt out_cameras.txt operation\n";
 	std::cout << "operations: Rt2MPEG: standard extrinsic matrix to MPEG convention\n";
 	std::cout << "            MPEG2Rt: MPEG convention to standard extrinsic matrix\n";
 	std::cout << "            flip_t: flip sign of translation vectors\n";

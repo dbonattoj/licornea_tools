@@ -10,6 +10,8 @@ output = open(output_filename, 'w')
 import xml.etree.ElementTree
 root = xml.etree.ElementTree.parse(xml_filename).getroot()
 
+#root = root.find('OriginalCameras')
+
 for camera in root.findall('Camera'):
 	camera_name = camera.find('name').text
 	K_str = camera.find('K').text
