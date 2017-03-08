@@ -5,9 +5,10 @@
 
 #include "lib/eigen.h"
 #include "lib/camera.h"
+#include "lib/camera_mpeg.h"
 
 [[noreturn]] void usage_fail() {
-	std::cout << "usage: transform in_cameras.txt out_cameras.txt operation\n";
+	std::cout << "usage: transform in_cameras.json out_cameras.json operation\n";
 	std::cout << "operations: Rt2MPEG: standard extrinsic matrix to MPEG convention\n";
 	std::cout << "            MPEG2Rt: MPEG convention to standard extrinsic matrix\n";
 	std::cout << "            flip_t: flip sign of translation vectors\n";
@@ -28,17 +29,17 @@ int main(int argc, const char* argv[]) {
 	std::ofstream output(out_cameras.c_str());
 	input.exceptions(std::ios_base::badbit);	
 	
-	camera cam;
-	
-	while(read_camera(input, cam)) {
+	auto cameras = read_cameras_file(in_cameras);
+		
+	for(camera& cam : cameras) {
 		if(operation == "Rt2MPEG") {
-			cam.translation = -(cam.rotation.inverse() * cam.translation);
+			cam.translation() = -(cam.rotation().inverse() * cam.translation());
 			
 		} else if(operation == "MPEG2Rt") {
-			cam.translation = -(cam.rotation * cam.translation);	
+			cam.translation() = -(cam.rotation() * cam.translation());	
 					
 		} else if(operation == "flip_t") {
-			cam.translation = -cam.translation;			
+			cam.translation() = -cam.translation();			
 			
 		} else if(operation == "scale") {
 			if(argc <= 5) usage_fail();
@@ -55,9 +56,9 @@ int main(int argc, const char* argv[]) {
 		} else {
 			usage_fail();
 		}
-		
-		write_camera(output, cam);
 	}
+	
+	write_cameras_file(out_cameras, cameras);
 	
 	std::cout << "done" << std::endl;
 }
