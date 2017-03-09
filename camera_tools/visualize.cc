@@ -28,7 +28,7 @@ int main(int argc, const char* argv[]) {
 		std::cout << cameras.size() << " cameras..." << std::endl;
 	}
 			
-	double scale = 1.0;
+	double scale = 0.4;
 	Eigen_mat4 transform; transform <<
 		1.0*scale, 0.0, 0.0, 0.0,
 		0.0, 1.0*scale, 0.0, 0.0,

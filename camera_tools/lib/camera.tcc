@@ -8,6 +8,8 @@ void read_cameras(std::istream& input, It output) {
 	json j_root;
 	input >> j_root;
 	
+	int i = 0;
+
 	for(auto& j_cam : j_root) {
 		camera cam;
 		cam.name = j_cam["name"];
