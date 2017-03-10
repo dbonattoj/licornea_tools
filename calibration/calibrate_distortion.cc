@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <iterator>
 
-#include "lib/common.h"
+#include "../../lib/json.h"
 #include "lib/calibration_correspondence.h"
 
 [[noreturn]] void usage_fail() {

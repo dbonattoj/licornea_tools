@@ -1,0 +1,81 @@
+cmake_minimum_required(VERSION 3.1)
+project(licornea_tools CXX)
+
+set(CMAKE_CXX_STANDARD 14)
+
+find_package(OpenCV REQUIRED)
+
+include_directories(SYSTEM external/include)
+include_directories(SYSTEM external/mf)
+include_directories(SYSTEM external/freenect2/include)
+include_directories(SYSTEM ${OpenCV_INCLUDE_DIRS})
+link_directories(external/freenect2/lib)
+link_libraries(${OpenCV_LIBRARIES})
+
+add_compile_options(-Wall -Wextra -Wno-sign-compare)
+
+file(GLOB_RECURSE COMMON_LIB_SRC "lib/*.cc")
+file(GLOB_RECURSE MF_SRC "external/mf/*.cc")
+
+add_library(common_lib STATIC ${COMMON_LIB_SRC})
+target_link_libraries(common_lib ${OpenCV_LIBRARIES})
+
+add_library(mf_lib STATIC ${MF_SRC})
+
+# Calibration
+file(GLOB_RECURSE CALIBRATION_LIB_SRC "calibration/lib/*.cc")
+add_library(calibration_lib STATIC ${CALIBRATION_LIB_SRC})
+
+add_executable(find_chessboard "calibration/find_chessboard.cc")
+target_link_libraries(find_chessboard common_lib calibration_lib)
+
+add_executable(calibrate_distortion "calibration/calibrate_distortion.cc")
+target_link_libraries(calibrate_distortion common_lib calibration_lib)
+
+add_executable(undistort "calibration/undistort.cc")
+target_link_libraries(undistort common_lib calibration_lib)
+
+add_executable(calibrate_extrinsic "calibration/calibrate_extrinsic.cc")
+target_link_libraries(calibrate_extrinsic common_lib calibration_lib)
+
+add_executable(denoise_extrinsic_row "calibration/denoise_extrinsic_row.cc")
+target_link_libraries(denoise_extrinsic_row common_lib calibration_lib)
+
+
+# Camera
+add_executable(export_mpeg "camera/export_mpeg.cc")
+target_link_libraries(export_mpeg common_lib)
+
+add_executable(import_mpeg "camera/import_mpeg.cc")
+target_link_libraries(import_mpeg common_lib)
+
+add_executable(transform "camera/transform.cc")
+target_link_libraries(transform common_lib)
+
+add_executable(visualize "camera/visualize.cc")
+target_link_libraries(visualize common_lib)
+
+
+# Kinect
+file(GLOB_RECURSE KINECT_LIB_SRC "kinect/lib/*.cc")
+add_library(kinect_lib STATIC ${KINECT_LIB_SRC})
+
+add_executable(fetch_intrinsics "kinect/fetch_intrinsics.cc")
+target_link_libraries(fetch_intrinsics common_lib kinect_lib freenect2)
+
+add_executable(depth_point_cloud "kinect/depth_point_cloud.cc")
+target_link_libraries(depth_point_cloud common_lib kinect_lib mf_lib freenect2)
+
+add_executable(depth_reprojection "kinect/depth_reprojection.cc")
+target_link_libraries(depth_reprojection common_lib kinect_lib freenect2)
+
+add_executable(texture_reprojection "kinect/texture_reprojection.cc")
+target_link_libraries(texture_reprojection common_lib kinect_lib freenect2)
+
+add_executable(vsrs_disparity "kinect/vsrs_disparity.cc")
+target_link_libraries(vsrs_disparity common_lib kinect_lib)
+
+
+# Pointcloud
+#add_executable(pointcloud "pointcloud/pointcloud.cc")
+#target_link_libraries(pointcloud mf_lib)

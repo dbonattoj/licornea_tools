@@ -3,8 +3,8 @@
 #include <string>
 #include <cstdlib>
 
-#include "lib/eigen.h"
-#include "lib/camera.h"
+#include "../lib/eigen.h"
+#include "../lib/camera.h"
 
 [[noreturn]] void usage_fail() {
 	std::cout << "usage: visualize in_cameras.json out_view.ply\n";
@@ -65,7 +65,7 @@ int main(int argc, const char* argv[]) {
 	output << "end_header\n";
 	
 	for(const camera& cam : cameras) {		
-		Eigen_mat4 backproj = (transform.inverse() * cam.extrinsic).inverse();
+		Eigen_mat4 backproj = (transform.inverse() * cam.extrinsic.inverse()).inverse();
 		
 		for(const Eigen_vec3& model_vertex : vertices) {
 			Eigen_vec3 world_vertex = (backproj * model_vertex.homogeneous()).eval().hnormalized();

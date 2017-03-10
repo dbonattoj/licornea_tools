@@ -4,11 +4,11 @@
 #include <cstdlib>
 #include <iterator>
 
-#include "lib/camera.h"
-#include "lib/camera_mpeg.h"
+#include "../lib/camera.h"
+#include "../lib/camera_mpeg.h"
 
 [[noreturn]] void usage_fail() {
-	std::cout << "usage: export_mpeg in_cameras.json out_cameras_mpeg.txt [no_convert]\n";
+	std::cout << "usage: import_mpeg in_cameras_mpeg.txt out_cameras.json [no_convert]\n";
 	std::exit(1);
 }
 
@@ -23,8 +23,12 @@ int main(int argc, const char* argv[]) {
 		else usage_fail();
 	}
 	
-	auto cameras = read_cameras_file(in_cameras);
+	std::vector<camera> cameras;
+	{
+		std::ifstream input(in_cameras);
+		camera cam;
+		while(read_camera_mpeg(input, cam, convert)) cameras.push_back(cam);
+	}
 	
-	std::ofstream output(out_cameras);
-	for(const camera& cam : cameras) write_camera_mpeg(output, cam, convert);
+	write_cameras_file(out_cameras, cameras);
 }

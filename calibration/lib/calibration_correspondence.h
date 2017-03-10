@@ -3,7 +3,7 @@
 
 #include <opencv2/opencv.hpp>
 #include <json.hpp>
-#include "common.h"
+#include "../../../lib/json.h"
 
 struct calibration_correspondence {
 	cv::Vec3f object_coordinates;

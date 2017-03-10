@@ -4,8 +4,7 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
-#include "lib/chessboard.h"
-#include "lib/common.h"
+#include "../../lib/json.h"
 
 [[noreturn]] void usage_fail() {
 	std::cout << "usage: undistort in_image.png out_image.json intrinsic.json distortion.json\n";

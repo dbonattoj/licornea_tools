@@ -3,9 +3,9 @@
 #include <string>
 #include <cstdlib>
 
-#include "lib/eigen.h"
-#include "lib/camera.h"
-#include "lib/camera_mpeg.h"
+#include "../lib/eigen.h"
+#include "../lib/camera.h"
+#include "../lib/camera_mpeg.h"
 
 [[noreturn]] void usage_fail() {
 	std::cout << "usage: transform in_cameras.json out_cameras.json operation\n";

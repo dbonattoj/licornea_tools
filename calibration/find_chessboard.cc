@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include "lib/chessboard.h"
 #include "lib/calibration_correspondence.h"
-#include "lib/common.h"
+#include "../../lib/json.h"
 
 [[noreturn]] void usage_fail() {
 	std::cout << "usage: find_chessboard image.png out_correspondences.json rows cols real_width [out_image.png]\n";
@@ -40,6 +40,13 @@ int main(int argc, const char* argv[]) {
 	if(! found) {
 		std::cout << "no chessboard corners found" << std::endl;
 		return EXIT_FAILURE;
+	}
+	
+	{
+		cv::Mat image_gray;
+		cv::cvtColor(image, image_gray, CV_BGR2GRAY);
+		cv::TermCriteria term(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 30, 0.1);
+		cv::cornerSubPix(image_gray, corners, cv::Size(3, 3), cv::Size(-1, -1), term);
 	}
 	
 	{

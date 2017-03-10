@@ -1,5 +1,5 @@
-#ifndef C3DLIC_CAMERA_H_
-#define C3DLIC_CAMERA_H_
+#ifndef LICORNEA_CAMERA_H_
+#define LICORNEA_CAMERA_H_
 
 #include "eigen.h"
 #include <iosfwd>

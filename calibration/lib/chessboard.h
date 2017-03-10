@@ -4,9 +4,9 @@
 #include <opencv2/opencv.hpp>
 #include <vector>
 #include <iosfwd>
-#include "common.h"
-#include "calibration_correspondence.h"
 #include <vector>
+
+#include "calibration_correspondence.h"
 
 struct chessboard_corner {
 	float pixel_x;
@@ -21,9 +21,6 @@ struct chessboard {
 	int cols;
 	float real_width;
 };
-
-chessboard decode_chessboard(const json&);
-json encode_chessboard(const chessboard&);
 
 std::vector<calibration_correspondence> calibration_correspondences(const chessboard&);
 
