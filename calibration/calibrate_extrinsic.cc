@@ -37,6 +37,7 @@ int main(int argc, const char* argv[]) {
 	cv::Vec3d rotation_vec, translation_vec;
 	
 	if(! in_extrinsic_filename.empty()) {
+		std::cout << "using extrinsic guess" << std::endl;
 		use_guess = true;
 		cv::Mat_<double> rotation_mat(3, 3);
 		cv::Mat_<double> extrinsic = decode_mat(import_json_file(in_extrinsic_filename));

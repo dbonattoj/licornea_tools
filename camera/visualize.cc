@@ -65,7 +65,7 @@ int main(int argc, const char* argv[]) {
 	output << "end_header\n";
 	
 	for(const camera& cam : cameras) {		
-		Eigen_mat4 backproj = (transform.inverse() * cam.extrinsic.inverse()).inverse();
+		Eigen_mat4 backproj = (transform.inverse() * cam.extrinsic).inverse();
 		
 		for(const Eigen_vec3& model_vertex : vertices) {
 			Eigen_vec3 world_vertex = (backproj * model_vertex.homogeneous()).eval().hnormalized();

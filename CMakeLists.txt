@@ -63,6 +63,9 @@ add_library(kinect_lib STATIC ${KINECT_LIB_SRC})
 add_executable(fetch_intrinsics "kinect/fetch_intrinsics.cc")
 target_link_libraries(fetch_intrinsics common_lib kinect_lib freenect2)
 
+add_executable(color_point_cloud "kinect/color_point_cloud.cc")
+target_link_libraries(color_point_cloud common_lib kinect_lib mf_lib freenect2)
+
 add_executable(depth_point_cloud "kinect/depth_point_cloud.cc")
 target_link_libraries(depth_point_cloud common_lib kinect_lib mf_lib freenect2)
 

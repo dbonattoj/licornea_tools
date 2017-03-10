@@ -1,5 +1,4 @@
 /data/
 /vsrs/
-/kinect_tools/libfreenect2/
-/package
-build/
+/package/
+/build/

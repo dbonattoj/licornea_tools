@@ -32,7 +32,7 @@ int main(int argc, const char* argv[]) {
 	int count = cameras.size();
 	for(int i = 0; i < count; ++i) {
 		double k = (double)i / (count - 1);
-		inv_extrinsics[i].block<3, 1>(0, 3) = (1.0-k)*min_trans + k*max_trans;
+		//inv_extrinsics[i].block<3, 1>(0, 3) = (1.0-k)*min_trans + k*max_trans;
 		cameras[i].extrinsic = inv_extrinsics[i].inverse();
 	}
 	

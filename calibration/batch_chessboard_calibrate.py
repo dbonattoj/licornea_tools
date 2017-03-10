@@ -9,14 +9,14 @@ def usage_fail():
 
 if len(sys.argv) <= 2: usage_fail()
 
-index_count = 10
+index_count = 100
 data_directory = sys.argv[1]
 output_directory = sys.argv[2]
-intrinsic_filename = "../data/kinect_color_intrinsic.json"
+intrinsic_filename = "data/kinect_color_intrinsic.json"
 
 tools_directory = "build"
 
-def generate_extrinsic(i, initial_extrinsic):
+def generate_extrinsic(i, initial_extrinsic, keep_cors):
 	if initial_extrinsic is None:
 		print "estimating extrinsic for {}".format(i)
 	else:
@@ -26,15 +26,16 @@ def generate_extrinsic(i, initial_extrinsic):
 	cors_filename = os.path.join(output_directory, "cors_{}.json".format(i+1))
 	extrinsic_filename = os.path.join(output_directory, "extrinsic_{}.json".format(i+1))
 
-	find_chessboard_result = subprocess.call([
-		os.path.join(tools_directory, "find_chessboard"),
-		texture_filename,
-		cors_filename,
-		"6",
-		"8",
-		"27.0"
-	])
-	if find_chessboard_result != 0: return None
+	if not os.path.isfile(cors_filename):
+		find_chessboard_result = subprocess.call([
+			os.path.join(tools_directory, "find_chessboard"),
+			texture_filename,
+			cors_filename,
+			"6",
+			"8",
+			"27.0"
+		])
+		if find_chessboard_result != 0: return None	
 
 	args = [
 		os.path.join(tools_directory, "calibrate_extrinsic"),
@@ -52,10 +53,9 @@ def generate_extrinsic(i, initial_extrinsic):
 	with open(extrinsic_filename) as extrinsic_file:
 		extrinsic = json.load(extrinsic_file)
 
-	os.remove(cors_filename)
+	if not keep_cors: os.remove(cors_filename)
 	os.remove(extrinsic_filename)
-	if initial_extrinsic is not None:
-		os.remove(initial_extrinsic_filename)
+	if initial_extrinsic is not None: os.remove(initial_extrinsic_filename)
 
 	return extrinsic
 	
@@ -85,11 +85,11 @@ def import_camera_params(filename):
 
 if __name__ == '__main__':
 	print "Initial extrinsics estimation"
-	extrinsics = [generate_extrinsic(i, None) for i in range(index_count)]
+	extrinsics = [generate_extrinsic(i, None, True) for i in range(index_count)]
 
 	camera_params_filename = os.path.join(output_directory, "params.json")
 	export_camera_params(extrinsics, camera_params_filename);
-	
+		
 	print "Denoising row"
 	camera_params_de_filename = os.path.join(output_directory, "params_de.json")
 	subprocess.call([
@@ -101,7 +101,7 @@ if __name__ == '__main__':
 	camera_params_de = import_camera_params(camera_params_de_filename)
 	
 	print "Refining extrinsics estimation"
-	extrinsics_refined = [generate_extrinsic(i, camera_params_de[i]) for i in range(index_count)]
+	extrinsics_refined = [generate_extrinsic(i, camera_params_de[i], False) for i in range(index_count)]
 
 	camera_params_refined_filename = os.path.join(output_directory, "params_refined.json")
 	export_camera_params(extrinsics_refined, camera_params_refined_filename)
