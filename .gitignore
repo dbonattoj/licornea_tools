@@ -2,3 +2,7 @@
 /vsrs/
 /package/
 /build/
+/external/freenect2
+/bin/
+*.pyc
+

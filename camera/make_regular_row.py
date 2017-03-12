@@ -30,7 +30,7 @@ for i in range(camera_count):
 	x = x + x_increment
 
 	output_camera = {
-		'name' : "camera_{}".format(i + 1),
+		'name' : "camera{}".format(i + 1),
 		'Rt' : Rt,
 		'K' : K
 	};

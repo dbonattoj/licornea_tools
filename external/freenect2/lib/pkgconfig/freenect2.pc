@@ -1,5 +1,5 @@
-prefix=/home/timlenertz/Desktop/licornea_tools/kinect_tools/external/freenect2
-exec_prefix=/home/timlenertz/Desktop/licornea_tools/kinect_tools/external/freenect2
+prefix=/Users/timlenertz/Desktop/programming/licornea_tools/external/freenect2
+exec_prefix=/Users/timlenertz/Desktop/programming/licornea_tools/external/freenect2
 libdir=${prefix}/lib
 includedir=${prefix}/include
 

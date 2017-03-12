@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 find_package(OpenCV REQUIRED)
 
 include_directories(SYSTEM external/include)
+include_directories(SYSTEM external/fmt)
 include_directories(SYSTEM external/mf)
 include_directories(SYSTEM external/freenect2/include)
 include_directories(SYSTEM ${OpenCV_INCLUDE_DIRS})
@@ -21,6 +22,8 @@ add_library(common_lib STATIC ${COMMON_LIB_SRC})
 target_link_libraries(common_lib ${OpenCV_LIBRARIES})
 
 add_library(mf_lib STATIC ${MF_SRC})
+
+add_library(fmt_lib STATIC "external/fmt/format.cc")
 
 # Calibration
 file(GLOB_RECURSE CALIBRATION_LIB_SRC "calibration/lib/*.cc")
@@ -41,6 +44,16 @@ target_link_libraries(calibrate_extrinsic common_lib calibration_lib)
 add_executable(denoise_extrinsic_row "calibration/denoise_extrinsic_row.cc")
 target_link_libraries(denoise_extrinsic_row common_lib calibration_lib)
 
+install(
+	TARGETS find_chessboard calibrate_distortion undistort calibrate_extrinsic denoise_extrinsic_row
+	DESTINATION calibration
+)
+install(
+	PROGRAMS
+		"calibration/batch_chessboard_calibrate.py"
+	DESTINATION calibration
+)
+
 
 # Camera
 add_executable(export_mpeg "camera/export_mpeg.cc")
@@ -50,15 +63,28 @@ add_executable(import_mpeg "camera/import_mpeg.cc")
 target_link_libraries(import_mpeg common_lib)
 
 add_executable(transform "camera/transform.cc")
-target_link_libraries(transform common_lib)
+target_link_libraries(transform common_lib fmt_lib)
 
 add_executable(visualize "camera/visualize.cc")
 target_link_libraries(visualize common_lib)
+
+install(
+	TARGETS export_mpeg import_mpeg transform visualize
+	DESTINATION camera
+)
+install(
+	PROGRAMS
+		"camera/import_xml.py"
+		"camera/make_regular_row.py"
+	DESTINATION camera
+)
 
 
 # Kinect
 file(GLOB_RECURSE KINECT_LIB_SRC "kinect/lib/*.cc")
 add_library(kinect_lib STATIC ${KINECT_LIB_SRC})
+
+
 
 add_executable(fetch_intrinsics "kinect/fetch_intrinsics.cc")
 target_link_libraries(fetch_intrinsics common_lib kinect_lib freenect2)
@@ -78,7 +104,31 @@ target_link_libraries(texture_reprojection common_lib kinect_lib freenect2)
 add_executable(vsrs_disparity "kinect/vsrs_disparity.cc")
 target_link_libraries(vsrs_disparity common_lib kinect_lib)
 
+install(
+	TARGETS fetch_intrinsics color_point_cloud depth_point_cloud depth_reprojection texture_reprojection vsrs_disparity
+	DESTINATION kinect
+)
+install(
+	PROGRAMS
+		"kinect/make_vsrs_data.py"
+	DESTINATION kinect
+)
 
-# Pointcloud
-#add_executable(pointcloud "pointcloud/pointcloud.cc")
-#target_link_libraries(pointcloud mf_lib)
+
+
+# Misc
+add_executable(psnr "misc/psnr.cc")
+
+install(
+	TARGETS psnr
+	DESTINATION misc
+)
+install(
+	PROGRAMS
+		"misc/list_skip_n_experiments.py"
+		"misc/make_vsrs_config.py"
+		"misc/run_vsrs_experiments.py"
+		"misc/run_vsrs.py"
+		"misc/yuv2png.sh"
+	DESTINATION misc
+)

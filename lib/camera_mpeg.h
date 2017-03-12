@@ -3,7 +3,7 @@
 
 #include <iosfwd>
 
-class camera;
+struct camera;
 
 bool read_camera_mpeg(std::istream& input, camera&, bool convert = true);
 void write_camera_mpeg(std::ostream& output, const camera&, bool convert = true);

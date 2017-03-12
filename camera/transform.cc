@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#include <format.h>
 
 #include "../lib/eigen.h"
 #include "../lib/camera.h"
@@ -14,6 +15,7 @@
 	std::cout << "            flip_t: flip sign of translation vectors\n";
 	std::cout << "            scale old new: adapt intrinsic matrix for image scale from old to new\n";
 	std::cout << "                           (old/new = pixel length of same segment in old and new image)\n";
+	std::cout << "            rename cam_{} [offset]: rename according to format, adding offset to index argument\n";
 	std::cout << "            nop: No change, just reformat the cameras file\n";
 	std::cout << std::endl;
 	std::exit(1);
@@ -24,13 +26,13 @@ int main(int argc, const char* argv[]) {
 	std::string in_cameras = argv[1];
 	std::string out_cameras = argv[2];
 	std::string operation = argv[3];
-	
-	std::ifstream input(in_cameras.c_str());
-	std::ofstream output(out_cameras.c_str());
-	input.exceptions(std::ios_base::badbit);	
-	
-	auto cameras = read_cameras_file(in_cameras);
 		
+	std::ifstream input(in_cameras.c_str());
+	input.exceptions(std::ios_base::badbit);	
+	auto cameras = read_cameras_file(in_cameras);
+	input.close();
+
+	int index = 0;
 	for(camera& cam : cameras) {
 		if(operation == "Rt2MPEG") {
 			cam.translation() = -(cam.rotation().inverse() * cam.translation());
@@ -51,14 +53,24 @@ int main(int argc, const char* argv[]) {
 			cam.intrinsic(0,2) *= factor;
 			cam.intrinsic(1,2) *= factor;
 			
+		} else if(operation == "rename") {
+			if(argc <= 4) usage_fail();
+			std::string format = argv[4];
+			int offset = 0;
+			if(argc > 5) offset = std::atoi(argv[5]);
+			cam.name = fmt::format(format, index + offset);
+			
 		} else if(operation == "nop") {
 			// no change
 		} else {
 			usage_fail();
 		}
+		++index;
 	}
 	
+	std::ofstream output(out_cameras.c_str());
 	write_cameras_file(out_cameras, cameras);
+	output.close();
 	
 	std::cout << "done" << std::endl;
 }
