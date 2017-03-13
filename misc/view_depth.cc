@@ -23,13 +23,18 @@ std::string window_name;
 void update_depth(int = 0, void* = nullptr) {
 	ushort z_near = slider_begin + (z_near_slider_value * slider_step);
 	ushort z_far = slider_begin + (z_far_slider_value * slider_step);
+		
 	std::cout << "z_near=" << z_near << "    z_far=" << z_far << std::endl;
 	
 	double alpha = 255.0 / (z_far - z_near);
 	double beta = -alpha * z_near;
 
-	cv::convertScaleAbs(depth, shown_depth, alpha, beta);
-	shown_depth.setTo(0, (depth == 0));
+	if(z_far > z_near) {
+		cv::convertScaleAbs(depth, shown_depth, alpha, beta);
+		shown_depth.setTo(0, (depth < z_near));
+		shown_depth.setTo(255, (depth > z_far));
+		shown_depth.setTo(0, (depth == 0));
+	}
 	
 	cv::imshow(window_name, shown_depth);
 }
@@ -72,7 +77,7 @@ int main(int argc, const char* argv[]) {
 	else z_near_slider_value = 0;
 
 	if(z_far != -1) z_far_slider_value = (z_far - slider_begin)/slider_step;
-	else z_far_slider_value = 0;
+	else z_far_slider_value = (max_value - slider_begin)/slider_step;
 
 	// setup window
 	window_name = depth_filename;
