@@ -7,6 +7,8 @@
 #include "../lib/camera.h"
 #include "../lib/camera_mpeg.h"
 
+using namespace tlz;
+
 [[noreturn]] void usage_fail() {
 	std::cout << "usage: export_mpeg in_cameras.json out_cameras_mpeg.txt [no_convert]\n";
 	std::exit(1);

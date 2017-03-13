@@ -41,7 +41,7 @@ using namespace nlohmann;
 	IR_PARAM(p1); \
 	IR_PARAM(p2);
 
-
+namespace tlz {
 
 void export_intrinsic_parameters(std::ostream& out, const kinect_intrinsic_parameters& param) {
 	#define COLOR_PARAM(__field__) j["color"][#__field__] = param.color.__field__;
@@ -68,4 +68,6 @@ kinect_intrinsic_parameters import_intrinsic_parameters(std::istream& in) {
 	return param;
 	#undef COLOR_PARAM
 	#undef IR_PARAM
+}
+
 }

@@ -6,6 +6,8 @@
 #include <vector>
 #include <string>
 
+namespace tlz {
+
 struct camera {
 	std::string name;
 	Eigen_mat3 intrinsic;
@@ -22,6 +24,8 @@ template<typename It> void write_cameras(std::ostream& output, It begin, It end)
 
 std::vector<camera> read_cameras_file(const std::string& filename);
 void write_cameras_file(const std::string& filename, const std::vector<camera>&);
+
+}
 
 #include "camera.tcc"
 

@@ -1,6 +1,8 @@
 #include "camera.h"
 #include <json.hpp>
 
+namespace tlz {
+
 template<typename It>
 void read_cameras(std::istream& input, It output) {
 	using namespace nlohmann;
@@ -50,4 +52,6 @@ void write_cameras(std::ostream& output, It begin, It end) {
 	}
 	
 	j_root >> output;
+}
+
 }

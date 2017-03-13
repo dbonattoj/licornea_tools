@@ -8,6 +8,7 @@
 #include <fstream>
 #include <stdexcept>
 
+using namespace tlz;
 
 void append_null_tail(std::ostream& output, std::streamsize length) {
 	while(length--) output.put(0);

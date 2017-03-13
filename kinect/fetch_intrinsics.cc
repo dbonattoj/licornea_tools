@@ -7,7 +7,7 @@
 #include <stdexcept>
 
 using namespace libfreenect2;
-
+using namespace tlz;
 
 kinect_intrinsic_parameters fetch_intrinsic_parameters() {
 	Freenect2 context;

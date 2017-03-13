@@ -6,6 +6,8 @@
 #include "../lib/eigen.h"
 #include "../lib/camera.h"
 
+using namespace tlz;
+
 [[noreturn]] void usage_fail() {
 	std::cout << "usage: visualize in_cameras.json out_view.ply world/view\n";
 	std::cout << std::endl;

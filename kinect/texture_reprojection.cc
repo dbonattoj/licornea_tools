@@ -12,6 +12,7 @@
 #include <fstream>
 #include <memory>
 
+using namespace tlz;
 
 void do_texture_reprojection(
 	const cv::Mat_<ushort>& in_depth,

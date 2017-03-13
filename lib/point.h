@@ -1,11 +1,11 @@
-#ifndef MF_POINT_CLOUD_POINT_H_
-#define MF_POINT_CLOUD_POINT_H_
+#ifndef LICORNEA_POINT_H_
+#define LICORNEA_POINT_H_
 
-#include "../common.h"
-#include "../eigen.h"
-#include "../color.h"
+#include "common.h"
+#include "eigen.h"
+#include "color.h"
 
-namespace mf {
+namespace tlz {
 	
 static_assert(sizeof(Eigen_scalar) == 4, "point cloud requires 32 bit scalar type");
 
@@ -61,7 +61,6 @@ public:
 	const Eigen_vec3& normal() const { return normal_; }
 };
 static_assert(sizeof(point_full) == 32, "point_full must be 32 byte");
-
 
 }
 

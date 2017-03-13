@@ -1,6 +1,8 @@
 #include "json.h"
 #include <fstream>
 
+namespace tlz {
+
 void export_json_file(const json& j, const std::string& filename) {
 	std::ofstream output(filename);
 	output << j.dump(4);
@@ -33,4 +35,6 @@ json encode_mat(const cv::Mat_<double>& mat) {
 		j.push_back(j_row);
 	}
 	return j;
+}
+
 }

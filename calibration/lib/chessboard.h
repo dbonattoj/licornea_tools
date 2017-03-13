@@ -1,5 +1,5 @@
-#ifndef LICORNEA_CHESSBOARD_H_
-#define LICORNEA_CHESSBOARD_H_
+#ifndef LICORNEA_CALIB_CHESSBOARD_H_
+#define LICORNEA_CALIB_CHESSBOARD_H_
 
 #include <opencv2/opencv.hpp>
 #include <vector>
@@ -7,6 +7,8 @@
 #include <vector>
 
 #include "calibration_correspondence.h"
+
+namespace tlz {
 
 struct chessboard_corner {
 	float pixel_x;
@@ -23,5 +25,7 @@ struct chessboard {
 };
 
 std::vector<calibration_correspondence> calibration_correspondences(const chessboard&);
+
+}
 
 #endif

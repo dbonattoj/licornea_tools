@@ -1,10 +1,14 @@
-#ifndef K3DLIC_DEPTH_IO_H_
-#define K3DLIB_DEPTH_IO_H_
+#ifndef LICORNEA_KINECT_DEPTH_IO_H_
+#define LICORNEA_KINECT_DEPTH_IO_H_
 
 #include "common.h"
-#include <opencv2/opencv.hpp>
+#include "../../lib/opencv.h"
+
+namespace tlz {
 
 cv::Mat_<ushort> load_depth(const char* filename, bool any_size = false);
 void save_depth(const char* filename, const cv::Mat_<ushort>&);
+
+}
 
 #endif

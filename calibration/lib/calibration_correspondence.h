@@ -1,9 +1,11 @@
-#ifndef LICORNEA_CALIBRATION_CORRESPONDENCES_H_
-#define LICORNEA_CALIBRATION_CORRESPONDENCES_H_
+#ifndef LICORNEA_CALIB_CALIBRATION_CORRESPONDENCES_H_
+#define LICORNEA_CALIB_CALIBRATION_CORRESPONDENCES_H_
 
 #include <opencv2/opencv.hpp>
 #include <json.hpp>
-#include "../../../lib/json.h"
+#include "../../lib/json.h"
+
+namespace tlz {
 
 struct calibration_correspondence {
 	cv::Vec3f object_coordinates;
@@ -25,6 +27,8 @@ json encode_calibration_correspondences(It begin, It end) {
 	for(It it = begin; it != end; ++it)
 		j.push_back(encode_calibration_correspondence(*it));
 	return j;
+}
+
 }
 
 #endif

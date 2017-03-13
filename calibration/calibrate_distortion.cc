@@ -5,8 +5,10 @@
 #include <cstdlib>
 #include <iterator>
 
-#include "../../lib/json.h"
+#include "../lib/json.h"
 #include "lib/calibration_correspondence.h"
+
+using namespace tlz;
 
 [[noreturn]] void usage_fail() {
 	std::cout << "usage: calibrate_distortion {in_correspondences_1.json ...} -- image_width image_height in_intrinsic.json out_distortion.json\n";

@@ -1,38 +1,20 @@
-/*
-Author : Tim Lenertz
-Date : May 2016
-
-Copyright (c) 2016, Université libre de Bruxelles
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
-documentation files to deal in the Software without restriction, including the rights to use, copy, modify, merge,
-publish the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
-conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
-Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
-#ifndef MF_OPENCV_H_
-#define MF_OPENCV_H_
+#ifndef LICORNEA_OPENCV_H_
+#define LICORNEA_OPENCV_H_
 
 #include <opencv2/opencv.hpp>
-#include <algorithm>
 
-#include "color.h"
+#include <algorithm>
+#include <stdexcept>
+#include "common.h"
 #include "nd.h"
+#include "color.h"
 
 
 namespace cv { // in OpenCV namespace
 	template<>
-	class DataType<::mf::rgb_color> {
+	class DataType<::tlz::rgb_color> {
 	public:
-		using value_type = mf::rgb_color;
+		using value_type = ::tlz::rgb_color;
 		using work_type = int;
 		using channel_type = uchar;
 		enum {
@@ -46,9 +28,9 @@ namespace cv { // in OpenCV namespace
 	};
 	
 	template<>
-	class DataType<::mf::ycbcr_color> {
+	class DataType<::tlz::ycbcr_color> {
 	public:
-		using value_type = mf::ycbcr_color;
+		using value_type = ::tlz::ycbcr_color;
 		using work_type = int;
 		using channel_type = uchar;
 		enum {
@@ -63,9 +45,7 @@ namespace cv { // in OpenCV namespace
 }
 
 
-
-namespace mf {
-
+namespace tlz {
 
 /// Copy the data in \a vw into the OpenCV Mat \a mat.
 /** \a mat is created and allocated as needed using `cv::Mat::create()`, and \a mat owns the new copy of the data.
@@ -152,8 +132,6 @@ void copy_to_ndarray_view(cv::Mat_<Elem>& mat, const ndarray_view<Dim, Elem>& vw
 	if(tmp_vw.shape() != vw.shape()) throw std::invalid_argument("vw in copy_to_ndarray_view has incorrect shape");
 	vw.assign(tmp_vw);
 }
-
-
 
 }
 

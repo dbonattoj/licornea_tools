@@ -4,6 +4,8 @@
 #include <istream>
 #include <ostream>
 
+namespace tlz {
+
 bool read_camera_mpeg(std::istream& input, camera& cam, bool convert) {
 	input >> cam.name;
 	if(input.eof() || input.fail()) return false;
@@ -45,4 +47,6 @@ void write_camera_mpeg(std::ostream& output, const camera& orig_cam, bool conver
 	output << cam.extrinsic(1, 0) << ' ' << cam.extrinsic(1, 1) << ' ' << cam.extrinsic(1, 2) << ' ' << cam.extrinsic(1, 3) << '\n';
 	output << cam.extrinsic(2, 0) << ' ' << cam.extrinsic(2, 1) << ' ' << cam.extrinsic(2, 2) << ' ' << cam.extrinsic(2, 3) << '\n';
 	output << '\n';
+}
+
 }

@@ -6,7 +6,9 @@
 #include <cstdlib>
 #include "lib/chessboard.h"
 #include "lib/calibration_correspondence.h"
-#include "../../lib/json.h"
+#include "../lib/json.h"
+
+using namespace tlz;
 
 [[noreturn]] void usage_fail() {
 	std::cout << "usage: find_chessboard image.png out_correspondences.json rows cols real_width [out_image.png]\n";

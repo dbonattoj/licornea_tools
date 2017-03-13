@@ -4,7 +4,9 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
-#include "../../lib/json.h"
+#include "../lib/json.h"
+
+using namespace tlz;
 
 [[noreturn]] void usage_fail() {
 	std::cout << "usage: undistort in_image.png out_image.json intrinsic.json distortion.json\n";

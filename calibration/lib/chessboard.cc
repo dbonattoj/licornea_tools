@@ -2,6 +2,8 @@
 #include <istream>
 #include <ostream>
 
+namespace tlz {
+
 std::vector<calibration_correspondence> calibration_correspondences(const chessboard& board) {
 	std::vector<calibration_correspondence> cors;
 	for(const chessboard_corner& corner : board.corners) {
@@ -15,4 +17,6 @@ std::vector<calibration_correspondence> calibration_correspondences(const chessb
 		cors.push_back(cor);
 	}
 	return cors;
+}
+
 }

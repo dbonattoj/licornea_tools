@@ -1,8 +1,8 @@
 #include <opencv2/opencv.hpp>
 #include <libfreenect2/libfreenect2.hpp>
 #include <libfreenect2/registration.h>
-#include <mf/point_cloud/point.h>
-#include <mf/io/ply_exporter.h>
+#include "../lib/point.h"
+#include "../lib/ply_exporter.h"
 #include "lib/kinect_intrinsics.h"
 #include "lib/common.h"
 #include "lib/depth_io.h"
@@ -14,7 +14,7 @@
 #include <string>
 #include <cmath>
 
-using namespace mf;
+using namespace tlz;
 
 std::vector<point_xyz> generate_point_cloud(const cv::Mat_<ushort>& in, const kinect_intrinsic_parameters& intrinsics) {
 	using namespace libfreenect2;	

@@ -16,14 +16,27 @@ link_libraries(${OpenCV_LIBRARIES})
 add_compile_options(-Wall -Wextra -Wno-sign-compare)
 
 file(GLOB_RECURSE COMMON_LIB_SRC "lib/*.cc")
-file(GLOB_RECURSE MF_SRC "external/mf/*.cc")
 
-add_library(common_lib STATIC ${COMMON_LIB_SRC})
+add_library(common_lib SHARED ${COMMON_LIB_SRC})
 target_link_libraries(common_lib ${OpenCV_LIBRARIES})
 
-add_library(mf_lib STATIC ${MF_SRC})
-
 add_library(fmt_lib STATIC "external/fmt/format.cc")
+
+set(CMAKE_SKIP_BUILD_RPATH  FALSE)
+set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib/")
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
+install(
+	DIRECTORY "external/freenect2/lib"
+	DESTINATION "./"
+	PATTERN "*.so"
+	PERMISSIONS OWNER_EXECUTE GROUP_EXECUTE GROUP_EXECUTE
+)
+install(
+	TARGETS common_lib
+	DESTINATION "lib/"
+)
 
 # Calibration
 file(GLOB_RECURSE CALIBRATION_LIB_SRC "calibration/lib/*.cc")
@@ -41,16 +54,8 @@ target_link_libraries(undistort common_lib calibration_lib)
 add_executable(calibrate_extrinsic "calibration/calibrate_extrinsic.cc")
 target_link_libraries(calibrate_extrinsic common_lib calibration_lib)
 
-add_executable(denoise_extrinsic_row "calibration/denoise_extrinsic_row.cc")
-target_link_libraries(denoise_extrinsic_row common_lib calibration_lib)
-
 install(
-	TARGETS find_chessboard calibrate_distortion undistort calibrate_extrinsic denoise_extrinsic_row
-	DESTINATION calibration
-)
-install(
-	PROGRAMS
-		"calibration/batch_chessboard_calibrate.py"
+	TARGETS find_chessboard calibrate_distortion undistort calibrate_extrinsic
 	DESTINATION calibration
 )
 
@@ -90,10 +95,10 @@ add_executable(fetch_intrinsics "kinect/fetch_intrinsics.cc")
 target_link_libraries(fetch_intrinsics common_lib kinect_lib freenect2)
 
 add_executable(color_point_cloud "kinect/color_point_cloud.cc")
-target_link_libraries(color_point_cloud common_lib kinect_lib mf_lib freenect2)
+target_link_libraries(color_point_cloud common_lib kinect_lib freenect2)
 
 add_executable(depth_point_cloud "kinect/depth_point_cloud.cc")
-target_link_libraries(depth_point_cloud common_lib kinect_lib mf_lib freenect2)
+target_link_libraries(depth_point_cloud common_lib kinect_lib freenect2)
 
 add_executable(depth_reprojection "kinect/depth_reprojection.cc")
 target_link_libraries(depth_reprojection common_lib kinect_lib freenect2)

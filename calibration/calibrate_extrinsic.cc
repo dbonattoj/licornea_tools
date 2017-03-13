@@ -5,8 +5,10 @@
 #include <cstdlib>
 #include <iterator>
 
-#include "../../lib/json.h"
+#include "../lib/json.h"
 #include "lib/calibration_correspondence.h"
+
+using namespace tlz;
 
 [[noreturn]] void usage_fail() {
 	std::cout << "usage: calibrate_extrinsic in_correspondences.json in_intrinsic.json out_extrinsic.json [in_extrinsic.json]\n";

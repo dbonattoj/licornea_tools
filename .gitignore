@@ -3,6 +3,7 @@
 /package/
 /build/
 /external/freenect2
+/libfreenect2
 /bin/
 *.pyc
 

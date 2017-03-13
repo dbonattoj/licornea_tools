@@ -8,6 +8,8 @@
 #include "../lib/camera.h"
 #include "../lib/camera_mpeg.h"
 
+using namespace tlz;
+
 [[noreturn]] void usage_fail() {
 	std::cout << "usage: transform in_cameras.json out_cameras.json operation\n";
 	std::cout << "operations: Rt2MPEG: standard extrinsic matrix to MPEG convention\n";

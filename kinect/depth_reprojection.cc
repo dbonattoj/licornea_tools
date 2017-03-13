@@ -1,8 +1,8 @@
 #include <opencv2/opencv.hpp>
 #include <libfreenect2/libfreenect2.hpp>
 #include <libfreenect2/registration.h>
-#include <mf/point_cloud/point.h>
-#include <mf/io/ply_exporter.h>
+#include "../lib/point.h"
+#include "../lib/ply_exporter.h"
 #include "lib/kinect_intrinsics.h"
 #include "lib/common.h"
 #include "lib/depth_io.h"
@@ -13,6 +13,7 @@
 #include <fstream>
 #include <string>
 
+using namespace tlz;
 
 void do_depth_reprojection_map(const cv::Mat_<ushort>& in, cv::Mat_<ushort>& out, cv::Mat_<uchar>& out_mask, const kinect_intrinsic_parameters& intrinsics) {
 	using namespace libfreenect2;	

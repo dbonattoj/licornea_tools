@@ -1,6 +1,8 @@
-#include <opencv2/opencv.hpp>
+#include "../lib/opencv.h"
 #include <iostream>
 #include <string>
+
+using namespace tlz;
 
 [[noreturn]] void usage_fail() {
 	std::cerr << "usage: psnr image1.png image2.png\n";

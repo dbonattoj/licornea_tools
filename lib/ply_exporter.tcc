@@ -1,6 +1,6 @@
 #include "ply_exporter.h"
 
-namespace mf {
+namespace tlz {
 
 template<typename Iterator>
 void ply_exporter::write(Iterator begin, Iterator end) {
@@ -13,5 +13,4 @@ void ply_exporter::write(Iterator begin, Iterator end) {
 	}
 }
 
-	
 }
