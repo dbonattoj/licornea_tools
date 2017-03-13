@@ -4,6 +4,7 @@
 #include "eigen.h"
 #include <iosfwd>
 #include <vector>
+#include <map>
 #include <string>
 
 namespace tlz {
@@ -23,7 +24,10 @@ template<typename It> void read_cameras(std::istream& input, It output);
 template<typename It> void write_cameras(std::ostream& output, It begin, It end);
 
 std::vector<camera> read_cameras_file(const std::string& filename);
+std::map<std::string, camera> cameras_map(const std::vector<camera>&);
+
 void write_cameras_file(const std::string& filename, const std::vector<camera>&);
+void write_cameras_file(const std::string& filename, const std::map<std::string, camera>&);
 
 }
 

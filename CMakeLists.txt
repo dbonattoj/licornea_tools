@@ -106,11 +106,14 @@ target_link_libraries(depth_reprojection common_lib kinect_lib freenect2)
 add_executable(texture_reprojection "kinect/texture_reprojection.cc")
 target_link_libraries(texture_reprojection common_lib kinect_lib freenect2)
 
+add_executable(point_cloud_reprojection "kinect/point_cloud_reprojection.cc")
+target_link_libraries(point_cloud_reprojection common_lib kinect_lib freenect2)
+
 add_executable(vsrs_disparity "kinect/vsrs_disparity.cc")
 target_link_libraries(vsrs_disparity common_lib kinect_lib)
 
 install(
-	TARGETS fetch_intrinsics color_point_cloud depth_point_cloud depth_reprojection texture_reprojection vsrs_disparity
+	TARGETS fetch_intrinsics color_point_cloud depth_point_cloud depth_reprojection texture_reprojection point_cloud_reprojection vsrs_disparity
 	DESTINATION kinect
 )
 install(

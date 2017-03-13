@@ -210,7 +210,7 @@ void ply_importer::rewind() {
 }
 
 
-ply_importer::ply_importer(const char* filename, line_delimitor ld) :
+ply_importer::ply_importer(const std::string& filename, line_delimitor ld) :
 file_(filename, std::ios_base::in | std::ios_base::binary),
 line_delimitor_(ld != line_delimitor::unknown ? ld : detect_line_delimitor(file_)) {
 	read_header_();	

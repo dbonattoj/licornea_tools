@@ -89,9 +89,7 @@ private:
 	template<typename T> T read_binary_property_(const property& prop, byte* data) const;
 
 public:
-	explicit ply_importer(const char* filename, line_delimitor ld = line_delimitor::unknown);
-	explicit ply_importer(const std::string& filename, line_delimitor ld = line_delimitor::unknown) :
-		ply_importer(filename.c_str(), ld) { }
+	explicit ply_importer(const std::string& filename, line_delimitor ld = line_delimitor::unknown);
 
 	std::size_t size() const;
 	

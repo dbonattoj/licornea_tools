@@ -16,7 +16,7 @@
 
 using namespace tlz;
 
-std::vector<point_xyz> generate_point_cloud(const cv::Mat_<ushort>& in, const kinect_intrinsic_parameters& intrinsics) {
+std::vector<point_xyz> generate_point_cloud_from_ir(const cv::Mat_<ushort>& in, const kinect_intrinsic_parameters& intrinsics) {
 	using namespace libfreenect2;	
 
 	cv::Mat depth_mat(depth_height, depth_width, CV_32FC1);
@@ -45,19 +45,50 @@ std::vector<point_xyz> generate_point_cloud(const cv::Mat_<ushort>& in, const ki
 	}
 	
 	points.shrink_to_fit();
-	
 	return points;
+}
+
+std::vector<point_xyz> generate_point_cloud_from_color(const cv::Mat_<ushort>& in, const kinect_intrinsic_parameters& intrinsics) {
+	using namespace libfreenect2;
+	
+	std::vector<point_xyz> points;
+	points.reserve(depth_width * depth_height);
+
+	Registration reg(intrinsics.ir, intrinsics.color);
+	for(int dy = 0; dy < depth_height; ++dy) for(int dx = 0; dx < depth_width; ++dx) {
+		ushort dz = in(dy, dx);
+		if(dz == 0) continue;
+						
+		float cx, cy;
+		reg.apply(dx, dy, dz, cx, cy);
+		
+		float z = dz;
+		Eigen_vec3 view_pt(
+			z * (cx - intrinsics.color.cx) / intrinsics.color.fx,
+			z * (cy - intrinsics.color.cy) / intrinsics.color.fy,
+			z
+		);
+		points.emplace_back(view_pt);
+	}
+
+	points.shrink_to_fit();
+	return points;	
+}
+
+[[noreturn]] void usage_fail() {
+	std::cout << "usage: depth_point_cloud input_depth.png output_point_cloud.ply intrinsics.json color/ir" << std::endl;
+	std::exit(1);
 }
 
 
 int main(int argc, const char* argv[]) {
-	if(argc <= 3) {
-		std::cout << "usage: " << argv[0] << " input_depth.png output_point_cloud.ply intrinsics.json" << std::endl;
-		return EXIT_FAILURE;
-	}
-	const char* input_filename = argv[1];
-	const char* output_filename = argv[2];
-	const char* intrinsics_filename = argv[3];
+	if(argc <= 4) usage_fail();
+	std::string input_filename = argv[1];
+	std::string output_filename = argv[2];
+	std::string intrinsics_filename = argv[3];
+	std::string sensor = argv[4];
+	if(sensor != "color" && sensor != "ir") usage_fail();
+	
 	
 	std::cout << "reading intrinsics" << std::endl;
 	kinect_intrinsic_parameters intrinsics;
@@ -67,11 +98,14 @@ int main(int argc, const char* argv[]) {
 	}
 	
 	std::cout << "reading input depth map" << std::endl;
-	cv::Mat_<ushort> in_depth = load_depth(input_filename);
+	cv::Mat_<ushort> in_depth = load_depth(input_filename.c_str());
 	cv::flip(in_depth, in_depth, 1);
 	
+	
 	std::cout << "making point cloud" << std::endl;
-	auto points = generate_point_cloud(in_depth, intrinsics);
+	std::vector<point_xyz> points;
+	if(sensor == "ir") points = generate_point_cloud_from_ir(in_depth, intrinsics);
+	else points = generate_point_cloud_from_color(in_depth, intrinsics);
 
 	std::cout << "saving output point cloud" << std::endl;
 	ply_exporter exp(output_filename, false, true);
