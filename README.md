@@ -8,15 +8,22 @@
 * `visualize`: Visualize camera poses from camera array. Outputs `.ply` file with 3D representations for cameras.
 
 ## Kinect tools
-* `depth_point_cloud`: Reproject Kinect depth map into XYZ `.ply` point cloud, in camera view coordinate system.
+* `depth_point_cloud`: Reproject Kinect depth map into XYZ `.ply` point cloud, in color or IR camera view coordinate system.
+* `color_point_cloud`: Reproject Kinect depth map and texture into XYZRGB `.ply` point cloud.
 * `depth_reprojection`: Reproject&upsample Kinect depth map into same coordinate system as color image.
+* `point_cloud_reprojection`: Reproject&upsample Kinect depth map from point cloud, possibly from another view point.
 * `fetch_intrinsics`: Fetch internal camera parameters from Kinect connected by USB, store in JSON file.
 * `texture_reprojection`: Reproject&downsample Kinect color image into same coordinate system as depth image.
 * `vsrs_disparity`: Convert reprojected Kinect depth map into disparity map for VSRS in `.yuv` format.
-* `make_vsrs_data`: Make VSRS texture+disparity `.yuv` files, for all views of data sets, from Kinect depth+image, with either depth upsampling or texture downsampling, using the other tools.
+* `make_vsrs_data`: Make VSRS texture+disparity `.yuv` files, for all views of data sets, from Kinect depth+image, with either depth upsampling or texture downsampling.
 
 ## Misc
-* `pointcloud`: Generate XYZRGB `.ply` point cloud from VSRS config file and `.yuv` texture/disparity data.
+* `list_skin_n_experiments`: List synthesis experiments for each view, taking each _k_-th view as input.
+* `make_vsrs_config`: Generate VSRS configuration file based on template in script.
+* `run_vsrs`: Generate temporary VSRS configuration file and run VSRS on given input set and parameters.
+* `run_vsrs_experiments`: Run VSRS for all listed experiments, parallelized.
+* `psnr`: Compute PSNR between two images.
+* `yuv2png`: Convert YUV420 (with given size) to image file.
 
 ## Epipolar sketch
 * `epipolar_sketch`: Visualizer for epipolar lines and corresponding points using camera matrices. Sketch written in p5.js.
