@@ -126,9 +126,14 @@ install(
 
 # Misc
 add_executable(psnr "misc/psnr.cc")
+target_link_libraries(psnr common_lib)
+
+add_executable(view_depth "misc/view_depth.cc")
+target_link_libraries(view_depth common_lib)
+
 
 install(
-	TARGETS psnr
+	TARGETS psnr view_depth
 	DESTINATION misc
 )
 install(
