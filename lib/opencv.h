@@ -79,9 +79,9 @@ auto to_opencv(const ndarray_view<Dim, Elem>& vw) {
 
 	using elem_type = std::remove_const_t<Elem>;
 	using opencv_type = cv::DataType<elem_type>;
-	using mat_type = cv::Mat_<elem_type>;
-	using qualified_mat_type = std::conditional_t<std::is_const<Elem>::value, const mat_type, mat_type>;
-	using channel_type = typename opencv_type::channel_type;
+	//using mat_type = cv::Mat_<elem_type>;
+	//using qualified_mat_type = std::conditional_t<std::is_const<Elem>::value, const mat_type, mat_type>;
+	//using channel_type = typename opencv_type::channel_type;
 
 	int sizes[Dim];
 	for(std::ptrdiff_t i = 0; i < Dim; ++i) sizes[i] = vw.shape()[i];

@@ -1,5 +1,4 @@
-#if 0
-//#ifndef LICORNEA_PLY_IMPORTER_H_
+#ifndef LICORNEA_PLY_IMPORTER_H_
 #define LICORNEA_PLY_IMPORTER_H_
 
 #include <fstream>
@@ -15,7 +14,9 @@
 #include <cctype>
 #include <stdexcept>
 
-#include "../utility/io.h"
+#include "common.h"
+#include "utility/io.h"
+#include "point.h"
 	
 namespace tlz {
 	
@@ -83,22 +84,21 @@ private:
 	
 	void read_ascii_point_(point_xyz& out_point, const char* props[]) const;
 	void read_ascii_point_(point_full& out_point, const char* props[]) const;
-	void read_binary_point_(point_xyz& out_point, char* data) const;
-	void read_binary_point_(point_full& out_point, char* data) const;
-	template<typename T> T read_binary_property_(const property& prop, char* data) const;
+	void read_binary_point_(point_xyz& out_point, byte* data) const;
+	void read_binary_point_(point_full& out_point, byte* data) const;
+	template<typename T> T read_binary_property_(const property& prop, byte* data) const;
 
 public:
 	explicit ply_importer(const char* filename, line_delimitor ld = line_delimitor::unknown);
 	explicit ply_importer(const std::string& filename, line_delimitor ld = line_delimitor::unknown) :
 		ply_importer(filename.c_str(), ld) { }
 
-	std::size_t size() const override;
-	bool all_valid() const override;
+	std::size_t size() const;
 	
-	void rewind() override;
-	std::ptrdiff_t tell() const override;
-	void read(point_xyz*, std::size_t sz) override;
-	void read(point_full*, std::size_t sz) override;
+	void rewind();
+	std::ptrdiff_t tell() const;
+	void read(point_xyz*, std::size_t sz);
+	void read(point_full*, std::size_t sz);
 
 	bool is_binary() const { return format_ != ascii; }
 	bool is_ascii() const { return format_ == ascii; }

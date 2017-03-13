@@ -1,7 +1,5 @@
-
-/*
-
 #include "ply_importer.h"
+#include "utility/string.h"
 #include <algorithm>
 
 namespace tlz {
@@ -33,17 +31,17 @@ void ply_importer::read_ascii_(Point* buffer, std::size_t n) {
 template<typename Point>
 void ply_importer::read_binary_(Point* out, std::size_t n) {
 	std::streamsize length = n * vertex_length_;
-	std::unique_ptr<char[]> buffer(new char[length]);
-	file_.read(buffer.get(), length);
+	std::unique_ptr<byte[]> buffer(new byte[length]);
+	file_.read(reinterpret_cast<char*>(buffer.get()), length);
 	
-	char* buffer_end = buffer.get() + length;
-	for(char* in = buffer.get(); in != buffer_end; in += vertex_length_, ++out)
+	byte* buffer_end = buffer.get() + length;
+	for(byte* in = buffer.get(); in != buffer_end; in += vertex_length_, ++out)
 		read_binary_point_(*out, in);
 }
 
 
 template<typename T>
-T ply_importer::read_binary_property_(const property& prop, char* data) const {
+T ply_importer::read_binary_property_(const property& prop, byte* data) const {
 	std::size_t sz = property_type_size_(prop.type);
 	data += prop.offset;
 	if(! is_host_endian_binary_()) flip_endianness(data, sz);
@@ -233,71 +231,73 @@ std::size_t ply_importer::property_type_size_(property_type t) {
 
 
 void ply_importer::read_ascii_point_(point_xyz& pt, const char* props[]) const {	
-	pt = point_xyz(
+	pt = point_xyz(Eigen_vec3(
 		strtof(props[x_.index], nullptr),
 		strtof(props[y_.index], nullptr),
 		strtof(props[z_.index], nullptr)	
-	);
+	));
 }
 
 
 
 void ply_importer::read_ascii_point_(point_full& pt, const char* props[]) const {
 	if(has_rgb_) pt = point_full(
-		strtof(props[x_.index], nullptr),
-		strtof(props[y_.index], nullptr),
-		strtof(props[z_.index], nullptr),
+		Eigen_vec3(
+			strtof(props[x_.index], nullptr),
+			strtof(props[y_.index], nullptr),
+			strtof(props[z_.index], nullptr)
+		),
 		rgb_color(
 			strtol(props[r_.index], nullptr, 10),
 			strtol(props[g_.index], nullptr, 10),
 			strtol(props[b_.index], nullptr, 10)
 		)
 	);
-	else pt = point_xyz(
+	else pt = point_xyz(Eigen_vec3(
 		strtof(props[x_.index], nullptr),
 		strtof(props[y_.index], nullptr),
 		strtof(props[z_.index], nullptr)	
-	);
-	if(has_normal_) pt.set_normal(Eigen::Vector3f(
+	));
+	if(has_normal_) pt.normal() = Eigen_vec3(
 		strtof(props[nx_.index], nullptr),
 		strtof(props[ny_.index], nullptr),
 		strtof(props[nz_.index], nullptr)
-	));
-	if(has_weight_) strtof(props[w_.index], nullptr);
-}
-
-
-void ply_importer::read_binary_point_(point_xyz& pt, char* data) const {
-	pt = point_xyz(
-		read_binary_property_<float>(x_, data),
-		read_binary_property_<float>(y_, data),
-		read_binary_property_<float>(z_, data)
 	);
 }
 
 
-void ply_importer::read_binary_point_(point_full& pt, char* data) const {
-	if(has_rgb_) pt = point_full(
+void ply_importer::read_binary_point_(point_xyz& pt, byte* data) const {
+	pt = point_xyz(Eigen_vec3(
 		read_binary_property_<float>(x_, data),
 		read_binary_property_<float>(y_, data),
-		read_binary_property_<float>(z_, data),
+		read_binary_property_<float>(z_, data)
+	));
+}
+
+
+void ply_importer::read_binary_point_(point_full& pt, byte* data) const {
+	if(has_rgb_) pt = point_full(
+		Eigen_vec3(
+			read_binary_property_<float>(x_, data),
+			read_binary_property_<float>(y_, data),
+			read_binary_property_<float>(z_, data)
+		),
 		rgb_color(
 			read_binary_property_<std::uint8_t>(r_, data),
 			read_binary_property_<std::uint8_t>(g_, data),
 			read_binary_property_<std::uint8_t>(b_, data)
 		)
 	);
-	else pt = point_xyz(
+	else pt = point_xyz(Eigen_vec3(
 		read_binary_property_<float>(x_, data),
 		read_binary_property_<float>(y_, data),
 		read_binary_property_<float>(z_, data)
-	);
-	if(has_normal_) pt.set_normal(Eigen::Vector3f(
+	));
+	if(has_normal_) pt.normal() = Eigen_vec3(
 		read_binary_property_<float>(nx_, data),
 		read_binary_property_<float>(ny_, data),
 		read_binary_property_<float>(nz_, data)
-	));
-	if(has_weight_) pt.set_weight(read_binary_property_<float>(w_, data));
+	);
 }
 
 
@@ -332,12 +332,4 @@ std::size_t ply_importer::size() const {
 	return number_of_vertices_;
 }
 
-
-bool ply_importer::all_valid() const {
-	return true;
 }
-
-
-}
-
-*/
