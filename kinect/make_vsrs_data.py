@@ -1,9 +1,9 @@
 #!/usr/local/bin/python
 
-import sys, os, subprocess, json, time
+import sys, os, subprocess, json, time, threading
 
 parallel = True
-parallel_jobs = 4
+parallel_jobs = 10
 tools_directory = "."
 intrinsics_filename = "../data/kinect_internal_intrinsics.json"
 verbose = False
@@ -49,6 +49,7 @@ z_far = parameters["depth"]["z_far"]
 total_count = None
 start_time = None
 done_count = None
+done_count_lock = threading.Lock()
 
 def format_time(seconds):
 	m, s = divmod(seconds, 60)
@@ -59,11 +60,12 @@ def format_time(seconds):
 
 
 def png2yuv(png, yuv):
+	if os.path.isfile(yuv): os.remove(yuv)
 	subprocess.check_call("ffmpeg -n -i {} -pix_fmt yuv420p {} > /dev/null 2>&1".format(png, yuv), shell=True)
 
 def process_view(x_index, y_index):	
-	print "view x={}, y={}".format(x_index, y_index)
-	
+	if verbose: print "view x={}, y={}".format(x_index, y_index)
+		
 	raw_x_index = x_index;
 	if "x_index_factor" in raw_arrangement: raw_x_index = raw_x_index * raw_arrangement["x_index_factor"]
 	if "x_index_offset" in raw_arrangement: raw_x_index = raw_x_index + raw_arrangement["x_index_offset"]
@@ -147,13 +149,19 @@ def process_view(x_index, y_index):
 		os.remove(reprojected_texture_filename)
 		os.remove(mask_filename)
 
+	global done_count_lock
 	global done_count
-	done_count = done_count + 1
-	if done_count > 0:
-		elapsed_time = time.time() - start_time
-		remaining_count = total_count - done_count
-		remaining_time_estimate = (elapsed_time / done_count) * remaining_count
-		print "elapsed time: {}, estimated remaining time: {}".format(format_time(elapsed_time), format_time(remaining_time_estimate))
+	done_count_lock.acquire()
+	try:
+		done_count = done_count + 1
+		if done_count > 0:
+			elapsed_time = time.time() - start_time
+			remaining_count = total_count - done_count
+			views_per_second = done_count / elapsed_time
+			remaining_time_estimate = remaining_count / views_per_second
+			print "done {} of {}. elapsed time: {}, estimated remaining time: {}".format(done_count, total_count, format_time(elapsed_time), format_time(remaining_time_estimate))
+	finally:
+		done_count_lock.release()
 
 
 
@@ -174,5 +182,8 @@ if __name__ == '__main__':
 	if not parallel:
 		for xy in indices: process_view(*xy)
 	else:
-		Parallel(n_jobs=parallel_jobs)(delayed(process_view)(*xy) for xy in indices)
+		Parallel(n_jobs=parallel_jobs, backend="threading")(delayed(process_view)(*xy) for xy in indices)
+		# need threading backend because of shared 'done_count' variable
 
+	print "done."
+	

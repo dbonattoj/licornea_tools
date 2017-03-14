@@ -5,11 +5,6 @@
 
 using namespace tlz;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: view_depth depth.png [z_near z_far]" << std::endl;
-	std::exit(EXIT_FAILURE);
-}
-
 bool is16bit = false;
 int slider_begin = -1;
 int slider_step = -1;
@@ -39,13 +34,19 @@ void update_depth(int = 0, void* = nullptr) {
 	cv::imshow(window_name, shown_depth);
 }
 
+[[noreturn]] void usage_fail() {
+	std::cout << "usage: view_depth depth.png [z_near z_far] [out.png]" << std::endl;
+	std::exit(EXIT_FAILURE);
+}
 
 int main(int argc, const char* argv[]) {
 	if(argc <= 1) usage_fail();
 	std::string depth_filename = argv[1];
+	std::string out_depth_filename;
 	int z_near = -1, z_far = -1;
 	if(argc > 2) z_near = std::atoi(argv[2]);
 	if(argc > 3) z_far = std::atoi(argv[3]);
+	if(argc > 4) out_depth_filename = argv[4];
 	
 	depth = cv::imread(depth_filename, CV_LOAD_IMAGE_ANYDEPTH);
 	is16bit = (depth.depth() == CV_16U);
@@ -91,4 +92,15 @@ int main(int argc, const char* argv[]) {
 	
 	// wait for user
 	cv::waitKey(0);
+	
+	// save to file
+	if(! out_depth_filename.empty()) {
+		std::cout << "save? [y/n] ";
+		char answer;
+		std::cin >> answer;
+		if(answer == 'y') {
+			cv::imwrite(out_depth_filename, shown_depth);
+			std::cout << "saved to " << out_depth_filename << std::endl;
+		}
+	}
 }

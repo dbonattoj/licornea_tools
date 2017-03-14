@@ -3,6 +3,7 @@
 #include <libfreenect2/registration.h>
 #include "../lib/point.h"
 #include "../lib/ply_exporter.h"
+#include "lib/depth_densify.h"
 #include "lib/kinect_intrinsics.h"
 #include "lib/common.h"
 #include "lib/depth_io.h"
@@ -46,15 +47,12 @@ void do_depth_reprojection_map(const cv::Mat_<ushort>& in, cv::Mat_<ushort>& out
 }
 
 
-void do_depth_reprojection_splat(const cv::Mat_<ushort>& in, cv::Mat_<ushort>& out, cv::Mat_<uchar>& out_mask, const kinect_intrinsic_parameters& intrinsics) {
+void do_depth_reprojection_densify(const cv::Mat_<ushort>& in, cv::Mat_<ushort>& out, cv::Mat_<uchar>& out_mask, const kinect_intrinsic_parameters& intrinsics) {
 	using namespace libfreenect2;
-	
-	out.setTo(0);
-	out_mask.setTo(0);
-	
+		
 	Registration reg(intrinsics.ir, intrinsics.color);
 	
-	int splat_radius = 5;
+	std::vector<Eigen_vec3> samples;
 	
 	for(int dy = 0; dy < depth_height; ++dy) for(int dx = 0; dx < depth_width; ++dx) {
 		ushort dz = in(dy, dx);
@@ -62,19 +60,19 @@ void do_depth_reprojection_splat(const cv::Mat_<ushort>& in, cv::Mat_<ushort>& o
 						
 		float cx, cy;
 		reg.apply(dx, dy, dz, cx, cy);
-		
-		unsigned cx_int = cx, cy_int = cy;
-		if(cx_int >= texture_width || cy_int >= texture_height) continue;
-		
-		cv::circle(out, cv::Point(cx, cy), splat_radius, dz, -1);
-		cv::circle(out_mask, cv::Point(cx, cy), splat_radius, 0xff, -1);
+				
+		samples.emplace_back(cx, cy, dz);
 	}
+	
+	cv::Mat_<float> densify_out(texture_height, texture_width);
+	depth_densify(samples, densify_out, out_mask);
+	out = densify_out;
 }
 
 
 int main(int argc, const char* argv[]) {
 	if(argc <= 5) {
-		std::cout << "usage: " << argv[0] << " input.png output.png output_mask.png intrinsics.json splat/map" << std::endl;
+		std::cout << "usage: " << argv[0] << " input.png output.png output_mask.png intrinsics.json densify/map" << std::endl;
 		return EXIT_FAILURE;
 	}
 	const char* input_filename = argv[1];
@@ -97,7 +95,7 @@ int main(int argc, const char* argv[]) {
 	std::cout << "preforming depth mapping" << std::endl;
 	cv::Mat_<ushort> out_depth(texture_height, texture_width);
 	cv::Mat_<uchar> out_mask(texture_height, texture_width);
-	if(mode == "splat") do_depth_reprojection_splat(in_depth, out_depth, out_mask, intrinsics);
+	if(mode == "densify") do_depth_reprojection_densify(in_depth, out_depth, out_mask, intrinsics);
 	else if(mode == "map") do_depth_reprojection_map(in_depth, out_depth, out_mask, intrinsics);
 	else throw std::runtime_error("unknown mode");
 	

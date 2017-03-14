@@ -11,7 +11,7 @@
 using namespace tlz;
 
 [[noreturn]] void usage_fail() {
-	std::cout << "usage: transform in_cameras.json out_cameras.json operation\n";
+	std::cout << "usage: transform in_cameras.json out_cameras.json/none/replace operation\n";
 	std::cout << "operations: Rt2MPEG: standard extrinsic matrix to MPEG convention\n";
 	std::cout << "            MPEG2Rt: MPEG convention to standard extrinsic matrix\n";
 	std::cout << "            flip_t: flip sign of translation vectors\n";
@@ -62,7 +62,9 @@ int main(int argc, const char* argv[]) {
 			int factor = 1;
 			if(argc > 5) offset = std::atoi(argv[5]);
 			if(argc > 6) factor = std::atoi(argv[6]);
-			cam.name = fmt::format(format, factor*index + offset);
+			std::string new_name = fmt::format(format, factor*index + offset);
+			std::cout << cam.name << " --> " << new_name << std::endl;
+			cam.name = new_name;
 			
 		} else if(operation == "nop") {
 			// no change
@@ -72,9 +74,15 @@ int main(int argc, const char* argv[]) {
 		++index;
 	}
 	
-	std::ofstream output(out_cameras.c_str());
-	write_cameras_file(out_cameras, cameras);
-	output.close();
+	if(out_cameras == "none") {
+		std::cout << "not writing to output" << std::endl;
+	} else {
+		if(out_cameras == "replace") out_cameras = in_cameras;
+		std::cout << "writing to " << out_cameras << std::endl;
+		std::ofstream output(out_cameras.c_str());
+		write_cameras_file(out_cameras, cameras);
+		output.close();
+	}
 	
 	std::cout << "done" << std::endl;
 }

@@ -53,13 +53,13 @@ def main(parameters_filename, cameras_filename, left_idx, virtual_idx, right_idx
 		z_near=parameters["depth"]["z_near"],
 		z_far=parameters["depth"]["z_far"],
 		cam_param=cameras_filename,
-		cam_left=parameters["arrangement"]["camera_name_format"].format(left_idx),
-		cam_virtual=parameters["arrangement"]["camera_name_format"].format(virtual_idx),
-		cam_right=parameters["arrangement"]["camera_name_format"].format(right_idx),
-		texture_left=os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["texture_filename_format"].format(left_idx)),
-		texture_right=os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["texture_filename_format"].format(right_idx)),
-		depth_left=os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["depth_filename_format"].format(left_idx)),
-		depth_right=os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["depth_filename_format"].format(right_idx)),
+		cam_left=parameters["arrangement"]["camera_name_format"].format(x=left_idx),
+		cam_virtual=parameters["arrangement"]["camera_name_format"].format(x=virtual_idx),
+		cam_right=parameters["arrangement"]["camera_name_format"].format(x=right_idx),
+		texture_left=os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["texture_filename_format"].format(x=left_idx)),
+		texture_right=os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["texture_filename_format"].format(x=right_idx)),
+		depth_left=os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["depth_filename_format"].format(x=left_idx)),
+		depth_right=os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["depth_filename_format"].format(x=right_idx)),
 		output=output_virtual_filename
 	)
 

@@ -119,6 +119,8 @@ install(
 install(
 	PROGRAMS
 		"kinect/make_vsrs_data.py"
+		"kinect/depth_cross_reprojection.py"
+		"kinect/collect_col.py"
 	DESTINATION kinect
 )
 

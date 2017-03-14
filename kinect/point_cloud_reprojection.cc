@@ -8,6 +8,7 @@
 #include "lib/kinect_intrinsics.h"
 #include "lib/common.h"
 #include "lib/depth_io.h"
+#include "lib/depth_densify.h"
 #include <cstdlib>
 #include <iostream>
 #include <vector>
@@ -25,17 +26,18 @@ void do_point_cloud_reprojection(
 	const Eigen_mat3& camera_mat,
 	const Eigen_affine3& transformation
 ) {
-	out.setTo(0);
-	out_mask.setTo(0);
+	std::vector<Eigen_vec3> samples;
 	for(const point_xyz& pt : in_pc) {
 		Eigen_vec3 position = transformation * pt.position();
 		Eigen_vec3 im_pt = camera_mat * position;
 		im_pt /= im_pt[2];
-		int x = im_pt[0], y = im_pt[1];
-		if(x < 0 || x >= texture_width || y < 0 || y >= texture_height) continue;
-		
-		cv::circle(out, cv::Point(x, y), 5, pt.position()[2], -1);
+
+		samples.emplace_back(im_pt[0], im_pt[1], position[2]);
 	}
+
+	cv::Mat_<float> densify_out(texture_height, texture_width);
+	depth_densify(samples, densify_out, out_mask);
+	out = densify_out;
 }
 
 [[noreturn]] void usage_fail() {

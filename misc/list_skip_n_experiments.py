@@ -16,7 +16,7 @@ experiments = list()
 with open(parameters_filename) as f:
 	parameters = json.load(f)
 
-camera_range = parameters["arrangement"]["index_range"]
+camera_range = parameters["arrangement"]["x_index_range"]
 for index in range(camera_range[0], camera_range[1]+1):
 	left_index = camera_range[0] + ((index - camera_range[0]) // step) * step
 	right_index = left_index + step
