@@ -8,10 +8,12 @@
 * `visualize`: Visualize camera poses from camera array. Outputs `.ply` file with 3D representations for cameras.
 
 ## Kinect tools
+* `collect_col`: Collect all images on one column, from raw data set.
 * `depth_point_cloud`: Reproject Kinect depth map into XYZ `.ply` point cloud, in color or IR camera view coordinate system.
 * `color_point_cloud`: Reproject Kinect depth map and texture into XYZRGB `.ply` point cloud.
 * `depth_reprojection`: Reproject&upsample Kinect depth map into same coordinate system as color image.
-* `point_cloud_reprojection`: Reproject&upsample Kinect depth map from point cloud, possibly from another view point.
+* `point_cloud_reprojection`: Reproject&upsample Kinect depth map from point cloud point.
+* `depth_cross_reprojection`: Reproject&upsample Kinect depth map from point cloud point, from another viewpoint. Creates intermediary point cloud.
 * `fetch_intrinsics`: Fetch internal camera parameters from Kinect connected by USB, store in JSON file.
 * `texture_reprojection`: Reproject&downsample Kinect color image into same coordinate system as depth image.
 * `vsrs_disparity`: Convert reprojected Kinect depth map into disparity map for VSRS in `.yuv` format.
@@ -24,6 +26,7 @@
 * `run_vsrs_experiments`: Run VSRS for all listed experiments, parallelized.
 * `psnr`: Compute PSNR between two images.
 * `yuv2png`: Convert YUV420 (with given size) to image file.
+* `view_depth`: Visualize depth map with GUI.
 
 ## Epipolar sketch
 * `epipolar_sketch`: Visualizer for epipolar lines and corresponding points using camera matrices. Sketch written in p5.js.

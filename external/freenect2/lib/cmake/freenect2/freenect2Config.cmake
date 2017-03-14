@@ -1,10 +1,10 @@
 FIND_LIBRARY(freenect2_LIBRARY freenect2
-    PATHS /home/timlenertz/Desktop/licornea_tools/external/freenect2/lib
+    PATHS /Users/timlenertz/Desktop/programming/licornea_tools/external/freenect2/lib
     NO_DEFAULT_PATH
 )
 SET(freenect2_LIBRARIES ${freenect2_LIBRARY} pthread)
 FIND_PATH(freenect2_INCLUDE_DIR libfreenect2/libfreenect2.hpp
-    PATHS /home/timlenertz/Desktop/licornea_tools/external/freenect2/include
+    PATHS /Users/timlenertz/Desktop/programming/licornea_tools/external/freenect2/include
     NO_DEFAULT_PATH
 )
 SET(freenect2_INCLUDE_DIRS ${freenect2_INCLUDE_DIR})
