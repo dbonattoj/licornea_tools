@@ -32,7 +32,9 @@ def main(vsrs_binary_filename, parameters_filename, left_idx, virtual_idx, right
 	except CalledProcessError:
 		print "VSRS failed on {}. Output:\n{}".format(virtual_idx, output)
 		raise Exception("vsrs failed")
-		
+	
+	print output
+	
 	os.remove(output_config_filename)
 
 

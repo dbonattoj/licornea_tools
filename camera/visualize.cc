@@ -35,7 +35,7 @@ int main(int argc, const char* argv[]) {
 			
 	double scale = 0.4;
 	Eigen_mat4 model_transform; model_transform <<
-		1.0*scale, 0.0, 0.0, 0.0,
+		2.0*scale, 0.0, 0.0, 0.0,
 		0.0, 1.0*scale, 0.0, 0.0,
 		0.0, 0.0, 1.0*scale, 0.0,
 		0.0, 0.0, 0.0, 1.0;

@@ -17,7 +17,7 @@ using namespace tlz;
 	std::cout << "            flip_t: flip sign of translation vectors\n";
 	std::cout << "            scale old new: adapt intrinsic matrix for image scale from old to new\n";
 	std::cout << "                           (old/new = pixel length of same segment in old and new image)\n";
-	std::cout << "            rename cam_{} [offset]: rename according to format, adding offset to index argument\n";
+	std::cout << "            rename cam_{} [offset=0] [factor=1]: rename according to format, with new_index = offset + factor*old_index\n";
 	std::cout << "            nop: No change, just reformat the cameras file\n";
 	std::cout << std::endl;
 	std::exit(1);
@@ -59,8 +59,10 @@ int main(int argc, const char* argv[]) {
 			if(argc <= 4) usage_fail();
 			std::string format = argv[4];
 			int offset = 0;
+			int factor = 1;
 			if(argc > 5) offset = std::atoi(argv[5]);
-			cam.name = fmt::format(format, index + offset);
+			if(argc > 6) factor = std::atoi(argv[6]);
+			cam.name = fmt::format(format, factor*index + offset);
 			
 		} else if(operation == "nop") {
 			// no change
