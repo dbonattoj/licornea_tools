@@ -76,15 +76,17 @@ def process_view(x_index, y_index):
 		if "y_index_offset" in raw_arrangement: raw_y_index = raw_y_index + raw_arrangement["y_index_offset"]
 
 	def format_filename(filename):
-		if y_index is not None: return filename.format(x=raw_x_index, y=raw_y_index)
+		if y_index is not None: return filename.format(x=x_index, y=y_index)
+		else: return filename.format(x=x_index)
+	def format_raw_filename(filename):
+		if y_index is not None: return filename.format(x=x_raw_index, y=y_raw_index)
 		else: return filename.format(x=raw_x_index)
-		
 	def format_tmp_filename(filename):
-		if y_index is not None: return filename.format(str(raw_x_index) + "_" + str(raw_y_index))
-		else: return filename.format(raw_x_index)
+		if y_index is not None: return filename.format(str(x_index) + "_" + str(ry_index))
+		else: return filename.format(x_index)
 	
-	texture_filename = os.path.join(raw_data_directory, format_filename(raw_arrangement["texture_filename_format"]))
-	depth_filename = os.path.join(raw_data_directory, format_filename(raw_arrangement["depth_filename_format"]))
+	texture_filename = os.path.join(raw_data_directory, format_raw_filename(raw_arrangement["texture_filename_format"]))
+	depth_filename = os.path.join(raw_data_directory, format_raw_filename(raw_arrangement["depth_filename_format"]))
 
 	disparity_yuv_filename = os.path.join(output_directory, format_filename(arrangement["depth_filename_format"]))
 	texture_yuv_filename = os.path.join(output_directory, format_filename(arrangement["texture_filename_format"]))

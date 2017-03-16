@@ -57,8 +57,7 @@ if __name__ == '__main__':
 		point_cloud_filename = os.path.join(os.path.dirname(output_filename), "point_cloud_{}.ply".format(str(x_in_idx) + "_" + str(y_in_idx)))
 		in_camera_name = arrangement["camera_name_format"].format(x=x_in_idx, y=y_in_idx)
 		out_camera_name = arrangement["camera_name_format"].format(x=x_out_idx, y=y_out_idx)
-		input_filename = raw_arrangement["depth_filename_format"].format(x=raw_x_in_idx, y=raw_y_in_idx)
-		
+		input_filename = raw_arrangement["depth_filename_format"].format(x=raw_x_in_idx, y=raw_y_in_idx)		
 	else:
 		point_cloud_filename = os.path.join(os.path.dirname(output_filename), "point_cloud_{}.ply".format(str(x_in_idx)))
 		in_camera_name = arrangement["camera_name_format"].format(x=x_in_idx)

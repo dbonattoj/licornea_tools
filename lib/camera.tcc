@@ -9,7 +9,7 @@ void read_cameras(std::istream& input, It output) {
 	
 	json j_root;
 	input >> j_root;
-	
+		
 	for(auto& j_cam : j_root) {
 		camera cam;
 		cam.name = j_cam["name"];
@@ -22,6 +22,7 @@ void read_cameras(std::istream& input, It output) {
 			j_cam["Rt"][1][0], j_cam["Rt"][1][1], j_cam["Rt"][1][2], j_cam["Rt"][1][3],
 			j_cam["Rt"][2][0], j_cam["Rt"][2][1], j_cam["Rt"][2][2], j_cam["Rt"][2][3],
 			j_cam["Rt"][3][0], j_cam["Rt"][3][1], j_cam["Rt"][3][2], j_cam["Rt"][3][3];
+		
 		*output = cam;
 	}
 }

@@ -14,8 +14,8 @@ int z_far_slider_value = -1;
 cv::Mat_<ushort> depth;
 cv::Mat_<uchar> shown_depth;
 std::string window_name;
- 
-void update_depth(int = 0, void* = nullptr) {
+
+void update() {
 	ushort z_near = slider_begin + (z_near_slider_value * slider_step);
 	ushort z_far = slider_begin + (z_far_slider_value * slider_step);
 		
@@ -30,7 +30,10 @@ void update_depth(int = 0, void* = nullptr) {
 		shown_depth.setTo(255, (depth > z_far));
 		shown_depth.setTo(0, (depth == 0));
 	}
-	
+}
+ 
+void update_callback(int = 0, void* = nullptr) {
+	update();
 	cv::imshow(window_name, shown_depth);
 }
 
@@ -80,27 +83,25 @@ int main(int argc, const char* argv[]) {
 	if(z_far != -1) z_far_slider_value = (z_far - slider_begin)/slider_step;
 	else z_far_slider_value = (max_value - slider_begin)/slider_step;
 
-	// setup window
-	window_name = depth_filename;
+	// initialize depth
+	update();
 	
-	cv::namedWindow(window_name, CV_WINDOW_AUTOSIZE);
-	cv::createTrackbar("1. z_near", window_name, &z_near_slider_value, slider_range / slider_step, &update_depth);
-	cv::createTrackbar("2. z_far", window_name, &z_far_slider_value, slider_range / slider_step, &update_depth);
+	if(out_depth_filename.empty()) {
+		// setup window
+		window_name = depth_filename;
+	
+		cv::namedWindow(window_name, CV_WINDOW_AUTOSIZE);
+		cv::createTrackbar("1. z_near", window_name, &z_near_slider_value, slider_range / slider_step, &update_callback);
+		cv::createTrackbar("2. z_far", window_name, &z_far_slider_value, slider_range / slider_step, &update_callback);
 
-	// initialize depth and show
-	update_depth();
-	
-	// wait for user
-	cv::waitKey(0);
-	
-	// save to file
-	if(! out_depth_filename.empty()) {
-		std::cout << "save? [y/n] ";
-		char answer;
-		std::cin >> answer;
-		if(answer == 'y') {
-			cv::imwrite(out_depth_filename, shown_depth);
-			std::cout << "saved to " << out_depth_filename << std::endl;
-		}
+		cv::imshow(window_name, shown_depth);
+
+		// wait for user
+		cv::waitKey(0);
+		
+	} else {
+		// save to file
+		cv::imwrite(out_depth_filename, shown_depth);
+		std::cout << "saved to " << out_depth_filename << std::endl;
 	}
 }

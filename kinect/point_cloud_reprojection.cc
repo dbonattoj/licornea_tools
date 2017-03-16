@@ -79,6 +79,7 @@ int main(int argc, const char* argv[]) {
 		auto cameras = cameras_map(read_cameras_file(in_cameras_filename));
 		Eigen_mat4 in_extrinsic = cameras.at(in_camera_name).extrinsic;
 		Eigen_mat4 out_extrinsic = cameras.at(out_camera_name).extrinsic;
+		std::swap(in_extrinsic, out_extrinsic);
 		transformation = Eigen_affine3(out_extrinsic) * Eigen_affine3(in_extrinsic).inverse();
 	}
 	

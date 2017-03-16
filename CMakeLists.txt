@@ -23,7 +23,7 @@ target_link_libraries(common_lib ${OpenCV_LIBRARIES})
 add_library(fmt_lib STATIC "external/fmt/format.cc")
 
 set(CMAKE_SKIP_BUILD_RPATH FALSE)
-set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib/")
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 

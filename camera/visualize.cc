@@ -61,7 +61,7 @@ int main(int argc, const char* argv[]) {
 		};
 		
 	} else {
-		Eigen_vec3 sz(1.5, 1.0, 0.5);
+		Eigen_vec3 sz(1.0, 1.0, 0.5);
 		vertices = {
 			Eigen_vec3(-sz[0], +sz[1], +sz[2]),
 			Eigen_vec3(+sz[0], +sz[1], +sz[2]),
