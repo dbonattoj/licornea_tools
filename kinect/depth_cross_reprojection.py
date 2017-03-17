@@ -20,21 +20,22 @@ def call_tool(tool, args):
 
 
 def usage_fail():
-	print("usage: {} parameters.json output.png output_mask.png x_out_idx x_in_idx [y_out_idx y_in_idx]\n".format(sys.argv[0]))
+	print("usage: {} parameters.json output.png output_mask.png method x_out_idx x_in_idx [y_out_idx y_in_idx]\n".format(sys.argv[0]))
 	sys.exit(1)
 
 
 if __name__ == '__main__':
-	if len(sys.argv) <= 5: usage_fail()
+	if len(sys.argv) <= 6: usage_fail()
 	parameters_filename = sys.argv[1]
 	output_filename = sys.argv[2]
 	output_mask_filename = sys.argv[3]
-	x_out_idx = int(sys.argv[4])
-	x_in_idx = int(sys.argv[5])
+	method = sys.argv[4]
+	x_out_idx = int(sys.argv[5])
+	x_in_idx = int(sys.argv[6])
 	y_out_idx = None
 	y_in_idx = None
-	if len(sys.argv) > 6:y_out_idx = int(sys.argv[6])
-	if len(sys.argv) > 7: y_in_idx = int(sys.argv[7])
+	if len(sys.argv) > 7:y_out_idx = int(sys.argv[7])
+	if len(sys.argv) > 8: y_in_idx = int(sys.argv[8])
 	else: y_in_idx = y_out_idx;
 
 	with open(parameters_filename) as f:
@@ -77,6 +78,7 @@ if __name__ == '__main__':
 		output_filename,
 		output_mask_filename,
 		intrinsics_filename,
+		method,
 		os.path.join(os.path.dirname(parameters_filename), arrangement["cameras_filename"]),
 		in_camera_name,
 		out_camera_name

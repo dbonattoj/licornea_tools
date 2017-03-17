@@ -17,10 +17,20 @@ json import_json_file(const std::string& filename) {
 }
 
 
-cv::Mat_<double> decode_mat(const json& j) {
+cv::Mat_<double> decode_mat_cv(const json& j) {
 	int rows = j.size();
 	int cols = j[0].size();
 	cv::Mat_<double> mat(rows, cols);
+	for(int row = 0; row < rows; ++row) for(int col = 0; col < cols; ++col)
+		mat(row, col) = j[row][col].get<double>();
+	return mat;
+}
+
+
+Eigen::MatrixXd decode_mat(const json& j) {
+	int rows = j.size();
+	int cols = j[0].size();
+	Eigen::MatrixXd mat(rows, cols);
 	for(int row = 0; row < rows; ++row) for(int col = 0; col < cols; ++col)
 		mat(row, col) = j[row][col].get<double>();
 	return mat;

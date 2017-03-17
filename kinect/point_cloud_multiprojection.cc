@@ -8,7 +8,7 @@
 #include "lib/kinect_intrinsics.h"
 #include "lib/common.h"
 #include "lib/depth_io.h"
-#include "lib/densify/depth_densify.h"
+#include "lib/depth_densify.h"
 #include <cstdlib>
 #include <iostream>
 #include <vector>
@@ -16,7 +16,7 @@
 #include <fstream>
 #include <string>
 #include <cmath>
-
+/*
 using namespace tlz;
 
 void do_point_cloud_reprojection(
@@ -24,8 +24,7 @@ void do_point_cloud_reprojection(
 	cv::Mat_<ushort>& out,
 	cv::Mat_<uchar>& out_mask,
 	const Eigen_mat3& camera_mat,
-	const Eigen_affine3& transformation,
-	const std::string& method
+	const Eigen_affine3& transformation
 ) {
 	std::vector<Eigen_vec3> samples;
 	for(const point_xyz& pt : in_pc) {
@@ -37,31 +36,21 @@ void do_point_cloud_reprojection(
 	}
 
 	cv::Mat_<float> densify_out(texture_height, texture_width);
-	make_depth_densify(method)->densify(samples, densify_out, out_mask);
+	depth_densify(samples, densify_out, out_mask);
 	out = densify_out;
 }
 
 [[noreturn]] void usage_fail() {
-	std::cout << "usage: point_cloud_reprojection input_point_cloud.ply output.png output_mask.png intrinsics.json method [cameras.json in_camera out_camera]" << std::endl;
+	std::cout << "usage: point_cloud_multiprojection input_config.json output.png output_mask.png intrinsics.json" << std::endl;
 	std::exit(EXIT_FAILURE);
 }
 
 int main(int argc, const char* argv[]) {
-	if(argc <= 5) usage_fail();
-	std::string input_point_cloud_filename = argv[1];
+	if(argc <= 4) usage_fail();
+	std::string input_config_filename = argv[1];
 	std::string output_filename = argv[2];
 	std::string output_mask_filename = argv[3];
 	std::string intrinsics_filename = argv[4];
-	std::string method = argv[5];
-	std::string in_cameras_filename;
-	std::string in_camera_name;
-	std::string out_camera_name;
-	if(argc > 6) {
-		if(argc <= 8) usage_fail();
-		in_cameras_filename = argv[6];
-		in_camera_name = argv[7];
-		out_camera_name = argv[8];
-	}
 	
 	std::cout << "reading intrinsics" << std::endl;
 	kinect_intrinsic_parameters intrinsics;
@@ -73,6 +62,9 @@ int main(int argc, const char* argv[]) {
 		intrinsics.color.fx, 0.0, intrinsics.color.cx,
 		0.0, intrinsics.color.fy, intrinsics.color.cy,
 		0.0, 0.0, 1.0;
+
+	std::cout << "reading multiprojection config" << std::endl;
+	
 
 
 	Eigen_affine3 transformation = Eigen_affine3::Identity();
@@ -94,10 +86,10 @@ int main(int argc, const char* argv[]) {
 	}
 		
 
-	std::cout << "doing point cloud to depth projection" << std::endl;
+	std::cout << "preforming point cloud to depth projection" << std::endl;
 	cv::Mat_<ushort> out_depth(texture_height, texture_width);
 	cv::Mat_<uchar> out_mask(texture_height, texture_width);
-	do_point_cloud_reprojection(input_point_cloud, out_depth, out_mask, camera_mat, transformation, method);
+	do_point_cloud_reprojection(input_point_cloud, out_depth, out_mask, camera_mat, transformation);
 	
 	std::cout << "saving output depth map+mask" << std::endl;
 	cv::flip(out_depth, out_depth, 1);
@@ -107,3 +99,5 @@ int main(int argc, const char* argv[]) {
 	
 	std::cout << "done" << std::endl;
 }
+
+*/

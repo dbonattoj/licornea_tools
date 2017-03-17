@@ -47,7 +47,7 @@ int main(int argc, const char* argv[]) {
 		images_points.push_back(image_points);
 	}
 	
-	cv::Mat_<double> intrinsic = decode_mat(import_json_file(in_intrinsic_filename));
+	cv::Mat_<double> intrinsic = decode_mat_cv(import_json_file(in_intrinsic_filename));
 	
 	cv::Mat_<double> distortion(5, 1);
 		

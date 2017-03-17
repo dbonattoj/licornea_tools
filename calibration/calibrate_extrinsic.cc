@@ -33,7 +33,7 @@ int main(int argc, const char* argv[]) {
 		image_points.push_back(cor.image_coordinates);
 	}
 
-	cv::Mat_<double> intrinsic = decode_mat(import_json_file(in_intrinsic_filename));
+	cv::Mat_<double> intrinsic = decode_mat_cv(import_json_file(in_intrinsic_filename));
 	
 	bool use_guess = false;
 	cv::Vec3d rotation_vec, translation_vec;
@@ -42,7 +42,7 @@ int main(int argc, const char* argv[]) {
 		std::cout << "using extrinsic guess" << std::endl;
 		use_guess = true;
 		cv::Mat_<double> rotation_mat(3, 3);
-		cv::Mat_<double> extrinsic = decode_mat(import_json_file(in_extrinsic_filename));
+		cv::Mat_<double> extrinsic = decode_mat_cv(import_json_file(in_extrinsic_filename));
 		for(int i = 0; i < 3; ++i) for(int j = 0; j < 3; ++j) rotation_mat(i, j) = extrinsic(i, j);
 		for(int i = 0; i < 3; ++i) translation_vec[i] = extrinsic(i, 3);
 		cv::Rodrigues(rotation_mat, rotation_vec);

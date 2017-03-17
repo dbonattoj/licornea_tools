@@ -5,4 +5,5 @@
 /external/freenect2/*
 /libfreenect2
 /bin/
+/.idea/
 *.pyc

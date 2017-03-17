@@ -50,13 +50,23 @@ std::vector<point_xyz> generate_point_cloud_from_ir(const cv::Mat_<ushort>& in, 
 
 std::vector<point_xyz> generate_point_cloud_from_color(const cv::Mat_<ushort>& in, const kinect_intrinsic_parameters& intrinsics) {
 	using namespace libfreenect2;
-	
+		
+	Registration reg(intrinsics.ir, intrinsics.color);
+		
+	cv::Mat_<float> depth_mat(depth_height, depth_width, CV_32FC1);
+	in.convertTo(depth_mat, CV_32FC1);
+	Frame depth_frame(depth_width, depth_height, 4, depth_mat.data);
+
+	cv::Mat_<float> depth_undistorted(depth_height, depth_width, CV_32FC1);
+	Frame depth_undistorted_frame(depth_width, depth_height, 4, depth_undistorted.data);
+
+	reg.undistortDepth(&depth_frame, &depth_undistorted_frame);
+
 	std::vector<point_xyz> points;
 	points.reserve(depth_width * depth_height);
 
-	Registration reg(intrinsics.ir, intrinsics.color);
 	for(int dy = 0; dy < depth_height; ++dy) for(int dx = 0; dx < depth_width; ++dx) {
-		ushort dz = in(dy, dx);
+		ushort dz = depth_undistorted(dy, dx);
 		if(dz == 0) continue;
 						
 		float cx, cy;

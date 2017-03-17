@@ -23,8 +23,8 @@ int main(int argc, const char* argv[]) {
 	
 	cv::Mat in_image = cv::imread(in_image_filename);
 	cv::Mat out_image;
-	cv::Mat_<double> intrinsic = decode_mat(import_json_file(in_intrinsic_filename));
-	cv::Mat_<double> distortion = decode_mat(import_json_file(in_distortion_filename));
+	cv::Mat_<double> intrinsic = decode_mat_cv(import_json_file(in_intrinsic_filename));
+	cv::Mat_<double> distortion = decode_mat_cv(import_json_file(in_distortion_filename));
 	
 	cv::undistort(in_image, out_image, intrinsic, distortion);
 	

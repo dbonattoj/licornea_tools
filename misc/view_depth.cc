@@ -54,9 +54,9 @@ int main(int argc, const char* argv[]) {
 	depth = cv::imread(depth_filename, CV_LOAD_IMAGE_ANYDEPTH);
 	is16bit = (depth.depth() == CV_16U);
 
-	// scale if too large
+	// scale if too large (not when saving to file)
 	int max_cols = 1000;
-	if(depth.cols > max_cols) {
+	if(out_depth_filename.empty() && depth.cols > max_cols) {
 		int new_cols = max_cols;
 		int new_rows = new_cols * depth.rows / depth.cols;
 		cv::resize(depth, depth, cv::Size(new_cols, new_rows));
