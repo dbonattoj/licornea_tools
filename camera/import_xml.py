@@ -19,16 +19,22 @@ root = xml.etree.ElementTree.parse(xml_filename).getroot()
 
 output_array = []
 
+index = -1
 for camera in root.findall('Camera'):
+	index = index + 1
 	camera_name = camera.find('name').text
 	K_str = camera.find('K').text
 	Rt_str = camera.find('Rt').text
 	
-	K = re.findall(r'-?[0-9.]+', K_str)
+	K = re.findall(r'-?[0-9.]+', K_str)	
+	Rt = re.findall(r'-?[0-9.]+', Rt_str)
+
+	if len(K) != 3*3 or len(Rt) != 3*4:
+		print "skipping entry {} (no K or Rt matrix)".format(index)
+		continue
+
 	assert(len(K) == 3*3)
 	K = [float(x) for x in K]
-	
-	Rt = re.findall(r'-?[0-9.]+', Rt_str)
 	assert(len(Rt) == 3*4)
 	Rt = [float(x) for x in Rt]
 

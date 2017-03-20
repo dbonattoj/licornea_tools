@@ -119,6 +119,7 @@ install(
 install(
 	PROGRAMS
 		"kinect/make_vsrs_data.py"
+		"kinect/make_vsrs_data_simulate.py"
 		"kinect/depth_cross_reprojection.py"
 		"kinect/collect_col.py"
 		"kinect/multiprojection_window.py"

@@ -17,7 +17,9 @@ using namespace tlz;
 	std::cout << "            flip_t: flip sign of translation vectors\n";
 	std::cout << "            scale old new: adapt intrinsic matrix for image scale from old to new\n";
 	std::cout << "                           (old/new = pixel length of same segment in old and new image)\n";
-	std::cout << "            rename cam_{} [offset=0] [factor=1]: rename according to format, with new_index = offset + factor*old_index\n";
+	std::cout << "            rename cam_{} [offset=0] [factor=1]: rename according to format, with arg = offset + factor*index\n";
+	std::cout << "            head n: Only n first cameras\n";
+	std::cout << "            tail n: Only n last cameras\n";
 	std::cout << "            nop: No change, just reformat the cameras file\n";
 	std::cout << std::endl;
 	std::exit(1);
@@ -25,17 +27,22 @@ using namespace tlz;
 
 int main(int argc, const char* argv[]) {
 	if(argc <= 3) usage_fail();
-	std::string in_cameras = argv[1];
-	std::string out_cameras = argv[2];
+	std::string in_cameras_filename = argv[1];
+	std::string out_cameras_filename = argv[2];
 	std::string operation = argv[3];
 		
-	std::ifstream input(in_cameras.c_str());
+	std::ifstream input(in_cameras_filename.c_str());
 	input.exceptions(std::ios_base::badbit);	
-	auto cameras = read_cameras_file(in_cameras);
+	std::vector<camera> in_cameras = read_cameras_file(in_cameras_filename);
+	std::vector<camera> out_cameras;
 	input.close();
 
 	int index = 0;
-	for(camera& cam : cameras) {
+	bool skip = false;
+	
+	for(camera& in_cam : in_cameras) {
+		camera cam = in_cam;
+		
 		if(operation == "Rt2MPEG") {
 			cam.translation() = -(cam.rotation().inverse() * cam.translation());
 			
@@ -66,21 +73,40 @@ int main(int argc, const char* argv[]) {
 			std::cout << cam.name << " --> " << new_name << std::endl;
 			cam.name = new_name;
 			
+		} else if(operation == "head") {
+			if(argc <= 4) usage_fail();
+			int n = std::atoi(argv[4]);
+			skip = (index >= n);
+			
+		} else if(operation == "tail") {
+			if(argc <= 4) usage_fail();
+			int n = std::atoi(argv[4]);
+			skip = (index < in_cameras.size() - n);
+			
+		} else if(operation == "_band2") {
+			int row = 101 + (index / 851);
+			int col = 1 + (index % 851);
+			std::string new_name = fmt::format("cam_{0}{1:04d}", row, col);
+			cam.name = new_name;
+			
 		} else if(operation == "nop") {
 			// no change
+			
 		} else {
 			usage_fail();
 		}
 		++index;
+		
+		if(! skip) out_cameras.push_back(cam);
 	}
-	
-	if(out_cameras == "none") {
+		
+	if(out_cameras_filename == "none") {
 		std::cout << "not writing to output" << std::endl;
 	} else {
-		if(out_cameras == "replace") out_cameras = in_cameras;
-		std::cout << "writing to " << out_cameras << std::endl;
-		std::ofstream output(out_cameras.c_str());
-		write_cameras_file(out_cameras, cameras);
+		if(out_cameras_filename == "replace") out_cameras_filename = in_cameras_filename;
+		std::cout << "writing to " << out_cameras_filename << std::endl;
+		std::ofstream output(out_cameras_filename.c_str());
+		write_cameras_file(out_cameras_filename, out_cameras);
 		output.close();
 	}
 	

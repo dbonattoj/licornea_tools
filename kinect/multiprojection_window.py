@@ -33,11 +33,15 @@ if __name__ == '__main__':
 		parameters = json.load(f)
 	arrangement = parameters["arrangement"]
 	raw_arrangement = arrangement["kinect_raw"]
+	
+	if (len(arrangement["x_index_range"]) == 3): raise Exception("strided range not supported")
 
 	mprojs = []
 
 	if "y_index_range" in arrangement:
 		if y_out_idx is None: raise Exception("for 2D set, y_index must be specified")
+		
+		if (len(arrangement["y_index_range"]) == 3): raise Exception("strided range not supported")
 				
 		x_in_min_idx = clamp(arrangement["x_index_range"][0], x_out_idx + center_x_idx_off - x_window_rad, arrangement["x_index_range"][1])
 		x_in_max_idx = clamp(arrangement["x_index_range"][0], x_out_idx + center_x_idx_off + x_window_rad, arrangement["x_index_range"][1])

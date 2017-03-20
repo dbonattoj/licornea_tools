@@ -26,15 +26,17 @@ def main(vsrs_binary_filename, parameters_filename, left_idx, virtual_idx, right
 	import make_vsrs_config
 	make_vsrs_config.main(parameters_filename, cameras_filename, left_idx, virtual_idx, right_idx, output_virtual_filename, output_config_filename)
 
-	print "running VSRS...  virtual={} from left={} and right={}".format(virtual_idx, left_idx, right_idx)
+	#print "running VSRS...  virtual={} from left={} and right={}".format(virtual_idx, left_idx, right_idx)
 	try:
 		output = subprocess.check_output([vsrs_binary_filename, output_config_filename])
-	except CalledProcessError:
+	except subprocess.CalledProcessError as err:
+		print "VSRS failed on {}. Output:\n{}".format(virtual_idx, err.output)
+		raise Exception("VSRS failed")
+	
+	if not os.path.isfile(output_virtual_filename):
 		print "VSRS failed on {}. Output:\n{}".format(virtual_idx, output)
-		raise Exception("vsrs failed")
-	
-	print output
-	
+		raise Exception("VSRS failed")
+		
 	os.remove(output_config_filename)
 
 

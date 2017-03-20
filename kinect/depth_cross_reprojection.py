@@ -1,6 +1,6 @@
 #!/usr/local/bin/python
 
-import sys, os, json, subprocess
+import sys, os, json, subprocess, math
 
 tools_directory = "."
 intrinsics_filename = "../data/kinect_internal_intrinsics.json"
@@ -44,12 +44,12 @@ if __name__ == '__main__':
 	raw_arrangement = parameters["arrangement"]["kinect_raw"]
 
 	raw_x_in_idx = x_in_idx;
-	if "x_index_factor" in raw_arrangement: raw_x_in_idx = raw_x_in_idx * raw_arrangement["x_index_factor"]
+	if "x_index_factor" in raw_arrangement: raw_x_in_idx = math.trunc(raw_x_in_idx * raw_arrangement["x_index_factor"])
 	if "x_index_offset" in raw_arrangement: raw_x_in_idx = raw_x_in_idx + raw_arrangement["x_index_offset"]
 	
 	if y_out_idx is not None:
 		raw_y_in_idx = y_in_idx;
-		if "y_index_factor" in raw_arrangement: raw_y_in_idx = raw_y_in_idx * raw_arrangement["y_index_factor"]
+		if "y_index_factor" in raw_arrangement: raw_y_in_idx = math.trunc(raw_y_in_idx * raw_arrangement["y_index_factor"])
 		if "y_index_offset" in raw_arrangement: raw_y_in_idx = raw_y_in_idx + raw_arrangement["y_index_offset"]
 
 

@@ -33,7 +33,7 @@ void do_point_cloud_reprojection(
 		Eigen_vec3 im_pt = camera_mat * position;
 		im_pt /= im_pt[2];
 
-		samples.emplace_back(im_pt[0], im_pt[1], position[2]);
+		samples.emplace_back(im_pt[0], im_pt[1], pt.position()[2]);
 	}
 
 	cv::Mat_<float> densify_out(texture_height, texture_width);

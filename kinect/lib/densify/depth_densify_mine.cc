@@ -15,7 +15,7 @@ void depth_densify_mine::densify(const std::vector<Eigen_vec3>& orig_samples, cv
 	cv::Mat_<real> sparse(texture_height, texture_width);
 	sparse_mask.setTo(0);
 	
-	int shadow_width = 0;
+	int shadow_width = 3;
 	real shadow_min_depth_diff = 100.0;
 	for(const Eigen_vec3& sample : samples) {
 		int sx = sample[0], sy = sample[1];

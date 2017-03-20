@@ -1,6 +1,6 @@
 #!/usr/local/bin/python
 
-import sys, os, subprocess, json, time, threading
+import sys, os, subprocess, json, time, threading, math
 
 parallel = True
 parallel_jobs = 10
@@ -13,8 +13,12 @@ if parallel:
 
 
 def usage_fail():
-	print("usage: {} raw_data_directory output_directory parameters.json up/down\n".format(sys.argv[0]))
+	print("usage: {} parameters.json densify_method [cross_x_offset]\n".format(sys.argv[0]))
 	sys.exit(1)
+
+
+def clamp(minvalue, value, maxvalue):
+    return max(minvalue, min(value, maxvalue))
 
 
 def call_tool(tool, args):
@@ -25,23 +29,24 @@ def call_tool(tool, args):
 	else:
 		try:
 			subprocess.check_output(full_args)
-		except CalledProcessError as err:
+		except subprocess.CalledProcessError as err:
 			print "{} failed. output:\n{}".format(tool, err.output)
 			raise
 			
 
-if len(sys.argv) <= 4: usage_fail()
-raw_data_directory = sys.argv[1]
-output_directory = sys.argv[2]
-parameters_filename = sys.argv[3]
-mode = sys.argv[4];
-if mode != "up" and mode != "down": usage_fail()
+if len(sys.argv) <= 2: usage_fail()
+parameters_filename = sys.argv[1]
+densify_method = sys.argv[2];
+cross_x_offset = 0
+if len(sys.argv) > 3: cross_x_offset = int(sys.argv[3])
+
 
 with open(parameters_filename) as f:
 	parameters = json.load(f)
 arrangement = parameters["arrangement"]
 raw_arrangement = parameters["arrangement"]["kinect_raw"]
 
+cameras_filename = os.path.join(os.path.dirname(parameters_filename), arrangement["cameras_filename"])
 
 z_near = parameters["depth"]["z_near"]
 z_far = parameters["depth"]["z_far"]
@@ -65,91 +70,100 @@ def png2yuv(png, yuv):
 
 def process_view(x_index, y_index):	
 	if verbose: print "view x={}, y={}".format(x_index, y_index)
-		
-	raw_x_index = x_index;
-	if "x_index_factor" in raw_arrangement: raw_x_index = raw_x_index * raw_arrangement["x_index_factor"]
-	if "x_index_offset" in raw_arrangement: raw_x_index = raw_x_index + raw_arrangement["x_index_offset"]
-	
+			
 	if y_index is not None:
 		raw_y_index = y_index;
-		if "y_index_factor" in raw_arrangement: raw_y_index = raw_y_index * raw_arrangement["y_index_factor"]
+		if "y_index_factor" in raw_arrangement: raw_y_index = math.trunc(raw_y_index * raw_arrangement["y_index_factor"])
 		if "y_index_offset" in raw_arrangement: raw_y_index = raw_y_index + raw_arrangement["y_index_offset"]
 
+
+	x_out_index = x_index;
+	x_in_index = x_out_index + cross_x_offset
+	x_in_index = clamp(arrangement["x_index_range"][0], x_in_index, arrangement["x_index_range"][1])
+
+	raw_x_in_index = x_in_index;
+	if "x_index_factor" in raw_arrangement: raw_x_in_index = math.trunc(raw_x_in_index * raw_arrangement["x_index_factor"])
+	if "x_index_offset" in raw_arrangement: raw_x_in_index = raw_x_in_index + raw_arrangement["x_index_offset"]
+
+	raw_x_out_index = x_in_index;
+	if "x_index_factor" in raw_arrangement: raw_x_out_index = math.trunc(raw_x_out_index * raw_arrangement["x_index_factor"])
+	if "x_index_offset" in raw_arrangement: raw_x_out_index = raw_x_out_index + raw_arrangement["x_index_offset"]
+
 	def format_filename(filename):
-		if y_index is not None: return filename.format(x=x_index, y=y_index)
-		else: return filename.format(x=x_index)
+		if y_index is not None: return filename.format(x=x_out_index, y=y_index)
+		else: return filename.format(x=x_out_index)
 	def format_raw_filename(filename):
-		if y_index is not None: return filename.format(x=x_raw_index, y=y_raw_index)
-		else: return filename.format(x=raw_x_index)
+		if y_index is not None: return filename.format(x=raw_x_out_index, y=raw_y_index)
+		else: return filename.format(x=raw_x_out_index)
+	def format_raw_in_filename(filename):
+		if y_index is not None: return filename.format(x=raw_x_in_index, y=raw_y_index)
+		else: return filename.format(x=raw_x_in_index)
 	def format_tmp_filename(filename):
-		if y_index is not None: return filename.format(str(x_index) + "_" + str(ry_index))
-		else: return filename.format(x_index)
+		if y_index is not None: return filename.format(str(x_out_index) + "_" + str(y_index))
+		else: return filename.format(x_in_index)
 	
-	texture_filename = os.path.join(raw_data_directory, format_raw_filename(raw_arrangement["texture_filename_format"]))
-	depth_filename = os.path.join(raw_data_directory, format_raw_filename(raw_arrangement["depth_filename_format"]))
+	texture_filename = os.path.join(os.path.dirname(parameters_filename), format_raw_filename(raw_arrangement["texture_filename_format"]))
+	depth_filename = os.path.join(os.path.dirname(parameters_filename), format_raw_filename(raw_arrangement["depth_filename_format"]))
 
-	disparity_yuv_filename = os.path.join(output_directory, format_filename(arrangement["depth_filename_format"]))
-	texture_yuv_filename = os.path.join(output_directory, format_filename(arrangement["texture_filename_format"]))
+	disparity_yuv_filename = os.path.join(os.path.dirname(parameters_filename), format_filename(arrangement["depth_filename_format"]))
+	texture_yuv_filename = os.path.join(os.path.dirname(parameters_filename), format_filename(arrangement["texture_filename_format"]))
 
+	reprojected_depth_filename = os.path.join(os.path.dirname(parameters_filename), format_tmp_filename("reprojected_depth_{}.png"))	
+	point_cloud_filename = os.path.join(os.path.dirname(parameters_filename), format_tmp_filename("point_cloud_{}.ply"))
+	mask_filename = os.path.join(os.path.dirname(parameters_filename), format_tmp_filename("mask_{}.png"))
 
-	if mode == 'up':
-		reprojected_depth_filename = os.path.join(output_directory, format_tmp_filename("reprojected_depth_{}.png"))	
-		mask_filename = os.path.join(output_directory, format_tmp_filename("mask_{}.png"))
-
+	if x_in_index == x_out_index:
 		call_tool("kinect/depth_reprojection", [
 			depth_filename,
 			reprojected_depth_filename,
 			mask_filename,
 			intrinsics_filename,
-			"map"
+			densify_method
 		])
-
-		call_tool("kinect/vsrs_disparity", [
-			reprojected_depth_filename,
-			disparity_yuv_filename,
-			str(z_near),
-			str(z_far),
-			"8"
+	else:
+		in_depth_filename = os.path.join(os.path.dirname(parameters_filename), format_raw_in_filename(raw_arrangement["depth_filename_format"]))
+		
+		call_tool("kinect/depth_point_cloud", [
+			in_depth_filename,
+			point_cloud_filename,
+			intrinsics_filename,
+			"color"
 		])
-
-		if verbose: print "converting texture to yuv"
-		png2yuv(texture_filename, texture_yuv_filename)
-
-		# remove temporary files
-		os.remove(reprojected_depth_filename)
-		os.remove(mask_filename)
-
-	elif mode == 'down':
-		reprojected_depth_filename = os.path.join(output_directory, format_tmp_filename("reprojected_depth_{}.png"))
-		reprojected_texture_filename = os.path.join(output_directory, format_tmp_filename("reprojected_texture_{}.png"))	
-		mask_filename = os.path.join(output_directory, format_tmp_filename("mask_{}.png"))		
-
-		call_tool("kinect/texture_reprojection", [
-			depth_filename,
-			texture_filename,
+		
+		if y_index is not None:
+			in_camera_name = arrangement["camera_name_format"].format(x=x_in_index, y=y_index)
+			out_camera_name = arrangement["camera_name_format"].format(x=x_out_index, y=y_index)
+		else:
+			in_camera_name = arrangement["camera_name_format"].format(x=x_in_index)
+			out_camera_name = arrangement["camera_name_format"].format(x=x_out_index)
+		
+		call_tool("kinect/point_cloud_reprojection", [
+			point_cloud_filename,
 			reprojected_depth_filename,
-			reprojected_texture_filename,
 			mask_filename,
 			intrinsics_filename,
-			"3",
-			"telea"
+			densify_method,
+			cameras_filename,
+			in_camera_name,
+			out_camera_name
 		])
 
-		call_tool("kinect/vsrs_disparity", [
-			reprojected_depth_filename,
-			disparity_yuv_filename,
-			str(z_near),
-			str(z_far),
-			"8"
-		])
 
-		if verbose: print "converting reprojected texture to yuv"
-		png2yuv(reprojected_texture_filename, texture_yuv_filename)
+	call_tool("kinect/vsrs_disparity", [
+		reprojected_depth_filename,
+		disparity_yuv_filename,
+		str(z_near),
+		str(z_far),
+		"8"
+	])
 
-		# remove temporary files
-		os.remove(reprojected_depth_filename)
-		os.remove(reprojected_texture_filename)
-		os.remove(mask_filename)
+	if verbose: print "converting texture to yuv"
+	png2yuv(texture_filename, texture_yuv_filename)
+
+	# remove temporary files
+	if os.path.isfile(point_cloud_filename): os.remove(point_cloud_filename)
+	os.remove(reprojected_depth_filename)
+	os.remove(mask_filename)
 
 	global done_count_lock
 	global done_count
@@ -166,14 +180,15 @@ def process_view(x_index, y_index):
 		done_count_lock.release()
 
 
-
 if __name__ == '__main__':
-	x_index_range = range(arrangement["x_index_range"][0], arrangement["x_index_range"][1]+1)
-	total_count = arrangement["x_index_range"][1] - arrangement["x_index_range"][0] + 1
+	x_index_step = arrangement["x_index_range"][2] if len(arrangement["x_index_range"]) == 3 else 1 
+	x_index_range = range(arrangement["x_index_range"][0], arrangement["x_index_range"][1]+1, x_index_step)
+	total_count = (arrangement["x_index_range"][1] - arrangement["x_index_range"][0] + 1)//x_index_step
 
 	if "y_index_range" in arrangement:
-		y_index_range = range(arrangement["y_index_range"][0], arrangement["y_index_range"][1]+1)
-		total_count = total_count * (arrangement["y_index_range"][1] - arrangement["y_index_range"][0] + 1)
+		y_index_step = arrangement["y_index_range"][2] if len(arrangement["y_index_range"]) == 3 else 1 
+		y_index_range = range(arrangement["y_index_range"][0], arrangement["y_index_range"][1]+1, y_index_step)
+		total_count = total_count * (arrangement["y_index_range"][1] - arrangement["y_index_range"][0] + 1)//y_index_step
 		indices = [(x, y) for y in y_index_range for x in x_index_range]	
 	else:
 		indices = [(x, None) for x in x_index_range]	
@@ -182,7 +197,8 @@ if __name__ == '__main__':
 	start_time = time.time()
 	
 	if not parallel:
-		for xy in indices: process_view(*xy)
+		for xy in indices:
+			process_view(*xy)
 	else:
 		Parallel(n_jobs=parallel_jobs, backend="threading")(delayed(process_view)(*xy) for xy in indices)
 		# need threading backend because of shared 'done_count' variable
