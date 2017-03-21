@@ -4,7 +4,7 @@ import sys, os, json, math
 
 
 def usage_fail():
-	print("usage: {} parameters.json [cross_x_offset]\n".format(sys.argv[0]))
+	print("usage: {} parameters.json [nocameras]\n".format(sys.argv[0]))
 	sys.exit(1)
 
 
@@ -14,16 +14,31 @@ def clamp(minvalue, value, maxvalue):
 
 if len(sys.argv) <= 1: usage_fail()
 parameters_filename = sys.argv[1]
-cross_x_offset = 0
-if len(sys.argv) > 2: cross_x_offset = int(sys.argv[2])
+nocameras = False
+if len(sys.argv) > 2: nocameras = (sys.argv[2] == "nocameras")
 
+cross_x_offset = 0
 
 with open(parameters_filename) as f:
 	parameters = json.load(f)
 arrangement = parameters["arrangement"]
 raw_arrangement = parameters["arrangement"]["kinect_raw"]
 
-cameras_filename = os.path.join(os.path.dirname(parameters_filename), arrangement["cameras_filename"])
+camera_names = None
+if not nocameras:
+	cameras_filename = os.path.join(os.path.dirname(parameters_filename), arrangement["cameras_filename"])
+	with open(cameras_filename) as f:
+		cameras = json.load(f)
+		
+	camera_names = set()
+	for cam in cameras:
+		camera_names.add(cam["name"])
+
+
+def camera_exists(name):
+	return (camera_names is None) or (name in camera_names)
+
+errors = list()
 
 def process_view(x_index, y_index):	
 	if y_index is not None:
@@ -74,7 +89,12 @@ def process_view(x_index, y_index):
 		disparity_yuv_filename,
 		in_camera_name
 	)
-
+	
+	if not os.path.isfile(texture_filename): errors.append("texture {} does not exist".format(texture_filename))
+	elif os.path.getsize(texture_filename) == 0: errors.append("texture {} is empty file".format(texture_filename))
+	if not os.path.isfile(depth_filename): errors.append("depth {} does not exist".format(depth_filename))
+	elif os.path.isfile(depth_filename) == 0: errors.append("depth {} is empty file".format(depth_filename))
+	if not camera_exists(in_camera_name): errors.append("camera {} does not exist".format(in_camera_name))
 
 if __name__ == '__main__':
 	x_index_step = arrangement["x_index_range"][2] if len(arrangement["x_index_range"]) == 3 else 1 
@@ -91,3 +111,6 @@ if __name__ == '__main__':
 	
 	for xy in indices: process_view(*xy)
 	
+	print "{} errors".format(len(errors))
+	for err in errors:
+		print "- {}".format(err)

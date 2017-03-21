@@ -46,7 +46,7 @@ void depth_densify_mine::densify(const std::vector<Eigen_vec3>& orig_samples, cv
 	return;
 	*/
 	
-	int rad = 6;
+	int rad = 5;
 	int rad_sq = rad*rad;
 
 	for(int px = 0; px < texture_width; ++px)
@@ -67,7 +67,7 @@ void depth_densify_mine::densify(const std::vector<Eigen_vec3>& orig_samples, cv
 		
 		int samples_count = 0;
 		
-		int accept_dist = 4;
+		int accept_dist = 3;
 		
 		int min_x = std::max(px - rad, 0), max_x = std::min(px + rad, (int)texture_width-1);
 		int min_y = std::max(py - rad, 0), max_y = std::min(py + rad, (int)texture_height-1);
