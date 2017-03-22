@@ -3,6 +3,7 @@
 #include <string>
 #include <cstdlib>
 #include <format.h>
+#include <regex>
 
 #include "../lib/eigen.h"
 #include "../lib/camera.h"
@@ -20,6 +21,7 @@ using namespace tlz;
 	std::cout << "            rename cam_{} [offset=0] [factor=1]: rename according to format, with arg = offset + factor*index\n";
 	std::cout << "            head n: Only n first cameras\n";
 	std::cout << "            tail n: Only n last cameras\n";
+	std::cout << "            filter regex: Only cameras whose name matches regex\n";
 	std::cout << "            nop: No change, just reformat the cameras file\n";
 	std::cout << std::endl;
 	std::exit(1);
@@ -83,12 +85,9 @@ int main(int argc, const char* argv[]) {
 			int n = std::atoi(argv[4]);
 			skip = (index < in_cameras.size() - n);
 			
-		} else if(operation == "_band2") {
-			int row = 101 + (index / 851);
-			int col = 1 + (index % 851);
-			std::string new_name = fmt::format("cam_{0}{1:04d}", row, col);
-			cam.name = new_name;
-			
+		} else if(operation == "filter") {
+			// TODO
+
 		} else if(operation == "nop") {
 			// no change
 			

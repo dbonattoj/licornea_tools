@@ -112,6 +112,8 @@ def process_view(x_index, y_index):
 	point_cloud_filename = os.path.join(os.path.dirname(parameters_filename), format_tmp_filename("point_cloud_{}.ply"))
 	mask_filename = os.path.join(os.path.dirname(parameters_filename), format_tmp_filename("mask_{}.png"))
 
+	if os.path.isfile(disparity_yuv_filename): return
+
 	if x_in_index == x_out_index:
 		call_tool("kinect/depth_reprojection", [
 			depth_filename,
@@ -157,8 +159,8 @@ def process_view(x_index, y_index):
 		"8"
 	])
 
-	if verbose: print "converting texture to yuv"
-	png2yuv(texture_filename, texture_yuv_filename)
+	#if verbose: print "converting texture to yuv"
+	#png2yuv(texture_filename, texture_yuv_filename)
 
 	# remove temporary files
 	if os.path.isfile(point_cloud_filename): os.remove(point_cloud_filename)

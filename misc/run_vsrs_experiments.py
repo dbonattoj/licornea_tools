@@ -4,7 +4,7 @@ import sys, os, json, subprocess, time, threading
 import run_vsrs
 
 tools_directory = "."
-parallel = True
+parallel = False
 parallel_jobs = 8
 
 total_count = None
@@ -80,8 +80,10 @@ if __name__ == '__main__':
 	start_time = time.time()
 
 	if not parallel:
-		results = [run(ex, out_virtual_dirname) for ex in experiments]
+		for ex in experiments:
+			run(ex, out_virtual_dirname)
+			break
 	else:
-		results = Parallel(n_jobs=parallel_jobs, backend="threading")(delayed(run)(ex, out_virtual_dirname) for ex in experiments)
+		Parallel(n_jobs=parallel_jobs, backend="threading")(delayed(run)(ex, out_virtual_dirname) for ex in experiments)
 
 	print "done."

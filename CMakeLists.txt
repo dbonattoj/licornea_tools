@@ -122,6 +122,7 @@ install(
 		"kinect/make_vsrs_data_simulate.py"
 		"kinect/depth_cross_reprojection.py"
 		"kinect/collect_col.py"
+		"kinect/collect_fig8.py"
 		"kinect/multiprojection_window.py"
 	DESTINATION kinect
 )

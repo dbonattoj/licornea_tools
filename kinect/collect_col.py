@@ -5,14 +5,13 @@ from shutil import copyfile
 
 if __name__ == '__main__':
 	def usage_fail():
-		print("usage: {} parameters.json raw_data_directory x_idx out_directory\n".format(sys.argv[0]))
+		print("usage: {} parameters.json x_idx out_directory\n".format(sys.argv[0]))
 		sys.exit(1)
 
-	if len(sys.argv) <= 4: usage_fail()
+	if len(sys.argv) <= 3: usage_fail()
 	parameters_filename = sys.argv[1]
-	raw_data_directory = sys.argv[2]
-	x_index = int(sys.argv[3])
-	output_directory = sys.argv[4]
+	x_index = int(sys.argv[2])
+	output_directory = sys.argv[3]
 		
 	with open(parameters_filename) as f:
 		parameters = json.load(f)
@@ -31,7 +30,7 @@ if __name__ == '__main__':
 		if "y_index_factor" in raw_arrangement: raw_y_index = math.trunc(raw_y_index * raw_arrangement["y_index_factor"])
 		if "y_index_offset" in raw_arrangement: raw_y_index = raw_y_index + raw_arrangement["y_index_offset"]
 
-		texture_filename = os.path.join(raw_data_directory, raw_arrangement["texture_filename_format"].format(x=raw_x_index, y=raw_y_index))
+		texture_filename = os.path.join(os.path.dirname(parameters_filename), raw_arrangement["texture_filename_format"].format(x=raw_x_index, y=raw_y_index))
 		texture_copy_filename = os.path.join(output_directory, "{:04d}.png".format(y_index))
 
 		copyfile(texture_filename, texture_copy_filename)

@@ -54,6 +54,17 @@ def main(parameters_filename, cameras_filename, left_idx, virtual_idx, right_idx
 	virtual_cam_idx = to_cam(virtual_idx)
 	right_cam_idx = to_cam(right_idx)
 
+	texture_left_filename = os.path.dirname(parameters_filename), parameters["arrangement"]["texture_filename_format"].format(x=left_idx)
+	texture_right_filename = os.path.dirname(parameters_filename), parameters["arrangement"]["texture_filename_format"].format(x=right_idx)
+	depth_left_filename = os.path.dirname(parameters_filename), parameters["arrangement"]["depth_filename_format"].format(x=left_idx)
+	depth_right_filename = os.path.dirname(parameters_filename), parameters["arrangement"]["depth_filename_format"].format(x=right_idx)
+
+	assert(os.path.isfile(cameras_filename))
+	assert(os.path.isfile(texture_left_filename))
+	assert(os.path.isfile(texture_right_filename))
+	assert(os.path.isfile(depth_left_filename))
+	assert(os.path.isfile(depth_right_filename))
+
 	config = config_tmp.format(
 		width=parameters["texture"]["width"],
 		height=parameters["texture"]["height"],
@@ -63,10 +74,10 @@ def main(parameters_filename, cameras_filename, left_idx, virtual_idx, right_idx
 		cam_left=parameters["arrangement"]["camera_name_format"].format(x=left_cam_idx),
 		cam_virtual=parameters["arrangement"]["camera_name_format"].format(x=virtual_cam_idx),
 		cam_right=parameters["arrangement"]["camera_name_format"].format(x=right_cam_idx),
-		texture_left=os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["texture_filename_format"].format(x=left_idx)),
-		texture_right=os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["texture_filename_format"].format(x=right_idx)),
-		depth_left=os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["depth_filename_format"].format(x=left_idx)),
-		depth_right=os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["depth_filename_format"].format(x=right_idx)),
+		texture_left=texture_left_filename,
+		texture_right=texture_right_filename,
+		depth_left=depth_left_filename,
+		depth_right=depth_right_filename,
 		output=output_virtual_filename
 	)
 
