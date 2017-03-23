@@ -4,7 +4,7 @@ import sys, os, json, subprocess, time, threading
 import run_vsrs
 
 tools_directory = "."
-parallel = False
+parallel = True
 parallel_jobs = 8
 
 total_count = None
@@ -41,6 +41,7 @@ def run(experiment, out_virtual_dirname):
 		os.remove(virtual_yuv_filename)
 	except:
 		print "{} failed".format(this_cam)
+		raise
 		
 		
 	global done_count_lock
@@ -82,7 +83,6 @@ if __name__ == '__main__':
 	if not parallel:
 		for ex in experiments:
 			run(ex, out_virtual_dirname)
-			break
 	else:
 		Parallel(n_jobs=parallel_jobs, backend="threading")(delayed(run)(ex, out_virtual_dirname) for ex in experiments)
 

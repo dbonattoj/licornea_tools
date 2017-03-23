@@ -8,6 +8,9 @@ tools_directory = "."
 intrinsics_filename = "../data/kinect_internal_intrinsics.json"
 verbose = False
 
+make_yuv_texture = True
+make_yuv_disparity = False
+
 if parallel:
 	from joblib import Parallel, delayed
 
@@ -112,60 +115,62 @@ def process_view(x_index, y_index):
 	point_cloud_filename = os.path.join(os.path.dirname(parameters_filename), format_tmp_filename("point_cloud_{}.ply"))
 	mask_filename = os.path.join(os.path.dirname(parameters_filename), format_tmp_filename("mask_{}.png"))
 
-	if os.path.isfile(disparity_yuv_filename): return
-
-	if x_in_index == x_out_index:
-		call_tool("kinect/depth_reprojection", [
-			depth_filename,
-			reprojected_depth_filename,
-			mask_filename,
-			intrinsics_filename,
-			densify_method
-		])
-	else:
-		in_depth_filename = os.path.join(os.path.dirname(parameters_filename), format_raw_in_filename(raw_arrangement["depth_filename_format"]))
-		
-		call_tool("kinect/depth_point_cloud", [
-			in_depth_filename,
-			point_cloud_filename,
-			intrinsics_filename,
-			"color"
-		])
-		
-		if y_index is not None:
-			in_camera_name = arrangement["camera_name_format"].format(x=x_in_index, y=y_index)
-			out_camera_name = arrangement["camera_name_format"].format(x=x_out_index, y=y_index)
+	if make_yuv_disparity and not os.path.isfile(disparity_yuv_filename):
+		if x_in_index == x_out_index:
+			call_tool("kinect/depth_reprojection", [
+				depth_filename,
+				reprojected_depth_filename,
+				mask_filename,
+				intrinsics_filename,
+				densify_method
+			])
 		else:
-			in_camera_name = arrangement["camera_name_format"].format(x=x_in_index)
-			out_camera_name = arrangement["camera_name_format"].format(x=x_out_index)
-		
-		call_tool("kinect/point_cloud_reprojection", [
-			point_cloud_filename,
+			in_depth_filename = os.path.join(os.path.dirname(parameters_filename), format_raw_in_filename(raw_arrangement["depth_filename_format"]))
+			
+			call_tool("kinect/depth_point_cloud", [
+				in_depth_filename,
+				point_cloud_filename,
+				intrinsics_filename,
+				"color"
+			])
+			
+			if y_index is not None:
+				in_camera_name = arrangement["camera_name_format"].format(x=x_in_index, y=y_index)
+				out_camera_name = arrangement["camera_name_format"].format(x=x_out_index, y=y_index)
+			else:
+				in_camera_name = arrangement["camera_name_format"].format(x=x_in_index)
+				out_camera_name = arrangement["camera_name_format"].format(x=x_out_index)
+			
+			call_tool("kinect/point_cloud_reprojection", [
+				point_cloud_filename,
+				reprojected_depth_filename,
+				mask_filename,
+				intrinsics_filename,
+				densify_method,
+				cameras_filename,
+				in_camera_name,
+				out_camera_name
+			])
+	
+	
+		call_tool("kinect/vsrs_disparity", [
 			reprojected_depth_filename,
-			mask_filename,
-			intrinsics_filename,
-			densify_method,
-			cameras_filename,
-			in_camera_name,
-			out_camera_name
+			disparity_yuv_filename,
+			str(z_near),
+			str(z_far),
+			"8"
 		])
 
+		# remove temporary files
+		if os.path.isfile(point_cloud_filename): os.remove(point_cloud_filename)
+		os.remove(reprojected_depth_filename)
+		os.remove(mask_filename)
 
-	call_tool("kinect/vsrs_disparity", [
-		reprojected_depth_filename,
-		disparity_yuv_filename,
-		str(z_near),
-		str(z_far),
-		"8"
-	])
 
-	#if verbose: print "converting texture to yuv"
-	#png2yuv(texture_filename, texture_yuv_filename)
 
-	# remove temporary files
-	if os.path.isfile(point_cloud_filename): os.remove(point_cloud_filename)
-	os.remove(reprojected_depth_filename)
-	os.remove(mask_filename)
+	if make_yuv_texture and not os.path.isfile(texture_yuv_filename):
+		if verbose: print "converting texture to yuv"
+		png2yuv(texture_filename, texture_yuv_filename)
 
 	global done_count_lock
 	global done_count

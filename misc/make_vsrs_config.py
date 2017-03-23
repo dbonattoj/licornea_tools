@@ -54,10 +54,10 @@ def main(parameters_filename, cameras_filename, left_idx, virtual_idx, right_idx
 	virtual_cam_idx = to_cam(virtual_idx)
 	right_cam_idx = to_cam(right_idx)
 
-	texture_left_filename = os.path.dirname(parameters_filename), parameters["arrangement"]["texture_filename_format"].format(x=left_idx)
-	texture_right_filename = os.path.dirname(parameters_filename), parameters["arrangement"]["texture_filename_format"].format(x=right_idx)
-	depth_left_filename = os.path.dirname(parameters_filename), parameters["arrangement"]["depth_filename_format"].format(x=left_idx)
-	depth_right_filename = os.path.dirname(parameters_filename), parameters["arrangement"]["depth_filename_format"].format(x=right_idx)
+	texture_left_filename = os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["texture_filename_format"].format(x=left_idx))
+	texture_right_filename = os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["texture_filename_format"].format(x=right_idx))
+	depth_left_filename = os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["depth_filename_format"].format(x=left_idx))
+	depth_right_filename = os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["depth_filename_format"].format(x=right_idx))
 
 	assert(os.path.isfile(cameras_filename))
 	assert(os.path.isfile(texture_left_filename))
