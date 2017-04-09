@@ -1,5 +1,4 @@
 #include <opencv2/opencv.hpp>
-#include <json.hpp>
 #include <iostream>
 #include <fstream>
 #include <string>

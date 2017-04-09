@@ -72,6 +72,10 @@ auto make_ndarray_opaque_frame(const Frame_format& frm, const Allocator& allocat
 }
 
 
+template<std::size_t Dim, typename Frame_format, typename Allocator>
+struct is_ndarray_opaque_view<ndarray_opaque<Dim, Frame_format, Allocator>> : std::true_type {};
+
+
 }
 
 #include "ndarray_opaque.tcc"

@@ -2,26 +2,26 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" buildAllGenerated="true">
     <generated>
-      <config projectName="licornea_tools" targetName="point_cloud_reprojection" />
-      <config projectName="licornea_tools" targetName="undistort" />
-      <config projectName="licornea_tools" targetName="calibration_lib" />
-      <config projectName="licornea_tools" targetName="depth_reprojection" />
-      <config projectName="licornea_tools" targetName="fmt_lib" />
-      <config projectName="licornea_tools" targetName="find_chessboard" />
-      <config projectName="licornea_tools" targetName="transform" />
-      <config projectName="licornea_tools" targetName="color_point_cloud" />
       <config projectName="licornea_tools" targetName="common_lib" />
       <config projectName="licornea_tools" targetName="calibrate_extrinsic" />
-      <config projectName="licornea_tools" targetName="kinect_lib" />
-      <config projectName="licornea_tools" targetName="texture_reprojection" />
-      <config projectName="licornea_tools" targetName="depth_point_cloud" />
-      <config projectName="licornea_tools" targetName="import_mpeg" />
-      <config projectName="licornea_tools" targetName="psnr" />
-      <config projectName="licornea_tools" targetName="calibrate_distortion" />
-      <config projectName="licornea_tools" targetName="export_mpeg" />
-      <config projectName="licornea_tools" targetName="view_depth" />
+      <config projectName="licornea_tools" targetName="undistort" />
+      <config projectName="licornea_tools" targetName="fmt_lib" />
       <config projectName="licornea_tools" targetName="fetch_intrinsics" />
+      <config projectName="licornea_tools" targetName="export_mpeg" />
+      <config projectName="licornea_tools" targetName="calibrate_distortion" />
+      <config projectName="licornea_tools" targetName="find_chessboard" />
+      <config projectName="licornea_tools" targetName="texture_reprojection" />
+      <config projectName="licornea_tools" targetName="point_cloud_reprojection" />
+      <config projectName="licornea_tools" targetName="depth_point_cloud" />
+      <config projectName="licornea_tools" targetName="color_point_cloud" />
+      <config projectName="licornea_tools" targetName="view_depth" />
+      <config projectName="licornea_tools" targetName="transform" />
+      <config projectName="licornea_tools" targetName="calibration_lib" />
+      <config projectName="licornea_tools" targetName="kinect_lib" />
+      <config projectName="licornea_tools" targetName="psnr" />
       <config projectName="licornea_tools" targetName="vsrs_disparity" />
+      <config projectName="licornea_tools" targetName="import_mpeg" />
+      <config projectName="licornea_tools" targetName="depth_reprojection" />
       <config projectName="licornea_tools" targetName="visualize" />
     </generated>
   </component>
@@ -32,23 +32,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="49fb0e8b-6367-4fbd-adc5-efd602f318b4" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/external/freenect2/include/libfreenect2/config.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/external/freenect2/include/libfreenect2/export.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/external/freenect2/include/libfreenect2/frame_listener.hpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/external/freenect2/include/libfreenect2/frame_listener_impl.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/external/freenect2/include/libfreenect2/libfreenect2.hpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/external/freenect2/include/libfreenect2/logger.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/external/freenect2/include/libfreenect2/packet_pipeline.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/external/freenect2/include/libfreenect2/registration.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/external/freenect2/lib/cmake/freenect2/freenect2Config.cmake" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/external/freenect2/lib/pkgconfig/freenect2.pc" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kinect/depth_cross_reprojection.py" afterPath="$PROJECT_DIR$/kinect/depth_cross_reprojection.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kinect/lib/depth_densify.cc" afterPath="$PROJECT_DIR$/kinect/lib/depth_densify.cc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kinect/lib/depth_densify.h" afterPath="$PROJECT_DIR$/kinect/lib/depth_densify.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kinect/make_vsrs_data.py" afterPath="$PROJECT_DIR$/kinect/make_vsrs_data.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kinect/point_cloud_reprojection.cc" afterPath="$PROJECT_DIR$/kinect/point_cloud_reprojection.cc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/camera.tcc" afterPath="$PROJECT_DIR$/lib/camera.tcc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/misc/view_depth.cc" afterPath="$PROJECT_DIR$/misc/view_depth.cc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mpeg_0317/import_xml_bands.sh" afterPath="$PROJECT_DIR$/mpeg_0317/import_xml_bands.sh" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -67,7 +51,7 @@
       <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="106">
+            <state relative-caret-position="316">
               <caret line="98" column="0" lean-forward="true" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
               <folding />
             </state>
@@ -289,15 +273,16 @@
       <updated>1489670061415</updated>
       <workItem from="1489670083181" duration="160000" />
       <workItem from="1489670289331" duration="109000" />
+      <workItem from="1490366334216" duration="10000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="269000" />
+    <option name="totallyTimeSpent" value="279000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1969" y="24" width="1871" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18432432" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -334,17 +319,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/kinect/collect_col.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
           <caret line="16" column="29" lean-forward="false" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
+        <state relative-caret-position="316">
           <caret line="98" column="0" lean-forward="true" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
           <folding />
         </state>

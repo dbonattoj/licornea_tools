@@ -16,9 +16,11 @@
 
 #include "pod_array_format.h"
 
+#include "ndarray_traits.h"
 #include "ndarray_view.h"
 #include "ndarray_iterator.h"
 #include "ndarray_view_cast.h"
+#include "ndarray_view_operations.h"
 
 #if TFF_ND_WITH_WRAPAROUND
 	#include "ndarray_wraparound_view.h"
@@ -36,6 +38,7 @@
 #endif
 
 #if TFF_ND_WITH_OPAQUE
+	#include "opaque/ndarray_opaque_traits.h"
 	#include "detail/ndarray_opaque_view_wrapper.h"
 	#include "opaque/ndarray_opaque_view_cast.h"
 	#if TFF_ND_WITH_WRAPAROUND
@@ -44,8 +47,10 @@
 	#endif
 	#if TFF_ND_WITH_TIMED
 		#include "opaque/ndarray_timed_opaque_view.h"
+		#include "opaque/ndarray_timed_opaque_view_cast.h"
 		#if TFF_ND_WITH_WRAPAROUND
 			#include "opaque/ndarray_timed_wraparound_opaque_view.h"
+			#include "opaque/ndarray_timed_wraparound_opaque_view_cast.h"
 		#endif
 	#endif
 	#if TFF_ND_WITH_ALLOCATION

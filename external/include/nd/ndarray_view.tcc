@@ -2,6 +2,8 @@
 #include <algorithm>
 #include <type_traits>
 #include "common.h"
+#include "detail/ndarray_initializer_helper.h"
+#include <iostream>
 
 namespace tff {
 
@@ -110,48 +112,45 @@ void ndarray_view<Dim, T>::reset(const ndarray_view& other) {
 
 template<std::size_t Dim, typename T> template<typename Other_view>
 auto ndarray_view<Dim, T>::assign(const Other_view& other) const -> enable_if_convertible_<Other_view> {
-	// converting assignment
-	Assert_crit(shape() == other.shape(), "ndarray_view must have same shape for assignment");
-	if(shape().product() == 0) return;
-	std::copy(other.begin(), other.end(), begin());
+	static_assert(! std::is_const<value_type>::value, "cannot assign to const ndarray_view");
+	
+	using elem_type = std::remove_cv_t<value_type>;
+	using other_elem_type = std::remove_cv_t<typename Other_view::value_type>;
+	if(std::is_same<elem_type, other_elem_type>::value && has_pod_format() && other.has_pod_format() && pod_format() == other.pod_format()) {
+		// optimize when possible
+		pod_array_copy(static_cast<void*>(start()), static_cast<const void*>(other.start()), pod_format());
+	} else {
+		Assert_crit(shape() == other.shape(), "ndarray_view must have same shape for assignment");
+		if(shape().product() == 0) return;
+		std::copy(other.begin(), other.end(), begin());
+	}
 }
 
 
 template<std::size_t Dim, typename T>
-void ndarray_view<Dim, T>::assign(const ndarray_view<Dim, const T>& other) const {
-	// assignment without conversion
-	
-	Assert_crit(shape() == other.shape(), "ndarray_view must have same shape for assignment");
-	if(shape().product() == 0) return;
-		
-	if(std::is_pod<T>::value && strides() == other.strides() && has_default_strides()) {
-		// optimize when possible
-		const pod_array_format& frm = pod_format(*this);
-		Assert_crit(frm == pod_format(other));
-		pod_array_copy(static_cast<void*>(start()), static_cast<const void*>(other.start()), frm);
-	} else {
-		std::copy(other.begin(), other.end(), begin());
-	}
+void ndarray_view<Dim, T>::assign(initializer_list_type init) const {
+	Assert(initializer_helper_type::is_valid(init), "initializer_list must be valid");
+	Assert(initializer_helper_type::shape(init) == shape(), "initializer_list to assign from has different shape");
+	initializer_helper_type::copy_into(init, *this);
+}
+
+
+template<std::size_t Dim, typename T>
+void ndarray_view<Dim, T>::fill(const value_type& val) const {
+	static_assert(! std::is_const<value_type>::value, "cannot assign to const ndarray_view");
+	std::fill(begin(), end(), val);
 }
 
 
 template<std::size_t Dim, typename T> template<typename Other_view>
 auto ndarray_view<Dim, T>::compare(const Other_view& other) const -> enable_if_convertible_<Other_view, bool> {
 	if(shape() != other.shape()) return false;
-	else return std::equal(other.begin(), other.end(), begin());
-}
+	//else if(same(*this, other)) return true;
 
-
-template<std::size_t Dim, typename T>
-bool ndarray_view<Dim, T>::compare(const ndarray_view<Dim, const T>& other) const {
-	if(shape() != other.shape()) return false;
-	else if(same(*this, other)) return true;
-
-	if(std::is_pod<T>::value && strides() == other.strides() && has_default_strides()) {
-		const pod_array_format& frm = pod_format(*this);
-		Assert_crit(frm == pod_format(other));
-		return pod_array_compare
-			(static_cast<const void*>(start()), static_cast<const void*>(other.start()), frm);
+	using elem_type = std::remove_cv_t<value_type>;
+	using other_elem_type = std::remove_cv_t<typename Other_view::value_type>;
+	if(std::is_same<elem_type, other_elem_type>::value && has_pod_format() && other.has_pod_format() && pod_format() == other.pod_format()) {
+		return pod_array_compare(static_cast<const void*>(start()), static_cast<const void*>(other.start()), pod_format());
 	} else {
 		return std::equal(other.begin(), other.end(), begin());
 	}
@@ -172,32 +171,6 @@ auto ndarray_view<Dim, T>::at(const coordinates_type& coord) const -> reference 
 	coordinates_type real_coord;
 	for(std::ptrdiff_t i = 0; i < Dim; ++i) real_coord[i] = fix_coordinate_(coord[i], i);
 	return *coordinates_to_pointer(real_coord);
-}
-
-
-template<std::size_t Dim, typename T>
-std::ptrdiff_t ndarray_view<Dim, T>::contiguous_length() const {
-	std::ptrdiff_t i;
-	std::ptrdiff_t contiguous_len = shape_.back();
-	for(i = Dim - 1; i > 0; i--) {
-		if(strides_[i - 1] == shape_[i] * strides_[i]) contiguous_len *= shape_[i - 1];
-		else break;
-	}
-	return contiguous_len;
-}
-
-
-template<std::size_t Dim, typename T>
-inline auto ndarray_view<Dim, T>::begin() const -> iterator {
-	return iterator(*this, 0, start_);
-}
-
-
-template<std::size_t Dim, typename T>
-auto ndarray_view<Dim, T>::end() const -> iterator {
-	index_type end_index = shape().product();
-	coordinates_type end_coord = index_to_coordinates(end_index);
-	return iterator(*this, end_index, coordinates_to_pointer(end_coord));
 }
 
 
@@ -255,45 +228,28 @@ auto ndarray_view<Dim, T>::slice(std::ptrdiff_t c, std::ptrdiff_t dimension) con
 
 
 template<std::size_t Dim, typename T>
-ndarray_view<1 + Dim, T> add_front_axis(const ndarray_view<Dim, T>& vw) {
-	auto new_shape = ndcoord_cat(1, vw.shape());
-	auto new_strides = ndcoord_cat(0, vw.strides());
-	return ndarray_view<1 + Dim, T>(vw.start(), new_shape, new_strides);
+std::ptrdiff_t ndarray_view<Dim, T>::contiguous_length() const {
+	std::ptrdiff_t i;
+	std::ptrdiff_t contiguous_len = shape_.back();
+	for(i = Dim - 1; i > 0; i--) {
+		if(strides_[i - 1] == shape_[i] * strides_[i]) contiguous_len *= shape_[i - 1];
+		else break;
+	}
+	return contiguous_len;
 }
 
 
 template<std::size_t Dim, typename T>
-ndarray_view<Dim + 1, T> add_front_axis(const ndarray_view<Dim, T>& vw) {
-	auto new_shape = ndcoord_cat(vw.shape(), 1);
-	auto new_strides = ndcoord_cat(vw.strides(), 0);
-	return ndarray_view<Dim + 1, T>(vw.start(), new_shape, new_strides);
+inline auto ndarray_view<Dim, T>::begin() const -> iterator {
+	return iterator(*this, 0, start_);
 }
 
 
 template<std::size_t Dim, typename T>
-ndarray_view<Dim, T> swapaxis(const ndarray_view<Dim, T>& vw, std::ptrdiff_t axis1, std::ptrdiff_t axis2) {
-	Assert_crit(axis1 >= 0 && axis1 < vw.dimension());
-	Assert_crit(axis2 >= 0 && axis2 < vw.dimension());
-	auto new_strides = vw.strides();
-	auto new_shape = vw.shape();
-	std::swap(new_strides[axis1], new_strides[axis2]);
-	std::swap(new_shape[axis1], new_shape[axis2]);
-	return ndarray_view<Dim, T>(vw.start(), new_shape, new_strides);
-}
-
-
-template<std::size_t Dim, typename T, std::size_t New_dim>
-ndarray_view<New_dim, T> reshape(const ndarray_view<Dim, T>& vw, const ndsize<New_dim>& new_shape) {
-	Assert_crit(vw.strides() == vw.default_strides(vw.shape()), "can reshape only with default strides");
-	Assert_crit(new_shape.product() == vw.shape().product(), "new shape must have same product");
-	return ndarray_view<New_dim, T>(vw.start(), new_shape);
-}
-
-
-template<std::size_t Dim, typename T>
-ndarray_view<1, T> flatten(const ndarray_view<Dim, T>& vw) {
-	auto new_shape = make_ndsize(vw.shape().product());
-	return reshape(vw, new_shape);
+auto ndarray_view<Dim, T>::end() const -> iterator {
+	index_type end_index = shape().product();
+	coordinates_type end_coord = index_to_coordinates(end_index);
+	return iterator(*this, end_index, coordinates_to_pointer(end_coord));
 }
 
 

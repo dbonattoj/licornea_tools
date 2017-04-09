@@ -3,6 +3,7 @@
 
 #include <type_traits>
 #include <utility>
+#include <iterator>
 #include "common.h"
 #include "ndcoord.h"
 #include "ndspan.h"
@@ -24,6 +25,8 @@ namespace detail {
 	T& get_subscript(const ndarray_view<1, T>& array, std::ptrdiff_t c) {
 		return array.at({c});
 	}
+
+	template<std::size_t Dim, typename Elem> struct ndarray_initializer_helper;
 }
 
 
@@ -73,6 +76,10 @@ public:
 	using span_type = ndspan<Dim>;
 	
 	using iterator = ndarray_iterator<ndarray_view<Dim, T>>;
+	using reverse_iterator = ndarray_iterator<ndarray_view<Dim, T>>;
+
+	using initializer_helper_type = typename detail::ndarray_initializer_helper<Dim, std::remove_const_t<T>>;
+	using initializer_list_type = typename initializer_helper_type::initializer_list_type;
 	
 protected:
 	pointer start_;
@@ -153,12 +160,13 @@ public:
 	template<typename Other_view>
 	enable_if_convertible_<Other_view> assign(const Other_view&) const;
 	
-	void assign(const ndarray_view<Dim, const T>& other) const;
-
-	template<typename Arg> const ndarray_view& operator=(Arg&& arg) const
-		{ assign(std::forward<Arg>(arg)); return *this; }
-	const ndarray_view& operator=(const ndarray_view& other) const
-		{ assign(other); return *this; }
+	void assign(initializer_list_type) const;
+	
+	template<typename Arg> const ndarray_view& operator=(Arg&& arg) const { assign(std::forward<Arg>(arg)); return *this; }
+	const ndarray_view& operator=(const ndarray_view& other) const { assign(other); return *this; }
+	const ndarray_view& operator=(initializer_list_type init) const { assign(init); return *this; }
+	
+	void fill(const value_type&) const;
 	///@}
 
 
@@ -167,9 +175,8 @@ public:
 	///@{
 	template<typename Other_view>
 	enable_if_convertible_<Other_view, bool> compare(const Other_view&) const;
+	// TODO initializer list compare
 	
-	bool compare(const ndarray_view<Dim, const T>& other) const;
-		
 	template<typename Arg> bool operator==(Arg&& arg) const { return compare(std::forward<Arg>(arg)); }
 	template<typename Arg> bool operator!=(Arg&& arg) const { return ! compare(std::forward<Arg>(arg)); }
 	///@}
@@ -184,6 +191,8 @@ public:
 		
 	iterator begin() const;
 	iterator end() const;
+	reverse_iterator rbegin() const { return reverse_all(*this).begin(); }
+	reverse_iterator rend() const { return reverse_all(*this).end(); }
 	///@}
 
 
@@ -234,6 +243,33 @@ public:
 		return *this;
 	}
 	///@}
+	
+	
+	/// \name POD format
+	///@{
+	template<std::size_t Tail_dim>
+	bool tail_has_pod_format() const {
+		using elem_type = std::remove_cv_t<value_type>;
+		return std::is_pod<elem_type>::value && has_default_strides(Dim - Tail_dim);
+	}
+
+	bool has_pod_format() const {
+		return tail_has_pod_format<Dim>();
+	}
+
+	template<std::size_t Tail_dim>
+	pod_array_format tail_pod_format() const {
+		using elem_type = std::remove_cv_t<value_type>;
+		Assert(tail_has_pod_format<Tail_dim>());
+		std::size_t count = tail<Tail_dim>(shape()).product();
+		std::size_t stride = strides().back();
+		return make_pod_array_format<elem_type>(count, stride);
+	}
+	
+	pod_array_format pod_format() const {
+		return tail_pod_format<Dim>();
+	}
+	///@}
 };
 
 
@@ -244,73 +280,6 @@ struct is_ndarray_view<ndarray_view<Dim, T>> : std::true_type {};
 
 template<std::size_t Dim, typename T1, typename T2>
 bool same(const ndarray_view<Dim, T1>&, const ndarray_view<Dim, T2>&);
-
-
-template<typename T>
-ndarray_view<2, T> flip(const ndarray_view<2, T>& vw) { return swapaxis(vw, 0, 1); }
-
-template<std::size_t Dim, typename T>
-ndarray_view<1 + Dim, T> add_front_axis(const ndarray_view<Dim, T>&);
-
-template<std::size_t Dim, typename T>
-ndarray_view<Dim + 1, T> add_back_axis(const ndarray_view<Dim, T>&);
-
-template<std::size_t Dim, typename T>
-ndarray_view<Dim, T> swapaxis(const ndarray_view<Dim, T>&, std::ptrdiff_t axis1, std::ptrdiff_t axis2);
-
-
-template<std::size_t Dim, typename T, std::size_t New_dim>
-ndarray_view<New_dim, T> reshape(const ndarray_view<Dim, T>&, const ndsize<New_dim>&);
-
-
-template<std::size_t Dim, typename T>
-ndarray_view<1, T> flatten(const ndarray_view<Dim, T>&);
-
-
-template<std::size_t Dim, typename T>
-ndarray_view<Dim, T> step(const ndarray_view<Dim, T>& vw, std::ptrdiff_t axis, std::ptrdiff_t step) {
-	return vw.axis_section(axis, 0, vw.shape()[axis], step);
-}
-
-template<typename T>
-ndarray_view<1, T> step(const ndarray_view<1, T>& vw, std::ptrdiff_t step) {
-	return vw.axis_section(0, 0, vw.shape()[0], step);
-}
-
-template<std::size_t Dim, typename T>
-ndarray_view<Dim, T> reverse(const ndarray_view<Dim, T>& vw, std::ptrdiff_t axis = 0) {
-	return step(vw, axis, -1);
-}
-
-
-
-///////////////
-
-
-template<std::size_t Tail_dim, std::size_t Dim, typename Elem>
-bool tail_has_pod_format(const ndarray_view<Dim, Elem>& vw) {
-	return std::is_pod<Elem>::value && vw.has_default_strides(Dim - Tail_dim);
-}
-
-template<std::size_t Dim, typename Elem>
-bool has_pod_format(const ndarray_view<Dim, Elem>& vw) {
-	return tail_has_pod_format<Dim>(vw);
-}
-
-
-template<std::size_t Tail_dim, std::size_t Dim, typename Elem>
-pod_array_format tail_pod_format(const ndarray_view<Dim, Elem>& vw) {
-	Assert(tail_has_pod_format<Tail_dim>(vw));
-	std::size_t count = tail<Tail_dim>(vw.shape()).product();
-	std::size_t stride = vw.strides().back();
-	return make_pod_array_format<Elem>(count, stride);
-}
-
-
-template<std::size_t Dim, typename Elem>
-pod_array_format pod_format(const ndarray_view<Dim, Elem>& vw) {
-	return tail_pod_format<Dim>(vw);
-}
 
 
 }

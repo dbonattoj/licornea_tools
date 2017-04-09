@@ -9,9 +9,9 @@ LeftFarthestDepthValue         1600             # Farthest depth value of left i
 RightNearestDepthValue         600              # Nearest depth value of right image from camera or the origin of 3D space
 RightFarthestDepthValue        1600             # Farthest depth value of right image from camera or the origin of 3D space
 CameraParameterFile            tmp/cams.txt         # Name of text file which includes real and virtual camera parameters
-LeftCameraName                 para_cam349               # Name of real left camera
-VirtualCameraName              para_cam399             # Name of virtual camera
-RightCameraName                para_cam449               # Name of real right camera
+LeftCameraName                 cam_01840350               # Name of real left camera
+VirtualCameraName              cam_01840400             # Name of virtual camera
+RightCameraName                cam_01840450               # Name of real right camera
 LeftViewImageName              tmp/tex1.yuv                 # Name of left input video
 RightViewImageName             tmp/tex2.yuv                 # Name of right input video
 LeftDepthMapName               tmp/disp1.yuv           # Name of left depth map video

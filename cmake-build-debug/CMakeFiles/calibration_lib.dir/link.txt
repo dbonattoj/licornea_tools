@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcalibration_lib.a  CMakeFiles/calibration_lib.dir/calibration/lib/calibration_correspondence.cc.o CMakeFiles/calibration_lib.dir/calibration/lib/chessboard.cc.o
+/usr/bin/ranlib libcalibration_lib.a

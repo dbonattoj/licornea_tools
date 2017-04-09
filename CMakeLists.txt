@@ -17,10 +17,9 @@ add_compile_options(-Wall -Wextra -Wno-sign-compare)
 
 file(GLOB_RECURSE COMMON_LIB_SRC "lib/*.cc")
 
-add_library(common_lib SHARED ${COMMON_LIB_SRC})
+add_library(common_lib SHARED ${COMMON_LIB_SRC} "external/fmt/format.cc")
 target_link_libraries(common_lib ${OpenCV_LIBRARIES})
 
-add_library(fmt_lib STATIC "external/fmt/format.cc")
 
 set(CMAKE_SKIP_BUILD_RPATH FALSE)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
@@ -54,8 +53,11 @@ target_link_libraries(undistort common_lib calibration_lib)
 add_executable(calibrate_extrinsic "calibration/calibrate_extrinsic.cc")
 target_link_libraries(calibrate_extrinsic common_lib calibration_lib)
 
+add_executable(optical_flow "calibration/optical_flow.cc")
+target_link_libraries(optical_flow common_lib calibration_lib)
+
 install(
-	TARGETS find_chessboard calibrate_distortion undistort calibrate_extrinsic
+	TARGETS find_chessboard calibrate_distortion undistort calibrate_extrinsic optical_flow
 	DESTINATION calibration
 )
 
@@ -68,7 +70,7 @@ add_executable(import_mpeg "camera/import_mpeg.cc")
 target_link_libraries(import_mpeg common_lib)
 
 add_executable(transform "camera/transform.cc")
-target_link_libraries(transform common_lib fmt_lib)
+target_link_libraries(transform common_lib)
 
 add_executable(visualize "camera/visualize.cc")
 target_link_libraries(visualize common_lib)
@@ -103,8 +105,8 @@ target_link_libraries(depth_point_cloud common_lib kinect_lib freenect2)
 add_executable(depth_reprojection "kinect/depth_reprojection.cc")
 target_link_libraries(depth_reprojection common_lib kinect_lib freenect2)
 
-add_executable(texture_reprojection "kinect/texture_reprojection.cc")
-target_link_libraries(texture_reprojection common_lib kinect_lib freenect2)
+add_executable(color_reprojection "kinect/color_reprojection.cc")
+target_link_libraries(color_reprojection common_lib kinect_lib freenect2)
 
 add_executable(point_cloud_reprojection "kinect/point_cloud_reprojection.cc")
 target_link_libraries(point_cloud_reprojection common_lib kinect_lib freenect2)
@@ -112,8 +114,11 @@ target_link_libraries(point_cloud_reprojection common_lib kinect_lib freenect2)
 add_executable(vsrs_disparity "kinect/vsrs_disparity.cc")
 target_link_libraries(vsrs_disparity common_lib kinect_lib)
 
+#add_executable(dual_reprojection "kinect/dual_reprojection.cc")
+#target_link_libraries(dual_reprojection common_lib kinect_lib)
+
 install(
-	TARGETS fetch_intrinsics color_point_cloud depth_point_cloud depth_reprojection texture_reprojection point_cloud_reprojection vsrs_disparity
+	TARGETS fetch_intrinsics color_point_cloud depth_point_cloud depth_reprojection color_reprojection point_cloud_reprojection vsrs_disparity #dual_reprojection
 	DESTINATION kinect
 )
 install(

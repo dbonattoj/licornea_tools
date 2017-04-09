@@ -1,0 +1,1432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="licornea_tools"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\share\;CMake Files\..\..\..\..\usr\share\OpenCV\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/local">
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="undistort">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/undistort" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 undistort"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="undistort/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/undistort" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 undistort/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="calibrate_distortion">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/calibrate_distortion" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 calibrate_distortion"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="calibrate_distortion/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/calibrate_distortion" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 calibrate_distortion/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="find_chessboard">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/find_chessboard" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 find_chessboard"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="find_chessboard/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/find_chessboard" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 find_chessboard/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="transform">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/transform" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 transform"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="transform/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/transform" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 transform/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="calibrate_extrinsic">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/calibrate_extrinsic" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 calibrate_extrinsic"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="calibrate_extrinsic/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/calibrate_extrinsic" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 calibrate_extrinsic/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="calibration_lib">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/libcalibration_lib.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 calibration_lib"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="calibration_lib/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/libcalibration_lib.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 calibration_lib/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="kinect_lib">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/libkinect_lib.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 kinect_lib"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="kinect_lib/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/libkinect_lib.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 kinect_lib/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="export_mpeg">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/export_mpeg" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 export_mpeg"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="export_mpeg/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/export_mpeg" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 export_mpeg/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="fmt_lib">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/libfmt_lib.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 fmt_lib"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="fmt_lib/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/libfmt_lib.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 fmt_lib/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="fetch_intrinsics">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/fetch_intrinsics" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 fetch_intrinsics"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="fetch_intrinsics/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/fetch_intrinsics" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 fetch_intrinsics/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="import_mpeg">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/import_mpeg" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 import_mpeg"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="import_mpeg/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/import_mpeg" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 import_mpeg/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="point_cloud_reprojection">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/point_cloud_reprojection" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 point_cloud_reprojection"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="point_cloud_reprojection/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/point_cloud_reprojection" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 point_cloud_reprojection/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="depth_point_cloud">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/depth_point_cloud" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 depth_point_cloud"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="depth_point_cloud/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/depth_point_cloud" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 depth_point_cloud/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="vsrs_disparity">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/vsrs_disparity" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 vsrs_disparity"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="vsrs_disparity/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/vsrs_disparity" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 vsrs_disparity/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="common_lib">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/libcommon_lib.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 common_lib"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="common_lib/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/libcommon_lib.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 common_lib/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="texture_reprojection">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/texture_reprojection" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 texture_reprojection"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="texture_reprojection/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/texture_reprojection" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 texture_reprojection/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="psnr">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/psnr" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 psnr"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="psnr/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/psnr" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 psnr/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="depth_reprojection">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/depth_reprojection" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 depth_reprojection"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="depth_reprojection/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/depth_reprojection" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 depth_reprojection/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="view_depth">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/view_depth" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 view_depth"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="view_depth/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/view_depth" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 view_depth/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="visualize">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/visualize" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 visualize"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="visualize/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/visualize" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 visualize/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="color_point_cloud">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/color_point_cloud" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 color_point_cloud"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="color_point_cloud/fast">
+				<Option output="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/color_point_cloud" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/opencv"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/include"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/fmt"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/mf"/>
+					<Add directory="/home/timlenertz/Desktop/licornea_tools/external/freenect2/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 color_point_cloud/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/strip">
+				<Option working_dir="/home/timlenertz/Desktop/licornea_tools/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/timlenertz/Desktop/licornea_tools/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/calibration/calibrate_distortion.cc">
+			<Option target="calibrate_distortion"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/calibration/calibrate_extrinsic.cc">
+			<Option target="calibrate_extrinsic"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/calibration/find_chessboard.cc">
+			<Option target="find_chessboard"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/calibration/lib/calibration_correspondence.cc">
+			<Option target="calibration_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/calibration/lib/calibration_correspondence.h">
+			<Option target="calibration_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/calibration/lib/chessboard.cc">
+			<Option target="calibration_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/calibration/lib/chessboard.h">
+			<Option target="calibration_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/calibration/undistort.cc">
+			<Option target="undistort"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/camera/export_mpeg.cc">
+			<Option target="export_mpeg"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/camera/import_mpeg.cc">
+			<Option target="import_mpeg"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/camera/transform.cc">
+			<Option target="transform"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/camera/visualize.cc">
+			<Option target="visualize"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/external/fmt/format.cc">
+			<Option target="fmt_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/external/fmt/format.h">
+			<Option target="fmt_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/color_point_cloud.cc">
+			<Option target="color_point_cloud"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/depth_point_cloud.cc">
+			<Option target="depth_point_cloud"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/depth_reprojection.cc">
+			<Option target="depth_reprojection"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/fetch_intrinsics.cc">
+			<Option target="fetch_intrinsics"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/lib/densify/depth_densify.cc">
+			<Option target="kinect_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/lib/densify/depth_densify.h">
+			<Option target="kinect_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/lib/densify/depth_densify_mine.cc">
+			<Option target="kinect_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/lib/densify/depth_densify_mine.h">
+			<Option target="kinect_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/lib/densify/depth_densify_splat.cc">
+			<Option target="kinect_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/lib/densify/depth_densify_splat.h">
+			<Option target="kinect_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/lib/depth_io.cc">
+			<Option target="kinect_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/lib/depth_io.h">
+			<Option target="kinect_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/lib/kinect_intrinsics.cc">
+			<Option target="kinect_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/lib/kinect_intrinsics.h">
+			<Option target="kinect_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/lib/multiprojection.cc">
+			<Option target="kinect_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/lib/multiprojection.h">
+			<Option target="kinect_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/lib/texture_io.cc">
+			<Option target="kinect_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/lib/texture_io.h">
+			<Option target="kinect_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/point_cloud_reprojection.cc">
+			<Option target="point_cloud_reprojection"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/texture_reprojection.cc">
+			<Option target="texture_reprojection"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/kinect/vsrs_disparity.cc">
+			<Option target="vsrs_disparity"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/lib/camera.cc">
+			<Option target="common_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/lib/camera.h">
+			<Option target="common_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/lib/camera_mpeg.cc">
+			<Option target="common_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/lib/camera_mpeg.h">
+			<Option target="common_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/lib/color.cc">
+			<Option target="common_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/lib/color.h">
+			<Option target="common_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/lib/json.cc">
+			<Option target="common_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/lib/json.h">
+			<Option target="common_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/lib/ply_exporter.cc">
+			<Option target="common_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/lib/ply_exporter.h">
+			<Option target="common_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/lib/ply_importer.cc">
+			<Option target="common_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/lib/ply_importer.h">
+			<Option target="common_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/lib/utility/io.cc">
+			<Option target="common_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/lib/utility/io.h">
+			<Option target="common_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/lib/utility/string.cc">
+			<Option target="common_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/lib/utility/string.h">
+			<Option target="common_lib"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/misc/psnr.cc">
+			<Option target="psnr"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/misc/view_depth.cc">
+			<Option target="view_depth"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/../../../../usr/share/OpenCV/OpenCVConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\share\OpenCV\"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/../../../../usr/share/OpenCV/OpenCVConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\share\OpenCV\"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/../../../../usr/share/OpenCV/OpenCVModules.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\share\OpenCV\"/>
+		</Unit>
+		<Unit filename="/home/timlenertz/Desktop/licornea_tools/../../../../usr/share/OpenCV/OpenCVModules-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\share\OpenCV\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
