@@ -1,13 +1,16 @@
 # Tools for 3DLicorneA
 
-## Camera tools
+## Calibration
+...
+
+## Camera
 * `export_mpeg`: Convert JSON format to DERS/VSRS camera file, having MPEG matrix convention.
 * `import_mpeg`: Convert DERS/VSRS camera file, having MPEG matrix convention to JSON format.
 * `import_xml`: Convert XML camera file to JSON format.
 * `transform`: Operations on extrinsic/intrinsic camera matrices.
 * `visualize`: Visualize camera poses from camera array. Outputs `.ply` file with 3D representations for cameras.
 
-## Kinect tools
+## Kinect
 * `collect_col`: Collect all images on one column, from raw data set.
 * `depth_point_cloud`: Reproject Kinect depth map into XYZ `.ply` point cloud, in color or IR camera view coordinate system.
 * `color_point_cloud`: Reproject Kinect depth map and texture into XYZRGB `.ply` point cloud.
