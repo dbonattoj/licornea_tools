@@ -43,7 +43,9 @@ public:
 	bool is_1d() const { return ! is_2d_; }
 	bool is_2d() const { return is_2d_; }
 	bool has_kinect_raw() const;
+	
 	const json& get_json() const { return json_; }
+	const std::string& dirname() const { return dirname_; }
 	
 	int x_min() const;
 	int x_step() const;

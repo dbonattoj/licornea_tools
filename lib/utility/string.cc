@@ -6,6 +6,12 @@
 
 namespace tlz {
 
+std::string file_name_extension(const std::string& filename) {
+	std::ptrdiff_t pos = filename.find_last_of('.');
+	if(pos == std::string::npos) return "";
+	else return filename.substr(pos + 1);
+}
+
 std::vector<std::string> explode(char separator, const std::string& str) {
 	std::vector<std::string> vec;
 	std::string::size_type last_pos = 0;

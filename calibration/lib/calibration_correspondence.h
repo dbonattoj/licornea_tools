@@ -7,6 +7,8 @@
 
 namespace tlz {
 
+// TODO rename into img2world or similar
+
 struct calibration_correspondence {
 	cv::Vec3f object_coordinates;
 	cv::Vec2f image_coordinates;

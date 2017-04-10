@@ -1,11 +1,23 @@
 #include "json.h"
+#include "utility/string.h"
 #include <fstream>
+#include <vector>
+#include <cstdint>
 
 namespace tlz {
 
 void export_json_file(const json& j, const std::string& filename) {
-	std::ofstream output(filename);
-	output << j.dump(4);
+	std::string ext = file_name_extension(filename);
+	if(ext == "json") {
+		std::ofstream output(filename);
+		output << j.dump(4);
+	} else if(ext == "cbor") {
+		std::vector<std::uint8_t> cbor_data = json::to_cbor(j);
+		std::ofstream output(filename, std::ios_base::out | std::ios_base::binary);
+		output.write(reinterpret_cast<const std::ofstream::char_type*>(cbor_data.data()), cbor_data.size());
+	} else {
+		throw std::runtime_error("unknown json filename extension");
+	}
 }
 
 

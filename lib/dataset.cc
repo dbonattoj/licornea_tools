@@ -6,6 +6,11 @@
 namespace tlz {
 
 dataset::dataset(const std::string& filename) {
+	std::size_t last_sep_pos = filename.find_last_of('/');
+	if(last_sep_pos == std::string::npos) dirname_ = "./";
+	else dirname_ = filename.substr(0, last_sep_pos + 1);
+	
+	
 	std::ifstream str(filename);
 	str >> json_;
 	is_2d_ = (json_["arrangement"].count("y_index_range") == 1);
@@ -103,28 +108,28 @@ int dataset_view::kinect_raw_y_() const {
 
 std::string dataset_view::yuv_texture_filename() const {
 	const std::string& format = dataset_.get_json()["arrangement"]["texture_filename_format"];
-	if(dataset_.is_2d()) return fmt::format(format, fmt::arg("x", x_), fmt::arg("y", y_));
-	else return fmt::format(format, fmt::arg("x", x_));		
+	if(dataset_.is_2d()) return dataset_.dirname() + fmt::format(format, fmt::arg("x", x_), fmt::arg("y", y_));
+	else return dataset_.dirname() + fmt::format(format, fmt::arg("x", x_));		
 }
 
 std::string dataset_view::yuv_depth_filename() const {
 	const std::string& format = dataset_.get_json()["arrangement"]["depth_filename_format"];
-	if(dataset_.is_2d()) return fmt::format(format, fmt::arg("x", x_), fmt::arg("y", y_));
-	else return fmt::format(format, fmt::arg("x", x_));		
+	if(dataset_.is_2d()) return dataset_.dirname() + fmt::format(format, fmt::arg("x", x_), fmt::arg("y", y_));
+	else return dataset_.dirname() + fmt::format(format, fmt::arg("x", x_));		
 }
 
 std::string dataset_view::raw_texture_filename() const {
 	if(! dataset_.has_kinect_raw()) throw std::logic_error("dataset must have kinect_raw");
 	const std::string& format = dataset_.get_json()["arrangement"]["kinect_raw"]["texture_filename_format"];
-	if(dataset_.is_2d()) return fmt::format(format, fmt::arg("x", kinect_raw_x_()), fmt::arg("y", kinect_raw_y_()));
-	else return fmt::format(format, fmt::arg("x", kinect_raw_x_()));		
+	if(dataset_.is_2d()) return dataset_.dirname() + fmt::format(format, fmt::arg("x", kinect_raw_x_()), fmt::arg("y", kinect_raw_y_()));
+	else return dataset_.dirname() + fmt::format(format, fmt::arg("x", kinect_raw_x_()));		
 }
 
 std::string dataset_view::raw_depth_filename() const {
 	if(! dataset_.has_kinect_raw()) throw std::logic_error("dataset must have kinect_raw");
 	const std::string& format = dataset_.get_json()["arrangement"]["kinect_raw"]["depth_filename_format"];
-	if(dataset_.is_2d()) return fmt::format(format, fmt::arg("x", kinect_raw_x_()), fmt::arg("y", kinect_raw_y_()));
-	else return fmt::format(format, fmt::arg("x", kinect_raw_x_()));
+	if(dataset_.is_2d()) return dataset_.dirname() + fmt::format(format, fmt::arg("x", kinect_raw_x_()), fmt::arg("y", kinect_raw_y_()));
+	else return dataset_.dirname() + fmt::format(format, fmt::arg("x", kinect_raw_x_()));
 }
 
 

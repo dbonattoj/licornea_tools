@@ -7,8 +7,6 @@
 namespace tlz {
 
 std::string file_name_extension(const std::string& filename);
-std::string replace_file_name_extension(const std::string& filename, const std::string& ext);
-std::string remove_file_name_extension(const std::string& filename);
 
 template<typename T> std::string to_string(const T&);
 template<typename T> T from_string(const std::string&);
