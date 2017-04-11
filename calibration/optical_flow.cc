@@ -3,9 +3,10 @@
 #include <fstream>
 #include <utility>
 #include <random>
+#include <vector>
 #include "../lib/json.h"
 #include "../lib/dataset.h"
-#include "lib/img2img_correspondence.h"
+#include "../lib/image_correspondence.h"
 
 using namespace tlz;
 
@@ -103,7 +104,7 @@ int main(int argc, const char* argv[]) {
 	cv::Mat_<uchar> img;
 	std::vector<cv::Point2f> points;
 	std::vector<uchar> status;
-	std::vector<img2img_correspondence> correspondences(points_count);
+	std::vector<image_correspondence_feature> correspondences(points_count);
 
 	auto flow_to = [&img, &points, &status, &set](int x) {
 		std::vector<cv::Point2f> new_points(points_count);
@@ -122,12 +123,11 @@ int main(int argc, const char* argv[]) {
 		status = new_status;
 	};
 		
-	
 	auto add_correspondences = [&correspondences, &points, points_count](int x) {
-		img2img_correspondence::view_index_type idx(x, -1);
+		image_correspondence_feature::view_index_type idx(x, -1);
 		for(std::ptrdiff_t pt = 0; pt < points_count; ++pt)
 			if(points[pt].x != 0 && points[pt].y != 0)
-				correspondences[pt].images_coordinates[idx] = points[pt];
+				correspondences[pt].points[idx] = Eigen_vec2(points[pt].x, points[pt].y);
 	};
 
 	std::cout << "optical flow by increasing x starting at mid_x..." << std::endl;
@@ -160,11 +160,11 @@ int main(int argc, const char* argv[]) {
 	export_trails_visualization(center_gray_img, x_decr_frames, "viz/trails-.png");
 
 
-	std::cout << "saving img2img correspondences" << std::endl;
+	std::cout << "saving image correspondences" << std::endl;
 	json j_cors = json::object();
 	for(std::ptrdiff_t pt = 0; pt < points_count; ++pt) {
 		std::string point_name = "pt" + std::to_string(pt);
-		j_cors[point_name] = encode_img2img_correspondence(correspondences[pt]);
+		j_cors[point_name] = encode_image_correspondence_feature(correspondences[pt]);
 	}
 	export_json_file(j_cors, out_cors_filename);
 }
