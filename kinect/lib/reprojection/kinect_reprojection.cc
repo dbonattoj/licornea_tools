@@ -1,4 +1,3 @@
-/*
 #include "kinect_reprojection.h"
 #include "../common.h"
 #include "../../../lib/utility/assert.h"
@@ -16,7 +15,7 @@ kinect_reprojection::kinect_reprojection(const kinect_intrinsic_parameters& intr
 	intrinsics_(intr) { }
 
 
-cv::Vec2f kinect_reprojection::distort_depth_(cv::Vec2f undistorted) const {
+cv::Vec2f kinect_reprojection::distort_depth(cv::Vec2f undistorted) const {
 	const auto& depth_par = intrinsics_.ir;
 	float dx = (undistorted[0] - depth_par.cx) / depth_par.fx;
 	float dy = (undistorted[1] - depth_par.cy) / depth_par.fy;
@@ -31,7 +30,7 @@ cv::Vec2f kinect_reprojection::distort_depth_(cv::Vec2f undistorted) const {
 }
 
 
-cv::Vec2f kinect_reprojection::undistort_depth_(cv::Vec2f distorted) const {
+cv::Vec2f kinect_reprojection::undistort_depth(cv::Vec2f distorted) const {
 	const auto& depth_par = intrinsics_.ir;
 	float dx = distorted[0], dy = distorted[1];
     float ps = (dx * dx) + (dy * dy);
@@ -46,7 +45,7 @@ cv::Vec2f kinect_reprojection::undistort_depth_(cv::Vec2f distorted) const {
 }
 
 
-cv::Vec2f kinect_reprojection::reproject_depth_to_color_(cv::Vec2f undistorted, float z) const {
+cv::Vec2f kinect_reprojection::reproject_depth_to_color(cv::Vec2f undistorted, float z) const {
 	const auto& depth_par = intrinsics_.ir;
 	const auto& color_par = intrinsics_.color;
 	float mx = undistorted[0], my = undistorted[1];
@@ -72,176 +71,14 @@ cv::Vec2f kinect_reprojection::reproject_depth_to_color_(cv::Vec2f undistorted, 
 	return cv::Vec2f(cx, ry);
 }
 
-	
-cv::Mat_<cv::Vec3b> kinect_reprojection::reproject_color(
-	const cv::Mat_<cv::Vec3b>& color,
-	cv::Size reprojected_size
-) const {
-	cv::Mat_<cv::Vec3b> reprojected_color(reprojected_size);
-	
-	if(color.size() != cv::Size(texture_width, texture_height)) throw std::runtime_error("incorrect input texture size");
-	
-	for(int reproj_y = 0; reproj_y < reprojected_size.height; ++reproj_y)
-	for(int reproj_x = 0; reproj_x < reprojected_size.width; ++reproj_x) {						
-		cv::Vec2f reproj_pos(reproj_x, reproj_y);
-		cv::Vec2f undistorted_depth_pos(
-			reproj_pos[0] * depth_width / reprojected_size.width,
-			reproj_pos[1] * depth_height / reprojected_size.height
-		);
-				
-		cv::Vec2f color_pos = reproject_depth_to_color_(undistorted_depth_pos, 1000.0);
-				
-		if(color_pos[0] >= 0 && color_pos[0] < texture_width
-		&& color_pos[1] >= 0 && color_pos[1] < texture_height) {
-			cv::Point color_coord(color_pos[0], color_pos[1]);
-	
-			reprojected_color(reproj_y, reproj_x) = color(color_coord);
-		} else {
-			reprojected_color(reproj_y, reproj_x) = cv::Vec3b(0,0,0);
-		}
-	}
-	
-	return reprojected_color;
-}
 
-
-std::tuple<cv::Mat_<cv::Vec3b>, std::vector<Eigen_vec3>> reproject_dual(
-	const cv::Mat_<cv::Vec3b>& color,
-	const cv::Mat_<float>& distorted_depth,
-	cv::Size reprojected_size
-) const {
+cv::Vec3f kinect_reprojection::backproject_depth(cv::Vec2f undistorted, float z) const {
 	const auto& depth_par = intrinsics_.ir;
-	const auto& color_par = intrinsics_.color;
-
-	cv::Mat_<cv::Vec3b> reprojected_color(reprojected_size);
-
-	std::vector<Eigen_vec3> reprojected_depth_samples;
-	reprojected_depth_samples.reserve(depth_width * depth_height);
-
-	if(color.size() != cv::Size(texture_width, texture_height)) throw std::runtime_error("incorrect input texture size");
-	if(distorted_depth.size() != cv::Size(depth_width, depth_height)) throw std::runtime_error("incorrect input depth size");
-	
-	for(int reproj_y = 0; reproj_y < reprojected_size.height; ++reproj_y)
-	for(int reproj_x = 0; reproj_x < reprojected_size.width; ++reproj_x) {						
-		cv::Vec2f reproj_pos(reproj_x, reproj_y);
-		cv::Vec2f undistorted_depth_pos(
-			reproj_pos[0] * depth_width / reprojected_size.width,
-			reproj_pos[1] * depth_height / reprojected_size.height
-		);
-		
-		cv::Vec2f distorted_depth_pos = distort_depth_(undistorted_depth_pos);
-				
-		cv::Vec2f color_pos = reproject_depth_to_color_(undistorted_depth_pos, 1000.0);
-				
-		if(color_pos[0] >= 0 && color_pos[0] < texture_width
-		&& color_pos[1] >= 0 && color_pos[1] < texture_height) {
-			cv::Point color_coord(color_pos[0], color_pos[1]);
-	
-			reprojected_color(reproj_y, reproj_x) = color(color_coord);
-		} else {
-			reprojected_color(reproj_y, reproj_x) = cv::Vec3b(0,0,0);
-		}
-	}
-	
-	
-	return std::make_tuple(reprojected_color, reprojected_depth_samples);
+	float x = ((undistorted[0] + 0.5f - depth_par.cx) / depth_par.fx) * z;
+	float y = ((undistorted[1] + 0.5f - depth_par.cy) / depth_par.fy) * z;
+	return cv::Vec3f(x, y, z);
 }
 
 
-
-std::vector<Eigen_vec3> kinect_reprojection::reproject_depth(
-	const cv::Mat_<float>& distorted_depth,
-	cv::Size reprojected_size,
-	float p
-) const {
-	const auto& depth_par = intrinsics_.ir;
-	const auto& color_par = intrinsics_.color;
-	
-	std::vector<Eigen_vec3> reprojected_depth_samples;
-	reprojected_depth_samples.reserve(depth_width * depth_height);
-
-	if(distorted_depth.size() != cv::Size(depth_width, depth_height)) throw std::runtime_error("incorrect input depth size");
-		
-	for(int distorted_y = 0; distorted_y < depth_height; ++distorted_y)
-	for(int distorted_x = 0; distorted_x < depth_width; ++distorted_x) {	
-		float depth = distorted_depth(distorted_y, distorted_x);
-		if(depth == 0.0) continue;
-		
-		cv::Vec2f distorted_pos(distorted_y, distorted_x);
-	
-		cv::Vec2f undistorted_pos = undistort_depth_(distorted_pos);
-		
-		cv::Vec2f flat_pos;
-		flat_pos[0] = undistorted_pos[0];
-		flat_pos[1] = undistorted_pos[1];
-				
-		cv::Vec2f reproj_pos(
-			flat_pos[0] * reprojected_size.width / depth_width,
-			flat_pos[1] * reprojected_size.height / depth_height
-		);
-		
-		reprojected_depth_samples.emplace_back(reproj_pos[1], reproj_pos[0], depth);
-	}
-	
-	return reprojected_depth_samples;
 }
 
-
-/*
-void kinect_reprojection::reproject_both(
-	const cv::Mat_<float>& distorted_depth,
-	const cv::Mat_<cv::Vec3b>& color,
-	cv::Mat_<float>& reprojected_depth,
-	cv::Mat_<cv::Vec3b>& reprojected_color
-) const {	
-	if(distorted_depth.size() != cv::Size(depth_width, depth_height)) throw std::runtime_error("incorrect input distorted depth size");
-	if(color.size() != cv::Size(texture_width, texture_height)) throw std::runtime_error("incorrect input texture size");
-	if(reprojected_depth.size() != reprojected_color.size()) throw std::runtime_error("output texture&depth sizes must be same");
-	cv::Size reprojected_size = reprojected_depth.size();
-	
-	for(int reproj_y = 0; reproj_y < reprojected_size.height; ++reproj_y)
-	for(int reproj_x = 0; reproj_x < reprojected_size.width; ++reproj_x) {
-		cv::Point reproj_coord(reproj_x, reproj_y);
-		
-		float& reproj_depth = reprojected_depth(reproj_coord);
-		cv::Vec3b& reproj_color = reprojected_color(reproj_coord);
-		
-		reproj_depth = 0.0;
-		reproj_color = cv::Vec3b(0,0,0);
-				
-		cv::Vec2f reproj_pos(reproj_x, reproj_y);
-		cv::Vec2f undistorted_depth_pos(
-			reproj_pos[0] * depth_width / reprojected_size.width,
-			reproj_pos[1] * depth_height / reprojected_size.height
-		);
-		
-		cv::Vec2f distorted_depth_pos = distort_depth(undistorted_depth_pos);
-		
-		float depth = 0.0;
-		if(distorted_depth_pos[0] >= 0 && distorted_depth_pos[0] < depth_width
-		&& distorted_depth_pos[1] >= 0 && distorted_depth_pos[1] < depth_height) {
-			cv::Point distorted_depth_coord(distorted_depth_pos[0], distorted_depth_pos[1]);
-			depth = distorted_depth(distorted_depth_coord);
-			//std::cout << depth << std::endl;
-		}
-		
-		if(depth == 0.0) continue;
-		
-		float reprojection_depth = (depth != 0.0 ? depth : 1600.0);
-		cv::Vec2f color_pos = reproject_depth_to_color(undistorted_depth_pos, reprojection_depth);
-		
-		//std::cout << color_pos << std::endl;
-		
-		if(color_pos[0] >= 0 && color_pos[0] < texture_width
-		&& color_pos[1] >= 0 && color_pos[1] < texture_height) {
-			cv::Point color_coord(color_pos[0], color_pos[1]);
-	
-			reproj_color = color(color_coord);
-			reproj_depth = 20.0*depth;
-		}
-	}
-}
-* /
-
-}
-*/

@@ -8,12 +8,13 @@ find_package(OpenCV REQUIRED)
 include_directories(SYSTEM external/include)
 include_directories(SYSTEM external/fmt)
 include_directories(SYSTEM external/mf)
-include_directories(SYSTEM external/freenect2/include)
 include_directories(SYSTEM ${OpenCV_INCLUDE_DIRS})
-link_directories(external/freenect2/lib)
 link_libraries(${OpenCV_LIBRARIES})
 
 add_compile_options(-Wall -Wextra -Wno-sign-compare)
+
+include_directories(SYSTEM external/freenect2/include)
+link_directories(external/freenect2/lib)
 
 file(GLOB_RECURSE COMMON_LIB_SRC "lib/*.cc")
 
@@ -91,13 +92,8 @@ install(
 file(GLOB_RECURSE KINECT_LIB_SRC "kinect/lib/*.cc")
 add_library(kinect_lib STATIC ${KINECT_LIB_SRC})
 
-
-
 add_executable(fetch_intrinsics "kinect/fetch_intrinsics.cc")
 target_link_libraries(fetch_intrinsics common_lib kinect_lib freenect2)
-
-add_executable(color_point_cloud "kinect/color_point_cloud.cc")
-target_link_libraries(color_point_cloud common_lib kinect_lib freenect2)
 
 add_executable(depth_point_cloud "kinect/depth_point_cloud.cc")
 target_link_libraries(depth_point_cloud common_lib kinect_lib freenect2)
@@ -105,30 +101,19 @@ target_link_libraries(depth_point_cloud common_lib kinect_lib freenect2)
 add_executable(depth_reprojection "kinect/depth_reprojection.cc")
 target_link_libraries(depth_reprojection common_lib kinect_lib freenect2)
 
-add_executable(color_reprojection "kinect/color_reprojection.cc")
-target_link_libraries(color_reprojection common_lib kinect_lib freenect2)
-
-add_executable(point_cloud_reprojection "kinect/point_cloud_reprojection.cc")
-target_link_libraries(point_cloud_reprojection common_lib kinect_lib freenect2)
-
 add_executable(vsrs_disparity "kinect/vsrs_disparity.cc")
 target_link_libraries(vsrs_disparity common_lib kinect_lib)
 
-#add_executable(dual_reprojection "kinect/dual_reprojection.cc")
-#target_link_libraries(dual_reprojection common_lib kinect_lib)
-
 install(
-	TARGETS fetch_intrinsics color_point_cloud depth_point_cloud depth_reprojection color_reprojection point_cloud_reprojection vsrs_disparity #dual_reprojection
+	TARGETS fetch_intrinsics depth_point_cloud depth_reprojection vsrs_disparity
 	DESTINATION kinect
 )
 install(
 	PROGRAMS
 		"kinect/make_vsrs_data.py"
 		"kinect/make_vsrs_data_simulate.py"
-		"kinect/depth_cross_reprojection.py"
 		"kinect/collect_col.py"
 		"kinect/collect_fig8.py"
-		"kinect/multiprojection_window.py"
 	DESTINATION kinect
 )
 
@@ -141,9 +126,12 @@ target_link_libraries(psnr common_lib)
 add_executable(view_depth "misc/view_depth.cc")
 target_link_libraries(view_depth common_lib)
 
+add_executable(copy_json "misc/copy_json.cc")
+target_link_libraries(copy_json common_lib)
+
 
 install(
-	TARGETS psnr view_depth
+	TARGETS psnr view_depth copy_json
 	DESTINATION misc
 )
 install(

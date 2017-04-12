@@ -1,15 +1,16 @@
 #include <json.hpp>
-#include <libfreenect2/libfreenect2.hpp>
+#include "lib/freenect2.h"
 #include "lib/kinect_intrinsics.h"
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
 
-using namespace libfreenect2;
 using namespace tlz;
 
 kinect_intrinsic_parameters fetch_intrinsic_parameters() {
+	using namespace libfreenect2;
+	
 	Freenect2 context;
 	int count = context.enumerateDevices();
 	std::cout << count << " Kinect devices found.\n";
@@ -20,15 +21,14 @@ kinect_intrinsic_parameters fetch_intrinsic_parameters() {
 	
 	device->start();
 	
-	kinect_intrinsic_parameters param;
 	std::cout << "device serial number: " << device->getSerialNumber() << "\n";
 	std::cout << "device firmware version: " << device->getFirmwareVersion() << "\n";
-	param.color = device->getColorCameraParams();
-	param.ir = device->getIrCameraParams();
+	Freenect2Device::ColorCameraParams color = device->getColorCameraParams();
+	Freenect2Device::IrCameraParams ir = device->getIrCameraParams();
 	device->close();
 	delete device;
 	
-	return param;
+	return from_freenect2(color, ir);
 }
 
 
