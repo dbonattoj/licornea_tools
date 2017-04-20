@@ -1,0 +1,82 @@
+#!/usr/local/bin/python
+from pylib import *
+import string, json, sys
+
+class FormatPlaceholder:
+    def __init__(self, key):
+        self.key = key
+    def __format__(self, spec):
+		key = self.key
+		if key == "x":
+			key = "y"
+		elif key == "y":
+			key = "x"
+		result = key
+		if spec:
+			result += ":" + spec
+		return "{" + result + "}"
+ 
+class FormatDict(dict):
+    def __missing__(self, key):
+        return FormatPlaceholder(key)
+
+def swap_name_template_xy(tpl):
+	formatter = string.Formatter()
+	mapping = FormatDict()
+	return formatter.vformat(tpl, (), mapping)
+	
+	
+def process_clause(par):
+	swap_keys("x_index_factor", "y_index_factor", par)
+	swap_keys("x_index_offset", "y_index_offset", par)
+	if "image_filename_format" in par: par["image_filename_format"] = swap_name_template_xy(par["image_filename_format"])
+	if "depth_filename_format" in par: par["depth_filename_format"] = swap_name_template_xy(par["depth_filename_format"])
+		
+		
+def swap_keys(key1, key2, par):
+	val1 = None
+	val2 = None
+
+	if key1 in par:
+		val1 = par[key1]
+		del par[key1]
+
+	if key2 in par:
+		val2 = par[key2]
+		del par[key2]
+
+	if val1 is not None:
+		par[key2] = val1
+	if val2 is not None:
+		par[key1] = val2
+		
+	
+	
+if __name__ == '__main__':
+	def usage_fail():
+		print("usage: {} in_parameters.json out_parameters.json\n".format(sys.argv[0]))
+		sys.exit(1)
+
+	if len(sys.argv) <= 2: usage_fail()
+	in_parameters_filename = sys.argv[1]
+	out_parameters_filename = sys.argv[2]
+	
+	with open(in_parameters_filename) as f:
+		new_parameters = json.load(f)
+
+	swap_keys("x_index_range", "y_index_range", new_parameters)
+	
+	if "camera_name_format" in new_parameters:
+		new_parameters["camera_name_format"] = swap_name_template_xy(new_parameters["camera_name_format"])
+	
+	if "image_filename_format" in new_parameters:
+		new_parameters["image_filename_format"] = swap_name_template_xy(new_parameters["image_filename_format"])
+	if "depth_filename_format" in new_parameters:
+		new_parameters["depth_filename_format"] = swap_name_template_xy(new_parameters["depth_filename_format"])
+	if "vsrs" in new_parameters:
+		process_clause(new_parameters["vsrs"])
+	if "kinect_raw" in new_parameters:
+		process_clause(new_parameters["kinect_raw"])
+	
+	with open(out_parameters_filename, 'w') as f:
+		print >>f, json.dumps(new_parameters, indent=4, sort_keys=True)

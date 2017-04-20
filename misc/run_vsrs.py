@@ -1,25 +1,18 @@
 #!/usr/local/bin/python
-
-import sys, os, json, tempfile, subprocess, uuid
-
-tools_directory = "."
+from pylib import *
+import os, tempfile, subprocess, uuid
 
 def main(vsrs_binary_filename, parameters_filename, left_idx, virtual_idx, right_idx, output_virtual_filename, cameras_filename = None):
+	datas = Dataset(parameters_filename)
+
 	if cameras_filename is None:
 		cameras_filename = os.path.join(os.path.dirname(output_virtual_filename), "cameras.txt")
 	
 	if not os.path.exists(cameras_filename):
-		with open(parameters_filename) as f:
-			parameters = json.load(f)
-
-		cameras_json_filename = os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["cameras_filename"])
-		
-		subprocess.check_call([
-			os.path.join(tools_directory, "camera/export_mpeg"),
-			cameras_json_filename,
+		call_tool("camera/export_mpeg", [
+			datas.cameras_filename(),
 			cameras_filename
-		])
-
+		]);
 
 	output_config_filename = os.path.join(os.path.dirname(output_virtual_filename), "config{}_{}_{}.txt".format(left_idx, virtual_idx, right_idx))
 

@@ -3,6 +3,21 @@ project(licornea_tools CXX)
 
 set(CMAKE_CXX_STANDARD 14)
 
+
+macro(install_pylib_link section)
+	install(
+		CODE "execute_process( \
+			WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX} \
+			COMMAND ${CMAKE_COMMAND} -E create_symlink \
+			../lib/pylib \
+			${section}/pylib \
+		)"
+	)
+endmacro(install_pylib_link)
+
+
+
+
 find_package(OpenCV REQUIRED)
 
 include_directories(SYSTEM external/include)
@@ -37,6 +52,12 @@ install(
 	TARGETS common_lib
 	DESTINATION "lib/"
 )
+install(
+	DIRECTORY "lib/pylib"
+	DESTINATION "./lib"
+	PATTERN "*.py"
+)
+
 
 # Calibration
 file(GLOB_RECURSE CALIBRATION_LIB_SRC "calibration/lib/*.cc")
@@ -61,6 +82,7 @@ install(
 	TARGETS find_chessboard calibrate_distortion undistort calibrate_extrinsic optical_flow
 	DESTINATION calibration
 )
+install_pylib_link(calibration)
 
 
 # Camera
@@ -86,6 +108,7 @@ install(
 		"camera/make_regular_row.py"
 	DESTINATION camera
 )
+install_pylib_link(camera)
 
 
 # Kinect
@@ -110,13 +133,28 @@ install(
 )
 install(
 	PROGRAMS
-		"kinect/make_vsrs_data.py"
-		"kinect/make_vsrs_data_simulate.py"
-		"kinect/collect_col.py"
-		"kinect/collect_fig8.py"
+		"kinect/import_raw_data.py"
 	DESTINATION kinect
 )
+install_pylib_link(kinect)
 
+
+# Dataset
+install(
+	PROGRAMS
+		"dataset/slice.py"
+		"dataset/flip.py"
+	DESTINATION dataset
+)
+install(
+	CODE "execute_process( \
+		WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX} \
+		COMMAND ${CMAKE_COMMAND} -E create_symlink \
+		../lib/pylib \
+		dataset/pylib \
+	)"
+)
+install_pylib_link(dataset)
 
 
 # Misc
@@ -143,3 +181,4 @@ install(
 		"misc/yuv2png.sh"
 	DESTINATION misc
 )
+install_pylib_link(misc)

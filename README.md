@@ -13,12 +13,8 @@
 ## Kinect
 * `collect_col`: Collect all images on one column, from raw data set.
 * `depth_point_cloud`: Reproject Kinect depth map into XYZ `.ply` point cloud, in color or IR camera view coordinate system.
-* `color_point_cloud`: Reproject Kinect depth map and texture into XYZRGB `.ply` point cloud.
 * `depth_reprojection`: Reproject&upsample Kinect depth map into same coordinate system as color image.
-* `point_cloud_reprojection`: Reproject&upsample Kinect depth map from point cloud point.
-* `depth_cross_reprojection`: Reproject&upsample Kinect depth map from point cloud point, from another viewpoint. Creates intermediary point cloud.
 * `fetch_intrinsics`: Fetch internal camera parameters from Kinect connected by USB, store in JSON file.
-* `texture_reprojection`: Reproject&downsample Kinect color image into same coordinate system as depth image.
 * `vsrs_disparity`: Convert reprojected Kinect depth map into disparity map for VSRS in `.yuv` format.
 * `make_vsrs_data`: Make VSRS texture+disparity `.yuv` files, for all views of data sets, from Kinect depth+image, with either depth upsampling or texture downsampling.
 

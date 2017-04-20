@@ -1,6 +1,5 @@
 #!/usr/local/bin/python
-
-import sys, os, json
+from pylib import *
 
 config_tmp = """
 #================ Input Parameters ================
@@ -44,20 +43,17 @@ ViewBlending                  0                        # 0...Blend left and righ
 """
 
 def main(parameters_filename, cameras_filename, left_idx, virtual_idx, right_idx, output_virtual_filename, output_config_filename):
-	with open(parameters_filename) as f:
-		parameters = json.load(f)
-
-	def to_cam(idx):
-		return idx
+	datas = Dataset(parameters_filename)
+	par = datas.parameters
 	
-	left_cam_idx = to_cam(left_idx)
-	virtual_cam_idx = to_cam(virtual_idx)
-	right_cam_idx = to_cam(right_idx)
-
-	texture_left_filename = os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["texture_filename_format"].format(x=left_idx))
-	texture_right_filename = os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["texture_filename_format"].format(x=right_idx))
-	depth_left_filename = os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["depth_filename_format"].format(x=left_idx))
-	depth_right_filename = os.path.join(os.path.dirname(parameters_filename), parameters["arrangement"]["depth_filename_format"].format(x=right_idx))
+	left_view = datas.view(left_idx).vsrs()
+	virtual_view = datas.view(virtual_idx).vsrs()
+	right_view = datas.view(right_idx).vsrs()
+	
+	texture_left_filename = left_view.image_filename()
+	texture_right_filename = right_view.image_filename()
+	depth_left_filename = left_view.depth_filename()
+	depth_right_filename = right_view.depth_filename()
 
 	assert(os.path.isfile(cameras_filename))
 	assert(os.path.isfile(texture_left_filename))
@@ -66,14 +62,14 @@ def main(parameters_filename, cameras_filename, left_idx, virtual_idx, right_idx
 	assert(os.path.isfile(depth_right_filename))
 
 	config = config_tmp.format(
-		width=parameters["texture"]["width"],
-		height=parameters["texture"]["height"],
-		z_near=parameters["depth"]["z_near"],
-		z_far=parameters["depth"]["z_far"],
+		width=par["width"],
+		height=par["height"],
+		z_near=par["vsrs"]["z_near"],
+		z_far=par["vsrs"]["z_far"],
 		cam_param=cameras_filename,
-		cam_left=parameters["arrangement"]["camera_name_format"].format(x=left_cam_idx),
-		cam_virtual=parameters["arrangement"]["camera_name_format"].format(x=virtual_cam_idx),
-		cam_right=parameters["arrangement"]["camera_name_format"].format(x=right_cam_idx),
+		cam_left=left_view.camera_name(),
+		cam_virtual=virtual_view.camera_name(),
+		cam_right=right_view.camera_name(),
 		texture_left=texture_left_filename,
 		texture_right=texture_right_filename,
 		depth_left=depth_left_filename,
