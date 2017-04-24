@@ -16,6 +16,14 @@ json import_json_file(const std::string& filename);
 cv::Mat_<double> decode_mat_cv(const json&);
 Eigen::MatrixXd decode_mat(const json&);
 
+template<typename Scalar, std::size_t Rows, std::size_t Cols>
+Eigen::Matrix<Scalar, Rows, Cols> decode_mat(const json& j) {
+	Eigen::Matrix<Scalar, Rows, Cols> mat;
+	for(int row = 0; row < Rows; ++row) for(int col = 0; col < Cols; ++col)
+		mat(row, col) = j[row][col].get<Scalar>();
+	return mat;
+}
+
 json encode_mat(const cv::Mat_<double>&);
 
 template<typename Scalar, std::size_t Rows, std::size_t Cols>

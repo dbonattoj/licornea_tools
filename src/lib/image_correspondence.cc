@@ -5,6 +5,7 @@
 
 namespace tlz {
 
+
 image_correspondence_feature decode_image_correspondence_feature(const json& j_feat) {
 	image_correspondence_feature feat;
 	
@@ -12,13 +13,8 @@ image_correspondence_feature decode_image_correspondence_feature(const json& j_f
 
 	const json& j_pts = j_feat["points"];
 	for(auto it = j_pts.begin(); it != j_pts.end(); ++it) {	
-		
 		std::string key = it.key();	
-		view_index idx;
-		auto j_idx = explode_from_string<int>(',', key);
-		idx.first = j_idx[0];
-		if(j_idx.size() == 2)  idx.second = j_idx[1];
-		else idx.second = -1;
+		view_index idx = view_index_from_key(key);
 		
 		const json& j_pos = it.value();
 		Eigen_vec2 pos(j_pos[0], j_pos[1]);
@@ -34,8 +30,7 @@ json encode_image_correspondence_feature(const image_correspondence_feature& fea
 	json j_pts = json::object();
 	for(const auto& pt : feat.points) {
 		view_index idx = pt.first;
-		std::string key = std::to_string(idx.first);
-		if(idx.second != -1) key += "," + std::to_string(idx.second);
+		std::string key = view_index_to_key(idx);
 		
 		Eigen_vec2 pos = pt.second;
 		json j_pos = json::array();

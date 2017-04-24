@@ -83,6 +83,10 @@ view_index make_view_index_1d(int x);
 view_index make_view_index_2d(int x, int y);
 
 
+std::string view_index_to_key(view_index idx);
+view_index view_index_from_key(const std::string& key);
+
+
 }
 
 #endif

@@ -1,4 +1,5 @@
 #include "dataset.h"
+#include "utility/string.h"
 #include <format.h>
 #include <stdexcept>
 #include <fstream>
@@ -193,12 +194,31 @@ dataset_view dataset::view(view_index idx) const {
 	}
 }
 
+
+//////////
+
+
 view_index make_view_index_1d(int x) {
 	return view_index(x, -1);
 }
 
 view_index make_view_index_2d(int x, int y) {
 	return view_index(x, y);
+}
+
+std::string view_index_to_key(view_index idx) {
+	std::string key = std::to_string(idx.first);
+	if(idx.second != -1) key += "," + std::to_string(idx.second);
+	return key;
+}
+
+view_index view_index_from_key(const std::string& key) {
+	view_index idx;
+	auto j_idx = explode_from_string<int>(',', key);
+	idx.first = j_idx[0];
+	if(j_idx.size() == 2)  idx.second = j_idx[1];
+	else idx.second = -1;
+	return idx;
 }
 
 
