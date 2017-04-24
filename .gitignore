@@ -2,8 +2,9 @@
 /vsrs/
 /package/
 /build/
-/external/freenect2/*
+/src/external/freenect2/*
 /libfreenect2
 /bin/
+/_old/
 /.idea/
 *.pyc

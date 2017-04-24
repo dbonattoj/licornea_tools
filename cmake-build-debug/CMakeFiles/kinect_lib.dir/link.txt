@@ -1,2 +1,0 @@
-/usr/bin/ar qc libkinect_lib.a  CMakeFiles/kinect_lib.dir/kinect/lib/densify/depth_densify.cc.o CMakeFiles/kinect_lib.dir/kinect/lib/densify/depth_densify_mine.cc.o CMakeFiles/kinect_lib.dir/kinect/lib/densify/depth_densify_splat.cc.o CMakeFiles/kinect_lib.dir/kinect/lib/depth_io.cc.o CMakeFiles/kinect_lib.dir/kinect/lib/kinect_intrinsics.cc.o CMakeFiles/kinect_lib.dir/kinect/lib/multiprojection.cc.o CMakeFiles/kinect_lib.dir/kinect/lib/texture_io.cc.o
-/usr/bin/ranlib libkinect_lib.a
