@@ -1,14 +1,13 @@
 #include "camera.h"
-#include <json.hpp>
+#include "json.h"
 
 namespace tlz {
 
 template<typename It>
-void read_cameras(std::istream& input, It output) {
+void read_cameras(const std::string& filename, It output) {
 	using namespace nlohmann;
 	
-	json j_root;
-	input >> j_root;
+	json j_root = import_json_file(filename);
 		
 	for(auto& j_cam : j_root) {
 		camera cam;
@@ -29,7 +28,7 @@ void read_cameras(std::istream& input, It output) {
 
 
 template<typename It>
-void write_cameras(std::ostream& output, It begin, It end) {
+void write_cameras(const std::string& filename, It begin, It end) {
 	using namespace nlohmann;
 	
 	json j_root = json::array();
@@ -52,7 +51,7 @@ void write_cameras(std::ostream& output, It begin, It end) {
 		j_root.push_back(j_cam);
 	}
 	
-	j_root >> output;
+	export_json_file(j_root, filename);
 }
 
 }

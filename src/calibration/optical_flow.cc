@@ -4,16 +4,16 @@
 #include <utility>
 #include <random>
 #include <vector>
+#include <string>
 #include "../lib/json.h"
 #include "../lib/dataset.h"
 #include "../lib/image_correspondence.h"
 
 using namespace tlz;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: optical_flow dataset_parameters.json out_image_correspondences.json\n";
-	std::cout << std::endl;
-	std::exit(1);
+
+static std::string feature_name(int i) {
+	return "pt" + std::to_string(i);
 }
 
 static cv::Vec3b random_color(int i) {
@@ -56,12 +56,25 @@ static void export_visualization(
 
 	int i = 0;
 	for(cv::Point pt : center_points) {
-		cv::Vec3b col = random_color(i++);
+		cv::Vec3b col = random_color(i);
 		cv::circle(out_img, pt, 10, cv::Scalar(col), 2);
+
+		cv::putText(out_img, feature_name(i), pt, cv::FONT_HERSHEY_COMPLEX_SMALL, 1.0, cv::Scalar(col));
+		
+		i++;
 	}
 
+	
 	cv::imwrite(filename, out_img);
 }
+
+
+[[noreturn]] void usage_fail() {
+	std::cout << "usage: optical_flow dataset_parameters.json out_image_correspondences.json\n";
+	std::cout << std::endl;
+	std::exit(1);
+}
+
 
 
 int main(int argc, const char* argv[]) {
@@ -87,7 +100,7 @@ int main(int argc, const char* argv[]) {
 	cv::cvtColor(center_col_img, center_gray_img, CV_BGR2GRAY);
 		
 	std::cout << "finding good points" << std::endl;
-	const std::size_t points_count = 50;
+	const std::size_t points_count = 10;
 	std::vector<cv::Point2f> center_points(points_count);
 	cv::goodFeaturesToTrack(center_gray_img, center_points, points_count, 0.3, 7);
 		
@@ -153,8 +166,8 @@ int main(int argc, const char* argv[]) {
 	std::cout << "saving image correspondences" << std::endl;
 	json j_cors = json::object();
 	for(std::ptrdiff_t pt = 0; pt < points_count; ++pt) {
-		std::string point_name = "pt" + std::to_string(pt);
-		j_cors[point_name] = encode_image_correspondence_feature(correspondences[pt]);
+		std::string name = feature_name(pt);
+		j_cors[name] = encode_image_correspondence_feature(correspondences[pt]);
 	}
 	export_json_file(j_cors, out_cors_filename);
 }

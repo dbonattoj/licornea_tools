@@ -84,9 +84,11 @@ target_link_libraries(optical_flow common_lib calibration_lib)
 add_executable(feature_depth_estimate "src/calibration/feature_depth_estimate.cc")
 target_link_libraries(feature_depth_estimate common_lib calibration_lib)
 
+add_executable(centers_on_plane "src/calibration/centers_on_plane.cc")
+target_link_libraries(centers_on_plane common_lib calibration_lib)
 
 install(
-	TARGETS find_chessboard calibrate_distortion undistort calibrate_extrinsic optical_flow feature_depth_estimate
+	TARGETS find_chessboard calibrate_distortion undistort calibrate_extrinsic optical_flow feature_depth_estimate centers_on_plane
 	DESTINATION calibration
 )
 install_pylib_link(calibration)

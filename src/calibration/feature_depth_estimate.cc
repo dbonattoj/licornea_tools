@@ -115,11 +115,16 @@ int main(int argc, const char* argv[]) {
 	
 	if(! depths_filename.empty()) {
 		std::cout << "saving all depths" << std::endl;
-		std::ofstream depths(depths_filename);
+		std::ofstream depths_stream(depths_filename);
 		for(const auto& kv : feature_depths) {
-			depths << kv.first;
-			for(float d : kv.second) depths << ' ' << d;
-			depths << '\n';
+			const std::string& feature_name = kv.first;
+			const auto& depths = kv.second;
+			bool accepted = (output_features.find(feature_name) != output_features.end());
+			
+			depths_stream << feature_name;
+			if(! accepted) depths_stream << "_rej";
+			for(float d : kv.second) depths_stream << ' ' << d;
+			depths_stream << '\n';
 		}
 	}
 			

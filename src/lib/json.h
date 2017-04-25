@@ -3,6 +3,7 @@
 
 #include <json.hpp>
 #include <string>
+#include <iosfwd>
 #include "opencv.h"
 #include "eigen.h"
 
