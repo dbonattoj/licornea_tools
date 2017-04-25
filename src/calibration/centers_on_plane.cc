@@ -62,9 +62,12 @@ int main(int argc, const char* argv[]) {
 		}
 		
 		// remove scaling
-		real d = 1.0;
+		for(auto& kv : view_samples) {
+		}
+		real d = 1000.0;
+		d = feature.depth;
 		
-		for(const auto& kv : feature.points) {
+		for(const auto& kv : view_samples) {
 			view_index idx = kv.first;
 			Eigen_vec2 s = kv.second;
 			real sx = s[0], sy = s[1];
@@ -79,7 +82,12 @@ int main(int argc, const char* argv[]) {
 	for(const auto& kv : views_centers) {
 		view_index idx = kv.first;
 		const auto& centers = kv.second;
-		views_final_center[idx] = centers.front();
+		
+		Eigen_vec2 mean(0.0, 0.0);
+		for(Eigen_vec2 center : centers) mean += center;
+		mean /= centers.size();
+		
+		views_final_center[idx] = mean;
 	}
 	
 	
