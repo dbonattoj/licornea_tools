@@ -16,58 +16,6 @@ static std::string feature_name(int i) {
 	return "pt" + std::to_string(i);
 }
 
-static cv::Vec3b random_color(int i) {
-	static const int seed = 0;
-	static std::vector<cv::Vec3b> colors;
-	static std::mt19937 gen(seed);
-	
-	if(i < colors.size()) {
-		return colors[i];
-	} else {
-		std::uniform_int_distribution<uchar> dist(0, 255);
-		colors.push_back(cv::Vec3b(dist(gen), dist(gen), dist(gen)));
-		return random_color(i);
-	}
-}
-
-
-static void export_visualization(
-	const cv::Mat_<uchar>& center_img,
-	const std::vector<cv::Point2f>& center_points,
-	const std::vector<std::vector<cv::Point2f>>& views_points,
-	const std::string& filename
-) {
-	cv::Mat_<cv::Vec3b> out_img;
-	cv::cvtColor(center_img, out_img, CV_GRAY2BGR);
-
-	const std::vector<cv::Point2f>& initial_points = views_points.front();
-	for(std::ptrdiff_t i = 0; i < initial_points.size(); ++i) {
-		cv::Vec3b col = random_color(i);
-		std::vector<cv::Point> trail_points;
-		for(const std::vector<cv::Point2f>& points : views_points) {
-			cv::Point2f pt = points[i];
-			if(pt.x == 0 && pt.y == 0) break;
-			else trail_points.push_back(pt);
-		}
-		
-		std::vector<std::vector<cv::Point>> polylines = { trail_points };
-		cv::polylines(out_img, polylines, false, cv::Scalar(col), 2);
-	}
-
-	int i = 0;
-	for(cv::Point pt : center_points) {
-		cv::Vec3b col = random_color(i);
-		cv::circle(out_img, pt, 10, cv::Scalar(col), 2);
-
-		cv::putText(out_img, feature_name(i), pt, cv::FONT_HERSHEY_COMPLEX_SMALL, 1.0, cv::Scalar(col));
-		
-		i++;
-	}
-
-	
-	cv::imwrite(filename, out_img);
-}
-
 
 [[noreturn]] void usage_fail() {
 	std::cout << "usage: optical_flow dataset_parameters.json out_image_correspondences.json\n";
@@ -163,8 +111,6 @@ int main(int argc, const char* argv[]) {
 		views_points.insert(views_points.begin(), points);
 	}
 	
-	export_visualization(center_gray_img, center_points, views_points, "trails.png");
-
 
 	std::cout << "saving image correspondences" << std::endl;
 	json j_cors = json::object();

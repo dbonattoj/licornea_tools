@@ -12,10 +12,6 @@
 using namespace tlz;
 
 
-static std::string feature_name(int i) {
-	return "pt" + std::to_string(i);
-}
-
 static cv::Vec3b random_color(int i) {
 	static const int seed = 0;
 	static std::vector<cv::Vec3b> colors;
@@ -30,145 +26,76 @@ static cv::Vec3b random_color(int i) {
 	}
 }
 
-
-static void export_visualization(
-	const cv::Mat_<uchar>& center_img,
-	const std::vector<cv::Point2f>& center_points,
-	const std::vector<std::vector<cv::Point2f>>& views_points,
-	const std::string& filename
-) {
-	cv::Mat_<cv::Vec3b> out_img;
-	cv::cvtColor(center_img, out_img, CV_GRAY2BGR);
-
-	const std::vector<cv::Point2f>& initial_points = views_points.front();
-	for(std::ptrdiff_t i = 0; i < initial_points.size(); ++i) {
-		cv::Vec3b col = random_color(i);
-		std::vector<cv::Point> trail_points;
-		for(const std::vector<cv::Point2f>& points : views_points) {
-			cv::Point2f pt = points[i];
-			if(pt.x == 0 && pt.y == 0) break;
-			else trail_points.push_back(pt);
-		}
-		
-		std::vector<std::vector<cv::Point>> polylines = { trail_points };
-		cv::polylines(out_img, polylines, false, cv::Scalar(col), 2);
-	}
-
-	int i = 0;
-	for(cv::Point pt : center_points) {
-		cv::Vec3b col = random_color(i);
-		cv::circle(out_img, pt, 10, cv::Scalar(col), 2);
-
-		cv::putText(out_img, feature_name(i), pt, cv::FONT_HERSHEY_COMPLEX_SMALL, 1.0, cv::Scalar(col));
-		
-		i++;
-	}
-
-	
-	cv::imwrite(filename, out_img);
-}
-
-
 [[noreturn]] void usage_fail() {
-	std::cout << "usage: visualize_image_correspondences dataset_parameters.json image_correspondences.json\n";
+	std::cout << "usage: visualize_image_correspondences dataset_parameters.json image_correspondences.json out_visualization.png\n";
 	std::cout << std::endl;
 	std::exit(1);
 }
 
 
-
 int main(int argc, const char* argv[]) {
-	if(argc <= 2) usage_fail();
+	if(argc <= 3) usage_fail();
 	std::string dataset_parameter_filename = argv[1];
 	std::string cors_filename = argv[2];
+	std::string visualization_filename = argv[3];
 
 	std::cout << "loading data set" << std::endl;
-	dataset set(dataset_parameter_filename);
-	if(set.is_2d()) {
-		std::cout << "no support for 2d dataset" << std::endl;
-		std::exit(1);
-	}
+	dataset datas(dataset_parameter_filename);
 	
-	int mid_x = ((set.x_max() + set.x_min()) / (2*set.x_step())) * set.x_step();
-	std::cout << mid_x << std::endl;
-		
+	
 	std::cout << "loading center image" << std::endl;
-	std::cout << set.view(mid_x).image_filename() << std::endl;
-	
-	cv::Mat_<cv::Vec3b> center_col_img = cv::imread(set.view(mid_x).image_filename(), CV_LOAD_IMAGE_COLOR);
+	view_index center_view_index;
+	if(datas.is_2d()) {
+		auto x_indices = datas.x_indices();
+		auto y_indices = datas.y_indices();
+		center_view_index = std::make_pair(x_indices[x_indices.size() / 2], y_indices[y_indices.size() / 2]);
+	} else {
+		auto x_indices = datas.x_indices();
+		center_view_index = std::make_pair(x_indices[x_indices.size() / 2], -1);
+	}
+	std::string center_image_filename = datas.view(center_view_index).image_filename();
+	cv::Mat_<cv::Vec3b> center_img = cv::imread(center_image_filename, CV_LOAD_IMAGE_COLOR);
 	cv::Mat_<uchar> center_gray_img;
-	cv::cvtColor(center_col_img, center_gray_img, CV_BGR2GRAY);
+	cv::cvtColor(center_img, center_gray_img, CV_BGR2GRAY);
+	
+	cv::Mat_<cv::Vec3b> out_img;
+	cv::cvtColor(center_gray_img, out_img, CV_GRAY2BGR);
+
+	
+	std::cout << "drawing image correspondences" << std::endl;
+	json j_cors = import_json_file(cors_filename);
+	int i = 0;
+	for(auto it = j_cors.begin(); it != j_cors.end(); ++it) {
+		const std::string& feature_name = it.key();
+		image_correspondence_feature feature = decode_image_correspondence_feature(it.value());
 		
-	std::cout << "finding good points" << std::endl;
-	const std::size_t points_count = 10;
-	std::vector<cv::Point2f> center_points(points_count);
-	cv::goodFeaturesToTrack(center_gray_img, center_points, points_count, 0.3, 7);
+		cv::Vec3b col = random_color(i++);
 		
-	cv::Mat_<uchar> img;
-	std::vector<cv::Point2f> points;
-	std::vector<uchar> status;
-	std::vector<image_correspondence_feature> correspondences(points_count);
-	std::vector<std::vector<cv::Point2f>> views_points;
+		// draw circle
+		Eigen_vec2 center_point = feature.points.at(center_view_index);
+		cv::Point center_point_cv(center_point[0], center_point[1]);
+		cv::circle(out_img, center_point_cv, 10, cv::Scalar(col), 2);
 
-	auto flow_to = [&img, &points, &status, &set](int x) {
-		std::vector<cv::Point2f> new_points(points_count);
-		cv::Mat_<cv::Vec3b> new_col_img = cv::imread(set.view(x).image_filename(), CV_LOAD_IMAGE_COLOR);
-		cv::Mat_<uchar> new_img;
-		cv::cvtColor(new_col_img, new_img, CV_BGR2GRAY);
-
-		std::vector<uchar> new_status(points_count);
-		std::vector<float> err(points_count);
-		cv::calcOpticalFlowPyrLK(img, new_img, points, new_points, new_status, err);
-		for(std::ptrdiff_t i = 0; i < points_count; ++i)
-			if(!status[i] || !new_status[i]) new_points[i] = cv::Point2f(0.0, 0.0);
-
-		img = new_img;
-		points = new_points;
-		status = new_status;
-	};
+		// draw label
+		cv::putText(out_img, feature_name, center_point_cv, cv::FONT_HERSHEY_COMPLEX_SMALL, 1.0, cv::Scalar(col));
 		
-	auto add_correspondences = [&correspondences, &points, points_count](int x) {
-		image_correspondence_feature::view_index_type idx(x, -1);
-		for(std::ptrdiff_t pt = 0; pt < points_count; ++pt)
-			if(points[pt].x != 0 && points[pt].y != 0)
-				correspondences[pt].points[idx] = Eigen_vec2(points[pt].x, points[pt].y);
-	};
+		if(datas.is_1d()) {
+			// 1D: draw connecting line
+			std::vector<cv::Point> trail_points;
+			for(const auto& kv : feature.points) {
+				Eigen_vec2 pt = kv.second;
+				trail_points.emplace_back(pt[0], pt[1]);
+			}
 
-	std::cout << "optical flow by increasing x starting at mid_x..." << std::endl;
-
-	img = center_gray_img;
-	points = center_points;
-	status.assign(points_count, 1);
-	for(int x = mid_x + set.x_step(); x <= set.x_max(); x += set.x_step()) {
-		std::cout << "   x=" << (x - set.x_step()) << " --> x=" << x << std::endl;
-		flow_to(x);
-		add_correspondences(x);
-		views_points.push_back(points);
+			std::vector<std::vector<cv::Point>> polylines = { trail_points };
+			cv::polylines(out_img, polylines, false, cv::Scalar(col), 2);
+			
+		} else {
+			// 2D: TODO
+		}
 	}
 	
-	
-	std::cout << "optical flow by decreasing x starting at mid_x..." << std::endl;
-	std::vector<std::vector<cv::Point2f>> x_decr_frames;
-
-	img = center_gray_img;
-	points = center_points;
-	status.assign(points_count, 1);
-	for(int x = mid_x - set.x_step(); x >= set.x_min(); x -= set.x_step()) {
-		std::cout << "   x=" << (x + set.x_step()) << " <-- x=" << x << std::endl;
-		flow_to(x);
-		add_correspondences(x);
-		views_points.insert(views_points.begin(), points);
-	}
-	
-	export_visualization(center_gray_img, center_points, views_points, "trails.png");
-
-
-	std::cout << "saving image correspondences" << std::endl;
-	json j_cors = json::object();
-	for(std::ptrdiff_t pt = 0; pt < points_count; ++pt) {
-		std::string name = feature_name(pt);
-		j_cors[name] = encode_image_correspondence_feature(correspondences[pt]);
-	}
-	export_json_file(j_cors, out_cors_filename);
+	std::cout << "saving output visualization image" << std::endl;
+	cv::imwrite(visualization_filename, out_img);
 }
 

@@ -10,6 +10,8 @@
 
 namespace tlz {
 
+// TODO add "reference". needs point for that view needs to exists foreach feature
+
 struct image_correspondence_feature {	
 	using view_index_type = view_index;
 	
@@ -19,7 +21,6 @@ struct image_correspondence_feature {
 };
 
 image_correspondence_feature decode_image_correspondence_feature(const json&);
-
 json encode_image_correspondence_feature(const image_correspondence_feature&); 
 
 
