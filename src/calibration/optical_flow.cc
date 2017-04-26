@@ -133,12 +133,15 @@ int main(int argc, const char* argv[]) {
 			if(points[pt].x != 0 && points[pt].y != 0)
 				correspondences[pt].points[idx] = Eigen_vec2(points[pt].x, points[pt].y);
 	};
-
+	
 	std::cout << "optical flow by increasing x starting at mid_x..." << std::endl;
 
 	img = center_gray_img;
 	points = center_points;
 	status.assign(points_count, 1);
+	
+	add_correspondences(mid_x);
+	
 	for(int x = mid_x + set.x_step(); x <= set.x_max(); x += set.x_step()) {
 		std::cout << "   x=" << (x - set.x_step()) << " --> x=" << x << std::endl;
 		flow_to(x);

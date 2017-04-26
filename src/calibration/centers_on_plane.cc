@@ -23,6 +23,9 @@ int main(int argc, const char* argv[]) {
 	std::string intrinsics_filename = argv[3];
 	std::string out_cameras_filename = argv[4];
 	
+	std::cout << "loading data set" << std::endl;
+	dataset datas(dataset_parameter_filename);
+
 	std::cout << "loading intrinsic matrix" << std::endl;
 	Eigen_mat3 K = decode_mat<real, 3, 3>(import_json_file(intrinsics_filename));
 	real fx = K(0, 0), fy = K(1, 1), cx = K(0, 2), cy = K(1, 2);
@@ -94,11 +97,11 @@ int main(int argc, const char* argv[]) {
 	
 	std::vector<camera> cameras;
 	for(const auto& kv : views_final_center) {
-		//view_index idx = kv.first;
+		view_index idx = kv.first;
 		Eigen_vec2 t = kv.second;
 		
 		camera cam;
-		cam.name = "cam";
+		cam.name = datas.view(idx).camera_name();
 		cam.intrinsic = K;
 		cam.extrinsic <<
 			1, 0, 0, t[0],

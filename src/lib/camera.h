@@ -20,17 +20,14 @@ struct camera {
 	auto translation() const { return extrinsic.block<3, 1>(0, 3); }
 };
 
-template<typename It> void read_cameras(const std::string& filename, It output);
-template<typename It> void write_cameras(const std::string& filename, It begin, It end);
+using camera_array = std::vector<camera>;
 
-std::vector<camera> read_cameras_file(const std::string& filename);
+camera_array read_cameras_file(const std::string& filename);
+void write_cameras_file(const std::string& filename, const camera_array&);
+
 std::map<std::string, camera> cameras_map(const std::vector<camera>&);
-
-void write_cameras_file(const std::string& filename, const std::vector<camera>&);
 void write_cameras_file(const std::string& filename, const std::map<std::string, camera>&);
 
 }
-
-#include "camera.tcc"
 
 #endif
