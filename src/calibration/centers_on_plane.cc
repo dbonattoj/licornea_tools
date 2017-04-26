@@ -11,17 +11,16 @@
 using namespace tlz;
 
 [[noreturn]] void usage_fail() {
-	std::cout << "usage: centers_on_plane dataset_parameters.json image_correspondences.json intrinsics.json out_cameras.json\n";
+	std::cout << "usage: centers_on_plane dataset_parameters.json image_correspondences.json intrinsics.json\n";
 	std::cout << std::endl;
 	std::exit(1);
 }
 
 int main(int argc, const char* argv[]) {
-	if(argc <= 4) usage_fail();
+	if(argc <= 3) usage_fail();
 	std::string dataset_parameter_filename = argv[1];
 	std::string image_correspondences_filename = argv[2];
 	std::string intrinsics_filename = argv[3];
-	std::string out_cameras_filename = argv[4];
 	
 	std::cout << "loading data set" << std::endl;
 	dataset datas(dataset_parameter_filename);
@@ -112,6 +111,6 @@ int main(int argc, const char* argv[]) {
 	}
 	
 	
-	write_cameras_file(out_cameras_filename, cameras);
+	write_cameras_file(datas.cameras_filename(), cameras);
 }
 

@@ -14,20 +14,23 @@ class Progress:
 		self.done_count = 0
 		self.start_time = time.time()
 		
-	def step(incr=1):
+	def step(self, incr=1):
 		self.lock.acquire()
 		try:
 			self.done_count = self.done_count + incr
 			if self.done_count > 0:
-				elapsed_time = time.Time() - self.start_time
+				elapsed_time = time.time() - self.start_time
 				remaining_count = self.total_count - self.done_count
 				steps_per_second = self.done_count / elapsed_time
-				remaining_time_estimate = remaining_count / views_per_second
+				remaining_time_estimate = remaining_count / steps_per_second
 				print "done {} of {}. elapsed time: {}, estimated remaining time: {}".format(
-					done_count,
-					total_count,
+					self.done_count,
+					self.total_count,
 					format_time(elapsed_time),
 					format_time(remaining_time_estimate)
 				)
 		finally:
 			self.lock.release()
+
+	def elapsed_time(self):
+		return time.time() - self.start_time

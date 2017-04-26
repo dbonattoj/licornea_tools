@@ -45,7 +45,7 @@ class DatasetView:
 		else: return tpl.format(x=self.x)
 			
 	def camera_name(self):
-		return self.format_name(self.local_parameters()["camera_name_format"])
+		return self.format_name(self.dataset.parameters["camera_name_format"])
 
 	def local_parameter(self, par, default=None):
 		pars = self.local_parameters()
@@ -89,7 +89,7 @@ class Dataset:
 	def filepath(self, relpath):
 		return os.path.join(self.dirname, relpath)		
 
-	def cameras_filename():
+	def cameras_filename(self):
 		return self.filepath(self.parameters["cameras_filename"])
 
 	def is_2d(self):

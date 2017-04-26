@@ -3,15 +3,8 @@ from pylib import *
 import sys, os, json, shutil
 
 simulate = False
-parallel = True
-parallel_jobs = 10
 intrinsics_filename = "../data/kinect_internal_intrinsics.json"
 
-if parallel:
-	from joblib import Parallel, delayed
-
-
-progress = None
 dataset = None
 densify_method = None
 
@@ -65,16 +58,9 @@ if __name__ == '__main__':
 
 	dataset = Dataset(parameters_filename)
 	
-	total_count = dataset.y_count() * dataset.x_count()
 	indices = [(x, y) for y in dataset.y_indices() for x in dataset.x_indices()]
 	
-	progress = Progress(total_count)
-	if not parallel:
-		for xy in indices:
-			process_view(*xy)
-	else:
-		Parallel(n_jobs=parallel_jobs, backend="threading")(delayed(process_view)(*xy) for xy in indices)
-		# need threading backend because of shared 'done_count' variable
-
+	batch_process(process_view, indices)
+	
 	print "done."
 
