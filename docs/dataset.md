@@ -7,7 +7,7 @@ All of these tools use a common JSON-based dataset parameters file format. It ca
 There can be different versions of equivalent files (e.g. for each view, Kinect raw depth map, upsampled depth map, and
 VSRS disparity map). There can be a different numbering for these files.
 
-The classes implemented in `src/lib/dataset.h` (C++) and `src/lib/dataset.py` (Python) are used by all other tools to
+The classes implemented in `src/lib/dataset.h` (C++) and `src/lib/pylib/dataset.py` (Python) are used by all other tools to
 read the dataset parameters.
 
 ## Example
@@ -64,16 +64,16 @@ read the dataset parameters.
 
     "vsrs": {
         "z_far": 1600.0, 
-        "z_near": 600.0
+        "z_near": 600.0,
         "image_filename_format": "../3DLicornea_A1/textures/Band2_0101-0201_step1mm/files/cam_0151{x:04d}.yuv", 
-        "depth_filename_format": "../3DLicornea_A1/disparity/Band2_0101-0201_step1mm/files/cam_0151{x:04d}.yuv", 
+        "depth_filename_format": "../3DLicornea_A1/disparity/Band2_0101-0201_step1mm/files/cam_0151{x:04d}.yuv" 
     }, 
 
     "kinect_raw": {
         "filename_x_index_factor": 1, 
         "filename_x_index_offset": 0, 
-        "image_filename_format": "../raw/483-583_step1mm_acq2/texture/533.0/Kinect_out_texture_000_533.0z_0001_{x:04d}.png"
-        "depth_filename_format": "../raw/483-583_step1mm_acq2/depth/533.0/Kinect_out_depth_000_533.0z_0001_{x:04d}.png", 
+        "image_filename_format": "../raw/483-583_step1mm_acq2/texture/533.0/Kinect_out_texture_000_533.0z_0001_{x:04d}.png",
+        "depth_filename_format": "../raw/483-583_step1mm_acq2/depth/533.0/Kinect_out_depth_000_533.0z_0001_{x:04d}.png"
     }
 }
 
