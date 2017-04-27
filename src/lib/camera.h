@@ -1,7 +1,7 @@
 #ifndef LICORNEA_CAMERA_H_
 #define LICORNEA_CAMERA_H_
 
-#include "eigen.h"
+#include "../../lib/eigen.h"
 #include <iosfwd>
 #include <vector>
 #include <map>

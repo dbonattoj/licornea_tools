@@ -11,7 +11,7 @@
 using namespace tlz;
 
 [[noreturn]] void usage_fail() {
-	std::cout << "usage: centers_on_plane dataset_parameters.json image_correspondences.json intrinsics.json out_cams.json\n";
+	std::cout << "usage: cameras_on_line dataset_parameters.json image_correspondences.json intrinsics.json out_cams.json\n";
 	std::cout << std::endl;
 	std::exit(1);
 }

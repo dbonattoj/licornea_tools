@@ -7,10 +7,10 @@
 #include <fstream>
 #include <set>
 #include <map>
+#include "lib/image_correspondence.h"
 #include "../lib/utility/misc.h"
 #include "../lib/dataset.h"
 #include "../lib/image_io.h"
-#include "../lib/image_correspondence.h"
 #include "../lib/json.h"
 
 using namespace tlz;
@@ -39,14 +39,14 @@ int main(int argc, const char* argv[]) {
 	std::map<std::string, std::vector<float>> feature_depths;
 
 	std::cout << "loading correspondences" << std::endl;
-	json j_features = import_json_file(in_cors_filename);
+	image_correspondences cors = import_image_correspondences_file(in_cors_filename);
 
 	std::cout << "preloading feature positions per view" << std::endl;
-	for(json::iterator it = j_features.begin(); it != j_features.end(); ++it) {
-		std::string feature_name = it.key();
-		image_correspondence_feature feature = decode_image_correspondence_feature(it.value());
-		for(const auto& kv : feature.points) {
-			view_index idx = kv.first;
+	for(const auto& kv : cors.features) {
+		const std::string& feature_name = kv.first;
+		const image_correspondence_feature& feature = kv.second;
+		for(const auto& kv2 : feature.points) {
+			view_index idx = kv2.first;
 			view_features[idx].push_back(feature_name);
 		}
 	}
@@ -61,7 +61,7 @@ int main(int argc, const char* argv[]) {
 		std::cout << '.' << std::flush;
 		
 		for(const std::string& feature_name : features) {
-			const json& j_pos = j_features[feature_name]["points"][view_index_to_key(view_idx)];
+			Eigen_vec2 j_pos = cors.features[feature_name].points[view_idx];
 			cv::Point pos(j_pos[0], j_pos[1]);
 			
 			ushort depth_value = depth(pos);
@@ -70,7 +70,7 @@ int main(int argc, const char* argv[]) {
 	}
 	std::cout << std::endl;
 	
-	std::map<std::string, image_correspondence_feature> output_features;
+	image_correspondences out_cors = cors;
 	
 	std::cout << "aggregating depths per feature" << std::endl;
 	for(auto& kv : feature_depths) {
@@ -99,19 +99,12 @@ int main(int argc, const char* argv[]) {
 		
 		std::cout << "accepted, taking median depth " << median << std::endl; 
 	
-		image_correspondence_feature feature = decode_image_correspondence_feature(j_features[feature_name]);
+		image_correspondence_feature& feature = out_cors.features[feature_name];
 		feature.depth = median;
-		output_features[feature_name] = feature;
 	}
 	
 	std::cout << "saving output correspondences" << std::endl;
-	json j_out_features = json::object();
-	for(const auto& kv : output_features) {
-		const std::string& feature_name = kv.first;
-		const image_correspondence_feature& feature = kv.second;
-		j_out_features[feature_name] = encode_image_correspondence_feature(feature);
-	}
-	export_json_file(j_out_features, out_cors_filename);
+	export_image_correspondences_file(out_cors_filename, out_cors);
 	
 	if(! depths_filename.empty()) {
 		std::cout << "saving all depths" << std::endl;
@@ -119,7 +112,7 @@ int main(int argc, const char* argv[]) {
 		for(const auto& kv : feature_depths) {
 			const std::string& feature_name = kv.first;
 			const auto& depths = kv.second;
-			bool accepted = (output_features.find(feature_name) != output_features.end());
+			bool accepted = (out_cors.features.find(feature_name) != out_cors.features.end());
 			
 			depths_stream << feature_name;
 			if(! accepted) depths_stream << "_rej";

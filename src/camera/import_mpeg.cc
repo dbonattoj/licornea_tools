@@ -5,7 +5,7 @@
 #include <iterator>
 
 #include "../lib/camera.h"
-#include "../lib/camera_mpeg.h"
+#include "lib/camera_mpeg.h"
 
 using namespace tlz;
 

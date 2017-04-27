@@ -1,5 +1,5 @@
 #include "camera_mpeg.h"
-#include "camera.h"
+#include "../../lib/camera.h"
 #include <iomanip>
 #include <istream>
 #include <ostream>

@@ -5,12 +5,11 @@
 #include <random>
 #include <vector>
 #include <string>
+#include "lib/image_correspondence.h"
 #include "../lib/json.h"
 #include "../lib/dataset.h"
-#include "../lib/image_correspondence.h"
 
 using namespace tlz;
-
 
 static cv::Vec3b random_color(int i) {
 	static const int seed = 0;
@@ -42,17 +41,11 @@ int main(int argc, const char* argv[]) {
 	std::cout << "loading data set" << std::endl;
 	dataset datas(dataset_parameter_filename);
 	
+	std::cout << "loading image correspondences" << std::endl;
+	image_correspondences cors = import_image_correspondences_file(cors_filename);
 	
-	std::cout << "loading center image" << std::endl;
-	view_index center_view_index;
-	if(datas.is_2d()) {
-		auto x_indices = datas.x_indices();
-		auto y_indices = datas.y_indices();
-		center_view_index = std::make_pair(x_indices[x_indices.size() / 2], y_indices[y_indices.size() / 2]);
-	} else {
-		auto x_indices = datas.x_indices();
-		center_view_index = std::make_pair(x_indices[x_indices.size() / 2], -1);
-	}
+	std::cout << "loading reference image" << std::endl;
+	view_index center_view_index = cors.reference;
 	std::string center_image_filename = datas.view(center_view_index).image_filename();
 	cv::Mat_<cv::Vec3b> center_img = cv::imread(center_image_filename, CV_LOAD_IMAGE_COLOR);
 	cv::Mat_<uchar> center_gray_img;
@@ -63,11 +56,10 @@ int main(int argc, const char* argv[]) {
 
 	
 	std::cout << "drawing image correspondences" << std::endl;
-	json j_cors = import_json_file(cors_filename);
 	int i = 0;
-	for(auto it = j_cors.begin(); it != j_cors.end(); ++it) {
-		const std::string& feature_name = it.key();
-		image_correspondence_feature feature = decode_image_correspondence_feature(it.value());
+	for(const auto& kv : cors.features) {
+		const std::string& feature_name = kv.first;
+		const image_correspondence_feature& feature = kv.second;
 		
 		cv::Vec3b col = random_color(i++);
 		

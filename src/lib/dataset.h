@@ -9,7 +9,30 @@ namespace tlz {
 
 class dataset;
 
-using view_index = std::pair<int, int>;
+struct view_index {
+	int x;
+	int y;
+	
+	bool is_valid() const { return (x != -1); }
+	explicit operator bool () const { return is_valid(); }
+	
+	bool is_1d() const { return (y == -1); }
+	bool is_2d() const { return (y != -1); }
+
+	view_index() : x(-1), y(-1) { }
+	explicit view_index(int x_, int y_ = -1) : x(x_), y(y_) { }
+};
+
+inline bool operator==(const view_index& a, const view_index& b) {
+	return (a.y == b.y) && (a.x == b.x);
+}
+inline bool operator<(const view_index& a, const view_index& b) {
+	return (a.y < b.y) || (a.x < b.x);
+}
+
+std::string encode_view_index(view_index idx);
+view_index decode_view_index(const std::string& key);
+
 
 class dataset_view {
 private:
@@ -78,14 +101,6 @@ public:
 	dataset_view view(int x, int y) const;
 	dataset_view view(view_index) const;
 };
-
-view_index make_view_index_1d(int x);
-view_index make_view_index_2d(int x, int y);
-
-
-std::string view_index_to_key(view_index idx);
-view_index view_index_from_key(const std::string& key);
-
 
 }
 

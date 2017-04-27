@@ -1,5 +1,5 @@
 #include "camera.h"
-#include "json.h"
+#include "../../lib/json.h"
 #include <fstream>
 #include <iomanip>
 #include <iterator>

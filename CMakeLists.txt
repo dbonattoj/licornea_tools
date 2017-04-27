@@ -98,17 +98,20 @@ install_pylib_link(calibration)
 
 
 # Camera
+file(GLOB_RECURSE CAMERA_LIB_SRC "src/camera/lib/*.cc")
+add_library(camera_lib STATIC ${CAMERA_LIB_SRC})
+
 add_executable(export_mpeg "src/camera/export_mpeg.cc")
-target_link_libraries(export_mpeg common_lib)
+target_link_libraries(export_mpeg common_lib camera_lib)
 
 add_executable(import_mpeg "src/camera/import_mpeg.cc")
-target_link_libraries(import_mpeg common_lib)
+target_link_libraries(import_mpeg common_lib camera_lib)
 
 add_executable(transform "src/camera/transform.cc")
-target_link_libraries(transform common_lib)
+target_link_libraries(transform common_lib camera_lib)
 
 add_executable(visualize "src/camera/visualize.cc")
-target_link_libraries(visualize common_lib)
+target_link_libraries(visualize common_lib camera_lib)
 
 install(
 	TARGETS export_mpeg import_mpeg transform visualize
@@ -117,7 +120,6 @@ install(
 install(
 	PROGRAMS
 		"src/camera/import_xml.py"
-		"src/camera/make_regular_row.py"
 	DESTINATION camera
 )
 install_pylib_link(camera)
