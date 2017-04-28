@@ -30,10 +30,10 @@ int main(int argc, const char* argv[]) {
 	std::cout << "loading intrinsic matrix" << std::endl;
 	Eigen_mat3 K = decode_mat<real, 3, 3>(import_json_file(intrinsics_filename));
 	real fx = K(0, 0), fy = K(1, 1), cx = K(0, 2), cy = K(1, 2);
-	
-	real ox = -cx/fx, oy = -cy/fy;
-	
+		
 	std::map<view_index, std::vector<Eigen_vec2>> views_centers;
+
+	real yaw = 0.0;
 
 	std::cout << "loading correspondences" << std::endl;
 	image_correspondences cors = import_image_correspondences_file(cors_filename);
@@ -49,11 +49,9 @@ int main(int argc, const char* argv[]) {
 		std::map<view_index, Eigen_vec2> view_samples;
 		for(const auto& kv : feature.points) {
 			view_index idx = kv.first;
-			Eigen_vec2 i = kv.second;
-			real ix = i[0], iy = i[1];
+			real ix = kv.second[0], iy = kv.second[1];
 
-			real sx = ix / fx, sy = iy / fy;
-			view_samples[idx] = Eigen_vec2(sx, sy);
+			
 		}
 		
 		// remove translation

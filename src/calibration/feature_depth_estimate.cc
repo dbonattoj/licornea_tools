@@ -40,6 +40,7 @@ int main(int argc, const char* argv[]) {
 
 	std::cout << "loading correspondences" << std::endl;
 	image_correspondences cors = import_image_correspondences_file(in_cors_filename);
+	int points_count = cors.features.begin()->second.points.size();
 
 	std::cout << "preloading feature positions per view" << std::endl;
 	for(const auto& kv : cors.features) {
@@ -53,7 +54,7 @@ int main(int argc, const char* argv[]) {
 
 	std::cout << "for each view, reading feature depths" << std::endl;
 	for(const auto& kv : view_features) {
-		view_index view_idx = kv.first;
+		view_index view_idx = kv.first;	
 		const auto& features = kv.second;
 		
 		std::string depth_filename = datas.view(view_idx).depth_filename();
@@ -78,6 +79,10 @@ int main(int argc, const char* argv[]) {
 	for(auto& kv : feature_depths) {		
 		const std::string& feature_name = kv.first;
 		auto& depths = kv.second;
+
+		std::cout << "feature " << feature_name << ":" << std::endl;
+
+		if(depths.size() != points_count) { std::cout << "missing samples, rejected\n" << std::endl; continue; }
 				
 		float mean = 0.0;
 		for(float d : depths) mean += d;
@@ -87,11 +92,10 @@ int main(int argc, const char* argv[]) {
 		for(float d : depths) stddev += sq(mean - d);
 		stddev = std::sqrt(stddev / depths.size());
 	
-		std::cout << "feature " << feature_name << ":" << std::endl;
 		std::cout << "mean: " << mean << "\nstandard deviation: " << stddev << std::endl;
 
 		bool accept = (stddev < stddev_max_threshold);
-		if(! accept) { std::cout << "rejected" << std::endl << std::endl; continue; }
+		if(! accept) { std::cout << "rejected\n" << std::endl; continue; }
 		else accepted_count++;
 
 		auto mid = depths.begin() + depths.size()/2;
@@ -100,8 +104,8 @@ int main(int argc, const char* argv[]) {
 		
 		std::cout << "accepted, taking median depth " << median << std::endl << std::endl; 
 	
-		image_correspondence_feature& feature = out_cors.features[feature_name];
-		feature.depth = median;
+		out_cors.features[feature_name] = cors.features[feature_name];
+		out_cors.features[feature_name].depth = median;
 	}
 	
 	std::cout << "accepted " << accepted_count << " of " << feature_depths.size() << " features" << std::endl;
