@@ -30,7 +30,7 @@ int main(int argc, const char* argv[]) {
 	std::string depths_filename;
 	if(argc > 4) depths_filename = argv[4];
 	
-	float stddev_max_threshold = 20.0;
+	float stddev_max_threshold = 10.0;
 	
 	std::cout << "loading data set" << std::endl;
 	dataset datas(dataset_parameter_filename);
@@ -71,11 +71,11 @@ int main(int argc, const char* argv[]) {
 	std::cout << std::endl;
 	
 	image_correspondences out_cors = cors;
+	out_cors.features.clear();
 	
 	std::cout << "aggregating depths per feature" << std::endl;
-	for(auto& kv : feature_depths) {
-		std::cout << std::endl;
-		
+	int accepted_count = 0;
+	for(auto& kv : feature_depths) {		
 		const std::string& feature_name = kv.first;
 		auto& depths = kv.second;
 				
@@ -91,18 +91,20 @@ int main(int argc, const char* argv[]) {
 		std::cout << "mean: " << mean << "\nstandard deviation: " << stddev << std::endl;
 
 		bool accept = (stddev < stddev_max_threshold);
-		if(! accept) { std::cout << "rejected" << std::endl; continue; }
+		if(! accept) { std::cout << "rejected" << std::endl << std::endl; continue; }
+		else accepted_count++;
 
 		auto mid = depths.begin() + depths.size()/2;
 		std::nth_element(depths.begin(), mid, depths.end());
 		float median = *mid;
 		
-		std::cout << "accepted, taking median depth " << median << std::endl; 
+		std::cout << "accepted, taking median depth " << median << std::endl << std::endl; 
 	
 		image_correspondence_feature& feature = out_cors.features[feature_name];
 		feature.depth = median;
 	}
 	
+	std::cout << "accepted " << accepted_count << " of " << feature_depths.size() << " features" << std::endl;
 	std::cout << "saving output correspondences" << std::endl;
 	export_image_correspondences_file(out_cors_filename, out_cors);
 	
@@ -111,11 +113,21 @@ int main(int argc, const char* argv[]) {
 		std::ofstream depths_stream(depths_filename);
 		for(const auto& kv : feature_depths) {
 			const std::string& feature_name = kv.first;
-			const auto& depths = kv.second;
 			bool accepted = (out_cors.features.find(feature_name) != out_cors.features.end());
+			if(! accepted) continue;
 			
+			const auto& depths = kv.second;
 			depths_stream << feature_name;
-			if(! accepted) depths_stream << "_rej";
+			for(float d : kv.second) depths_stream << ' ' << d;
+			depths_stream << '\n';
+		}
+		for(const auto& kv : feature_depths) {
+			const std::string& feature_name = kv.first;
+			bool accepted = (out_cors.features.find(feature_name) != out_cors.features.end());
+			if(accepted) continue;
+			
+			const auto& depths = kv.second;
+			depths_stream << feature_name << "_rej";
 			for(float d : kv.second) depths_stream << ' ' << d;
 			depths_stream << '\n';
 		}

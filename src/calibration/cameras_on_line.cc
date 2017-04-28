@@ -2,6 +2,7 @@
 #include <string>
 #include <map>
 #include "lib/image_correspondence.h"
+#include "../lib/utility/misc.h"
 #include "../lib/json.h"
 #include "../lib/dataset.h"
 #include "../lib/camera.h"
@@ -63,17 +64,21 @@ int main(int argc, const char* argv[]) {
 		}
 		
 		// remove scaling
-		for(auto& kv : view_samples) {
+		real rms = 0.0;
+		for(const auto& kv : view_samples) {
+			const Eigen_vec2& s = kv.second;
+			rms += sq(s[0]) + sq(s[1]);
 		}
-		real d = 1000.0;
-		d = feature.depth;
-		
+		rms /= view_samples.size();
+		rms = std::sqrt(rms);
+		real d = 1.0 / rms;
+						
 		for(const auto& kv : view_samples) {
 			view_index idx = kv.first;
 			Eigen_vec2 s = kv.second;
 			real sx = s[0], sy = s[1];
 			real tx = sx * d + ox, ty = sy * d + oy;
-			views_centers[idx].emplace_back(tx, ty);
+			views_centers[idx].emplace_back(tx*1000.0, ty*1000.0);
 		}
 	
 	}

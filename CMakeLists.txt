@@ -87,11 +87,19 @@ target_link_libraries(visualize_image_correspondences common_lib calibration_lib
 add_executable(feature_depth_estimate "src/calibration/feature_depth_estimate.cc")
 target_link_libraries(feature_depth_estimate common_lib calibration_lib)
 
-add_executable(centers_on_plane "src/calibration/centers_on_plane.cc")
-target_link_libraries(centers_on_plane common_lib calibration_lib)
+add_executable(cameras_on_line "src/calibration/cameras_on_line.cc")
+target_link_libraries(cameras_on_line common_lib calibration_lib)
 
 install(
-	TARGETS find_chessboard calibrate_distortion undistort calibrate_extrinsic optical_flow visualize_image_correspondences feature_depth_estimate centers_on_plane
+	TARGETS
+		find_chessboard
+		calibrate_distortion
+		undistort 
+		calibrate_extrinsic
+		optical_flow
+		visualize_image_correspondences
+		feature_depth_estimate
+		cameras_on_line
 	DESTINATION calibration
 )
 install_pylib_link(calibration)
@@ -114,7 +122,11 @@ add_executable(visualize "src/camera/visualize.cc")
 target_link_libraries(visualize common_lib camera_lib)
 
 install(
-	TARGETS export_mpeg import_mpeg transform visualize
+	TARGETS
+		export_mpeg
+		import_mpeg
+		transform
+		visualize
 	DESTINATION camera
 )
 install(
@@ -136,7 +148,9 @@ add_executable(depth_reprojection "src/kinect/depth_reprojection.cc")
 target_link_libraries(depth_reprojection common_lib kinect_lib)
 
 install(
-	TARGETS depth_point_cloud depth_reprojection
+	TARGETS
+		depth_point_cloud
+		depth_reprojection
 	DESTINATION kinect
 )
 install(
@@ -162,12 +176,14 @@ install(
 )
 install_pylib_link(dataset)
 
+
 # VSRS
 add_executable(vsrs_disparity "src/vsrs/vsrs_disparity.cc")
 target_link_libraries(vsrs_disparity common_lib kinect_lib)
 
 install(
-	TARGETS vsrs_disparity
+	TARGETS
+		vsrs_disparity
 	DESTINATION vsrs
 )
 install(
@@ -195,7 +211,10 @@ target_link_libraries(copy_json common_lib)
 
 
 install(
-	TARGETS psnr view_depth copy_json
+	TARGETS
+		psnr
+		view_depth
+		copy_json
 	DESTINATION misc
 )
 install(

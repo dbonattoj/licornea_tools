@@ -43,9 +43,7 @@ int main(int argc, const char* argv[]) {
 	int mid_x = ((set.x_max() + set.x_min()) / (2*set.x_step())) * set.x_step();
 	std::cout << "reference: x=" << mid_x << std::endl;
 		
-	std::cout << "loading center image" << std::endl;
-	std::cout << set.view(mid_x).image_filename() << std::endl;
-	
+	std::cout << "loading center image" << std::endl;	
 	cv::Mat_<cv::Vec3b> center_col_img = cv::imread(set.view(mid_x).image_filename(), CV_LOAD_IMAGE_COLOR);
 	cv::Mat_<uchar> center_gray_img;
 	cv::cvtColor(center_col_img, center_gray_img, CV_BGR2GRAY);
