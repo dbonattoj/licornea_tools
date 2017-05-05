@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <fstream>
 #include <string>
+#include <ostream>
 
 namespace tlz {
 
@@ -141,6 +142,14 @@ bool dataset::x_valid(int x) const {
 	return (x >= x_min()) && (x <= x_max()) && (((x - x_min()) % x_step()) == 0);
 }
 
+int dataset::x_count() const {
+	return (x_max() - x_min() + 1) / x_step();
+}
+
+int dataset::x_mid() const {
+	return ((x_max() + x_min()) / (2*x_step())) * x_step();
+}
+
 std::vector<int> dataset::x_indices() const {
 	std::vector<int> indices;
 	for(int x = x_min(); x <= x_max(); x += x_step()) indices.push_back(x);
@@ -170,6 +179,16 @@ std::vector<int> dataset::y_indices() const {
 	std::vector<int> indices;
 	for(int y = y_min(); y <= y_max(); y += y_step()) indices.push_back(y);
 	return indices;
+}
+
+int dataset::y_count() const {
+	if(is_2d()) return (y_max() - y_min() + 1) / y_step();
+	else return 1;
+}
+
+int dataset::y_mid() const {
+	if(is_2d()) return ((y_max() + y_min()) / (2*y_step())) * y_step();
+	else return 0;
 }
 
 dataset_view dataset::view(int x) const {
@@ -211,6 +230,12 @@ view_index decode_view_index(const std::string& key) {
 	if(j_idx.size() == 2)  idx.y = j_idx[1];
 	else idx.y = -1;
 	return idx;
+}
+
+std::ostream& operator<<(std::ostream& stream, const view_index& idx) {
+	if(idx.is_2d()) stream << '(' << idx.x << ", " << idx.y << ')';
+	else stream << '(' << idx.x << ')';
+	return stream;
 }
 
 

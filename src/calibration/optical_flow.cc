@@ -39,9 +39,8 @@ int main(int argc, const char* argv[]) {
 		std::exit(1);
 	}
 	
-	int count_x = (set.x_max() - set.x_min() + 1) / set.x_step();
-	int mid_x = ((set.x_max() + set.x_min()) / (2*set.x_step())) * set.x_step();
-	std::cout << "reference: x=" << mid_x << std::endl;
+	int count_x = set.x_count(), mid_x = set.x_mid();
+	std::cout << "reference: mid_x=" << mid_x << std::endl;
 		
 	std::cout << "loading center image" << std::endl;	
 	cv::Mat_<cv::Vec3b> center_col_img = cv::imread(set.view(mid_x).image_filename(), CV_LOAD_IMAGE_COLOR);
@@ -49,11 +48,11 @@ int main(int argc, const char* argv[]) {
 	cv::cvtColor(center_col_img, center_gray_img, CV_BGR2GRAY);
 		
 	std::cout << "finding good features" << std::endl;
-	const std::size_t features_count = 30;
+	const std::size_t features_count = 10;
 	std::vector<cv::Point2f> center_positions(features_count);
 	cv::goodFeaturesToTrack(center_gray_img, center_positions, features_count, 0.3, 7);
 	std::cout << "requested " << features_count << " features, found " << center_positions.size() << std::endl;
-	
+		
 	cv::Mat_<uchar> img;
 	std::vector<cv::Point2f> positions;
 	std::vector<uchar> status;

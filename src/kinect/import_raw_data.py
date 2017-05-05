@@ -3,15 +3,16 @@ from pylib import *
 import sys, os, json, shutil
 
 simulate = False
-intrinsics_filename = "../data/kinect_internal_intrinsics.json"
 
-dataset = None
+datas = None
 densify_method = None
+internal_intrinsics_filename = None
+color_intrinsics_filename = None
 
 def process_view(x, y):	
 	if verbose: print "view x={}, y={}".format(x, y)
 	
-	view = dataset.view(x, y)
+	view = datas.view(x, y)
 	raw_view = view.kinect_raw()
 	
 	out_image_filename = view.image_filename()
@@ -20,7 +21,7 @@ def process_view(x, y):
 	
 	in_image_filename = raw_view.image_filename()
 	in_depth_filename = raw_view.depth_filename()
-	
+		
 	assert os.path.isfile(in_image_filename)
 	assert os.path.isfile(in_depth_filename)
 	
@@ -29,6 +30,15 @@ def process_view(x, y):
 		if not simulate:
 			shutil.copyfile(in_image_filename, out_image_filename)
 	
+		#if verbose: print "undistorting image {}".format(out_image_filename)
+		#if not simulate:
+		#	call_tool("calibration/undistort", [
+		#		out_image_filename,
+		#		out_image_filename,
+		#		color_intrinsics_filename,
+		#		"texture"
+		#	])
+	
 	if not os.path.isfile(out_depth_filename):
 		if verbose: print "reprojecting depth {} -> {}".format(in_depth_filename, out_depth_filename)
 		if not simulate:
@@ -36,14 +46,22 @@ def process_view(x, y):
 				in_depth_filename,
 				out_depth_filename,
 				out_mask_filename,
-				intrinsics_filename,
+				internal_intrinsics_filename,
 				densify_method
 			])
 
-
+		#if verbose: print "undistorting depth {}".format(out_depth_filename)
+		#if not simulate:
+		#	call_tool("calibration/undistort", [
+		#		out_depth_filename,
+		#		out_depth_filename,
+		#		color_intrinsics_filename,
+		#		"depth"
+		#	])
+			
 
 def usage_fail():
-	print("usage: {} parameters.json densify_method [simulate]\n".format(sys.argv[0]))
+	print("usage: {} dataset_parameters.json densify_method [simulate]\n".format(sys.argv[0]))
 	sys.exit(1)
 
 if __name__ == '__main__':
@@ -56,9 +74,11 @@ if __name__ == '__main__':
 
 	if simulate: parallel = False
 
-	dataset = Dataset(parameters_filename)
+	datas = Dataset(parameters_filename)
+	internal_intrinsics_filename = datas.filepath(datas.parameters["kinect_raw"]["kinect_internal_intrinsics_filename"])
+	color_intrinsics_filename = datas.filepath(datas.parameters["kinect_raw"]["kinect_color_intrinsics_filename"])
 	
-	indices = [(x, y) for y in dataset.y_indices() for x in dataset.x_indices()]
+	indices = [(x, y) for y in datas.y_indices() for x in datas.x_indices()]
 	
 	batch_process(process_view, indices)
 	

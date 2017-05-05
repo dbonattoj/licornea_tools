@@ -28,6 +28,8 @@ bool read_camera_mpeg(std::istream& input, camera& cam, bool convert) {
 	input >> cam.extrinsic(2, 0) >> cam.extrinsic(2, 1) >> cam.extrinsic(2, 2) >> cam.extrinsic(2, 3);
 	cam.extrinsic(3, 0) = 0.0; cam.extrinsic(3, 1) = 0.0; cam.extrinsic(3, 2) = 0.0; cam.extrinsic(3, 3) = 1.0;
 	
+	//cam.rotation() = cam.rotation().inverse();
+	
 	if(convert) cam.translation() = -(cam.rotation() * cam.translation());
 		
 	return true;

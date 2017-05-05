@@ -63,16 +63,17 @@ int main(int argc, const char* argv[]) {
 		
 		cv::Vec3b col = random_color(i++);
 		
-		// draw circle
-		Eigen_vec2 center_point = feature.points.at(center_view_index);
-		cv::Point center_point_cv(center_point[0], center_point[1]);
-		cv::circle(out_img, center_point_cv, 10, cv::Scalar(col), 2);
-
-		// draw label
-		cv::putText(out_img, feature_name, center_point_cv, cv::FONT_HERSHEY_COMPLEX_SMALL, 1.0, cv::Scalar(col));
 		
 		if(datas.is_1d()) {
-			// 1D: draw connecting line
+			// draw circle		
+			Eigen_vec2 center_point = feature.points.at(center_view_index);
+			cv::Point center_point_cv(center_point[0], center_point[1]);
+			cv::circle(out_img, center_point_cv, 10, cv::Scalar(col), 2);
+
+			// draw label
+			cv::putText(out_img, feature_name, center_point_cv, cv::FONT_HERSHEY_COMPLEX_SMALL, 1.0, cv::Scalar(col));
+			
+			// draw connecting line
 			std::vector<cv::Point> trail_points;
 			for(const auto& kv : feature.points) {
 				Eigen_vec2 pt = kv.second;
@@ -83,7 +84,18 @@ int main(int argc, const char* argv[]) {
 			cv::polylines(out_img, polylines, false, cv::Scalar(col), 2);
 			
 		} else {
-			// 2D: TODO
+			// draw label		
+			Eigen_vec2 center_point = feature.points.at(center_view_index);
+			cv::Point center_point_cv(center_point[0] + 10, center_point[1] - 10);
+			cv::putText(out_img, feature_name, center_point_cv, cv::FONT_HERSHEY_COMPLEX_SMALL, 1.0, cv::Scalar(col));
+
+			// draw dot for each point
+			for(const auto& kv : feature.points) {
+				Eigen_vec2 pt = kv.second;
+				
+				cv::Point pt_cv(pt[0], pt[1]);
+				cv::circle(out_img, pt_cv, 1, cv::Scalar(col), -1);
+			}
 		}
 	}
 	

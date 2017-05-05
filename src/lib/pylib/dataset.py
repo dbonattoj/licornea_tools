@@ -113,6 +113,11 @@ class Dataset:
 		while x <= self.x_max():
 			yield x
 			x = x + self.x_step()
+	def x_count(self):
+		return (self.x_max() - self.x_min() + 1) // self.x_step()
+	def x_mid(self):
+		return ((self.x_max() + self.x_min()) / (2*self.x_step())) * self.x_step()
+	
 	
 	def y_min(self):
 		if self.is_2d(): return int(self.y_index_range[0])
@@ -133,6 +138,12 @@ class Dataset:
 		while y <= self.y_max():
 			yield y
 			y = y + self.y_step()
+	def y_count(self):
+		if self.is_2d(): return (self.x_max() - self.x_min() + 1) // self.x_step()
+		else: return 1
+	def y_mid(self):
+		if self.is_2d(): return ((self.x_max() + self.x_min()) / (2*self.x_step())) * self.x_step()
+		else: return 0
 
 	def view(self, x, y=None):
 		if y is None:

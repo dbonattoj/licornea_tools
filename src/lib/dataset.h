@@ -4,6 +4,7 @@
 #include "json.h"
 #include <string>
 #include <utility>
+#include <iosfwd>
 
 namespace tlz {
 
@@ -27,11 +28,14 @@ inline bool operator==(const view_index& a, const view_index& b) {
 	return (a.y == b.y) && (a.x == b.x);
 }
 inline bool operator<(const view_index& a, const view_index& b) {
-	return (a.y < b.y) || (a.x < b.x);
+	if(a.y == b.y) return (a.x < b.x);
+	else return (a.y < b.y);
 }
 
 std::string encode_view_index(view_index idx);
 view_index decode_view_index(const std::string& key);
+
+std::ostream& operator<<(std::ostream&, const view_index&);
 
 
 class dataset_view {
@@ -89,12 +93,16 @@ public:
 	int x_step() const;
 	int x_max() const;
 	bool x_valid(int x) const;
+	int x_count() const;
+	int x_mid() const;
 	std::vector<int> x_indices() const;
 	
 	int y_min() const;
 	int y_step() const;
 	int y_max() const;
 	bool y_valid(int y) const; 
+	int y_count() const;
+	int y_mid() const;
 	std::vector<int> y_indices() const;
 
 	dataset_view view(int x) const;

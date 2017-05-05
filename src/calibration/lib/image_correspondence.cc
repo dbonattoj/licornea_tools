@@ -1,5 +1,6 @@
 #include "image_correspondence.h"
 #include "../../lib/utility/string.h"
+#include <iostream>
 
 namespace tlz {
 
@@ -41,6 +42,8 @@ json encode_image_correspondence_feature(const image_correspondence_feature& fea
 	json j_feat = json::object();
 	j_feat["points"] = j_pts;
 	if(feat.depth != 0.0) j_feat["depth"] = feat.depth;
+		
+		//std::cout << j_feat["points"].size() << " point for feature" << std::endl;
 		
 	return j_feat;
 }

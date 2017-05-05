@@ -1,4 +1,5 @@
-#include <iostream>
+int main(){}
+#if 0
 #include <string>
 #include <map>
 #include "lib/image_correspondence.h"
@@ -7,7 +8,6 @@
 #include "../lib/dataset.h"
 #include "../lib/camera.h"
 #include "../lib/eigen.h"
-
 
 using namespace tlz;
 
@@ -28,60 +28,29 @@ int main(int argc, const char* argv[]) {
 	dataset datas(dataset_parameter_filename);
 
 	std::cout << "loading intrinsic matrix" << std::endl;
-	Eigen_mat3 K = decode_mat<real, 3, 3>(import_json_file(intrinsics_filename));
+	const json& j_intrinsics = import_json_file(intrinsics_filename);
+	cv::Mat3d K = decode_mat_cv(j_intrinsics["K"]);
 	real fx = K(0, 0), fy = K(1, 1), cx = K(0, 2), cy = K(1, 2);
-		
-	std::map<view_index, std::vector<Eigen_vec2>> views_centers;
-
+	
 	real yaw = 0.0;
-
+	real sinyaw = std::sin(yaw), cosyaw = std::cos(yaw);
+	
 	std::cout << "loading correspondences" << std::endl;
 	image_correspondences cors = import_image_correspondences_file(cors_filename);
 	view_index reference_view_idx = cors.reference;
 	for(const auto& kv : cors.features) {
-		std::string feature_name = kv.first;
+		const std::string& feature_name = kv.first;
 		const image_correspondence_feature& feature = kv.second;
 		
-		Eigen_vec2 ref_i = feature.points.at(reference_view_idx);
-		real ref_sx = ref_i[0] / fx, ref_sy = ref_i[1] / fy;
-		
-		// load samples for this feature
-		std::map<view_index, Eigen_vec2> view_samples;
-		for(const auto& kv : feature.points) {
-			view_index idx = kv.first;
+		for(const auto& kv2 : feature.points) {
+			const view_index& idx = kv.first;
 			real ix = kv.second[0], iy = kv.second[1];
-
+			
 			
 		}
-		
-		// remove translation
-		for(auto& kv : view_samples) {
-			Eigen_vec2& s = kv.second;
-			s[0] -= ref_sx;
-			s[1] -= ref_sy;
-		}
-		
-		// remove scaling
-		real rms = 0.0;
-		for(const auto& kv : view_samples) {
-			const Eigen_vec2& s = kv.second;
-			rms += sq(s[0]) + sq(s[1]);
-		}
-		rms /= view_samples.size();
-		rms = std::sqrt(rms);
-		real d = 1.0 / rms;
-						
-		for(const auto& kv : view_samples) {
-			view_index idx = kv.first;
-			Eigen_vec2 s = kv.second;
-			real sx = s[0], sy = s[1];
-			real tx = sx * d + ox, ty = sy * d + oy;
-			views_centers[idx].emplace_back(tx*1000.0, ty*1000.0);
-		}
-	
 	}
 
-
+/*
 	std::map<view_index, Eigen_vec2> views_final_center;
 	for(const auto& kv : views_centers) {
 		view_index idx = kv.first;
@@ -117,5 +86,6 @@ int main(int argc, const char* argv[]) {
 	
 	
 	write_cameras_file(out_cams_filename, cameras);
+*/
 }
-
+#endif

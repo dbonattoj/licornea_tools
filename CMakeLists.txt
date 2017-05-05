@@ -18,6 +18,12 @@ endmacro(install_pylib_link)
 
 find_package(OpenCV REQUIRED)
 
+find_package(OpenMP)
+if(OpenMP_FOUND)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+endif()
+
 include_directories(SYSTEM src/external/include)
 include_directories(SYSTEM src/external/fmt)
 include_directories(SYSTEM src/external/mf)
@@ -81,6 +87,9 @@ target_link_libraries(calibrate_extrinsic common_lib calibration_lib)
 add_executable(optical_flow "src/calibration/optical_flow.cc")
 target_link_libraries(optical_flow common_lib calibration_lib)
 
+add_executable(optical_flow_2d "src/calibration/optical_flow_2d.cc")
+target_link_libraries(optical_flow_2d common_lib calibration_lib)
+
 add_executable(visualize_image_correspondences "src/calibration/visualize_image_correspondences.cc")
 target_link_libraries(visualize_image_correspondences common_lib calibration_lib)
 
@@ -97,6 +106,7 @@ install(
 		undistort 
 		calibrate_extrinsic
 		optical_flow
+		optical_flow_2d
 		visualize_image_correspondences
 		feature_depth_estimate
 		cameras_on_line

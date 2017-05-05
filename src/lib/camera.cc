@@ -14,7 +14,7 @@ struct frm {
 }; 
 
 std::ostream& operator<<(std::ostream& stream, const frm& f) {
-	stream << std::setprecision(4) << std::setw(7) << std::setfill(' ') << f.value_;
+	stream << std::setprecision(11) << std::setw(7) << std::setfill(' ') << f.value_;
 	return stream;
 }
 
