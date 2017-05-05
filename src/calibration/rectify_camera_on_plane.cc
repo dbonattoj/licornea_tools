@@ -29,5 +29,8 @@ int main(int argc, const char* argv[]) {
 	const json& j_intrinsics = import_json_file(intrinsics_filename);
 	cv::Mat3d K = decode_mat_cv(j_intrinsics["K"]);
 	real fx = K(0, 0), fy = K(1, 1), cx = K(0, 2), cy = K(1, 2);
+	
+	std::cout << "loading correspondences" << std::endl;
+	image_correspondences cors = import_image_correspondences_file(cors_filename);
 
 }

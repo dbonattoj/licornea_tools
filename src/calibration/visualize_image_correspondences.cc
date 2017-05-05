@@ -86,7 +86,7 @@ int main(int argc, const char* argv[]) {
 		} else {
 			// draw label		
 			Eigen_vec2 center_point = feature.points.at(center_view_index);
-			cv::Point center_point_cv(center_point[0] + 10, center_point[1] - 10);
+			cv::Point center_point_cv(center_point[0] + 20, center_point[1] - 20);
 			cv::putText(out_img, feature_name, center_point_cv, cv::FONT_HERSHEY_COMPLEX_SMALL, 1.0, cv::Scalar(col));
 
 			// draw dot for each point
@@ -94,7 +94,8 @@ int main(int argc, const char* argv[]) {
 				Eigen_vec2 pt = kv.second;
 				
 				cv::Point pt_cv(pt[0], pt[1]);
-				cv::circle(out_img, pt_cv, 1, cv::Scalar(col), -1);
+				out_img(pt_cv) = col;
+				//cv::circle(out_img, pt_cv, 1, cv::Scalar(col), -1);
 			}
 		}
 	}
