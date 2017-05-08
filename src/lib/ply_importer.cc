@@ -231,79 +231,55 @@ std::size_t ply_importer::property_type_size_(property_type t) {
 
 
 void ply_importer::read_ascii_point_(point_xyz& pt, const char* props[]) const {	
-	pt = point_xyz(Eigen_vec3(
+	pt = point_xyz(
 		strtof(props[x_.index], nullptr),
 		strtof(props[y_.index], nullptr),
 		strtof(props[z_.index], nullptr)	
-	));
+	);
 }
 
 
 
 void ply_importer::read_ascii_point_(point_full& pt, const char* props[]) const {
-	if(has_rgb_) pt = point_full(
-		Eigen_vec3(
-			strtof(props[x_.index], nullptr),
-			strtof(props[y_.index], nullptr),
-			strtof(props[z_.index], nullptr)
-		),
-		rgb_color(
-			strtol(props[r_.index], nullptr, 10),
-			strtol(props[g_.index], nullptr, 10),
-			strtol(props[b_.index], nullptr, 10)
-		)
-	);
-	else pt = point_xyz(Eigen_vec3(
+	pt = point_xyz(
 		strtof(props[x_.index], nullptr),
 		strtof(props[y_.index], nullptr),
 		strtof(props[z_.index], nullptr)	
-	));
-	if(has_normal_) pt.normal() = Eigen_vec3(
-		strtof(props[nx_.index], nullptr),
-		strtof(props[ny_.index], nullptr),
-		strtof(props[nz_.index], nullptr)
+	);	
+	if(has_rgb_) pt.color = rgb_color(
+		strtol(props[r_.index], nullptr, 10),
+		strtol(props[g_.index], nullptr, 10),
+		strtol(props[b_.index], nullptr, 10)
 	);
 }
 
 
 void ply_importer::read_binary_point_(point_xyz& pt, byte* data) const {
-	pt = point_xyz(Eigen_vec3(
+	pt = point_xyz(
 		read_binary_property_<float>(x_, data),
 		read_binary_property_<float>(y_, data),
 		read_binary_property_<float>(z_, data)
-	));
+	);
 }
 
 
 void ply_importer::read_binary_point_(point_full& pt, byte* data) const {
-	if(has_rgb_) pt = point_full(
-		Eigen_vec3(
-			read_binary_property_<float>(x_, data),
-			read_binary_property_<float>(y_, data),
-			read_binary_property_<float>(z_, data)
-		),
-		rgb_color(
-			read_binary_property_<std::uint8_t>(r_, data),
-			read_binary_property_<std::uint8_t>(g_, data),
-			read_binary_property_<std::uint8_t>(b_, data)
-		)
-	);
-	else pt = point_xyz(Eigen_vec3(
+	pt = point_xyz(
 		read_binary_property_<float>(x_, data),
 		read_binary_property_<float>(y_, data),
 		read_binary_property_<float>(z_, data)
-	));
-	if(has_normal_) pt.normal() = Eigen_vec3(
-		read_binary_property_<float>(nx_, data),
-		read_binary_property_<float>(ny_, data),
-		read_binary_property_<float>(nz_, data)
+	);
+	if(has_rgb_) pt.color = rgb_color(
+		read_binary_property_<std::uint8_t>(r_, data),
+		read_binary_property_<std::uint8_t>(g_, data),
+		read_binary_property_<std::uint8_t>(b_, data)
 	);
 }
 
 
 void ply_importer::read(point_xyz* buffer, std::size_t n) {
 	if(current_element_ + n > number_of_vertices_)
-		throw ply_importer_error("Attempted to read beyond bounds.");
+		throw ply_importer_error("attempted to read beyond bounds");
 	
 	if(is_ascii()) read_ascii_(buffer, n);
 	else read_binary_(buffer, n);
@@ -314,7 +290,7 @@ void ply_importer::read(point_xyz* buffer, std::size_t n) {
 
 void ply_importer::read(point_full* buffer, std::size_t n) {
 	if(current_element_ + n > number_of_vertices_)
-		throw ply_importer_error("Attempted to read beyond bounds.");
+		throw ply_importer_error("attempted to read beyond bounds");
 	
 	if(is_ascii()) read_ascii_(buffer, n);
 	else read_binary_(buffer, n);

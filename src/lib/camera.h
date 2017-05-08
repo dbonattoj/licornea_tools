@@ -1,7 +1,7 @@
 #ifndef LICORNEA_CAMERA_H_
 #define LICORNEA_CAMERA_H_
 
-#include "../../lib/eigen.h"
+#include "opencv.h"
 #include <iosfwd>
 #include <vector>
 #include <map>
@@ -11,13 +11,11 @@ namespace tlz {
 
 struct camera {
 	std::string name;
-	Eigen_mat3 intrinsic;
-	Eigen_mat4 extrinsic;
-
-	auto rotation() { return extrinsic.block<3, 3>(0, 0); }
-	auto rotation() const { return extrinsic.block<3, 3>(0, 0); }
-	auto translation() { return extrinsic.block<3, 1>(0, 3); }
-	auto translation() const { return extrinsic.block<3, 1>(0, 3); }
+	mat33 intrinsic;
+	mat33 rotation;
+	vec3 translation;
+	
+	mat44 extrinsic() const;
 };
 
 using camera_array = std::vector<camera>;

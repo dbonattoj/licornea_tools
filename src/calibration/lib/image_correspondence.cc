@@ -16,7 +16,7 @@ image_correspondence_feature decode_image_correspondence_feature(const json& j_f
 		view_index idx = decode_view_index(key);
 		
 		const json& j_pos = it.value();
-		Eigen_vec2 pos(j_pos[0], j_pos[1]);
+		vec2 pos(j_pos[0], j_pos[1]);
 
 		feat.points[idx] = pos;
 	}
@@ -31,7 +31,7 @@ json encode_image_correspondence_feature(const image_correspondence_feature& fea
 		view_index idx = pt.first;
 		std::string key = encode_view_index(idx);
 		
-		Eigen_vec2 pos = pt.second;
+		vec2 pos = pt.second;
 		json j_pos = json::array();
 		j_pos.push_back(pos[0]);
 		j_pos.push_back(pos[1]);
@@ -42,9 +42,7 @@ json encode_image_correspondence_feature(const image_correspondence_feature& fea
 	json j_feat = json::object();
 	j_feat["points"] = j_pts;
 	if(feat.depth != 0.0) j_feat["depth"] = feat.depth;
-		
-		//std::cout << j_feat["points"].size() << " point for feature" << std::endl;
-		
+				
 	return j_feat;
 }
 

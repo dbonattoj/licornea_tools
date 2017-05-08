@@ -1,17 +1,17 @@
 #ifndef LICORNEA_CALIB_CALIBRATION_CORRESPONDENCES_H_
 #define LICORNEA_CALIB_CALIBRATION_CORRESPONDENCES_H_
 
-#include <opencv2/opencv.hpp>
 #include <json.hpp>
 #include "../../lib/json.h"
+#include "../../lib/opencv.h"
 
 namespace tlz {
 
 // TODO rename into img2world or similar
 
 struct calibration_correspondence {
-	cv::Vec3f object_coordinates;
-	cv::Vec2f image_coordinates;
+	vec3 object_coordinates;
+	vec2 image_coordinates;
 };
 
 calibration_correspondence decode_calibration_correspondence(const json&);

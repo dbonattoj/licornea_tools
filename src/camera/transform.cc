@@ -5,7 +5,7 @@
 #include <format.h>
 #include <regex>
 
-#include "../lib/eigen.h"
+#include "../lib/opencv.h"
 #include "../lib/camera.h"
 
 using namespace tlz;
@@ -45,13 +45,13 @@ int main(int argc, const char* argv[]) {
 		camera cam = in_cam;
 		
 		if(operation == "Rt2MPEG") {
-			cam.translation() = -(cam.rotation().inverse() * cam.translation());
-			
+			cam.translation = -(cam.rotation.inv() * cam.translation);
+						
 		} else if(operation == "MPEG2Rt") {
-			cam.translation() = -(cam.rotation() * cam.translation());	
-					
+			cam.translation = -(cam.rotation * cam.translation);
+								
 		} else if(operation == "flip_t") {
-			cam.translation() = -cam.translation();			
+			cam.translation = -cam.translation;			
 			
 		} else if(operation == "scale") {
 			if(argc <= 5) usage_fail();

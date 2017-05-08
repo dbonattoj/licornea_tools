@@ -1,7 +1,8 @@
 #ifndef LICORNEA_CALIB_CHESSBOARD_H_
 #define LICORNEA_CALIB_CHESSBOARD_H_
 
-#include <opencv2/opencv.hpp>
+#include "../../lib/common.h"
+#include "../../lib/opencv.h"
 #include <vector>
 #include <iosfwd>
 #include <vector>
@@ -11,8 +12,8 @@
 namespace tlz {
 
 struct chessboard_corner {
-	float pixel_x;
-	float pixel_y;
+	real pixel_x;
+	real pixel_y;
 	int row;
 	int col;
 };

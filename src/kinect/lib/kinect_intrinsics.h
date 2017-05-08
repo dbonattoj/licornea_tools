@@ -3,6 +3,7 @@
 
 #include <iosfwd>
 #include <string>
+#include "../../lib/common.h"
 
 #define KINECT_INTRINSICS_COLOR_ELEMENTS \
 	COLOR_PARAM(fx); \
@@ -47,8 +48,8 @@
 
 namespace tlz {
 
-#define COLOR_PARAM(__field__) float __field__ = 0.0;
-#define IR_PARAM(__field__) float __field__ = 0.0;
+#define COLOR_PARAM(__field__) real __field__ = 0.0;
+#define IR_PARAM(__field__) real __field__ = 0.0;
 
 struct kinect_intrinsic_parameters {
 	struct {

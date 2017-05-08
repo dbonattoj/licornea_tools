@@ -1,5 +1,5 @@
 #include "camera.h"
-#include "../../lib/json.h"
+#include "json.h"
 #include <fstream>
 #include <iomanip>
 #include <iterator>
@@ -19,6 +19,16 @@ std::ostream& operator<<(std::ostream& stream, const frm& f) {
 }
 
 }
+
+
+mat44 camera::extrinsic() const {
+	return mat44(
+		rotation(0, 0), rotation(0, 1), rotation(0, 2), translation[0],
+		rotation(1, 0), rotation(1, 1), rotation(1, 2), translation[1],
+		rotation(2, 0), rotation(2, 1), rotation(2, 2), translation[2],
+		0.0, 0.0, 0.0, 1.0
+	);
+}
 	
 camera_array read_cameras_file(const std::string& filename) {
 	camera_array cameras;
@@ -30,16 +40,14 @@ camera_array read_cameras_file(const std::string& filename) {
 	for(auto& j_cam : j_root) {
 		camera cam;
 		cam.name = j_cam["name"];
-		cam.intrinsic <<
-			j_cam["K"][0][0], j_cam["K"][0][1], j_cam["K"][0][2],
-			j_cam["K"][1][0], j_cam["K"][1][1], j_cam["K"][1][2],
-			j_cam["K"][2][0], j_cam["K"][2][1], j_cam["K"][2][2];
-		cam.extrinsic <<
-			j_cam["Rt"][0][0], j_cam["Rt"][0][1], j_cam["Rt"][0][2], j_cam["Rt"][0][3],
-			j_cam["Rt"][1][0], j_cam["Rt"][1][1], j_cam["Rt"][1][2], j_cam["Rt"][1][3],
-			j_cam["Rt"][2][0], j_cam["Rt"][2][1], j_cam["Rt"][2][2], j_cam["Rt"][2][3],
-			j_cam["Rt"][3][0], j_cam["Rt"][3][1], j_cam["Rt"][3][2], j_cam["Rt"][3][3];
+		cam.intrinsic = decode_mat(j_cam["K"]);
 		
+		mat44 extrinsic = decode_mat(j_cam["Rt"]);
+		cam.rotation = extrinsic.get_minor<3, 3>(0, 0);
+		
+		auto t = extrinsic.get_minor<3, 1>(0, 3);
+		cam.translation = vec3(t(0, 0), t(1, 0), t(2, 0));
+				
 		cameras.push_back(cam);
 	}
 	return cameras;
@@ -64,42 +72,14 @@ void write_cameras_file(const std::string& filename, const camera_array& cameras
 			<< "\t\"K\" :  [[" << frm(cam.intrinsic(0, 0)) << ", " << frm(cam.intrinsic(0, 1)) << ", " << frm(cam.intrinsic(0, 2)) << "],\n"
 			<< "\t        ["   << frm(cam.intrinsic(1, 0)) << ", " << frm(cam.intrinsic(1, 1)) << ", " << frm(cam.intrinsic(1, 2)) << "],\n"
 			<< "\t        ["   << frm(cam.intrinsic(2, 0)) << ", " << frm(cam.intrinsic(2, 1)) << ", " << frm(cam.intrinsic(2, 2)) << "]],\n"
-			<< "\t\"Rt\" : [[" << frm(cam.extrinsic(0, 0)) << ", " << frm(cam.extrinsic(0, 1)) << ", " << frm(cam.extrinsic(0, 2)) << ", " << frm(cam.extrinsic(0, 3)) << "],\n"
-			<< "\t        ["   << frm(cam.extrinsic(1, 0)) << ", " << frm(cam.extrinsic(1, 1)) << ", " << frm(cam.extrinsic(1, 2)) << ", " << frm(cam.extrinsic(1, 3)) << "],\n"
-			<< "\t        ["   << frm(cam.extrinsic(2, 0)) << ", " << frm(cam.extrinsic(2, 1)) << ", " << frm(cam.extrinsic(2, 2)) << ", " << frm(cam.extrinsic(2, 3)) << "],\n"
-			<< "\t        ["   << frm(cam.extrinsic(3, 0)) << ", " << frm(cam.extrinsic(3, 1)) << ", " << frm(cam.extrinsic(3, 2)) << ", " << frm(cam.extrinsic(3, 3)) << "]]\n"
+			<< "\t\"Rt\" : [[" << frm(cam.rotation(0, 0)) << ", " << frm(cam.rotation(0, 1)) << ", " << frm(cam.rotation(0, 2)) << ", " << frm(cam.translation[0]) << "],\n"
+			<< "\t        ["   << frm(cam.rotation(1, 0)) << ", " << frm(cam.rotation(1, 1)) << ", " << frm(cam.rotation(1, 2)) << ", " << frm(cam.translation[1]) << "],\n"
+			<< "\t        ["   << frm(cam.rotation(2, 0)) << ", " << frm(cam.rotation(2, 1)) << ", " << frm(cam.rotation(2, 2)) << ", " << frm(cam.translation[2]) << "],\n"
+			<< "\t        [0.0, 0.0, 0.0, 1.0]]\n"
 			<< "}";
 	}
 	stream << "\n]";
 }
-
-/*
-void write_cameras_file(const std::string& filename, const camera_array& cameras) {
-	using namespace nlohmann;
-	
-	json j_root = json::array();
-	
-	for(const camera& cam : cameras) {
-		const camera& cam = *it;
-		json j_cam = json::object();
-		j_cam["name"] = cam.name;
-		j_cam["K"] = {
-			{ cam.intrinsic(0, 0), cam.intrinsic(0, 1), cam.intrinsic(0, 2) },
-			{ cam.intrinsic(1, 0), cam.intrinsic(1, 1), cam.intrinsic(1, 2) },
-			{ cam.intrinsic(2, 0), cam.intrinsic(2, 1), cam.intrinsic(2, 2) }
-		};
-		j_cam["Rt"] = {
-			{ cam.extrinsic(0, 0), cam.extrinsic(0, 1), cam.extrinsic(0, 2), cam.extrinsic(0, 3) },
-			{ cam.extrinsic(1, 0), cam.extrinsic(1, 1), cam.extrinsic(1, 2), cam.extrinsic(1, 3) },
-			{ cam.extrinsic(2, 0), cam.extrinsic(2, 1), cam.extrinsic(2, 2), cam.extrinsic(2, 3) },
-			{ cam.extrinsic(3, 0), cam.extrinsic(3, 1), cam.extrinsic(3, 2), cam.extrinsic(3, 3) }
-		};
-		j_root.push_back(j_cam);
-	}
-	
-	export_json_file(j_root, filename);
-}
-*/
 
 
 std::map<std::string, camera> cameras_map(const camera_array& arr) {

@@ -1,4 +1,3 @@
-#include <opencv2/opencv.hpp>
 #include <iostream>
 #include <fstream>
 #include <utility>
@@ -9,6 +8,7 @@
 #include "lib/image_correspondence.h"
 #include "../lib/json.h"
 #include "../lib/dataset.h"
+#include "../lib/opencv.h"
 
 using namespace tlz;
 
@@ -48,7 +48,7 @@ void add_correspondences(const flow_state& state) {
 	std::lock_guard<std::mutex> lock(correspondences_mutex);
 	for(std::ptrdiff_t feature = 0; feature < features_count; ++feature)
 		if(state.feature_status[feature])
-			correspondences[feature].points[state.index] = Eigen_vec2(state.feature_positions[feature].x, state.feature_positions[feature].y);
+			correspondences[feature].points[state.index] = vec2(state.feature_positions[feature].x, state.feature_positions[feature].y);
 }
 
 

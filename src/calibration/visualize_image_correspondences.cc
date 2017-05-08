@@ -1,4 +1,3 @@
-#include <opencv2/opencv.hpp>
 #include <iostream>
 #include <fstream>
 #include <utility>
@@ -8,6 +7,7 @@
 #include "lib/image_correspondence.h"
 #include "../lib/json.h"
 #include "../lib/dataset.h"
+#include "../lib/opencv.h"
 
 using namespace tlz;
 
@@ -63,10 +63,9 @@ int main(int argc, const char* argv[]) {
 		
 		cv::Vec3b col = random_color(i++);
 		
-		
 		if(datas.is_1d()) {
 			// draw circle		
-			Eigen_vec2 center_point = feature.points.at(center_view_index);
+			vec2 center_point = feature.points.at(center_view_index);
 			cv::Point center_point_cv(center_point[0], center_point[1]);
 			cv::circle(out_img, center_point_cv, 10, cv::Scalar(col), 2);
 
@@ -76,7 +75,7 @@ int main(int argc, const char* argv[]) {
 			// draw connecting line
 			std::vector<cv::Point> trail_points;
 			for(const auto& kv : feature.points) {
-				Eigen_vec2 pt = kv.second;
+				vec2 pt = kv.second;
 				trail_points.emplace_back(pt[0], pt[1]);
 			}
 
@@ -85,13 +84,13 @@ int main(int argc, const char* argv[]) {
 			
 		} else {
 			// draw label		
-			Eigen_vec2 center_point = feature.points.at(center_view_index);
+			vec2 center_point = feature.points.at(center_view_index);
 			cv::Point center_point_cv(center_point[0] + 20, center_point[1] - 20);
 			cv::putText(out_img, feature_name, center_point_cv, cv::FONT_HERSHEY_COMPLEX_SMALL, 1.0, cv::Scalar(col));
 
 			// draw dot for each point
 			for(const auto& kv : feature.points) {
-				Eigen_vec2 pt = kv.second;
+				vec2 pt = kv.second;
 				
 				cv::Point pt_cv(pt[0], pt[1]);
 				out_img(pt_cv) = col;

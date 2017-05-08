@@ -1,7 +1,6 @@
 #ifndef LICORNEA_MULTIPROJECTION_H_
 #define LICORNEA_MULTIPROJECTION_H_
 
-#include "../../lib/eigen.h"
 #include "../../lib/json.h"
 #include <vector>
 

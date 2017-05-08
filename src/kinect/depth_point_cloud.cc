@@ -1,11 +1,10 @@
 #include <opencv2/opencv.hpp>
 #include "lib/reprojection/kinect_reprojection.h"
 #include "../lib/point.h"
-#include "../lib/point.h"
 #include "../lib/ply_exporter.h"
+#include "../lib/image_io.h"
 #include "lib/kinect_intrinsics.h"
 #include "lib/common.h"
-#include "lib/depth_io.h"
 #include <cstdlib>
 #include <iostream>
 #include <vector>
@@ -26,13 +25,13 @@ std::vector<point_xyz> generate_point_cloud(const cv::Mat_<ushort>& in, const ki
 		ushort dz = in(dy, dx);
 		if(dz == 0) continue;
 		
-		cv::Vec2f distorted_depth_position(dx, dy);
-		cv::Vec2f undistorted_depth_position = reproj.undistort_depth(distorted_depth_position);
+		vec2 distorted_depth_position(dx, dy);
+		vec2 undistorted_depth_position = reproj.undistort_depth(distorted_depth_position);
 		
-		cv::Vec3f point = reproj.backproject_depth(undistorted_depth_position, dz);
+		vec3 point = reproj.backproject_depth(undistorted_depth_position, dz);
 		bool null = std::isnan(point[0]);
 									
-		if(! null) points.emplace_back(Eigen_vec3(point[0], point[1], point[2]));
+		if(! null) points.emplace_back(vec3(point[0], point[1], point[2]));
 	}
 	
 	points.shrink_to_fit();
@@ -50,7 +49,6 @@ int main(int argc, const char* argv[]) {
 	std::string input_filename = argv[1];
 	std::string output_filename = argv[2];
 	std::string intrinsics_filename = argv[3];
-	
 	
 	std::cout << "reading intrinsics" << std::endl;
 	kinect_intrinsic_parameters intrinsics;

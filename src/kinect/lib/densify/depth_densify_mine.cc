@@ -6,9 +6,9 @@
 namespace tlz {
 
 
-void depth_densify_mine::densify(const std::vector<Eigen_vec3>& orig_samples, cv::Mat_<real>& out, cv::Mat_<uchar>& out_mask) {
-	std::vector<Eigen_vec3> samples = orig_samples;
-	auto cmp = [](const Eigen_vec3& a, const Eigen_vec3& b) { return (a[2] > b[2]); };
+void depth_densify_mine::densify(const std::vector<vec3>& orig_samples, cv::Mat_<real>& out, cv::Mat_<uchar>& out_mask) {
+	std::vector<vec3> samples = orig_samples;
+	auto cmp = [](const vec3& a, const vec3& b) { return (a[2] > b[2]); };
 	std::sort(samples.begin(), samples.end(), cmp);
 	
 	cv::Mat_<uchar> sparse_mask(texture_height, texture_width);
@@ -17,7 +17,7 @@ void depth_densify_mine::densify(const std::vector<Eigen_vec3>& orig_samples, cv
 	
 	int shadow_width = 3;
 	real shadow_min_depth_diff = 100.0;
-	for(const Eigen_vec3& sample : samples) {
+	for(const vec3& sample : samples) {
 		int sx = sample[0], sy = sample[1];
 		if(sx < 0 || sx >= texture_width || sy < 0 || sy >= texture_height) continue;
 		

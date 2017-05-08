@@ -1,5 +1,3 @@
-#include <opencv2/opencv.hpp>
-#include <json.hpp>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -7,6 +5,7 @@
 #include "lib/chessboard.h"
 #include "lib/calibration_correspondence.h"
 #include "../lib/json.h"
+#include "../lib/opencv.h"
 
 using namespace tlz;
 

@@ -2,7 +2,7 @@
 #define LICORNEA_IMAGE_CORRESPONDENCE_H_
 
 #include "../../lib/json.h"
-#include "../../lib/eigen.h"
+#include "../../lib/opencv.h"
 #include "../../lib/dataset.h"
 #include <map>
 #include <vector>
@@ -10,11 +10,9 @@
 
 namespace tlz {
 
-// TODO add "reference". needs point for that view needs to exists foreach feature
-
 struct image_correspondence_feature {		
 	real depth = 0.0;
-	std::map<view_index, Eigen_vec2> points;
+	std::map<view_index, vec2> points;
 	// when iterating (--> encoding into json array), gets sorted by index
 };
 

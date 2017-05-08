@@ -1,4 +1,3 @@
-#include <opencv2/opencv.hpp>
 #include <iostream>
 #include <fstream>
 #include <utility>
@@ -7,6 +6,7 @@
 #include <string>
 #include "lib/image_correspondence.h"
 #include "../lib/json.h"
+#include "../lib/opencv.h"
 #include "../lib/dataset.h"
 
 using namespace tlz;
@@ -79,7 +79,7 @@ int main(int argc, const char* argv[]) {
 		view_index idx(x);
 		for(std::ptrdiff_t feature = 0; feature < features_count; ++feature)
 			if(positions[feature].x != 0 && positions[feature].y != 0)
-				correspondences[feature].points[idx] = Eigen_vec2(positions[feature].x, positions[feature].y);
+				correspondences[feature].points[idx] = vec2(positions[feature].x, positions[feature].y);
 	};
 	
 	std::cout << "optical flow by increasing x starting at mid_x..." << std::endl;

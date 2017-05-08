@@ -3,7 +3,6 @@
 
 #include "../../../lib/opencv.h"
 #include "../../../lib/color.h"
-#include "../../../lib/eigen.h"
 #include "../kinect_intrinsics.h"
 #include <vector>
 #include <tuple>
@@ -17,10 +16,10 @@ private:
 public:
 	explicit kinect_reprojection(const kinect_intrinsic_parameters&);
 	
-	cv::Vec2f distort_depth(cv::Vec2f undistorted) const;
-	cv::Vec2f undistort_depth(cv::Vec2f distorted) const;
-	cv::Vec2f reproject_depth_to_color(cv::Vec2f undistorted, float z) const;
-	cv::Vec3f backproject_depth(cv::Vec2f undistorted, float z) const;
+	vec2 distort_depth(vec2 undistorted) const;
+	vec2 undistort_depth(vec2 distorted) const;
+	vec2 reproject_depth_to_color(vec2 undistorted, real z) const;
+	vec3 backproject_depth(vec2 undistorted, real z) const;
 };
 
 }

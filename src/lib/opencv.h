@@ -47,6 +47,21 @@ namespace cv { // in OpenCV namespace
 
 namespace tlz {
 
+
+using vec4 = cv::Vec<real, 4>;
+using vec3 = cv::Vec<real, 3>;
+using vec2 = cv::Vec<real, 2>;
+using mat33 = cv::Matx<real, 3, 3>;
+using mat44 = cv::Matx<real, 4, 4>;
+
+inline vec3 mul_h(const mat44& mat, const vec3& vec) {
+	vec4 in(vec[0], vec[1], vec[2], 1.0);
+	vec4 out = mat * in;
+	out /= out[3];
+	return vec3(out[0], out[1], out[2]);
+}
+
+
 /// Copy the data in \a vw into the OpenCV Mat \a mat.
 /** \a mat is created and allocated as needed using `cv::Mat::create()`, and \a mat owns the new copy of the data.
  ** `Elem` can not be a `masked_elem` type. */
@@ -65,7 +80,6 @@ void copy_to_opencv(const ndarray_view<Dim, Elem>& vw, cv::Mat_<std::remove_cons
 		[](const Elem& elem) -> Elem { return elem; }
 	);
 }
-
 
 
 /// Create `cv::Mat` header pointing at the same data as \a vw.

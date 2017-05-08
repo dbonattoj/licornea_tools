@@ -1,4 +1,3 @@
-#include <opencv2/opencv.hpp>
 #include <iostream>
 #include <utility>
 #include <vector>
@@ -12,6 +11,7 @@
 #include "../lib/dataset.h"
 #include "../lib/image_io.h"
 #include "../lib/json.h"
+#include "../lib/opencv.h"
 
 using namespace tlz;
 
@@ -30,13 +30,13 @@ int main(int argc, const char* argv[]) {
 	std::string depths_filename;
 	if(argc > 4) depths_filename = argv[4];
 	
-	float stddev_max_threshold = 10.0;
+	real stddev_max_threshold = 10.0;
 	
 	std::cout << "loading data set" << std::endl;
 	dataset datas(dataset_parameter_filename);
 	
 	std::map<view_index, std::vector<std::string>> view_features;
-	std::map<std::string, std::vector<float>> feature_depths;
+	std::map<std::string, std::vector<real>> feature_depths;
 
 	std::cout << "loading correspondences" << std::endl;
 	image_correspondences cors = import_image_correspondences_file(in_cors_filename);
@@ -62,7 +62,7 @@ int main(int argc, const char* argv[]) {
 		std::cout << '.' << std::flush;
 		
 		for(const std::string& feature_name : features) {
-			Eigen_vec2 j_pos = cors.features[feature_name].points[view_idx];
+			vec2 j_pos = cors.features[feature_name].points[view_idx];
 			cv::Point pos(j_pos[0], j_pos[1]);
 			
 			ushort depth_value = depth(pos);
@@ -84,12 +84,12 @@ int main(int argc, const char* argv[]) {
 
 		if(depths.size() != points_count) { std::cout << "missing samples, rejected\n" << std::endl; continue; }
 				
-		float mean = 0.0;
-		for(float d : depths) mean += d;
+		real mean = 0.0;
+		for(real d : depths) mean += d;
 		mean /= depths.size();
 	
-		float stddev = 0.0;
-		for(float d : depths) stddev += sq(mean - d);
+		real stddev = 0.0;
+		for(real d : depths) stddev += sq(mean - d);
 		stddev = std::sqrt(stddev / depths.size());
 	
 		std::cout << "mean: " << mean << "\nstandard deviation: " << stddev << std::endl;
@@ -100,7 +100,7 @@ int main(int argc, const char* argv[]) {
 
 		auto mid = depths.begin() + depths.size()/2;
 		std::nth_element(depths.begin(), mid, depths.end());
-		float median = *mid;
+		real median = *mid;
 		
 		std::cout << "accepted, taking median depth " << median << std::endl << std::endl; 
 	
@@ -122,7 +122,7 @@ int main(int argc, const char* argv[]) {
 			
 			const auto& depths = kv.second;
 			depths_stream << feature_name;
-			for(float d : kv.second) depths_stream << ' ' << d;
+			for(real d : kv.second) depths_stream << ' ' << d;
 			depths_stream << '\n';
 		}
 		for(const auto& kv : feature_depths) {
@@ -132,7 +132,7 @@ int main(int argc, const char* argv[]) {
 			
 			const auto& depths = kv.second;
 			depths_stream << feature_name << "_rej";
-			for(float d : kv.second) depths_stream << ' ' << d;
+			for(real d : kv.second) depths_stream << ' ' << d;
 			depths_stream << '\n';
 		}
 	}

@@ -1,4 +1,3 @@
-#include <opencv2/opencv.hpp>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -6,6 +5,7 @@
 #include <stdexcept>
 #include "../lib/json.h"
 #include "../lib/image_io.h"
+#include "../lib/opencv.h"
 
 using namespace tlz;
 
@@ -23,7 +23,7 @@ int main(int argc, const char* argv[]) {
 	std::string mode = argv[4];
 	
 	auto j_intrinsics = import_json_file(in_intrinsics_filename);
-	cv::Mat_<double> intrinsic = decode_mat_cv(j_intrinsics["K"]);
+	cv::Mat_<real> intrinsic = decode_mat(j_intrinsics["K"]);
 
 
 	real k1, k2, p1, p2;
@@ -41,8 +41,8 @@ int main(int argc, const char* argv[]) {
 	
 	
 	if(mode == "texture") {
-		cv::Mat_<cv::Vec3f> in_image = load_texture(in_image_filename);
-		cv::Mat_<cv::Vec3f> out_image;
+		cv::Mat_<cv::Vec3b> in_image = load_texture(in_image_filename);
+		cv::Mat_<cv::Vec3b> out_image;
 		cv::undistort(in_image, out_image, intrinsic, distortion_coeffs);
 		save_texture(out_image_filename, out_image);
 		

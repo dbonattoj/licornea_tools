@@ -2,8 +2,7 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
-
-#include "../lib/eigen.h"
+#include "../lib/opencv.h"
 #include "../lib/camera.h"
 
 using namespace tlz;
@@ -33,24 +32,25 @@ int main(int argc, const char* argv[]) {
 		std::cout << cameras.size() << " cameras..." << std::endl;
 	}
 			
-	double scale = 0.4;
-	Eigen_mat4 model_transform; model_transform <<
+	real scale = 0.4;
+	mat44 model_transform(
 		2.0*scale, 0.0, 0.0, 0.0,
 		0.0, 1.0*scale, 0.0, 0.0,
 		0.0, 0.0, 1.0*scale, 0.0,
-		0.0, 0.0, 0.0, 1.0;
+		0.0, 0.0, 0.0, 1.0
+	);
 	
-	std::vector<Eigen_vec3> vertices;
+	std::vector<vec3> vertices;
 	std::vector<std::vector<std::ptrdiff_t>> faces;
 	
 	if(world) {
-		Eigen_scalar camera_depth = 2.0;
+		real camera_depth = 2.0;
 		vertices = {
-			Eigen_vec3(0, 0, 0),    // 0: base
-			Eigen_vec3(+1, -1, camera_depth),  // 1: top left
-			Eigen_vec3(+1, +1, camera_depth),  // 2: top right
-			Eigen_vec3(-1, +1, camera_depth),  // 3: bottom left
-			Eigen_vec3(-1, -1, camera_depth)   // 4: bottom right
+			vec3(0, 0, 0),    // 0: base
+			vec3(+1, -1, camera_depth),  // 1: top left
+			vec3(+1, +1, camera_depth),  // 2: top right
+			vec3(-1, +1, camera_depth),  // 3: bottom left
+			vec3(-1, -1, camera_depth)   // 4: bottom right
 		};
 		faces = {
 			{0, 2, 1}, // top
@@ -61,16 +61,16 @@ int main(int argc, const char* argv[]) {
 		};
 		
 	} else {
-		Eigen_vec3 sz(1.0, 1.0, 0.5);
+		vec3 sz(1.0, 1.0, 0.5);
 		vertices = {
-			Eigen_vec3(-sz[0], +sz[1], +sz[2]),
-			Eigen_vec3(+sz[0], +sz[1], +sz[2]),
-			Eigen_vec3(-sz[0], -sz[1], +sz[2]),
-			Eigen_vec3(+sz[0], -sz[1], +sz[2]),
-			Eigen_vec3(-sz[0], +sz[1], -sz[2]),
-			Eigen_vec3(+sz[0], +sz[1], -sz[2]),
-			Eigen_vec3(-sz[0], -sz[1], -sz[2]),
-			Eigen_vec3(+sz[0], -sz[1], -sz[2])
+			vec3(-sz[0], +sz[1], +sz[2]),
+			vec3(+sz[0], +sz[1], +sz[2]),
+			vec3(-sz[0], -sz[1], +sz[2]),
+			vec3(+sz[0], -sz[1], +sz[2]),
+			vec3(-sz[0], +sz[1], -sz[2]),
+			vec3(+sz[0], +sz[1], -sz[2]),
+			vec3(-sz[0], -sz[1], -sz[2]),
+			vec3(+sz[0], -sz[1], -sz[2])
 		};
 		faces = {
 			{0, 2, 3, 1}, // front
@@ -95,12 +95,12 @@ int main(int argc, const char* argv[]) {
 	output << "end_header\n";
 	
 	for(const camera& cam : cameras) {	
-		Eigen_mat4 M;
-		if(world) M = cam.extrinsic.inverse() * model_transform;
-		else M = cam.extrinsic * model_transform;
+		mat44 M;
+		if(world) M = cam.extrinsic().inv() * model_transform;
+		else M = cam.extrinsic() * model_transform;
 			
-		for(const Eigen_vec3& model_vertex : vertices) {
-			Eigen_vec3 shown_vertex = (M * model_vertex.homogeneous()).eval().hnormalized();
+		for(const vec3& model_vertex : vertices) {
+			vec3 shown_vertex = mul_h(M, model_vertex);
 			output << shown_vertex[0] << ' ' << shown_vertex[1] << ' ' << shown_vertex[2] << '\n';
 		}
 	}
