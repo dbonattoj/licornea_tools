@@ -60,13 +60,19 @@ int main(int argc, const char* argv[]) {
 	}
 	
 	std::cout << "saving slopes" << std::endl;
-	json j_slopes = json::object();
+	json j_feature_slopes = json::object();
 	for(const auto& kv : cors.features) {
 		const std::string& feature_name = kv.first;
+		const image_correspondence_feature& feature = kv.second;
 		json j_slope = json::object();
+		j_slope["ix"] = feature.points.at(reference_idx)[0];
+		j_slope["iy"] = feature.points.at(reference_idx)[1];
 		j_slope["horizontal"] = feature_horizontal_slopes.at(feature_name);
 		j_slope["vertical"] = feature_vertical_slopes.at(feature_name);
-		j_slopes[feature_name] = j_slope;
+		j_feature_slopes[feature_name] = j_slope;
 	}
+	json j_slopes = json::object();
+	j_slopes["slopes"] = j_feature_slopes;
+	j_slopes["reference"] = encode_view_index(reference_idx);
 	export_json_file(j_slopes, out_slopes_filename);
 }

@@ -99,6 +99,9 @@ target_link_libraries(feature_depth_estimate common_lib calibration_lib)
 add_executable(cg_optical_flow_slopes "src/calibration/cg_optical_flow_slopes.cc")
 target_link_libraries(cg_optical_flow_slopes common_lib calibration_lib)
 
+add_executable(cg_visualize_optical_flow_slopes "src/calibration/cg_visualize_optical_flow_slopes.cc")
+target_link_libraries(cg_visualize_optical_flow_slopes common_lib calibration_lib)
+
 
 install(
 	TARGETS
@@ -111,6 +114,7 @@ install(
 		visualize_image_correspondences
 		feature_depth_estimate
 		cg_optical_flow_slopes
+		cg_visualize_optical_flow_slopes
 	DESTINATION calibration
 )
 install_pylib_link(calibration)
