@@ -96,8 +96,8 @@ target_link_libraries(visualize_image_correspondences common_lib calibration_lib
 add_executable(feature_depth_estimate "src/calibration/feature_depth_estimate.cc")
 target_link_libraries(feature_depth_estimate common_lib calibration_lib)
 
-add_executable(rectify_camera_on_plane "src/calibration/rectify_camera_on_plane.cc")
-target_link_libraries(rectify_camera_on_plane common_lib calibration_lib)
+add_executable(cg_optical_flow_slopes "src/calibration/cg_optical_flow_slopes.cc")
+target_link_libraries(cg_optical_flow_slopes common_lib calibration_lib)
 
 
 install(
@@ -110,7 +110,7 @@ install(
 		optical_flow_2d
 		visualize_image_correspondences
 		feature_depth_estimate
-		rectify_camera_on_plane
+		cg_optical_flow_slopes
 	DESTINATION calibration
 )
 install_pylib_link(calibration)
