@@ -11,7 +11,7 @@
 using namespace tlz;
 
 [[noreturn]] void usage_fail() {
-	std::cout << "usage: optical_flow_slopes dataset_parameters.json image_correspondences.json out_slopes.json\n";
+	std::cout << "usage: cg_optical_flow_slopes dataset_parameters.json image_correspondences.json out_slopes.json\n";
 	std::cout << std::endl;
 	std::exit(1);
 }

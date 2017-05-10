@@ -102,8 +102,8 @@ target_link_libraries(cg_optical_flow_slopes common_lib calibration_lib)
 add_executable(cg_visualize_optical_flow_slopes "src/calibration/cg_visualize_optical_flow_slopes.cc")
 target_link_libraries(cg_visualize_optical_flow_slopes common_lib calibration_lib)
 
-add_executable(cg_simulation "src/calibration/cg_simulation.cc")
-target_link_libraries(cg_simulation common_lib calibration_lib)
+add_executable(cg_generate_artificial "src/calibration/cg_generate_artificial.cc")
+target_link_libraries(cg_generate_artificial common_lib calibration_lib)
 
 
 install(
@@ -118,7 +118,7 @@ install(
 		feature_depth_estimate
 		cg_optical_flow_slopes
 		cg_visualize_optical_flow_slopes
-		cg_simulation
+		cg_generate_artificial
 	DESTINATION calibration
 )
 install_pylib_link(calibration)

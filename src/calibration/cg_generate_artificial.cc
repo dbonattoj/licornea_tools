@@ -14,7 +14,7 @@
 using namespace tlz;
 
 [[noreturn]] void usage_fail() {
-	std::cout << "usage: cg_simulation rotation.json intrinsics.json out_image_correspondences.json out_datas_dir/ [features_count=100] [num_x=30] [num_y=10] [step_x=1.0] [step_y=1.0]\n";
+	std::cout << "usage: cg_generate_artificial rotation.json intrinsics.json out_image_correspondences.json out_datas_dir/ [features_count=100] [num_x=30] [num_y=10] [step_x=1.0] [step_y=1.0]\n";
 	std::cout << std::endl;
 	std::exit(1);
 }
@@ -61,8 +61,10 @@ int main(int argc, const char* argv[]) {
 			real vx = (ix - cx)*vz/fx;
 			real vy = (iy - cy)*vz/fy;
 			
-			vec3 feature(vx, vy, vz);
-			features.push_back(feature);
+			vec3 v(vx, vy, vz);
+			vec3 w = R.t() * v;
+			
+			features.push_back(w);
 		}
 	}
 	
