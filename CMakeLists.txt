@@ -182,7 +182,16 @@ install_pylib_link(kinect)
 if(WITH_LIBFREENECT2)
 	add_executable(fetch_intrinsics "src/kinect/fetch_intrinsics.cc")
 	target_link_libraries(fetch_intrinsics common_lib kinect_lib freenect2)
-	install(TARGETS fetch_intrinsics DESTINATION kinect)
+
+	add_executable(live_view "src/kinect/live_view.cc")
+	target_link_libraries(live_view common_lib kinect_lib freenect2)
+
+	install(
+		TARGETS
+			fetch_intrinsics
+			live_view
+		DESTINATION kinect
+	)
 endif()
 
 
