@@ -27,6 +27,9 @@ struct view_index {
 inline bool operator==(const view_index& a, const view_index& b) {
 	return (a.y == b.y) && (a.x == b.x);
 }
+inline bool operator!=(const view_index& a, const view_index& b) {
+	return (a.y != b.y) || (a.x != b.x);
+}
 inline bool operator<(const view_index& a, const view_index& b) {
 	if(a.y == b.y) return (a.x < b.x);
 	else return (a.y < b.y);

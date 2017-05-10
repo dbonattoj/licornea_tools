@@ -6,24 +6,11 @@
 #include <string>
 #include "lib/image_correspondence.h"
 #include "../lib/json.h"
+#include "../lib/random_color.h"
 #include "../lib/dataset.h"
 #include "../lib/opencv.h"
 
 using namespace tlz;
-
-static cv::Vec3b random_color(int i) {
-	static const int seed = 0;
-	static std::vector<cv::Vec3b> colors;
-	static std::mt19937 gen(seed);
-	
-	if(i < colors.size()) {
-		return colors[i];
-	} else {
-		std::uniform_int_distribution<uchar> dist(0, 255);
-		colors.push_back(cv::Vec3b(dist(gen), dist(gen), dist(gen)));
-		return random_color(i);
-	}
-}
 
 [[noreturn]] void usage_fail() {
 	std::cout << "usage: visualize_image_correspondences dataset_parameters.json image_correspondences.json out_visualization.png\n";
@@ -93,7 +80,7 @@ int main(int argc, const char* argv[]) {
 				vec2 pt = kv.second;
 				
 				cv::Point pt_cv(pt[0], pt[1]);
-				out_img(pt_cv) = col;
+				if(cv::Rect(cv::Point(), out_img.size()).contains(pt_cv)) out_img(pt_cv) = col;
 				//cv::circle(out_img, pt_cv, 1, cv::Scalar(col), -1);
 			}
 		}

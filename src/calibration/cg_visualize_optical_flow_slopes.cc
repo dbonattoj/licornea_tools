@@ -8,30 +8,15 @@
 #include "../lib/json.h"
 #include "../lib/dataset.h"
 #include "../lib/opencv.h"
+#include "../lib/random_color.h"
 
 using namespace tlz;
-
-static cv::Vec3b random_color(int i) {
-	static const int seed = 0;
-	static std::vector<cv::Vec3b> colors;
-	static std::mt19937 gen(seed);
-	
-	if(i < colors.size()) {
-		return colors[i];
-	} else {
-		std::uniform_int_distribution<uchar> dist(0, 255);
-		colors.push_back(cv::Vec3b(dist(gen), dist(gen), dist(gen)));
-		return random_color(i);
-	}
-}
 
 [[noreturn]] void usage_fail() {
 	std::cout << "usage: cg_visualize_optical_flow_slopes dataset_parameters.json slopes.json out_visualization.png [width=200] [exaggeration=1]\n";
 	std::cout << std::endl;
 	std::exit(1);
 }
-
-
 int main(int argc, const char* argv[]) {
 	if(argc <= 3) usage_fail();
 	std::string dataset_parameter_filename = argv[1];
