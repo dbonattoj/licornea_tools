@@ -29,26 +29,26 @@ json import_json_file(const std::string& filename) {
 }
 
 
-cv::Mat_<double> decode_mat(const json& j) {
+cv::Mat_<real> decode_mat(const json& j) {
 	int rows = j.size();
 	if(j[0].is_array()) {
 		int cols = j[0].size();
-		cv::Mat_<double> mat(rows, cols);
+		cv::Mat_<real> mat(rows, cols);
 		for(int row = 0; row < rows; ++row) for(int col = 0; col < cols; ++col)
-			mat(row, col) = j[row][col].get<double>();
+			mat(row, col) = j[row][col].get<real>();
 		return mat;
 	
 	} else {
-		cv::Mat_<double> mat(rows, 1);
+		cv::Mat_<real> mat(rows, 1);
 		for(int row = 0; row < rows; ++row)
-			mat(row, 0) = j[row].get<double>();
+			mat(row, 0) = j[row].get<real>();
 		return mat;
 
 	}
 }
 
 
-json encode_mat(const cv::Mat_<double>& mat) {
+json encode_mat_(const cv::Mat_<real>& mat) {
 	json j = json::array();
 	for(int row = 0; row < mat.rows; ++row) {
 		json j_row = json::array();
@@ -57,5 +57,6 @@ json encode_mat(const cv::Mat_<double>& mat) {
 	}
 	return j;
 }
+
 
 }

@@ -21,7 +21,7 @@ struct camera {
 using camera_array = std::vector<camera>;
 
 camera_array read_cameras_file(const std::string& filename);
-void write_cameras_file(const std::string& filename, const camera_array&);
+void write_cameras_file(const std::string& filename, const camera_array&); // TODO rename "export"
 
 std::map<std::string, camera> cameras_map(const std::vector<camera>&);
 void write_cameras_file(const std::string& filename, const std::map<std::string, camera>&);

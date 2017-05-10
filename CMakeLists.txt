@@ -102,6 +102,9 @@ target_link_libraries(cg_optical_flow_slopes common_lib calibration_lib)
 add_executable(cg_visualize_optical_flow_slopes "src/calibration/cg_visualize_optical_flow_slopes.cc")
 target_link_libraries(cg_visualize_optical_flow_slopes common_lib calibration_lib)
 
+add_executable(cg_simulation "src/calibration/cg_simulation.cc")
+target_link_libraries(cg_simulation common_lib calibration_lib)
+
 
 install(
 	TARGETS
@@ -115,6 +118,7 @@ install(
 		feature_depth_estimate
 		cg_optical_flow_slopes
 		cg_visualize_optical_flow_slopes
+		cg_simulation
 	DESTINATION calibration
 )
 install_pylib_link(calibration)
@@ -224,12 +228,16 @@ target_link_libraries(view_depth common_lib)
 add_executable(copy_json "src/misc/copy_json.cc")
 target_link_libraries(copy_json common_lib)
 
+add_executable(cam_rotation "src/misc/cam_rotation.cc")
+target_link_libraries(cam_rotation common_lib)
+
 
 install(
 	TARGETS
 		psnr
 		view_depth
 		copy_json
+		cam_rotation
 	DESTINATION misc
 )
 install(

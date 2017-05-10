@@ -13,8 +13,13 @@ using json = nlohmann::json;
 void export_json_file(const json&, const std::string& filename);
 json import_json_file(const std::string& filename);
 
-cv::Mat_<double> decode_mat(const json&);
-json encode_mat(const cv::Mat_<double>&);
+cv::Mat_<real> decode_mat(const json&);
+
+json encode_mat_(const cv::Mat_<real>&);
+
+template<typename Mat> json encode_mat(const Mat& mat) {
+	return encode_mat_(cv::Mat_<real>(mat));
+}
 
 }
 

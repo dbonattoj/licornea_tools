@@ -61,7 +61,6 @@ inline vec3 mul_h(const mat44& mat, const vec3& vec) {
 	return vec3(out[0], out[1], out[2]);
 }
 
-
 /// Copy the data in \a vw into the OpenCV Mat \a mat.
 /** \a mat is created and allocated as needed using `cv::Mat::create()`, and \a mat owns the new copy of the data.
  ** `Elem` can not be a `masked_elem` type. */

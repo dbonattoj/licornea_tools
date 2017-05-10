@@ -1,7 +1,6 @@
 #include <string>
 #include <map>
 #include <cmath>
-#include "lib/image_correspondence.h"
 #include "../lib/utility/misc.h"
 #include "../lib/json.h"
 #include "../lib/dataset.h"
@@ -11,7 +10,7 @@
 using namespace tlz;
 
 [[noreturn]] void usage_fail() {
-	std::cout << "usage: cg_estimate_rotation dataset_parameters.json image_correspondences.json intrinsics.json out_rotation.json\n";
+	std::cout << "usage: cg_estimate_rotation slopes.json intrinsics.json out_rotation.json\n";
 	std::cout << std::endl;
 	std::exit(1);
 }
@@ -21,7 +20,7 @@ struct flow_line {
 	real slope;
 };
 
-std::pair<real, real> estimate_pitch_roll_from_vertical_flow(const dataset& datas, const mat33& K, const image_correspondences& cors) {
+std::pair<real, real> estimate_pitch_roll_from_vertical_flow(const mat33& K, const image_correspondences& cors) {
 	real fx = K(0, 0), fy = K(1, 1), cx = K(0, 2), cy = K(1, 2);
 	view_index reference_idx = cors.reference;
 	
@@ -65,15 +64,11 @@ std::pair<real, real> estimate_pitch_roll_from_vertical_flow(const dataset& data
 }
 
 int main(int argc, const char* argv[]) {
-	if(argc <= 4) usage_fail();
-	std::string dataset_parameter_filename = argv[1];
-	std::string cors_filename = argv[2];
-	std::string intrinsics_filename = argv[3];
-	std::string out_rotation_filename = argv[4];
+	if(argc <= 3) usage_fail();
+	std::string cors_filename = argv[1];
+	std::string intrinsics_filename = argv[2];
+	std::string out_rotation_filename = argv[3];
 	
-	std::cout << "loading data set" << std::endl;
-	dataset datas(dataset_parameter_filename);
-
 	std::cout << "loading intrinsic matrix" << std::endl;
 	const json& j_intrinsics = import_json_file(intrinsics_filename);
 	mat33 K = decode_mat(j_intrinsics["K"]);
