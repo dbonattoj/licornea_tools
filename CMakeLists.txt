@@ -186,10 +186,22 @@ if(WITH_LIBFREENECT2)
 	add_executable(live_view "src/kinect/live_view.cc")
 	target_link_libraries(live_view common_lib kinect_lib freenect2)
 
+	add_executable(live_tetrachrom "src/kinect/live_tetrachrom.cc")
+	target_link_libraries(live_tetrachrom common_lib kinect_lib freenect2)
+
+	add_executable(live_parallel_checkerboard "src/kinect/live_parallel_checkerboard.cc")
+	target_link_libraries(live_parallel_checkerboard common_lib kinect_lib freenect2)
+
+	add_executable(live_parallel_background "src/kinect/live_parallel_background.cc")
+	target_link_libraries(live_parallel_background common_lib kinect_lib freenect2)
+
 	install(
 		TARGETS
 			fetch_intrinsics
 			live_view
+			live_tetrachrom
+			live_parallel_checkerboard
+			live_parallel_background
 		DESTINATION kinect
 	)
 endif()
