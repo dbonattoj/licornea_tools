@@ -32,7 +32,7 @@ int main(int argc, const char* argv[]) {
 		std::cout << cameras.size() << " cameras..." << std::endl;
 	}
 			
-	real scale = 0.4;
+	real scale = 1.0;
 	mat44 model_transform(
 		2.0*scale, 0.0, 0.0, 0.0,
 		0.0, 1.0*scale, 0.0, 0.0,

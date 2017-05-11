@@ -151,6 +151,7 @@ install(
 install(
 	PROGRAMS
 		"src/camera/import_xml.py"
+		"src/camera/import_matlab.py"
 	DESTINATION camera
 )
 install_pylib_link(camera)
