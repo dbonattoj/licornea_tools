@@ -34,4 +34,3 @@ for index in range(min_idx, max_idx, x_index_step):
 
 with open(out_experiments_filename, 'w') as f:
 	print >>f, json.dumps(experiments)
-

@@ -55,8 +55,8 @@ int main(int argc, const char* argv[]) {
 	const char* output_filename = argv[2];
 	ushort z_near = std::atoi(argv[3]);
 	ushort z_far = std::atoi(argv[4]);
-	bool output_disparity_18bit = false;
-	if(argc > 5 && std::atoi(argv[5]) == 16) output_disparity_18bit = true;
+	bool output_disparity_16bit = false;
+	if(argc > 5 && std::atoi(argv[5]) == 16) output_disparity_16bit = true;
 
 	cv::Mat_<ushort> depth;
 	{
@@ -65,7 +65,7 @@ int main(int argc, const char* argv[]) {
 		depth = depth_;	
 	}
 
-	if(output_disparity_18bit) {
+	if(output_disparity_16bit) {
 		cv::Mat_<ushort> disparity;
 		orthogonal_distance_to_depth<ushort, ushort>(depth, disparity, 0xffff, 0, z_near, z_far);
 		disparity.setTo(0, depth == 0);

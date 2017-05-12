@@ -24,7 +24,7 @@ int main(int argc, const char* argv[]) {
 		if(no_convert == "no_convert") convert = false;
 		else usage_fail();
 	}
-	
+		
 	auto cameras = read_cameras_file(in_cameras);
 	
 	std::ofstream output(out_cameras);

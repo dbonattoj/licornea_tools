@@ -7,9 +7,9 @@ datas = None
 out_virtual_dirname = None
 cameras_filename = None
 
-def run(left_cam, this_cam, right_cam):	
-	virtual_yuv_filename = os.path.join(os.path.dirname(out_virtual_dirname), "virtual_{:05d}.yuv".format(this_cam))
-	virtual_rgb_filename = os.path.join(os.path.dirname(out_virtual_dirname), "virtual_{:05d}.png".format(this_cam))
+def run(exp_index, left_cam, this_cam, right_cam):	
+	virtual_yuv_filename = os.path.join(os.path.dirname(out_virtual_dirname), "virtual_{:05d}.yuv".format(exp_index))
+	virtual_rgb_filename = os.path.join(os.path.dirname(out_virtual_dirname), "virtual_{:05d}.png".format(exp_index))
 
 	try:
 		run_vsrs.main(vsrs_binary_filename, parameters_filename, left_cam, this_cam, right_cam, virtual_yuv_filename, cameras_filename)
@@ -46,7 +46,13 @@ if __name__ == '__main__':
 
 	with open(in_experiments_filename) as f:
 		experiments = json.load(f)
+		
+	experiments_indexed = []
+	i = 0
+	for exp in experiments:
+		experiments_indexed.append([i, exp[0],exp[1],exp[2]])
+		i = i + 1
 	
-	batch_process(run, experiments)
+	batch_process(run, experiments_indexed)
 	
 	print "done."

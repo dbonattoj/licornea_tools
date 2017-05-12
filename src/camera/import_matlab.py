@@ -44,7 +44,7 @@ for cam_index in range(cam_count):
 
 	
 	output_camera = {
-		'name' : "camera{}".format(cam_index),
+		'name' : "camera{}".format(cam_index + 1),
 		'Rt' : Rt,
 		'K' : K
 	};

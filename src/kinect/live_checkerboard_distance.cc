@@ -1,6 +1,7 @@
 #include <json.hpp>
 #include "lib/common.h"
 #include "../lib/opencv.h"
+#include "../lib/json.h"
 #include "lib/freenect2.h"
 #include "lib/kinect_intrinsics.h"
 #include <libfreenect2/libfreenect2.hpp>
@@ -18,6 +19,8 @@
 using namespace tlz;
 
 const cv::Vec3b black(0, 0, 0), white(255, 255, 255);
+const cv::Vec3b indicator_color = cv::Vec3b(0,0,255);
+const cv::Vec3b indicator2_color = cv::Vec3b(255,0,0);
 
 real stddev(const std::vector<real>& samples, real* avg_ptr = nullptr) {
 	real avg = 0.0;
@@ -41,21 +44,6 @@ cv::Mat_<uchar> scale_grayscale(cv::Mat in, real min, real max) {
 	return scaled;
 }
 
-void draw_indicator(cv::Mat_<cv::Vec3b>& image, cv::Rect_<int> rect, real value, real max, cv::Vec3b col) {
-	cv::rectangle(image, rect, cv::Scalar(black), CV_FILLED);
-	cv::Rect_<int> value_rect = rect;
-	value_rect.width *= value/max;
-	if(value_rect.width > rect.width) value_rect.width = rect.width;
-	cv::rectangle(image, value_rect, cv::Scalar(col), CV_FILLED);
-	cv::rectangle(image, rect, cv::Scalar(white), 1);
-}
-
-
-void draw_dots(cv::Mat_<cv::Vec3b>& image, cv::vector<cv::Point2f>& dots, cv::Vec3b col) {
-	for(const cv::Point2f& dot : dots)
-		cv::circle(image, dot, 5, cv::Scalar(col), CV_FILLED);
-}
-
 
 std::vector<cv::Point> checkerboard_outer_corners(int cols, int rows, const std::vector<cv::Point2f>& corners) {
 	return {
@@ -66,55 +54,38 @@ std::vector<cv::Point> checkerboard_outer_corners(int cols, int rows, const std:
 	};
 }
 
+vec2 checkerboard_centroid(int cols, int rows, const std::vector<cv::Point2f>& corners) {
+	std::vector<cv::Point> outer_corners = checkerboard_outer_corners(cols, rows, corners);
+	real centroid_x = (outer_corners[0].x + outer_corners[1].x + outer_corners[2].x + outer_corners[3].x) / 4.0;
+	real centroid_y = (outer_corners[0].y + outer_corners[1].y + outer_corners[2].y + outer_corners[3].y) / 4.0;
+	return vec2(centroid_x, centroid_y);
+}
 
-void draw_detected_checkerboard(cv::Mat_<cv::Vec3b>& image, int cols, int rows, real visible_line_outreach, const std::vector<cv::Point2f>& corners, const cv::Vec3b& col) {
-	std::vector<std::vector<cv::Point>> polylines;
+void draw_checkerboard(cv::Mat_<cv::Vec3b>& image, int cols, int rows, cv::vector<cv::Point2f>& corners, cv::Vec3b col) {
+	std::vector<cv::Point> outer_corners = checkerboard_outer_corners(cols, rows, corners);
+	std::vector<std::vector<cv::Point>> polylines { outer_corners };
 	
-	real r = visible_line_outreach;
+	cv::polylines(image, polylines, true, cv::Scalar(col), 2);
 	
-	auto outer_corners = checkerboard_outer_corners(cols, rows, corners);
-	cv::Point2f tl = outer_corners[0];
-	cv::Point2f tr = outer_corners[1];
-	cv::Point2f br = outer_corners[2];
-	cv::Point2f bl = outer_corners[3];
-	
-	real hslope1 = (tr.y - tl.y) / (tr.x - tl.x);
-	real hslope2 = (br.y - bl.y) / (br.x - bl.x);
-	{
-		std::vector<cv::Point> segment;
-		segment.emplace_back(tl.x - r, tl.y - hslope1*r);
-		segment.emplace_back(tr.x + r, tr.y + hslope1*r);
-		polylines.push_back(segment);
-	}
-	{
-		std::vector<cv::Point> segment;
-		segment.emplace_back(bl.x - r, bl.y - hslope2*r);
-		segment.emplace_back(br.x + r, br.y + hslope2*r);
-		polylines.push_back(segment);
-	}
-	
-	real vslope1 = (tl.x - bl.x) / (tl.y - bl.y);
-	real vslope2 = (tr.x - br.x) / (tr.y - br.y);
-	{
-		std::vector<cv::Point> segment;
-		segment.emplace_back(tl.x - vslope1*r, tl.y - r);
-		segment.emplace_back(bl.x + vslope1*r, bl.y + r);
-		polylines.push_back(segment);
-	}
-	{
-		std::vector<cv::Point> segment;
-		segment.emplace_back(tr.x - vslope2*r, tr.y - r);
-		segment.emplace_back(br.x + vslope2*r, br.y + r);
-		polylines.push_back(segment);
-	}
-	
-				
-	cv::polylines(image, polylines, false, cv::Scalar(col), 4);
+	vec2 centroid = checkerboard_centroid(cols, rows, corners);
+	cv::circle(image, cv::Point(centroid), 12, cv::Scalar(col), 3);
 }
 
 
-
+[[noreturn]] void usage_fail() {
+	std::cout << "usage: live_checkerboard_distance cols rows square_width intrinsics.json\n";
+	std::cout << std::endl;
+	std::exit(1);
+}
 int main(int argc, const char* argv[]) {
+	if(argc <= 4) usage_fail();
+	const int cols = std::stoi(argv[1]);
+	const int rows = std::stoi(argv[2]);
+	const real square_width = std::stof(argv[3]);
+	std::string intrinsics_filename = argv[4];
+	
+	mat33 intrinsic = decode_mat(import_json_file(intrinsics_filename)["K"]);
+	
 	using namespace libfreenect2;
 
 	Freenect2 context;
@@ -144,34 +115,32 @@ int main(int argc, const char* argv[]) {
 	int max_depth = 6000; // mm
 	int z_near = 0, z_far = max_depth;
 	int z_checkerboard_range = 150;
-	cv::createTrackbar("min depth (mm)", window_name, &z_near, max_depth);
-	cv::createTrackbar("max depth (mm)", window_name, &z_far, max_depth);
-	cv::createTrackbar("range of checkerboard depth (mm)", window_name, &z_checkerboard_range, 1000);
+	//cv::createTrackbar("min depth (mm)", window_name, &z_near, max_depth);
+	//cv::createTrackbar("max depth (mm)", window_name, &z_far, max_depth);
+	//cv::createTrackbar("range of checkerboard depth (mm)", window_name, &z_checkerboard_range, 1000);
 
 	Frame undistorted_depth(512, 424, 4);
 	Frame registered_texture(512, 424, 4);
 	Frame upscaled_depth(1920, 1082, 4);
 	Registration registration(ir, color);
-	
-	const int indicator_height = 30;
-	const int indicator_border = 5;
-	const cv::Vec3b slope_indicator_color = cv::Vec3b(255,100,100);
-	const cv::Vec3b depth_indicator_color = cv::Vec3b(100,100,255);
-	
-	cv::Mat_<cv::Vec3b> shown_img(400 + indicator_height + 2*indicator_border, 711*2);
+		
+	cv::Mat_<cv::Vec3b> shown_img(400 + 30, 711*2);
 	cv::Mat_<float> depth_frame(1080, 1920);
 	cv::Mat_<cv::Vec3b> texture_frame(1080, 1920);
 	cv::Mat_<uchar> checkerboard_depth_mask(1080, 1920);
 
 	bool continuing = true;
 	while(continuing) {
+		// acquire frames (depth + color)
 		ok = listener.waitForNewFrame(frames, 10*1000);
 		if(! ok) break;
-
 		Frame* raw_texture = frames[Frame::Color];
 		Frame* raw_depth = frames[Frame::Depth];
+
+		// reproject & upscale depth
 		registration.apply(raw_texture, raw_depth, &undistorted_depth, &registered_texture, true, &upscaled_depth);
-				
+		
+		// read depth frame
 		{
 			cv::Mat_<float> depth_orig_float(1082, 1920, reinterpret_cast<float*>(upscaled_depth.data));		
 			cv::Mat_<float> depth_float = depth_orig_float.rowRange(1, 1081);
@@ -179,6 +148,7 @@ int main(int argc, const char* argv[]) {
 			depth_frame.setTo(0, depth_float == INFINITY);
 		}
 
+		// read color frame
 		{
 			cv::Mat_<cv::Vec4b> texture_orig(1080, 1920, reinterpret_cast<cv::Vec4b*>(raw_texture->data));
 			cv::cvtColor(texture_orig, texture_frame, CV_BGRA2BGR);
@@ -186,50 +156,77 @@ int main(int argc, const char* argv[]) {
 		
 		listener.release(frames);
 
-		const int cols = 8, rows = 6;
-		real visible_line_outreach = 400;
-		
 		std::vector<cv::Point2f> corners;
 		cv::Size pattern_size(cols, rows);
-	
+
+		// detect checkerboard
 		int flags = 0;
 		bool found_checkerboard = cv::findChessboardCorners(texture_frame, pattern_size, corners, flags);
 		if(corners.size() != rows*cols) found_checkerboard = false;
-	
-		const real slope_planarity_value_max = 0.15;
-		real slope_planarity_value = slope_planarity_value_max;
-		
-		const real depth_planarity_value_max = 50.0;
-		real depth_planarity_value = depth_planarity_value_max;
+			
 		cv::vector<cv::Point2f> measured_depth_corners;
 		real min_d = z_near, max_d = z_far;
 		cv::Rect checkerboard_rect(0, 0, 1920, 1080);
-		real avg_depth = NAN;
-	
+		
+		real projection_depth = NAN;
+		cv::Point reprojected_centroid;
+		
+		real sensor_depth = NAN;
+			
 		checkerboard_depth_mask.setTo(0);
 		if(found_checkerboard) {
-			draw_detected_checkerboard(texture_frame, cols, rows, visible_line_outreach, corners, slope_indicator_color);
-			draw_dots(texture_frame, corners, slope_indicator_color);
-			
-			std::vector<real> hslopes;
-			for(int row = 0; row < rows; ++row) {
-				cv::Point2f l = corners.at(cols*row);
-				cv::Point2f r = corners.at(cols*row + (cols-1));
-				hslopes.push_back( (r.y - l.y) / (r.x - l.x) );
+			// refine checkerboard
+			{
+				cv::Mat texture_frame_gray;
+				cv::cvtColor(texture_frame, texture_frame_gray, CV_BGR2GRAY);
+				cv::TermCriteria term(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 30, 0.1);
+				cv::cornerSubPix(texture_frame_gray, corners, cv::Size(3, 3), cv::Size(-1, -1), term);
 			}
 			
-			std::vector<real> vslopes;
-			for(int col = 0; col < cols; ++col) {
-				cv::Point2f t = corners.at(col);
-				cv::Point2f b = corners.at(cols*(rows-1) + col);
-				vslopes.push_back( (b.x - t.x) / (b.y - t.y) );
-			}
-			
-			real h_stddev = stddev(hslopes);
-			real v_stddev = stddev(vslopes);
-			slope_planarity_value = h_stddev + v_stddev;
-			
+			// extimate extrinsic from checkerboard
+			mat33 rotation; vec3 translation;
+			{
+				std::vector<vec3> object_points(rows * cols);
+				std::vector<vec2> image_points(rows * cols);
+				for(int row = 0, i = 0; row < rows; ++row) for(int col = 0; col < cols; ++col, ++i) {
+					cv::Point2f corner = corners[i];
+					image_points[i] = vec2(corner.x, corner.y);
+					object_points[i] = vec3(col*square_width, row*square_width, 0.0);
+				}
 				
+				vec3 rotation_vec, translation_vec;
+				cv::Mat distortion;
+				
+				cv::solvePnP(
+					object_points,
+					image_points,
+					intrinsic,
+					distortion,
+					rotation_vec,
+					translation,
+					false
+				);
+								
+				mat33 rotation_mat;
+				cv::Rodrigues(rotation_vec, rotation);
+			}
+			
+			
+			// project checkerboard centroid, and get its orthogonal distance (= projection depth)
+			vec3 world_centroid(square_width*(cols-1)/2.0, square_width*(rows-1)/2.0, 0.0);
+			vec2 image_centroid = checkerboard_centroid(cols, rows, corners);
+			
+			{
+				vec3 w = world_centroid;
+				vec3 v = rotation*w + translation;
+				projection_depth = v[2];
+				vec3 i_h = intrinsic * v;
+				vec2 i(i_h[0]/i_h[2], i_h[1]/i_h[2]);
+				reprojected_centroid = cv::Point(i);
+			}
+	
+			
+			// mask and bounding rectangle for depth map of checkerboard
 			std::vector<cv::Point> outer_corners = checkerboard_outer_corners(cols, rows, corners);
 			cv::fillConvexPoly(checkerboard_depth_mask, outer_corners.data(), 4, cv::Scalar(255));
 			checkerboard_depth_mask.setTo(0, (depth_frame == 0.0));
@@ -246,52 +243,75 @@ int main(int argc, const char* argv[]) {
 			checkerboard_rect.width = max_x - min_x;
 			checkerboard_rect.height = max_y - min_y;
 			
-			cv::vector<real> depth_samples;
+			// get minimal, maximal, average depth of checkerboard
+			real depth_sum = 0.0;
+			int depth_count = 0;
 			min_d = INFINITY; max_d = 0.0;
 			for(int y = min_y; y <= max_y; ++y) for(int x = min_x; x <= max_x; ++x) {
 				uchar mask = checkerboard_depth_mask(y, x);
 				if(! mask) continue;
 				real d = depth_frame(y, x);
-				depth_samples.push_back(d);
+				depth_sum += d;
+				depth_count++;
 				if(d < min_d) min_d = d;
 				if(d > max_d) max_d = d;
 			}
+			sensor_depth = depth_sum / depth_count; // sensor depth = average of depth values
+			
+			// get min_d and max_d for visualization
 			real mid_d = (max_d + min_d)/2.0;
 			min_d = mid_d - z_checkerboard_range/2.0;
 			max_d = mid_d + z_checkerboard_range/2.0;
-			depth_planarity_value = stddev(depth_samples, &avg_depth);
 		}
 
 
 
 	
 		{
+			shown_img.setTo(black);
+			
 			cv::Mat_<cv::Vec3b> texture, depth;
+			if(found_checkerboard) {
+				draw_checkerboard(texture_frame, cols, rows, corners, indicator_color);
+				cv::circle(texture_frame, reprojected_centroid, 12, cv::Scalar(indicator2_color), 3);
+			}
 			cv::resize(texture_frame, texture, cv::Size(711, 400));
 			
 			cv::Mat_<uchar> depth_uchar = scale_grayscale(depth_frame, min_d, max_d);
 			cv::cvtColor(depth_uchar, depth, CV_GRAY2BGR);
 			
-			if(found_checkerboard) depth.setTo(cv::Vec3b(0,0,0), (checkerboard_depth_mask == 0));
+			if(found_checkerboard) draw_checkerboard(depth, cols, rows, corners, indicator_color);
 			cv::resize(depth, depth, cv::Size(711, 400));
-			
+						
 			texture.copyTo(cv::Mat(shown_img, cv::Rect(0, 0, 711, 400)));
 			depth.copyTo(cv::Mat(shown_img, cv::Rect(711, 0, 711, 400)));
+
+			int font = cv::FONT_HERSHEY_COMPLEX_SMALL;
+			double fontscale = 0.8;
+			int thickness = 1;
+
+			// left label
+			{
+				std::string label = "projection depth: " + std::to_string(projection_depth) + " mm";
+				cv::Point pt(20, 420);
+				cv::putText(shown_img, label, pt, font, fontscale, cv::Scalar(white), thickness);
+			}
+	
+	
+			// right label
+			{
+				std::string label = "sensor depth: " + std::to_string(sensor_depth) + " mm";
+				cv::Size sz = cv::getTextSize(label, font, fontscale, thickness, nullptr);
+				cv::Point pt(711*2-20-sz.width, 420);
+				cv::putText(shown_img, label, pt, font, fontscale, cv::Scalar(white), thickness);
+			}
 			
-			cv::Rect_<int> slope_indicator(indicator_border, 400+indicator_border, 711-2*indicator_border, indicator_height);
-			draw_indicator(shown_img, slope_indicator, slope_planarity_value, slope_planarity_value_max, slope_indicator_color);
-
-			cv::Rect_<int> depth_indicator(711+indicator_border, 400+indicator_border, 711-2*indicator_border, indicator_height);
-			draw_indicator(shown_img, depth_indicator, depth_planarity_value, depth_planarity_value_max, depth_indicator_color);
-
-			if(found_checkerboard) {
-				std::string depth_label = "avg depth: " + std::to_string(avg_depth) + " mm";
-				cv::Point label_pt(711, 380);
-				cv::putText(shown_img, depth_label, label_pt, cv::FONT_HERSHEY_COMPLEX_SMALL, 0.8, cv::Scalar(white));
-				
-				depth_label = "stddev: " + std::to_string(depth_planarity_value) + " mm";
-				label_pt.y += 15;
-				cv::putText(shown_img, depth_label, label_pt, cv::FONT_HERSHEY_COMPLEX_SMALL, 0.8, cv::Scalar(white));
+			// center label
+			{
+				std::string label = "diff = " + std::to_string(projection_depth - sensor_depth) + " mm";
+				cv::Size sz = cv::getTextSize(label, font, fontscale, thickness, nullptr);
+				cv::Point pt(711-sz.width/2, 420);
+				cv::putText(shown_img, label, pt, font, fontscale, cv::Scalar(white), thickness);
 			}
 		}
 

@@ -190,19 +190,23 @@ if(WITH_LIBFREENECT2)
 	add_executable(live_tetrachrom "src/kinect/live_tetrachrom.cc")
 	target_link_libraries(live_tetrachrom common_lib kinect_lib freenect2)
 
-	add_executable(live_parallel_checkerboard "src/kinect/live_parallel_checkerboard.cc")
-	target_link_libraries(live_parallel_checkerboard common_lib kinect_lib freenect2)
-
 	add_executable(live_parallel_background "src/kinect/live_parallel_background.cc")
 	target_link_libraries(live_parallel_background common_lib kinect_lib freenect2)
+
+	add_executable(live_ir_checkerboard_distance "src/kinect/live_ir_checkerboard_distance.cc")
+	target_link_libraries(live_ir_checkerboard_distance common_lib kinect_lib freenect2)
+
+	add_executable(live_color_ir_extrinsic_samples "src/kinect/live_color_ir_extrinsic_samples.cc")
+	target_link_libraries(live_color_ir_extrinsic_samples common_lib kinect_lib freenect2)
 
 	install(
 		TARGETS
 			fetch_intrinsics
 			live_view
 			live_tetrachrom
-			live_parallel_checkerboard
 			live_parallel_background
+			live_ir_checkerboard_distance
+			live_color_ir_extrinsic_samples
 		DESTINATION kinect
 	)
 endif()
@@ -265,6 +269,7 @@ install(
 install(
 	PROGRAMS
 		"src/misc/list_skip_n_experiments.py"
+		"src/misc/list_increase_baseline_experiments.py"
 		"src/misc/yuv2png.sh"
 	DESTINATION misc
 )
