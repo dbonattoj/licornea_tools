@@ -72,17 +72,11 @@ endif()
 file(GLOB_RECURSE CALIBRATION_LIB_SRC "src/calibration/lib/*.cc")
 add_library(calibration_lib STATIC ${CALIBRATION_LIB_SRC})
 
-add_executable(find_chessboard "src/calibration/find_chessboard.cc")
-target_link_libraries(find_chessboard common_lib calibration_lib)
-
-add_executable(calibrate_distortion "src/calibration/calibrate_distortion.cc")
-target_link_libraries(calibrate_distortion common_lib calibration_lib)
-
 add_executable(undistort "src/calibration/undistort.cc")
 target_link_libraries(undistort common_lib calibration_lib)
 
-add_executable(calibrate_extrinsic "src/calibration/calibrate_extrinsic.cc")
-target_link_libraries(calibrate_extrinsic common_lib calibration_lib)
+add_executable(calibrate_intrinsics "src/calibration/calibrate_intrinsics.cc")
+target_link_libraries(calibrate_intrinsics common_lib calibration_lib)
 
 add_executable(optical_flow "src/calibration/optical_flow.cc")
 target_link_libraries(optical_flow common_lib calibration_lib)
@@ -108,10 +102,8 @@ target_link_libraries(cg_generate_artificial common_lib calibration_lib)
 
 install(
 	TARGETS
-		find_chessboard
-		calibrate_distortion
+		calibrate_intrinsics
 		undistort 
-		calibrate_extrinsic
 		optical_flow
 		optical_flow_2d
 		visualize_image_correspondences
@@ -167,10 +159,15 @@ target_link_libraries(depth_point_cloud common_lib kinect_lib)
 add_executable(depth_reprojection "src/kinect/depth_reprojection.cc")
 target_link_libraries(depth_reprojection common_lib kinect_lib)
 
+add_executable(calibrate_color_ir_homography "src/kinect/calibrate_color_ir_homography.cc")
+target_link_libraries(calibrate_color_ir_homography common_lib kinect_lib)
+
+
 install(
 	TARGETS
 		depth_point_cloud
 		depth_reprojection
+		calibrate_color_ir_homography
 	DESTINATION kinect
 )
 install(
@@ -184,29 +181,37 @@ if(WITH_LIBFREENECT2)
 	add_executable(fetch_intrinsics "src/kinect/fetch_intrinsics.cc")
 	target_link_libraries(fetch_intrinsics common_lib kinect_lib freenect2)
 
-	add_executable(live_view "src/kinect/live_view.cc")
-	target_link_libraries(live_view common_lib kinect_lib freenect2)
+	add_executable(viewer "src/kinect/viewer.cc")
+	target_link_libraries(viewer common_lib kinect_lib freenect2)
 
-	add_executable(live_tetrachrom "src/kinect/live_tetrachrom.cc")
-	target_link_libraries(live_tetrachrom common_lib kinect_lib freenect2)
+	add_executable(checkerboard_samples "src/kinect/checkerboard_samples.cc")
+	target_link_libraries(checkerboard_samples common_lib kinect_lib freenect2)
 
-	add_executable(live_parallel_background "src/kinect/live_parallel_background.cc")
-	target_link_libraries(live_parallel_background common_lib kinect_lib freenect2)
+	add_executable(checkerboard_depth_samples "src/kinect/checkerboard_depth_samples.cc")
+	target_link_libraries(checkerboard_depth_samples common_lib kinect_lib freenect2)
 
-	add_executable(live_ir_checkerboard_distance "src/kinect/live_ir_checkerboard_distance.cc")
-	target_link_libraries(live_ir_checkerboard_distance common_lib kinect_lib freenect2)
+	add_executable(remapping_viewer "src/kinect/remapping_viewer.cc")
+	target_link_libraries(remapping_viewer common_lib kinect_lib freenect2)
 
-	add_executable(live_color_ir_extrinsic_samples "src/kinect/live_color_ir_extrinsic_samples.cc")
-	target_link_libraries(live_color_ir_extrinsic_samples common_lib kinect_lib freenect2)
+	add_executable(reprojection_viewer "src/kinect/reprojection_viewer.cc")
+	target_link_libraries(reprojection_viewer common_lib kinect_lib freenect2)
+
+	add_executable(ir_intrinsic_reprojection "src/kinect/ir_intrinsic_reprojection.cc")
+	target_link_libraries(ir_intrinsic_reprojection common_lib kinect_lib freenect2)
+
+	add_executable(color_intrinsic_reprojection "src/kinect/color_intrinsic_reprojection.cc")
+	target_link_libraries(color_intrinsic_reprojection common_lib kinect_lib freenect2)
 
 	install(
 		TARGETS
 			fetch_intrinsics
-			live_view
-			live_tetrachrom
-			live_parallel_background
-			live_ir_checkerboard_distance
-			live_color_ir_extrinsic_samples
+			viewer
+			checkerboard_samples
+			checkerboard_depth_samples
+			remapping_viewer
+			reprojection_viewer
+			ir_intrinsic_reprojection
+			color_intrinsic_reprojection
 		DESTINATION kinect
 	)
 endif()

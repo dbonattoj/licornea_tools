@@ -1,5 +1,5 @@
-#ifndef LICORNEA_KINECT_IMAGE_IO_H_
-#define LICORNEA_KINECT_IMAGE_IO_H_
+#ifndef LICORNEA_IMAGE_IO_H_
+#define LICORNEA_IMAGE_IO_H_
 
 #include "common.h"
 #include "opencv.h"

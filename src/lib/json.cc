@@ -50,10 +50,14 @@ cv::Mat_<real> decode_mat(const json& j) {
 
 json encode_mat_(const cv::Mat_<real>& mat) {
 	json j = json::array();
-	for(int row = 0; row < mat.rows; ++row) {
-		json j_row = json::array();
-		for(int col = 0; col < mat.cols; ++col) j_row.push_back(mat(row, col));
-		j.push_back(j_row);
+	if(mat.cols == 1) {
+		for(int row = 0; row < mat.rows; ++row) j.push_back(mat(row, 0));
+	} else {
+		for(int row = 0; row < mat.rows; ++row) {
+			json j_row = json::array();
+			for(int col = 0; col < mat.cols; ++col) j_row.push_back(mat(row, col));
+			j.push_back(j_row);
+		}
 	}
 	return j;
 }

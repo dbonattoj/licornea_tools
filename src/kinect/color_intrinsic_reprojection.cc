@@ -1,0 +1,93 @@
+#include "../lib/common.h"
+#include "../lib/opencv.h"
+#include "../lib/intrinsics.h"
+#include "../lib/utility/misc.h"
+#include "../lib/obj_img_correspondence.h"
+#include "lib/live/viewer.h"
+#include "lib/live/grabber.h"
+#include "lib/live/checkerboard.h"
+#include <string>
+#include <cassert>
+#include <fstream>
+
+using namespace tlz;
+
+const cv::Vec3b orig_color(0, 0, 255);
+const cv::Vec3b reproj_color(0, 0, 255);
+
+[[noreturn]] void usage_fail() {
+	std::cout << "usage: color_intrinsic_reprojection cols rows square_width color_intr.json" << std::endl;
+	std::exit(1);
+}
+int main(int argc, const char* argv[]) {
+	if(argc <= 4) usage_fail();
+	int cols = std::atoi(argv[1]);
+	int rows = std::atoi(argv[2]);
+	real square_width = std::atof(argv[3]);
+	std::string color_intrinsics_filename = argv[4];
+	
+	intrinsics color_intr = decode_intrinsics(import_json_file(color_intrinsics_filename));
+	
+	grabber grab(grabber::color);
+
+	viewer view(1920, 1080+30, true);
+	auto& exaggeration = view.add_slider("exaggeration (%)", 100, 3000);
+			
+	do {
+		grab.grab();
+		view.clear();
+				
+		cv::Mat_<cv::Vec3b> color = grab.get_color_frame();
+
+		checkerboard color_chk = detect_checkerboard(color, cols, rows, square_width);
+
+		std::vector<vec2> image_points = checkerboard_image_corners(color_chk);
+		std::vector<vec3> object_points = checkerboard_world_corners(cols, rows, square_width);
+
+		real reprojection_error = NAN;
+		
+		if(color_chk) {
+			// calculate extrinsic	
+			vec3 rotation_vec, translation;
+			mat33 rotation;
+			cv::solvePnP(
+				object_points,
+				image_points,
+				color_intr.K,
+				color_intr.distortion.cv_coeffs(),
+				rotation_vec,
+				translation,
+				false
+			);
+			cv::Rodrigues(rotation_vec, rotation);
+			
+			// calculate distances (z in view space) for each point
+			reprojection_error = 0.0;
+			for(int idx = 0; idx < rows*cols; ++idx) {
+				const vec2& i_orig = image_points[idx];
+				const vec3& w = object_points[idx];
+				
+				vec3 v = rotation * w + translation;
+				vec3 i_h = color_intr.K * v;
+				vec2 i_reproj(i_h[0] / i_h[2], i_h[1] / i_h[2]);
+				
+				vec2 diff = i_reproj - i_orig;
+				reprojection_error += sq(diff[0]) + sq(diff[1]);
+				
+				vec2 viz_diff = (exaggeration.value/100.0)*diff;
+				vec2 viz_i_reproj = i_orig + viz_diff;
+								
+				cv::circle(color, cv::Point(i_orig[0], i_orig[1]), 10, cv::Scalar(orig_color), 1);
+				cv::circle(color, cv::Point(viz_i_reproj[0], viz_i_reproj[1]), 4, cv::Scalar(reproj_color), -1);
+			}
+			reprojection_error /= rows*cols;
+			reprojection_error = std::sqrt(reprojection_error);
+		}
+		
+		view.draw(cv::Rect(0, 0, 1920, 1080), color);
+		view.draw_text(cv::Rect(0, 1080, 1920, 30), "rms reprojection error: " + std::to_string(reprojection_error) + " pixel", viewer::center);
+		grab.release();
+
+	} while(view.show());
+}
+
