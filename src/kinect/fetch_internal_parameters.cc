@@ -1,6 +1,6 @@
 #include <json.hpp>
 #include "lib/freenect2.h"
-#include "lib/kinect_intrinsics.h"
+#include "lib/kinect_internal_parameters.h"
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
@@ -8,7 +8,7 @@
 
 using namespace tlz;
 
-kinect_intrinsic_parameters fetch_intrinsic_parameters() {
+kinect_internal_parameters fetch_internal_parameters() {
 	using namespace libfreenect2;
 	
 	Freenect2 context;
@@ -32,15 +32,17 @@ kinect_intrinsic_parameters fetch_intrinsic_parameters() {
 }
 
 
+[[noreturn]] void usage_fail() {
+	std::cout << "usage: fetch_internal_parameters out_internal_parameters.json" << std::endl;
+	std::exit(EXIT_FAILURE);
+}
 int main(int argc, const char* argv[]) {
-	if(argc <= 1) {
-		std::cout << "usage: " << argv[0] << " intrinsics.json" << std::endl;
-		return EXIT_FAILURE;
-	}
-	const char* output_filename = argv[1];
+	if(argc <= 1) usage_fail();
+	const char* out_internal_parameters_filename = argv[1];
 	
-	kinect_intrinsic_parameters param = fetch_intrinsic_parameters();
+	std::cout << "fetching from Kinect" << std::endl;
+	kinect_internal_parameters param = fetch_internal_parameters();
 	
-	std::ofstream str(output_filename);
-	export_intrinsic_parameters(str, param);
+	std::cout << "saving to file" << std::endl;
+	export_json_file(encode_kinect_internal_parameters(param), out_internal_parameters_filename);
 }

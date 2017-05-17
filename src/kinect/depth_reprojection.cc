@@ -1,10 +1,11 @@
+/*
 #include <opencv2/opencv.hpp>
 #include "../lib/point.h"
 #include "../lib/ply_exporter.h"
 #include "../lib/image_io.h"
-#include "lib/reprojection/kinect_reprojection.h"
+#include "lib/kinect_reprojection.h"
 #include "lib/densify/depth_densify.h"
-#include "lib/kinect_intrinsics.h"
+#include "lib/kinect_internal_parameters.h"
 #include "lib/common.h"
 #include <cstdlib>
 #include <iostream>
@@ -16,19 +17,19 @@
 using namespace tlz;
 
 
-void do_depth_reprojection(const cv::Mat_<ushort>& in, cv::Mat_<ushort>& out, cv::Mat_<uchar>& out_mask, const kinect_intrinsic_parameters& intrinsics, const std::string& method) {
-	kinect_reprojection reproj(intrinsics);
-	
+void do_depth_reprojection(const cv::Mat_<ushort>& in, cv::Mat_<ushort>& out, cv::Mat_<uchar>& out_mask, const kinect_reprojection& reproj, const std::string& method) {	
 	std::vector<vec3> samples;
 	for(int dy = 0; dy < depth_height; ++dy) for(int dx = 0; dx < depth_width; ++dx) {
 		ushort dz = in(dy, dx);
 		if(dz == 0) continue;
 		
 		vec2 distorted_depth_position(dx, dy);
-		vec2 undistorted_depth_position = reproj.undistort_depth(distorted_depth_position);
-		vec2 color_position = reproj.reproject_depth_to_color(undistorted_depth_position, dz);
+		vec2 undistorted_depth_position = reproj.undistort_ir(distorted_depth_position); // TODO improve
+		
+		real cz;
+		vec2 color_position = reproj.reproject_ir_to_color(undistorted_depth_position, dz, cz);
 									
-		samples.emplace_back(color_position[0], color_position[1], dz);
+		samples.emplace_back(color_position[0], color_position[1], cz);
 	}
 	
 	cv::Mat_<real> densify_out(texture_height, texture_width);
@@ -38,22 +39,21 @@ void do_depth_reprojection(const cv::Mat_<ushort>& in, cv::Mat_<ushort>& out, cv
 
 
 int main(int argc, const char* argv[]) {
-	if(argc <= 5) {
-		std::cout << "usage: " << argv[0] << " input.png output.png output_mask.png intrinsics.json method" << std::endl;
+	if(argc <= 6) {
+		std::cout << "usage: " << argv[0] << " input.png output.png output_mask.png internal_parameters.json reprojection_parameters.json method" << std::endl;
 		return EXIT_FAILURE;
 	}
 	std::string input_filename = argv[1];
 	std::string output_filename = argv[2];
 	std::string output_mask_filename = argv[3];
-	std::string intrinsics_filename = argv[4];
-	std::string method = argv[5];
+	std::string internal_parameters_filename = argv[4];
+	std::string reprojection_parameters_filename = argv[5];
+	std::string method = argv[6];
 	
-	std::cout << "reading intrinsics" << std::endl;
-	kinect_intrinsic_parameters intrinsics;
-	{
-		std::ifstream str(intrinsics_filename);
-		intrinsics = import_intrinsic_parameters(str);
-	}
+	std::cout << "reading parameters" << std::endl;
+	kinect_internal_parameters internal_parameters = decode_kinect_internal_parameters(import_json_file(internal_parameters_filename));
+	kinect_reprojection_parameters reprojection_parameters = decode_kinect_reprojection_parameters(import_json_file(reprojection_parameters_filename));
+	kinect_reprojection reproj(internal_parameters, reprojection_parameters);
 	
 	std::cout << "reading input depth map" << std::endl;
 	cv::Mat_<ushort> in_depth = load_depth(input_filename.c_str());
@@ -62,7 +62,7 @@ int main(int argc, const char* argv[]) {
 	std::cout << "doing depth densification" << std::endl;
 	cv::Mat_<ushort> out_depth(texture_height, texture_width);
 	cv::Mat_<uchar> out_mask(texture_height, texture_width);
-	do_depth_reprojection(in_depth, out_depth, out_mask, intrinsics, method);
+	do_depth_reprojection(in_depth, out_depth, out_mask, reproj, method);
 	
 	std::cout << "saving output depth map+mask" << std::endl;
 	cv::flip(out_depth, out_depth, 1);
@@ -72,3 +72,5 @@ int main(int argc, const char* argv[]) {
 	
 	std::cout << "done" << std::endl;
 }
+*/
+int main(){}

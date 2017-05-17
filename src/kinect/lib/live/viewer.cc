@@ -80,7 +80,7 @@ void viewer::draw_depth(cv::Rect rect, const cv::Mat_<float>& depth_img, float m
 }
 
 
-void viewer::draw_text(cv::Rect rect, const std::string& text, text_alignment align) {
+void viewer::draw_text(cv::Rect rect, const std::string& text, text_alignment align, cv::Vec3b color) {
 	int font = cv::FONT_HERSHEY_COMPLEX_SMALL;
 	double fontscale = 0.8;
 	int thickness = 1;
@@ -93,7 +93,10 @@ void viewer::draw_text(cv::Rect rect, const std::string& text, text_alignment al
 	else if(align == center) x = rect.x + (rect.width/2 - sz.width/2);
 	else if(align == right) x = rect.x + rect.width - sz.width;
 		
-	cv::putText(shown_image_, text, cv::Point(x, y), font, fontscale, cv::Scalar(text_color), thickness);
+	cv::putText(shown_image_, text, cv::Point(x, y), font, fontscale, cv::Scalar(color), thickness);
+}
+void viewer::draw_text(cv::Rect rect, const std::string& text, text_alignment align) {
+	draw_text(rect, text, align, text_color);
 }
 
 

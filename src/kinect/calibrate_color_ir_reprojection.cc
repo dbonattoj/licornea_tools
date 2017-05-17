@@ -6,11 +6,12 @@
 #include "../lib/obj_img_correspondence.h"
 #include "../lib/opencv.h"
 #include "../lib/intrinsics.h"
+#include "lib/kinect_reprojection_parameters.h"
 
 using namespace tlz;
 
 [[noreturn]] void usage_fail() {
-	std::cout << "usage: calibrate_color_ir_homography obj_img_cors_set.json color_intrinsics.json ir_intrinsics.json out_rigid.json [out_reprojection_params.json]\n";
+	std::cout << "usage: calibrate_color_ir_reprojection obj_img_cors_set.json color_intrinsics.json ir_intrinsics.json out_reprojection_params.json\n";
 	std::cout << std::endl;
 	std::exit(1);
 }
@@ -20,9 +21,7 @@ int main(int argc, const char* argv[]) {
 	std::string obj_img_cors_set_filename = argv[1];
 	std::string color_intrinsics_filename = argv[2];
 	std::string ir_intrinsics_filename = argv[3];
-	std::string out_rigid_filename = argv[4];
-	std::string out_reprojection_parameters_filename;
-	if(argc > 5) out_reprojection_parameters_filename = argv[5];
+	std::string out_reprojection_parameters_filename = argv[4];
 	
 	std::cout << "loading obj-img correspondences set" << std::endl;
 	auto cors_set = decode_obj_img_correspondences_set<1, 2>(import_json_file(obj_img_cors_set_filename));
@@ -61,7 +60,7 @@ int main(int argc, const char* argv[]) {
 		color_distortion_coeffs,
 		ir_intr.K,
 		ir_distortion_coeffs,
-		cv::Size(1, 1), // ignore
+		cv::Size(1, 1), // ignored
 		out_rotation,
 		out_translation,
 		cv::noArray(),
@@ -79,21 +78,15 @@ int main(int argc, const char* argv[]) {
 	}
 
 
-	std::cout << "saving rigid matrix" << std::endl;
-	mat33& R = out_rotation;
-	vec3& t = out_translation;
-	mat44 rigid(
-		R(0, 0), R(0, 1), R(0, 2), t[0],
-		R(1, 0), R(1, 1), R(1, 2), t[1],
-		R(2, 0), R(2, 1), R(2, 2), t[2],
-		0.0, 0.0, 0.0, 1.0
-	);
-	export_json_file(encode_mat(rigid), out_rigid_filename);
-	
-	
 	std::cout << "saving reprojection parameters" << std::endl;
-	if(! out_reprojection_parameters_filename.empty()) {
-		// TODO
-	}
+	kinect_reprojection_parameters parameters;
+	parameters.ir_intrinsics = ir_intr;
+	parameters.color_intrinsics = color_intr;
+	parameters.rotation = out_rotation;
+	parameters.translation = out_translation;
+	export_json_file(encode_kinect_reprojection_parameters(parameters), out_reprojection_parameters_filename);
+
+
+	std::cout << "done" << std::endl;
 }
 

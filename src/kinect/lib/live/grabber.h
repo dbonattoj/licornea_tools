@@ -3,6 +3,7 @@
 
 #include "../../lib/opencv.h"
 #include "../freenect2.h"
+#include "../kinect_internal_parameters.h"
 #include <libfreenect2/libfreenect2.hpp>
 #include <libfreenect2/frame_listener_impl.h>
 #include <libfreenect2/registration.h>
@@ -29,10 +30,10 @@ private:
 	bool released_;
 	
 	libfreenect2::Freenect2 context_;
-	libfreenect2::CpuPacketPipeline pipeline_;
+	libfreenect2::CpuPacketPipeline* pipeline_;
 	libfreenect2::SyncMultiFrameListener listener_;
 	libfreenect2::FrameMap frames_;
-	std::unique_ptr<libfreenect2::Freenect2Device> device_;
+	libfreenect2::Freenect2Device* device_;
 	std::unique_ptr<libfreenect2::Registration> registration_;
 	libfreenect2::Frame undistorted_depth_;
 	libfreenect2::Frame undistorted_ir_;
@@ -52,11 +53,12 @@ public:
 	libfreenect2::Freenect2& context() { return context_; }
 	libfreenect2::Freenect2Device& device() { return *device_; }
 	libfreenect2::Registration& registration() { return *registration_; }
+	kinect_internal_parameters internal_parameters();
 	
 	cv::Mat_<cv::Vec3b> get_color_frame();
 	cv::Mat_<cv::Vec3b> get_registered_color_frame();
-	cv::Mat_<uchar> get_ir_frame(float min_ir = 0, float max_ir = 0xffff);
-	cv::Mat_<float> get_depth_frame();
+	cv::Mat_<uchar> get_ir_frame(float min_ir = 0, float max_ir = 0xffff, bool undistorted = false);
+	cv::Mat_<float> get_depth_frame(bool undistorted = false);
 	cv::Mat_<float> get_bigdepth_frame();
 };
 

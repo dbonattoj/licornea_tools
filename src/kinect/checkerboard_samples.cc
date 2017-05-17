@@ -45,8 +45,8 @@ int main(int argc, const char* argv[]) {
 		cv::Mat_<cv::Vec3b> color = grab.get_color_frame();
 		cv::Mat_<uchar> ir = grab.get_ir_frame(min_ir.value, max_ir.value);
 
-		if(mode == "color" || mode == "both") color_chk = detect_checkerboard(color, cols, rows, square_width);
-		if(mode == "ir" || mode == "both") ir_chk = detect_checkerboard(ir, cols, rows, square_width);
+		if(mode == "color" || mode == "both") color_chk = detect_color_checkerboard(color, cols, rows, square_width);
+		if(mode == "ir" || mode == "both") ir_chk = detect_ir_checkerboard(ir, cols, rows, square_width);
 						
 		view.draw(cv::Rect(0, 0, 754, 424), visualize_checkerboard(color, color_chk));
 		view.draw(cv::Rect(754, 0, 512, 424), visualize_checkerboard(ir, ir_chk));

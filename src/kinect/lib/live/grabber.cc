@@ -2,6 +2,7 @@
 
 #include "grabber.h"
 #include <cassert>
+#include <iostream>
 
 namespace tlz {
 
@@ -19,7 +20,7 @@ grabber::grabber(int frame_types) :
 	frame_types_(frame_types),
 	released_(true),
 	context_(),
-	pipeline_(),
+	pipeline_(new CpuPacketPipeline()),
 	listener_(freenect2_frame_types_()),
 	frames_(),
 	undistorted_depth_(512, 424, 4),
@@ -33,7 +34,7 @@ grabber::grabber(int frame_types) :
 	if(device_count == 0) throw std::runtime_error("Kinect not found");
 
 	std::string serial = context_.getDefaultDeviceSerialNumber();
-	device_.reset(context_.openDevice(serial, &pipeline_));
+	device_ = context_.openDevice(serial, pipeline_);
 	if(! device_) throw std::runtime_error("could not open device");
 
 	if(has_(color) || has_(registered_color))
@@ -51,6 +52,9 @@ grabber::grabber(int frame_types) :
 
 
 grabber::~grabber() {
+	// don't delete pipeline (would segfault, bug in Freenect2?)
+	if(! released_) listener_.release(frames_);
+	registration_.reset();
 	device_->stop();
 	device_->close();
 }
@@ -105,8 +109,10 @@ cv::Mat_<cv::Vec3b> grabber::get_registered_color_frame() {
 }
 
 
-cv::Mat_<uchar> grabber::get_ir_frame(float min_ir, float max_ir) {
-	cv::Mat_<float> ir_orig(424, 512, reinterpret_cast<float*>(undistorted_ir_.data));		
+cv::Mat_<uchar> grabber::get_ir_frame(float min_ir, float max_ir, bool undistorted) {
+	assert(has_(ir));
+	Frame* raw_ir = frames_[Frame::Ir];
+	cv::Mat_<float> ir_orig(424, 512, reinterpret_cast<float*>(undistorted ? undistorted_ir_.data : raw_ir->data));		
 	float alpha = 255.0f / (max_ir - min_ir);
 	float beta = -alpha * min_ir;
 	cv::Mat_<uchar> ir;
@@ -118,14 +124,23 @@ cv::Mat_<uchar> grabber::get_ir_frame(float min_ir, float max_ir) {
 }
 
 
-cv::Mat_<float> grabber::get_depth_frame() {
-	return cv::Mat_<float>(424, 512, reinterpret_cast<float*>(undistorted_depth_.data));		
+cv::Mat_<float> grabber::get_depth_frame(bool undistorted) {
+	assert(has_(depth));
+	Frame* raw_depth = frames_[Frame::Depth];
+	return cv::Mat_<float>(424, 512, reinterpret_cast<float*>(undistorted ? undistorted_depth_.data : raw_depth->data));		
 }
 
 
 cv::Mat_<float> grabber::get_bigdepth_frame() {
 	cv::Mat_<float> depth_orig(1082, 1920, reinterpret_cast<float*>(bigdepth_.data));		
 	return depth_orig.rowRange(1, 1081);
+}
+
+
+kinect_internal_parameters grabber::internal_parameters() {
+	auto color = device_->getColorCameraParams();
+	auto ir = device_->getIrCameraParams();
+	return from_freenect2(color, ir);
 }
 
 

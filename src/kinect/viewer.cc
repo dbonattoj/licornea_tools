@@ -21,5 +21,5 @@ int main() {
 		view.draw_depth(cv::Rect(754+512, 0, 512, 424), grab.get_depth_frame(), min_d.value, max_d.value);
 		
 		grab.release();
-	} while(view.show());
+	} while(view.show());	
 }

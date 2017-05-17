@@ -6,8 +6,8 @@ simulate = False
 
 datas = None
 densify_method = None
-internal_intrinsics_filename = None
-color_intrinsics_filename = None
+internal_parameters_filename = None
+reprojection_parameters_filename = None
 
 def process_view(x, y):	
 	if verbose: print "view x={}, y={}".format(x, y)
@@ -30,15 +30,6 @@ def process_view(x, y):
 		if not simulate:
 			shutil.copyfile(in_image_filename, out_image_filename)
 	
-		#if verbose: print "undistorting image {}".format(out_image_filename)
-		#if not simulate:
-		#	call_tool("calibration/undistort", [
-		#		out_image_filename,
-		#		out_image_filename,
-		#		color_intrinsics_filename,
-		#		"texture"
-		#	])
-	
 	if not os.path.isfile(out_depth_filename):
 		if verbose: print "reprojecting depth {} -> {}".format(in_depth_filename, out_depth_filename)
 		if not simulate:
@@ -46,18 +37,10 @@ def process_view(x, y):
 				in_depth_filename,
 				out_depth_filename,
 				out_mask_filename,
-				internal_intrinsics_filename,
+				internal_parameters_filename,
+				reprojection_parameters_filename,
 				densify_method
 			])
-
-		#if verbose: print "undistorting depth {}".format(out_depth_filename)
-		#if not simulate:
-		#	call_tool("calibration/undistort", [
-		#		out_depth_filename,
-		#		out_depth_filename,
-		#		color_intrinsics_filename,
-		#		"depth"
-		#	])
 			
 
 def usage_fail():
@@ -75,8 +58,8 @@ if __name__ == '__main__':
 	if simulate: parallel = False
 
 	datas = Dataset(parameters_filename)
-	internal_intrinsics_filename = datas.filepath(datas.parameters["kinect_raw"]["kinect_internal_intrinsics_filename"])
-	color_intrinsics_filename = datas.filepath(datas.parameters["kinect_raw"]["kinect_color_intrinsics_filename"])
+	internal_parameters_filename = datas.filepath(datas.parameters["kinect_raw"]["kinect_internal_parameters_filename"])
+	reprojection_parameters_filename = datas.filepath(datas.parameters["kinect_raw"]["kinect_reprojection_parameters_filename"])
 	
 	indices = [(x, y) for y in datas.y_indices() for x in datas.x_indices()]
 	

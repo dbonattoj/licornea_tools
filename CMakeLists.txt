@@ -153,21 +153,17 @@ install_pylib_link(camera)
 file(GLOB_RECURSE KINECT_LIB_SRC "src/kinect/lib/*.cc")
 add_library(kinect_lib STATIC ${KINECT_LIB_SRC})
 
-add_executable(depth_point_cloud "src/kinect/depth_point_cloud.cc")
-target_link_libraries(depth_point_cloud common_lib kinect_lib)
-
 add_executable(depth_reprojection "src/kinect/depth_reprojection.cc")
 target_link_libraries(depth_reprojection common_lib kinect_lib)
 
-add_executable(calibrate_color_ir_homography "src/kinect/calibrate_color_ir_homography.cc")
-target_link_libraries(calibrate_color_ir_homography common_lib kinect_lib)
+add_executable(calibrate_color_ir_reprojection "src/kinect/calibrate_color_ir_reprojection.cc")
+target_link_libraries(calibrate_color_ir_reprojection common_lib kinect_lib)
 
 
 install(
 	TARGETS
-		depth_point_cloud
 		depth_reprojection
-		calibrate_color_ir_homography
+		calibrate_color_ir_reprojection
 	DESTINATION kinect
 )
 install(
@@ -178,11 +174,14 @@ install(
 install_pylib_link(kinect)
 
 if(WITH_LIBFREENECT2)
-	add_executable(fetch_intrinsics "src/kinect/fetch_intrinsics.cc")
-	target_link_libraries(fetch_intrinsics common_lib kinect_lib freenect2)
+	add_executable(fetch_internal_parameters "src/kinect/fetch_internal_parameters.cc")
+	target_link_libraries(fetch_internal_parameters common_lib kinect_lib freenect2)
 
 	add_executable(viewer "src/kinect/viewer.cc")
 	target_link_libraries(viewer common_lib kinect_lib freenect2)
+
+	add_executable(ir_distortion_viewer "src/kinect/ir_distortion_viewer.cc")
+	target_link_libraries(ir_distortion_viewer common_lib kinect_lib freenect2)
 
 	add_executable(checkerboard_samples "src/kinect/checkerboard_samples.cc")
 	target_link_libraries(checkerboard_samples common_lib kinect_lib freenect2)
@@ -202,16 +201,21 @@ if(WITH_LIBFREENECT2)
 	add_executable(color_intrinsic_reprojection "src/kinect/color_intrinsic_reprojection.cc")
 	target_link_libraries(color_intrinsic_reprojection common_lib kinect_lib freenect2)
 
+	add_executable(checkerboard_color_depth "src/kinect/checkerboard_color_depth.cc")
+	target_link_libraries(checkerboard_color_depth common_lib kinect_lib freenect2)
+
 	install(
 		TARGETS
-			fetch_intrinsics
+			fetch_internal_parameters
 			viewer
+			ir_distortion_viewer
 			checkerboard_samples
 			checkerboard_depth_samples
 			remapping_viewer
 			reprojection_viewer
 			ir_intrinsic_reprojection
 			color_intrinsic_reprojection
+			checkerboard_color_depth
 		DESTINATION kinect
 	)
 endif()

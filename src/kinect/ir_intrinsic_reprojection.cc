@@ -48,7 +48,7 @@ int main(int argc, const char* argv[]) {
 			cv::cvtColor(large_ir_, large_ir, CV_GRAY2BGR);
 		}
 
-		checkerboard ir_chk = detect_checkerboard(ir, cols, rows, square_width);
+		checkerboard ir_chk = detect_ir_checkerboard(ir, cols, rows, square_width);
 
 		std::vector<vec2> image_points = checkerboard_image_corners(ir_chk);
 		std::vector<vec3> object_points = checkerboard_world_corners(cols, rows, square_width);
@@ -56,7 +56,7 @@ int main(int argc, const char* argv[]) {
 		real reprojection_error = NAN;
 		
 		if(ir_chk) {
-			// calculate extrinsic	
+			// calculate extrinsic, and reproject
 			vec3 rotation_vec, translation;
 			mat33 rotation;
 			cv::solvePnP(
@@ -68,17 +68,23 @@ int main(int argc, const char* argv[]) {
 				translation,
 				false
 			);
-			cv::Rodrigues(rotation_vec, rotation);
+
+			std::vector<vec2> reprojected_image_points;
+			cv::projectPoints(
+				object_points,
+				rotation_vec,
+				translation,
+				ir_intr.K,
+				ir_intr.distortion.cv_coeffs(),
+				reprojected_image_points
+			);
+
 			
-			// calculate distances (z in view space) for each point
+			// calculate distances between original and reprojected point
 			reprojection_error = 0.0;
 			for(int idx = 0; idx < rows*cols; ++idx) {
 				const vec2& i_orig = image_points[idx];
-				const vec3& w = object_points[idx];
-				
-				vec3 v = rotation * w + translation;
-				vec3 i_h = ir_intr.K * v;
-				vec2 i_reproj(i_h[0] / i_h[2], i_h[1] / i_h[2]);
+				const vec2& i_reproj = reprojected_image_points[idx];
 				
 				vec2 diff = i_reproj - i_orig;
 				reprojection_error += sq(diff[0]) + sq(diff[1]);

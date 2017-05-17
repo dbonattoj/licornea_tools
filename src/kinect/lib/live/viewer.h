@@ -52,6 +52,7 @@ public:
 	void draw_depth(cv::Rect rect, const cv::Mat_<float>& depth_img, float min_d, float max_d, real blend = 1.0);
 	
 	void draw_text(cv::Rect rect, const std::string& text, text_alignment);
+	void draw_text(cv::Rect rect, const std::string& text, text_alignment, cv::Vec3b color);
 	void draw_indicator(cv::Rect rect, real value, real max_value);
 	void draw_2d_indicator(cv::Rect rect, real value_x, real value_y, real max_abs_value);
 

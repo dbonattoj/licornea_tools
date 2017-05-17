@@ -6,10 +6,12 @@
 namespace tlz {
 
 
-void depth_densify_mine::densify(const std::vector<vec3>& orig_samples, cv::Mat_<real>& out, cv::Mat_<uchar>& out_mask) {
+void depth_densify_mine::densify(const std::vector<vec3>& orig_samples, cv::Mat_<real>& out_, cv::Mat_<uchar>& out_mask) {
 	std::vector<vec3> samples = orig_samples;
 	auto cmp = [](const vec3& a, const vec3& b) { return (a[2] > b[2]); };
 	std::sort(samples.begin(), samples.end(), cmp);
+	
+	cv::Mat_<float> out(out_.size());
 	
 	cv::Mat_<uchar> sparse_mask(texture_height, texture_width);
 	cv::Mat_<real> sparse(texture_height, texture_width);
@@ -52,7 +54,7 @@ void depth_densify_mine::densify(const std::vector<vec3>& orig_samples, cv::Mat_
 	for(int px = 0; px < texture_width; ++px)
 	for(int py = 0; py < texture_height; ++py) {
 		uchar& mask = out_mask(py, px);
-		real& d = out(py, px);
+		float& d = out(py, px);
 
 		if(sparse_mask(py, px)) {
 			d = sparse(py, px);
@@ -106,6 +108,8 @@ void depth_densify_mine::densify(const std::vector<vec3>& orig_samples, cv::Mat_
 	}
 	
 	cv::medianBlur(out, out, 3);
+	
+	out_ = out;
 }
 
 }
