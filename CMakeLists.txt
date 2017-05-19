@@ -156,14 +156,21 @@ add_library(kinect_lib STATIC ${KINECT_LIB_SRC})
 add_executable(depth_reprojection "src/kinect/depth_reprojection.cc")
 target_link_libraries(depth_reprojection common_lib kinect_lib)
 
+add_executable(internal_ir_intrinsics "src/kinect/internal_ir_intrinsics.cc")
+target_link_libraries(internal_ir_intrinsics common_lib kinect_lib)
+
 add_executable(calibrate_color_ir_reprojection "src/kinect/calibrate_color_ir_reprojection.cc")
 target_link_libraries(calibrate_color_ir_reprojection common_lib kinect_lib)
 
+add_executable(checkerboard_depth_stat "src/kinect/checkerboard_depth_stat.cc")
+target_link_libraries(checkerboard_depth_stat common_lib kinect_lib freenect2)
 
 install(
 	TARGETS
 		depth_reprojection
+		internal_ir_intrinsics
 		calibrate_color_ir_reprojection
+		checkerboard_depth_stat
 	DESTINATION kinect
 )
 install(
@@ -189,6 +196,9 @@ if(WITH_LIBFREENECT2)
 	add_executable(checkerboard_depth_samples "src/kinect/checkerboard_depth_samples.cc")
 	target_link_libraries(checkerboard_depth_samples common_lib kinect_lib freenect2)
 
+	add_executable(checkerboard_depth_viewer "src/kinect/checkerboard_depth_viewer.cc")
+	target_link_libraries(checkerboard_depth_viewer common_lib kinect_lib freenect2)
+
 	add_executable(remapping_viewer "src/kinect/remapping_viewer.cc")
 	target_link_libraries(remapping_viewer common_lib kinect_lib freenect2)
 
@@ -211,6 +221,7 @@ if(WITH_LIBFREENECT2)
 			ir_distortion_viewer
 			checkerboard_samples
 			checkerboard_depth_samples
+			checkerboard_depth_viewer
 			remapping_viewer
 			reprojection_viewer
 			ir_intrinsic_reprojection

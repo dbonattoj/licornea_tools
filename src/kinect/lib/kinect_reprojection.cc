@@ -34,9 +34,15 @@ std::vector<vec2> kinect_reprojection::reproject_points_ir_to_color(
 	#pragma omp parallel for
 	for(int idx = 0; idx < n; ++idx) {
 		const vec2& undistorted_ir_i_xy = undistorted_ir_i_xy_points[idx];
-		const real& ir_z = ir_z_points[idx];
+		const real& ir_z = ir_z_points[idx];		
 		real& color_z = out_color_z_points[idx];
 		vec3& color_v = color_v_points[idx];
+		
+		if(ir_z == 0.0) {
+			color_z = 0.0;
+			color_v = vec3(0.0, 0.0, 0.0);
+			continue;
+		}
 		
 		vec3 undistorted_ir_i_h(undistorted_ir_i_xy[0], undistorted_ir_i_xy[1], 1.0);
 		undistorted_ir_i_h *= ir_z;

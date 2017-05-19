@@ -5,14 +5,45 @@
 #include <climits>
 #include <cassert>
 
+// based on
+// https://github.com/code-iai/iai_kinect2/blob/master/kinect2_calibration/src/kinect2_calibration.cpp
+
+
 namespace tlz {
 
-checkerboard::checkerboard(int cols_, int rows_, real square_width_, const std::vector<cv::Point2f>& corners_) :
+namespace {
+	
+std::vector<cv::Point2f> vec2_to_point2f_(const std::vector<vec2>& in_pts) {
+	std::vector<cv::Point2f> out_pts;
+	for(const vec2& pt : in_pts) out_pts.emplace_back(pt[0], pt[1]);
+	return out_pts;
+}
+std::vector<vec2> point2f_to_vec2_(const std::vector<cv::Point2f>& in_pts) {
+	std::vector<vec2> out_pts;
+	for(const cv::Point2f& pt : in_pts) out_pts.emplace_back(pt.x, pt.y);
+	return out_pts;
+}
+std::vector<cv::Point> vec2_to_point_(const std::vector<vec2>& in_pts) {
+	std::vector<cv::Point> out_pts;
+	for(const vec2& pt : in_pts) out_pts.emplace_back(pt[0], pt[1]);
+	return out_pts;
+}
+std::vector<cv::Point> point2f_to_point_(const std::vector<cv::Point2f>& in_pts) {
+	std::vector<cv::Point> out_pts;
+	for(const cv::Point2f& pt : in_pts) out_pts.emplace_back(pt.x, pt.y);
+	return out_pts;
+}
+	
+}
+
+checkerboard::checkerboard(int cols_, int rows_, real square_width_, const std::vector<vec2>& corners_) :
 	cols(cols_),
 	rows(rows_),
 	square_width(square_width_),
 	corners(corners_)
 {
+	assert(corners_.size() == cols*rows);
+	
 	outer_corners = {
 		corners.at(0),
 		corners.at(cols-1),
@@ -21,8 +52,8 @@ checkerboard::checkerboard(int cols_, int rows_, real square_width_, const std::
 	};
 	
 	int min_x = INT_MAX, min_y = INT_MAX, max_x = 0, max_y = 0;
-	for(const cv::Point2f& pt : outer_corners) {
-		int x = pt.x, y = pt.y;
+	for(const vec2& pt : outer_corners) {
+		int x = pt[0], y = pt[1];
 		if(x > max_x) max_x = x;
 		if(x < min_x) min_x = x;
 		if(y > max_y) max_y = y;
@@ -32,62 +63,61 @@ checkerboard::checkerboard(int cols_, int rows_, real square_width_, const std::
 }
 	
 std::vector<cv::Point> checkerboard::outer_corners_i() const {
-	std::vector<cv::Point> out_outer_corners_i(outer_corners.size());
-	std::transform(outer_corners.begin(), outer_corners.end(), out_outer_corners_i.begin(), [](const cv::Point2f& pt) {
-		return cv::Point(pt.x, pt.y);
-	});
-	return out_outer_corners_i;
+	return vec2_to_point_(outer_corners);
 }
 	
 	
 checkerboard detect_color_checkerboard(cv::Mat_<cv::Vec3b>& img, int cols, int rows, real square_width) {
 	std::vector<cv::Point2f> corners;
 
-	int flags = CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_FAST_CHECK;
+	int flags = cv::CALIB_CB_FAST_CHECK;
 	bool found = cv::findChessboardCorners(img, cv::Size(cols, rows), corners, flags);
 	if(!found || corners.size() != cols*rows) return checkerboard();
 	
-	cv::TermCriteria term(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 30, 0.1);
+	cv::TermCriteria term(cv::TermCriteria::COUNT | cv::TermCriteria::EPS, 100, DBL_EPSILON);
 	cv::Mat img_mono;
 	cv::cvtColor(img, img_mono, CV_BGR2GRAY);
 	cv::cornerSubPix(img_mono, corners, cv::Size(11, 11), cv::Size(-1, -1), term);	
 	
-	return checkerboard(cols, rows, square_width, corners);
+	return checkerboard(cols, rows, square_width, point2f_to_vec2_(corners));
 }
 
 
-checkerboard detect_ir_checkerboard(cv::Mat_<uchar>& img, int cols, int rows, real square_width) {
+checkerboard detect_ir_checkerboard(cv::Mat_<uchar>& img, int cols, int rows, real square_width) {	
+	static cv::Ptr<cv::CLAHE> clahe = nullptr;
+	if(! clahe) clahe = cv::createCLAHE(1.5, cv::Size(32, 32));
+	
 	cv::Mat_<uchar> larger_img;
-	real scale = 1.5;
-	cv::resize(img, larger_img, cv::Size(0,0), scale, scale);
+	real scale = 2.0;
+	cv::resize(img, larger_img, cv::Size(0,0), scale, scale, cv::INTER_CUBIC);
+	
+	clahe->apply(larger_img, larger_img);
 	
 	std::vector<cv::Point2f> corners;
 
-	int flags = CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_NORMALIZE_IMAGE | CV_CALIB_CB_FAST_CHECK;
+	int flags = cv::CALIB_CB_ADAPTIVE_THRESH;
 	bool found = cv::findChessboardCorners(larger_img, cv::Size(cols, rows), corners, flags);
 	if(!found || corners.size() != cols*rows) return checkerboard();
-	
+		
+	cv::TermCriteria term(cv::TermCriteria::EPS, 100, DBL_EPSILON);
+	cv::cornerSubPix(larger_img, corners, cv::Size(11, 11), cv::Size(-1, -1), term);	
+
 	for(cv::Point2f& corner : corners) corner = cv::Point2f(corner.x/scale, corner.y/scale);
 	
-	cv::TermCriteria term(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 30, 0.1);
-	cv::cornerSubPix(img, corners, cv::Size(5, 5), cv::Size(-1, -1), term);	
-	
-	return checkerboard(cols, rows, square_width, corners);
+	return checkerboard(cols, rows, square_width, point2f_to_vec2_(corners));
 }
 
 
 std::vector<vec3> checkerboard_world_corners(int cols, int rows, real square_width) {
 	std::vector<vec3> world_corners(cols * rows);
-	for(int row = 0, i = 0; row < rows; ++row) for(int col = 0; col < cols; ++col, ++i)
-		world_corners[i] = vec3(col*square_width, row*square_width, 0.0);
+	for(int row = 0, idx = 0; row < rows; ++row) for(int col = 0; col < cols; ++col, ++idx)
+		world_corners[idx] = vec3((col - cols/2)*square_width, (row - rows/2)*square_width, 0.0);
 	return world_corners;
 }
 
 
 std::vector<vec2> checkerboard_image_corners(const checkerboard& chk) {
-	std::vector<vec2> image_corners;
-	for(const cv::Point2f& pt : chk.corners) image_corners.emplace_back(pt.x, pt.y);
-	return image_corners;	
+	return chk.corners;
 }
 
 
@@ -110,6 +140,27 @@ cv::Mat_<cv::Vec3b> visualize_checkerboard(const cv::Mat_<uchar>& img, const che
 	cv::cvtColor(img, conv_img, CV_GRAY2BGR);
 	return visualize_checkerboard(conv_img, chk, param);
 }
+
+
+cv::Mat_<cv::Vec3b> visualize_checkerboard_pixel_samples(const cv::Mat_<cv::Vec3b>& img, const std::vector<checkerboard_pixel_depth_sample>& pixels) {
+	cv::Mat_<cv::Vec3b> out_img;
+	img.copyTo(out_img);
+	for(const auto& pix : pixels) {
+		int x = pix.coordinates[0], y = pix.coordinates[1];
+		if(x < 0 || x >= img.cols || y < 0 || y >= img.rows) continue;
+		out_img(y, x) = cv::Vec3b(100, 100, 255);
+	}
+	return out_img;
+}
+
+
+cv::Mat_<cv::Vec3b> visualize_checkerboard_pixel_samples(const cv::Mat_<uchar>& img, const std::vector<checkerboard_pixel_depth_sample>& pixels) {
+	cv::Mat_<cv::Vec3b> conv_img;
+	cv::cvtColor(img, conv_img, CV_GRAY2BGR);
+	return visualize_checkerboard_pixel_samples(conv_img, pixels);
+}
+
+
 
 
 obj_img_correspondences<1, 1> checkerboard_obj_img_correspondences(const checkerboard& chk) {
@@ -143,40 +194,194 @@ obj_img_correspondences<1, 2> checkerboard_obj_2img_correspondences(const checke
 }
 
 
-real checkerboard_reprojection_error(const checkerboard& chk, const intrinsics& intr) {
+checkerboard_extrinsics estimate_checkerboard_extrinsics(const checkerboard& chk, const intrinsics& intr) {
+	std::vector<vec3> object_points = checkerboard_world_corners(chk.cols, chk.rows, chk.square_width);
+	std::vector<vec2> image_points = checkerboard_image_corners(chk);
+
+	vec3 rotation_vec, translation;
+	mat33 rotation;	
+	const bool use_ransac = false;
+	if(use_ransac) {
+		std::vector<cv::Vec3f> object_points_(chk.corners_count());
+		std::vector<cv::Vec2f> image_points_(chk.corners_count());
+		for(int idx = 0; idx < chk.corners_count(); ++idx) {
+			object_points_[idx] = cv::Vec3f( object_points[idx][0], object_points[idx][1], object_points[idx][2] );
+			image_points_[idx] = cv::Vec2f( image_points[idx][0], image_points[idx][1] );
+		}
+				
+		cv::solvePnPRansac(
+			object_points_,
+			image_points_,
+			intr.K,
+			intr.distortion.cv_coeffs(),
+			rotation_vec,
+			translation,
+			false,
+			300,
+			0.05,
+			chk.corners_count(),
+			cv::noArray(),
+			cv::ITERATIVE
+		);
+	} else {
+		cv::solvePnP(
+			object_points,
+			image_points,
+			intr.K,
+			intr.distortion.cv_coeffs(),
+			rotation_vec,
+			translation,
+			false
+		);
+	}
+	cv::Rodrigues(rotation_vec, rotation);
+
+	return checkerboard_extrinsics {
+		translation,
+		rotation,
+		rotation_vec
+	};
+}
+
+std::vector<real> checkerboard_corner_distances(const checkerboard& chk, const intrinsics& intr) {
+	checkerboard_extrinsics	ext = estimate_checkerboard_extrinsics(chk, intr);
+	return checkerboard_corner_distances(chk, intr, ext);
+}
+
+
+real checkerboard_reprojection_error(const checkerboard& chk, const intrinsics& intr, const checkerboard_extrinsics& ext) {
+	std::vector<vec3> object_points = checkerboard_world_corners(chk.cols, chk.rows, chk.square_width);
+	std::vector<vec2> image_points = checkerboard_image_corners(chk);
+
+	std::vector<vec2> reprojected_image_points;
+	cv::projectPoints(
+		object_points,
+		ext.rotation_vec,
+		ext.translation,
+		intr.K,
+		intr.distortion.cv_coeffs(),
+		reprojected_image_points
+	);
+	real err = 0.0;
+	for(int idx = 0; idx < chk.corners_count(); ++idx) {
+		const vec2& i_orig = image_points[idx];
+		const vec2& i_reproj = reprojected_image_points[idx];				
+		vec2 diff = i_reproj - i_orig;
+		err += sq(diff[0]) + sq(diff[1]);
+	}
+	err /= chk.corners_count();
+	return std::sqrt(err);
+}
+
+
+std::vector<real> checkerboard_corner_distances(const checkerboard& chk, const intrinsics& intr, const checkerboard_extrinsics& ext) {
 	std::vector<vec3> object_points = checkerboard_world_corners(chk.cols, chk.rows, chk.square_width);
 	std::vector<vec2> image_points = checkerboard_image_corners(chk);
 	
-	// calculate extrinsic	
-	vec3 rotation_vec, translation;
-	mat33 rotation;
-	cv::solvePnP(
-		object_points,
+	std::size_t corner_count = chk.rows * chk.cols;
+	
+	// normal vector and distance of checkerboard in camera view space
+	vec3 normal(0.0, 0.0, 1.0);
+	normal = ext.rotation * normal;
+	real plane_distance = normal.dot(ext.translation);
+	
+	// undistort image points, and get normalized view space points with depth 1.0
+	std::vector<vec2> undistorted_normalized_points;
+	cv::undistortPoints(
 		image_points,
+		undistorted_normalized_points,
 		intr.K,
 		intr.distortion.cv_coeffs(),
-		rotation_vec,
-		translation,
-		false
+		cv::noArray(),
+		cv::noArray()
 	);
-	cv::Rodrigues(rotation_vec, rotation);
-			
-	// calculate distances (z in view space) for each point
-	real reprojection_error = 0.0;
-	for(int idx = 0; idx < chk.rows*chk.cols; ++idx) {
-		const vec2& i_orig = image_points[idx];
-		const vec3& w = object_points[idx];
+
+	// distances of corners
+	std::vector<real> distances;
+	for(int idx = 0; idx < corner_count; ++idx) {		
+		vec3 v;
+		v[0] = undistorted_normalized_points[idx][0];
+		v[1] = undistorted_normalized_points[idx][1];
+		v[2] = 1.0;
 		
-		vec3 v = rotation * w + translation;
-		vec3 i_h = intr.K * v;
-		vec2 i_reproj(i_h[0] / i_h[2], i_h[1] / i_h[2]);
+		real t = plane_distance / normal.dot(v);
+		v = v * t;
 		
-		vec2 diff = i_reproj - i_orig;
-		reprojection_error += sq(diff[0]) + sq(diff[1]);
+		distances.push_back(v[2]);
 	}
-	reprojection_error /= chk.rows*chk.cols;
-	reprojection_error = std::sqrt(reprojection_error);
-	return reprojection_error;
+	
+	return distances;
+}
+
+
+
+	
+std::vector<checkerboard_pixel_depth_sample> checkerboard_pixel_depth_samples(const checkerboard& chk, const cv::Mat_<float>& depth_image, int granularity) {
+	// region of interest: bounding box + mask
+	cv::Rect bounding_rect = chk.bounding_rect;
+	cv::Mat_<uchar> mask(depth_image.size());
+	mask.setTo(0);
+	std::vector<std::vector<cv::Point>> polylines { chk.outer_corners_i() };
+	cv::fillConvexPoly(mask, chk.outer_corners_i().data(), 4, 255);
+
+	// get measured depths for each pixel
+	std::vector<checkerboard_pixel_depth_sample> depth_samples;
+	for(int ry = 0; ry < bounding_rect.height; ry += granularity)
+	for(int rx = 0; rx < bounding_rect.width; rx += granularity) {
+		int x = bounding_rect.x + rx, y = bounding_rect.y + ry;
+		
+		if(! mask(y, x)) continue;
+		real d = depth_image(y, x);
+		if(d == 0.0) continue;
+		
+		checkerboard_pixel_depth_sample samp;
+		samp.coordinates = vec2(x, y);
+		samp.measured_depth = d;
+		samp.calculated_depth = NAN;
+		depth_samples.push_back(samp);
+	}
+
+	return depth_samples;
+}
+
+
+
+void calculate_checkerboard_pixel_depths(const intrinsics& intr, const checkerboard_extrinsics& ext, std::vector<checkerboard_pixel_depth_sample>& inout_samples) {
+	if(inout_samples.size() == 0) return;
+
+	// get image points
+	std::vector<vec2> image_points;
+	for(const checkerboard_pixel_depth_sample& sample : inout_samples)
+		image_points.push_back(sample.coordinates);
+	
+	// normal vector and distance of checkerboard in camera view space
+	vec3 normal(0.0, 0.0, 1.0);
+	normal = ext.rotation * normal;
+	real plane_distance = normal.dot(ext.translation);
+		
+	// undistort image points, and get normalized view space points with depth 1.0
+	std::vector<vec2> undistorted_normalized_points;
+	cv::undistortPoints(
+		image_points,
+		undistorted_normalized_points,
+		intr.K,
+		intr.distortion.cv_coeffs(),
+		cv::noArray(),
+		cv::noArray()
+	);
+
+	// calculate distances
+	for(int idx = 0; idx < image_points.size(); ++idx) {		
+		vec3 v;
+		v[0] = undistorted_normalized_points[idx][0];
+		v[1] = undistorted_normalized_points[idx][1];
+		v[2] = 1.0;
+		
+		real t = plane_distance / normal.dot(v);
+		v = v * t;
+		
+		inout_samples[idx].calculated_depth = v[2];
+	}
 }
 
 }

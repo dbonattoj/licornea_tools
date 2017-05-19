@@ -46,6 +46,8 @@ public:
 	
 	slider& add_slider(const std::string& caption, int default_val, int max_val);
 	
+	static cv::Mat_<uchar> visualize_depth(const cv::Mat_<float>&, float min_d, float max_d);
+	
 	void clear();
 	void draw(cv::Rect rect, const cv::Mat_<cv::Vec3b>& img, real blend = 1.0);
 	void draw(cv::Rect rect, const cv::Mat_<uchar>& img, real blend = 1.0);

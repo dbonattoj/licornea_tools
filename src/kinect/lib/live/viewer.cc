@@ -36,6 +36,18 @@ void viewer::clear() {
 }
 
 
+cv::Mat_<uchar> viewer::visualize_depth(const cv::Mat_<float>& depth_img, float min_d, float max_d) {
+	cv::Mat_<uchar> viz_depth_img;
+	float alpha = 255.0f / (max_d - min_d);
+	float beta = -alpha * min_d;
+	cv::convertScaleAbs(depth_img, viz_depth_img, alpha, beta);
+	viz_depth_img.setTo(0, (depth_img < min_d));
+	viz_depth_img.setTo(255, (depth_img > max_d));
+	viz_depth_img.setTo(0, (depth_img == 0));
+	return viz_depth_img;
+}
+
+
 void viewer::draw(cv::Rect rect, const cv::Mat_<cv::Vec3b>& img, real blend) {
 	cv::Mat resized_img;
 	float ratio = (float)img.rows / img.cols;
@@ -68,14 +80,7 @@ void viewer::draw(cv::Rect rect, const cv::Mat_<uchar>& img, real blend) {
 
 
 void viewer::draw_depth(cv::Rect rect, const cv::Mat_<float>& depth_img, float min_d, float max_d, real blend) {
-	cv::Mat_<uchar> viz_depth_img;
-	float alpha = 255.0f / (max_d - min_d);
-	float beta = -alpha * min_d;
-	cv::convertScaleAbs(depth_img, viz_depth_img, alpha, beta);
-	viz_depth_img.setTo(0, (depth_img < min_d));
-	viz_depth_img.setTo(255, (depth_img > max_d));
-	viz_depth_img.setTo(0, (depth_img == 0));
-
+	cv::Mat_<uchar> viz_depth_img = visualize_depth(depth_img, min_d, max_d);
 	draw(rect, viz_depth_img, blend);
 }
 

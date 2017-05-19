@@ -53,11 +53,8 @@ int main(int argc, const char* argv[]) {
 		cv::Mat_<uchar> ir = grab.get_ir_frame();
 		cv::Mat_<float> depth = grab.get_depth_frame();
 
-
 		cv::Mat_<uchar> undistorted_ir = grab.get_ir_frame(true);
 		cv::Mat_<float> undistorted_depth = grab.get_depth_frame(true);
-
-
 		// IR+depth to color mapping using Freenect2 registration
 		z_buffer.setTo(INFINITY);
 		freenect2_mapping.setTo(0);	
@@ -79,19 +76,21 @@ int main(int argc, const char* argv[]) {
 			old_dz = dz;
 		}
 		
-	
+
 		// IR+depth to color mapping using homography		
 		homography_mapping.setTo(0);
 		homography_mapping_coordinates.setTo(vec2(0,0));
 		z_buffer.setTo(INFINITY);
 		
-		depth += z_offset;
-		auto color_samples = reproj.reproject_ir_to_color_samples<uchar>(ir, depth, true);
-		for(const auto& samp : color_samples) {
+		cv::Mat_<float> depth_off = depth + z_offset;
+		depth_off.setTo(0.0, (depth == 0.0));
+		auto color_samples = reproj.reproject_ir_to_color_samples<uchar>(ir, depth_off, true);
+		for(auto& samp : color_samples) {
 			real cx = samp.color_coordinates[0], cy = samp.color_coordinates[1];
 			int scx = cx*scale, scy = cy*scale;
 			if(scx < 0 || scx >= w || scy < 0 || scy >= h) continue;
 			float dz = samp.ir_depth;
+			
 			float& old_dz = z_buffer(scy, scx);
 			if(dz > old_dz) continue;
 			homography_mapping(scy, scx) = samp.value;

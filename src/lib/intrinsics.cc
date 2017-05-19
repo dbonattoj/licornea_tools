@@ -1,4 +1,5 @@
 #include "intrinsics.h"
+#include <iostream>
 
 namespace tlz {
 
@@ -10,8 +11,10 @@ intrinsics decode_intrinsics(const json& j_intr) {
 		intr.distortion.k1 = j_intr["distortion"]["k1"];
 		intr.distortion.k2 = j_intr["distortion"]["k2"];
 		intr.distortion.p1 = j_intr["distortion"]["p1"];
-		intr.distortion.p2 = j_intr["distortion"]["p1"];
+		intr.distortion.p2 = j_intr["distortion"]["p2"];
 		if(j_intr["distortion"].count("k3") == 1) intr.distortion.k3 = j_intr["distortion"]["k3"];
+		
+		std::cout << intr.distortion.k3 << std::endl;
 	}
 	intr.width = j_intr["width"];
 	intr.height = j_intr["height"];

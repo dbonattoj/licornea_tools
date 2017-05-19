@@ -9,6 +9,7 @@ namespace tlz {
 struct intrinsics {
 	mat33 K;
 	mat33 K_inv;
+	
 	struct {
 		real k1 = 0.0;
 		real k2 = 0.0;
