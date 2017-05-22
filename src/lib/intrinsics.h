@@ -23,10 +23,18 @@ struct intrinsics {
 	} distortion;
 	int width = 0;
 	int height = 0;
+	
+	real fx() const { return K(0, 0); }
+	real fy() const { return K(1, 1); }
+	real cx() const { return K(0, 2); }
+	real cy() const { return K(1, 2); }
 };	
 
 intrinsics decode_intrinsics(const json&);
 json encode_intrinsics(const intrinsics&);
+
+std::vector<vec2> undistort_points(const intrinsics&, const std::vector<vec2>&);
+std::vector<vec2> distort_points(const intrinsics&, const std::vector<vec2>&);
 
 }
 

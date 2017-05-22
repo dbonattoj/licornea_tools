@@ -10,6 +10,7 @@
 #include "../lib/camera.h"
 #include "../lib/image_io.h"
 #include "../lib/random_color.h"
+#include "../lib/intrinsics.h"
 
 using namespace tlz;
 
@@ -37,13 +38,15 @@ int main(int argc, const char* argv[]) {
 	if(argc > ++i) step_y = std::atof(argv[i]);
 	
 	mat33 R = decode_mat(import_json_file(rotation_filename));
-	
-	json j_intrinsics = import_json_file(intrinsics_filename);
-	mat33 K = decode_mat(j_intrinsics["K"]);
+
+
+	intrinsics intr = decode_intrinsics(import_json_file(intrinsics_filename));
+
+	mat33 K = intr.K;
 	real fx = K(0, 0), fy = K(1, 1), cx = K(0, 2), cy = K(1, 2);	
 	
-	int width = j_intrinsics["width"];
-	int height = j_intrinsics["height"];
+	int width = intr.width;
+	int height = intr.height;
 	
 	std::cout << "generating " << features_count << " random 3D features" << std::endl;
 	std::vector<vec3> features;

@@ -29,9 +29,7 @@ int main(int argc, const char* argv[]) {
 	dataset datas(dataset_parameter_filename);
 
 	std::cout << "loading intrinsic matrix" << std::endl;
-	const json& j_intrinsics = import_json_file(intrinsics_filename);
-	cv::Mat3d K = decode_mat_cv(j_intrinsics["K"]);
-	real fx = K(0, 0), fy = K(1, 1), cx = K(0, 2), cy = K(1, 2);
+
 	
 	std::cout << "loading correspondences" << std::endl;
 	image_correspondences cors = import_image_correspondences_file(cors_filename);
@@ -41,40 +39,7 @@ int main(int argc, const char* argv[]) {
 	
 	
 	std::cout << "defining rectified feature points and calculating homographies" << std::endl;
-	for(int y : datas.y_indices()) for(int x : datas.x_indices()) {		
-		view_index idx(x, y);
-		view_point_correspondence point_cor = view_points_cor[idx];
 
-		int off_x = idx.x - reference_idx.x, off_y = idx.y - reference_idx.y;
-
-		std::vector<cv::Point2> source_points;
-		std::vector<cv::Point2> destination_points;
-
-		for(const auto& kv : cors.features) {
-			const std::string& feature_name = kv.first;
-			const image_correspondence_feature& feature = kv.second;
-
-			real ix_step = 2.0;
-			real iy_step = 2.0; // TODO...
-
-			Eigen_vec2 reference_point = feature.points.at(reference_idx);
-			Eigen_vec2 source_feature_point = feature.points(idx);
-			Eigen_vec2 destination_feature_point(reference_point + ix_step * off_x, reference_point + iy_step * off_y);
-
-			source_points.emplace_back(source_feature_point[0], source_feature_point[1]);
-			destination_points.emplace_back(destination_feature_point[0], destination_feature_point[1]);
-
-			point_cor.source_points.emplace_back();
-		}
-
-		Eigen_vec2 camera_center_position = Eigen_vec2(x_step * off_x, y_step * off_y, 0.0);
-
-		cv::Mat homography = cv::findHomography(source_points, destination_points, 0);
-		
-		
-
-		std::cout << '.' << std::flush;
-	}
 
 	std::cout << "done" << std::endl;
 }

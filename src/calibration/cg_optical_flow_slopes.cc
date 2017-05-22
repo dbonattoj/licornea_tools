@@ -17,12 +17,12 @@ using namespace tlz;
 }
 int main(int argc, const char* argv[]) {
 	if(argc <= 3) usage_fail();
-	std::string dataset_parameter_filename = argv[1];
+	std::string dataset_parameters_filename = argv[1];
 	std::string cors_filename = argv[2];
 	std::string out_slopes_filename = argv[3];
 	
 	std::cout << "loading data set" << std::endl;
-	dataset datas(dataset_parameter_filename);
+	dataset datas(dataset_parameters_filename);
 	
 	std::cout << "loading correspondences" << std::endl;
 	image_correspondences cors = import_image_correspondences_file(cors_filename);

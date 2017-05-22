@@ -281,6 +281,8 @@ target_link_libraries(copy_json common_lib)
 add_executable(cam_rotation "src/misc/cam_rotation.cc")
 target_link_libraries(cam_rotation common_lib)
 
+add_executable(view_distortion "src/misc/view_distortion.cc")
+target_link_libraries(view_distortion common_lib)
 
 install(
 	TARGETS
@@ -288,6 +290,7 @@ install(
 		view_depth
 		copy_json
 		cam_rotation
+		view_distortion
 	DESTINATION misc
 )
 install(
