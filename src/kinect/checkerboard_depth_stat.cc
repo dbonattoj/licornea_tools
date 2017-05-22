@@ -62,14 +62,21 @@ int main(int argc, const char* argv[]) {
 		real y;
 		real measured_depth;
 		real calculated_depth;
-		
+				
 		real chk_reprojection_error;
+		
+		real dist_x;
+		real dist_y;		
 		
 		vec3 chk_rotation;
 		vec3 chk_translation;
 	};
 	std::vector<point_sample> point_samples;
 
+	
+	std::vector<vec2> all_distorted_coordinates;
+	std::vector<vec2> all_undistorted_coordinates;
+	
 	
 	std::cout << "processing checkerboards (calculate projected distances, reprojection errors)" << std::endl;
 	std::vector<vec3> object_points = checkerboard_world_corners(cols, rows, square_width);
@@ -83,22 +90,42 @@ int main(int argc, const char* argv[]) {
 		// store point samples for corners
 		for(const auto& pix : chk_samp.pixel_samples) {
 			point_sample s;
-			s.x = pix.coordinates[0];
-			s.y = pix.coordinates[1];
+			s.dist_x = pix.coordinates[0];
+			s.dist_y = pix.coordinates[1];
 			s.measured_depth = pix.measured_depth;
 			s.calculated_depth = pix.calculated_depth;
 			s.chk_reprojection_error = reprojection_error;
 			s.chk_rotation = ext.rotation_vec;
 			s.chk_translation = ext.translation;
 			point_samples.push_back(s);
+			
+			all_distorted_coordinates.push_back(pix.coordinates);
 		}
+	}
+	
+	
+	std::cout << "calculating undistorted points" << std::endl;
+	all_undistorted_coordinates.reserve(all_distorted_coordinates.size());
+	cv::undistortPoints(
+		all_distorted_coordinates,
+		all_undistorted_coordinates,
+		ir_intr.K,
+		ir_intr.distortion.cv_coeffs(),
+		cv::noArray(),
+		ir_intr.K
+	);
+	auto samp_it = point_samples.begin();
+	for(const vec2& undist : all_undistorted_coordinates) {
+		point_sample& s = *(samp_it++);
+		s.x = undist[0];
+		s.y = undist[1];
 	}
 	
 
 	std::cout << "saving collected point samples" << std::endl;
 	{
 		std::ofstream stream(out_stat_filename);
-		stream << "x y measured calculated difference chk_reprojection_err chk_rot_x chk_rot_y chk_rot_z chk_t_x chk_t_y chk_t_z\n";
+		stream << "x y measured calculated difference chk_reprojection_err dist_x dist_y chk_rot_x chk_rot_y chk_rot_z chk_t_x chk_t_y chk_t_z\n";
 		for(const point_sample& samp : point_samples)
 			stream
 				<< samp.x << " "
@@ -107,6 +134,8 @@ int main(int argc, const char* argv[]) {
 				<< samp.calculated_depth << " "
 				<< samp.measured_depth-samp.calculated_depth << " "
 				<< samp.chk_reprojection_error << " "
+				<< samp.dist_x << " "
+				<< samp.dist_y << " "
 				<< samp.chk_rotation[0] << " "
 				<< samp.chk_rotation[1] << " "
 				<< samp.chk_rotation[2] << " "
@@ -117,3 +146,71 @@ int main(int argc, const char* argv[]) {
 	
 	std::cout << "done" << std::endl;
 }
+
+
+
+
+
+
+
+	/*
+	 * 
+	 * conv from old format:
+	 * 
+	 * 
+	 * 
+	
+	
+	
+	std::ifstream old_stream(argv[1]);
+	std::ofstream new_stream(argv[2]);
+	intrinsics ir_intr = decode_intrinsics(import_json_file(argv[3]));
+
+	std::string line;
+	std::getline(old_stream, line);
+	using sample = std::array<real, 12>;	
+	std::vector<vec2> all_distorted_coordinates;
+	std::vector<sample> samples;
+	
+	while(! old_stream.eof()) {
+		sample s;
+		for(int i = 0; i < 12; ++i) old_stream >> s[i];
+		all_distorted_coordinates.emplace_back(s[0], s[1]);
+		samples.push_back(s);
+	}
+	
+	std::vector<vec2> all_undistorted_coordinates;
+	all_undistorted_coordinates.reserve(all_distorted_coordinates.size());
+	cv::undistortPoints(
+		all_distorted_coordinates,
+		all_undistorted_coordinates,
+		ir_intr.K,
+		ir_intr.distortion.cv_coeffs(),
+		cv::noArray(),
+		ir_intr.K
+	);
+
+	std::ptrdiff_t idx = 0;
+	new_stream << "x y measured calculated difference chk_reprojection_err dist_x dist_y chk_rot_x chk_rot_y chk_rot_z chk_t_x chk_t_y chk_t_z\n";
+	for(const sample& s : samples) {
+		new_stream
+			<< all_undistorted_coordinates[idx][0] << " "
+			<< all_undistorted_coordinates[idx][1] << " "
+			<< s[2] << " "
+			<< s[3] << " "
+			<< s[4] << " "
+			<< s[5] << " "
+			<< s[0] << " "
+			<< s[1] << " "
+			<< s[6] << " "
+			<< s[7] << " "
+			<< s[8] << " "
+			<< s[9] << " "
+			<< s[10] << " "
+			<< s[11] << "\n";
+		++idx;
+	}
+	
+	
+	return 0;
+	*/

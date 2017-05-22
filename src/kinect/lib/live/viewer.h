@@ -37,6 +37,8 @@ private:
 	cv::Mat_<cv::Vec3b> shown_image_;
 	
 public:
+	cv::Vec3b black = cv::Vec3b(0, 0, 0);
+	cv::Vec3b white = cv::Vec3b(255, 255, 255);
 	cv::Vec3b indicator_color = cv::Vec3b(255, 100, 100);
 	cv::Vec3b background_color = cv::Vec3b(0, 0, 0);
 	cv::Vec3b text_color = cv::Vec3b(255, 255, 255);
@@ -55,8 +57,9 @@ public:
 	
 	void draw_text(cv::Rect rect, const std::string& text, text_alignment);
 	void draw_text(cv::Rect rect, const std::string& text, text_alignment, cv::Vec3b color);
-	void draw_indicator(cv::Rect rect, real value, real max_value);
-	void draw_2d_indicator(cv::Rect rect, real value_x, real value_y, real max_abs_value);
+	void draw_2d_cross_indicator(cv::Rect rect, real value_x, real value_y, real max_abs_value);
+	void draw_2d_arrow_indicator(cv::Rect rect, real value_x, real value_y, real max_value);
+
 
 	bool show(int& keycode);
 	bool show();

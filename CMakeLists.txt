@@ -199,6 +199,9 @@ if(WITH_LIBFREENECT2)
 	add_executable(checkerboard_depth_viewer "src/kinect/checkerboard_depth_viewer.cc")
 	target_link_libraries(checkerboard_depth_viewer common_lib kinect_lib freenect2)
 
+	add_executable(checkerboard_depth_parallel "src/kinect/checkerboard_depth_parallel.cc")
+	target_link_libraries(checkerboard_depth_parallel common_lib kinect_lib freenect2)
+
 	add_executable(remapping_viewer "src/kinect/remapping_viewer.cc")
 	target_link_libraries(remapping_viewer common_lib kinect_lib freenect2)
 
@@ -222,6 +225,7 @@ if(WITH_LIBFREENECT2)
 			checkerboard_samples
 			checkerboard_depth_samples
 			checkerboard_depth_viewer
+			checkerboard_depth_parallel
 			remapping_viewer
 			reprojection_viewer
 			ir_intrinsic_reprojection

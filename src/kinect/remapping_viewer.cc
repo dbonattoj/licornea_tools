@@ -55,6 +55,7 @@ int main(int argc, const char* argv[]) {
 
 		cv::Mat_<uchar> undistorted_ir = grab.get_ir_frame(true);
 		cv::Mat_<float> undistorted_depth = grab.get_depth_frame(true);
+		
 		// IR+depth to color mapping using Freenect2 registration
 		z_buffer.setTo(INFINITY);
 		freenect2_mapping.setTo(0);	

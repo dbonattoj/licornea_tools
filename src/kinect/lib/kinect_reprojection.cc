@@ -17,6 +17,7 @@ std::vector<vec2> kinect_reprojection::reproject_points_ir_to_color(
 	std::size_t n = distorted_ir_i_xy_points.size();
 	assert(ir_z_points.size() == n);
 	assert(out_color_z_point.size() == n);
+	if(n == 0) return {};
 	
 	// undistort XY coordinates of ir points
 	std::vector<vec2> undistorted_ir_i_xy_points(n);
@@ -44,8 +45,16 @@ std::vector<vec2> kinect_reprojection::reproject_points_ir_to_color(
 			continue;
 		}
 		
+		real off = 
+			reprojection_parameters_.depth_offset.x1y0 * undistorted_ir_i_xy[0] +
+			reprojection_parameters_.depth_offset.x0y1 * undistorted_ir_i_xy[1] +
+			reprojection_parameters_.depth_offset.x0y0;
+		//std::cout << off << std::endl;
+
+		real ir_z_off = ir_z - off;
+				
 		vec3 undistorted_ir_i_h(undistorted_ir_i_xy[0], undistorted_ir_i_xy[1], 1.0);
-		undistorted_ir_i_h *= ir_z;
+		undistorted_ir_i_h *= ir_z_off;
 		
 		vec3 ir_v = reprojection_parameters_.ir_intrinsics.K_inv * undistorted_ir_i_h;
 		color_v = reprojection_parameters_.rotation.t() * (ir_v - reprojection_parameters_.translation);

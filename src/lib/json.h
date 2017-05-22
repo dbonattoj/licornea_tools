@@ -21,6 +21,17 @@ template<typename Mat> json encode_mat(const Mat& mat) {
 	return encode_mat_(cv::Mat_<real>(mat));
 }
 
+
+inline bool has(const json& j, const std::string& key) {
+	return (j.count(key) == 1);
+}
+template<typename T>
+T get_or(const json& j, const std::string& key, const T& default_value) {
+	if(has(j, key)) return j[key];
+	else return default_value;
+}
+
+
 }
 
 #endif

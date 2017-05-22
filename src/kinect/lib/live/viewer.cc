@@ -104,15 +104,34 @@ void viewer::draw_text(cv::Rect rect, const std::string& text, text_alignment al
 	draw_text(rect, text, align, text_color);
 }
 
-
-void viewer::draw_indicator(cv::Rect rect, real value, real max_value) {
+void viewer::draw_2d_cross_indicator(cv::Rect rect, real value_x, real value_y, real max_abs_value) {
+	std::vector<std::vector<cv::Point>> polylines;
+	polylines.push_back({ cv::Point(rect.x+rect.width/2, rect.y), cv::Point(rect.x+rect.width/2, rect.y+rect.height) });
+	polylines.push_back({ cv::Point(rect.x, rect.y+rect.height/2), cv::Point(rect.x+rect.width, rect.y+rect.height/2) });
+	cv::polylines(shown_image_, polylines, false, cv::Scalar(black), 3);
+	cv::polylines(shown_image_, polylines, false, cv::Scalar(white), 1);
 	
+	
+	const int indicator_rad = 20;
+	int indicator_x = (rect.x+rect.width/2) + value_x * 0.5 * (rect.width / max_abs_value);
+	int indicator_y = (rect.y+rect.height/2) + value_y * 0.5 * (rect.height / max_abs_value);
+	polylines.clear();
+	polylines.push_back({ cv::Point(indicator_x-indicator_rad, indicator_y), cv::Point(indicator_x+indicator_rad, indicator_y) });
+	polylines.push_back({ cv::Point(indicator_x, indicator_y-indicator_rad), cv::Point(indicator_x, indicator_y+indicator_rad) });
+	cv::polylines(shown_image_, polylines, false, cv::Scalar(indicator_color), 3);
 }
 
 
-void viewer::draw_2d_indicator(cv::Rect rect, real value_x, real value_y, real max_abs_value) {
-	
+void viewer::draw_2d_arrow_indicator(cv::Rect rect, real value_x, real value_y, real max_value) {
+	int indicator_x = (rect.x) + value_x * (rect.width / max_value);
+	int indicator_y = (rect.y+rect.height) - value_y * (rect.height / max_value);
+
+	cv::Point pt1(rect.x, rect.y+rect.height);
+	cv::Point pt2(indicator_x, indicator_y);
+	cv::line(shown_image_, pt1, pt2, cv::Scalar(indicator_color), 3);
+	cv::circle(shown_image_, pt2, 4, cv::Scalar(indicator_color), -1);
 }
+
 
 
 bool viewer::show(int& keycode) {

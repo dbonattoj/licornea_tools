@@ -45,10 +45,10 @@ checkerboard::checkerboard(int cols_, int rows_, real square_width_, const std::
 	assert(corners_.size() == cols*rows);
 	
 	outer_corners = {
-		corners.at(0),
-		corners.at(cols-1),
-		corners.at(cols*(rows-1) + (cols-1)),
-		corners.at(cols*(rows-1))
+		corner(0, 0),
+		corner(cols-1, 0),
+		corner(cols-1, rows-1),
+		corner(0, rows-1)
 	};
 	
 	int min_x = INT_MAX, min_y = INT_MAX, max_x = 0, max_y = 0;
@@ -142,22 +142,25 @@ cv::Mat_<cv::Vec3b> visualize_checkerboard(const cv::Mat_<uchar>& img, const che
 }
 
 
-cv::Mat_<cv::Vec3b> visualize_checkerboard_pixel_samples(const cv::Mat_<cv::Vec3b>& img, const std::vector<checkerboard_pixel_depth_sample>& pixels) {
+cv::Mat_<cv::Vec3b> visualize_checkerboard_pixel_samples(const cv::Mat_<cv::Vec3b>& img, const std::vector<checkerboard_pixel_depth_sample>& pixels, int rad) {
 	cv::Mat_<cv::Vec3b> out_img;
 	img.copyTo(out_img);
 	for(const auto& pix : pixels) {
 		int x = pix.coordinates[0], y = pix.coordinates[1];
 		if(x < 0 || x >= img.cols || y < 0 || y >= img.rows) continue;
-		out_img(y, x) = cv::Vec3b(100, 100, 255);
+		
+		cv::Vec3b col(100, 100, 255);
+		if(rad == 1) out_img(y, x) = col;
+		else cv::circle(out_img, cv::Point(x, y), rad, cv::Scalar(col), 2);
 	}
 	return out_img;
 }
 
 
-cv::Mat_<cv::Vec3b> visualize_checkerboard_pixel_samples(const cv::Mat_<uchar>& img, const std::vector<checkerboard_pixel_depth_sample>& pixels) {
+cv::Mat_<cv::Vec3b> visualize_checkerboard_pixel_samples(const cv::Mat_<uchar>& img, const std::vector<checkerboard_pixel_depth_sample>& pixels, int rad) {
 	cv::Mat_<cv::Vec3b> conv_img;
 	cv::cvtColor(img, conv_img, CV_GRAY2BGR);
-	return visualize_checkerboard_pixel_samples(conv_img, pixels);
+	return visualize_checkerboard_pixel_samples(conv_img, pixels, rad);
 }
 
 
@@ -243,11 +246,6 @@ checkerboard_extrinsics estimate_checkerboard_extrinsics(const checkerboard& chk
 	};
 }
 
-std::vector<real> checkerboard_corner_distances(const checkerboard& chk, const intrinsics& intr) {
-	checkerboard_extrinsics	ext = estimate_checkerboard_extrinsics(chk, intr);
-	return checkerboard_corner_distances(chk, intr, ext);
-}
-
 
 real checkerboard_reprojection_error(const checkerboard& chk, const intrinsics& intr, const checkerboard_extrinsics& ext) {
 	std::vector<vec3> object_points = checkerboard_world_corners(chk.cols, chk.rows, chk.square_width);
@@ -274,45 +272,68 @@ real checkerboard_reprojection_error(const checkerboard& chk, const intrinsics& 
 }
 
 
-std::vector<real> checkerboard_corner_distances(const checkerboard& chk, const intrinsics& intr, const checkerboard_extrinsics& ext) {
-	std::vector<vec3> object_points = checkerboard_world_corners(chk.cols, chk.rows, chk.square_width);
-	std::vector<vec2> image_points = checkerboard_image_corners(chk);
-	
-	std::size_t corner_count = chk.rows * chk.cols;
-	
-	// normal vector and distance of checkerboard in camera view space
-	vec3 normal(0.0, 0.0, 1.0);
-	normal = ext.rotation * normal;
-	real plane_distance = normal.dot(ext.translation);
-	
-	// undistort image points, and get normalized view space points with depth 1.0
-	std::vector<vec2> undistorted_normalized_points;
-	cv::undistortPoints(
-		image_points,
-		undistorted_normalized_points,
-		intr.K,
-		intr.distortion.cv_coeffs(),
-		cv::noArray(),
-		cv::noArray()
-	);
+vec2 checkerboard_parallel_measures(const checkerboard& chk) {
+	auto direction_deviation = [](const std::vector<vec2>& vecs) {
+		std::vector<vec2> nvecs;
+		for(const vec2& vec : vecs)
+			nvecs.push_back(vec / std::sqrt(sq(vec[0]) + sq(vec[1])));
 
-	// distances of corners
-	std::vector<real> distances;
-	for(int idx = 0; idx < corner_count; ++idx) {		
-		vec3 v;
-		v[0] = undistorted_normalized_points[idx][0];
-		v[1] = undistorted_normalized_points[idx][1];
-		v[2] = 1.0;
+		vec2 mean(0.0, 0.0);
+		for(const vec2& nvec : nvecs) mean += nvec;
+		mean *= 1.0/vecs.size();
 		
-		real t = plane_distance / normal.dot(v);
-		v = v * t;
-		
-		distances.push_back(v[2]);
-	}
+		real rms = 0.0;
+		for(const vec2 nvec : nvecs) {
+			vec2 diff = nvec - mean;
+			rms += sq(diff[0]) + sq(diff[1]);
+		}
+		rms /= vecs.size();
+		return std::sqrt(rms);
+	};
 	
-	return distances;
+	std::vector<vec2> horizontal_vectors, vertical_vectors;
+	for(int row = 0; row < chk.rows; ++row)
+		horizontal_vectors.push_back(chk.corner(chk.cols-1, row) - chk.corner(0, row));
+
+	for(int col = 0; col < chk.cols; ++col)
+		vertical_vectors.push_back(chk.corner(col, chk.rows-1) - chk.corner(col, 0));
+		
+	return vec2(
+		direction_deviation(horizontal_vectors),
+		direction_deviation(vertical_vectors)
+	);
 }
 
+
+real calculate_parallel_checkerboard_depth(const checkerboard& chk, const intrinsics& intr) {
+	// not taking distortion into account
+	
+	real fx = intr.K(0, 0), fy = intr.K(1, 1);
+	
+	real w = (chk.cols - 1) * chk.square_width;
+	real h = (chk.rows - 1) * chk.square_width;
+	
+	real iw = 0.0;
+	for(int row = 0; row < chk.rows; ++row) {
+		vec2 diff = chk.corner(chk.cols-1, row) - chk.corner(0, row);
+		iw += sq(diff[0]) + sq(diff[1]);
+	}
+	iw = std::sqrt(iw / chk.rows);
+	
+	real ih = 0.0;
+	for(int col = 0; col < chk.cols; ++col) {
+		vec2 diff = chk.corner(col, chk.rows-1) - chk.corner(col, 0);
+		ih += sq(diff[0]) + sq(diff[1]);
+	}
+	ih = std::sqrt(ih / chk.cols);
+	
+	real dx = fx * w / iw;
+	real dy = fy * h / ih;
+	
+	//std::cout << "dx: " << dx << "\ndy: " << dy << "\n\n\n";
+	
+	return (dx + dy) / 2.0;
+}
 
 
 	
@@ -332,7 +353,7 @@ std::vector<checkerboard_pixel_depth_sample> checkerboard_pixel_depth_samples(co
 		
 		if(! mask(y, x)) continue;
 		real d = depth_image(y, x);
-		if(d == 0.0) continue;
+		if(d <= 100.0) continue;
 		
 		checkerboard_pixel_depth_sample samp;
 		samp.coordinates = vec2(x, y);

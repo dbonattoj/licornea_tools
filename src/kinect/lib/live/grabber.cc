@@ -36,6 +36,8 @@ grabber::grabber(int frame_types) :
 	std::string serial = context_.getDefaultDeviceSerialNumber();
 	device_ = context_.openDevice(serial, pipeline_);
 	if(! device_) throw std::runtime_error("could not open device");
+	
+	std::cout << "Kinect serial number: " << serial << std::endl;
 
 	if(has_(color) || has_(registered_color))
 		device_->setColorFrameListener(&listener_);

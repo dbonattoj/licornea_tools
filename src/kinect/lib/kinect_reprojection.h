@@ -24,19 +24,19 @@ public:
 		bool distort_color = true
 	);
 	
-	template<typename T>
+	template<typename Value>
 	struct sample {
-		T value;
+		Value value;
 		vec2 color_coordinates;
 		vec2 ir_coordinates;
 		real color_depth;
 		real ir_depth;
 	};
 
-	template<typename T>
-	std::vector<sample<T>> reproject_ir_to_color_samples(
-		const cv::Mat_<T>& distorted_ir_values,
-		const cv::Mat_<real>& distorted_ir_z,
+	template<typename Value, typename Depth>
+	std::vector<sample<Value>> reproject_ir_to_color_samples(
+		const cv::Mat_<Value>& distorted_ir_values,
+		const cv::Mat_<Depth>& distorted_ir_z,
 		bool distort_color = true
 	);
 };
