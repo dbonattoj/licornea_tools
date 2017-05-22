@@ -55,10 +55,10 @@ install(
 
 # Include Freenect2, if WITH_LIBFREENECT2 is set
 set(WITH_LIBFREENECT2 FALSE CACHE BOOL "Use libfreenect2")
-if(WITH_LIBFREENECT2)
+if(WITH_LIB${FREENECT2_LIBRARY})
 	include_directories(SYSTEM src/external/freenect2/include)
-	link_directories(src/external/freenect2/lib)
-	add_compile_options(-DLICORNEA_WITH_LIBFREENECT2)
+	find_library(FREENECT2_LIBRARY NAMES freenect2 libfreenect2 PATHS ${src/external/freenect2/lib})
+	add_compile_options(-DLICORNEA_WITH_LIB${FREENECT2_LIBRARY})
 	install(
 		DIRECTORY "src/external/freenect2/lib"
 		DESTINATION "./"
@@ -163,7 +163,7 @@ add_executable(calibrate_color_ir_reprojection "src/kinect/calibrate_color_ir_re
 target_link_libraries(calibrate_color_ir_reprojection common_lib kinect_lib)
 
 add_executable(checkerboard_depth_stat "src/kinect/checkerboard_depth_stat.cc")
-target_link_libraries(checkerboard_depth_stat common_lib kinect_lib freenect2)
+target_link_libraries(checkerboard_depth_stat common_lib kinect_lib ${FREENECT2_LIBRARY})
 
 install(
 	TARGETS
@@ -180,42 +180,42 @@ install(
 )
 install_pylib_link(kinect)
 
-if(WITH_LIBFREENECT2)
+if(WITH_LIB${FREENECT2_LIBRARY})
 	add_executable(fetch_internal_parameters "src/kinect/fetch_internal_parameters.cc")
-	target_link_libraries(fetch_internal_parameters common_lib kinect_lib freenect2)
+	target_link_libraries(fetch_internal_parameters common_lib kinect_lib ${FREENECT2_LIBRARY})
 
 	add_executable(viewer "src/kinect/viewer.cc")
-	target_link_libraries(viewer common_lib kinect_lib freenect2)
+	target_link_libraries(viewer common_lib kinect_lib ${FREENECT2_LIBRARY})
 
 	add_executable(ir_distortion_viewer "src/kinect/ir_distortion_viewer.cc")
-	target_link_libraries(ir_distortion_viewer common_lib kinect_lib freenect2)
+	target_link_libraries(ir_distortion_viewer common_lib kinect_lib ${FREENECT2_LIBRARY})
 
 	add_executable(checkerboard_samples "src/kinect/checkerboard_samples.cc")
-	target_link_libraries(checkerboard_samples common_lib kinect_lib freenect2)
+	target_link_libraries(checkerboard_samples common_lib kinect_lib ${FREENECT2_LIBRARY})
 
 	add_executable(checkerboard_depth_samples "src/kinect/checkerboard_depth_samples.cc")
-	target_link_libraries(checkerboard_depth_samples common_lib kinect_lib freenect2)
+	target_link_libraries(checkerboard_depth_samples common_lib kinect_lib ${FREENECT2_LIBRARY})
 
 	add_executable(checkerboard_depth_viewer "src/kinect/checkerboard_depth_viewer.cc")
-	target_link_libraries(checkerboard_depth_viewer common_lib kinect_lib freenect2)
+	target_link_libraries(checkerboard_depth_viewer common_lib kinect_lib ${FREENECT2_LIBRARY})
 
 	add_executable(checkerboard_depth_parallel "src/kinect/checkerboard_depth_parallel.cc")
 	target_link_libraries(checkerboard_depth_parallel common_lib kinect_lib freenect2)
 
 	add_executable(remapping_viewer "src/kinect/remapping_viewer.cc")
-	target_link_libraries(remapping_viewer common_lib kinect_lib freenect2)
+	target_link_libraries(remapping_viewer common_lib kinect_lib ${FREENECT2_LIBRARY})
 
 	add_executable(reprojection_viewer "src/kinect/reprojection_viewer.cc")
-	target_link_libraries(reprojection_viewer common_lib kinect_lib freenect2)
+	target_link_libraries(reprojection_viewer common_lib kinect_lib ${FREENECT2_LIBRARY})
 
 	add_executable(ir_intrinsic_reprojection "src/kinect/ir_intrinsic_reprojection.cc")
-	target_link_libraries(ir_intrinsic_reprojection common_lib kinect_lib freenect2)
+	target_link_libraries(ir_intrinsic_reprojection common_lib kinect_lib ${FREENECT2_LIBRARY})
 
 	add_executable(color_intrinsic_reprojection "src/kinect/color_intrinsic_reprojection.cc")
-	target_link_libraries(color_intrinsic_reprojection common_lib kinect_lib freenect2)
+	target_link_libraries(color_intrinsic_reprojection common_lib kinect_lib ${FREENECT2_LIBRARY})
 
 	add_executable(checkerboard_color_depth "src/kinect/checkerboard_color_depth.cc")
-	target_link_libraries(checkerboard_color_depth common_lib kinect_lib freenect2)
+	target_link_libraries(checkerboard_color_depth common_lib kinect_lib ${FREENECT2_LIBRARY})
 
 	install(
 		TARGETS

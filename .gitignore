@@ -2,7 +2,7 @@
 /vsrs/
 /package/
 /build/
-/src/external/freenect2/*
+/external/freenect2
 /libfreenect2
 /bin/
 /_old/

@@ -16,8 +16,12 @@ std::vector<vec2> kinect_reprojection::reproject_points_ir_to_color(
 ) {
 	std::size_t n = distorted_ir_i_xy_points.size();
 	assert(ir_z_points.size() == n);
+<<<<<<< Updated upstream
 	assert(out_color_z_point.size() == n);
 	if(n == 0) return {};
+=======
+	assert(out_color_z_points.size() == n);
+>>>>>>> Stashed changes
 	
 	// undistort XY coordinates of ir points
 	std::vector<vec2> undistorted_ir_i_xy_points(n);
