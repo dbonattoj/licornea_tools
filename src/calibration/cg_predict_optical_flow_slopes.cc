@@ -24,8 +24,11 @@ int main(int argc, const char* argv[]) {
 	std::string measured_slopes_filename = argv[4];
 	std::string predicted_slopes_filename = argv[5];
 	
-	std::cout << "loading data set" << std::endl;
+	std::cout << "loading data set, intrinsics, rotation" << std::endl;
 	dataset datas(dataset_parameters_filename);
+	intrinsics intr = decode_intrinsics(import_json_file(intrinsics_filename));
+	mat33 rotation = decode_mat(import_json_file(rotation_filename));
 
+	std::cout << "loading points of measured slope" << std::endl;
 	
 }
