@@ -7,7 +7,7 @@ std::vector<kinect_reprojection::sample<Value>> kinect_reprojection::reproject_i
 	const cv::Mat_<Value>& distorted_ir_values_img,
 	const cv::Mat_<Depth>& distorted_ir_z_img,
 	bool distort_color
-) {
+) const {
 	assert(distorted_ir_values.cols == 512 && distorted_ir_values.rows == 424);
 	std::vector<vec2> distorted_ir_i_xy_points;
 	std::vector<real> ir_i_z_points;

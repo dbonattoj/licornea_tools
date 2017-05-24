@@ -2,6 +2,8 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
+#include <fstream>
+#include <nelder-mead-optimizer/optimizer.h>
 #include "../lib/utility/misc.h"
 #include "../lib/json.h"
 #include "../lib/opencv.h"
@@ -9,11 +11,6 @@
 
 using namespace tlz;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: cg_estimate_rotation slopes.json intrinsics.json out_rotation.json\n";
-	std::cout << std::endl;
-	std::exit(1);
-}
 
 constexpr real pi = 3.14159265359;
 constexpr real deg_per_rad = 180.0 / pi;
@@ -41,6 +38,10 @@ mat33 to_rotation_matrix(const vec3 vec) {
 }
 
 
+[[noreturn]] void usage_fail() {
+	std::cout << "usage: cg_estimate_rotation slopes.json intrinsics.json out_rotation.json" << std::endl;
+	std::exit(EXIT_FAILURE);
+}
 int main(int argc, const char* argv[]) {
 	if(argc <= 3) usage_fail();
 	std::string slopes_filename = argv[1];
@@ -102,37 +103,31 @@ int main(int argc, const char* argv[]) {
 	};
 	
 	std::cout << "searching rotations space" << std::endl;
-	real x_min = -10.0 * rad_per_deg;
-	real x_max = +10.0 * rad_per_deg;
-	real x_step = 0.1 * rad_per_deg;
-
-	real y_min = -10.0 * rad_per_deg;
-	real y_max = +10.0 * rad_per_deg;
-	real y_step = 0.1 * rad_per_deg;
-
-	real z_min = -10.0 * rad_per_deg;
-	real z_max = +10.0 * rad_per_deg;
-	real z_step = 0.1 * rad_per_deg;
-	
-	mat33 min_err_R;
-	vec3 min_err_R_vec;
-	real min_err = INFINITY;
-	for(real x = x_min; x <= x_max; x += x_step)
-	for(real y = y_min; y <= y_max; y += y_step)
-	for(real z = z_min; z <= z_max; z += z_step) {
-		vec3 R_vec(x, y, z);
-		mat33 R = to_rotation_matrix(R_vec);
-		real err = rotation_error(R);
-		if(err < min_err) {
-			min_err = err;
-			min_err_R = R;
-			min_err_R_vec = R_vec;
+	vec3 rotation_vec;
+	{
+		using namespace blinry;
+		const real precision = 0.00001;
+		NelderMeadOptimizer optimizer(3, precision);
+		Vector v(0.0, 0.0, 0.0);
+		vec3 step = vec3(1, 1, 1) * rad_per_deg;
+		optimizer.insert(v);
+		optimizer.insert(Vector(v[0] + step[0], v[1], v[2]));
+		optimizer.insert(Vector(v[0], v[1] + step[1], v[2]));
+		optimizer.insert(Vector(v[0], v[1], v[2] +  + step[2]));
+		auto f = [&rotation_error](Vector& vec) {
+			mat33 R = to_rotation_matrix(vec3(vec[0], vec[1], vec[2]));
+			return rotation_error(R);
+		};
+		while(! optimizer.done()) {
+			rotation_vec = vec3(v[0], v[1], v[2]);
+			std::cout << '.' << std::flush;
+			v = optimizer.step(v, f(v));
 		}
-		std::cout << '.' << std::flush;
+		std::cout << std::endl;
 	}
 	
-	std::cout << "\n" << std::endl;
-	std::cout << "x = " << min_err_R_vec[0] * deg_per_rad << std::endl;
-	std::cout << "y = " << min_err_R_vec[1] * deg_per_rad << std::endl;
-	std::cout << "z = " << min_err_R_vec[2] * deg_per_rad << std::endl;
+	std::cout << "x = " << rotation_vec[0] * deg_per_rad << std::endl;
+	std::cout << "y = " << rotation_vec[1] * deg_per_rad << std::endl;
+	std::cout << "z = " << rotation_vec[2] * deg_per_rad << std::endl;
+	
 }

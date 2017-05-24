@@ -8,7 +8,7 @@
 #include <tuple>
 
 namespace tlz {
-	
+
 
 class kinect_reprojection {
 private:
@@ -22,7 +22,7 @@ public:
 		const std::vector<real>& ir_z,
 		std::vector<real>& out_color_z,
 		bool distort_color = true
-	);
+	) const;
 	
 	template<typename Value>
 	struct sample {
@@ -38,7 +38,7 @@ public:
 		const cv::Mat_<Value>& distorted_ir_values,
 		const cv::Mat_<Depth>& distorted_ir_z,
 		bool distort_color = true
-	);
+	) const;
 };
 
 }

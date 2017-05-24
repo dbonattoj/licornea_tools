@@ -6,9 +6,9 @@
 namespace tlz {
 
 
-void depth_densify_mine::densify(const std::vector<vec3>& orig_samples, cv::Mat_<real>& out_, cv::Mat_<uchar>& out_mask) {
-	std::vector<vec3> samples = orig_samples;
-	auto cmp = [](const vec3& a, const vec3& b) { return (a[2] > b[2]); };
+void depth_densify_mine::densify(const std::vector<sample>& orig_samples, cv::Mat_<real>& out_, cv::Mat_<uchar>& out_mask) {
+	std::vector<sample> samples = orig_samples;
+	auto cmp = [](const sample& a, const sample& b) { return (a.color_depth > b.color_depth); };
 	std::sort(samples.begin(), samples.end(), cmp);
 	
 	cv::Mat_<float> out(out_.size());
@@ -19,11 +19,11 @@ void depth_densify_mine::densify(const std::vector<vec3>& orig_samples, cv::Mat_
 	
 	int shadow_width = 3;
 	real shadow_min_depth_diff = 100.0;
-	for(const vec3& sample : samples) {
-		int sx = sample[0], sy = sample[1];
+	for(const sample& samp : samples) {
+		int sx = samp.color_coordinates[0], sy = samp.color_coordinates[1];
 		if(sx < 0 || sx >= texture_width || sy < 0 || sy >= texture_height) continue;
 		
-		real new_d = sample[2];
+		real new_d = samp.color_depth;
 	
 		// cast shadow
 		int min_x = std::max(sx - shadow_width, 0), max_x = std::min(sx + shadow_width, (int)texture_width-1);

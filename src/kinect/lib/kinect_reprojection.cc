@@ -13,7 +13,7 @@ std::vector<vec2> kinect_reprojection::reproject_points_ir_to_color(
 	const std::vector<real>& ir_z_points,
 	std::vector<real>& out_color_z_points,
 	bool distort_color
-) {
+) const {
 	std::size_t n = distorted_ir_i_xy_points.size();
 	assert(ir_z_points.size() == n);
 

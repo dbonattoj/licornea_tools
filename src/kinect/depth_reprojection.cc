@@ -17,23 +17,11 @@ using namespace tlz;
 
 
 void do_depth_reprojection(const cv::Mat_<ushort>& in, cv::Mat_<ushort>& out, cv::Mat_<uchar>& out_mask, const kinect_reprojection& reproj, const std::string& method) {	
-	std::vector<vec3> samples;
-	for(int dy = 0; dy < depth_height; ++dy) for(int dx = 0; dx < depth_width; ++dx) {
-		ushort dz = in(dy, dx);
-		if(dz == 0) continue;
-		
-		vec2 distorted_depth_position(dx, dy);
-		vec2 undistorted_depth_position = reproj.undistort_ir(distorted_depth_position); // TODO improve
-		
-		real cz;
-		vec2 color_position = reproj.reproject_ir_to_color(undistorted_depth_position, dz, cz);
-									
-		samples.emplace_back(color_position[0], color_position[1], cz);
-	}
-	
-	cv::Mat_<real> densify_out(texture_height, texture_width);
-	make_depth_densify(method)->densify(samples, densify_out, out_mask);
-	out = densify_out;
+	cv::Mat_<real> in_float = in;
+	auto samples = reproj.reproject_ir_to_color_samples(in_float, in_float);
+	cv::Mat_<real> out_float;
+	make_depth_densify(method)->densify(samples, out_float, out_mask);
+	out = out_float;
 }
 
 
@@ -50,7 +38,7 @@ int main(int argc, const char* argv[]) {
 	
 	std::cout << "reading parameters" << std::endl;
 	kinect_reprojection_parameters reprojection_parameters = decode_kinect_reprojection_parameters(import_json_file(reprojection_parameters_filename));
-	kinect_reprojection reproj(internal_parameters, reprojection_parameters);
+	kinect_reprojection reproj(reprojection_parameters);
 	
 	std::cout << "reading input depth map" << std::endl;
 	cv::Mat_<ushort> in_depth = load_depth(input_filename.c_str());
