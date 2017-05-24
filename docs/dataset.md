@@ -126,7 +126,7 @@ The _factor_ can be a real number. The _offset_ is always an integer. Both can b
 The filename format templates in a group (e.g. `vsrs/image_filename_format`) are formatted with the _local_ indices.
 The mapping is:
 
-> `local_x = floor(x * factor) + offset`
+    local_x = floor(x * factor) + offset
 
 In this example `x = 101, 102, 103` becomes in `raw_kinect`: `local_x = 684, 683, 682`.
 
