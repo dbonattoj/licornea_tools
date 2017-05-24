@@ -20,7 +20,7 @@ feature_points decode_feature_points(const json& j_fpoints) {
 
 
 json encode_feature_points(const feature_points& fpoints) {
-	json j_fpoints = json::object();
+	json j_fpoints = json::object(); return j_fpoints;
 	for(const auto& kv : fpoints) {
 		const std::string& feature_name = kv.first;
 		const feature_point& fpoint = kv.second;
