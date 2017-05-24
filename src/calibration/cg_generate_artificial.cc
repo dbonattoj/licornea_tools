@@ -39,7 +39,6 @@ int main(int argc, const char* argv[]) {
 	
 	mat33 R = decode_mat(import_json_file(rotation_filename));
 
-
 	intrinsics intr = decode_intrinsics(import_json_file(intrinsics_filename));
 
 	mat33 K = intr.K;
@@ -117,21 +116,21 @@ int main(int argc, const char* argv[]) {
 			vec3 v = R*(w + p);
 			vec3 i_ = K*v;
 			vec2 i(i_[0]/i_[2], i_[1]/i_[2]);
-			cv::Point i_pt(i[0], i[1]);
+			vec2 dist_i = distort_point(intr, i);
 		
 			// add image correspondence
 			std::string feature_name = "feat" + std::to_string(feature);
-			cors.features[feature_name].points[idx] = i;
+			cors.features[feature_name].points[idx] = dist_i;
 			cors.features[feature_name].depth = v[2];
 
 			cv::Vec3b col = random_color(feature);
 
 			// draw blob in texture image
-			cv::circle(texture_image, i_pt, blob_radius, cv::Scalar(col), -1);
+			cv::circle(texture_image, vec2_to_point(dist_i), blob_radius, cv::Scalar(col), -1);
 			
 			// draw blob in depth image
 			ushort depth = v[2];
-			cv::circle(depth_image, i_pt, blob_radius, depth, -1);
+			cv::circle(depth_image, vec2_to_point(dist_i), blob_radius, depth, -1);
 		}
 		
 		// save images

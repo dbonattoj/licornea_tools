@@ -126,6 +126,14 @@ cv::Mat_<uchar> grabber::get_ir_frame(float min_ir, float max_ir, bool undistort
 }
 
 
+cv::Mat_<ushort> grabber::get_original_ir_frame(bool undistorted) {
+	assert(has_(ir));
+	Frame* raw_ir = frames_[Frame::Ir];
+	cv::Mat_<float> ir_orig(424, 512, reinterpret_cast<float*>(undistorted ? undistorted_ir_.data : raw_ir->data));		
+	return ir_orig;
+}
+
+
 cv::Mat_<float> grabber::get_depth_frame(bool undistorted) {
 	assert(has_(depth));
 	Frame* raw_depth = frames_[Frame::Depth];

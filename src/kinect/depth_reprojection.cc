@@ -1,4 +1,3 @@
-/*
 #include <opencv2/opencv.hpp>
 #include "../lib/point.h"
 #include "../lib/ply_exporter.h"
@@ -39,19 +38,17 @@ void do_depth_reprojection(const cv::Mat_<ushort>& in, cv::Mat_<ushort>& out, cv
 
 
 int main(int argc, const char* argv[]) {
-	if(argc <= 6) {
-		std::cout << "usage: " << argv[0] << " input.png output.png output_mask.png internal_parameters.json reprojection_parameters.json method" << std::endl;
+	if(argc <= 5) {
+		std::cout << "usage: " << argv[0] << " input.png output.png output_mask.png reprojection_parameters.json method" << std::endl;
 		return EXIT_FAILURE;
 	}
 	std::string input_filename = argv[1];
 	std::string output_filename = argv[2];
 	std::string output_mask_filename = argv[3];
-	std::string internal_parameters_filename = argv[4];
 	std::string reprojection_parameters_filename = argv[5];
-	std::string method = argv[6];
+	std::string method = argv[5];
 	
 	std::cout << "reading parameters" << std::endl;
-	kinect_internal_parameters internal_parameters = decode_kinect_internal_parameters(import_json_file(internal_parameters_filename));
 	kinect_reprojection_parameters reprojection_parameters = decode_kinect_reprojection_parameters(import_json_file(reprojection_parameters_filename));
 	kinect_reprojection reproj(internal_parameters, reprojection_parameters);
 	
@@ -72,5 +69,3 @@ int main(int argc, const char* argv[]) {
 	
 	std::cout << "done" << std::endl;
 }
-*/
-int main(){}

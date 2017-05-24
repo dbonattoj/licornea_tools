@@ -35,14 +35,14 @@ int main(int argc, const char* argv[]) {
 	json j_feature_slopes = j_slopes["slopes"];
 	
 	std::cout << "loading reference image" << std::endl;
-	view_index center_view_index = decode_view_index(j_slopes["reference"]);
-	std::string center_image_filename = datas.view(center_view_index).image_filename();
-	cv::Mat_<cv::Vec3b> center_img = cv::imread(center_image_filename, CV_LOAD_IMAGE_COLOR);
-	cv::Mat_<uchar> center_gray_img;
-	cv::cvtColor(center_img, center_gray_img, CV_BGR2GRAY);
+	view_index view_index = decode_view_index(j_slopes["view"]);
+	std::string image_filename = datas.view(view_index).image_filename();
+	cv::Mat_<cv::Vec3b> img = cv::imread(image_filename, CV_LOAD_IMAGE_COLOR);
+	cv::Mat_<uchar> gray_img;
+	cv::cvtColor(img, gray_img, CV_BGR2GRAY);
 	
 	cv::Mat_<cv::Vec3b> out_img;
-	cv::cvtColor(center_gray_img, out_img, CV_GRAY2BGR);
+	cv::cvtColor(gray_img, out_img, CV_GRAY2BGR);
 	
 	std::cout << "drawing feature slopes" << std::endl;
 	real radius = width / 2.0;

@@ -59,7 +59,59 @@ inline vec3 mul_h(const mat44& mat, const vec3& vec) {
 	vec4 out = mat * in;
 	out /= out[3];
 	return vec3(out[0], out[1], out[2]);
+}	
+	
+
+inline auto vec2_to_point2f(const vec2& pt) {
+	return cv::Point2f(pt[0], pt[1]);
 }
+inline auto point2f_to_vec2(const cv::Point2f& pt) {
+	return vec2(pt.x, pt.y);
+}
+inline auto vec2_to_point(const vec2& pt) {
+	return cv::Point(pt[0], pt[1]);
+}
+inline auto point_to_vec2(const cv::Point& pt) {
+	return vec2(pt.x, pt.y);
+}
+inline auto point_to_point2f(const cv::Point& pt) {
+	return cv::Point2f(pt.x, pt.y);
+}
+inline auto point2f_to_point(const cv::Point2f& pt) {
+	return cv::Point(pt.x, pt.y);
+}
+
+
+template<typename In, typename Out>
+std::vector<Out> point_vec_conv_tpl(const std::vector<In>& in, Out(*func)(const In&)) {
+	std::vector<Out> out(in.size());
+	auto out_it = out.begin();
+	auto in_it = in.cbegin();
+	for(; out_it != out.end(); ++out_it, ++in_it) *out_it = func(*in_it);
+	return out;
+}
+
+inline auto vec2_to_point2f(const std::vector<vec2>& pts) {
+	return point_vec_conv_tpl<vec2, cv::Point2f>(pts, &vec2_to_point2f);
+}
+inline auto point2f_to_vec2(const std::vector<cv::Point2f>& pts) {
+	return point_vec_conv_tpl<cv::Point2f, vec2>(pts, &point2f_to_vec2);
+}
+inline auto vec2_to_point(const std::vector<vec2>& pts) {
+	return point_vec_conv_tpl<vec2, cv::Point>(pts, &vec2_to_point);
+}
+inline auto point_to_vec2(const std::vector<cv::Point>& pts) {
+	return point_vec_conv_tpl<cv::Point, vec2>(pts, &point_to_vec2);
+}
+inline auto point_to_point2f(const std::vector<cv::Point>& pts) {
+	return point_vec_conv_tpl<cv::Point, cv::Point2f>(pts, &point_to_point2f);
+}
+inline auto point2f_to_point(const std::vector<cv::Point2f>& pts) {
+	return point_vec_conv_tpl<cv::Point2f, cv::Point>(pts, &point2f_to_point);
+}
+
+
+
 
 /// Copy the data in \a vw into the OpenCV Mat \a mat.
 /** \a mat is created and allocated as needed using `cv::Mat::create()`, and \a mat owns the new copy of the data.

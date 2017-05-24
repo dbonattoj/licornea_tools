@@ -58,6 +58,7 @@ public:
 	cv::Mat_<cv::Vec3b> get_color_frame();
 	cv::Mat_<cv::Vec3b> get_registered_color_frame();
 	cv::Mat_<uchar> get_ir_frame(float min_ir = 0, float max_ir = 0xffff, bool undistorted = false);
+	cv::Mat_<ushort> get_original_ir_frame(bool undistorted = false); 
 	cv::Mat_<float> get_depth_frame(bool undistorted = false);
 	cv::Mat_<float> get_bigdepth_frame();
 };

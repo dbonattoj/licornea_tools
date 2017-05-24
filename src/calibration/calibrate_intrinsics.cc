@@ -2,6 +2,7 @@
 #include <string>
 #include <cstdlib>
 #include <stdexcept>
+#include <climits>
 #include "../lib/json.h"
 #include "../lib/obj_img_correspondence.h"
 #include "../lib/opencv.h"
@@ -45,6 +46,8 @@ int main(int argc, const char* argv[]) {
 	
 	std::cout << "computing calibration" << std::endl;
 	std::vector<cv::Mat> out_rotations, out_translations;
+	const cv::TermCriteria term(cv::TermCriteria::COUNT | cv::TermCriteria::EPS, 50, DBL_EPSILON);
+	int flags = 0;
 	cv::calibrateCamera(
 		object_points,
 		image_points,
@@ -53,7 +56,8 @@ int main(int argc, const char* argv[]) {
 		out_distortion,
 		out_rotations,
 		out_translations,
-		0
+		flags,
+		term
 	);
 	
 	std::cout << "saving intrinsics" << std::endl;

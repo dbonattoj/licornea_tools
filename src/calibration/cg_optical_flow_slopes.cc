@@ -6,20 +6,21 @@
 #include "../lib/json.h"
 #include "../lib/dataset.h"
 #include "../lib/opencv.h"
-#include "../lib/camera.h"
+#include "../lib/intrinsics.h"
 
 using namespace tlz;
 
 [[noreturn]] void usage_fail() {
-	std::cout << "usage: cg_optical_flow_slopes dataset_parameters.json image_correspondences.json out_slopes.json\n";
+	std::cout << "usage: cg_optical_flow_slopes dataset_parameters.json image_correspondences.json intrinsics.json out_slopes.json\n";
 	std::cout << std::endl;
 	std::exit(1);
 }
 int main(int argc, const char* argv[]) {
-	if(argc <= 3) usage_fail();
+	if(argc <= 4) usage_fail();
 	std::string dataset_parameters_filename = argv[1];
 	std::string cors_filename = argv[2];
-	std::string out_slopes_filename = argv[3];
+	std::string intrinsics_filename = argv[3];
+	std::string out_slopes_filename = argv[4];
 	
 	std::cout << "loading data set" << std::endl;
 	dataset datas(dataset_parameters_filename);
@@ -28,6 +29,8 @@ int main(int argc, const char* argv[]) {
 	image_correspondences cors = import_image_correspondences_file(cors_filename);
 	view_index reference_idx = cors.reference;
 
+	std::cout << "loading intrinsics, rotation" << std::endl;
+	intrinsics intr = decode_intrinsics(import_json_file(intrinsics_filename));
 	
 	std::cout << "estimating slopes for horizontal flow" << std::endl;
 	std::map<std::string, real> feature_horizontal_slopes;
@@ -37,6 +40,8 @@ int main(int argc, const char* argv[]) {
 		
 		std::vector<cv::Vec2f> points;
 		for(int x : datas.x_indices()) points.push_back(feature.points.at(view_index(x, reference_idx.y)));
+		
+		points = undistort_points(intr, points);
 		
 		cv::Vec4f line_parameters;
 		cv::fitLine(points, line_parameters, CV_DIST_L2, 0.0, 0.01, 0.01);
@@ -52,6 +57,8 @@ int main(int argc, const char* argv[]) {
 		
 		std::vector<cv::Vec2f> points;
 		for(int y : datas.y_indices()) points.push_back(feature.points.at(view_index(reference_idx.x, y)));
+		
+		points = undistort_points(intr, points);
 		
 		cv::Vec4f line_parameters;
 		cv::fitLine(points, line_parameters, CV_DIST_L2, 0.0, 0.01, 0.01);
@@ -73,6 +80,6 @@ int main(int argc, const char* argv[]) {
 	}
 	json j_slopes = json::object();
 	j_slopes["slopes"] = j_feature_slopes;
-	j_slopes["reference"] = encode_view_index(reference_idx);
+	j_slopes["view"] = encode_view_index(reference_idx);
 	export_json_file(j_slopes, out_slopes_filename);
 }

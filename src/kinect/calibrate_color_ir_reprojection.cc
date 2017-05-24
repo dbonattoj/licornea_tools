@@ -2,6 +2,7 @@
 #include <string>
 #include <cstdlib>
 #include <stdexcept>
+#include <climits>
 #include "../lib/json.h"
 #include "../lib/obj_img_correspondence.h"
 #include "../lib/opencv.h"
@@ -52,6 +53,8 @@ int main(int argc, const char* argv[]) {
 	vec3 out_translation;
 	auto color_distortion_coeffs = color_intr.distortion.cv_coeffs();
 	auto ir_distortion_coeffs = ir_intr.distortion.cv_coeffs();
+	
+	cv::TermCriteria term(cv::TermCriteria::COUNT | cv::TermCriteria::EPS, 100, DBL_EPSILON);
 	real reproj_error = cv::stereoCalibrate(
 		object_points,
 		color_image_points,
@@ -64,7 +67,9 @@ int main(int argc, const char* argv[]) {
 		out_rotation,
 		out_translation,
 		cv::noArray(),
-		cv::noArray()
+		cv::noArray(),
+		term,
+		cv::CALIB_FIX_INTRINSIC
 	);
 	
 	{

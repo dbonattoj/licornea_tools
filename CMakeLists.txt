@@ -78,6 +78,9 @@ target_link_libraries(undistort common_lib calibration_lib)
 add_executable(calibrate_intrinsics "src/calibration/calibrate_intrinsics.cc")
 target_link_libraries(calibrate_intrinsics common_lib calibration_lib)
 
+add_executable(view_feature_points "src/calibration/view_feature_points.cc")
+target_link_libraries(view_feature_points common_lib calibration_lib)
+
 add_executable(optical_flow "src/calibration/optical_flow.cc")
 target_link_libraries(optical_flow common_lib calibration_lib)
 
@@ -99,10 +102,16 @@ target_link_libraries(cg_visualize_optical_flow_slopes common_lib calibration_li
 add_executable(cg_generate_artificial "src/calibration/cg_generate_artificial.cc")
 target_link_libraries(cg_generate_artificial common_lib calibration_lib)
 
+add_executable(cg_predict_optical_flow_slopes "src/calibration/cg_predict_optical_flow_slopes.cc")
+target_link_libraries(cg_predict_optical_flow_slopes common_lib calibration_lib)
+
+add_executable(cg_estimate_rotation "src/calibration/cg_estimate_rotation.cc")
+target_link_libraries(cg_estimate_rotation common_lib calibration_lib)
 
 install(
 	TARGETS
 		calibrate_intrinsics
+		view_feature_points
 		undistort 
 		optical_flow
 		optical_flow_2d
@@ -111,6 +120,8 @@ install(
 		cg_optical_flow_slopes
 		cg_visualize_optical_flow_slopes
 		cg_generate_artificial
+		cg_predict_optical_flow_slopes
+		cg_estimate_rotation
 	DESTINATION calibration
 )
 install_pylib_link(calibration)
@@ -284,6 +295,9 @@ target_link_libraries(cam_rotation common_lib)
 add_executable(view_distortion "src/misc/view_distortion.cc")
 target_link_libraries(view_distortion common_lib)
 
+add_executable(cat_obj_img_cors "src/misc/cat_obj_img_cors.cc")
+target_link_libraries(cat_obj_img_cors common_lib)
+
 install(
 	TARGETS
 		psnr
@@ -291,6 +305,7 @@ install(
 		copy_json
 		cam_rotation
 		view_distortion
+		cat_obj_img_cors
 	DESTINATION misc
 )
 install(

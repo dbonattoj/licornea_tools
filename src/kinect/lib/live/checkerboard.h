@@ -37,6 +37,7 @@ struct checkerboard_extrinsics {
 
 checkerboard detect_color_checkerboard(cv::Mat_<cv::Vec3b>&, int cols, int rows, real square_width = NAN);
 checkerboard detect_ir_checkerboard(cv::Mat_<uchar>&, int cols, int rows, real square_width = NAN);
+checkerboard detect_ir_checkerboard(cv::Mat_<ushort>&, int cols, int rows, real square_width = NAN);
 
 std::vector<vec3> checkerboard_world_corners(int cols, int rows, real square_width);
 std::vector<vec2> checkerboard_image_corners(const checkerboard&);
@@ -61,9 +62,11 @@ struct checkerboard_visualization_parameters {
 	bool line = true;
 	cv::Vec3b lines_color = cv::Vec3b(100, 100, 255);
 	int line_thickness = 3;
+	bool cv_visualization = true;
 };
 cv::Mat_<cv::Vec3b> visualize_checkerboard(const cv::Mat_<cv::Vec3b>&, const checkerboard&, const checkerboard_visualization_parameters& = checkerboard_visualization_parameters());
 cv::Mat_<cv::Vec3b> visualize_checkerboard(const cv::Mat_<uchar>&, const checkerboard&, const checkerboard_visualization_parameters& = checkerboard_visualization_parameters());
+cv::Mat_<cv::Vec3b> visualize_checkerboard(const cv::Mat_<ushort>&, const checkerboard&, const checkerboard_visualization_parameters& = checkerboard_visualization_parameters());
 
 cv::Mat_<cv::Vec3b> visualize_checkerboard_pixel_samples(const cv::Mat_<cv::Vec3b>&, const std::vector<checkerboard_pixel_depth_sample>&, int rad = 1);
 cv::Mat_<cv::Vec3b> visualize_checkerboard_pixel_samples(const cv::Mat_<uchar>&, const std::vector<checkerboard_pixel_depth_sample>&, int rad = 1);

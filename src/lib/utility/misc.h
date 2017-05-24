@@ -13,9 +13,6 @@ using default_random_engine = std::mt19937;
 	
 template<typename...> using void_t = void;
 
-/// Check if a file at `filename` exists.
-bool file_exists(const std::string& filename);
-
 /// Compute square of a number.
 template<typename Numeric> Numeric sq(Numeric n) { return n * n; }
 

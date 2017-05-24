@@ -70,7 +70,7 @@ std::vector<cv::Point> checkerboard::outer_corners_i() const {
 checkerboard detect_color_checkerboard(cv::Mat_<cv::Vec3b>& img, int cols, int rows, real square_width) {
 	std::vector<cv::Point2f> corners;
 
-	int flags = cv::CALIB_CB_FAST_CHECK;
+	int flags = cv::CALIB_CB_FAST_CHECK | cv::CALIB_CB_ADAPTIVE_THRESH;
 	bool found = cv::findChessboardCorners(img, cv::Size(cols, rows), corners, flags);
 	if(!found || corners.size() != cols*rows) return checkerboard();
 	
@@ -103,8 +103,22 @@ checkerboard detect_ir_checkerboard(cv::Mat_<uchar>& img, int cols, int rows, re
 	cv::cornerSubPix(larger_img, corners, cv::Size(11, 11), cv::Size(-1, -1), term);	
 
 	for(cv::Point2f& corner : corners) corner = cv::Point2f(corner.x/scale, corner.y/scale);
-	
-	return checkerboard(cols, rows, square_width, point2f_to_vec2_(corners));
+		
+	return checkerboard(cols, rows, square_width, point2f_to_vec2(corners));
+}
+
+
+checkerboard detect_ir_checkerboard(cv::Mat_<ushort>& ir_orig, int cols, int rows, real square_width) {
+	ushort max_ir = 0xffff;
+	ushort min_ir = 0;
+	float alpha = 255.0f / (max_ir - min_ir);
+	float beta = -alpha * min_ir;
+	cv::Mat_<uchar> ir;
+	cv::convertScaleAbs(ir_orig, ir, alpha, beta);
+	//ir.setTo(0, (ir_orig < min_ir));
+	//ir.setTo(255, (ir_orig > max_ir));
+	ir.setTo(0, (ir_orig == 0));
+	return detect_ir_checkerboard(ir, cols, rows, square_width);
 }
 
 
@@ -131,6 +145,10 @@ cv::Mat_<cv::Vec3b> visualize_checkerboard(const cv::Mat_<cv::Vec3b>& img, const
 		cv::polylines(out_img, polylines, true, cv::Scalar(param.lines_color), param.line_thickness);
 	}
 	
+	if(param.cv_visualization) {
+		cv::drawChessboardCorners(out_img, cv::Size(chk.cols, chk.rows), vec2_to_point2f_(chk.corners), true);
+	}
+	
 	return out_img;
 }
 
@@ -139,6 +157,16 @@ cv::Mat_<cv::Vec3b> visualize_checkerboard(const cv::Mat_<uchar>& img, const che
 	cv::Mat_<cv::Vec3b> conv_img;
 	cv::cvtColor(img, conv_img, CV_GRAY2BGR);
 	return visualize_checkerboard(conv_img, chk, param);
+}
+cv::Mat_<cv::Vec3b> visualize_checkerboard(const cv::Mat_<ushort>& img, const checkerboard& chk, const checkerboard_visualization_parameters& param) {
+	cv::Mat_<uchar> img_8bit(img);
+	ushort max_ir = 0xffff;
+	ushort min_ir = 0;
+	float alpha = 255.0f / (max_ir - min_ir);
+	float beta = -alpha * min_ir;
+	cv::Mat_<uchar> ir;
+	cv::convertScaleAbs(img, img_8bit, alpha, beta);
+	return visualize_checkerboard(img_8bit, chk, param);
 }
 
 

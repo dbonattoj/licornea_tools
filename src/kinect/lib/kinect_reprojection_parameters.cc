@@ -17,6 +17,8 @@ kinect_reprojection_parameters::depth_offset_polyfit decode_depth_offset_(const 
 	fit.x0y0 = get_or(j_fit, "x0y0", 0.0);
 	fit.x1y0 = get_or(j_fit, "x1y0", 0.0);
 	fit.x0y1 = get_or(j_fit, "x0y1", 0.0);
+	
+	std::cout << fit.x0y0 << std::endl;
 	return fit;
 }
 

@@ -33,8 +33,12 @@ struct intrinsics {
 intrinsics decode_intrinsics(const json&);
 json encode_intrinsics(const intrinsics&);
 
-std::vector<vec2> undistort_points(const intrinsics&, const std::vector<vec2>&);
-std::vector<vec2> distort_points(const intrinsics&, const std::vector<vec2>&);
+vec2 undistort_point(const intrinsics&, const vec2& distorted);
+std::vector<vec2> undistort_points(const intrinsics&, const std::vector<vec2>& distorted);
+std::vector<cv::Vec2f> undistort_points(const intrinsics&, const std::vector<cv::Vec2f>& distorted);
+
+vec2 distort_point(const intrinsics&, const vec2& undistorted);
+std::vector<vec2> distort_points(const intrinsics&, const std::vector<vec2>& undistorted);
 
 }
 
