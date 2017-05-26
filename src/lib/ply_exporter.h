@@ -4,8 +4,7 @@
 #include <fstream>
 #include <string>
 #include "point.h"
-#include "utility/io.h"
-#include "nd.h"
+#include "io.h"
 
 namespace tlz {
 

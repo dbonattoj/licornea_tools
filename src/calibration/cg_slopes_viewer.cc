@@ -1,7 +1,7 @@
 #include "../lib/opencv.h"
 #include "../lib/intrinsics.h"
 #include "../lib/dataset.h"
-#include "../lib/utility/misc.h"
+#include "../lib/misc.h"
 #include "lib/cg/feature_points.h"
 #include "lib/cg/feature_slopes.h"
 #include <cstdlib>

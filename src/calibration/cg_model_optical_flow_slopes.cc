@@ -2,7 +2,7 @@
 #include <map>
 #include <cmath>
 #include "lib/cg/feature_slopes.h"
-#include "../lib/utility/misc.h"
+#include "../lib/misc.h"
 #include "../lib/json.h"
 #include "../lib/dataset.h"
 #include "../lib/opencv.h"

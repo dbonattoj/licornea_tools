@@ -7,7 +7,7 @@
 #include <set>
 #include <map>
 #include "lib/image_correspondence.h"
-#include "../lib/utility/misc.h"
+#include "../lib/misc.h"
 #include "../lib/dataset.h"
 #include "../lib/intrinsics.h"
 #include "../lib/image_io.h"

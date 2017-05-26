@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include "common.h"
+#include "opencv.h"
 
 namespace tlz {
 
@@ -59,5 +60,42 @@ rgb_color color_blend(const rgb_color& a, const rgb_color& b);
 rgb_color color_blend(const rgb_color& a, real a_weight, const rgb_color& b, real b_weight);
 
 }
+
+
+namespace cv { // in OpenCV namespace
+	template<>
+	class DataType<::tlz::rgb_color> {
+	public:
+		using value_type = ::tlz::rgb_color;
+		using work_type = int;
+		using channel_type = uchar;
+		enum {
+			generic_type = 0,
+			depth = DataDepth<channel_type>::value,
+			channels = 3,
+			fmt = ((channels - 1)<<8) + DataDepth<channel_type>::fmt,
+			type = CV_MAKETYPE(depth, channels)
+		};
+		using vec_type = Vec<channel_type, channels>;
+	};
+	
+	template<>
+	class DataType<::tlz::ycbcr_color> {
+	public:
+		using value_type = ::tlz::ycbcr_color;
+		using work_type = int;
+		using channel_type = uchar;
+		enum {
+			generic_type = 0,
+			depth = DataDepth<channel_type>::fmt,
+			channels = 3,
+			fmt = ((channels - 1)<<8) + DataDepth<channel_type>::fmt,
+			type = CV_MAKETYPE(depth, channels)
+		};
+		using vec_type = Vec<channel_type, channels>;
+	};
+}
+
+
 
 #endif

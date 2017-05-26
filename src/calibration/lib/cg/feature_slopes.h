@@ -2,7 +2,6 @@
 #define LICORNEA_CG_FEATURE_SLOPES_H_
 
 #include "../../lib/json.h"
-#include "../../lib/opencv.h"
 #include "feature_points.h"
 #include <map>
 #include <string>

@@ -2,7 +2,6 @@
 #define LICORNEA_IMAGE_CORRESPONDENCE_H_
 
 #include "../../lib/json.h"
-#include "../../lib/opencv.h"
 #include "../../lib/dataset.h"
 #include <map>
 #include <vector>

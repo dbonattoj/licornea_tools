@@ -3,8 +3,7 @@
 
 #include <json.hpp>
 #include <string>
-#include <iosfwd>
-#include "opencv.h"
+#include "common.h"
 
 namespace tlz {
 
@@ -16,7 +15,6 @@ json import_json_file(const std::string& filename);
 cv::Mat_<real> decode_mat(const json&);
 
 json encode_mat_(const cv::Mat_<real>&);
-
 template<typename Mat> json encode_mat(const Mat& mat) {
 	return encode_mat_(cv::Mat_<real>(mat));
 }

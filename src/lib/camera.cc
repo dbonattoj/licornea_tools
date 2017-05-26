@@ -75,7 +75,7 @@ void write_cameras_file(const std::string& filename, const camera_array& cameras
 			<< "\t\"Rt\" : [[" << frm(cam.rotation(0, 0)) << ", " << frm(cam.rotation(0, 1)) << ", " << frm(cam.rotation(0, 2)) << ", " << frm(cam.translation[0]) << "],\n"
 			<< "\t        ["   << frm(cam.rotation(1, 0)) << ", " << frm(cam.rotation(1, 1)) << ", " << frm(cam.rotation(1, 2)) << ", " << frm(cam.translation[1]) << "],\n"
 			<< "\t        ["   << frm(cam.rotation(2, 0)) << ", " << frm(cam.rotation(2, 1)) << ", " << frm(cam.rotation(2, 2)) << ", " << frm(cam.translation[2]) << "],\n"
-			<< "\t        [0.0, 0.0, 0.0, 1.0]]\n"
+			<< "\t        [" << frm(0.0) << ", " << frm(0.0) << ", " << frm(0.0) << ", " << frm(1.0) << "]]\n"
 			<< "}";
 	}
 	stream << "\n]";

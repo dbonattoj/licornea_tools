@@ -15,7 +15,7 @@
 #include <stdexcept>
 
 #include "common.h"
-#include "utility/io.h"
+#include "io.h"
 #include "point.h"
 	
 namespace tlz {

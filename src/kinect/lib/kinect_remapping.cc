@@ -1,6 +1,5 @@
 #include "kinect_remapping.h"
 #include "common.h"
-#include "../../lib/utility/assert.h"
 #include "../../lib/opencv.h"
 
 namespace tlz {

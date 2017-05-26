@@ -2,8 +2,8 @@
 #define LICORNEA_OBJ_IMG_CORRESPONDENCE_H_
 
 #include <json.hpp>
-#include "../../lib/json.h"
-#include "../../lib/opencv.h"
+#include "json.h"
+#include "opencv.h"
 #include <array>
 #include <vector>
 

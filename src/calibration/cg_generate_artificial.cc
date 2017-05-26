@@ -3,7 +3,7 @@
 #include <cmath>
 #include <random>
 #include "lib/image_correspondence.h"
-#include "../lib/utility/misc.h"
+#include "../lib/misc.h"
 #include "../lib/json.h"
 #include "../lib/dataset.h"
 #include "../lib/opencv.h"

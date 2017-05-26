@@ -1,7 +1,7 @@
 #include <sstream>
 #include <algorithm>
 #include <cmath>
-#include "../common.h"
+#include "common.h"
 
 namespace tlz {
 

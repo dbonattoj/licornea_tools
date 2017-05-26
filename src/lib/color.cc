@@ -1,5 +1,5 @@
 #include "color.h"
-#include "utility/misc.h"
+#include "misc.h"
 #include <cstdint>
 
 namespace tlz {

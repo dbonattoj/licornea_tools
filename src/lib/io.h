@@ -4,7 +4,7 @@
 #include <iosfwd>
 #include <limits>
 #include <string>
-#include "../common.h"
+#include "common.h"
 
 namespace tlz {
 

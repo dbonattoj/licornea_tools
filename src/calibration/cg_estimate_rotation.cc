@@ -5,7 +5,7 @@
 #include <fstream>
 #include <cassert>
 #include "lib/cg/feature_slopes.h"
-#include "../lib/utility/misc.h"
+#include "../lib/misc.h"
 #include "../lib/json.h"
 #include "../lib/opencv.h"
 #include "../lib/intrinsics.h"

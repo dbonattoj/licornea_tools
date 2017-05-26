@@ -1,5 +1,5 @@
 #include "ply_importer.h"
-#include "utility/string.h"
+#include "string.h"
 #include <algorithm>
 
 namespace tlz {

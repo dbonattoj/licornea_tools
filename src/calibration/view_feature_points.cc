@@ -1,7 +1,7 @@
 #include <string>
 #include "lib/image_correspondence.h"
 #include "lib/cg/feature_points.h"
-#include "../lib/utility/misc.h"
+#include "../lib/misc.h"
 #include "../lib/json.h"
 #include "../lib/opencv.h"
 #include "../lib/intrinsics.h"

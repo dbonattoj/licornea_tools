@@ -12,7 +12,7 @@ This is the installation on Linux / macOS. On Windows, Visual Studio project fil
 2. (Optional) Install libfreenect2. It needs to be compiled from source. When building libfreenect2 with its CMake script, `CMAKE_INSTALL_PREFIX` needs to be set to `path/to/licornea_tools/external/freenect2`. `make install` then copies its library and header files into that directory, where the `licornea_tools` CMake script will find them.
 3. Go to `licornea_tools/` top left directory.
 4. `mkdir build; cd build`
-5. `cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../bin ..`. If libfreenect2 was installed, also pass `-DWITH_LIBFREENECT2`. Possibly the OpenCV installation directory also needs to be adjusted using `-DOpenCV_DIR=...` (or similar depending on system).
+5. `cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../bin ..`. If libfreenect2 was installed, also pass `-DWITH_LIBFREENECT2=ON`. Possibly the OpenCV installation directory also needs to be adjusted using `-DOpenCV_DIR=...` (or similar depending on system).
 6. For the Python scripts, there are some configuration options in `src/lib/pylib/config.py`, relating to parallelized execution of batch jobs.
 7. Build using `make`. There may be some warnings, and some errors that need to be fixed in the code if compiling with a diffent platform/compiler. There may be `rpath` issues on macOS.
 8. Install using `make install`. The tools will be installed in `licornea_tools/bin`, Python scripts (copies) along with executables, in their subdirectories.

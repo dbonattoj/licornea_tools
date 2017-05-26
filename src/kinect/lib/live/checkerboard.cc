@@ -1,5 +1,6 @@
 #include "checkerboard.h"
-#include "../../lib/utility/misc.h"
+#include "../../lib/common.h"
+#include "../../lib/misc.h"
 #include <algorithm>
 #include <iostream>
 #include <climits>
@@ -10,31 +11,6 @@
 
 
 namespace tlz {
-
-namespace {
-	
-std::vector<cv::Point2f> vec2_to_point2f_(const std::vector<vec2>& in_pts) {
-	std::vector<cv::Point2f> out_pts;
-	for(const vec2& pt : in_pts) out_pts.emplace_back(pt[0], pt[1]);
-	return out_pts;
-}
-std::vector<vec2> point2f_to_vec2_(const std::vector<cv::Point2f>& in_pts) {
-	std::vector<vec2> out_pts;
-	for(const cv::Point2f& pt : in_pts) out_pts.emplace_back(pt.x, pt.y);
-	return out_pts;
-}
-std::vector<cv::Point> vec2_to_point_(const std::vector<vec2>& in_pts) {
-	std::vector<cv::Point> out_pts;
-	for(const vec2& pt : in_pts) out_pts.emplace_back(pt[0], pt[1]);
-	return out_pts;
-}
-std::vector<cv::Point> point2f_to_point_(const std::vector<cv::Point2f>& in_pts) {
-	std::vector<cv::Point> out_pts;
-	for(const cv::Point2f& pt : in_pts) out_pts.emplace_back(pt.x, pt.y);
-	return out_pts;
-}
-	
-}
 
 checkerboard::checkerboard(int cols_, int rows_, real square_width_, const std::vector<vec2>& corners_) :
 	cols(cols_),
@@ -63,7 +39,7 @@ checkerboard::checkerboard(int cols_, int rows_, real square_width_, const std::
 }
 	
 std::vector<cv::Point> checkerboard::outer_corners_i() const {
-	return vec2_to_point_(outer_corners);
+	return vec2_to_point(outer_corners);
 }
 	
 	
@@ -79,7 +55,7 @@ checkerboard detect_color_checkerboard(cv::Mat_<cv::Vec3b>& img, int cols, int r
 	cv::cvtColor(img, img_mono, CV_BGR2GRAY);
 	cv::cornerSubPix(img_mono, corners, cv::Size(11, 11), cv::Size(-1, -1), term);	
 	
-	return checkerboard(cols, rows, square_width, point2f_to_vec2_(corners));
+	return checkerboard(cols, rows, square_width, point2f_to_vec2(corners));
 }
 
 
@@ -146,7 +122,7 @@ cv::Mat_<cv::Vec3b> visualize_checkerboard(const cv::Mat_<cv::Vec3b>& img, const
 	}
 	
 	if(param.cv_visualization) {
-		cv::drawChessboardCorners(out_img, cv::Size(chk.cols, chk.rows), vec2_to_point2f_(chk.corners), true);
+		cv::drawChessboardCorners(out_img, cv::Size(chk.cols, chk.rows), vec2_to_point2f(chk.corners), true);
 	}
 	
 	return out_img;

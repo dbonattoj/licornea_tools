@@ -1,8 +1,7 @@
 #ifndef LICORNEA_CAMERA_H_
 #define LICORNEA_CAMERA_H_
 
-#include "opencv.h"
-#include <iosfwd>
+#include "common.h"
 #include <vector>
 #include <map>
 #include <string>

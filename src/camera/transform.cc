@@ -4,8 +4,6 @@
 #include <cstdlib>
 #include <format.h>
 #include <regex>
-
-#include "../lib/opencv.h"
 #include "../lib/camera.h"
 
 using namespace tlz;

@@ -2,7 +2,6 @@
 #define LICORNEA_CG_FEATURE_POINTS_H_
 
 #include "../../../lib/json.h"
-#include "../../../lib/opencv.h"
 #include "../../../lib/intrinsics.h"
 #include "../../../lib/dataset.h"
 #include "../image_correspondence.h"

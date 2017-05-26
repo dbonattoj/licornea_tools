@@ -1,5 +1,5 @@
 #include "json.h"
-#include "utility/string.h"
+#include "string.h"
 #include <fstream>
 #include <vector>
 #include <cstdint>

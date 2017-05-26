@@ -2,7 +2,6 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
-#include "../lib/opencv.h"
 #include "../lib/camera.h"
 
 using namespace tlz;

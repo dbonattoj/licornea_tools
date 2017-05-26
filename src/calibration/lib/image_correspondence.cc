@@ -1,5 +1,5 @@
 #include "image_correspondence.h"
-#include "../../lib/utility/string.h"
+#include "../../lib/string.h"
 #include <iostream>
 
 namespace tlz {

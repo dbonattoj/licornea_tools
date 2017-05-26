@@ -1,5 +1,4 @@
 #include "../lib/json.h"
-#include "../lib/opencv.h"
 #include <iostream>
 #include <cstdlib>
 #include <cmath>

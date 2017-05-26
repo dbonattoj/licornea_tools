@@ -2,7 +2,7 @@
 #include "../lib/opencv.h"
 #include "../lib/json.h"
 #include "../lib/intrinsics.h"
-#include "../lib/utility/misc.h"
+#include "../lib/misc.h"
 #include "lib/live/viewer.h"
 #include "lib/live/grabber.h"
 #include "lib/live/checkerboard.h"

@@ -4,6 +4,65 @@ project(licornea_tools CXX)
 set(CMAKE_CXX_STANDARD 14)
 
 
+set(CMAKE_SKIP_BUILD_RPATH FALSE)
+set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib/")
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
+
+# OpenCV
+find_package(OpenCV REQUIRED)
+link_libraries(${OpenCV_LIBRARIES})
+include_directories(SYSTEM ${OpenCV_INCLUDE_DIRS})
+
+
+# OpenMP
+find_package(OpenMP)
+if(OpenMP_FOUND)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+endif()
+
+# Find Freenect2, if WITH_LIBFREENECT2 is set
+set(WITH_LIBFREENECT2 FALSE CACHE BOOL "Use libfreenect2")
+if(WITH_LIBFREENECT2)
+	include_directories(SYSTEM external/freenect2/include)
+	find_library(FREENECT2_LIBRARY NAMES freenect2 libfreenect2 PATHS external/freenect2/lib)
+	add_compile_options(-DLICORNEA_WITH_LIBFREENECT2)
+	install(
+		DIRECTORY "external/freenect2/lib"
+		DESTINATION "./"
+		PATTERN "*.so" PATTERN "*.dylib"
+		PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+	)
+endif()
+
+
+# Search paths
+include_directories(SYSTEM src/external/include)
+include_directories(SYSTEM src/external/fmt)
+
+add_compile_options(-Wall -Wextra -Wno-sign-compare)
+
+
+
+# Common library
+file(GLOB_RECURSE COMMON_LIB_SRC "src/lib/*.cc")
+add_library(common_lib SHARED ${COMMON_LIB_SRC} "src/external/fmt/format.cc")
+
+target_link_libraries(common_lib ${OpenCV_LIBRARIES})
+install(TARGETS common_lib DESTINATION "lib/")
+
+
+# Python library install
+install(
+	DIRECTORY "src/lib/pylib"
+	DESTINATION "./lib"
+	PATTERN "*.py"
+)
+
+
+# Marco to link pylib/ into subdirectories
 macro(install_pylib_link section)
 	install(
 		CODE "execute_process( \
@@ -16,61 +75,11 @@ macro(install_pylib_link section)
 endmacro(install_pylib_link)
 
 
-find_package(OpenCV REQUIRED)
-
-find_package(OpenMP)
-if(OpenMP_FOUND)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-endif()
-
-include_directories(SYSTEM src/external/include)
-include_directories(SYSTEM src/external/fmt)
-include_directories(SYSTEM src/external/mf)
-include_directories(SYSTEM ${OpenCV_INCLUDE_DIRS})
-link_libraries(${OpenCV_LIBRARIES})
-
-add_compile_options(-Wall -Wextra -Wno-sign-compare)
-
-file(GLOB_RECURSE COMMON_LIB_SRC "src/lib/*.cc")
-add_library(common_lib SHARED ${COMMON_LIB_SRC} "src/external/fmt/format.cc")
-
-target_link_libraries(common_lib ${OpenCV_LIBRARIES})
-
-set(CMAKE_SKIP_BUILD_RPATH FALSE)
-set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
-set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib/")
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-
-
-install(
-	TARGETS common_lib
-	DESTINATION "lib/"
-)
-install(
-	DIRECTORY "src/lib/pylib"
-	DESTINATION "./lib"
-	PATTERN "*.py"
-)
-
-# Include Freenect2, if WITH_LIBFREENECT2 is set
-set(WITH_LIBFREENECT2 FALSE CACHE BOOL "Use libfreenect2")
-if(WITH_LIB${FREENECT2_LIBRARY})
-	include_directories(SYSTEM src/external/freenect2/include)
-	find_library(FREENECT2_LIBRARY NAMES freenect2 libfreenect2 PATHS ${src/external/freenect2/lib})
-	add_compile_options(-DLICORNEA_WITH_LIB${FREENECT2_LIBRARY})
-	install(
-		DIRECTORY "src/external/freenect2/lib"
-		DESTINATION "./"
-		PATTERN "*.so"
-		PERMISSIONS OWNER_EXECUTE GROUP_EXECUTE GROUP_EXECUTE
-	)
-endif()
-
-
 # Calibration
 file(GLOB_RECURSE CALIBRATION_LIB_SRC "src/calibration/lib/*.cc")
-add_library(calibration_lib STATIC ${CALIBRATION_LIB_SRC})
+add_library(calibration_lib SHARED ${CALIBRATION_LIB_SRC})
+target_link_libraries(calibration_lib common_lib)
+install(TARGETS calibration_lib DESTINATION "lib/")
 
 add_executable(undistort "src/calibration/undistort.cc")
 target_link_libraries(undistort common_lib calibration_lib)
@@ -137,7 +146,9 @@ install_pylib_link(calibration)
 
 # Camera
 file(GLOB_RECURSE CAMERA_LIB_SRC "src/camera/lib/*.cc")
-add_library(camera_lib STATIC ${CAMERA_LIB_SRC})
+add_library(camera_lib SHARED ${CAMERA_LIB_SRC})
+target_link_libraries(camera_lib common_lib)
+install(TARGETS camera_lib DESTINATION "lib/")
 
 add_executable(export_mpeg "src/camera/export_mpeg.cc")
 target_link_libraries(export_mpeg common_lib camera_lib)
@@ -170,7 +181,12 @@ install_pylib_link(camera)
 
 # Kinect
 file(GLOB_RECURSE KINECT_LIB_SRC "src/kinect/lib/*.cc")
-add_library(kinect_lib STATIC ${KINECT_LIB_SRC})
+add_library(kinect_lib SHARED ${KINECT_LIB_SRC})
+target_link_libraries(kinect_lib common_lib)
+if(WITH_LIBFREENECT2)
+	target_link_libraries(kinect_lib ${FREENECT2_LIBRARY})
+endif()
+install(TARGETS kinect_lib DESTINATION "lib/")
 
 add_executable(depth_reprojection "src/kinect/depth_reprojection.cc")
 target_link_libraries(depth_reprojection common_lib kinect_lib)
@@ -182,7 +198,7 @@ add_executable(calibrate_color_ir_reprojection "src/kinect/calibrate_color_ir_re
 target_link_libraries(calibrate_color_ir_reprojection common_lib kinect_lib)
 
 add_executable(checkerboard_depth_stat "src/kinect/checkerboard_depth_stat.cc")
-target_link_libraries(checkerboard_depth_stat common_lib kinect_lib ${FREENECT2_LIBRARY})
+target_link_libraries(checkerboard_depth_stat common_lib kinect_lib)
 
 install(
 	TARGETS
@@ -199,7 +215,7 @@ install(
 )
 install_pylib_link(kinect)
 
-if(WITH_LIB${FREENECT2_LIBRARY})
+if(WITH_LIBFREENECT2)
 	add_executable(fetch_internal_parameters "src/kinect/fetch_internal_parameters.cc")
 	target_link_libraries(fetch_internal_parameters common_lib kinect_lib ${FREENECT2_LIBRARY})
 
@@ -219,7 +235,7 @@ if(WITH_LIB${FREENECT2_LIBRARY})
 	target_link_libraries(checkerboard_depth_viewer common_lib kinect_lib ${FREENECT2_LIBRARY})
 
 	add_executable(checkerboard_depth_parallel "src/kinect/checkerboard_depth_parallel.cc")
-	target_link_libraries(checkerboard_depth_parallel common_lib kinect_lib freenect2)
+	target_link_libraries(checkerboard_depth_parallel common_lib kinect_lib ${FREENECT2_LIBRARY})
 
 	add_executable(remapping_viewer "src/kinect/remapping_viewer.cc")
 	target_link_libraries(remapping_viewer common_lib kinect_lib ${FREENECT2_LIBRARY})

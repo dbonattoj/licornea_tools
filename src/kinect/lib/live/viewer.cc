@@ -96,7 +96,7 @@ void viewer::draw_text(cv::Rect rect, const std::string& text, text_alignment al
 	int x;
 	if(align == left) x = rect.x;
 	else if(align == center) x = rect.x + (rect.width/2 - sz.width/2);
-	else if(align == right) x = rect.x + rect.width - sz.width;
+	else x = rect.x + rect.width - sz.width;
 		
 	cv::putText(shown_image_, text, cv::Point(x, y), font, fontscale, cv::Scalar(color), thickness);
 }

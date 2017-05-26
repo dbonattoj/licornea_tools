@@ -1,3 +1,4 @@
+#include "../lib/common.h"
 #include "../lib/opencv.h"
 #include <cstdlib>
 #include <iostream>

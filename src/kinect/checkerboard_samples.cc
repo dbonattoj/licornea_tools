@@ -1,7 +1,7 @@
 #include "../lib/common.h"
 #include "../lib/opencv.h"
 #include "../lib/image_io.h"
-#include "../lib/utility/misc.h"
+#include "../lib/misc.h"
 #include "../lib/obj_img_correspondence.h"
 #include "lib/live/viewer.h"
 #include "lib/live/grabber.h"

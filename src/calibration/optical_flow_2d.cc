@@ -183,7 +183,7 @@ int main(int argc, const char* argv[]) {
 	
 
 	std::cout << "\nsaving image correspondences" << std::endl;
-	int expected_points_count = datas.x_count() * datas.y_count();
+	//int expected_points_count = datas.x_count() * datas.y_count();
 	image_correspondences cors;
 	for(std::ptrdiff_t feature = 0; feature < features_count; ++feature) {
 		//if(correspondences[feature].points.size() != expected_points_count) continue;
