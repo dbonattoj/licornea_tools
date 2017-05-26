@@ -23,13 +23,29 @@ Examples on how to use the tools for common tasks.
 ## Tools
 
 ### Calibration
-Calibrate intrinsic camera parameters using object-to-image correspondences.
+Calibrate intrinsic camera parameters using object-to-image correspondences. Obtain image correspondences for dataset using optical flow.
+
+- [**calibrate intrinsics**](tools/calibration/calibrate_intrinsics.html): Use object-to-image correspondences set set to calibrate camera intrinsics.
+- [**optical flow**](tools/calibration/optical_flow.html): Choose features and track them across all views of 1D dataset, generating image correspondences.
+- [**optical flow 2d**](tools/calibration/optical_flow_2d.html): Same for 2D dataset.
+- [**undistort**](tools/calibration/undistort.html): Remove distortion of texture or depth image.
+- [**view feature points**](tools/calibration/view_feature_points.html): Get points of image correspondences set, for one given view.
+- [**feature depths**](tools/calibration/feature_depths.html): Collect depths of features across all views, and save into text file:
+- [**visualize image correspondences**](tools/calibration/visualize_image_correspondences.html): Visualize image correspondences set, using one reference view as background.
 
 ---
 
 #### Camera grid calibration (cg)
 
 Rectify and calibrate dataset using optical flow of tracked features, on 2D dataset. Assumes camera centers move on a regular grid, and camera rotation is constant.
+
+- [**cg measure optical flow slopes**](tools/calibration/cg_measure_optical_flow_slopes.html): Estimate horizontal and vertical optical flow slopes for given 2D optical flow image correspondences set.
+- [**cg model optical flow slopes**](tools/calibration/cg_model_optical_flow_slopes.html): Calculate theoretical optical flow slopes for given feature points and rotation.
+- [**cg slopes viewer**](tools/calibration/cg_slopes_viewer.html): GUI to visualize measured and model optical flow slopes with changing rotation matrix.
+- [**cg visualize optical flow slopes**](tools/calibration/cg_visualize_optical_flow_slopes.html): Make visualization of optical flow slopes, with reference view as background.
+- [**cg generate artificial**](tools/calibration/cg_generate_artificial.html): Generate artificial 2D dataset with textures, depth maps, and optical flow image correspondences.
+- [**cg estimate rotation**](tools/calibration/cg_estimate_rotation.html): Estimate rotation of measured optical flow slopes.
+- [**cg feature straight depths**](tools/calibration/cg_feature_straight_depths.html): Calculate straight depth (from camera grid), for each feature, knowing rotation. Aggregates depths from all depth maps.  
 
 ---
 
@@ -70,6 +86,7 @@ These programs interact with a Kinect v2 connected via USB. They are only availa
 - [**checkboard color depth**](tools/kinect/checkboard_color_depth.html): Same, but with color image, reprojection parameters, and reprojected depth image.
 - [**fetch intrinsics**](tools/kinect/fetch_intrinsics.html): Fetch internal intrinsic parameters stored inside the Kinect.
 
+---
 
 ### VSRS
 Export datasets to VSRS, batch run VSRS.
