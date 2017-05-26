@@ -90,8 +90,8 @@ target_link_libraries(optical_flow_2d common_lib calibration_lib)
 add_executable(visualize_image_correspondences "src/calibration/visualize_image_correspondences.cc")
 target_link_libraries(visualize_image_correspondences common_lib calibration_lib)
 
-add_executable(feature_depth_estimate "src/calibration/feature_depth_estimate.cc")
-target_link_libraries(feature_depth_estimate common_lib calibration_lib)
+add_executable(feature_depths "src/calibration/feature_depths.cc")
+target_link_libraries(feature_depths common_lib calibration_lib)
 
 add_executable(cg_measure_optical_flow_slopes "src/calibration/cg_measure_optical_flow_slopes.cc")
 target_link_libraries(cg_measure_optical_flow_slopes common_lib calibration_lib)
@@ -111,6 +111,9 @@ target_link_libraries(cg_estimate_rotation common_lib calibration_lib)
 add_executable(cg_slopes_viewer "src/calibration/cg_slopes_viewer.cc")
 target_link_libraries(cg_slopes_viewer common_lib calibration_lib)
 
+add_executable(cg_feature_straight_depths "src/calibration/cg_feature_straight_depths.cc")
+target_link_libraries(cg_feature_straight_depths common_lib calibration_lib)
+
 install(
 	TARGETS
 		calibrate_intrinsics
@@ -119,13 +122,14 @@ install(
 		optical_flow
 		optical_flow_2d
 		visualize_image_correspondences
-		feature_depth_estimate
+		feature_depths
 		cg_measure_optical_flow_slopes
 		cg_model_optical_flow_slopes
 		cg_visualize_optical_flow_slopes
 		cg_generate_artificial
 		cg_estimate_rotation
 		cg_slopes_viewer
+		cg_feature_straight_depths
 	DESTINATION calibration
 )
 install_pylib_link(calibration)

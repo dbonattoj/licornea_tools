@@ -143,7 +143,7 @@ int main(int argc, const char* argv[]) {
 		}
 
 		// draw points
-		viz_image = visualize_feature_points(fpoints, viz_image);
+		//viz_image = visualize_feature_points(fpoints, viz_image);
 
 		// compute and draw model slopes
 		feature_slopes model_fslopes(fpoints);

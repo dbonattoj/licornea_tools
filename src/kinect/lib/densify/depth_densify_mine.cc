@@ -40,7 +40,7 @@ void depth_densify_mine::densify(const std::vector<sample>& orig_samples, cv::Ma
 	
 	out.setTo(0.0);
 	out_mask.setTo(0);
-
+	
 	/*
 	out=sparse;
 	out.setTo(0, sparse_mask==0);
@@ -76,13 +76,13 @@ void depth_densify_mine::densify(const std::vector<sample>& orig_samples, cv::Ma
 		for(int sx = min_x; sx <= max_x; ++sx) if(sx != px)
 		for(int sy = min_y; sy <= max_y; ++sy) if(sy != py) {
 			if(! sparse_mask(sy, sx)) continue;
+
 			real sd = sparse(sy, sx);
-			
+
 			int off_x = sx - px, off_y = sy - py;
 			
 			int dist = std::max(std::abs(off_x), std::abs(off_y));
 			int euc_sq_dist = off_x*off_x + off_y*off_y;
-
 
 			if(euc_sq_dist > rad_sq) continue;
 			
