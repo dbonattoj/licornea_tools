@@ -4,9 +4,9 @@ The tools consists of several small command-line programs written in C++ and Pyt
 
 # Installation
 
-The C++ programs require [**OpenCV**](http://opencv.org) to be installed on the system. The programs that operate with the **Kinect v2** require [**libfreenect2**](https://github.com/OpenKinect/libfreenect2). The rest of the programs can still be built if it is not available. Building is done with [**CMake**](https://cmake.org). The C++ programs require a C++14 (possibly C++11) compatible compiler. It has been tested with a recent version of Clang++/LLVM on Linux. Other than the C++ standart library, and some external libraries that are included with the source code, there are additional dependencies.
+The C++ programs require [**OpenCV**](http://opencv.org) to be installed on the system. The programs that operate with the **Kinect v2** require [**libfreenect2**](https://github.com/OpenKinect/libfreenect2). The rest of the programs can still be built if it is not available. Building is done with [**CMake**](https://cmake.org). The C++ programs require a C++14 compatible compiler. It has been tested with a recent version of Clang++/LLVM on Linux. Other than the C++ standard library, and some external libraries that are included with the source code, there are no additional dependencies.
 
-This is the installation on Linux / macOS. On Windows Visual Studio project files, or `NMake` makefiles can be generated with `CMake` instead.
+This is the installation on Linux / macOS. On Windows, Visual Studio project files, or `NMake` makefiles can be generated with CMake instead.
 
 1. Install CMake and OpenCV on the system.
 2. (Optional) Install libfreenect2. It needs to be compiled from source. When building libfreenect2 with its CMake script, `CMAKE_INSTALL_PREFIX` needs to be set to `path/to/licornea_tools/external/freenect2`. `make install` then copies its library and header files into that directory, where the `licornea_tools` CMake script will find them.

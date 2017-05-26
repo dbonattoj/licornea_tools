@@ -4,37 +4,35 @@
 
 namespace tlz {
 
-feature_points to_feature_points(const feature_slopes& fslopes) {
-	feature_points fpoints;
-	for(const auto& kv : fslopes) fpoints[kv.first] = kv.second;
-	return fpoints;
-}
-
-
 feature_slopes decode_feature_slopes(const json& j_fslopes) {
 	feature_points fpoints = decode_feature_points(j_fslopes);
-	feature_slopes fslopes;
-	for(auto it = j_fslopes.begin(); it != j_fslopes.end(); ++it) {
+	feature_slopes fslopes(fpoints);
+	const json& j_fslopes_feat = j_fslopes["features"];
+	for(auto it = j_fslopes_feat.begin(); it != j_fslopes_feat.end(); ++it) {
 		const std::string& feature_name = it.key();
 		const json& j_fslope = it.value();
-		const feature_point& fpoint = fpoints.at(feature_name);
-		feature_slope fslope = fpoint;
-		fslope.horizontal = j_fslope["horizontal"];
-		fslope.vertical = j_fslope["vertical"];
-		fslopes[feature_name] = fslope;
+		feature_slope& fslope = fslopes.slopes[feature_name];
+		fslope.horizontal = j_fslope["slope_horizontal"];
+		fslope.vertical = j_fslope["slope_vertical"];
 	}
 	return fslopes;
 }
 
 
+bool has_feature_slopes(const json& j_fslopes) {
+	return has(j_fslopes["features"].begin().value(), "slope_horizontal");
+}
+
+
 json encode_feature_slopes(const feature_slopes& fslopes) {
-	json j_fslopes = encode_feature_points(to_feature_points(fslopes));
-	for(const auto& kv : fslopes) {
+	json j_fslopes = encode_feature_points(fslopes);
+	json& j_fslopes_feat = j_fslopes["features"];
+	for(const auto& kv : fslopes.slopes) {
 		const std::string& feature_name = kv.first;
 		const feature_slope& fslope = kv.second;
-		json& j_fslope = j_fslopes[feature_name];
-		j_fslope["horizontal"] = fslope.horizontal;
-		j_fslope["vertical"] = fslope.vertical;		
+		json& j_fslope = j_fslopes_feat[feature_name];
+		j_fslope["slope_horizontal"] = fslope.horizontal;
+		j_fslope["slope_vertical"] = fslope.vertical;		
 	}
 	return j_fslopes;
 }
@@ -56,17 +54,19 @@ real model_vertical_slope(const vec2& undistorted_point, const mat33& K, const m
 }
 
 
-cv::Mat_<cv::Vec3b> visualize_feature_slopes(const feature_slopes& fslopes, const cv::Mat_<cv::Vec3b>& back_img, int width, real exaggeration) {
+cv::Mat_<cv::Vec3b> visualize_feature_slopes(const feature_slopes& fslopes, const cv::Mat_<cv::Vec3b>& back_img, int width, real exaggeration, int thickness) {
 	cv::Mat_<cv::Vec3b> out_img;
 	back_img.copyTo(out_img);
 
 	int radius = width / 2;
 	
 	int i = 0;
-	for(const auto& kv : fslopes) {
+	for(const auto& kv : fslopes.slopes) {
+		const std::string& feature_name = kv.first;
+		const feature_point& fpoint = fslopes.points.at(feature_name);
 		const feature_slope& fslope = kv.second;
 
-		cv::Point center_point = vec2_to_point(fslope.undistorted_point);
+		cv::Point center_point = vec2_to_point(fpoint.undistorted_point);
 		cv::Vec3b col = random_color(i++);
 		
 		real hslope = fslope.horizontal * exaggeration;
@@ -79,7 +79,7 @@ cv::Mat_<cv::Vec3b> visualize_feature_slopes(const feature_slopes& fslopes, cons
 			end_points[0] = cv::Point(center_point.x - radius, center_point.y - radius*hslope);
 			end_points[1] = cv::Point(center_point.x + radius, center_point.y + radius*hslope);
 			std::vector<std::vector<cv::Point>> polylines { end_points };
-			cv::polylines(out_img, polylines, false, cv::Scalar(col), 2);
+			cv::polylines(out_img, polylines, false, cv::Scalar(col), thickness);
 		}
 	
 	
@@ -89,7 +89,7 @@ cv::Mat_<cv::Vec3b> visualize_feature_slopes(const feature_slopes& fslopes, cons
 			end_points[0] = cv::Point(center_point.x - radius*vslope, center_point.y - radius);
 			end_points[1] = cv::Point(center_point.x + radius*vslope, center_point.y + radius);
 			std::vector<std::vector<cv::Point>> polylines { end_points };
-			cv::polylines(out_img, polylines, false, cv::Scalar(col), 2);
+			cv::polylines(out_img, polylines, false, cv::Scalar(col), thickness);
 		}	
 	}
 	

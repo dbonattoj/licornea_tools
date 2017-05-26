@@ -2,6 +2,7 @@
 #include <map>
 #include <cmath>
 #include "lib/image_correspondence.h"
+#include "lib/cg/feature_slopes.h"
 #include "../lib/utility/misc.h"
 #include "../lib/json.h"
 #include "../lib/dataset.h"
@@ -28,8 +29,9 @@ int main(int argc, const char* argv[]) {
 	std::cout << "loading correspondences" << std::endl;
 	image_correspondences cors = import_image_correspondences_file(cors_filename);
 	view_index reference_idx = cors.reference;
+	std::cout << "using reference view idx " << reference_idx << std::endl;
 
-	std::cout << "loading intrinsics, rotation" << std::endl;
+	std::cout << "loading intrinsics" << std::endl;
 	intrinsics intr = decode_intrinsics(import_json_file(intrinsics_filename));
 	
 	std::cout << "estimating slopes for horizontal flow" << std::endl;
@@ -66,20 +68,17 @@ int main(int argc, const char* argv[]) {
 		feature_vertical_slopes[feature_name] = line_parameters[0] / line_parameters[1];
 	}
 	
+
+	
 	std::cout << "saving slopes" << std::endl;
-	json j_feature_slopes = json::object();
+	feature_points ref_fpoints = feature_points_for_view(cors, reference_idx, intr);
+	feature_slopes fslopes = ref_fpoints;
 	for(const auto& kv : cors.features) {
 		const std::string& feature_name = kv.first;
-		const image_correspondence_feature& feature = kv.second;
-		json j_slope = json::object();
-		j_slope["ix"] = feature.points.at(reference_idx)[0];
-		j_slope["iy"] = feature.points.at(reference_idx)[1];
-		j_slope["horizontal"] = feature_horizontal_slopes.at(feature_name);
-		j_slope["vertical"] = feature_vertical_slopes.at(feature_name);
-		j_feature_slopes[feature_name] = j_slope;
+		
+		feature_slope& fslope = fslopes.slopes[feature_name];
+		fslope.horizontal = feature_horizontal_slopes.at(feature_name);
+		fslope.vertical = feature_vertical_slopes.at(feature_name);
 	}
-	json j_slopes = json::object();
-	j_slopes["slopes"] = j_feature_slopes;
-	j_slopes["view"] = encode_view_index(reference_idx);
-	export_json_file(j_slopes, out_slopes_filename);
+	export_json_file(encode_feature_slopes(fslopes), out_slopes_filename);
 }

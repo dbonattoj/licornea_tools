@@ -33,7 +33,7 @@ int main(int argc, const char* argv[]) {
 	else if(y_index == -1) idx = view_index(x_index);
 	else idx = view_index(x_index, y_index);
 	feature_points fpoints = feature_points_for_view(cors, idx, intr);
-	export_json_file(out_feature_points_filename, encode_feature_points(fpoints));
+	export_json_file(encode_feature_points(fpoints), out_feature_points_filename);
 
 	std::cout << "done" << std::endl;
 }

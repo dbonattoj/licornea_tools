@@ -14,15 +14,22 @@ Building installs all the executables/scripts into the `bin/` directory, from wh
 ## Usage examples
 Examples on how to use the tools for common tasks.
 
-- Import dataset from Kinect
-- Calibrate camera parameters
+- Import dataset from acquisition system
+- Calibrate Kinect sensors, and reproject depth map
+- Calibrate extrinsic camera parameters using optical flow
 - Export dataset to VSRS
 - Run view synthesis experiments using VSRS
 
 ## Tools
 
 ### Calibration
-Calibrate intrinsic camera parameters using object-to-image correspondences. Rectify and calibrate dataset using optical flow.
+Calibrate intrinsic camera parameters using object-to-image correspondences.
+
+---
+
+#### Camera grid calibration (cg)
+
+Rectify and calibrate dataset using optical flow of tracked features, on 2D dataset. Assumes camera centers move on a regular grid, and camera rotation is constant.
 
 ---
 

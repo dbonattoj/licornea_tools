@@ -93,8 +93,11 @@ target_link_libraries(visualize_image_correspondences common_lib calibration_lib
 add_executable(feature_depth_estimate "src/calibration/feature_depth_estimate.cc")
 target_link_libraries(feature_depth_estimate common_lib calibration_lib)
 
-add_executable(cg_optical_flow_slopes "src/calibration/cg_optical_flow_slopes.cc")
-target_link_libraries(cg_optical_flow_slopes common_lib calibration_lib)
+add_executable(cg_measure_optical_flow_slopes "src/calibration/cg_measure_optical_flow_slopes.cc")
+target_link_libraries(cg_measure_optical_flow_slopes common_lib calibration_lib)
+
+add_executable(cg_model_optical_flow_slopes "src/calibration/cg_model_optical_flow_slopes.cc")
+target_link_libraries(cg_model_optical_flow_slopes common_lib calibration_lib)
 
 add_executable(cg_visualize_optical_flow_slopes "src/calibration/cg_visualize_optical_flow_slopes.cc")
 target_link_libraries(cg_visualize_optical_flow_slopes common_lib calibration_lib)
@@ -102,11 +105,11 @@ target_link_libraries(cg_visualize_optical_flow_slopes common_lib calibration_li
 add_executable(cg_generate_artificial "src/calibration/cg_generate_artificial.cc")
 target_link_libraries(cg_generate_artificial common_lib calibration_lib)
 
-add_executable(cg_predict_optical_flow_slopes "src/calibration/cg_predict_optical_flow_slopes.cc")
-target_link_libraries(cg_predict_optical_flow_slopes common_lib calibration_lib)
-
 add_executable(cg_estimate_rotation "src/calibration/cg_estimate_rotation.cc")
 target_link_libraries(cg_estimate_rotation common_lib calibration_lib)
+
+add_executable(cg_slopes_viewer "src/calibration/cg_slopes_viewer.cc")
+target_link_libraries(cg_slopes_viewer common_lib calibration_lib)
 
 install(
 	TARGETS
@@ -117,11 +120,12 @@ install(
 		optical_flow_2d
 		visualize_image_correspondences
 		feature_depth_estimate
-		cg_optical_flow_slopes
+		cg_measure_optical_flow_slopes
+		cg_model_optical_flow_slopes
 		cg_visualize_optical_flow_slopes
 		cg_generate_artificial
-		cg_predict_optical_flow_slopes
 		cg_estimate_rotation
+		cg_slopes_viewer
 	DESTINATION calibration
 )
 install_pylib_link(calibration)

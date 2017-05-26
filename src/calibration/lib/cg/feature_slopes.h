@@ -10,24 +10,25 @@
 namespace tlz {
 
 struct feature_slope : feature_point {
-	feature_slope() = default;
-	feature_slope(const feature_slope&) = default;
-	feature_slope(const feature_point& fpoint) : feature_point(fpoint) { }
-	
-	real horizontal;
-	real vertical;
+	real horizontal = NAN;
+	real vertical = NAN;
 };
-using feature_slopes = std::map<std::string, feature_slope>;
+struct feature_slopes : feature_points {
+	std::map<std::string, feature_slope> slopes;
 
-feature_points to_feature_points(const feature_slopes&);
+	feature_slopes() = default;
+	feature_slopes(const feature_points& fpoints) : feature_points(fpoints) { }
+};
 
 feature_slopes decode_feature_slopes(const json&);
+bool has_feature_slopes(const json&);
+
 json encode_feature_slopes(const feature_slopes&);
 
 real model_horizontal_slope(const vec2& undistorted_point, const mat33& K, const mat33& R);
 real model_vertical_slope(const vec2& undistorted_point, const mat33& K, const mat33& R);
 
-cv::Mat_<cv::Vec3b> visualize_feature_slopes(const feature_slopes&, const cv::Mat_<cv::Vec3b>& back_img, int width = 200, real exaggeration = 1.0);
+cv::Mat_<cv::Vec3b> visualize_feature_slopes(const feature_slopes&, const cv::Mat_<cv::Vec3b>& back_img, int width = 200, real exaggeration = 1.0, int thickness = 2);
 
 }
 

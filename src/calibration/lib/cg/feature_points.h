@@ -4,6 +4,7 @@
 #include "../../../lib/json.h"
 #include "../../../lib/opencv.h"
 #include "../../../lib/intrinsics.h"
+#include "../../../lib/dataset.h"
 #include "../image_correspondence.h"
 #include <map>
 #include <string>
@@ -14,7 +15,10 @@ struct feature_point {
 	vec2 distorted_point;
 	vec2 undistorted_point;
 };
-using feature_points = std::map<std::string, feature_point>;
+struct feature_points {
+	std::map<std::string, feature_point> points;
+	view_index view_idx;
+};
 
 feature_points decode_feature_points(const json&);
 json encode_feature_points(const feature_points&);
