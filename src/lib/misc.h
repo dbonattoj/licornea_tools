@@ -13,6 +13,8 @@ using default_random_engine = std::mt19937;
 	
 template<typename...> using void_t = void;
 
+bool file_exists(const std::string& filename);
+
 /// Compute square of a number.
 template<typename Numeric> Numeric sq(Numeric n) { return n * n; }
 
