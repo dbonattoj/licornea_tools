@@ -6,6 +6,7 @@
 #include <string>
 #include "lib/image_correspondence.h"
 #include "lib/cg/feature_slopes.h"
+#include "../lib/args.h"
 #include "../lib/json.h"
 #include "../lib/dataset.h"
 #include "../lib/opencv.h"
@@ -13,30 +14,16 @@
 
 using namespace tlz;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: cg_visualize_optical_flow_slopes dataset_parameters.json intrinsics.json slopes.json out_visualization.png [width=200] [exaggeration=1]\n";
-	std::cout << std::endl;
-	std::exit(1);
-}
+
 int main(int argc, const char* argv[]) {
-	if(argc <= 4) usage_fail();
-	std::string dataset_parameter_filename = argv[1];
-	std::string intrinsics_filename = argv[2];
-	std::string slopes_filename = argv[3];
-	std::string visualization_filename = argv[4];
-	int width = 200;
-	real exaggeration = 1.0;
-	if(argc > 5) width = std::stoi(argv[5]);
-	if(argc > 6) exaggeration = std::stof(argv[6]);
-
-	std::cout << "loading data set" << std::endl;
-	dataset datas(dataset_parameter_filename);
-	
-	std::cout << "loading intrinsics" << std::endl;
-	intrinsics intr = decode_intrinsics(import_json_file(intrinsics_filename));
-
-	std::cout << "loading slopes" << std::endl;
-	feature_slopes fslopes = decode_feature_slopes(import_json_file(slopes_filename));
+	get_args(argc, argv,
+		"dataset_parameters.json intrinsics.json slopes.json out_visualization.png [width=200] [exaggeration=1]");
+	dataset datas = dataset_arg();
+	intrinsics intr = intrinsics_arg();
+	feature_slopes fslopes = feature_slopes_arg();
+	std::string visualization_filename = out_filename_arg();
+	int width = int_opt_arg(200);
+	real exaggeration = real_opt_arg(1.0);
 	
 	std::cout << "loading background image" << std::endl;
 	cv::Mat_<cv::Vec3b> back_img;

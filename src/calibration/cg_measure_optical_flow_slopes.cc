@@ -11,28 +11,15 @@
 
 using namespace tlz;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: cg_optical_flow_slopes dataset_parameters.json image_correspondences.json intrinsics.json out_slopes.json\n";
-	std::cout << std::endl;
-	std::exit(1);
-}
 int main(int argc, const char* argv[]) {
-	if(argc <= 4) usage_fail();
-	std::string dataset_parameters_filename = argv[1];
-	std::string cors_filename = argv[2];
-	std::string intrinsics_filename = argv[3];
-	std::string out_slopes_filename = argv[4];
-	
-	std::cout << "loading data set" << std::endl;
-	dataset datas(dataset_parameters_filename);
-	
-	std::cout << "loading correspondences" << std::endl;
-	image_correspondences cors = import_image_correspondences_file(cors_filename);
+	get_args(argc, argv, "dataset_parameters.json image_correspondences.json intrinsics.json out_slopes.json");
+	dataset datas = dataset_arg();
+	image_correspondences cors = image_correspondences_arg();
+	intrinsics intr = intrinsics_arg();
+	std::string out_slopes_filename = out_filename_arg();
+
 	view_index reference_idx = cors.reference;
 	std::cout << "using reference view idx " << reference_idx << std::endl;
-
-	std::cout << "loading intrinsics" << std::endl;
-	intrinsics intr = decode_intrinsics(import_json_file(intrinsics_filename));
 	
 	std::cout << "estimating slopes for horizontal flow" << std::endl;
 	std::map<std::string, real> feature_horizontal_slopes;
@@ -71,7 +58,7 @@ int main(int argc, const char* argv[]) {
 
 	
 	std::cout << "saving slopes" << std::endl;
-	feature_points ref_fpoints = feature_points_for_view(cors, reference_idx, intr);
+	feature_points ref_fpoints = undistorted_feature_points_for_view(cors, reference_idx, intr);
 	feature_slopes fslopes = ref_fpoints;
 	for(const auto& kv : cors.features) {
 		const std::string& feature_name = kv.first;

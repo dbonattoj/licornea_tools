@@ -5,7 +5,7 @@
 
 namespace tlz {
 
-feature_slopes(const feature_points& fpoints) : feature_points(fpoints) {
+feature_slopes::feature_slopes(const feature_points& fpoints) : feature_points(fpoints) {
 	Assert(! fpoints.is_distorted, "feature_slopes can only be created for undistorted feature points");
 }
 
@@ -69,10 +69,10 @@ cv::Mat_<cv::Vec3b> visualize_feature_slopes(const feature_slopes& fslopes, cons
 	int i = 0;
 	for(const auto& kv : fslopes.slopes) {
 		const std::string& feature_name = kv.first;
-		const feature_point& fpoint = fslopes.points.at(feature_name);
+		const vec2& fpoint = fslopes.points.at(feature_name);
 		const feature_slope& fslope = kv.second;
 
-		cv::Point center_point = vec2_to_point(fpoint.undistorted_point);
+		cv::Point center_point = vec2_to_point(fpoint);
 		cv::Vec3b col = random_color(i++);
 		
 		real hslope = fslope.horizontal * exaggeration;

@@ -4,6 +4,7 @@
 #include <json.hpp>
 #include <string>
 #include "common.h"
+#include "args.h"
 
 namespace tlz {
 
@@ -29,6 +30,9 @@ T get_or(const json& j, const std::string& key, const T& default_value) {
 	else return default_value;
 }
 
+
+inline json json_arg()
+	{ return import_json_file(in_filename_arg()); }
 
 }
 

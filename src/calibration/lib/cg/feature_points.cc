@@ -1,14 +1,15 @@
 #include "feature_points.h"
 #include "../../../lib/random_color.h"
+#include "../../../lib/json.h"
 
 namespace tlz {
 
 feature_points decode_feature_points(const json& j_fpoints) {
 	feature_points fpoints;
 	fpoints.view_idx = decode_view_index(j_fpoints["view_idx"]);
-	fpoints.is_distorted = get_or(j_fpoints["is_distorted"], false);
-	const json& f_fpoints_feat = j_fpoints["features"];
-	for(auto it = f_fpoints_feat.begin(); it != f_fpoints_feat.end(); ++it) {
+	fpoints.is_distorted = get_or(j_fpoints, "is_distorted", false);
+	const json& j_fpoints_feat = j_fpoints["features"];
+	for(auto it = j_fpoints_feat.begin(); it != j_fpoints_feat.end(); ++it) {
 		const std::string& feature_name = it.key();
 		const json& j_fpoint = it.value();
 		fpoints.points[feature_name] = decode_mat(j_fpoint);
@@ -23,7 +24,7 @@ json encode_feature_points(const feature_points& fpoints) {
 		const std::string& feature_name = kv.first;
 		const vec2& fpoint = kv.second;
 		json j_fpoint = json::object();
-		f_fpoints_feat[feature_name] = encode_mat(jpoint);
+		f_fpoints_feat[feature_name] = encode_mat(fpoint);
 	}
 	
 	json j_fpoints = json::object();
@@ -44,7 +45,7 @@ feature_points feature_points_for_view(const image_correspondences& cors, view_i
 		const std::string& feature_name = kv.first;
 		const image_correspondence_feature& feature = kv.second;
 		const vec2& point = feature.points.at(idx);
-		fpoints.points[feature_name] = feature.points.at(idx);;
+		fpoints.points[feature_name] = point;
 	}
 	
 	return fpoints;
@@ -52,8 +53,8 @@ feature_points feature_points_for_view(const image_correspondences& cors, view_i
 
 
 feature_points undistort(const feature_points& dist_fpoints, const intrinsics& intr) {
-	if(! fpoints.is_distorted) return fpoints;
-	if(! intr.distortion) return fpoints;
+	if(! dist_fpoints.is_distorted) return dist_fpoints;
+	if(! intr.distortion) return dist_fpoints;
 	
 	feature_points undist_fpoints;
 	undist_fpoints.is_distorted = false;

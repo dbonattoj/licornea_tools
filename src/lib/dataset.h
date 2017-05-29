@@ -1,10 +1,11 @@
 #ifndef LICORNEA_DATASET_H_
 #define LICORNEA_DATASET_H_
 
-#include "json.h"
 #include <string>
 #include <utility>
 #include <iosfwd>
+#include "json.h"
+#include "args.h"
 
 namespace tlz {
 
@@ -113,6 +114,9 @@ public:
 	dataset_view view(int x, int y) const;
 	dataset_view view(view_index) const;
 };
+
+inline dataset dataset_arg()
+	{ return dataset(in_filename_arg()); }
 
 }
 

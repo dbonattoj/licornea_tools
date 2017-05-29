@@ -7,6 +7,7 @@
 #include <set>
 #include <map>
 #include "lib/image_correspondence.h"
+#include "../lib/args.h"
 #include "../lib/misc.h"
 #include "../lib/dataset.h"
 #include "../lib/image_io.h"
@@ -16,27 +17,16 @@
 using namespace tlz;
 
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: feature_depths dataset_parameters.json in_image_correspondences.json depths.txt [y]" << std::endl;
-	std::exit(EXIT_FAILURE);
-}
 int main(int argc, const char* argv[]) {
-	if(argc <= 3) usage_fail();
-	std::string dataset_parameter_filename = argv[1];
-	std::string in_cors_filename = argv[2];
-	std::string depths_filename = argv[3];
-	int y = -1;
-	if(argc > 4) y = std::atoi(argv[4]);
-		
-	std::cout << "loading data set" << std::endl;
-	dataset datas(dataset_parameter_filename);
+	get_args(argc, argv, "dataset_parameters.json in_image_correspondences.json depths.txt [y_index]");
+	dataset datas = dataset_arg();
+	image_correspondences cors = image_correspondences_arg();
+	std::string depths_filename = out_filename_arg();
+	int y = int_opt_arg(-1);
 	
 	if(datas.is_2d() && y == -1) throw std::runtime_error("must specify y index for 2D dataset");
 		
 	std::map<std::string, std::map<view_index, real>> feature_depths;
-
-	std::cout << "loading correspondences" << std::endl;
-	image_correspondences cors = import_image_correspondences_file(in_cors_filename);
 
 	std::cout << "for each view, reading feature depths" << std::endl;
 	for(int x : datas.x_indices()) {

@@ -3,6 +3,7 @@
 
 #include "../../lib/json.h"
 #include "../../lib/dataset.h"
+#include "../../lib/args.h"
 #include <map>
 #include <vector>
 #include <utility>
@@ -23,8 +24,11 @@ struct image_correspondences {
 image_correspondence_feature decode_image_correspondence_feature(const json&);
 json encode_image_correspondence_feature(const image_correspondence_feature&); 
 
-image_correspondences import_image_correspondences_file(const std::string& filename);
-void export_image_correspondences_file(const std::string& filename, const image_correspondences&);
+image_correspondences decode_image_correspondences(const json&);
+json encode_image_correspondences(const image_correspondences&);
+
+inline image_correspondences image_correspondences_arg()
+	{ return decode_image_correspondences(json_arg()); }
 
 }
 

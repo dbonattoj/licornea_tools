@@ -16,34 +16,23 @@ static std::string make_feature_name(int i) {
 	return "pt" + std::to_string(i);
 }
 
-
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: optical_flow dataset_parameters.json out_image_correspondences.json [out_xy.txt]\n";
-	std::cout << std::endl;
-	std::exit(1);
-}
-
-
-
 int main(int argc, const char* argv[]) {
-	if(argc <= 2) usage_fail();
-	std::string dataset_parameter_filename = argv[1];
-	std::string out_cors_filename = argv[2];
-	std::string out_xy_filename;
-	if(argc > 3) out_xy_filename = argv[3];
+	get_args(argc, argv, "dataset_parameters.json out_image_correspondences.json [out_xy.txt]");
+	dataset datas = dataset_arg();
+	std::string out_cors_filename = out_filename_arg();
+	std::string out_xy_filename = out_filename_opt_arg();
 
 	std::cout << "loading data set" << std::endl;
-	dataset set(dataset_parameter_filename);
-	if(set.is_2d()) {
+	if(datas.is_2d()) {
 		std::cout << "no support for 2d dataset" << std::endl;
 		std::exit(1);
 	}
 	
-	int count_x = set.x_count(), mid_x = set.x_mid();
+	int count_x = datas.x_count(), mid_x = datas.x_mid();
 	std::cout << "reference: mid_x=" << mid_x << std::endl;
 		
 	std::cout << "loading center image" << std::endl;	
-	cv::Mat_<cv::Vec3b> center_col_img = cv::imread(set.view(mid_x).image_filename(), CV_LOAD_IMAGE_COLOR);
+	cv::Mat_<cv::Vec3b> center_col_img = cv::imread(datas.view(mid_x).image_filename(), CV_LOAD_IMAGE_COLOR);
 	cv::Mat_<uchar> center_gray_img;
 	cv::cvtColor(center_col_img, center_gray_img, CV_BGR2GRAY);
 		
@@ -58,9 +47,9 @@ int main(int argc, const char* argv[]) {
 	std::vector<uchar> status;
 	std::vector<image_correspondence_feature> correspondences(features_count);
 
-	auto flow_to = [&img, &positions, &status, &set](int x) {
+	auto flow_to = [&img, &positions, &status, &datas](int x) {
 		std::vector<cv::Point2f> new_positions(features_count);
-		cv::Mat_<cv::Vec3b> new_col_img = cv::imread(set.view(x).image_filename(), CV_LOAD_IMAGE_COLOR);
+		cv::Mat_<cv::Vec3b> new_col_img = cv::imread(datas.view(x).image_filename(), CV_LOAD_IMAGE_COLOR);
 		cv::Mat_<uchar> new_img;
 		cv::cvtColor(new_col_img, new_img, CV_BGR2GRAY);
 
@@ -90,9 +79,9 @@ int main(int argc, const char* argv[]) {
 	
 	add_correspondences(mid_x);
 	
-	for(int x = mid_x + set.x_step(); x <= set.x_max(); x += set.x_step()) {
+	for(int x = mid_x + datas.x_step(); x <= datas.x_max(); x += datas.x_step()) {
 		std::cout << '.' << std::flush;
-		//std::cout << "   x=" << (x - set.x_step()) << " --> x=" << x << std::endl;
+		//std::cout << "   x=" << (x - datas.x_step()) << " --> x=" << x << std::endl;
 		flow_to(x);
 		add_correspondences(x);
 	}
@@ -104,9 +93,9 @@ int main(int argc, const char* argv[]) {
 	img = center_gray_img;
 	positions = center_positions;
 	status.assign(features_count, 1);
-	for(int x = mid_x - set.x_step(); x >= set.x_min(); x -= set.x_step()) {
+	for(int x = mid_x - datas.x_step(); x >= datas.x_min(); x -= datas.x_step()) {
 		std::cout << '.' << std::flush;
-		//std::cout << "   x=" << (x + set.x_step()) << " <-- x=" << x << std::endl;
+		//std::cout << "   x=" << (x + datas.x_step()) << " <-- x=" << x << std::endl;
 		flow_to(x);
 		add_correspondences(x);
 	}
@@ -121,7 +110,7 @@ int main(int argc, const char* argv[]) {
 	}
 	std::cout << "retained " << cors.features.size() << " of " << center_positions.size() << " features" << std::endl;
 	cors.reference = view_index(mid_x);
-	export_image_correspondences_file(out_cors_filename, cors);
+	export_json_file(encode_image_correspondences(cors), out_cors_filename);
 	
 	if(! out_xy_filename.empty()) {
 		std::cout << "saving all xy positions" << std::endl;

@@ -1,3 +1,4 @@
+#include "../lib/args.h"
 #include "../lib/opencv.h"
 #include "../lib/intrinsics.h"
 #include "../lib/dataset.h"
@@ -56,19 +57,12 @@ real from_int(int ival) {
 }
  
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: cg_slopes_viewer dataset_parameters.json intrinsics.json points.json/measured_slopes.json\n" << std::endl;
-	std::exit(EXIT_FAILURE);
-}
 int main(int argc, const char* argv[]) {
-	if(argc <= 3) usage_fail();
-	std::string dataset_parameters_filename = argv[1];
-	std::string intrinsics_filename = argv[2];
-	std::string point_or_slopes_filename = argv[3];
-	
-	std::cout << "loading dataset and intrinsics" << std::endl;
-	dataset datas(dataset_parameters_filename);
-	intrinsics intr = decode_intrinsics(import_json_file(intrinsics_filename));
+	get_args(argc, argv, 
+		"dataset_parameters.json intrinsics.json points.json/measured_slopes.json");
+	dataset datas = dataset_arg();
+	intrinsics intr = intrinsics_arg();
+	std::string point_or_slopes_filename = in_filename_arg();
 
 	std::cout << "loading feature points or slopes" << std::endl;
 	feature_points fpoints;
@@ -150,10 +144,10 @@ int main(int argc, const char* argv[]) {
 		mat33 R = to_rotation_matrix(x, y, z);
 		for(const auto& kv : fpoints.points) {
 			const std::string& feature_name = kv.first;
-			const feature_point& fpoint = kv.second;
+			vec2 fpoint = kv.second;
 			feature_slope& fslope = model_fslopes.slopes[feature_name];
-			fslope.horizontal = model_horizontal_slope(fpoint.undistorted_point, intr.K, R);
-			fslope.vertical = model_vertical_slope(fpoint.undistorted_point, intr.K, R);
+			fslope.horizontal = model_horizontal_slope(fpoint, intr.K, R);
+			fslope.vertical = model_vertical_slope(fpoint, intr.K, R);
 		}
 		if(model_width > 0)
 			viz_image = visualize_feature_slopes(model_fslopes, viz_image, model_width, exaggeration, 1);

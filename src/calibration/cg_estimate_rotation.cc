@@ -5,6 +5,7 @@
 #include <fstream>
 #include <cassert>
 #include "lib/cg/feature_slopes.h"
+#include "../lib/args.h"
 #include "../lib/misc.h"
 #include "../lib/json.h"
 #include "../lib/opencv.h"
@@ -60,21 +61,12 @@ void one_dim_search_minimum(Func f, real& a, real& b, real tolerance) {
 }
 
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: cg_estimate_rotation measured_feature_slopes.json intrinsics.json out_rotation.json" << std::endl;
-	std::exit(EXIT_FAILURE);
-}
 int main(int argc, const char* argv[]) {
-	if(argc <= 3) usage_fail();
-	std::string measured_feature_slopes_filename = argv[1];
-	std::string intrinsics_filename = argv[2];
-	std::string out_rotation_filename = argv[3];
-	
-	std::cout << "loading intrinsics" << std::endl;
-	intrinsics intr = decode_intrinsics(import_json_file(intrinsics_filename));
+	get_args(argc, argv, "measured_feature_slopes.json intrinsics.json out_rotation.json");
+	feature_slopes measured_fslopes = feature_slopes_arg();
+	intrinsics intr = intrinsics_arg();
+	std::string  out_rotation_filename = out_filename_arg();
 
-	std::cout << "loading slopes" << std::endl;
-	feature_slopes measured_fslopes = decode_feature_slopes(import_json_file(measured_feature_slopes_filename));
 	Assert(! measured_fslopes.is_distorted);
 	
 	auto rotation_error = [&measured_fslopes, &intr](real x, real y, real z) {

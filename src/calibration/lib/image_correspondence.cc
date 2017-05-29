@@ -47,9 +47,8 @@ json encode_image_correspondence_feature(const image_correspondence_feature& fea
 }
 
 
-image_correspondences import_image_correspondences_file(const std::string& filename) {
+image_correspondences decode_image_correspondences(const json& j_cors) {
 	image_correspondences cors;
-	json j_cors = import_json_file(filename);
 	if(j_cors.count("reference") == 1) cors.reference = decode_view_index(j_cors["reference"]);
 	const json& j_features = j_cors["features"];
 	for(auto it = j_features.begin(); it != j_features.end(); ++it) {
@@ -61,7 +60,7 @@ image_correspondences import_image_correspondences_file(const std::string& filen
 }
 
 
-void export_image_correspondences_file(const std::string& filename, const image_correspondences& cors) {
+json encode_image_correspondences(const image_correspondences& cors) {
 	json j_cors = json::object();
 	if(cors.reference) j_cors["reference"] = encode_view_index(cors.reference);
 	json j_features = json::object();
@@ -71,7 +70,7 @@ void export_image_correspondences_file(const std::string& filename, const image_
 		j_features[feature_name] = encode_image_correspondence_feature(feature);
 	}
 	j_cors["features"] = j_features;
-	export_json_file(j_cors, filename);
+	return j_cors;
 }
 
 

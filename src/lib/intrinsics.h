@@ -3,6 +3,7 @@
 
 #include "opencv.h"
 #include "json.h"
+#include "args.h"
 
 namespace tlz {
 
@@ -45,6 +46,9 @@ std::vector<cv::Vec2f> undistort_points(const intrinsics&, const std::vector<cv:
 
 vec2 distort_point(const intrinsics&, const vec2& undistorted);
 std::vector<vec2> distort_points(const intrinsics&, const std::vector<vec2>& undistorted);
+
+inline intrinsics intrinsics_arg()
+	{ return decode_intrinsics(json_arg()); }
 
 }
 

@@ -6,6 +6,7 @@
 #include <string>
 #include <mutex>
 #include "lib/image_correspondence.h"
+#include "../lib/args.h"
 #include "../lib/json.h"
 #include "../lib/dataset.h"
 #include "../lib/opencv.h"
@@ -97,20 +98,13 @@ void do_horizontal_optical_flow(const flow_state& mid_x_state, const dataset& da
 }
 
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: optical_flow dataset_parameters.json out_image_correspondences.json\n";
-	std::cout << std::endl;
-	std::exit(1);
-}
+
 int main(int argc, const char* argv[]) {
-	if(argc <= 2) usage_fail();
-	std::string dataset_parameter_filename = argv[1];
-	std::string out_cors_filename = argv[2];
-	std::string out_xy_filename;
+	get_args(argc, argv, "dataset_parameters.json out_image_correspondences.json");
+	dataset datas = dataset_arg();
+	std::string out_cors_filename = out_filename_arg();
 
 	view_index center_idx;
-	std::cout << "loading data set" << std::endl;
-	dataset datas(dataset_parameter_filename);
 	if(datas.is_1d()) center_idx = view_index(datas.x_mid());
 	else center_idx = view_index(datas.x_mid(), datas.y_mid());
 	std::cout << "center idx=" << center_idx << std::endl;
@@ -192,7 +186,7 @@ int main(int argc, const char* argv[]) {
 	}
 	std::cout << "retained " << cors.features.size() << " of " << center_positions.size() << " features" << std::endl;
 	cors.reference = center_idx;
-	export_image_correspondences_file(out_cors_filename, cors);
+	export_json_file(encode_image_correspondences(cors), out_cors_filename);
 	
 	std::cout << "done" << std::endl;
 }

@@ -10,14 +10,14 @@
 
 #ifndef NDEBUG
 	#define MF_ASSERT_CRIT_MSG_(__condition__, __msg__) \
-		if(! (__condition__)) throw ::mf::failed_assertion(__msg__ " at " __FILE__ ":" MF_STRINGIZE(__LINE__))
+		if(! (__condition__)) throw ::tlz::failed_assertion(__msg__ " at " __FILE__ ":" MF_STRINGIZE(__LINE__))
 	#define MF_ASSERT_MSG_(__condition__, __msg__) \
-		if(! (__condition__)) throw ::mf::failed_assertion(__msg__ " at " __FILE__ ":" MF_STRINGIZE(__LINE__))
+		if(! (__condition__)) throw ::tlz::failed_assertion(__msg__ " at " __FILE__ ":" MF_STRINGIZE(__LINE__))
 #else
 	#define MF_ASSERT_CRIT_MSG_(__condition__, __msg__) \
 		(void)0
 	#define MF_ASSERT_MSG_(__condition__, __msg__) \
-		if(! (__condition__)) throw ::mf::failed_assertion(__msg__ " at " __FILE__ ":" MF_STRINGIZE(__LINE__))
+		if(! (__condition__)) throw ::tlz::failed_assertion(__msg__ " at " __FILE__ ":" MF_STRINGIZE(__LINE__))
 #endif
 
 

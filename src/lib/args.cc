@@ -6,6 +6,19 @@
 
 namespace tlz {
 
+std::unique_ptr<args_list> args_list::instance = std::unique_ptr<args_list>();
+
+args_list& args() {
+	if(args_list::instance) return *args_list::instance;
+	else throw std::logic_error("args_list not initialized (get_args was not called)");
+}
+
+
+void get_args(int argc, const char* argv[], const std::string& usage) {
+	args_list::instance = std::make_unique<args_list>(argc, argv, usage);
+}
+
+
 args_list::args_list(int argc, const char* argv[], const std::string& usage) :
 	executable_name_(argv[0]),
 	usage_(usage),
@@ -20,7 +33,7 @@ void args_list::usage_fail(const std::string& error) const {
 	std::exit(EXIT_FAILURE);
 }
 
-const char* args_list::next_arg_() {
+const char* args_list::next_arg() {
 	if(arg_index_ >= args_.size())
 		usage_fail("more than " + std::to_string(args_.size()) + " arguments needed");
 	return args_.at(arg_index_++);
@@ -36,46 +49,46 @@ bool args_list::has_next_arg() const {
 	return (arg_index_ < args_.size());
 }
 
-std::string args_list::string_arg() {
-	return std::string(next_arg_());
+std::string string_arg() {
+	return std::string(args().next_arg());
 }
 
-std::string args_list::in_filename_arg() {
+std::string in_filename_arg() {
 	const std::string& filename = string_arg();
-	if(!file_exists(filename)) usage_fail("file " + filename + " does not exist");
+	if(!file_exists(filename)) args().usage_fail("file " + filename + " does not exist");
 	return filename;
 }
 
-std::string args_list::out_filename_arg() {
+std::string out_filename_arg() {
 	const std::string& filename = string_arg();
 	return filename;
 }
 
-long args_list::int_arg() {
-	const char* str = next_arg_();
+long int_arg() {
+	const char* str = args().next_arg();
 	char* str_end;
 	long i = std::strtol(str, &str_end, 10);
-	if(str_end == str) usage_fail("`" + std::string(str) + "` is not an integer");
+	if(str_end == str) args().usage_fail("`" + std::string(str) + "` is not an integer");
 	return i;
 }
 
-double args_list::real_arg() {
-	const char* str = next_arg_();
+double real_arg() {
+	const char* str = args().next_arg();
 	char* str_end;
 	double f = std::strtod(str, &str_end);
-	if(str_end == str) usage_fail("`" + std::string(str) + "` is not a real");
+	if(str_end == str) args().usage_fail("`" + std::string(str) + "` is not a real");
 	return f;
 }
 
-std::string args_list::enum_arg(const std::vector<std::string>& options) {
-	const char* str = next_arg_();
+std::string enum_arg(const std::vector<std::string>& options) {
+	const char* str = args().next_arg();
 	for(const std::string& option : options)
 		if(str == option) return option;
-	usage_fail("`" + std::string(str) + "` invalid value");
+	args().usage_fail("`" + std::string(str) + "` invalid value");
 }
 
-bool args_list::bool_arg(const std::string& expected) {
-	const char* str = next_arg_();
+bool bool_arg(const std::string& expected) {
+	const char* str = args().next_arg();
 	return (str == expected);
 }
 

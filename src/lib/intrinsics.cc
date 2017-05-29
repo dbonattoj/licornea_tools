@@ -43,7 +43,7 @@ vec2 undistort_point(const intrinsics& intr, const vec2& distorted) {
 
 
 std::vector<vec2> undistort_points(const intrinsics& intr, const std::vector<vec2>& distorted) {
-	if(intr.distortion.is_null()) return distorted;
+	if(intr.distortion.is_none()) return distorted;
 	
 	std::vector<vec2> undistorted;
 	undistorted.reserve(distorted.size());
@@ -60,7 +60,7 @@ std::vector<vec2> undistort_points(const intrinsics& intr, const std::vector<vec
 	return undistorted;
 }
 std::vector<cv::Vec2f> undistort_points(const intrinsics& intr, const std::vector<cv::Vec2f>& distorted) {
-	if(intr.distortion.is_null()) return distorted;
+	if(intr.distortion.is_none()) return distorted;
 
 	std::vector<cv::Vec2f> undistorted;
 	undistorted.reserve(distorted.size());
@@ -80,7 +80,7 @@ std::vector<cv::Vec2f> undistort_points(const intrinsics& intr, const std::vecto
 
 
 vec2 distort_point(const intrinsics& intr, const vec2& undistorted) {
-	if(intr.distortion.is_null()) return undistorted;
+	if(intr.distortion.is_none()) return undistorted;
 	
 	const auto& d = intr.distortion;
 
@@ -104,7 +104,7 @@ vec2 distort_point(const intrinsics& intr, const vec2& undistorted) {
 
 
 std::vector<vec2> distort_points(const intrinsics& intr, const std::vector<vec2>& undistorted) {
-	if(intr.distortion.is_null()) return undistorted;
+	if(intr.distortion.is_none()) return undistorted;
 	
 	std::vector<vec2> distorted(undistorted.size());
 

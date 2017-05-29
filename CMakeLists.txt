@@ -81,8 +81,8 @@ add_library(calibration_lib SHARED ${CALIBRATION_LIB_SRC})
 target_link_libraries(calibration_lib common_lib)
 install(TARGETS calibration_lib DESTINATION "lib/")
 
-add_executable(undistort "src/calibration/undistort.cc")
-target_link_libraries(undistort common_lib calibration_lib)
+add_executable(undistort_image "src/calibration/undistort_image.cc")
+target_link_libraries(undistort_image common_lib calibration_lib)
 
 add_executable(calibrate_intrinsics "src/calibration/calibrate_intrinsics.cc")
 target_link_libraries(calibrate_intrinsics common_lib calibration_lib)
@@ -130,7 +130,7 @@ install(
 	TARGETS
 		calibrate_intrinsics
 		view_feature_points
-		undistort 
+		undistort_image
 		optical_flow
 		optical_flow_2d
 		visualize_image_correspondences

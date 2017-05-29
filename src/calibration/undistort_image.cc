@@ -13,15 +13,13 @@ using namespace tlz;
 
 
 int main(int argc, const char* argv[]) {
-	auto args = get_args(argc, argv,
+	get_args(argc, argv,
 		"in_image.png out_image.json intrinsics.json texture/depth");
-	std::string in_image_filename = args.in_filename_arg();
-	std::string out_image_filename = args.out_filename_arg();
-	std::string intr_filename = args.in_filename_arg();
-	std::string mode = args.enum_arg({ "texture", "depth" });
-	
-	intrinsics intr = decode_intrinsics(import_json_file(in_intrinsics_filename));
-	
+	std::string in_image_filename = in_filename_arg();
+	std::string out_image_filename = out_filename_arg();
+	intrinsics intr = intrinsics_arg();
+	std::string mode = enum_arg({ "texture", "depth" });
+		
 	if(mode == "texture") {
 		cv::Mat_<cv::Vec3b> in_image = load_texture(in_image_filename);
 		cv::Mat_<cv::Vec3b> out_image;

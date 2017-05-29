@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <stdexcept>
 #include <climits>
+#include "../lib/args.h"
 #include "../lib/json.h"
 #include "../lib/obj_img_correspondence.h"
 #include "../lib/opencv.h"
@@ -10,20 +11,15 @@
 
 using namespace tlz;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: calibrate_intrinsics obj_img_cors_set.json image_width image_height out_intrinsics.json [no_distortion]\n";
-	std::cout << std::endl;
-	std::exit(1);
-}
 
 int main(int argc, const char* argv[]) {
-	if(argc <= 4) usage_fail();
-	std::string obj_img_cors_set_filename = argv[1];
-	int image_width = std::atoi(argv[2]);
-	int image_height = std::atoi(argv[3]);
-	std::string out_intrinsics_filename = argv[4];
-	bool no_distortion = false;
-	if(argc > 5) no_distortion = (std::string(argv[5]) == "no_distortion");
+	get_args(argc, argv,
+		"obj_img_cors_set.json image_width image_height out_intrinsics.json [no_distortion]");
+	std::string obj_img_cors_set_filename = in_filename_arg();
+	int image_width = int_arg();
+	int image_height = int_arg();
+	std::string out_intrinsics_filename = out_filename_arg();
+	bool no_distortion = bool_opt_arg("no_distortion");
 	
 	std::cout << "loading obj-img correspondences set" << std::endl;
 	auto cors_set = decode_obj_img_correspondences_set<1, 1>(import_json_file(obj_img_cors_set_filename));

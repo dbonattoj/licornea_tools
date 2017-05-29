@@ -6,6 +6,7 @@
 #include "../lib/dataset.h"
 #include "../lib/intrinsics.h"
 #include "../lib/misc.h"
+#include "../lib/assert.h"
 #include "lib/cg/feature_points.h"
 #include <map>
 #include <iostream>
@@ -16,33 +17,24 @@ using namespace tlz;
 const bool verbose = false;
 
 int main(int argc, const char* argv[]) {
-	auto args = get_args(argc, argv,
+	get_args(argc, argv,
 		"dataset_parameters.json cors.json intr.json R.json straight_depths.json x_step y_step out_homographies.json out_cameras.json [out_cors.json]");
-	std::string datas_filename = args.in_filename_arg();
-	std::string cors_filename = args.in_filename_arg();
-	std::string intr_filename = args.in_filename_arg();
-	std::string R_filename = args.in_filename_arg();
-	std::string straight_depths_filename = args.in_filename_arg();
-	real x_step = args.real_arg();
-	real y_step = args.real_arg();
-	std::string out_homographies_filename = args.out_filename_arg();
-	std::string out_cameras_filename = args.out_filename_arg();
-	std::string out_cors_filename;
-	if(args.has_next_arg()) out_cors_filename = args.out_filename_arg();
-		
-	std::cout << "loading parameters" << std::endl;
-	dataset datas(datas_filename);
-	image_correspondences cors = import_image_correspondences_file(cors_filename);
-	intrinsics intr = decode_intrinsics(import_json_file(intr_filename));
-	mat33 R = decode_mat(import_json_file(R_filename));
-	json j_feature_straight_depths = import_json_file(straight_depths_filename);
-	
-	Assert(intr.distortion.is_null(), "input cors + intrinsics must be without distortion for cg_rectification_homographies");
+	dataset datas = dataset_arg();
+	image_correspondences cors = image_correspondences_arg();
+	intrinsics intr = intrinsics_arg();
+	mat33 R = decode_mat(json_arg());
+	json j_feature_straight_depths = json_arg();
+	real x_step = real_arg();
+	real y_step = real_arg();
+	std::string out_homographies_filename = out_filename_arg();
+	std::string out_cameras_filename = out_filename_arg();
+	std::string out_cors_filename = out_filename_opt_arg();
+			
+	Assert(intr.distortion.is_none(), "input cors + intrinsics must be without distortion for cg_rectification_homographies");
 	
 	std::cout << "getting reference view points" << std::endl;
 	view_index reference_idx = cors.reference;
-	feature_points reference_fpoints = feature_points_for_view(cors, reference_idx, intr);	
-	
+	feature_points reference_fpoints = feature_points_for_view(cors, reference_idx);	
 	
 	std::cout << "calculating destination points and homography for each view" << std::endl;
 	std::map<view_index, mat33> homographies;
@@ -69,14 +61,14 @@ int main(int argc, const char* argv[]) {
 	
 			// get source point
 			if(! target_source_fpoints.has(feature_name)) continue;
-			vec2 source_point = target_source_fpoints.points.at(feature_name).undistorted_point;
+			vec2 source_point = target_source_fpoints.points.at(feature_name);
 			
 			// get straight depth
 			if(! has(j_feature_straight_depths, feature_name)) continue;
 			real straight_depth = j_feature_straight_depths[feature_name];
 
 			// remove rotation
-			vec3 rot_i_h(reference_fpoint.undistorted_point[0], reference_fpoint.undistorted_point[1], 1.0);
+			vec3 rot_i_h(reference_fpoint[0], reference_fpoint[1], 1.0);
 			vec3 no_i_h = M * rot_i_h;
 			vec2 no_i(no_i_h[0] / no_i_h[2], no_i_h[1] / no_i_h[2]);
 	
@@ -149,7 +141,7 @@ int main(int argc, const char* argv[]) {
 	
 	if(! out_cors_filename.empty()) {
 		std::cout << "saving destination image correspondences" << std::endl;
-		export_image_correspondences_file(out_cors_filename, out_cors);
+		export_json_file(encode_image_correspondences(out_cors), out_cors_filename);
 	}
 	
 	std::cout << "done" << std::endl;

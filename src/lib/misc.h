@@ -83,10 +83,6 @@ auto forward_make_shared_const(T&& t) {
 }
 
 
-void sleep(unsigned int seconds);
-void sleep_ms(unsigned int milliseconds);
-void sleep_us(unsigned int microseconds);
-
 }
 
 #include "misc.tcc"

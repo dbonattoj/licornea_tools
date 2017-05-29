@@ -3,6 +3,7 @@
 #include <cmath>
 #include <random>
 #include "lib/image_correspondence.h"
+#include "../lib/args.h"
 #include "../lib/misc.h"
 #include "../lib/json.h"
 #include "../lib/dataset.h"
@@ -15,32 +16,19 @@
 
 using namespace tlz;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: cg_generate_artificial rotation.json intrinsics.json out_image_correspondences.json out_datas_dir/ [features_count=100] [num_x=30] [num_y=10] [step_x=1.0] [step_y=1.0]\n";
-	std::cout << std::endl;
-	std::exit(1);
-}
-int main(int argc, const char* argv[]) {
-	if(argc <= 4) usage_fail();
-	std::string rotation_filename = argv[1];
-	std::string intrinsics_filename = argv[2];
-	std::string out_cors_filename = argv[3];
-	std::string out_datas_dir = argv[4];
-	int features_count = 100;
-	int num_x = 30;
-	int num_y = 10;
-	real step_x = 1;
-	real step_y = 1;
-	int i = 4;
-	if(argc > ++i) features_count = std::atoi(argv[i]);
-	if(argc > ++i) num_x = std::atoi(argv[i]);
-	if(argc > ++i) num_y = std::atoi(argv[i]);
-	if(argc > ++i) step_x = std::atof(argv[i]);
-	if(argc > ++i) step_y = std::atof(argv[i]);
-	
-	mat33 R = decode_mat(import_json_file(rotation_filename));
 
-	intrinsics intr = decode_intrinsics(import_json_file(intrinsics_filename));
+int main(int argc, const char* argv[]) {
+	get_args(argc, argv,
+		"rotation.json intrinsics.json out_image_correspondences.json out_datas_dir/ [features_count=100] [num_x=30] [num_y=10] [step_x=1.0] [step_y=1.0]");
+	mat33 R = decode_mat(json_arg());
+	intrinsics intr = intrinsics_arg();
+	std::string out_cors_filename = out_filename_arg();
+	std::string out_datas_dir = out_filename_arg();
+	int features_count = int_opt_arg(100);
+	int num_x = int_opt_arg(30);
+	int num_y = int_opt_arg(10);
+	real step_x = real_opt_arg(1.0);
+	real step_y = real_opt_arg(1.0);
 
 	mat33 K = intr.K;
 	real fx = K(0, 0), fy = K(1, 1), cx = K(0, 2), cy = K(1, 2);	
@@ -129,7 +117,7 @@ int main(int argc, const char* argv[]) {
 	
 	
 	std::cout << "saving correspondences" << std::endl;
-	export_image_correspondences_file(out_cors_filename, cors);
+	export_json_file(encode_image_correspondences(cors), out_cors_filename);
 	
 	
 	std::cout << "saving cameras" << std::endl;

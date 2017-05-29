@@ -4,6 +4,7 @@
 #include "../../../lib/json.h"
 #include "../../../lib/intrinsics.h"
 #include "../../../lib/dataset.h"
+#include "../../../lib/args.h"
 #include "../image_correspondence.h"
 #include <map>
 #include <string>
@@ -29,6 +30,9 @@ feature_points feature_points_for_view(const image_correspondences& cors, view_i
 feature_points undistorted_feature_points_for_view(const image_correspondences& cors, view_index idx, const intrinsics&);
 
 cv::Mat_<cv::Vec3b> visualize_feature_points(const feature_points&, const cv::Mat_<cv::Vec3b>& back_img);
+
+inline feature_points feature_points_arg()
+	{ return decode_feature_points(json_arg()); }
 
 }
 

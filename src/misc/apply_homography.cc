@@ -7,17 +7,17 @@
 using namespace tlz;
 
 int main(int argc, const char* argv[]) {
-	auto args = get_args(argc, argv,
+	get_args(argc, argv,
 		"homography.json in_image.png out_image.png texture/depth border_top border_left border_bottom border_right [invert]");
-	std::string homography_filename = args.in_filename_arg();
-	std::string in_image_filename = args.in_filename_arg();
-	std::string out_image_filename = args.out_filename_arg();
-	std::string image_type = args.enum_arg({ "texture", "depth" });	
-	int border_top = args.int_arg();
-	int border_left = args.int_arg();
-	int border_bottom = args.int_arg();
-	int border_right = args.int_arg();
-	bool invert = args.has_next_arg() && args.bool_arg("invert");
+	std::string homography_filename = in_filename_arg();
+	std::string in_image_filename = in_filename_arg();
+	std::string out_image_filename = out_filename_arg();
+	std::string image_type = enum_arg({ "texture", "depth" });	
+	int border_top = int_arg();
+	int border_left = int_arg();
+	int border_bottom = int_arg();
+	int border_right = int_arg();
+	bool invert = bool_opt_arg("invert");
 	
 	mat33 offset(
 		1, 0, border_left,

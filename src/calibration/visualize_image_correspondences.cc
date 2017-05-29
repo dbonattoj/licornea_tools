@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include "lib/image_correspondence.h"
+#include "../lib/args.h"
 #include "../lib/json.h"
 #include "../lib/random_color.h"
 #include "../lib/dataset.h"
@@ -12,24 +13,12 @@
 
 using namespace tlz;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: visualize_image_correspondences dataset_parameters.json image_correspondences.json out_visualization.png\n";
-	std::cout << std::endl;
-	std::exit(1);
-}
-
 
 int main(int argc, const char* argv[]) {
-	if(argc <= 3) usage_fail();
-	std::string dataset_parameter_filename = argv[1];
-	std::string cors_filename = argv[2];
-	std::string visualization_filename = argv[3];
-
-	std::cout << "loading data set" << std::endl;
-	dataset datas(dataset_parameter_filename);
-	
-	std::cout << "loading image correspondences" << std::endl;
-	image_correspondences cors = import_image_correspondences_file(cors_filename);
+	get_args(argc, argv, "dataset_parameters.json image_correspondences.json out_visualization.png");
+	dataset datas = dataset_arg();
+	image_correspondences cors = image_correspondences_arg();
+	std::string visualization_filename = out_filename_arg();
 	
 	std::cout << "loading reference image" << std::endl;
 	view_index center_view_index = cors.reference;

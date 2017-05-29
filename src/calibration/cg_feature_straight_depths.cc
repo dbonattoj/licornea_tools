@@ -7,6 +7,7 @@
 #include <set>
 #include <map>
 #include "lib/image_correspondence.h"
+#include "../lib/args.h"
 #include "../lib/misc.h"
 #include "../lib/dataset.h"
 #include "../lib/intrinsics.h"
@@ -18,34 +19,21 @@ using namespace tlz;
 
 constexpr bool verbose = false;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: cg_feature_straight_depths dataset_parameters.json image_correspondences.json intrinsics.json R.json out_feature_depths.json" << std::endl;
-	std::exit(EXIT_FAILURE);
-}
+
 int main(int argc, const char* argv[]) {
-	if(argc <= 5) usage_fail();
-	std::string dataset_parameter_filename = argv[1];
-	std::string in_cors_filename = argv[2];
-	std::string intrinsics_filename = argv[3];
-	std::string rotation_filename = argv[4];
-	std::string out_feature_depths = argv[5];
-		
-	std::cout << "loading data set" << std::endl;
-	dataset datas(dataset_parameter_filename);
-	
+	get_args(argc, argv, "dataset_parameters.json image_correspondences.json intrinsics.json R.json out_feature_depths.json");
+	dataset datas = dataset_arg();
+	image_correspondences cors = image_correspondences_arg();
+	intrinsics intr = intrinsics_arg();
+	mat33 R = decode_mat(json_arg());
+	std::string out_feature_depths = out_filename_arg();
+
 	struct sample {
 		vec2 coordinates;
 		real measured_depth;
 		real straight_depth;
 	};
 	std::map<std::string, std::map<view_index, sample>> feature_samples;
-
-	std::cout << "loading correspondences" << std::endl;
-	image_correspondences cors = import_image_correspondences_file(in_cors_filename);
-
-	std::cout << "loading intrinsics" << std::endl;
-	intrinsics intr = decode_intrinsics(import_json_file(intrinsics_filename));
-	mat33 R = decode_mat(import_json_file(rotation_filename));
 
 	std::cout << "for each view, reading feature depths" << std::endl;
 	for(int x : datas.x_indices()) for(int y : datas.y_indices()) {
