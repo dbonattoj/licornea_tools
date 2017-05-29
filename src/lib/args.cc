@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 #include "misc.h"
+#include "filesystem.h"
 
 namespace tlz {
 

@@ -147,19 +147,16 @@ int main(int argc, const char* argv[]) {
 
 		// compute and draw model slopes
 		feature_slopes model_fslopes(fpoints);
-		if(model_width > 0) {			
-			mat33 R = to_rotation_matrix(x, y, z);
-	
-			for(const auto& kv : fpoints.points) {
-				const std::string& feature_name = kv.first;
-				const feature_point& fpoint = kv.second;
-				feature_slope& fslope = model_fslopes.slopes[feature_name];
-				fslope.horizontal = model_horizontal_slope(fpoint.undistorted_point, intr.K, R);
-				fslope.vertical = model_vertical_slope(fpoint.undistorted_point, intr.K, R);
-			}
-
-			viz_image = visualize_feature_slopes(model_fslopes, viz_image, model_width, exaggeration, 1);
+		mat33 R = to_rotation_matrix(x, y, z);
+		for(const auto& kv : fpoints.points) {
+			const std::string& feature_name = kv.first;
+			const feature_point& fpoint = kv.second;
+			feature_slope& fslope = model_fslopes.slopes[feature_name];
+			fslope.horizontal = model_horizontal_slope(fpoint.undistorted_point, intr.K, R);
+			fslope.vertical = model_vertical_slope(fpoint.undistorted_point, intr.K, R);
 		}
+		if(model_width > 0)
+			viz_image = visualize_feature_slopes(model_fslopes, viz_image, model_width, exaggeration, 1);
 		
 		shown_image.setTo(background_color);
 		viz_image.copyTo(cv::Mat(shown_image, cv::Rect(0, 20, width, height)));

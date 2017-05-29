@@ -85,14 +85,6 @@ std::string dataset_view::mask_filename() const {
 	return local_filename("mask_filename_format");
 }
 
-dataset_view dataset_view::vsrs() const {
-	return local_view_("vsrs");
-}
-
-dataset_view dataset_view::kinect_raw() const {
-	return local_view_("kinect_raw");
-}
-	
 /////
 
 

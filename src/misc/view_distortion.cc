@@ -11,6 +11,7 @@ intrinsics intr;
 cv::Mat_<cv::Vec3b> shown_image;
 int cell_width;
 int width, height;
+real scale;
 std::string window_name;
 
 const cv::Vec3b background_color(0, 0, 0);
@@ -32,15 +33,18 @@ int reversed_opacity = 0;
 
 void update() {
 	// make regular grid
-	std::vector<vec2> regular_grid;
+	std::vector<vec2> small_regular_grid;
 	for(int x = width/2; x >= 0; x -= cell_width) {
-		for(int y = height/2; y >= 0; y -= cell_width) regular_grid.emplace_back(x, y);
-		for(int y = height/2 + cell_width; y < height; y += cell_width) regular_grid.emplace_back(x, y);
+		for(int y = height/2; y >= 0; y -= cell_width) small_regular_grid.emplace_back(x, y);
+		for(int y = height/2 + cell_width; y < height; y += cell_width) small_regular_grid.emplace_back(x, y);
 	}
 	for(int x = width/2 + cell_width; x < width; x += cell_width) {
-		for(int y = height/2; y >= 0; y -= cell_width) regular_grid.emplace_back(x, y);
-		for(int y = height/2 + cell_width; y < height; y += cell_width) regular_grid.emplace_back(x, y);
+		for(int y = height/2; y >= 0; y -= cell_width) small_regular_grid.emplace_back(x, y);
+		for(int y = height/2 + cell_width; y < height; y += cell_width) small_regular_grid.emplace_back(x, y);
 	}
+	std::vector<vec2> regular_grid;
+	for(const vec2& pt : small_regular_grid) regular_grid.push_back(scale * pt);
+
 	
 	// distort + back
 	std::vector<vec2> distorted_grid = distort_points(intr, regular_grid);
@@ -53,7 +57,7 @@ void update() {
 	// draw grids
 	auto draw_grid = [&](cv::Mat_<cv::Vec3b>& img, const std::vector<vec2>& grid, int x, int y, const cv::Vec3b& col) {
 		for(const vec2& pt : grid) {
-			int pt_x = pt[0], pt_y = pt[1];
+			int pt_x = pt[0] / scale, pt_y = pt[1] / scale;
 			if(pt_x < 0 || pt_x >= width || pt_y < 0 || pt_y >= height) continue;
 			cv::circle(img, cv::Point(x + pt_x, y + pt_y), 3, cv::Scalar(col), 1);			
 		}
@@ -128,8 +132,9 @@ int main(int argc, const char* argv[]) {
 	std::string intrinsics_filename = argv[1];
 
 	intr = decode_intrinsics(import_json_file(intrinsics_filename));
-	width = intr.width; height = intr.height;
+	width = intr.width; height = intr.height; scale = 1.0;
 	if(height > max_height) {
+		scale = real(height) / max_height;		
 		width = max_height * width / height;
 		height = max_height;
 	}

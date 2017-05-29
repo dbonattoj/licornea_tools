@@ -8,7 +8,7 @@
 #include <utility>
 #include <iostream>
 
-#include <opencv2/core.hpp>
+#include <opencv2/core/core.hpp>
 
 namespace tlz {
 

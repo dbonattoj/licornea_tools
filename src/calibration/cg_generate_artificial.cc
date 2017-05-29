@@ -11,6 +11,7 @@
 #include "../lib/image_io.h"
 #include "../lib/random_color.h"
 #include "../lib/intrinsics.h"
+#include "../lib/filesystem.h"
 
 using namespace tlz;
 
@@ -71,6 +72,14 @@ int main(int argc, const char* argv[]) {
 	}
 	
 	
+	std::cout << "creating directories" << std::endl;
+	make_directory(out_datas_dir);
+	make_directory(out_datas_dir + "/image");
+	make_directory(out_datas_dir + "/depth");
+	make_directory(out_datas_dir + "/rectified_image");
+	make_directory(out_datas_dir + "/rectified_depth");
+
+
 	std::cout << "generating dataset parameters" << std::endl;
 	{
 		json j_dataset = json::object();
@@ -78,37 +87,30 @@ int main(int argc, const char* argv[]) {
 		j_dataset["y_index_range"] = json::array({0, num_y-1});
 		j_dataset["width"] = width;
 		j_dataset["height"] = height;
-		j_dataset["image_filename_format"] = "image_y{y}_x{x}.png";
-		j_dataset["depth_filename_format"] = "depth_y{y}_x{x}.png";
+		j_dataset["image_filename_format"] = "image/y{y}_x{x}.png";
+		j_dataset["depth_filename_format"] = "depth/y{y}_x{x}.png";
 		j_dataset["cameras_filename"] = "cameras.json";
 		j_dataset["camera_name_format"] = "camera_y{y}_x{x}";
+		j_dataset["rectified"] = json::object();
+		j_dataset["rectified"]["image_filename_format"] = "rectified_image/y{y}_x{x}.png";
+		j_dataset["rectified"]["depth_filename_format"] = "rectified_depth/y{y}_x{x}.png";
 		export_json_file(j_dataset, out_datas_dir + "/parameters.json");
 	}
 	
 	
-	std::cout << "projecting features for each view (-> correspondences, image, depth)" << std::endl;
+	std::cout << "generating correspondences by projecting features for each view" << std::endl;
 	image_correspondences cors;
 	cors.reference = view_index(num_x/2, num_y/2);
 	std::map<view_index, vec3> view_camera_centers;
 	for(int y = 0; y < num_y; ++y) for(int x = 0; x < num_x; ++x) {
-		std::cout << '.' << std::flush;
-		
 		view_index idx(x, y);
-		
+				
 		// camera center position
 		real px = step_x*(x - num_x/2);
 		real py = step_y*(y - num_y/2);
 		vec3 p(px, py, 0.0);
 		view_camera_centers[idx] = p;
-				
-		// images
-		cv::Mat_<cv::Vec3b> texture_image(height, width);
-		texture_image.setTo(cv::Vec3b(0, 0, 0));
 		
-		cv::Mat_<ushort> depth_image(height, width);
-		depth_image.setTo(0);
-		
-		const int blob_radius = 4;
 		
 		for(int feature = 0; feature < features_count; ++feature) {
 			// feature image position in this view
@@ -122,24 +124,9 @@ int main(int argc, const char* argv[]) {
 			std::string feature_name = "feat" + std::to_string(feature);
 			cors.features[feature_name].points[idx] = dist_i;
 			cors.features[feature_name].depth = v[2];
-
-			cv::Vec3b col = random_color(feature);
-
-			// draw blob in texture image
-			cv::circle(texture_image, vec2_to_point(dist_i), blob_radius, cv::Scalar(col), -1);
-			
-			// draw blob in depth image
-			ushort depth = v[2];
-			cv::circle(depth_image, vec2_to_point(dist_i), blob_radius, depth, -1);
 		}
-		
-		// save images
-		std::string texture_image_filename = out_datas_dir + "/image_y" + std::to_string(idx.y) + "_x" + std::to_string(idx.x) + ".png";
-		std::string depth_image_filename = out_datas_dir + "/depth_y" + std::to_string(idx.y) + "_x" + std::to_string(idx.x) + ".png";
-		save_texture(texture_image_filename, texture_image);
-		save_depth(depth_image_filename, depth_image);
 	}
-	std::cout << std::endl;
+	
 	
 	std::cout << "saving correspondences" << std::endl;
 	export_image_correspondences_file(out_cors_filename, cors);
@@ -162,6 +149,44 @@ int main(int argc, const char* argv[]) {
 	std::string cameras_filename = out_datas_dir + "/cameras.json";
 	write_cameras_file(cameras_filename, cams);
 	
+	
+	std::cout << "drawing images and depth maps" << std::endl;
+	#pragma omp parallel for
+	for(int y = 0; y < num_y; ++y) for(int x = 0; x < num_x; ++x) {
+		view_index idx(x, y);
+		std::cout << '.' << std::flush;
+
+		// images
+		cv::Mat_<cv::Vec3b> texture_image(height, width);
+		texture_image.setTo(cv::Vec3b(0, 0, 0));
+		
+		cv::Mat_<ushort> depth_image(height, width);
+		depth_image.setTo(0);
+
+		const int blob_radius = 4;
+
+		for(int feature = 0; feature < features_count; ++feature) {
+			std::string feature_name = "feat" + std::to_string(feature);
+			vec2 dist_i = cors.features.at(feature_name).points.at(idx);
+			real depth = cors.features.at(feature_name).depth;
+			
+			cv::Vec3b col = random_color(feature);
+
+			// draw blob in texture image
+			cv::circle(texture_image, vec2_to_point(dist_i), blob_radius, cv::Scalar(col), -1);
+			
+			// draw blob in depth image
+			cv::circle(depth_image, vec2_to_point(dist_i), blob_radius, depth, -1);
+		}
+		
+		// save images
+		std::string texture_image_filename = out_datas_dir + "/image/y" + std::to_string(y) + "_x" + std::to_string(x) + ".png";
+		std::string depth_image_filename = out_datas_dir + "/depth/y" + std::to_string(y) + "_x" + std::to_string(x) + ".png";
+		save_texture(texture_image_filename, texture_image);
+		save_depth(depth_image_filename, depth_image);
+	}
+	std::cout << std::endl;
+		
 	
 	std::cout << "done" << std::endl;
 }

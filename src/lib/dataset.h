@@ -70,8 +70,9 @@ public:
 	std::string depth_filename() const;
 	std::string mask_filename() const;
 	
-	dataset_view vsrs() const;
-	dataset_view kinect_raw() const;
+	dataset_view vsrs() const { return local_view_("vsrs"); }
+	dataset_view kinect_raw() const { return local_view_("kinect_raw"); }
+	dataset_view rectified() const { return local_view_("rectified"); }
 };
 
 class dataset {	

@@ -17,6 +17,10 @@ struct feature_point {
 struct feature_points {
 	std::map<std::string, feature_point> points;
 	view_index view_idx;
+	
+	bool has(const std::string& feature_name) const {
+		return (points.find(feature_name) != points.end());
+	}
 };
 
 feature_points decode_feature_points(const json&);

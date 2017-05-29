@@ -1,5 +1,5 @@
 from config import *
-import sys, os, subprocess, platform
+import sys, os, subprocess, platform, json
 
 def running_on_windows():
 	return (platform.system() == "Windows")
@@ -52,3 +52,12 @@ def format_time(seconds):
 	if h > 0: return "{}h {}min {}s".format(int(h), int(m), int(s))
 	elif m > 0: return "{}min {}s".format(int(m), int(s))
 	else: return "{}s".format(int(s))
+
+def import_json_file(filename):
+	with open(filename, 'r') as f:
+		j = json.load(f)
+	return j
+			
+def export_json_file(j, filename):
+	with open(filename, 'w') as f:
+		j.dump(f)

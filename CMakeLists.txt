@@ -123,6 +123,9 @@ target_link_libraries(cg_slopes_viewer common_lib calibration_lib)
 add_executable(cg_feature_straight_depths "src/calibration/cg_feature_straight_depths.cc")
 target_link_libraries(cg_feature_straight_depths common_lib calibration_lib)
 
+add_executable(cg_rectification_homographies "src/calibration/cg_rectification_homographies.cc")
+target_link_libraries(cg_rectification_homographies common_lib calibration_lib)
+
 install(
 	TARGETS
 		calibrate_intrinsics
@@ -139,6 +142,12 @@ install(
 		cg_estimate_rotation
 		cg_slopes_viewer
 		cg_feature_straight_depths
+		cg_rectification_homographies
+	DESTINATION calibration
+)
+install(
+	PROGRAMS
+		"src/calibration/cg_apply_all_homographies.py"
 	DESTINATION calibration
 )
 install_pylib_link(calibration)
@@ -322,6 +331,9 @@ target_link_libraries(view_distortion common_lib)
 add_executable(cat_obj_img_cors "src/misc/cat_obj_img_cors.cc")
 target_link_libraries(cat_obj_img_cors common_lib)
 
+add_executable(apply_homography "src/misc/apply_homography.cc")
+target_link_libraries(apply_homography common_lib)
+
 install(
 	TARGETS
 		psnr
@@ -330,6 +342,7 @@ install(
 		cam_rotation
 		view_distortion
 		cat_obj_img_cors
+		apply_homography
 	DESTINATION misc
 )
 install(

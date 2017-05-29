@@ -69,6 +69,8 @@ class DatasetView:
 		return self.local_view("vsrs")
 	def kinect_raw(self):
 		return self.local_view("kinect_raw")
+	def rectified(self):
+		return self.local_view("rectified")
 
 
 class Dataset:
@@ -152,4 +154,15 @@ class Dataset:
 		if not self.x_valid(x): raise Exception("x view index out of range")
 		if not self.y_valid(y): raise Exception("y view index out of range")
 		return DatasetView(self, x, y)
-		
+
+
+def encode_view_index(x, y=None):
+	if y is None: return "{}".format(x)
+	else: return "{},{}".format(x, y)
+
+
+def decode_view_index(string):
+	indices = string.split(',')
+	if len(indices) == 2: return (indices[0], indices[1])
+	else: return (indices[0], None)
+	

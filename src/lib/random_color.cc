@@ -6,6 +6,10 @@
 namespace tlz {
 	
 cv::Vec3b random_color(int i, int seed) {
+	std::mt19937 gen(seed + i);
+	std::uniform_int_distribution<uchar> dist(0, 255);
+	return cv::Vec3b(dist(gen), dist(gen), dist(gen));
+	/*
 	static std::vector<cv::Vec3b> colors;
 	static std::mt19937 gen(seed);
 	
@@ -16,6 +20,7 @@ cv::Vec3b random_color(int i, int seed) {
 		colors.push_back(cv::Vec3b(dist(gen), dist(gen), dist(gen)));
 		return random_color(i);
 	}
+	*/
 }
 
 }
