@@ -1,8 +1,14 @@
 #include "feature_slopes.h"
 #include "../../../lib/random_color.h"
+#include "../../../lib/assert.h"
 #include <vector>
 
 namespace tlz {
+
+feature_slopes(const feature_points& fpoints) : feature_points(fpoints) {
+	Assert(! fpoints.is_distorted, "feature_slopes can only be created for undistorted feature points");
+}
+
 
 feature_slopes decode_feature_slopes(const json& j_fslopes) {
 	feature_points fpoints = decode_feature_points(j_fslopes);

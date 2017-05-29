@@ -1,6 +1,7 @@
 #include <string>
 #include "lib/image_correspondence.h"
 #include "lib/cg/feature_points.h"
+#include "../lib/args.h"
 #include "../lib/misc.h"
 #include "../lib/json.h"
 #include "../lib/opencv.h"
@@ -9,23 +10,19 @@
 using namespace tlz;
 
 [[noreturn]] void usage_fail() {
-	std::cout << "usage: view_feature_points image_correspondences.json intrinsics.json out_feature_points.json [x_index] [y_index]\n" << std::endl;
+	std::cout << "usage: view_feature_points image_correspondences.json out_feature_points.json [x_index] [y_index]\n" << std::endl;
 	std::exit(EXIT_FAILURE);
 }
 int main(int argc, const char* argv[]) {
-	if(argc <= 3) usage_fail();
-	std::string cors_filename = argv[1];
-	std::string intr_filename = argv[2];
-	std::string out_feature_points_filename = argv[3];
-	int x_index = -1, y_index = -1;
-	if(argc > 4) x_index = std::atoi(argv[4]);
-	if(argc > 5) y_index = std::atoi(argv[5]);
+	auto args = get_args(argc, argv,
+		"image_correspondences.json out_feature_points.json [x_index] [y_index]");
+	std::string cors_filename = args.in_filename_arg();
+	std::string out_feature_points_filename = args.out_filename_arg();
+	int x_index = args.get_int_opt_arg(-1);
+	int y_index = args.get_int_opt_arg(-1);
 	
 	std::cout << "loading correspondences" << std::endl;
 	image_correspondences cors = import_image_correspondences_file(cors_filename);
-
-	std::cout << "loading intrinsics" << std::endl;
-	intrinsics intr = decode_intrinsics(import_json_file(intr_filename));
 
 	std::cout << "saving feature points" << std::endl;
 	view_index idx;

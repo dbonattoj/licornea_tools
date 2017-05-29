@@ -7,12 +7,12 @@ intrinsics decode_intrinsics(const json& j_intr) {
 	intrinsics intr;
 	intr.K = decode_mat(j_intr["K"]);
 	intr.K_inv = intr.K.inv();
-	if(j_intr.count("distortion") == 1) {
-		intr.distortion.k1 = j_intr["distortion"]["k1"];
-		intr.distortion.k2 = j_intr["distortion"]["k2"];
-		intr.distortion.p1 = j_intr["distortion"]["p1"];
-		intr.distortion.p2 = j_intr["distortion"]["p2"];
-		if(j_intr["distortion"].count("k3") == 1) intr.distortion.k3 = j_intr["distortion"]["k3"];
+	if(has(j_intr, "distortion")) {
+		intr.distortion.k1 = get_or(j_intr["distortion"], "k1", 0.0);
+		intr.distortion.k2 = get_or(j_intr["distortion"], "k2", 0.0);
+		intr.distortion.k3 = get_or(j_intr["distortion"], "k3", 0.0);
+		intr.distortion.p1 = get_or(j_intr["distortion"], "p1", 0.0);
+		intr.distortion.p2 = get_or(j_intr["distortion"], "p2", 0.0);
 	}
 	intr.width = j_intr["width"];
 	intr.height = j_intr["height"];
@@ -43,6 +43,8 @@ vec2 undistort_point(const intrinsics& intr, const vec2& distorted) {
 
 
 std::vector<vec2> undistort_points(const intrinsics& intr, const std::vector<vec2>& distorted) {
+	if(intr.distortion.is_null()) return distorted;
+	
 	std::vector<vec2> undistorted;
 	undistorted.reserve(distorted.size());
 
@@ -58,6 +60,8 @@ std::vector<vec2> undistort_points(const intrinsics& intr, const std::vector<vec
 	return undistorted;
 }
 std::vector<cv::Vec2f> undistort_points(const intrinsics& intr, const std::vector<cv::Vec2f>& distorted) {
+	if(intr.distortion.is_null()) return distorted;
+
 	std::vector<cv::Vec2f> undistorted;
 	undistorted.reserve(distorted.size());
 
@@ -76,6 +80,8 @@ std::vector<cv::Vec2f> undistort_points(const intrinsics& intr, const std::vecto
 
 
 vec2 distort_point(const intrinsics& intr, const vec2& undistorted) {
+	if(intr.distortion.is_null()) return undistorted;
+	
 	const auto& d = intr.distortion;
 
 	real ix = undistorted[0], iy = undistorted[1];
@@ -98,6 +104,8 @@ vec2 distort_point(const intrinsics& intr, const vec2& undistorted) {
 
 
 std::vector<vec2> distort_points(const intrinsics& intr, const std::vector<vec2>& undistorted) {
+	if(intr.distortion.is_null()) return undistorted;
+	
 	std::vector<vec2> distorted(undistorted.size());
 
 	#pragma omp parallel for

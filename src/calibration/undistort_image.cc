@@ -3,6 +3,7 @@
 #include <string>
 #include <cstdlib>
 #include <stdexcept>
+#include "../lib/args.h"
 #include "../lib/json.h"
 #include "../lib/image_io.h"
 #include "../lib/opencv.h"
@@ -10,18 +11,14 @@
 
 using namespace tlz;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: undistort in_image.png out_image.json intrinsics.json texture/depth\n";
-	std::cout << std::endl;
-	std::exit(1);
-}
 
 int main(int argc, const char* argv[]) {
-	if(argc <= 4) usage_fail();
-	std::string in_image_filename = argv[1];
-	std::string out_image_filename = argv[2];
-	std::string in_intrinsics_filename = argv[3];
-	std::string mode = argv[4];
+	auto args = get_args(argc, argv,
+		"in_image.png out_image.json intrinsics.json texture/depth");
+	std::string in_image_filename = args.in_filename_arg();
+	std::string out_image_filename = args.out_filename_arg();
+	std::string intr_filename = args.in_filename_arg();
+	std::string mode = args.enum_arg({ "texture", "depth" });
 	
 	intrinsics intr = decode_intrinsics(import_json_file(in_intrinsics_filename));
 	
@@ -38,9 +35,7 @@ int main(int argc, const char* argv[]) {
 		cv::initUndistortRectifyMap(intr.K, intr.distortion.cv_coeffs(), cv::Mat::eye(3, 3, CV_32F), intr.K, in_image.size(), CV_32FC1, map1, map2);
 		cv::remap(in_image, out_image, map1, map2, cv::INTER_NEAREST);
 		save_depth(out_image_filename, out_image);
-		
-	} else {
-		throw std::runtime_error("mode must be texture or depth");
+
 	}
 }
 

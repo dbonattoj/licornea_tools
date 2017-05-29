@@ -13,10 +13,11 @@ struct feature_slope : feature_point {
 	real vertical = NAN;
 };
 struct feature_slopes : feature_points {
+	// feature points are undistorted
 	std::map<std::string, feature_slope> slopes;
 
 	feature_slopes() = default;
-	feature_slopes(const feature_points& fpoints) : feature_points(fpoints) { }
+	feature_slopes(const feature_points&);	
 };
 
 feature_slopes decode_feature_slopes(const json&);

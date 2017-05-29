@@ -13,7 +13,7 @@
 
 using namespace tlz;
 
-const bool verbose = true;
+const bool verbose = false;
 
 int main(int argc, const char* argv[]) {
 	auto args = get_args(argc, argv,
@@ -37,6 +37,8 @@ int main(int argc, const char* argv[]) {
 	mat33 R = decode_mat(import_json_file(R_filename));
 	json j_feature_straight_depths = import_json_file(straight_depths_filename);
 	
+	Assert(intr.distortion.is_null(), "input cors + intrinsics must be without distortion for cg_rectification_homographies");
+	
 	std::cout << "getting reference view points" << std::endl;
 	view_index reference_idx = cors.reference;
 	feature_points reference_fpoints = feature_points_for_view(cors, reference_idx, intr);	
@@ -56,14 +58,14 @@ int main(int argc, const char* argv[]) {
 		std::vector<vec2> source_points, destination_points;
 		dataset_view target_view = datas.view(target_idx);
 
-		feature_points target_source_fpoints = feature_points_for_view(cors, target_idx, intr);	
+		feature_points target_source_fpoints = undistorted_feature_points_for_view(cors, target_idx, intr);	
 
 		// get source point, and compute destination point for each feature
 		real x_translation = (target_idx.x - reference_idx.x) * x_step;
 		real y_translation = (target_idx.y - reference_idx.y) * y_step;
 		for(auto& kv : reference_fpoints.points) {
 			const std::string& feature_name = kv.first;
-			const feature_point& reference_fpoint = kv.second;
+			const vec2& reference_fpoint = kv.second;
 	
 			// get source point
 			if(! target_source_fpoints.has(feature_name)) continue;
@@ -88,7 +90,7 @@ int main(int argc, const char* argv[]) {
 						
 			image_correspondence_feature& feature = out_cors.features[feature_name];
 			feature.depth = straight_depth;
-			feature.points[target_idx] = tr_i; // TODO this is undistorted, og cors is distorted. make cors always undistorted
+			feature.points[target_idx] = tr_i;
 		}
 		
 		// compute homography for this view

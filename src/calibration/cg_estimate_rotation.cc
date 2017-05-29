@@ -9,6 +9,7 @@
 #include "../lib/json.h"
 #include "../lib/opencv.h"
 #include "../lib/intrinsics.h"
+#include "../lib/assert.h"
 
 using namespace tlz;
 
@@ -74,7 +75,7 @@ int main(int argc, const char* argv[]) {
 
 	std::cout << "loading slopes" << std::endl;
 	feature_slopes measured_fslopes = decode_feature_slopes(import_json_file(measured_feature_slopes_filename));
-	
+	Assert(! measured_fslopes.is_distorted);
 	
 	auto rotation_error = [&measured_fslopes, &intr](real x, real y, real z) {
 		mat33 R = to_rotation_matrix(x, y, z);
@@ -86,10 +87,10 @@ int main(int argc, const char* argv[]) {
 		real err_sum = 0.0;
 		for(const auto& kv : measured_fslopes.slopes) {
 			const std::string& feature_name = kv.first;
-			const feature_point& fpoint = measured_fslopes.points.at(feature_name);
+			const vec2& undist_point = measured_fslopes.points.at(feature_name);
 			const feature_slope& measured_fslope = kv.second;
 			
-			real ix = fpoint.undistorted_point[0], iy = fpoint.undistorted_point[1];
+			real ix = undist_point[0], iy = undist_point[1];
 			real model_hslope = (fy*r21 + cy*r31 - iy*r31) / (fx*r11 + cx*r31 - ix*r31);
 			real model_vslope = (fx*r12 + cx*r32 - ix*r32) / (fy*r22 + cy*r32 - iy*r32);
 			

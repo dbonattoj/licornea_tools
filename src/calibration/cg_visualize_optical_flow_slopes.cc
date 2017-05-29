@@ -48,13 +48,16 @@ int main(int argc, const char* argv[]) {
 		cv::cvtColor(img, gray_img, CV_BGR2GRAY);
 	
 		cv::Mat_<uchar> undist_gray_img;
-		cv::undistort(
-			gray_img,
-			undist_gray_img,
-			intr.K,
-			intr.distortion.cv_coeffs(),
-			intr.K
-		);
+		if(intr.distortion)
+			cv::undistort(
+				gray_img,
+				undist_gray_img,
+				intr.K,
+				intr.distortion.cv_coeffs(),
+				intr.K
+			);
+		else
+			undist_gray_img = gray_img;
 		
 		cv::cvtColor(undist_gray_img, back_img, CV_GRAY2BGR);
 	}

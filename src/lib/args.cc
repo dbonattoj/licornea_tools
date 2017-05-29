@@ -16,7 +16,7 @@ args_list::args_list(int argc, const char* argv[], const std::string& usage) :
 	
 void args_list::usage_fail(const std::string& error) const {
 	std::cerr << "usage: " << executable_name_ << ' ' << usage_ << std::endl;
-	if(! error.empty()) std::cerr << error << std::endl;
+	if(! error.empty()) std::cerr << "       " << error << std::endl;
 	std::exit(EXIT_FAILURE);
 }
 
@@ -40,9 +40,14 @@ std::string args_list::string_arg() {
 	return std::string(next_arg_());
 }
 
-std::string args_list::filename_arg(bool must_exist) {
+std::string args_list::in_filename_arg() {
 	const std::string& filename = string_arg();
-	if(must_exist && !file_exists(filename)) usage_fail("file " + filename + " does not exist");
+	if(!file_exists(filename)) usage_fail("file " + filename + " does not exist");
+	return filename;
+}
+
+std::string args_list::out_filename_arg() {
+	const std::string& filename = string_arg();
 	return filename;
 }
 

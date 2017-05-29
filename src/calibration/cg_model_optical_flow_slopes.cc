@@ -27,7 +27,8 @@ int main(int argc, const char* argv[]) {
 	mat33 R = decode_mat(import_json_file(rotation_filename));
 
 	std::cout << "loading feature points" << std::endl;
-	feature_points fpoints = decode_feature_points(import_json_file(feature_points_filename));	
+	feature_points fpoints = decode_feature_points(import_json_file(feature_points_filename));
+	fpoints = undistort(fpoints, intr);
 
 	std::cout << "saving predicted slopes" << std::endl;
 	feature_slopes fslopes(fpoints);
