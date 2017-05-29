@@ -31,6 +31,7 @@ public:
 	long int_arg();
 	double real_arg();
 	std::string enum_arg(const std::vector<std::string>& options);
+	bool bool_arg(const std::string& expected);
 };
 
 inline args_list get_args(int argc, const char* argv[], const std::string& usage = "") {

@@ -5,6 +5,11 @@ import sys, os, json, shutil
 datas = None
 homographies = None
 
+border_top = 0
+border_left = 0
+border_bottom = 0
+border_right = 0
+
 def process_view(x, y):	
 	if verbose: print "view x={}, y={}".format(x, y)
 	
@@ -17,7 +22,12 @@ def process_view(x, y):
 			tmp_homography.filename,
 			view.image_filename(),
 			rectified_view.image_filename(),
-			"texture"
+			"texture",
+			str(border_top),
+			str(border_left),
+			str(border_bottom),
+			str(border_right),
+			"invert"
 		])
 	
 def usage_fail():

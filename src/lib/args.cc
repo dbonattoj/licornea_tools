@@ -69,4 +69,9 @@ std::string args_list::enum_arg(const std::vector<std::string>& options) {
 	usage_fail("`" + std::string(str) + "` invalid value");
 }
 
+bool args_list::bool_arg(const std::string& expected) {
+	const char* str = next_arg_();
+	return (str == expected);
+}
+
 }
