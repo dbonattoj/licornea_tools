@@ -60,7 +60,7 @@ real model_vertical_slope(const vec2& undistorted_point, const mat33& K, const m
 }
 
 
-cv::Mat_<cv::Vec3b> visualize_feature_slopes(const feature_slopes& fslopes, const cv::Mat_<cv::Vec3b>& back_img, int width, real exaggeration, int thickness) {
+cv::Mat_<cv::Vec3b> visualize_feature_slopes(const feature_slopes& fslopes, const cv::Mat_<cv::Vec3b>& back_img, int width, real exaggeration, int thickness, const border& bord) {
 	cv::Mat_<cv::Vec3b> out_img;
 	back_img.copyTo(out_img);
 
@@ -73,12 +73,13 @@ cv::Mat_<cv::Vec3b> visualize_feature_slopes(const feature_slopes& fslopes, cons
 		const feature_slope& fslope = kv.second;
 
 		cv::Point center_point = vec2_to_point(fpoint);
+		center_point.x += bord.left;
+		center_point.y += bord.top;
 		cv::Vec3b col = random_color(i++);
 		
 		real hslope = fslope.horizontal * exaggeration;
 		real vslope = fslope.vertical * exaggeration;
 		
-
 		// draw near-horizontal line
 		{
 			std::vector<cv::Point> end_points(2);

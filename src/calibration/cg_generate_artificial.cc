@@ -19,10 +19,9 @@ using namespace tlz;
 
 int main(int argc, const char* argv[]) {
 	get_args(argc, argv,
-		"rotation.json intrinsics.json out_image_correspondences.json out_datas_dir/ [features_count=100] [num_x=30] [num_y=10] [step_x=1.0] [step_y=1.0]");
+		"rotation.json intrinsics.json out_datas_dir/ [features_count=100] [num_x=30] [num_y=10] [step_x=1.0] [step_y=1.0]");
 	mat33 R = decode_mat(json_arg());
 	intrinsics intr = intrinsics_arg();
-	std::string out_cors_filename = out_filename_arg();
 	std::string out_datas_dir = out_filename_arg();
 	int features_count = int_opt_arg(100);
 	int num_x = int_opt_arg(30);
@@ -90,6 +89,7 @@ int main(int argc, const char* argv[]) {
 	image_correspondences cors;
 	cors.reference = view_index(num_x/2, num_y/2);
 	std::map<view_index, vec3> view_camera_centers;
+	std::map<std::string, real> straight_depths;
 	for(int y = 0; y < num_y; ++y) for(int x = 0; x < num_x; ++x) {
 		view_index idx(x, y);
 				
@@ -112,12 +112,14 @@ int main(int argc, const char* argv[]) {
 			std::string feature_name = "feat" + std::to_string(feature);
 			cors.features[feature_name].points[idx] = dist_i;
 			cors.features[feature_name].depth = v[2];
+			
+			straight_depths[feature_name] = v[2];
 		}
 	}
 	
 	
 	std::cout << "saving correspondences" << std::endl;
-	export_json_file(encode_image_correspondences(cors), out_cors_filename);
+	export_json_file(encode_image_correspondences(cors), out_datas_dir + "/cors.json");
 	
 	
 	std::cout << "saving cameras" << std::endl;
@@ -136,6 +138,15 @@ int main(int argc, const char* argv[]) {
 	}
 	std::string cameras_filename = out_datas_dir + "/cameras.json";
 	write_cameras_file(cameras_filename, cams);
+	
+	
+	std::cout << "saving straight depths" << std::endl;
+	{
+		json j_straight_depths = json::object();
+		for(const auto& kv : straight_depths)
+			j_straight_depths[kv.first] = kv.second;
+		export_json_file(j_straight_depths, out_datas_dir + "/straight_depths.json");
+	}
 	
 	
 	std::cout << "drawing images and depth maps" << std::endl;

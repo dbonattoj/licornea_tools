@@ -4,6 +4,7 @@
 #include "../../lib/opencv.h"
 #include "../../lib/color.h"
 #include "kinect_reprojection_parameters.h"
+#include "ir_to_color_sample.h"
 #include <vector>
 #include <tuple>
 
@@ -24,14 +25,7 @@ public:
 		bool distort_color = true
 	) const;
 	
-	template<typename Value>
-	struct sample {
-		Value value;
-		vec2 color_coordinates;
-		vec2 ir_coordinates;
-		real color_depth;
-		real ir_depth;
-	};
+	template<typename Value> using sample = ir_to_color_sample<Value>;
 
 	template<typename Value, typename Depth>
 	std::vector<sample<Value>> reproject_ir_to_color_samples(

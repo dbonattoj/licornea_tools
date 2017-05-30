@@ -47,12 +47,10 @@ private:
 	const dataset& dataset_;
 	int x_;
 	int y_;
-	std::string files_group_;
+	std::string group_;
 
-	const json& local_parameters_() const;
 	int local_filename_x_() const;
 	int local_filename_y_() const;
-	dataset_view local_view_(const std::string& name) const;
 	std::string format_name(const std::string& tpl) const;
 	std::string format_filename(const std::string& tpl) const;
 
@@ -62,7 +60,7 @@ public:
 	int x() const { return x_; }
 	int y() const { return y_; }
 	
-	std::string local_string_parameter(const std::string& name, const std::string& def = "") const;
+	const json& local_parameters() const;
 	std::string local_filename(const std::string& name, const std::string& def = "") const;
 	
 	std::string camera_name() const;
@@ -70,10 +68,13 @@ public:
 	std::string image_filename() const;
 	std::string depth_filename() const;
 	std::string mask_filename() const;
-	
-	dataset_view vsrs() const { return local_view_("vsrs"); }
-	dataset_view kinect_raw() const { return local_view_("kinect_raw"); }
-	dataset_view rectified() const { return local_view_("rectified"); }
+
+	std::string group() const;
+	dataset_view group_view(const std::string& name) const;
+
+	dataset_view vsrs() const { return group_view("vsrs"); }
+	dataset_view kinect_raw() const { return group_view("kinect_raw"); }
+	dataset_view rectified() const { return group_view("rectified"); }
 };
 
 class dataset {	
@@ -90,6 +91,8 @@ public:
 	bool is_2d() const;
 
 	const json& parameters() const { return parameters_; }
+	const json& group_parameters(const std::string& grp);
+	
 	std::string filepath(const std::string& relpath) const;
 	
 	std::string cameras_filename() const;

@@ -3,6 +3,7 @@
 
 #include "../../lib/opencv.h"
 #include "../../lib/color.h"
+#include "ir_to_color_sample.h"
 #include "kinect_internal_parameters.h"
 
 namespace tlz {
@@ -18,8 +19,18 @@ public:
 	vec2 undistort_ir(vec2 distorted) const;
 	
 	vec2 map_ir_to_color(vec2 undistorted_ir, real ir_z) const;
+	
+	template<typename Value> using sample = ir_to_color_sample<Value>;
+
+	template<typename Value, typename Depth>
+	std::vector<sample<Value>> remap_ir_to_color_samples(
+		const cv::Mat_<Value>& distorted_ir_values,
+		const cv::Mat_<Depth>& distorted_ir_z
+	) const;
 };
 
 }
+
+#include "kinect_remapping.tcc"
 
 #endif

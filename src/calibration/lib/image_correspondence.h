@@ -18,6 +18,7 @@ struct image_correspondence_feature {
 
 struct image_correspondences {
 	view_index reference;
+	std::string dataset_group;
 	std::map<std::string, image_correspondence_feature> features;
 };
 

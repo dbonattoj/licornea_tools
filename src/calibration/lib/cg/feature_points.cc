@@ -12,7 +12,7 @@ feature_points decode_feature_points(const json& j_fpoints) {
 	for(auto it = j_fpoints_feat.begin(); it != j_fpoints_feat.end(); ++it) {
 		const std::string& feature_name = it.key();
 		const json& j_fpoint = it.value();
-		fpoints.points[feature_name] = decode_mat(j_fpoint);
+		fpoints.points[feature_name] = vec2(j_fpoint["x"], j_fpoint["y"]);
 	}
 	return fpoints;
 }
@@ -24,7 +24,9 @@ json encode_feature_points(const feature_points& fpoints) {
 		const std::string& feature_name = kv.first;
 		const vec2& fpoint = kv.second;
 		json j_fpoint = json::object();
-		f_fpoints_feat[feature_name] = encode_mat(fpoint);
+		j_fpoint["x"] = fpoint[0];
+		j_fpoint["y"] = fpoint[1];
+		f_fpoints_feat[feature_name] = j_fpoint;
 	}
 	
 	json j_fpoints = json::object();
@@ -90,7 +92,7 @@ feature_points undistorted_feature_points_for_view(const image_correspondences& 
 
 
 
-cv::Mat_<cv::Vec3b> visualize_feature_points(const feature_points& fpoints, const cv::Mat_<cv::Vec3b>& back_img) {
+cv::Mat_<cv::Vec3b> visualize_feature_points(const feature_points& fpoints, const cv::Mat_<cv::Vec3b>& back_img, const border& bord) {
 	cv::Mat_<cv::Vec3b> img;
 	back_img.copyTo(img);
 	
@@ -100,6 +102,8 @@ cv::Mat_<cv::Vec3b> visualize_feature_points(const feature_points& fpoints, cons
 		const vec2& fpoint = kv.second;
 		cv::Vec3b col = random_color(i++);
 		cv::Point center_point = vec2_to_point(fpoint);
+		center_point.x += bord.left;
+		center_point.y += bord.top;
 		cv::circle(img, center_point, 10, cv::Scalar(col), 2);
 		cv::Point label_point(center_point.x + 10, center_point.y - 10);
 		cv::putText(img, feature_name, label_point, cv::FONT_HERSHEY_COMPLEX_SMALL, 1.0, cv::Scalar(col));

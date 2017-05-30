@@ -5,10 +5,12 @@ import sys, os, json, shutil
 datas = None
 homographies = None
 
-border_top = 0
-border_left = 0
-border_bottom = 0
-border_right = 0
+border = {
+	"top" : 0,
+	"left" : 0,
+	"bottom" : 0,
+	"right" : 0
+}
 
 def process_view(x, y):	
 	if verbose: print "view x={}, y={}".format(x, y)
@@ -17,17 +19,13 @@ def process_view(x, y):
 	rectified_view = view.rectified()
 	homography = homographies[encode_view_index(x, y)]
 	
-	with temporary_json(homography) as tmp_homography:
+	with temporary_in_json(homography) as tmp_homography, temporary_in_json(border) as tmp_border:
 		call_tool("misc/apply_homography", [
 			tmp_homography.filename,
 			view.image_filename(),
 			rectified_view.image_filename(),
 			"texture",
-			str(border_top),
-			str(border_left),
-			str(border_bottom),
-			str(border_right),
-			"invert"
+			tmp_border.filename
 		])
 	
 def usage_fail():
@@ -42,6 +40,13 @@ if __name__ == '__main__':
 	datas = Dataset(parameters_filename)
 	with open(homographies_filename, 'r') as f:
 		homographies = json.load(f)
+		
+	grp_par = datas.group_parameters("rectified")
+	keys = ["top", "left", "bottom", "right"];
+	if "border" in grp_par:
+		bord_par = grp_par["border"]
+		for key in keys:
+			if key in bord_par: border[key] = bord_par[key]
 	
 	indices = [(x, y) for y in datas.y_indices() for x in datas.x_indices()]
 	

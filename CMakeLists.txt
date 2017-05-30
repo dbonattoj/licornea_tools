@@ -84,6 +84,9 @@ install(TARGETS calibration_lib DESTINATION "lib/")
 add_executable(undistort_image "src/calibration/undistort_image.cc")
 target_link_libraries(undistort_image common_lib calibration_lib)
 
+add_executable(undistort_feature_points "src/calibration/undistort_feature_points.cc")
+target_link_libraries(undistort_feature_points common_lib calibration_lib)
+
 add_executable(calibrate_intrinsics "src/calibration/calibrate_intrinsics.cc")
 target_link_libraries(calibrate_intrinsics common_lib calibration_lib)
 
@@ -120,6 +123,9 @@ target_link_libraries(cg_estimate_rotation common_lib calibration_lib)
 add_executable(cg_slopes_viewer "src/calibration/cg_slopes_viewer.cc")
 target_link_libraries(cg_slopes_viewer common_lib calibration_lib)
 
+add_executable(cg_cors_viewer "src/calibration/cg_cors_viewer.cc")
+target_link_libraries(cg_cors_viewer common_lib calibration_lib)
+
 add_executable(cg_feature_straight_depths "src/calibration/cg_feature_straight_depths.cc")
 target_link_libraries(cg_feature_straight_depths common_lib calibration_lib)
 
@@ -131,6 +137,7 @@ install(
 		calibrate_intrinsics
 		view_feature_points
 		undistort_image
+		undistort_feature_points
 		optical_flow
 		optical_flow_2d
 		visualize_image_correspondences
@@ -141,6 +148,7 @@ install(
 		cg_generate_artificial
 		cg_estimate_rotation
 		cg_slopes_viewer
+		cg_cors_viewer
 		cg_feature_straight_depths
 		cg_rectification_homographies
 	DESTINATION calibration
@@ -200,6 +208,9 @@ install(TARGETS kinect_lib DESTINATION "lib/")
 add_executable(depth_reprojection "src/kinect/depth_reprojection.cc")
 target_link_libraries(depth_reprojection common_lib kinect_lib)
 
+add_executable(depth_remapping "src/kinect/depth_remapping.cc")
+target_link_libraries(depth_remapping common_lib kinect_lib)
+
 add_executable(internal_ir_intrinsics "src/kinect/internal_ir_intrinsics.cc")
 target_link_libraries(internal_ir_intrinsics common_lib kinect_lib)
 
@@ -212,6 +223,7 @@ target_link_libraries(checkerboard_depth_stat common_lib kinect_lib)
 install(
 	TARGETS
 		depth_reprojection
+		depth_remapping
 		internal_ir_intrinsics
 		calibrate_color_ir_reprojection
 		checkerboard_depth_stat
@@ -334,6 +346,9 @@ target_link_libraries(cat_obj_img_cors common_lib)
 add_executable(apply_homography "src/misc/apply_homography.cc")
 target_link_libraries(apply_homography common_lib)
 
+add_executable(homography_border "src/misc/homography_border.cc")
+target_link_libraries(homography_border common_lib)
+
 install(
 	TARGETS
 		psnr
@@ -343,12 +358,14 @@ install(
 		view_distortion
 		cat_obj_img_cors
 		apply_homography
+		homography_border
 	DESTINATION misc
 )
 install(
 	PROGRAMS
 		"src/misc/list_skip_n_experiments.py"
 		"src/misc/list_increase_baseline_experiments.py"
+		"src/misc/homographies_border.py"
 		"src/misc/yuv2png.sh"
 	DESTINATION misc
 )

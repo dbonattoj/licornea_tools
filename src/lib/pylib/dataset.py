@@ -5,17 +5,17 @@ class DatasetView:
 	dataset = None
 	x = 0
 	y = 0
-	files_group = None
+	group = None
 		
-	def __init__(self, dataset_, x_, y_, files_group_=None):
+	def __init__(self, dataset_, x_, y_, grp_=None):
 		self.dataset = dataset_
 		self.x = x_
 		self.y = y_
-		self.files_group = files_group_
+		self.group = grp_
 
 	def local_parameters(self):
-		if self.files_group is None: return self.dataset.parameters
-		else: return self.dataset.parameters[self.files_group]
+		if self.group is None: return self.dataset.parameters
+		else: return self.dataset.parameters[self.group]
 
 	def local_filename_x(self):
 		par = self.local_parameters()
@@ -31,10 +31,6 @@ class DatasetView:
 		if "filename_y_index_offset" in par: y = y + par["filename_y_index_offset"]
 		return y
 		
-	def local_view(self, name):
-		if name not in self.dataset.parameters: raise Exception("no {} parameters".format(name))
-		return DatasetView(self.dataset, self.x, self.y, name)
-
 	def format_filename(self, tpl):
 		if self.dataset.is_2d(): relpath = tpl.format(x=self.local_filename_x(), y=self.local_filename_y())
 		else: relpath = tpl.format(x=self.local_filename_x())
@@ -65,12 +61,17 @@ class DatasetView:
 	def mask_filename(self, default=None):
 		return self.local_filename("mask_filename_format", default)
 	
+	def group_view(self, grp):
+		if grp is None or grp == "": return DatasetView(self.dataset, self.x, self.y, None)
+		elif grp in self.dataset.parameters: return DatasetView(self.dataset, self.x, self.y, grp)
+		else: raise Exception("no {} group".format(grp))
+
 	def vsrs(self):
-		return self.local_view("vsrs")
+		return self.group_view("vsrs")
 	def kinect_raw(self):
-		return self.local_view("kinect_raw")
+		return self.group_view("kinect_raw")
 	def rectified(self):
-		return self.local_view("rectified")
+		return self.group_view("rectified")
 
 
 class Dataset:
@@ -87,6 +88,11 @@ class Dataset:
 		self.x_index_range = self.parameters["x_index_range"]
 		if "y_index_range" in self.parameters:
 			self.y_index_range = self.parameters["y_index_range"]		
+
+	def group_parameters(self, grp):
+		if grp is None or grp == "": return self.parameters
+		elif grp in self.parameters: return self.parameters[grp]
+		else: raise Exception("no {} group".format(grp))
 
 	def filepath(self, relpath):
 		return os.path.join(self.dirname, relpath)		

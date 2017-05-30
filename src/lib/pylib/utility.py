@@ -13,7 +13,8 @@ def tools_directory():
 def call_tool(tool, args):
 	if running_on_windows():
 		tool = tool + ".exe"
-		
+	
+	args = [str(arg) for arg in args]
 	full_args = [os.path.join(tools_directory(), tool)] + args
 	if verbose:
 		print "calling {}".format(tool)
@@ -29,6 +30,7 @@ def call_tool(tool, args):
 def call_tool_collect_output(tool, args):
 	if running_on_windows():
 		tool = tool + ".exe"
+	args = [str(arg) for arg in args]
 	full_args = [os.path.join(tools_directory(), tool)] + args
 	if verbose: print "calling {}".format(tool)
 	try:
@@ -60,4 +62,4 @@ def import_json_file(filename):
 			
 def export_json_file(j, filename):
 	with open(filename, 'w') as f:
-		j.dump(f)
+		json.dump(j, f)

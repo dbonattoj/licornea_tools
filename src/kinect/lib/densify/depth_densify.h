@@ -3,7 +3,7 @@
 
 #include "../../../lib/opencv.h"
 #include "../../../lib/common.h"
-#include "../kinect_reprojection.h"
+#include "../ir_to_color_sample.h"
 #include <vector>
 #include <memory>
 #include <string>
@@ -12,7 +12,7 @@ namespace tlz {
 	
 class depth_densify_base {
 public:
-	using sample = kinect_reprojection::sample<real>;
+	using sample = ir_to_color_sample<real>;
 
 	virtual ~depth_densify_base() = default;
 

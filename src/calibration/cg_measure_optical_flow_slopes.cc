@@ -59,7 +59,7 @@ int main(int argc, const char* argv[]) {
 	
 	std::cout << "saving slopes" << std::endl;
 	feature_points ref_fpoints = undistorted_feature_points_for_view(cors, reference_idx, intr);
-	feature_slopes fslopes = ref_fpoints;
+	feature_slopes fslopes(ref_fpoints);
 	for(const auto& kv : cors.features) {
 		const std::string& feature_name = kv.first;
 		

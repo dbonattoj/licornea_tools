@@ -46,15 +46,24 @@ class temporary_file(object):
 		pass
 
 
-class temporary_json(temporary_file):
+class temporary_in_json(temporary_file):
 	json = None
 	
 	def __init__(self, j):
-		super(temporary_json, self).__init__("json")
+		super(temporary_in_json, self).__init__("json")
 		self.json = j
 	
 	def write_file(self, f):
 		json.dump(self.json, f, indent=None)
+
+
+class temporary_out_json(temporary_file):
+	def __init__(self):
+		super(temporary_out_json, self).__init__("json")
+	
+	def json(self):
+		with open(self.filename, 'r') as f:
+			return json.load(f)
 
 
 def remove_tmp_dir():

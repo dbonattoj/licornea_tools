@@ -41,6 +41,7 @@ int main(int argc, const char* argv[]) {
 	camera_array cameras;
 	image_correspondences out_cors;
 	out_cors.reference = reference_idx;	
+	out_cors.dataset_group = "rectified";
 	mat33 M = intr.K * R * intr.K_inv;
 	real total_reprojection_error = 0;
 	int total_reprojection_error_samples = 0;
@@ -88,6 +89,14 @@ int main(int argc, const char* argv[]) {
 		// compute homography for this view
 		mat33 homography = cv::findHomography(source_points, destination_points, 0, 0);
 
+		for(auto& kv : reference_fpoints.points) {
+			const std::string& feature_name = kv.first;
+			if(! target_source_fpoints.has(feature_name)) continue;
+			vec2 source_point = target_source_fpoints.points.at(feature_name);
+			//out_cors.features[feature_name].points[target_idx] = mul_h(homography, source_point);
+		}
+		
+		
 		// compute reprojection error
 		{
 			std::vector<vec2> warped_source_points;

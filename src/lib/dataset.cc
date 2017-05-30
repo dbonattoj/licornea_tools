@@ -8,17 +8,11 @@
 
 namespace tlz {
 
-const json& dataset_view::local_parameters_() const {
-	if(files_group_.empty()) return dataset_.parameters();
-	else return dataset_.parameters()[files_group_];
-}
 
 int dataset_view::local_filename_x_() const {
-	float factor = 1.0;
-	int offset = 0;
-	if(local_parameters_().count("filename_x_index_factor") == 1) factor = local_parameters_()["filename_x_index_factor"];
-	if(local_parameters_().count("filename_x_index_offset") == 1) offset = local_parameters_()["filename_x_index_offset"];
-
+	float factor = get_or(local_parameters(), "filename_x_index_factor", 1.0);
+	int offset = get_or(local_parameters(), "filename_x_index_offset", 0);
+	
 	int loc_x = x_;
 	loc_x *= factor;
 	loc_x += offset;
@@ -26,20 +20,13 @@ int dataset_view::local_filename_x_() const {
 }
 
 int dataset_view::local_filename_y_() const {
-	float factor = 1.0;
-	int offset = 0;
-	if(local_parameters_().count("filename_y_index_factor") == 1) factor = local_parameters_()["filename_y_index_factor"];
-	if(local_parameters_().count("filename_y_index_offset") == 1) offset = local_parameters_()["filename_y_index_offset"];
-
+	float factor = get_or(local_parameters(), "filename_y_index_factor", 1.0);
+	int offset = get_or(local_parameters(), "filename_y_index_offset", 0);
+	
 	int loc_y = y_;
 	loc_y *= factor;
 	loc_y += offset;
 	return loc_y;
-}
-
-dataset_view dataset_view::local_view_(const std::string& name) const {
-	if(dataset_.parameters().count(name) == 0) throw std::runtime_error("no local view '" + name + "' in parameters");
-	return dataset_view(dataset_, x_, y_, name);
 }
 
 std::string dataset_view::format_name(const std::string& tpl) const {
@@ -54,17 +41,17 @@ std::string dataset_view::format_filename(const std::string& tpl) const {
 	return dataset_.filepath(relpath);
 }
 
-dataset_view::dataset_view(const dataset& datas, int x, int y, const std::string& files_group) :
-	dataset_(datas), x_(x), y_(y), files_group_(files_group) { }
+dataset_view::dataset_view(const dataset& datas, int x, int y, const std::string& grp) :
+	dataset_(datas), x_(x), y_(y), group_(grp) { }
 
-std::string dataset_view::local_string_parameter(const std::string& name, const std::string& def) const {
-	auto j = local_parameters_();
-	if(j.count(name) == 1) return j[name];
-	else return def;
+
+const json& dataset_view::local_parameters() const {
+	if(group_.empty()) return dataset_.parameters();
+	else return dataset_.parameters()[group_];
 }
  
 std::string dataset_view::local_filename(const std::string& name, const std::string& def) const {
-	std::string tpl = local_string_parameter(name, "");
+	std::string tpl = get_or(local_parameters(), name, std::string());
 	if(! tpl.empty()) return format_filename(tpl);
 	else return def;
 }
@@ -83,6 +70,16 @@ std::string dataset_view::depth_filename() const {
 
 std::string dataset_view::mask_filename() const {
 	return local_filename("mask_filename_format");
+}
+
+std::string dataset_view::group() const {
+	return group_;
+}
+
+dataset_view dataset_view::group_view(const std::string& grp) const {
+	if(grp.empty()) return dataset_view(dataset_, x_, y_);
+	else if(has(dataset_.parameters(), grp)) return dataset_view(dataset_, x_, y_, grp);
+	else throw std::runtime_error("no group '" + grp + "' in dataset");
 }
 
 /////
@@ -107,6 +104,12 @@ bool dataset::is_1d() const {
 
 bool dataset::is_2d() const {
 	return (y_index_range_.size() > 0);
+}
+
+const json& dataset::group_parameters(const std::string& grp) {
+	if(grp.empty()) return parameters_;
+	else if(has(parameters_, grp)) return parameters_[grp];
+	else throw std::runtime_error("no group '" + grp + "' in dataset");
 }
 
 std::string dataset::filepath(const std::string& relpath) const {

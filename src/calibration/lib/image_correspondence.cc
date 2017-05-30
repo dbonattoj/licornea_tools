@@ -8,7 +8,7 @@ namespace tlz {
 image_correspondence_feature decode_image_correspondence_feature(const json& j_feat) {
 	image_correspondence_feature feat;
 	
-	if(j_feat.count("depth") == 1) feat.depth = j_feat["depth"];
+	feat.depth = get_or(j_feat, "depth", 0.0);
 
 	const json& j_pts = j_feat["points"];
 	for(auto it = j_pts.begin(); it != j_pts.end(); ++it) {	
@@ -49,7 +49,8 @@ json encode_image_correspondence_feature(const image_correspondence_feature& fea
 
 image_correspondences decode_image_correspondences(const json& j_cors) {
 	image_correspondences cors;
-	if(j_cors.count("reference") == 1) cors.reference = decode_view_index(j_cors["reference"]);
+	if(has(j_cors, "reference")) cors.reference = decode_view_index(j_cors["reference"]);
+	if(has(j_cors, "dataset_group")) cors.dataset_group = j_cors["dataset_group"];
 	const json& j_features = j_cors["features"];
 	for(auto it = j_features.begin(); it != j_features.end(); ++it) {
 		std::string feature_name = it.key();
@@ -63,6 +64,7 @@ image_correspondences decode_image_correspondences(const json& j_cors) {
 json encode_image_correspondences(const image_correspondences& cors) {
 	json j_cors = json::object();
 	if(cors.reference) j_cors["reference"] = encode_view_index(cors.reference);
+	if(! cors.dataset_group.empty()) j_cors["dataset_group"] = cors.dataset_group;
 	json j_features = json::object();
 	for(const auto& kv : cors.features) {
 		const std::string& feature_name = kv.first;
