@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
 	max_border = {}
 	keys = ["top", "left", "bottom", "right"]
-	for key in keys: max_border[key] = 0
+	for key in keys: max_border[key] = -100000
 
 	for border in borders:
 		for key in keys:

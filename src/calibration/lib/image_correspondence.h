@@ -11,8 +11,8 @@
 namespace tlz {
 
 struct image_correspondence_feature {		
-	real depth = 0.0;
 	std::map<view_index, vec2> points;
+	std::map<view_index, real> point_depths;
 	// when iterating (--> encoding into json array), gets sorted by index
 };
 

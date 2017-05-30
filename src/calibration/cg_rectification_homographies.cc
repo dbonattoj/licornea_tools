@@ -42,7 +42,7 @@ int main(int argc, const char* argv[]) {
 	image_correspondences out_cors;
 	out_cors.reference = reference_idx;	
 	out_cors.dataset_group = "rectified";
-	mat33 M = intr.K * R * intr.K_inv;
+	mat33 M = intr.K * R.t() * intr.K_inv;
 	real total_reprojection_error = 0;
 	int total_reprojection_error_samples = 0;
 	for(int x : datas.x_indices()) for(int y : datas.y_indices()) {
@@ -82,7 +82,7 @@ int main(int argc, const char* argv[]) {
 			destination_points.push_back(tr_i);
 						
 			image_correspondence_feature& feature = out_cors.features[feature_name];
-			feature.depth = straight_depth;
+			feature.point_depths[target_idx] = straight_depth;
 			feature.points[target_idx] = tr_i;
 		}
 		

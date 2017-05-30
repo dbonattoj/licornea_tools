@@ -89,7 +89,6 @@ int main(int argc, const char* argv[]) {
 	image_correspondences cors;
 	cors.reference = view_index(num_x/2, num_y/2);
 	std::map<view_index, vec3> view_camera_centers;
-	std::map<std::string, real> straight_depths;
 	for(int y = 0; y < num_y; ++y) for(int x = 0; x < num_x; ++x) {
 		view_index idx(x, y);
 				
@@ -111,9 +110,7 @@ int main(int argc, const char* argv[]) {
 			// add image correspondence
 			std::string feature_name = "feat" + std::to_string(feature);
 			cors.features[feature_name].points[idx] = dist_i;
-			cors.features[feature_name].depth = v[2];
-			
-			straight_depths[feature_name] = v[2];
+			cors.features[feature_name].point_depths[idx] = v[2];
 		}
 	}
 	
@@ -143,8 +140,12 @@ int main(int argc, const char* argv[]) {
 	std::cout << "saving straight depths" << std::endl;
 	{
 		json j_straight_depths = json::object();
-		for(const auto& kv : straight_depths)
-			j_straight_depths[kv.first] = kv.second;
+		for(int feature = 0; feature < features_count; ++feature) {
+			std::string feature_name = "feat" + std::to_string(feature);
+			const vec3& wp = features.at(feature);
+			
+			j_straight_depths[feature_name] = wp[2];
+		}
 		export_json_file(j_straight_depths, out_datas_dir + "/straight_depths.json");
 	}
 	
@@ -167,7 +168,7 @@ int main(int argc, const char* argv[]) {
 		for(int feature = 0; feature < features_count; ++feature) {
 			std::string feature_name = "feat" + std::to_string(feature);
 			vec2 dist_i = cors.features.at(feature_name).points.at(idx);
-			real depth = cors.features.at(feature_name).depth;
+			real depth = cors.features.at(feature_name).point_depths.at(idx);
 			
 			cv::Vec3b col = random_color(feature);
 

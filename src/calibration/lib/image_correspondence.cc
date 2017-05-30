@@ -8,17 +8,15 @@ namespace tlz {
 image_correspondence_feature decode_image_correspondence_feature(const json& j_feat) {
 	image_correspondence_feature feat;
 	
-	feat.depth = get_or(j_feat, "depth", 0.0);
-
 	const json& j_pts = j_feat["points"];
 	for(auto it = j_pts.begin(); it != j_pts.end(); ++it) {	
 		std::string key = it.key();	
 		view_index idx = decode_view_index(key);
 		
-		const json& j_pos = it.value();
-		vec2 pos(j_pos[0], j_pos[1]);
-
-		feat.points[idx] = pos;
+		const json& j_pt = it.value();
+		feat.points[idx] = vec2(j_pt["x"], j_pt["y"]);
+		if(has(j_pt, "depth"))
+			feat.point_depths[idx] = j_pt["depth"];
 	}
 	
 	return feat;
@@ -30,18 +28,21 @@ json encode_image_correspondence_feature(const image_correspondence_feature& fea
 	for(const auto& pt : feat.points) {
 		view_index idx = pt.first;
 		std::string key = encode_view_index(idx);
-		
 		vec2 pos = pt.second;
-		json j_pos = json::array();
-		j_pos.push_back(pos[0]);
-		j_pos.push_back(pos[1]);
 		
-		j_pts[key] = j_pos;
+		json j_pt = json::object();
+		j_pt["x"] = pos[0];
+		j_pt["y"] = pos[1];
+		
+		auto it = feat.point_depths.find(idx); 
+		if(it != feat.point_depths.end())
+			j_pt["depth"] = it->second;
+		
+		j_pts[key] = j_pt;
 	}
 	
 	json j_feat = json::object();
 	j_feat["points"] = j_pts;
-	if(feat.depth != 0.0) j_feat["depth"] = feat.depth;
 				
 	return j_feat;
 }
