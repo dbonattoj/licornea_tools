@@ -143,7 +143,7 @@ int main(int argc, const char* argv[]) {
 			int keycode = 0;
 			running = view.show(keycode);
 			
-			if(keycode == viewer::enter_keycode) {
+			if(keycode == enter_keycode) {
 				if(! out_images_dirname.empty()) {
 					std::string color_filename = out_images_dirname + "/color_" + std::to_string(count) + ".png";
 					std::string ir_filename = out_images_dirname + "/ir_" + std::to_string(count) + ".png";

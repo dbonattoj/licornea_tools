@@ -2,9 +2,6 @@
 
 namespace tlz {
 
-const int viewer::enter_keycode = 10;
-const int viewer::escape_keycode = 27;
-
 int viewer::viewers_count_ = 0;
 
 viewer::viewer(int w, int h, bool resizeable) :

@@ -203,5 +203,5 @@ int main(int argc, const char* argv[]) {
 
 	update();
 	
-	cv::waitKey(0);
+	while(cv::waitKey(0) != escape_keycode);
 }

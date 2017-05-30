@@ -163,5 +163,5 @@ int main(int argc, const char* argv[]) {
 
 	update_callback();
 	
-	cv::waitKey(0);
+	while(cv::waitKey(0) != escape_keycode);
 }

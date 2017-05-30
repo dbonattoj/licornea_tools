@@ -17,7 +17,7 @@ int main(int argc, const char* argv[]) {
 	std::string border_filename = in_filename_opt_arg();
 	border bord;
 	if(! border_filename.empty()) bord = decode_border(import_json_file(border_filename));
-		
+			
 	mat33 offset(
 		1, 0, bord.left,
 		0, 1, bord.top,
