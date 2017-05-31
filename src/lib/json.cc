@@ -6,11 +6,11 @@
 
 namespace tlz {
 	
-void export_json_file(const json& j, const std::string& filename) {
+void export_json_file(const json& j, const std::string& filename, bool compact) {
 	std::string ext = file_name_extension(filename);
 	if(ext == "json") {
 		std::ofstream output(filename);
-		output << j.dump(4);
+		output << j.dump(compact ? -1 : 4);
 	} else if(ext == "cbor") {
 		std::vector<std::uint8_t> cbor_data = json::to_cbor(j);
 		std::ofstream output(filename, std::ios_base::out | std::ios_base::binary);

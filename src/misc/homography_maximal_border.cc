@@ -21,5 +21,5 @@ int main(int argc, const char* argv[]) {
 		bord = maximal_border(homs, width, height);
 	}
 	
-	export_json_file(encode_border(bord), out_border_filename);
+	export_json_file(encode_border(bord), out_border_filename, true);
 }

@@ -10,7 +10,7 @@ namespace tlz {
 
 using json = nlohmann::json;
 
-void export_json_file(const json&, const std::string& filename);
+void export_json_file(const json&, const std::string& filename, bool compact = false);
 json import_json_file(const std::string& filename);
 
 cv::Mat_<real> decode_mat(const json&);
