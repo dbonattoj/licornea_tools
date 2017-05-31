@@ -7,6 +7,13 @@ homographies = None
 R_filename = None
 intrinsics_filename = None
 
+image = True
+depth = True
+
+overwrite_image = False
+overwrite_depth = False
+
+
 border = {
 	"top" : 0,
 	"left" : 0,
@@ -25,29 +32,41 @@ def process_view(x, y):
 		temporary_in_json(border) as tmp_border, \
 		temporary_file("png") as tmp_unrotated_depth:
 		
-		call_tool("misc/apply_homography", [
-			tmp_homography.filename,
-			view.image_filename(),
-			rectified_view.image_filename(),
-			"texture",
-			tmp_border.filename
-		])
+		if image:
+			in_image_filename = view.image_filename()
+			assert os.path.isfile(in_image_filename)
+			out_rectified_image_filename = rectified_view.image_filename()
+			
+			if overwrite_image or not os.path.isfile(out_rectified_image_filename):
+				call_tool("misc/apply_homography", [
+					tmp_homography.filename,
+					in_image_filename,
+					out_rectified_image_filename,
+					"texture",
+					tmp_border.filename
+				])
 		
-		call_tool("calibration/cg_unrotate_depth_map", [
-			view.depth_filename(),
-			intrinsics_filename,
-			R_filename,
-			tmp_unrotated_depth.filename,
-		])
-		call_tool("misc/apply_homography", [
-			tmp_homography.filename,
-			tmp_unrotated_depth.filename,
-			rectified_view.depth_filename(),
-			"depth",
-			tmp_border.filename
-		])
+		if depth:
+			in_depth_filename = view.depth_filename()
+			assert os.path.isfile(in_depth_filename)
+			out_rectified_depth_filename = rectified_view.depth_filename()
+		
+			if overwrite_depth or not os.path.isfile(out_rectified_depth_filename):
+				call_tool("calibration/cg_unrotate_depth_map", [
+					view.depth_filename(),
+					intrinsics_filename,
+					R_filename,
+					tmp_unrotated_depth.filename,
+				])
+				call_tool("misc/apply_homography", [
+					tmp_homography.filename,
+					tmp_unrotated_depth.filename,
+					out_rectified_depth_filename,
+					"depth",
+					tmp_border.filename
+				])
 
-	
+
 def usage_fail():
 	print("usage: {} dataset_parameters.json intrinsics.json R.json homographies.json\n".format(sys.argv[0]))
 	sys.exit(1)

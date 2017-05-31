@@ -17,6 +17,7 @@ int main(int args, const char* argv[]) {
 	cv::Mat_<ushort> out_depth(in_depth.size());
 	
 	mat33 M = R.t() * intr.K_inv;
+	#pragma omp parallel for
 	for(int y = 0; y < in_depth.rows; ++y) for(int x = 0; x < in_depth.cols; ++x) {
 		ushort in_d = in_depth(y, x);
 		ushort out_d = 0;
