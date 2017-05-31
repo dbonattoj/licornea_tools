@@ -5,6 +5,7 @@
 #include <format.h>
 #include <regex>
 #include "../lib/camera.h"
+#include "../lib/border.h"
 
 using namespace tlz;
 
@@ -15,11 +16,12 @@ using namespace tlz;
 	std::cout << "            flip_t: flip sign of translation vectors\n";
 	std::cout << "            scale old new: adapt intrinsic matrix for image scale from old to new\n";
 	std::cout << "                           (old/new = pixel length of same segment in old and new image)\n";
+	std::cout << "            border [old] new: adapt intrinsic matrix for image border change from old to new\n";
+	std::cout << "                              (old/new = border.json file. if no old, assumed old border is zero)\n";
 	std::cout << "            rename cam_{} [offset=0] [factor=1]: rename according to format, with arg = offset + factor*index\n";
 	std::cout << "            head n: Only n first cameras\n";
 	std::cout << "            tail n: Only n last cameras\n";
-	std::cout << "            filter regex: Only cameras whose name matches regex\n";
-	std::cout << "            nop: No change, just reformat the cameras file\n";
+	std::cout << "            nop: No change, just rewrite the cameras file\n";
 	std::cout << std::endl;
 	std::exit(1);
 }
@@ -43,7 +45,7 @@ int main(int argc, const char* argv[]) {
 		camera cam = in_cam;
 		
 		if(operation == "Rt2MPEG") {
-			cam.translation = -(cam.rotation.inv() * cam.translation);
+			cam.translation = -(cam.rotation.t() * cam.translation);
 						
 		} else if(operation == "MPEG2Rt") {
 			cam.translation = -(cam.rotation * cam.translation);
@@ -60,6 +62,20 @@ int main(int argc, const char* argv[]) {
 			cam.intrinsic(1,1) *= factor;
 			cam.intrinsic(0,2) *= factor;
 			cam.intrinsic(1,2) *= factor;
+		
+		} else if(operation == "border") {
+			border old_border, new_border;
+			if(argc == 4) {
+				std::string new_border_filename = argv[4];
+				new_border = decode_border(import_json_file(new_border_filename));
+			} else if(argc == 5) {
+				std::string old_border_filename = argv[4];
+				old_border = decode_border(import_json_file(old_border_filename));
+				std::string new_border_filename = argv[5];
+				new_border = decode_border(import_json_file(new_border_filename));
+			} else usage_fail();
+			cam.intrinsic(0,2) += new_border.left - old_border.left;
+			cam.intrinsic(1,2) += new_border.top - old_border.top;
 			
 		} else if(operation == "rename") {
 			if(argc <= 4) usage_fail();
@@ -82,9 +98,6 @@ int main(int argc, const char* argv[]) {
 			int n = std::atoi(argv[4]);
 			skip = (index < in_cameras.size() - n);
 			
-		} else if(operation == "filter") {
-			// TODO
-
 		} else if(operation == "nop") {
 			// no change
 			

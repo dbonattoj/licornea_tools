@@ -75,8 +75,8 @@ flow_state flow_to(const flow_state& origin_state, view_index dest_idx, const da
 }
 
 
-void do_horizontal_optical_flow(const flow_state& mid_x_state, const dataset& datas) {
-	std::cout << "horizontal optical flow by increasing x starting at mid_x..." << std::endl;
+void do_horizontal_optical_flow(const flow_state& mid_x_state, const dataset& datas, bool verb = false) {
+	if(verb) std::cout << "horizontal optical flow by increasing x starting at mid_x..." << std::endl;
 	flow_state state = mid_x_state;
 	for(int x = mid_x_state.index.x + datas.x_step(); x <= datas.x_max(); x += datas.x_step()) {
 		view_index idx(x, mid_x_state.index.y);
@@ -86,7 +86,7 @@ void do_horizontal_optical_flow(const flow_state& mid_x_state, const dataset& da
 		state = std::move(new_state);
 	}
 	
-	std::cout << "horizontal optical flow by decreasing x starting at mid_x..." << std::endl;
+	if(verb) std::cout << "\nhorizontal optical flow by decreasing x starting at mid_x..." << std::endl;
 	state = mid_x_state;
 	for(int x = mid_x_state.index.x - datas.x_step(); x >= datas.x_min(); x -= datas.x_step()) {
 		view_index idx(x, mid_x_state.index.y);
@@ -100,9 +100,10 @@ void do_horizontal_optical_flow(const flow_state& mid_x_state, const dataset& da
 
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv, "dataset_parameters.json out_image_correspondences.json");
+	get_args(argc, argv, "dataset_parameters.json out_image_correspondences.json [feature_count=100] ");
 	dataset datas = dataset_arg();
 	std::string out_cors_filename = out_filename_arg();
+	features_count = int_opt_arg(100);
 
 	view_index center_idx;
 	if(datas.is_1d()) center_idx = view_index(datas.x_mid());
@@ -115,7 +116,6 @@ int main(int argc, const char* argv[]) {
 	cv::cvtColor(center_col_img, center_gray_img, CV_BGR2GRAY);
 		
 	std::cout << "finding good features" << std::endl;
-	features_count = 10;
 	std::vector<cv::Point2f> center_positions(features_count);
 	cv::goodFeaturesToTrack(center_gray_img, center_positions, features_count, 0.3, 7);
 	std::cout << "requested " << features_count << " features, found " << center_positions.size() << std::endl;
@@ -149,7 +149,7 @@ int main(int argc, const char* argv[]) {
 		}
 		
 		
-		std::cout << "vertical optical flow by decreasing y starting at mid_y..." << std::endl;
+		std::cout << "\nvertical optical flow by decreasing y starting at mid_y..." << std::endl;
 		state = center_state;	
 		for(int y = center_idx.y - datas.y_step(); y >= datas.y_min(); y -= datas.y_step()) {
 			view_index idx(center_idx.x, y);
@@ -160,27 +160,34 @@ int main(int argc, const char* argv[]) {
 			state = std::move(new_state);
 		}
 
-		std::cout << "now doing horizontal flows..." << std::endl;
-		#pragma omp parallel for
+		std::cout << "\nnow doing horizontal flows..." << std::endl;
+		int done = 0;
+		#pragma omp parallel for num_threads(3) schedule(guided)
 		for(std::ptrdiff_t i = 0; i < vertical_origins.size(); i++) {
 			const flow_state& origin_state = vertical_origins[i];
 			do_horizontal_optical_flow(origin_state, datas);
+			
+			#pragma omp critical
+			{
+				++done;
+				std::cout << '\n' << done << " of " << vertical_origins.size() << std::endl;
+			}
 		}
 
 
 	} else {
 		// 1D MODE
 	
-		do_horizontal_optical_flow(center_state, datas);
+		do_horizontal_optical_flow(center_state, datas, true);
 	}
 		
 	
 
 	std::cout << "\nsaving image correspondences" << std::endl;
-	//int expected_points_count = datas.x_count() * datas.y_count();
+	int expected_points_count = datas.x_count() * datas.y_count();
 	image_correspondences cors;
 	for(std::ptrdiff_t feature = 0; feature < features_count; ++feature) {
-		//if(correspondences[feature].points.size() != expected_points_count) continue;
+		if(correspondences[feature].points.size() != expected_points_count) continue;
 		std::string feature_name = make_feature_name(feature);
 		cors.features[feature_name] = correspondences[feature];
 	}

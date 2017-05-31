@@ -362,8 +362,8 @@ target_link_libraries(cat_obj_img_cors common_lib)
 add_executable(apply_homography "src/misc/apply_homography.cc")
 target_link_libraries(apply_homography common_lib)
 
-add_executable(homography_border "src/misc/homography_border.cc")
-target_link_libraries(homography_border common_lib)
+add_executable(homography_maximal_border "src/misc/homography_maximal_border.cc")
+target_link_libraries(homography_maximal_border common_lib)
 
 install(
 	TARGETS
@@ -374,14 +374,13 @@ install(
 		view_distortion
 		cat_obj_img_cors
 		apply_homography
-		homography_border
+		homography_maximal_border
 	DESTINATION misc
 )
 install(
 	PROGRAMS
 		"src/misc/list_skip_n_experiments.py"
 		"src/misc/list_increase_baseline_experiments.py"
-		"src/misc/homographies_border.py"
 		"src/misc/yuv2png.sh"
 	DESTINATION misc
 )

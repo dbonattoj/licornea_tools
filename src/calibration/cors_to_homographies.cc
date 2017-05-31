@@ -4,6 +4,7 @@
 #include "../lib/opencv.h"
 #include "../lib/dataset.h"
 #include "../lib/misc.h"
+#include "../lib/view_homography.h"
 #include "lib/image_correspondence.h"
 #include <map>
 #include <iostream>
@@ -26,11 +27,7 @@ int main(int argc, const char* argv[]) {
 			feature_names.push_back(feature_name);
 	}
 	
-	struct view_result {
-		mat33 homography;
-		real backprojection_error;
-	};
-	std::map<view_index, view_result> results;
+	view_homographies homographies;
 	
 	// for each view
 	for(int x = datas.x_min(); x <= datas.x_max(); x += datas.x_step())
@@ -55,11 +52,11 @@ int main(int argc, const char* argv[]) {
 		}
 
 		// compute homography
-		mat33 homography = cv::findHomography(src_points, dst_points);
+		mat33 H = cv::findHomography(src_points, dst_points);
 		
 		// compute back-projection error
 		std::vector<vec2> warped_src_points;
-		cv::perspectiveTransform(src_points, warped_src_points, homography);
+		cv::perspectiveTransform(src_points, warped_src_points, H);
 		std::size_t n = src_points.size();
 		real err = 0.0;
 		for(std::ptrdiff_t i = 0; i < n; ++i) {
@@ -69,14 +66,12 @@ int main(int argc, const char* argv[]) {
 		}
 		err /= n;
 		
-		results[idx] = { homography, err };
+		view_homography homography;
+		homography.mat = H;
+		homography.err = err;
+		homographies[idx] = homography;
 	}
 	
 	// save homographies
-	{
-		json j_homographies = json::object();
-		for(const auto& kv : results)
-			j_homographies[encode_view_index(kv.first)] = encode_mat(kv.second.homography);
-		export_json_file(j_homographies, out_homographies_filename);
-	}
+	export_json_file(encode_view_homographies(homographies), out_homographies_filename);
 }

@@ -10,8 +10,8 @@ intrinsics_filename = None
 image = True
 depth = True
 
-overwrite_image = False
-overwrite_depth = False
+overwrite_image = True
+overwrite_depth = True
 
 
 border = {
