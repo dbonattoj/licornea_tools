@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
 	datas = Dataset(parameters_filename)
 	with open(homographies_filename, 'r') as f:
-		homographies = json.load(f)
+		homographies = json.load(f)cali
 			
 	indices = [(x, y) for y in datas.y_indices() for x in datas.x_indices()]
 	

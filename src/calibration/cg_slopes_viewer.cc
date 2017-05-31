@@ -192,7 +192,7 @@ int main(int argc, const char* argv[]) {
 	};
 	update_function = update;
 
-	cv::namedWindow(window_name, CV_WINDOW_AUTOSIZE);
+	cv::namedWindow(window_name, CV_WINDOW_NORMAL);
 
 	cv::createTrackbar("X", window_name, &x_int, comp_slider_max, &update_callback);
 	cv::createTrackbar("Y", window_name, &y_int, comp_slider_max, &update_callback);

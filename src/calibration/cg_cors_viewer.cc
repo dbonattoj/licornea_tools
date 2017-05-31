@@ -59,7 +59,7 @@ int main(int argc, const char* argv[]) {
 	};
 	update_function = update;
 
-	cv::namedWindow(window_name, CV_WINDOW_AUTOSIZE);
+	cv::namedWindow(window_name, CV_WINDOW_NORMAL);
 
 	cv::createTrackbar("x", window_name, &x, datas.x_max(), &update_callback);
 	cv::createTrackbar("y", window_name, &y, datas.y_max(), &update_callback);
