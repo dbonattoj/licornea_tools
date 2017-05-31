@@ -4,6 +4,8 @@ import sys, os, json, shutil
 
 datas = None
 homographies = None
+R_filename = None
+intrinsics_filename = None
 
 border = {
 	"top" : 0,
@@ -19,7 +21,10 @@ def process_view(x, y):
 	rectified_view = view.rectified()
 	homography = homographies[encode_view_index(x, y)]
 	
-	with temporary_in_json(homography) as tmp_homography, temporary_in_json(border) as tmp_border:
+	with temporary_in_json(homography) as tmp_homography, \
+		temporary_in_json(border) as tmp_border, \
+		temporary_file("png") as tmp_unrotated_depth:
+		
 		call_tool("misc/apply_homography", [
 			tmp_homography.filename,
 			view.image_filename(),
@@ -27,15 +32,32 @@ def process_view(x, y):
 			"texture",
 			tmp_border.filename
 		])
+		
+		call_tool("calibration/cg_unrotate_depth_map", [
+			view.depth_filename(),
+			intrinsics_filename,
+			R_filename,
+			tmp_unrotated_depth.filename,
+		])
+		call_tool("misc/apply_homography", [
+			tmp_homography.filename,
+			tmp_unrotated_depth.filename,
+			rectified_view.depth_filename(),
+			"depth",
+			tmp_border.filename
+		])
+
 	
 def usage_fail():
-	print("usage: {} dataset_parameters.json homographies.json\n".format(sys.argv[0]))
+	print("usage: {} dataset_parameters.json intrinsics.json R.json homographies.json\n".format(sys.argv[0]))
 	sys.exit(1)
 
 if __name__ == '__main__':
-	if len(sys.argv) <= 2: usage_fail()
+	if len(sys.argv) <= 4: usage_fail()
 	parameters_filename = sys.argv[1]
-	homographies_filename = sys.argv[2];
+	intrinsics_filename = sys.argv[2]
+	R_filename = sys.argv[3]
+	homographies_filename = sys.argv[4];
 
 	datas = Dataset(parameters_filename)
 	with open(homographies_filename, 'r') as f:

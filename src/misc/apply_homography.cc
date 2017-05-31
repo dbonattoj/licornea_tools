@@ -31,13 +31,16 @@ int main(int argc, const char* argv[]) {
 	if(image_type == "texture") {
 		cv::Mat_<cv::Vec3b> in_image = load_texture(in_image_filename);
 		cv::Mat_<cv::Vec3b> out_image;
-		cv::Size dsize = in_image.size();
-		dsize.width += (bord.left + bord.right);
-		dsize.height += (bord.top + bord.bottom);
-		cv::warpPerspective(in_image, out_image, homography, dsize, cv::INTER_LINEAR, cv::BORDER_CONSTANT, cv::Scalar(cv::Vec3b(255,255,255)));
+		cv::Size dsize = add_border(bord, in_image.size());
+		cv::warpPerspective(in_image, out_image, homography, dsize, cv::INTER_CUBIC, cv::BORDER_CONSTANT, cv::Scalar(cv::Vec3b(255,255,255)));
 		save_texture(out_image_filename, out_image);
 		
 	} else if(image_type == "depth") {
-		
+		cv::Mat_<ushort> in_image = load_depth(in_image_filename);
+		cv::Mat_<ushort> out_image;
+		cv::Size dsize = add_border(bord, in_image.size());
+		cv::warpPerspective(in_image, out_image, homography, dsize, cv::INTER_NEAREST, cv::BORDER_CONSTANT, cv::Scalar(cv::Vec3b(255,255,255)));
+		save_depth(out_image_filename, out_image);
+
 	}
 }

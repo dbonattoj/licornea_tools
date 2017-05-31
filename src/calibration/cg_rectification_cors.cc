@@ -18,7 +18,7 @@ const bool verbose = false;
 
 int main(int argc, const char* argv[]) {
 	get_args(argc, argv,
-		"dataset_parameters.json cors.json intr.json R.json straight_depths.json x_step y_step out_homographies.json out_cameras.json [out_cors.json]");
+		"dataset_parameters.json cors.json intr.json R.json straight_depths.json x_step y_step out_cors.json out_cameras.json");
 	dataset datas = dataset_arg();
 	image_correspondences cors = image_correspondences_arg();
 	intrinsics intr = intrinsics_arg();
@@ -26,9 +26,8 @@ int main(int argc, const char* argv[]) {
 	json j_feature_straight_depths = json_arg();
 	real x_step = real_arg();
 	real y_step = real_arg();
-	std::string out_homographies_filename = out_filename_arg();
+	std::string out_cors_filename = out_filename_arg();
 	std::string out_cameras_filename = out_filename_arg();
-	std::string out_cors_filename = out_filename_opt_arg();
 			
 	Assert(intr.distortion.is_none(), "input cors + intrinsics must be without distortion for cg_rectification_homographies");
 	
@@ -37,7 +36,6 @@ int main(int argc, const char* argv[]) {
 	feature_points reference_fpoints = feature_points_for_view(cors, reference_idx);	
 	
 	std::cout << "calculating destination points and homography for each view" << std::endl;
-	std::map<view_index, mat33> homographies;
 	camera_array cameras;
 	image_correspondences out_cors;
 	out_cors.reference = reference_idx;	
@@ -80,78 +78,29 @@ int main(int argc, const char* argv[]) {
 
 			source_points.push_back(source_point);
 			destination_points.push_back(tr_i);
-						
+			
+			// write output correspondence
 			image_correspondence_feature& feature = out_cors.features[feature_name];
 			feature.point_depths[target_idx] = straight_depth;
 			feature.points[target_idx] = tr_i;
 		}
 		
-		// compute homography for this view
-		mat33 homography = cv::findHomography(source_points, destination_points, 0, 0);
 
-		for(auto& kv : reference_fpoints.points) {
-			const std::string& feature_name = kv.first;
-			if(! target_source_fpoints.has(feature_name)) continue;
-			vec2 source_point = target_source_fpoints.points.at(feature_name);
-			//out_cors.features[feature_name].points[target_idx] = mul_h(homography, source_point);
-		}
-		
-		
-		// compute reprojection error
-		{
-			std::vector<vec2> warped_source_points;
-			cv::perspectiveTransform(source_points, warped_source_points, homography);
-			real err = 0.0;
-			for(std::ptrdiff_t i = 0; i < source_points.size(); ++i) {
-				const vec2& warped = warped_source_points.at(i);
-				const vec2& dest = destination_points.at(i);
-				err += sq(warped[0] - dest[0]) + sq(warped[1] - dest[1]);
-			}
-			total_reprojection_error += err;
-			total_reprojection_error_samples += source_points.size();
-			
-			if(verbose) {
-				std::cout << "target view " << target_idx << "\n";
-				std::cout << "feature count: " << source_points.size() << "\n";
-				std::cout << "homography reprojection error: " << std::sqrt(err / source_points.size()) << "\n" << std::endl;
-			} else {
-				std::cout << '.' << std::flush;
-			}
-		}
-		
+		// compute camera position for rectified view
 		camera cam;
 		cam.name = target_view.camera_name();
 		cam.intrinsic = intr.K;
 		cam.rotation = mat33::eye();
 		cam.translation = vec3(x_translation, y_translation, 0.0);
-
-		homographies[target_idx] = homography;
 		cameras.push_back(cam);
 	}
 	std::cout << std::endl;
 	
-	total_reprojection_error = std::sqrt(total_reprojection_error / total_reprojection_error_samples);
-	std::cout << "total reprojection error: " << total_reprojection_error << std::endl;
-	
-	std::cout << "saving homographies" << std::endl;
-	{
-		json j_homographies = json::object();
-		for(const auto& kv : homographies) {
-			const view_index& idx = kv.first;
-			const mat33& homography = kv.second;
-			j_homographies[encode_view_index(idx)] = encode_mat(homography);
-		}
-		export_json_file(j_homographies, out_homographies_filename);
-	}
-	
-	
+	std::cout << "saving destination image correspondences" << std::endl;
+	export_json_file(encode_image_correspondences(out_cors), out_cors_filename);
+
 	std::cout << "saving cameras" << std::endl;
 	write_cameras_file(out_cameras_filename, cameras);
-	
-	if(! out_cors_filename.empty()) {
-		std::cout << "saving destination image correspondences" << std::endl;
-		export_json_file(encode_image_correspondences(out_cors), out_cors_filename);
-	}
 	
 	std::cout << "done" << std::endl;
 }

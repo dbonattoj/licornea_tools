@@ -77,7 +77,7 @@ int main(int argc, const char* argv[]) {
 		i_measured_h *= d_measured;
 		 
 		vec3 v_measured = intr.K_inv * i_measured_h;
-		vec3 v_straight = R * v_measured;
+		vec3 v_straight = R.t() * v_measured;
 		real d_straight = v_straight[2];
 				
 		samp.straight_depth = d_straight;

@@ -129,8 +129,17 @@ target_link_libraries(cg_cors_viewer common_lib calibration_lib)
 add_executable(cg_feature_straight_depths "src/calibration/cg_feature_straight_depths.cc")
 target_link_libraries(cg_feature_straight_depths common_lib calibration_lib)
 
-add_executable(cg_rectification_homographies "src/calibration/cg_rectification_homographies.cc")
-target_link_libraries(cg_rectification_homographies common_lib calibration_lib)
+add_executable(cg_rectification_cors "src/calibration/cg_rectification_cors.cc")
+target_link_libraries(cg_rectification_cors common_lib calibration_lib)
+
+add_executable(cg_unrotate_depth_map "src/calibration/cg_unrotate_depth_map.cc")
+target_link_libraries(cg_unrotate_depth_map common_lib calibration_lib)
+
+add_executable(cors_to_homographies "src/calibration/cors_to_homographies.cc")
+target_link_libraries(cors_to_homographies common_lib calibration_lib)
+
+add_executable(homographies_to_cors "src/calibration/homographies_to_cors.cc")
+target_link_libraries(homographies_to_cors common_lib calibration_lib)
 
 install(
 	TARGETS
@@ -150,12 +159,15 @@ install(
 		cg_slopes_viewer
 		cg_cors_viewer
 		cg_feature_straight_depths
-		cg_rectification_homographies
+		cg_rectification_cors
+		cg_unrotate_depth_map
+		cors_to_homographies
+		homographies_to_cors
 	DESTINATION calibration
 )
 install(
 	PROGRAMS
-		"src/calibration/cg_apply_all_homographies.py"
+		"src/calibration/cg_rectify_images.py"
 	DESTINATION calibration
 )
 install_pylib_link(calibration)
@@ -240,6 +252,9 @@ if(WITH_LIBFREENECT2)
 	add_executable(fetch_internal_parameters "src/kinect/fetch_internal_parameters.cc")
 	target_link_libraries(fetch_internal_parameters common_lib kinect_lib ${FREENECT2_LIBRARY})
 
+	add_executable(close_kinect "src/kinect/close_kinect.cc")
+	target_link_libraries(close_kinect common_lib kinect_lib ${FREENECT2_LIBRARY})
+
 	add_executable(viewer "src/kinect/viewer.cc")
 	target_link_libraries(viewer common_lib kinect_lib ${FREENECT2_LIBRARY})
 
@@ -276,6 +291,7 @@ if(WITH_LIBFREENECT2)
 	install(
 		TARGETS
 			fetch_internal_parameters
+			close_kinect
 			viewer
 			ir_distortion_viewer
 			checkerboard_samples

@@ -4,35 +4,41 @@ import sys, os, json, shutil
 
 simulate = False
 
+image = False
+depth = True
+
+overwrite_image = False
+overwrite_depth = True
+
 def process_view(x, y):	
 	if verbose: print "view x={}, y={}".format(x, y)
 	
 	view = dataset.view(x, y)
 	vsrs_view = view.vsrs()
 	
-	out_yuv_image_filename = vsrs_view.image_filename()
-	out_yuv_disparity_filename = vsrs_view.depth_filename()
+	if image:
+		out_yuv_image_filename = vsrs_view.image_filename()
+		in_image_filename = view.image_filename()
+		assert os.path.isfile(in_image_filename)
+		if overwrite_image or not os.path.isfile(out_yuv_image_filename):
+			if verbose: print "converting image to yuv {} -> {}".format(in_image_filename, out_image_filename)
+			png2yuv(in_image_filename, out_yuv_image_filename)
 		
-	in_image_filename = view.image_filename()
-	in_depth_filename = view.depth_filename()
-	
-	assert os.path.isfile(in_image_filename)
-	assert os.path.isfile(in_depth_filename)
-	
-	if not os.path.isfile(out_yuv_image_filename):
-		if verbose: print "converting image to yuv {} -> {}".format(in_image_filename, out_image_filename)
-		png2yuv(in_image_filename, out_yuv_image_filename)
-	
-	if not os.path.isfile(out_yuv_disparity_filename):
-		if verbose: print "converting depth to yuv disparity {} -> {}".format(in_depth_filename, out_depth_filename)
-		if not simulate:
-			call_tool("vsrs/vsrs_disparity", [
-				in_depth_filename,
-				out_yuv_disparity_filename,
-				str(vsrs_view.local_parameter("z_near")),
-				str(vsrs_view.local_parameter("z_far")),
-				"8"
-			])
+	if depth:
+		out_yuv_disparity_filename = vsrs_view.depth_filename()
+		in_depth_filename = view.depth_filename()
+		assert os.path.isfile(in_depth_filename)
+			
+		if overwrite_depth or not os.path.isfile(out_yuv_disparity_filename):
+			if verbose: print "converting depth to yuv disparity {} -> {}".format(in_depth_filename, out_depth_filename)
+			if not simulate:
+				call_tool("vsrs/vsrs_disparity", [
+					in_depth_filename,
+					out_yuv_disparity_filename,
+					str(vsrs_view.local_parameter("z_near")),
+					str(vsrs_view.local_parameter("z_far")),
+					"8"
+				])
 
 
 

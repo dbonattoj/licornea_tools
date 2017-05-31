@@ -21,5 +21,12 @@ border decode_border(const json& j_bord) {
 	return bord;
 }
 
+cv::Size add_border(const border& bord, const cv::Size& sz) {
+	cv::Size out_sz = sz;
+	out_sz.width += (bord.left + bord.right);
+	out_sz.height += (bord.top + bord.bottom);
+	return out_sz;
+}
+
 
 }
