@@ -98,7 +98,7 @@ int main(int argc, const char* argv[]) {
 		cv::imshow(window_name, shown_depth);
 
 		// wait for user
-		cv::waitKey(0);
+		while(cv::waitKey(0) != escape_keycode);
 		
 	} else {
 		// save to file

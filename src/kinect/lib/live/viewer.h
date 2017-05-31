@@ -27,9 +27,6 @@ public:
 		right
 	};
 	
-	static const int enter_keycode;
-	static const int escape_keycode;
-
 private:
 	static int viewers_count_;
 	std::string window_name_;

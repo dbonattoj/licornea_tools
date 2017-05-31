@@ -77,7 +77,7 @@ int main(int argc, const char* argv[]) {
 		
 		bool collect = false;
 		
-		if(keycode == viewer::enter_keycode && ir_chk) collect = true;
+		if(keycode == enter_keycode && ir_chk) collect = true;
 		else if(keycode == 'a') autocollect = !autocollect;
 		
 		if(autocollect) collect = true;

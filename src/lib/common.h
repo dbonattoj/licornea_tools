@@ -68,6 +68,10 @@ POINT_CONVERT(point2f_to_point, cv::Point2f, cv::Point, cv::Point(pt.x, pt.y) )
 #undef POINT_CONVERT
 
 
+constexpr int enter_keycode = 10;
+constexpr int escape_keycode = 27;
+
+
 
 }
 
