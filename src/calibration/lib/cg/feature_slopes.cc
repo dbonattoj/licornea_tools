@@ -1,6 +1,7 @@
 #include "feature_slopes.h"
 #include "../../../lib/random_color.h"
 #include "../../../lib/assert.h"
+#include "../../../lib/string.h"
 #include <vector>
 
 namespace tlz {
@@ -66,7 +67,6 @@ cv::Mat_<cv::Vec3b> visualize_feature_slopes(const feature_slopes& fslopes, cons
 
 	int radius = width / 2;
 	
-	int i = 0;
 	for(const auto& kv : fslopes.slopes) {
 		const std::string& feature_name = kv.first;
 		const vec2& fpoint = fslopes.points.at(feature_name);
@@ -75,7 +75,7 @@ cv::Mat_<cv::Vec3b> visualize_feature_slopes(const feature_slopes& fslopes, cons
 		cv::Point center_point = vec2_to_point(fpoint);
 		center_point.x += bord.left;
 		center_point.y += bord.top;
-		cv::Vec3b col = random_color(i++);
+		cv::Vec3b col = random_color(string_hash(feature_name));
 		
 		real hslope = fslope.horizontal * exaggeration;
 		real vslope = fslope.vertical * exaggeration;

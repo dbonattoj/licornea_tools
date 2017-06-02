@@ -9,8 +9,11 @@ densify_method = None
 internal_parameters_filename = None
 reprojection_parameters_filename = None
 
-image = False
+image = True
 depth = True
+
+overwrite_image = False
+overwrite_depth = False
 
 def process_view(x, y):	
 	if verbose: print "view x={}, y={}".format(x, y)
@@ -23,7 +26,7 @@ def process_view(x, y):
 		in_image_filename = raw_view.image_filename()		
 		assert os.path.isfile(in_image_filename)
 		
-		if not os.path.isfile(out_image_filename):
+		if overwrite_image or not os.path.isfile(out_image_filename):
 			if verbose: print "copying image {} -> {}".format(in_image_filename, out_image_filename)
 			if not simulate:
 				shutil.copyfile(in_image_filename, out_image_filename)
@@ -34,7 +37,7 @@ def process_view(x, y):
 		in_depth_filename = raw_view.depth_filename()
 		assert os.path.isfile(in_depth_filename)
 			
-		if not os.path.isfile(out_depth_filename):
+		if overwrite_depth or not os.path.isfile(out_depth_filename):
 			if verbose: print "reprojecting depth {} -> {}".format(in_depth_filename, out_depth_filename)
 			if not simulate:
 				call_tool("kinect/depth_reprojection", [
@@ -58,7 +61,9 @@ if __name__ == '__main__':
 		if sys.argv[3] == "simulate": simulate = True
 		else: usage_fail()
 
-	if simulate: parallel = False
+	if simulate:
+		parallel = False
+		verbose = True
 
 	datas = Dataset(parameters_filename)
 	reprojection_parameters_filename = datas.filepath(datas.parameters["kinect_raw"]["kinect_reprojection_parameters_filename"])

@@ -6,7 +6,7 @@
 using namespace tlz;
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv, "homography.json/homographies.json width height maximal_border out_border.json");
+	get_args(argc, argv, "homography.json/homographies.json width height out_border.json");
 	json j = json_arg();
 	int width = int_arg();
 	int height = int_arg();

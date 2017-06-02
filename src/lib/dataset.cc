@@ -138,11 +138,11 @@ bool dataset::x_valid(int x) const {
 }
 
 int dataset::x_count() const {
-	return (x_max() - x_min() + 1) / x_step();
+	return (x_max() - x_min() + x_step()) / x_step();
 }
 
-int dataset::x_mid() const {
-	return ((x_max() + x_min()) / (2*x_step())) * x_step();
+int dataset::x_mid() const {	
+	return x_min() + (((x_max() - x_min()) / (2 * x_step())) * x_step());
 }
 
 std::vector<int> dataset::x_indices() const {
@@ -177,12 +177,12 @@ std::vector<int> dataset::y_indices() const {
 }
 
 int dataset::y_count() const {
-	if(is_2d()) return (y_max() - y_min() + 1) / y_step();
+	if(is_2d()) return (y_max() - y_min() + y_step()) / y_step();
 	else return 1;
 }
 
 int dataset::y_mid() const {
-	if(is_2d()) return ((y_max() + y_min()) / (2*y_step())) * y_step();
+	if(is_2d()) return y_min() + (((y_max() - y_min()) / (2 * y_step())) * y_step());
 	else return 0;
 }
 

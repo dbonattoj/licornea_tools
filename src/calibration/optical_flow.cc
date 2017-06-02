@@ -17,9 +17,10 @@ static std::string make_feature_name(int i) {
 }
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv, "dataset_parameters.json out_image_correspondences.json [out_xy.txt]");
+	get_args(argc, argv, "dataset_parameters.json out_image_correspondences.json [features_count=100] [out_xy.txt]");
 	dataset datas = dataset_arg();
 	std::string out_cors_filename = out_filename_arg();
+	const int requested_features_count = int_opt_arg(100);
 	std::string out_xy_filename = out_filename_opt_arg();
 
 	std::cout << "loading data set" << std::endl;
@@ -37,17 +38,18 @@ int main(int argc, const char* argv[]) {
 	cv::cvtColor(center_col_img, center_gray_img, CV_BGR2GRAY);
 		
 	std::cout << "finding good features" << std::endl;
-	const std::size_t features_count = 10;
-	std::vector<cv::Point2f> center_positions(features_count);
-	cv::goodFeaturesToTrack(center_gray_img, center_positions, features_count, 0.3, 7);
-	std::cout << "requested " << features_count << " features, found " << center_positions.size() << std::endl;
+	std::vector<cv::Point2f> center_positions;
+	cv::goodFeaturesToTrack(center_gray_img, center_positions, requested_features_count, 0.3, 7);
+	std::cout << "requested " << requested_features_count << " features, found " << center_positions.size() << std::endl;
+		
+	int features_count = center_positions.size();
 		
 	cv::Mat_<uchar> img;
 	std::vector<cv::Point2f> positions;
 	std::vector<uchar> status;
 	std::vector<image_correspondence_feature> correspondences(features_count);
 
-	auto flow_to = [&img, &positions, &status, &datas](int x) {
+	auto flow_to = [&](int x) {
 		std::vector<cv::Point2f> new_positions(features_count);
 		cv::Mat_<cv::Vec3b> new_col_img = cv::imread(datas.view(x).image_filename(), CV_LOAD_IMAGE_COLOR);
 		cv::Mat_<uchar> new_img;
@@ -64,7 +66,7 @@ int main(int argc, const char* argv[]) {
 		status = new_status;
 	};
 		
-	auto add_correspondences = [&correspondences, &positions, features_count](int x) {
+	auto add_correspondences = [&](int x) {
 		view_index idx(x);
 		for(std::ptrdiff_t feature = 0; feature < features_count; ++feature)
 			if(positions[feature].x != 0 && positions[feature].y != 0)

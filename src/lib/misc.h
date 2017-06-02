@@ -82,7 +82,6 @@ auto forward_make_shared_const(T&& t) {
 	return std::make_shared<const decayed_t>(std::forward<T>(t));
 }
 
-
 }
 
 #include "misc.tcc"

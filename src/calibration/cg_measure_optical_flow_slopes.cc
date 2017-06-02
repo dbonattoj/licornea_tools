@@ -17,25 +17,34 @@ int main(int argc, const char* argv[]) {
 	image_correspondences cors = image_correspondences_arg();
 	intrinsics intr = intrinsics_arg();
 	std::string out_slopes_filename = out_filename_arg();
+	int y_outreach = 3;
 
 	view_index reference_idx = cors.reference;
 	std::cout << "using reference view idx " << reference_idx << std::endl;
 	
 	std::cout << "estimating slopes for horizontal flow" << std::endl;
 	std::map<std::string, real> feature_horizontal_slopes;
-	for(const auto& kv : cors.features) {
+	for(const auto& kv : cors.features) {		
 		const std::string& feature_name = kv.first;
 		const image_correspondence_feature& feature = kv.second;
 		
-		std::vector<cv::Vec2f> points;
-		for(int x : datas.x_indices()) points.push_back(feature.points.at(view_index(x, reference_idx.y)));
+		std::vector<real> y_hslopes;
+		for(int y = reference_idx.y - y_outreach; y <= reference_idx.y + y_outreach; ++y) {
+			std::vector<cv::Vec2f> points;
+			for(int x : datas.x_indices()) points.push_back(feature.points.at(view_index(x, reference_idx.y)));
+			
+			points = undistort_points(intr, points);
 		
-		points = undistort_points(intr, points);
+			cv::Vec4f line_parameters;
+			cv::fitLine(points, line_parameters, CV_DIST_L2, 0.0, 0.01, 0.01);
+			y_hslopes.push_back(line_parameters[1] / line_parameters[0]);
+		}
 		
-		cv::Vec4f line_parameters;
-		cv::fitLine(points, line_parameters, CV_DIST_L2, 0.0, 0.01, 0.01);
-				
-		feature_horizontal_slopes[feature_name] = line_parameters[1] / line_parameters[0];
+		real avg_hslope = 0.0;
+		for(real hslope : y_hslopes) avg_hslope += hslope;
+		avg_hslope /= y_hslopes.size();
+
+		feature_horizontal_slopes[feature_name] = avg_hslope;
 	}
 
 	std::cout << "estimating slopes for vertical flow" << std::endl;

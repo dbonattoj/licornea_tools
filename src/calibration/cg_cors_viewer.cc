@@ -3,6 +3,7 @@
 #include "../lib/intrinsics.h"
 #include "../lib/dataset.h"
 #include "../lib/misc.h"
+#include "../lib/image_io.h"
 #include "lib/image_correspondence.h"
 #include "lib/cg/feature_points.h"
 #include <cstdlib>
@@ -19,12 +20,12 @@ void update_callback(int = 0, void* = nullptr) {
 }
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv, 
-		"dataset_parameters.json cors.json");
+	get_args(argc, argv, "dataset_parameters.json cors.json [dataset_group]");
 	dataset datas = dataset_arg();
 	image_correspondences cors = image_correspondences_arg();
+	std::string dataset_group = string_opt_arg(cors.dataset_group);
+	
 	view_index reference_idx = cors.reference;
-	std::string dataset_group = cors.dataset_group;
 	border bord = decode_border(get_or(datas.group_parameters(dataset_group), "border", json::object()));
 	
 	feature_points ref_fpoints = feature_points_for_view(cors, reference_idx);
@@ -34,10 +35,13 @@ int main(int argc, const char* argv[]) {
 
 	const std::string window_name = "Image Correspondences Viewer";
 
-	int x = reference_idx.x;
-	int y = reference_idx.y;
+	int slider_x = reference_idx.x - datas.x_min();
+	int slider_y = reference_idx.y - datas.y_min();
 	
 	auto update = [&]() {
+		int x = slider_x + datas.x_min();
+		int y = slider_y + datas.y_min();
+		
 		if(!datas.x_valid(x) || !datas.y_valid(y)) return;
 		view_index idx(x, y);
 		
@@ -45,6 +49,7 @@ int main(int argc, const char* argv[]) {
 		{
 			std::string image_filename = datas.view(idx).group_view(dataset_group).image_filename();
 			cv::Mat_<uchar> img = cv::imread(image_filename, CV_LOAD_IMAGE_GRAYSCALE);
+			if(img.empty()) return;
 			cv::cvtColor(img, back_img, CV_GRAY2BGR);
 		}
 		
@@ -61,8 +66,8 @@ int main(int argc, const char* argv[]) {
 
 	cv::namedWindow(window_name, CV_WINDOW_NORMAL);
 
-	cv::createTrackbar("x", window_name, &x, datas.x_max(), &update_callback);
-	cv::createTrackbar("y", window_name, &y, datas.y_max(), &update_callback);
+	cv::createTrackbar("x", window_name, &slider_x, datas.x_max() - datas.x_min(), &update_callback);
+	cv::createTrackbar("y", window_name, &slider_y, datas.y_max() - datas.y_min(), &update_callback);
 
 	update();
 	

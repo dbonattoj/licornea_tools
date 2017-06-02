@@ -2,36 +2,27 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#include "../lib/args.h"
+#include "../lib/assert.h"
 #include "../lib/camera.h"
 
 using namespace tlz;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: visualize in_cameras.json out_view.ply world/view\n";
-	std::cout << std::endl;
-	std::exit(1);
-}
-
 int main(int argc, const char* argv[]) {
-	if(argc <= 3) usage_fail();
-	std::string in_cameras = argv[1];
-	std::string out_ply = argv[2];
-	std::string mode = argv[3];
-	if(mode != "world" && mode != "view") usage_fail();
+	get_args(argc, argv, "in_cameras.json out_view.ply world/view [scale=1.0]");
+	std::string in_cameras = in_filename_arg();
+	std::string out_ply = out_filename_arg();
+	std::string mode = enum_arg({ "world", "view" });
+	real scale = real_opt_arg(1.0);
 	bool world = (mode == "world");
 	
 	std::ifstream input(in_cameras.c_str());
 	input.exceptions(std::ios_base::badbit);	
 	
 	auto cameras = read_cameras_file(in_cameras);
-	if(cameras.size() == 0) {
-		std::cout << "no cameras in file" << std::endl;
-		usage_fail();
-	} else {
-		std::cout << cameras.size() << " cameras..." << std::endl;
-	}
+	Assert(cameras.size() > 0);
+	std::cout << cameras.size() << " cameras..." << std::endl;
 			
-	real scale = 1.0;
 	mat44 model_transform(
 		2.0*scale, 0.0, 0.0, 0.0,
 		0.0, 1.0*scale, 0.0, 0.0,

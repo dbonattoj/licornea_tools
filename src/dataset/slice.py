@@ -27,9 +27,9 @@ def filter_name_template(tpl, y):
 	return formatter.vformat(tpl, (), mapping)
 	
 def process_clause(name, datas):
-	view = datas.view(datas.x_min(), y).local_view(name)
+	view = datas.view(datas.x_min(), y).group_view(name)
 	par = view.local_parameters()
-	local_filename_y = view.local_view(name).local_filename_y()
+	local_filename_y = view.local_filename_y()
 	
 	if "filename_y_index_factor" in par: del par["filename_y_index_factor"]
 	if "filename_y_index_offset" in par: del par["filename_y_index_offset"]

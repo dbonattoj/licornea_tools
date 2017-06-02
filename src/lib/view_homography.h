@@ -26,6 +26,8 @@ bool is_single_view_homography(const json&);
 
 real view_homographies_error(const view_homographies&);
 
+std::vector<vec2> quadrilateral(const view_homography&, real width, real height);
+
 border maximal_border(const view_homography&, real width, real height);
 border maximal_border(const view_homographies&, real width, real height);
 

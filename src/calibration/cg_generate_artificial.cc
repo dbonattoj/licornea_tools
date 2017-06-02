@@ -63,8 +63,8 @@ int main(int argc, const char* argv[]) {
 	make_directory(out_datas_dir);
 	make_directory(out_datas_dir + "/image");
 	make_directory(out_datas_dir + "/depth");
-	make_directory(out_datas_dir + "/rectified_image");
-	make_directory(out_datas_dir + "/rectified_depth");
+	make_directory(out_datas_dir + "/warped_image");
+	make_directory(out_datas_dir + "/warped_depth");
 
 
 	std::cout << "generating dataset parameters" << std::endl;
@@ -78,9 +78,9 @@ int main(int argc, const char* argv[]) {
 		j_dataset["depth_filename_format"] = "depth/y{y}_x{x}.png";
 		j_dataset["cameras_filename"] = "cameras.json";
 		j_dataset["camera_name_format"] = "camera_y{y}_x{x}";
-		j_dataset["rectified"] = json::object();
-		j_dataset["rectified"]["image_filename_format"] = "rectified_image/y{y}_x{x}.png";
-		j_dataset["rectified"]["depth_filename_format"] = "rectified_depth/y{y}_x{x}.png";
+		j_dataset["warped"] = json::object();
+		j_dataset["warped"]["image_filename_format"] = "warped_image/y{y}_x{x}.png";
+		j_dataset["warped"]["depth_filename_format"] = "warped_depth/y{y}_x{x}.png";
 		export_json_file(j_dataset, out_datas_dir + "/parameters.json");
 	}
 	

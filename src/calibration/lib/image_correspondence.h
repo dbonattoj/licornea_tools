@@ -10,9 +10,10 @@
 
 namespace tlz {
 
-struct image_correspondence_feature {		
+struct image_correspondence_feature {
 	std::map<view_index, vec2> points;
 	std::map<view_index, real> point_depths;
+	std::map<view_index, real> point_weights;
 	// when iterating (--> encoding into json array), gets sorted by index
 };
 

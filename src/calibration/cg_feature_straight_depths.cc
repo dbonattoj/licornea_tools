@@ -17,8 +17,7 @@
 
 using namespace tlz;
 
-constexpr bool verbose = false;
-
+constexpr bool verbose = true;
 
 int main(int argc, const char* argv[]) {
 	get_args(argc, argv, "dataset_parameters.json image_correspondences.json intrinsics.json R.json out_feature_depths.json");
@@ -86,6 +85,7 @@ int main(int argc, const char* argv[]) {
 
 	std::cout << "aggregating feature straight depths" << std::endl;
 	std::map<std::string, real> feature_avg_depths;
+	real avg_stddev = 0.0;
 	for(auto& kv : feature_samples) {
 		const std::string& feature_name = kv.first;
 		const auto& view_samples = kv.second;
@@ -115,6 +115,7 @@ int main(int argc, const char* argv[]) {
 		avg /= count;
 		real stddev = 0.0;
 		for(real d : filtered_straight_depths) stddev += sq(avg - d);
+		avg_stddev += stddev / count;
 		stddev = std::sqrt(stddev / count);
 		
 		if(verbose) {
@@ -128,6 +129,8 @@ int main(int argc, const char* argv[]) {
 		
 		feature_avg_depths[feature_name] = avg;
 	}
+	avg_stddev = std::sqrt(avg_stddev / feature_avg_depths.size());
+	std::cout << "average stddev: " << avg_stddev << std::endl;
 	
 	
 	std::cout << "saving feature straights depths" << std::endl;

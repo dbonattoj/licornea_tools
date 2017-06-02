@@ -115,7 +115,7 @@ class Dataset:
 	def x_valid(self, x):
 		return (x >= self.x_min()) and (x <= self.x_max()) and ((x - self.x_min()) % self.x_step() == 0)
 	def x_count(self):
-		return (self.x_max() - self.x_min() + 1) // self.x_step()		
+		return (self.x_max() - self.x_min() + self.x_step()) // self.x_step()		
 	def x_indices(self):
 		x = self.x_min()
 		while x <= self.x_max():
@@ -124,8 +124,7 @@ class Dataset:
 	def x_count(self):
 		return (self.x_max() - self.x_min() + 1) // self.x_step()
 	def x_mid(self):
-		return ((self.x_max() + self.x_min()) / (2*self.x_step())) * self.x_step()
-	
+		return self.x_min() + (((self.x_max() - self.x_min()) // (2 * self.x_step())) * self.x_step());
 	
 	def y_min(self):
 		if self.is_2d(): return int(self.y_index_range[0])
@@ -140,7 +139,7 @@ class Dataset:
 		return True
 		return (y >= self.y_min()) and (y <= self.y_max()) and ((y - self.y_min()) % self.y_step() == 0)
 	def y_count(self):
-		return (self.y_max() - self.y_min() + 1) // self.y_step()		
+		return (self.y_max() - self.y_min() + self.y_step()) // self.y_step()		
 	def y_indices(self):
 		y = self.y_min()
 		while y <= self.y_max():
@@ -150,7 +149,7 @@ class Dataset:
 		if self.is_2d(): return (self.x_max() - self.x_min() + 1) // self.x_step()
 		else: return 1
 	def y_mid(self):
-		if self.is_2d(): return ((self.x_max() + self.x_min()) / (2*self.x_step())) * self.x_step()
+		if self.is_2d(): return self.y_min() + (((self.y_max() - self.y_min()) // (2 * self.y_step())) * self.y_step());
 		else: return 0
 
 	def view(self, x, y=None):

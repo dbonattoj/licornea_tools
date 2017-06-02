@@ -1,6 +1,7 @@
 #include "feature_points.h"
 #include "../../../lib/random_color.h"
 #include "../../../lib/json.h"
+#include "../../../lib/string.h"
 
 namespace tlz {
 
@@ -46,8 +47,8 @@ feature_points feature_points_for_view(const image_correspondences& cors, view_i
 	for(const auto& kv : cors.features) {
 		const std::string& feature_name = kv.first;
 		const image_correspondence_feature& feature = kv.second;
-		const vec2& point = feature.points.at(idx);
-		fpoints.points[feature_name] = point;
+		auto point_it = feature.points.find(idx);
+		if(point_it != feature.points.end()) fpoints.points[feature_name] = point_it->second;
 	}
 	
 	return fpoints;
@@ -96,11 +97,10 @@ cv::Mat_<cv::Vec3b> visualize_feature_points(const feature_points& fpoints, cons
 	cv::Mat_<cv::Vec3b> img;
 	back_img.copyTo(img);
 	
-	int i = 0;
 	for(const auto& kv : fpoints.points) {
 		const std::string& feature_name = kv.first;
 		const vec2& fpoint = kv.second;
-		cv::Vec3b col = random_color(i++);
+		cv::Vec3b col = random_color(string_hash(feature_name));
 		cv::Point center_point = vec2_to_point(fpoint);
 		center_point.x += bord.left;
 		center_point.y += bord.top;

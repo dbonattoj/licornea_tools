@@ -72,4 +72,10 @@ std::size_t replace_all_inplace(std::string& subject, const std::string& find, c
 }
 
 
+int string_hash(const std::string& str) {
+	int h = 0;
+	for(char c : str) h += c;
+	return h;
+}
+
 }

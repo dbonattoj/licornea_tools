@@ -58,7 +58,7 @@ real view_homographies_error(const view_homographies& homs) {
 }
 
 
-border maximal_border(const view_homography& hom, real width, real height) {
+std::vector<vec2> quadrilateral(const view_homography& hom, real width, real height) {
 	std::vector<vec2> src {
 		vec2(0, 0),
 		vec2(width, 0),
@@ -68,6 +68,12 @@ border maximal_border(const view_homography& hom, real width, real height) {
 	
 	std::vector<vec2> dst;
 	cv::perspectiveTransform(src, dst, hom.mat);
+	return dst;
+}
+
+
+border maximal_border(const view_homography& hom, real width, real height) {
+	std::vector<vec2> dst = quadrilateral(hom, width, height);
 	
 	real max_x = std::max({ dst[0][0], dst[1][0], dst[2][0], dst[3][0] });
 	real max_y = std::max({ dst[0][1], dst[1][1], dst[2][1], dst[3][1] });

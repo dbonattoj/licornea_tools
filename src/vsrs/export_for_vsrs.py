@@ -3,17 +3,18 @@ from pylib import *
 import sys, os, json, shutil
 
 simulate = False
+dataset_group = ""
 
-image = False
+image = True
 depth = True
 
-overwrite_image = False
+overwrite_image = True
 overwrite_depth = True
 
 def process_view(x, y):	
 	if verbose: print "view x={}, y={}".format(x, y)
 	
-	view = dataset.view(x, y)
+	view = dataset.view(x, y).group_view(dataset_group)
 	vsrs_view = view.vsrs()
 	
 	if image:
@@ -35,15 +36,15 @@ def process_view(x, y):
 				call_tool("vsrs/vsrs_disparity", [
 					in_depth_filename,
 					out_yuv_disparity_filename,
-					str(vsrs_view.local_parameter("z_near")),
-					str(vsrs_view.local_parameter("z_far")),
-					"8"
+					vsrs_view.local_parameter("z_near"),
+					vsrs_view.local_parameter("z_far"),
+					8
 				])
 
 
 
 def usage_fail():
-	print("usage: {} parameters.json [simulate]\n".format(sys.argv[0]))
+	print("usage: {} parameters.json [simulate] [dataset_group]\n".format(sys.argv[0]))
 	sys.exit(1)
 
 if __name__ == '__main__':
@@ -51,9 +52,13 @@ if __name__ == '__main__':
 	parameters_filename = sys.argv[1]
 	if len(sys.argv) > 2:
 		if sys.argv[2] == "simulate": simulate = True
-		else: usage_fail()
+	if len(sys.argv) > 3:
+		dataset_group = sys.argv[3]
 
-	if simulate: parallel = False
+	if simulate:
+		print("simulation mode")
+		parallel = False
+		verbose = True
 
 	dataset = Dataset(parameters_filename)
 	

@@ -5,7 +5,7 @@
 
 namespace tlz {
 	
-cv::Vec3b random_color(int i, int seed = 0);
+cv::Vec3b random_color(int i);
 
 }
 

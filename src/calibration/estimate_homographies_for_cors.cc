@@ -70,7 +70,10 @@ int main(int argc, const char* argv[]) {
 		homography.mat = H;
 		homography.err = err;
 		homographies[idx] = homography;
+		
+		std::cout << '.' << std::flush;
 	}
+	std::cout << std::endl;
 	
 	// save homographies
 	export_json_file(encode_view_homographies(homographies), out_homographies_filename);

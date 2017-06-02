@@ -12,7 +12,7 @@ image_correspondence_feature decode_image_correspondence_feature(const json& j_f
 	for(auto it = j_pts.begin(); it != j_pts.end(); ++it) {	
 		std::string key = it.key();	
 		view_index idx = decode_view_index(key);
-		
+			
 		const json& j_pt = it.value();
 		feat.points[idx] = vec2(j_pt["x"], j_pt["y"]);
 		if(has(j_pt, "depth"))
@@ -29,7 +29,7 @@ json encode_image_correspondence_feature(const image_correspondence_feature& fea
 		view_index idx = pt.first;
 		std::string key = encode_view_index(idx);
 		vec2 pos = pt.second;
-		
+				
 		json j_pt = json::object();
 		j_pt["x"] = pos[0];
 		j_pt["y"] = pos[1];
