@@ -7,7 +7,7 @@ namespace {
 	
 	void slider_callback_(int, void* userdata) {	
 		viewer& vw = *static_cast<viewer*>(userdata);
-		if(vw.slider_callback) vw.slider_callback();
+		vw.update_modal();
 	}
 
 	void mouse_callback_(int event, int x, int y, int, void* userdata) {
@@ -18,12 +18,19 @@ namespace {
 }
 
 
-viewer::viewer(int w, int h, bool resizeable) :
-	window_name_("Viewer" + (viewers_count_ > 0 ? std::string(" (") + std::to_string(viewers_count_+1) + ")" : std::string())),
-	shown_image_(h, w)
-{
+std::string viewer::get_window_name_(const std::string& req_title) {
+	std::string title;
+	if(req_title.empty()) title = "Viewer";
+	else title = req_title;
+	if(viewers_count_ > 0) title += " (" + std::to_string(viewers_count_ + 1) + ")";
 	viewers_count_++;
-	
+	return title;
+}
+
+viewer::viewer(const std::string& title, int w, int h, bool resizeable) :
+	window_name_(get_window_name_(title)),
+	shown_image_(h, w)
+{	
 	if(resizeable) {
 		cv::namedWindow(window_name_, CV_WINDOW_NORMAL | CV_WINDOW_KEEPRATIO | CV_GUI_EXPANDED);
 		cv::resizeWindow(window_name_, w, h);
@@ -31,6 +38,22 @@ viewer::viewer(int w, int h, bool resizeable) :
 		cv::namedWindow(window_name_, CV_WINDOW_AUTOSIZE | CV_GUI_EXPANDED);
 	}
 	
+	cv::setMouseCallback(window_name_, mouse_callback_, this);
+}
+
+
+viewer::viewer(int w, int h, bool resizeable) :
+	viewer("", w, h, resizeable) { }
+
+
+viewer::viewer(const std::string& title, bool resizeable) :
+	window_name_(get_window_name_(title))
+{
+	if(resizeable)
+		cv::namedWindow(window_name_, CV_WINDOW_NORMAL | CV_WINDOW_KEEPRATIO | CV_GUI_EXPANDED);
+	else
+		cv::namedWindow(window_name_, CV_WINDOW_AUTOSIZE | CV_GUI_EXPANDED);
+		
 	cv::setMouseCallback(window_name_, mouse_callback_, this);
 }
 
@@ -47,6 +70,14 @@ int viewer::width() const {
 
 int viewer::height() const {
 	return shown_image_.rows;
+}
+
+
+void viewer::clear(int width, int height) {
+	if(width != shown_image_.cols || height != shown_image_.rows)
+		shown_image_ = cv::Mat_<cv::Vec3b>(height, width, background_color);
+	else
+		shown_image_.setTo(background_color);
 }
 
 
@@ -181,7 +212,7 @@ void viewer::show_modal() {
 	try {
 		int keycode = 0;
 		do {
-			cv::imshow(window_name_, shown_image_);
+			update_modal();
 			keycode = cv::waitKey(0);
 			if(keycode > 0 && key_callback) key_callback(keycode); 
 		} while(!running_modal_ || keycode != escape_keycode);
@@ -190,6 +221,13 @@ void viewer::show_modal() {
 		running_modal_ = false;
 		throw;
 	}
+}
+
+
+void viewer::update_modal() {
+	if(! running_modal_) return;
+	if(update_callback) update_callback();
+	cv::imshow(window_name_, shown_image_);
 }
 
 

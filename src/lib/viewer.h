@@ -28,6 +28,8 @@ private:
 	cv::Mat_<cv::Vec3b> shown_image_;
 	bool running_modal_ = false;
 	
+	static std::string get_window_name_(const std::string& title = std::string());
+	
 public:
 	cv::Vec3b black = cv::Vec3b(0, 0, 0);
 	cv::Vec3b white = cv::Vec3b(255, 255, 255);
@@ -35,11 +37,14 @@ public:
 	cv::Vec3b background_color = cv::Vec3b(0, 0, 0);
 	cv::Vec3b text_color = cv::Vec3b(255, 255, 255);
 
-	std::function<void()> slider_callback;
+	std::function<void()> update_callback;
 	std::function<void(int keycode)> key_callback;
 	std::function<void(int event, int x, int y)> mouse_callback;
 
-	explicit viewer(int width, int height, bool resizeable = false);
+	viewer(const std::string& title, int width, int height, bool resizeable = false);
+	viewer(int width, int height, bool resizeable = false);
+	explicit viewer(const std::string& title, bool resizeable = false);
+	
 	viewer(const viewer&) = delete;
 	~viewer();	
 	viewer& operator=(const viewer&) = delete;	
@@ -47,9 +52,11 @@ public:
 	int_slider& add_int_slider(const std::string& caption, int default_val, int min_val, int max_val, int step = 1);
 	real_slider& add_real_slider(const std::string& caption, real default_val, real min_val, real max_val, int steps = 100);
 	
+
 	int width() const;
 	int height() const;
 	
+	void clear(int width, int height);
 	void clear();
 	void draw(const cv::Mat_<cv::Vec3b>&, real blend = 1.0);
 	void draw(const cv::Mat_<uchar>&, real blend = 1.0);
@@ -66,6 +73,7 @@ public:
 	bool show();
 	
 	void show_modal();
+	void update_modal();
 	void close_modal();
 
 	static cv::Mat_<uchar> visualize_depth(const cv::Mat_<float>&, float min_d, float max_d);
