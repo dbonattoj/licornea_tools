@@ -14,7 +14,7 @@ feature_slopes::feature_slopes(const feature_points& fpoints) : feature_points(f
 feature_slopes decode_feature_slopes(const json& j_fslopes) {
 	feature_points fpoints = decode_feature_points(j_fslopes);
 	feature_slopes fslopes(fpoints);
-	const json& j_fslopes_feat = j_fslopes["features"];
+	const json& j_fslopes_feat = j_fslopes["points"];
 	for(auto it = j_fslopes_feat.begin(); it != j_fslopes_feat.end(); ++it) {
 		const std::string& feature_name = it.key();
 		const json& j_fslope = it.value();
@@ -27,13 +27,13 @@ feature_slopes decode_feature_slopes(const json& j_fslopes) {
 
 
 bool has_feature_slopes(const json& j_fslopes) {
-	return has(j_fslopes["features"].begin().value(), "slope_horizontal");
+	return has(j_fslopes["points"].begin().value(), "slope_horizontal");
 }
 
 
 json encode_feature_slopes(const feature_slopes& fslopes) {
 	json j_fslopes = encode_feature_points(fslopes);
-	json& j_fslopes_feat = j_fslopes["features"];
+	json& j_fslopes_feat = j_fslopes["points"];
 	for(const auto& kv : fslopes.slopes) {
 		const std::string& feature_name = kv.first;
 		const feature_slope& fslope = kv.second;
@@ -69,10 +69,10 @@ cv::Mat_<cv::Vec3b> visualize_feature_slopes(const feature_slopes& fslopes, cons
 	
 	for(const auto& kv : fslopes.slopes) {
 		const std::string& feature_name = kv.first;
-		const vec2& fpoint = fslopes.points.at(feature_name);
+		const feature_point& fpoint = fslopes.points.at(feature_name);
 		const feature_slope& fslope = kv.second;
 
-		cv::Point center_point = vec2_to_point(fpoint);
+		cv::Point center_point = vec2_to_point(fpoint.position);
 		center_point.x += bord.left;
 		center_point.y += bord.top;
 		cv::Vec3b col = random_color(string_hash(feature_name));

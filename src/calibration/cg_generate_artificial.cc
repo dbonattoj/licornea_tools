@@ -87,7 +87,7 @@ int main(int argc, const char* argv[]) {
 	
 	std::cout << "generating correspondences by projecting features for each view" << std::endl;
 	image_correspondences cors;
-	cors.reference = view_index(num_x/2, num_y/2);
+	view_index reference_view(num_x/2, num_y/2);
 	std::map<view_index, vec3> view_camera_centers;
 	for(int y = 0; y < num_y; ++y) for(int x = 0; x < num_x; ++x) {
 		view_index idx(x, y);
@@ -109,8 +109,20 @@ int main(int argc, const char* argv[]) {
 		
 			// add image correspondence
 			std::string feature_name = "feat" + std::to_string(feature);
-			cors.features[feature_name].points[idx] = dist_i;
-			cors.features[feature_name].point_depths[idx] = v[2];
+			feature_point fpoint;
+			fpoint.position = dist_i;
+			fpoint.depth = v[2];
+			fpoint.weight = 1.0;
+			
+			auto feature_it = cors.features.find(feature_name);
+			if(feature_it == cors.features.end()) {
+				image_correspondence_feature feature;
+				feature.reference_view = reference_view;
+				auto res = cors.features.emplace(feature_name, std::move(feature));
+				feature_it = res.first;
+			}
+			
+			feature_it->second.points[idx] = fpoint;
 		}
 	}
 	
@@ -167,8 +179,10 @@ int main(int argc, const char* argv[]) {
 
 		for(int feature = 0; feature < features_count; ++feature) {
 			std::string feature_name = "feat" + std::to_string(feature);
-			vec2 dist_i = cors.features.at(feature_name).points.at(idx);
-			real depth = cors.features.at(feature_name).point_depths.at(idx);
+			const feature_point& fpoint = cors.features.at(feature_name).points.at(idx);
+			
+			vec2 dist_i = fpoint.position;
+			real depth = fpoint.depth;
 			
 			cv::Vec3b col = random_color(feature);
 

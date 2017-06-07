@@ -1,3 +1,5 @@
+int main(){}
+/*
 #include "../lib/common.h"
 #include "../lib/args.h"
 #include "../lib/json.h"
@@ -7,7 +9,7 @@
 #include "../lib/intrinsics.h"
 #include "../lib/misc.h"
 #include "../lib/assert.h"
-#include "lib/cg/feature_points.h"
+#include "lib/feature_points.h"
 #include <map>
 #include <iostream>
 #include <vector>
@@ -162,3 +164,4 @@ int main(int argc, const char* argv[]) {
 	
 	std::cout << "done" << std::endl;
 }
+*/

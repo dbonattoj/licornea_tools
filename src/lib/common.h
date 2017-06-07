@@ -72,6 +72,13 @@ constexpr int enter_keycode = 10;
 constexpr int escape_keycode = 27;
 
 
+constexpr real pi = 3.14159265358979323846;
+constexpr real deg_per_rad = 180.0 / pi;
+constexpr real rad_per_deg = pi / 180.0;
+
+constexpr real golden_ratio = 1.61803398874989484820;
+
+
 
 }
 

@@ -13,8 +13,7 @@ using namespace tlz;
 
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv,
-		"obj_img_cors_set.json image_width image_height out_intrinsics.json [no_distortion]");
+	get_args(argc, argv, "obj_img_cors_set.json image_width image_height out_intrinsics.json [no_distortion]");
 	std::string obj_img_cors_set_filename = in_filename_arg();
 	int image_width = int_arg();
 	int image_height = int_arg();

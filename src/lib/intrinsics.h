@@ -6,27 +6,28 @@
 #include "args.h"
 
 namespace tlz {
+	
+struct distortion_parameters {
+	real k1 = 0.0;
+	real k2 = 0.0;
+	real k3 = 0.0;
+	real p1 = 0.0;
+	real p2 = 0.0;
+	
+	std::vector<real> cv_coeffs() const {
+		return { k1, k2, p1, p2, k3 };
+	}
+		
+	bool is_none() const {
+		return (k1 == 0.0) && (k2 == 0.0) && (k3 == 0.0) && (p1 == 0.0) && (p2 == 0.0);
+	}
+	explicit operator bool () const { return ! is_none(); }
+};
 
 struct intrinsics {
 	mat33 K;
 	mat33 K_inv;
-	
-	struct {
-		real k1 = 0.0;
-		real k2 = 0.0;
-		real k3 = 0.0;
-		real p1 = 0.0;
-		real p2 = 0.0;
-	
-		std::vector<real> cv_coeffs() const {
-			return { k1, k2, p1, p2, k3 };
-		}
-		
-		bool is_none() const {
-			return (k1 == 0.0) && (k2 == 0.0) && (k3 == 0.0) && (p1 == 0.0) && (p2 == 0.0);
-		}
-		explicit operator bool () const { return ! is_none(); }
-	} distortion;
+	distortion_parameters distortion;
 	int width = 0;
 	int height = 0;
 	

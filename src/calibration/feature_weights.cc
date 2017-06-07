@@ -5,7 +5,7 @@
 #include "../lib/random_color.h"
 #include "../lib/misc.h"
 #include "lib/image_correspondence.h"
-#include "lib/cg/feature_points.h"
+#include "lib/feature_points.h"
 #include <vector>
 #include <functional>
 #include <cmath>
@@ -16,9 +16,7 @@
 
 using namespace tlz;
 
-constexpr real pi = 3.14159265359;
-
-const std::string window_name = "Feature Clusters";
+const std::string window_name = "Feature Weights";
 
 const cv::Vec3b point_color(0, 200, 0);
 
@@ -29,7 +27,7 @@ void update_callback(int = 0, void* = nullptr) {
 
 
 std::map<std::string, real> compute_feature_point_weights(
-	const std::map<std::string, vec2>& pts,
+	const std::map<std::string, feature_point>& pts,
 	int rad_pieces,
 	int arg_pieces
 ) {
@@ -37,12 +35,12 @@ std::map<std::string, real> compute_feature_point_weights(
 	
 	// get center of gravity and bounding box
 	vec2 center(0.0, 0.0);
-	for(const auto& kv : pts) center += kv.second;
+	for(const auto& kv : pts) center += kv.second.position;
 	center = center / (real)points_count;
 
 	real x_min = +INFINITY, x_max = -INFINITY, y_min = +INFINITY, y_max = -INFINITY;
 	for(const auto& kv : pts) {
-		const vec2& pt = kv.second;
+		const vec2& pt = kv.second.position;
 		if(pt[0] > x_max) x_max = pt[0];
 		if(pt[0] < x_min) x_min = pt[0];
 		if(pt[1] > y_max) y_max = pt[1];
@@ -66,20 +64,17 @@ std::map<std::string, real> compute_feature_point_weights(
 	// max rad and arg of points in polar coordinates (with center at origin)
 	const real rad_max = max_center_dist;
 	const real arg_max = 2.0 * pi;
+	
 
 	// assign points to pieces
-	using piece_idx_type = int;
+	using piece_id_type = std::pair<int, int>;
 	int pieces_count = rad_pieces * arg_pieces;	
-	std::map<std::string, piece_idx_type> fpoint_pieces;
-	std::vector<std::size_t> piece_point_counts(pieces_count, 0);
-	
-	auto get_piece_idx = [rad_pieces, arg_pieces](int rad_piece, int arg_piece) -> piece_idx_type {
-		return rad_pieces*arg_piece + rad_piece;
-	};
+	std::map<std::string, piece_id_type> fpoint_pieces;
+	std::map<piece_id_type, std::size_t> piece_point_counts;
 
 	for(const auto& kv : pts) {
 		const std::string& feature_name = kv.first;
-		const vec2& pt = kv.second;
+		const vec2& pt = kv.second.position;
 		vec2 d_pt = pt - center;
 		real rad = std::sqrt(sq(d_pt[0]) + sq(d_pt[0])); // 0..rad_max
 		real arg = std::atan2(d_pt[1], d_pt[0]) + pi; // 0..arg_max
@@ -89,21 +84,28 @@ std::map<std::string, real> compute_feature_point_weights(
 		if(rad_piece >= rad_pieces) rad_piece = rad_pieces - 1;
 		if(arg_piece >= arg_pieces) arg_piece = arg_pieces - 1;
 		
-		piece_idx_type piece_idx = get_piece_idx(rad_piece, arg_piece);
-		fpoint_pieces[feature_name] = piece_idx;
-		piece_point_counts.at(piece_idx)++;
+		piece_id_type piece_id(rad_piece, arg_piece);
+		fpoint_pieces[feature_name] = piece_id;
+		piece_point_counts[piece_id]++;
 	}
 
 	// point weights
 	std::map<std::string, real> point_weights;
 	real weights_sum = 0.0;
 
+	const real full_area = pi * sq(rad_max);
+	auto get_piece_area = [rad_max, rad_pieces, arg_pieces](piece_id_type id) -> real {
+		return pi * sq(rad_max/rad_pieces) * (2*id.first + 1) / arg_pieces;
+	};
+
 	for(const auto& kv : pts) {
 		const std::string& feature_name = kv.first;
 		
-		piece_idx_type piece_idx = fpoint_pieces.at(feature_name);
-		real piece_points_count = piece_point_counts.at(piece_idx);
-		real ideal_piece_points_count = (real)points_count / pieces_count;
+		piece_id_type piece_id = fpoint_pieces.at(feature_name);
+		real piece_points_count = piece_point_counts.at(piece_id);
+		real piece_area = get_piece_area(piece_id);
+		
+		real ideal_piece_points_count = (piece_area * points_count) / (pieces_count * full_area);
 		
 		real weight = ideal_piece_points_count / piece_points_count;
 
@@ -126,12 +128,12 @@ int main(int argc, const char* argv[]) {
 	
 	std::string dataset_group = cors.dataset_group;
 	
-	int slider_x = cors.reference.x - datas.x_min();
-	int slider_y = cors.reference.y - datas.y_min();
+	int slider_x = datas.x_mid() - datas.x_min();
+	int slider_y = datas.y_mid() - datas.y_min();
 	int rad_pieces = 3;
-	int arg_pieces = 8;
+	int arg_pieces = 1;
 	int max_dot_rad = 10;
-	int image_opacity = 100;
+	int image_opacity = 70;
 	
 	auto update = [&]() {
 		int x = slider_x + datas.x_min();
@@ -156,12 +158,11 @@ int main(int argc, const char* argv[]) {
 		
 		for(const auto& kv : fpoints.points) {
 			const std::string& feature_name = kv.first;
-			const vec2& pt = kv.second;
+			const feature_point& pt = kv.second;
 			real nweight = point_weights.at(feature_name);
 			real area = nweight * fpoints.points.size();
 			real rad = std::sqrt(area / pi);
-			//cv::Vec3b piece_color = random_color(fpoint_pieces.at(feature_name));
-			cv::circle(shown_img, vec2_to_point(pt), max_dot_rad * rad, cv::Scalar(point_color), -1);
+			cv::circle(shown_img, vec2_to_point(pt.position), max_dot_rad * rad, cv::Scalar(point_color), -1);
 		}	
 	
 		cv::imshow(window_name, shown_img);
@@ -186,6 +187,7 @@ int main(int argc, const char* argv[]) {
 	
 	if(key == enter_keycode) {
 		std::cout << "computing feature weights for all views" << std::endl;
-		// ...TODO
+		image_correspondences out_cors = cors;
+		
 	}
 }

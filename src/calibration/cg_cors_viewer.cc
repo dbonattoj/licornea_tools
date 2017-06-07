@@ -5,7 +5,7 @@
 #include "../lib/misc.h"
 #include "../lib/image_io.h"
 #include "lib/image_correspondence.h"
-#include "lib/cg/feature_points.h"
+#include "lib/feature_points.h"
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -25,18 +25,14 @@ int main(int argc, const char* argv[]) {
 	image_correspondences cors = image_correspondences_arg();
 	std::string dataset_group = string_opt_arg(cors.dataset_group);
 	
-	view_index reference_idx = cors.reference;
 	border bord = decode_border(get_or(datas.group_parameters(dataset_group), "border", json::object()));
-	
-	feature_points ref_fpoints = feature_points_for_view(cors, reference_idx);
-	
-	
+		
 	std::cout << "running viewer" << std::endl;
 
 	const std::string window_name = "Image Correspondences Viewer";
 
-	int slider_x = reference_idx.x - datas.x_min();
-	int slider_y = reference_idx.y - datas.y_min();
+	int slider_x = datas.x_mid() - datas.x_min();
+	int slider_y = datas.y_mid() - datas.y_min();
 	
 	auto update = [&]() {
 		int x = slider_x + datas.x_min();

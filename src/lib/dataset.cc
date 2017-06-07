@@ -203,7 +203,7 @@ dataset_view dataset::view(view_index idx) const {
 		if(! idx.is_2d()) throw std::runtime_error("must specify 2d view index");
 		return view(idx.x, idx.y);
 	} else {
-		if(idx.is_2d()) throw std::runtime_error("must specify 1d view index");
+		if(idx.is_2d() && idx.y != 0) throw std::runtime_error("must specify 1d view index");
 		return view(idx.x);
 	}
 }

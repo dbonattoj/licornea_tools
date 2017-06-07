@@ -26,10 +26,10 @@ int main(int argc, const char* argv[]) {
 	feature_slopes fslopes(fpoints);
 	for(const auto& kv : fslopes.points) {
 		const std::string& feature_name = kv.first;
-		const vec2& fpoint = kv.second;
+		const feature_point& fpoint = kv.second;
 		feature_slope& fslope = fslopes.slopes[feature_name];
-		fslope.horizontal = model_horizontal_slope(fpoint, intr.K, R);
-		fslope.vertical = model_vertical_slope(fpoint, intr.K, R);
+		fslope.horizontal = model_horizontal_slope(fpoint.position, intr.K, R);
+		fslope.vertical = model_vertical_slope(fpoint.position, intr.K, R);
 	}
 	export_json_file(encode_feature_slopes(fslopes), out_predicted_slopes_filename);
 }

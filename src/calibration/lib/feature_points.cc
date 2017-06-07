@@ -1,7 +1,8 @@
 #include "feature_points.h"
-#include "../../../lib/random_color.h"
-#include "../../../lib/json.h"
-#include "../../../lib/string.h"
+#include "image_correspondence.h"
+#include "../../lib/random_color.h"
+#include "../../lib/json.h"
+#include "../../lib/string.h"
 
 namespace tlz {
 
@@ -9,11 +10,11 @@ feature_points decode_feature_points(const json& j_fpoints) {
 	feature_points fpoints;
 	fpoints.view_idx = decode_view_index(j_fpoints["view_idx"]);
 	fpoints.is_distorted = get_or(j_fpoints, "is_distorted", false);
-	const json& j_fpoints_feat = j_fpoints["features"];
+	const json& j_fpoints_feat = j_fpoints["points"];
 	for(auto it = j_fpoints_feat.begin(); it != j_fpoints_feat.end(); ++it) {
 		const std::string& feature_name = it.key();
 		const json& j_fpoint = it.value();
-		fpoints.points[feature_name] = vec2(j_fpoint["x"], j_fpoint["y"]);
+		fpoints.points[feature_name] = decode_feature_point(j_fpoint);
 	}
 	return fpoints;
 }
@@ -23,26 +24,32 @@ json encode_feature_points(const feature_points& fpoints) {
 	json f_fpoints_feat = json::object();
 	for(const auto& kv : fpoints.points) {
 		const std::string& feature_name = kv.first;
-		const vec2& fpoint = kv.second;
-		json j_fpoint = json::object();
-		j_fpoint["x"] = fpoint[0];
-		j_fpoint["y"] = fpoint[1];
+		const feature_point& fpoint = kv.second;
+		json j_fpoint = encode_feature_point(fpoint);
 		f_fpoints_feat[feature_name] = j_fpoint;
 	}
 	
 	json j_fpoints = json::object();
 	j_fpoints["view_idx"] = encode_view_index(fpoints.view_idx);
-	j_fpoints["features"] = f_fpoints_feat;
+	j_fpoints["points"] = f_fpoints_feat;
 	j_fpoints["is_distorted"] = fpoints.is_distorted;
 
 	return j_fpoints;
 }
 
 
-feature_points feature_points_for_view(const image_correspondences& cors, view_index idx) {
+void feature_points::normalize_weights() {
+	real weights_sum = 0.0;
+	for(const auto& kv : points) weights_sum += kv.second.weight;
+	weights_sum /= points.size();
+	for(auto& kv : points) kv.second.weight /= weights_sum;
+}
+
+
+feature_points feature_points_for_view(const image_correspondences& cors, view_index idx, bool is_distorted) {
 	feature_points fpoints;
 	fpoints.view_idx = idx;
-	fpoints.is_distorted = true;
+	fpoints.is_distorted = is_distorted;
 	
 	for(const auto& kv : cors.features) {
 		const std::string& feature_name = kv.first;
@@ -67,10 +74,11 @@ feature_points undistort(const feature_points& dist_fpoints, const intrinsics& i
 	std::vector<vec2*> undistorted_point_ptrs;
 	for(const auto& kv : dist_fpoints.points) {
 		const std::string& feature_name = kv.first;
-		const vec2 dist_pt = kv.second;
-		vec2& undist_pt = undist_fpoints.points[feature_name];
-		distorted_points.push_back(dist_pt);
-		undistorted_point_ptrs.push_back(&undist_pt);
+		const feature_point& dist_fpt = kv.second;
+		feature_point& undist_fpt = undist_fpoints.points[feature_name];
+		distorted_points.push_back(dist_fpt.position);
+		undistorted_point_ptrs.push_back(&undist_fpt.position);
+		undist_fpt = dist_fpt; // copy depth, weight
 	}
 	
 	std::vector<vec2> undistorted_points = undistort_points(intr, distorted_points);
@@ -99,9 +107,9 @@ cv::Mat_<cv::Vec3b> visualize_feature_points(const feature_points& fpoints, cons
 	
 	for(const auto& kv : fpoints.points) {
 		const std::string& feature_name = kv.first;
-		const vec2& fpoint = kv.second;
+		const feature_point& fpoint = kv.second;
 		cv::Vec3b col = random_color(string_hash(feature_name));
-		cv::Point center_point = vec2_to_point(fpoint);
+		cv::Point center_point = vec2_to_point(fpoint.position);
 		center_point.x += bord.left;
 		center_point.y += bord.top;
 		cv::circle(img, center_point, 10, cv::Scalar(col), 2);

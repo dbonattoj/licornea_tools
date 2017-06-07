@@ -3,7 +3,7 @@
 #include "../lib/intrinsics.h"
 #include "../lib/dataset.h"
 #include "../lib/misc.h"
-#include "lib/cg/feature_points.h"
+#include "lib/feature_points.h"
 #include "lib/cg/feature_slopes.h"
 #include <cstdlib>
 #include <iostream>
@@ -11,10 +11,6 @@
 #include <functional>
 
 using namespace tlz;
-
-constexpr real pi = 3.14159265359;
-constexpr real deg_per_rad = 180.0 / pi;
-constexpr real rad_per_deg = pi / 180.0;
 
 constexpr real comp_abs_max = 30.0 * rad_per_deg;
 constexpr int comp_slider_max = 1000;
@@ -58,8 +54,7 @@ real from_int(int ival) {
  
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv, 
-		"dataset_parameters.json intrinsics.json points.json/measured_slopes.json");
+	get_args(argc, argv, "dataset_parameters.json intrinsics.json points.json/measured_slopes.json");
 	dataset datas = dataset_arg();
 	intrinsics intr = intrinsics_arg();
 	std::string point_or_slopes_filename = in_filename_arg();
@@ -144,10 +139,10 @@ int main(int argc, const char* argv[]) {
 		mat33 R = to_rotation_matrix(x, y, z);
 		for(const auto& kv : fpoints.points) {
 			const std::string& feature_name = kv.first;
-			vec2 fpoint = kv.second;
+			const feature_point& fpoint = kv.second;
 			feature_slope& fslope = model_fslopes.slopes[feature_name];
-			fslope.horizontal = model_horizontal_slope(fpoint, intr.K, R);
-			fslope.vertical = model_vertical_slope(fpoint, intr.K, R);
+			fslope.horizontal = model_horizontal_slope(fpoint.position, intr.K, R);
+			fslope.vertical = model_vertical_slope(fpoint.position, intr.K, R);
 		}
 		if(model_width > 0)
 			viz_image = visualize_feature_slopes(model_fslopes, viz_image, model_width, exaggeration, 1);

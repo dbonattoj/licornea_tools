@@ -42,8 +42,8 @@ int main(int argc, const char* argv[]) {
 	
 	int out_x = max_bord.left;
 	int out_y = max_bord.top;
-	int out_width = (width / unit) * unit;
-	int out_height = (height / unit) * unit;
+	//int out_width = (width / unit) * unit;
+	//int out_height = (height / unit) * unit;
 	
 	cv::Size size = add_border(max_bord, cv::Size(width, height));
 	cv::Mat_<cv::Vec3b> back_img(size);

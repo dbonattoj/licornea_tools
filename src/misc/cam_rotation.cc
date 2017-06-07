@@ -5,9 +5,6 @@
 
 using namespace tlz;
 
-constexpr real pi = 3.14159265359;
-constexpr real deg_per_rad = 180.0 / pi;
-constexpr real rad_per_deg = pi / 180.0;
 constexpr real epsilon = 1.0e-6;
 
 bool is_orthogonal_matrix(const mat33& R) {

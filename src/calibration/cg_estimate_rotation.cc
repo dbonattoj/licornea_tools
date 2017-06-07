@@ -14,13 +14,6 @@
 
 using namespace tlz;
 
-
-constexpr real pi = 3.14159265359;
-constexpr real deg_per_rad = 180.0 / pi;
-constexpr real rad_per_deg = pi / 180.0;
-
-constexpr real gr = 1.61803398875;
-
 constexpr bool verbose = true;
 
 
@@ -49,14 +42,14 @@ template<typename Func>
 void one_dim_search_minimum(Func f, real& a, real& b, real tolerance) {
 	assert(a < b);
 	
-	real c = b - (b - a)/gr;
-	real d = a + (b - a)/gr;
+	real c = b - (b - a)/golden_ratio;
+	real d = a + (b - a)/golden_ratio;
 	
 	while(std::abs(c - d) > tolerance) {
 		if(f(c) < f(d)) b = d;
 		else a = c;
-        c = b - (b - a) / gr;
-        d = a + (b - a) / gr;
+        c = b - (b - a) / golden_ratio;
+        d = a + (b - a) / golden_ratio;
 	}
 }
 
@@ -79,10 +72,10 @@ int main(int argc, const char* argv[]) {
 		real err_sum = 0.0;
 		for(const auto& kv : measured_fslopes.slopes) {
 			const std::string& feature_name = kv.first;
-			const vec2& undist_point = measured_fslopes.points.at(feature_name);
+			const feature_point& undist_fpoint = measured_fslopes.points.at(feature_name);
 			const feature_slope& measured_fslope = kv.second;
 			
-			real ix = undist_point[0], iy = undist_point[1];
+			real ix = undist_fpoint.position[0], iy = undist_fpoint.position[1];
 			real model_hslope = (fy*r21 + cy*r31 - iy*r31) / (fx*r11 + cx*r31 - ix*r31);
 			real model_vslope = (fx*r12 + cx*r32 - ix*r32) / (fy*r22 + cy*r32 - iy*r32);
 			

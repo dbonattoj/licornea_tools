@@ -4,7 +4,7 @@
 #include "../../../lib/json.h"
 #include "../../../lib/args.h"
 #include "../../../lib/border.h"
-#include "feature_points.h"
+#include "../feature_points.h"
 #include <map>
 #include <string>
 
@@ -13,6 +13,9 @@ namespace tlz {
 struct feature_slope {
 	real horizontal = NAN;
 	real vertical = NAN;
+	
+	real horizontal_depth = NAN;
+	real vertical_depth = NAN; // TODO
 };
 struct feature_slopes : feature_points {
 	// feature points are undistorted

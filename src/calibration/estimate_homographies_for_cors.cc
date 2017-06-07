@@ -47,12 +47,13 @@ int main(int argc, const char* argv[]) {
 			auto dst_point_it = dst_feature.points.find(idx);
 			if(dst_point_it == dst_feature.points.end()) continue;
 
-			src_points.push_back(src_point_it->second);
-			dst_points.push_back(dst_point_it->second);
+			src_points.push_back(src_point_it->second.position);
+			dst_points.push_back(dst_point_it->second.position);
 		}
 
 		// compute homography
 		mat33 H = cv::findHomography(src_points, dst_points);
+		// TODO better algo, consider weights, outliers, form of H?
 		
 		// compute back-projection error
 		std::vector<vec2> warped_src_points;
