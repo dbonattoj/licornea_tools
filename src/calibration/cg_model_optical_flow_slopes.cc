@@ -13,8 +13,7 @@ using namespace tlz;
 
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv,
-		"feature_points.json intrinsics.json rotation.json out_predicted_slopes.json");
+	get_args(argc, argv, "feature_points.json intrinsics.json rotation.json out_predicted_slopes.json");
 	feature_points fpoints = feature_points_arg();
 	intrinsics intr = intrinsics_arg();
 	mat33 R = decode_mat(json_arg());

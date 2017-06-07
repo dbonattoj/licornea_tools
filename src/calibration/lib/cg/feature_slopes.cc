@@ -104,4 +104,17 @@ cv::Mat_<cv::Vec3b> visualize_feature_slopes(const feature_slopes& fslopes, cons
 }
 
 
+feature_slopes merge_multiview_feature_slopes(const feature_slopes& a, const feature_slopes& b) {
+	Assert(! a.is_distorted);
+	Assert(! b.is_distorted);
+
+	feature_slopes ab;
+	ab.points.insert(a.points.begin(), a.points.end());
+	ab.slopes.insert(a.slopes.begin(), a.slopes.end());
+	ab.points.insert(b.points.begin(), b.points.end());
+	ab.slopes.insert(b.slopes.begin(), b.slopes.end());
+	return ab;
+}
+
+
 }

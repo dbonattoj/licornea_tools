@@ -63,7 +63,7 @@ int main(int argc, const char* argv[]) {
 	cv::namedWindow(window_name, CV_WINDOW_NORMAL);
 
 	cv::createTrackbar("x", window_name, &slider_x, datas.x_max() - datas.x_min(), &update_callback);
-	cv::createTrackbar("y", window_name, &slider_y, datas.y_max() - datas.y_min(), &update_callback);
+	if(datas.y_count() > 1) cv::createTrackbar("y", window_name, &slider_y, datas.y_max() - datas.y_min(), &update_callback);
 
 	update();
 	

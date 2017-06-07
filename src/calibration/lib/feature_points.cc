@@ -8,7 +8,7 @@ namespace tlz {
 
 feature_points decode_feature_points(const json& j_fpoints) {
 	feature_points fpoints;
-	fpoints.view_idx = decode_view_index(j_fpoints["view_idx"]);
+	if(has(j_fpoints, "view_idx")) fpoints.view_idx = decode_view_index(j_fpoints["view_idx"]);
 	fpoints.is_distorted = get_or(j_fpoints, "is_distorted", false);
 	const json& j_fpoints_feat = j_fpoints["points"];
 	for(auto it = j_fpoints_feat.begin(); it != j_fpoints_feat.end(); ++it) {
@@ -30,7 +30,7 @@ json encode_feature_points(const feature_points& fpoints) {
 	}
 	
 	json j_fpoints = json::object();
-	j_fpoints["view_idx"] = encode_view_index(fpoints.view_idx);
+	if(fpoints.view_idx) j_fpoints["view_idx"] = encode_view_index(fpoints.view_idx);
 	j_fpoints["points"] = f_fpoints_feat;
 	j_fpoints["is_distorted"] = fpoints.is_distorted;
 

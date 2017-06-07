@@ -178,6 +178,7 @@ endif()
 # Dataset
 install_pylib_link(dataset)
 
+program(view_dataset dataset)
 py_program(slice dataset)
 py_program(flip dataset)
 

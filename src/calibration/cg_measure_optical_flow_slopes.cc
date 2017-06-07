@@ -66,18 +66,21 @@ int main(int argc, const char* argv[]) {
 	}
 	std::cout << std::endl;
 
-	// TODO multi-reference fslopes
-	/*
+
 	std::cout << "saving slopes" << std::endl;
-	feature_points ref_fpoints = undistorted_feature_points_for_view(cors, reference_idx, intr);
-	feature_slopes fslopes(ref_fpoints);
-	for(const auto& kv : cors.features) {
-		const std::string& feature_name = kv.first;
-		
-		feature_slope& fslope = fslopes.slopes[feature_name];
-		fslope.horizontal = feature_horizontal_slopes.at(feature_name);
-		fslope.vertical = feature_vertical_slopes.at(feature_name);
+	auto ref_views = reference_views(cors);
+	feature_slopes fslopes;
+	for(const view_index& ref_idx : ref_views) {
+		image_correspondences ref_cors = image_correspondences_with_reference(cors, ref_idx);
+		feature_points ref_fpoints = undistorted_feature_points_for_view(ref_cors, ref_idx, intr);
+		feature_slopes ref_fslopes(ref_fpoints);
+		for(auto& kv : ref_cors.features) {
+			const std::string& feature_name = kv.first;
+			feature_slope& fslope = ref_fslopes.slopes[feature_name];
+			fslope.horizontal = feature_horizontal_slopes.at(feature_name);
+			fslope.vertical = feature_vertical_slopes.at(feature_name);
+			fslopes = merge_multiview_feature_slopes(fslopes, ref_fslopes);
+		}
 	}
 	export_json_file(encode_feature_slopes(fslopes), out_slopes_filename);
-	*/
 }

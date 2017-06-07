@@ -18,7 +18,7 @@ struct image_correspondences;
 struct feature_points {
 	std::map<std::string, feature_point> points;
 	view_index view_idx;
-	bool is_distorted;
+	bool is_distorted = false;
 	
 	bool has_feature(const std::string& feature_name) const
 		{ return (points.find(feature_name) != points.end()); }

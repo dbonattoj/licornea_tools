@@ -12,8 +12,8 @@ namespace tlz {
 class dataset;
 
 struct view_index {
-	int x;
-	int y;
+	int x = -1;
+	int y = -1;
 	
 	bool is_valid() const { return (x != -1); }
 	explicit operator bool () const { return is_valid(); }
@@ -21,7 +21,7 @@ struct view_index {
 	bool is_1d() const { return (y == -1); }
 	bool is_2d() const { return (y != -1); }
 
-	view_index() : x(-1), y(-1) { }
+	view_index() = default;
 	explicit view_index(int x_, int y_ = -1) : x(x_), y(y_) { }
 };
 
