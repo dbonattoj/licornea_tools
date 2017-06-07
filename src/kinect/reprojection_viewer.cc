@@ -3,7 +3,7 @@
 #include "../lib/json.h"
 #include "../lib/intrinsics.h"
 #include "../lib/misc.h"
-#include "lib/live/viewer.h"
+#include "../lib/viewer.h"
 #include "lib/live/grabber.h"
 #include "lib/live/checkerboard.h"
 #include "lib/kinect_reprojection_parameters.h"
@@ -34,11 +34,11 @@ int main(int argc, const char* argv[]) {
 	grabber grab(grabber::color | grabber::depth);
 
 	viewer view(754+754, 424+30);
-	auto& min_d = view.add_slider("depth min ", 0, 20000);
-	auto& max_d = view.add_slider("depth max", 6000, 20000);
-	auto& diff_range = view.add_slider("difference range", 100, 500);
-	auto& scaledown = view.add_slider("scaledown (%)", 30, 100);
-	auto& superimpose = view.add_slider("superimpose (%)", 0, 100);
+	auto& min_d = view.add_int_slider("depth min ", 0, 0, 20000);
+	auto& max_d = view.add_int_slider("depth max", 6000, 0, 20000);
+	auto& diff_range = view.add_int_slider("difference range", 100, 0, 500);
+	auto& scaledown = view.add_int_slider("scaledown (%)", 30, 10, 100);
+	auto& superimpose = view.add_int_slider("superimpose (%)", 0, 0, 100);
 
 	depth_mode shown_depth_mode = depth_mode::reprojected;
 
@@ -47,7 +47,7 @@ int main(int argc, const char* argv[]) {
 
 	bool running = true;
 	while(running) {
-		float scale = scaledown.value / 100.0;
+		float scale = scaledown.value() / 100.0;
 		int scaled_w = 1920 * scale;
 		int scaled_h = 1080 * scale;
 
@@ -81,10 +81,10 @@ int main(int argc, const char* argv[]) {
 		
 		view.draw(cv::Rect(0, 0, 754, 424), color);
 		cv::Rect depth_rect(754, 0, 754, 424);
-		if(shown_depth_mode == depth_mode::difference) view.draw_depth(depth_rect, shown_reprojected_depth, -diff_range.value/2, +diff_range.value/2);
-		else view.draw_depth(depth_rect, shown_reprojected_depth, min_d.value, max_d.value);
-		if(superimpose.value > 0) {
-			float blend = superimpose.value / 100.0;
+		if(shown_depth_mode == depth_mode::difference) view.draw_depth(depth_rect, shown_reprojected_depth, -diff_range.value()/2, +diff_range.value()/2);
+		else view.draw_depth(depth_rect, shown_reprojected_depth, min_d.value(), max_d.value());
+		if(superimpose.value() > 0) {
+			float blend = superimpose.value() / 100.0;
 			view.draw(depth_rect, color, blend);
 		}
 

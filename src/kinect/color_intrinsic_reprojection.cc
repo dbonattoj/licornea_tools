@@ -3,7 +3,7 @@
 #include "../lib/intrinsics.h"
 #include "../lib/misc.h"
 #include "../lib/obj_img_correspondence.h"
-#include "lib/live/viewer.h"
+#include "../lib/viewer.h"
 #include "lib/live/grabber.h"
 #include "lib/live/checkerboard.h"
 #include <string>
@@ -31,7 +31,7 @@ int main(int argc, const char* argv[]) {
 	grabber grab(grabber::color);
 
 	viewer view(1920, 1080+30, true);
-	auto& exaggeration = view.add_slider("exaggeration (%)", 100, 3000);
+	auto& exaggeration = view.add_int_slider("exaggeration (%)", 100, 100, 3000);
 			
 	do {
 		grab.grab();
@@ -80,7 +80,7 @@ int main(int argc, const char* argv[]) {
 				vec2 diff = i_reproj - i_orig;
 				reprojection_error += sq(diff[0]) + sq(diff[1]);
 				
-				vec2 viz_diff = (exaggeration.value/100.0)*diff;
+				vec2 viz_diff = (exaggeration.value()/100.0)*diff;
 				vec2 viz_i_reproj = i_orig + viz_diff;
 								
 				cv::circle(color, cv::Point(i_orig[0], i_orig[1]), 10, cv::Scalar(orig_color), 1);

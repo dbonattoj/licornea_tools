@@ -77,6 +77,8 @@ void add_correspondences(correspondences_type& cors, const flow_state& state) {
 
 
 cv::Mat_<uchar> load_image(const dataset& datas, const view_index& idx) {
+	static std::mutex disk_read_lock;
+	std::lock_guard<std::mutex> lock(disk_read_lock);
 	std::string image_filename = datas.view(idx).group_view(dataset_group).image_filename();
 	cv::Mat_<cv::Vec3b> col_img = load_texture(image_filename);
 	cv::Mat_<uchar> gray_img;
@@ -189,14 +191,14 @@ correspondences_type do_2d_optical_flow(const dataset& datas, const view_index& 
 
 		std::cout << "\nnow doing horizontal flows..." << std::endl;
 		int done = 0;
-		#pragma omp parallel for ordered num_threads(3)
+		#pragma omp parallel for num_threads(4)
 		for(std::ptrdiff_t i = 0; i < vertical_origins.size(); i++) {
 			correspondences_type hcors;
 			
 			const flow_state& origin_state = vertical_origins[i];
 			do_horizontal_optical_flow(hcors, reference_idx, origin_state, datas);
 									
-			#pragma omp ordered
+			#pragma omp critical
 			{
 				++done;
 				std::cout << '\n' << done << " of " << vertical_origins.size() << std::endl;
@@ -256,6 +258,8 @@ int main(int argc, const char* argv[]) {
 	view_index center_idx(datas.x_mid(), datas.y_mid());
 	
 	add_optical_flow(center_idx.x, center_idx.y);
+	for(int x = center_idx.x + horizontal_key; x <= datas.x_max(); x += horizontal_key) add_optical_flow(x, center_idx.y);
+	for(int x = center_idx.x - horizontal_key; x >= datas.x_min(); x -= horizontal_key) add_optical_flow(x, center_idx.y);
 
 	for(int y = center_idx.y + vertical_key; y <= datas.y_max(); y += vertical_key) {
 		for(int x = center_idx.x + horizontal_key; x <= datas.x_max(); x += horizontal_key) add_optical_flow(x, y);

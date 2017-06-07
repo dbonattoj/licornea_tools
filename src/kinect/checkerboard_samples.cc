@@ -3,7 +3,7 @@
 #include "../lib/image_io.h"
 #include "../lib/misc.h"
 #include "../lib/obj_img_correspondence.h"
-#include "lib/live/viewer.h"
+#include "../lib/viewer.h"
 #include "lib/live/grabber.h"
 #include "lib/live/checkerboard.h"
 #include <string>
@@ -112,8 +112,8 @@ int main(int argc, const char* argv[]) {
 		grabber grab(grabber::color | grabber::ir);
 	
 		viewer view(754+512, 424+30);
-		auto& min_ir = view.add_slider("ir min", 0, 0xffff);
-		auto& max_ir = view.add_slider("ir max", 0xffff, 0xffff);
+		auto& min_ir = view.add_int_slider("ir min", 0, 0x0000, 0xffff);
+		auto& max_ir = view.add_int_slider("ir max", 0xffff, 0x0000, 0xffff);
 		
 		
 		int count = 0;
@@ -127,7 +127,7 @@ int main(int argc, const char* argv[]) {
 			checkerboard color_chk, ir_chk;
 			
 			cv::Mat_<cv::Vec3b> color = grab.get_color_frame();
-			cv::Mat_<uchar> ir = grab.get_ir_frame(min_ir.value, max_ir.value);
+			cv::Mat_<uchar> ir = grab.get_ir_frame(min_ir.value(), max_ir.value());
 			cv::Mat_<ushort> ir_orig = grab.get_original_ir_frame();
 	
 			if(mode == "color" || mode == "both") color_chk = detect_color_checkerboard(color, cols, rows, square_width);

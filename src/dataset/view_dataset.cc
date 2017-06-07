@@ -22,16 +22,19 @@ int main(int argc, const char* argv[]) {
 
 	const std::string window_name = "Dataset Viewer";
 	
-	view_index shown_idx(datas.x_mid(),datas.y_mid());
+	view_index shown_idx;
 	int slider_x = datas.x_mid() - datas.x_min();
 	int slider_y = datas.y_mid() - datas.y_min();
 
 	auto update = [&]() {
-		int nx = slider_x + datas.x_min();
-		int ny = slider_y + datas.y_min();
+		int nx = datas.x_min() + (slider_x / datas.x_step()) * datas.x_step();
+		int ny = datas.y_min() + (slider_y / datas.y_step()) * datas.y_step();
 		
-		if(datas.x_valid(nx)) shown_idx.x = nx;
-		if(datas.y_valid(ny)) shown_idx.y = ny;
+		view_index new_shown_idx = shown_idx;
+		if(datas.x_valid(nx)) new_shown_idx.x = nx;
+		if(datas.y_valid(ny)) new_shown_idx.y = ny;
+		if(new_shown_idx == shown_idx) return;
+		else shown_idx = new_shown_idx;
 				
 		cv::Mat_<cv::Vec3b> img = load_texture(datas.view(shown_idx).group_view(dataset_group).image_filename());
 

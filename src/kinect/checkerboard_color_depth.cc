@@ -2,7 +2,7 @@
 #include "../lib/opencv.h"
 #include "../lib/intrinsics.h"
 #include "../lib/misc.h"
-#include "lib/live/viewer.h"
+#include "../lib/viewer.h"
 #include "lib/live/grabber.h"
 #include "lib/live/checkerboard.h"
 #include "lib/kinect_reprojection.h"
@@ -36,11 +36,11 @@ int main(int argc, const char* argv[]) {
 	grabber grab(grabber::depth | grabber::color);
 
 	viewer view(754+754, 424+30+30);
-	auto& min_d = view.add_slider("depth min ", 0, 20000);
-	auto& max_d = view.add_slider("depth max", 6000, 20000);
-	auto& granularity = view.add_slider("granularity", 15, 60);
-	auto& scaledown = view.add_slider("scaledown (%)", 30, 100);
-	auto& superimpose = view.add_slider("superimpose (%)", 0, 100);
+	auto& min_d = view.add_int_slider("depth min ", 0, 0, 20000);
+	auto& max_d = view.add_int_slider("depth max", 6000, 0, 20000);
+	auto& granularity = view.add_int_slider("granularity", 15, 1, 60);
+	auto& scaledown = view.add_int_slider("scaledown (%)", 30, 10, 100);
+	auto& superimpose = view.add_int_slider("superimpose (%)", 0, 0, 100);
 		
 	depth_mode used_depth_mode = depth_mode::reprojected;
 
@@ -50,7 +50,7 @@ int main(int argc, const char* argv[]) {
 	std::cout << "running viewer... (esc to end)" << std::endl; 
 	bool running = true;
 	while(running) {
-		float scale = scaledown.value / 100.0;
+		float scale = scaledown.value() / 100.0;
 		int scaled_w = 1920 * scale;
 		int scaled_h = 1080 * scale;
 
@@ -92,8 +92,8 @@ int main(int argc, const char* argv[]) {
 		int count = 0;
 		
 		std::vector<checkerboard_pixel_depth_sample> pixel_depths;
-		if(color_chk && granularity.value > 0) {		
-			pixel_depths = checkerboard_pixel_depth_samples(color_chk, used_reprojected_depth, granularity.value);
+		if(color_chk && granularity.value() > 0) {		
+			pixel_depths = checkerboard_pixel_depth_samples(color_chk, used_reprojected_depth, granularity.value());
 			checkerboard_extrinsics ext = estimate_checkerboard_extrinsics(color_chk, color_intr);
 			calculate_checkerboard_pixel_depths(color_intr, ext, pixel_depths);
 			count = pixel_depths.size();
@@ -118,10 +118,10 @@ int main(int argc, const char* argv[]) {
 		view.draw(cv::Rect(0, 30, 754, 424), shown_color);
 
 		cv::Rect depth_rect(754, 30, 754, 424);
-		view.draw(depth_rect, visualize_checkerboard_pixel_samples(view.visualize_depth(used_reprojected_depth, min_d.value, max_d.value), pixel_depths, 4));
+		view.draw(depth_rect, visualize_checkerboard_pixel_samples(view.visualize_depth(used_reprojected_depth, min_d.value(), max_d.value()), pixel_depths, 4));
 
-		if(superimpose.value > 0) {
-			float blend = superimpose.value / 100.0;
+		if(superimpose.value() > 0) {
+			float blend = superimpose.value() / 100.0;
 			view.draw(depth_rect, shown_color, blend);
 		}
 

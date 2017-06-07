@@ -4,7 +4,7 @@
 #include "../lib/obj_img_correspondence.h"
 #include "../lib/intrinsics.h"
 #include "../lib/misc.h"
-#include "lib/live/viewer.h"
+#include "../lib/viewer.h"
 #include "lib/live/grabber.h"
 #include "lib/live/checkerboard.h"
 #include "lib/kinect_reprojection.h"
@@ -34,8 +34,8 @@ int main(int argc, const char* argv[]) {
 	double scale = 0.3;
 
 	viewer view(3*w, 20+h+30);
-	auto& superimpose = view.add_slider("superimpose (%)", 0, 100);
-	auto& offset = view.add_slider("depth offset (-200 + ..) (mm)", 200, 400);
+	auto& superimpose = view.add_int_slider("superimpose (%)", 0, 0, 100);
+	auto& offset = view.add_int_slider("depth offset (-200 + ..) (mm)", 200, -200, 200);
 	
 	cv::Mat_<uchar> homography_mapping(h, w);
 	cv::Mat_<uchar> freenect2_mapping(h, w);
@@ -44,7 +44,7 @@ int main(int argc, const char* argv[]) {
 	cv::Mat_<float> z_buffer(h, w);
 		
 	do {
-		int z_offset = -200 + offset.value;
+		int z_offset = offset.value();
 
 		grab.grab();
 		view.clear();
@@ -104,8 +104,8 @@ int main(int argc, const char* argv[]) {
 		view.draw(cv::Rect(0, 20, w, h), freenect2_mapping);
 		view.draw(cv::Rect(w, 20, w, h), color);
 		view.draw(cv::Rect(2*w, 20, w, h), homography_mapping);
-		if(superimpose.value > 0) {
-			float blend = superimpose.value / 100.0;
+		if(superimpose.value() > 0) {
+			float blend = superimpose.value() / 100.0;
 			view.draw(cv::Rect(0, 20, w, h), color, blend);
 			view.draw(cv::Rect(2*w, 20, w, h), color, blend);
 		}

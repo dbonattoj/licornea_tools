@@ -1,7 +1,7 @@
-#include "lib/live/viewer.h"
 #include "lib/live/grabber.h"
 #include "lib/kinect_internal_parameters.h"
 #include "../lib/intrinsics.h"
+#include "../lib/viewer.h"
 #include "../lib/json.h"
 #include <iostream>
 #include <cstdlib>
@@ -24,9 +24,10 @@ int main(int argc, const char* argv[]) {
 
 	viewer view(512+512, 20+424);
 	int max_possible_val = (show_depth ? 6000 : 0xffff);
-	auto& min_val = view.add_slider((show_depth ? "depth min" : "ir min"), 0, max_possible_val);
-	auto& max_val = view.add_slider((show_depth ? "depth max" : "ir max"), max_possible_val, max_possible_val);
-	auto& offset = view.add_slider("cell width", 20, 100);
+	int min_possible_val = 0;
+	auto& min_val = view.add_int_slider((show_depth ? "depth min" : "ir min"), 0, min_possible_val, max_possible_val);
+	auto& max_val = view.add_int_slider((show_depth ? "depth max" : "ir max"), max_possible_val, min_possible_val, max_possible_val);
+	auto& offset = view.add_int_slider("cell width", 20, 3, 100);
 	
 	mat33 camera_mat;
 	std::vector<real> distortion_coeffs;
@@ -51,10 +52,10 @@ int main(int argc, const char* argv[]) {
 		
 		cv::Mat_<cv::Vec3b> raw_img, undistorted_img;
 		if(show_depth) {
-			cv::Mat_<uchar> viz_depth = view.visualize_depth(grab.get_depth_frame(false), min_val.value, max_val.value);
+			cv::Mat_<uchar> viz_depth = view.visualize_depth(grab.get_depth_frame(false), min_val.value(), max_val.value());
 			cv::cvtColor(viz_depth, raw_img, CV_GRAY2BGR);
 		} else {
-			cv::cvtColor(grab.get_ir_frame(min_val.value, max_val.value, false), raw_img, CV_GRAY2BGR);
+			cv::cvtColor(grab.get_ir_frame(min_val.value(), max_val.value(), false), raw_img, CV_GRAY2BGR);
 		}
 		
 		
@@ -62,15 +63,16 @@ int main(int argc, const char* argv[]) {
 		
 		cv::undistort(raw_img, undistorted_img, camera_mat, distortion_coeffs, camera_mat);
 		
-		if(offset.value > 3) {
+		if(offset.value() > 3) {
+			int off = offset.value();
 			std::vector<cv::Point2f> raw_pts, undistorted_pts;
-			for(int x = 512/2; x >= 0; x -= offset.value) {
-				for(int y = 424/2; y >= 0; y -= offset.value) raw_pts.emplace_back(x, y);
-				for(int y = 424/2; y < 424; y += offset.value) raw_pts.emplace_back(x, y);			
+			for(int x = 512/2; x >= 0; x -= off) {
+				for(int y = 424/2; y >= 0; y -= off) raw_pts.emplace_back(x, y);
+				for(int y = 424/2; y < 424; y += off) raw_pts.emplace_back(x, y);			
 			}
-			for(int x = 512/2; x < 512; x += offset.value) {
-				for(int y = 424/2; y >= 0; y -= offset.value) raw_pts.emplace_back(x, y);
-				for(int y = 424/2; y < 424; y += offset.value) raw_pts.emplace_back(x, y);			
+			for(int x = 512/2; x < 512; x += off) {
+				for(int y = 424/2; y >= 0; y -= off) raw_pts.emplace_back(x, y);
+				for(int y = 424/2; y < 424; y += off) raw_pts.emplace_back(x, y);			
 			}
 			
 			cv::undistortPoints(raw_pts, undistorted_pts, camera_mat, distortion_coeffs, cv::noArray(), camera_mat);

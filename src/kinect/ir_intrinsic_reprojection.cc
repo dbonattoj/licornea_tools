@@ -3,7 +3,7 @@
 #include "../lib/intrinsics.h"
 #include "../lib/misc.h"
 #include "../lib/obj_img_correspondence.h"
-#include "lib/live/viewer.h"
+#include "../lib/viewer.h"
 #include "lib/live/grabber.h"
 #include "lib/live/checkerboard.h"
 #include <string>
@@ -31,15 +31,15 @@ int main(int argc, const char* argv[]) {
 	grabber grab(grabber::ir);
 
 	viewer view(2*512, 2*424+30, true);
-	auto& min_ir = view.add_slider("ir min", 0, 0xffff);
-	auto& max_ir = view.add_slider("ir max", 0xffff, 0xffff);
-	auto& exaggeration = view.add_slider("exaggeration (%)", 100, 1000);
+	auto& min_ir = view.add_int_slider("ir min", 0, 0x0000, 0xffff);
+	auto& max_ir = view.add_int_slider("ir max", 0xffff, 0x0000, 0xffff);
+	auto& exaggeration = view.add_int_slider("exaggeration (%)", 100, 100, 1000);
 			
 	do {
 		grab.grab();
 		view.clear();
 				
-		cv::Mat_<uchar> ir = grab.get_ir_frame(min_ir.value, max_ir.value);
+		cv::Mat_<uchar> ir = grab.get_ir_frame(min_ir.value(), max_ir.value());
 
 		cv::Mat_<cv::Vec3b> large_ir;
 		{
@@ -89,7 +89,7 @@ int main(int argc, const char* argv[]) {
 				vec2 diff = i_reproj - i_orig;
 				reprojection_error += sq(diff[0]) + sq(diff[1]);
 				
-				vec2 viz_diff = (exaggeration.value/100.0)*diff;
+				vec2 viz_diff = (exaggeration.value()/100.0)*diff;
 				vec2 viz_i_reproj = i_orig + viz_diff;
 					
 				cv::circle(large_ir, cv::Point(2*i_orig[0], 2*i_orig[1]), 7, cv::Scalar(orig_color), 1);

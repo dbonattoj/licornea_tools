@@ -2,15 +2,36 @@
 
 namespace tlz {
 
-int viewer::viewers_count_ = 0;
+namespace {
+	int viewers_count_ = 0;
+	
+	void slider_callback_(int, void* userdata) {	
+		viewer& vw = *static_cast<viewer*>(userdata);
+		if(vw.slider_callback) vw.slider_callback();
+	}
+
+	void mouse_callback_(int event, int x, int y, int, void* userdata) {
+		viewer& vw = *static_cast<viewer*>(userdata);
+		if(vw.mouse_callback)
+			vw.mouse_callback(event, x, y); // TODO window size?
+	}
+}
+
 
 viewer::viewer(int w, int h, bool resizeable) :
 	window_name_("Viewer" + (viewers_count_ > 0 ? std::string(" (") + std::to_string(viewers_count_+1) + ")" : std::string())),
 	shown_image_(h, w)
 {
 	viewers_count_++;
-	if(resizeable) cv::namedWindow(window_name_, CV_WINDOW_NORMAL | CV_WINDOW_KEEPRATIO | CV_GUI_EXPANDED);
-	else cv::namedWindow(window_name_, CV_WINDOW_AUTOSIZE | CV_GUI_EXPANDED);
+	
+	if(resizeable) {
+		cv::namedWindow(window_name_, CV_WINDOW_NORMAL | CV_WINDOW_KEEPRATIO | CV_GUI_EXPANDED);
+		cv::resizeWindow(window_name_, w, h);
+	} else {
+		cv::namedWindow(window_name_, CV_WINDOW_AUTOSIZE | CV_GUI_EXPANDED);
+	}
+	
+	cv::setMouseCallback(window_name_, mouse_callback_, this);
 }
 
 
@@ -19,12 +40,13 @@ viewer::~viewer() {
 }
 
 
-viewer::slider& viewer::add_slider(const std::string& caption, int default_val, int max_val) {
-	sliders_.emplace_back(std::make_unique<slider>());
-	slider& slid = *sliders_.back();
-	slid.value = default_val;
-	cv::createTrackbar(caption, window_name_, &slid.value, max_val);
-	return slid;
+int viewer::width() const {
+	return shown_image_.cols;
+}
+
+
+int viewer::height() const {
+	return shown_image_.rows;
 }
 
 
@@ -43,6 +65,17 @@ cv::Mat_<uchar> viewer::visualize_depth(const cv::Mat_<float>& depth_img, float 
 	viz_depth_img.setTo(0, (depth_img == 0));
 	return viz_depth_img;
 }
+
+
+void viewer::draw(const cv::Mat_<cv::Vec3b>& img, real blend) {
+	draw(cv::Rect(0, 0, width(), height()), img, blend);
+}
+
+
+void viewer::draw(const cv::Mat_<uchar>& img, real blend) {
+	draw(cv::Rect(0, 0, width(), height()), img, blend);
+}
+
 
 
 void viewer::draw(cv::Rect rect, const cv::Mat_<cv::Vec3b>& img, real blend) {
@@ -137,12 +170,91 @@ bool viewer::show(int& keycode) {
 	if(keycode == escape_keycode) return false;
 	else return true;
 }
-
-
 bool viewer::show() {
 	int unused;
 	return show(unused);
 }
+
+
+void viewer::show_modal() {
+	running_modal_ = true;
+	try {
+		int keycode = 0;
+		do {
+			cv::imshow(window_name_, shown_image_);
+			keycode = cv::waitKey(0);
+			if(keycode > 0 && key_callback) key_callback(keycode); 
+		} while(!running_modal_ || keycode != escape_keycode);
+		running_modal_ = false;
+	} catch(...) {
+		running_modal_ = false;
+		throw;
+	}
+}
+
+
+void viewer::close_modal() {
+	running_modal_ = false;
+}
+
+
+viewer::int_slider& viewer::add_int_slider(const std::string& caption, int default_val, int min_val, int max_val, int step) {
+	auto slid_ptr = std::make_unique<int_slider>(default_val, min_val, max_val, step);
+	int_slider& slid = *slid_ptr;
+	sliders_.emplace_back(std::move(slid_ptr));
+	cv::createTrackbar(caption, window_name_, &slid.raw_value, slid.slider_max(), &slider_callback_, this);
+	return slid;
+}
+
+
+viewer::real_slider& viewer::add_real_slider(const std::string& caption, real default_val, real min_val, real max_val, int steps) {
+	auto slid_ptr = std::make_unique<real_slider>(default_val, min_val, max_val, steps);
+	real_slider& slid = *slid_ptr;
+	sliders_.emplace_back(std::move(slid_ptr));
+	cv::createTrackbar(caption, window_name_, &slid.raw_value, slid.slider_max(), &slider_callback_, this);
+	return slid;
+}
+
+
+
+
+//////////
+
+
+viewer::int_slider::int_slider(int value_, int min_, int max_, int step_) :
+	min(min_), max(max_), step(step_) { set_value(value_); }
+
+int viewer::int_slider::slider_max() const {
+	return (max - min) / step;
+}
+
+int viewer::int_slider::value() const {
+	return min + step*raw_value;
+}
+
+void viewer::int_slider::set_value(int val) {
+	raw_value = (val - min)/step;
+}
+
+
+
+viewer::real_slider::real_slider(real value_, real min_, real max_, int steps_) :
+	min(min_), max(max_), steps(steps_) { set_value(value_); }
+
+int viewer::real_slider::slider_max() const {
+	return steps;
+}
+
+real viewer::real_slider::value() const {
+	real range = max - min;
+	return min + raw_value*range/steps;
+}
+
+void viewer::real_slider::set_value(real val) {
+	real range = max - min;
+	raw_value = steps * (val - min)/range;
+}
+
 
 	
 }

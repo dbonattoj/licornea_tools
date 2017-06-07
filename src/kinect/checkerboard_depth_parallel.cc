@@ -3,7 +3,7 @@
 #include "../lib/intrinsics.h"
 #include "../lib/misc.h"
 #include "../lib/obj_img_correspondence.h"
-#include "lib/live/viewer.h"
+#include "../lib/viewer.h"
 #include "lib/live/grabber.h"
 #include "lib/live/checkerboard.h"
 #include <string>
@@ -28,11 +28,11 @@ int main(int argc, const char* argv[]) {
 	grabber grab(grabber::depth | grabber::ir);
 
 	viewer view(512+512, 424+70);
-	auto& min_ir = view.add_slider("ir min", 0, 0xffff);
-	auto& max_ir = view.add_slider("ir max", 0xffff, 0xffff);
-	auto& min_d = view.add_slider("depth min ", 0, 20000);
-	auto& max_d = view.add_slider("depth max", 6000, 20000);
-	auto& granularity = view.add_slider("granularity", 2, 30);
+	auto& min_ir = view.add_int_slider("ir min", 0, 0x0000, 0xffff);
+	auto& max_ir = view.add_int_slider("ir max", 0xffff, 0x0000, 0xffff);
+	auto& min_d = view.add_int_slider("depth min ", 0, 0, 20000);
+	auto& max_d = view.add_int_slider("depth max", 6000, 0, 20000);
+	auto& granularity = view.add_int_slider("granularity", 2, 1, 30);
 		
 	std::cout << "running viewer... (esc to end)" << std::endl; 
 	bool running = true;
@@ -41,7 +41,7 @@ int main(int argc, const char* argv[]) {
 		view.clear();
 				
 		cv::Mat_<float> depth = grab.get_depth_frame(true);
-		cv::Mat_<uchar> ir = grab.get_ir_frame(min_ir.value, max_ir.value, true);
+		cv::Mat_<uchar> ir = grab.get_ir_frame(min_ir.value(), max_ir.value(), true);
 
 		checkerboard ir_chk = detect_ir_checkerboard(ir, cols, rows, square_width);
 
@@ -49,8 +49,8 @@ int main(int argc, const char* argv[]) {
 		real calculated_parallel_depth = NAN, parallel_measure_x = NAN, parallel_measure_y = NAN;
 		
 		std::vector<checkerboard_pixel_depth_sample> pixel_depths;
-		if(ir_chk && granularity.value > 0) {		
-			pixel_depths = checkerboard_pixel_depth_samples(ir_chk, depth, granularity.value);
+		if(ir_chk && granularity.value() > 0) {		
+			pixel_depths = checkerboard_pixel_depth_samples(ir_chk, depth, granularity.value());
 			checkerboard_extrinsics ext = estimate_checkerboard_extrinsics(ir_chk, ir_intr);
 			calculate_checkerboard_pixel_depths(ir_intr, ext, pixel_depths);
 			int count = pixel_depths.size();
@@ -72,7 +72,7 @@ int main(int argc, const char* argv[]) {
 		
 		view.draw(cv::Rect(0, 0, 512, 424), visualize_checkerboard(ir, ir_chk));
 		view.draw_2d_arrow_indicator(cv::Rect(0, 0, 512, 424), parallel_measure_x, parallel_measure_y, 0.1);
-		view.draw(cv::Rect(512, 0, 512, 424), visualize_checkerboard_pixel_samples(view.visualize_depth(depth, min_d.value, max_d.value), pixel_depths));
+		view.draw(cv::Rect(512, 0, 512, 424), visualize_checkerboard_pixel_samples(view.visualize_depth(depth, min_d.value(), max_d.value()), pixel_depths));
 
 	//	std::cout << parallel_measure_x << "\n" << parallel_measure_y << "\n\n\n";
 
