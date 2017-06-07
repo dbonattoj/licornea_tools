@@ -71,9 +71,11 @@ int main(int argc, const char* argv[]) {
 	}
 
 	std::cout << "preparing background image" << std::endl;
-	cv::Mat_<cv::Vec3b> back_image;
-	int width, height;
-	{
+	const cv::Vec3b background_color(0, 0, 0);
+	int width = datas.parameters()["width"];
+	int height = datas.parameters()["height"];
+	cv::Mat_<cv::Vec3b> back_image(height, width, background_color);
+	if(fpoints.view_idx) {
 		view_index view_index = fpoints.view_idx;
 		std::string image_filename = datas.view(view_index).image_filename();
 		cv::Mat_<cv::Vec3b> img = cv::imread(image_filename, CV_LOAD_IMAGE_COLOR);
