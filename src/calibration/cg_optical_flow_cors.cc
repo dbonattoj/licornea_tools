@@ -18,24 +18,40 @@
 using namespace tlz;
 
 const bool verbose = false;
+const bool small_subset_mode = true;
 
+const real max_flow_err = 5.0;
+const real min_distance_between_features = 30;
+const real min_distance_to_existing_features = 50;
+const real features_quality_level = 0.5;
+const real features_from_existing_pieces_amount = 0.7;
+const cv::Size horizontal_optical_flow_window_size(20, 20);
+const cv::Size vertical_optical_flow_window_size(20, 20);
+const int max_pyramid_level = 3;
 
 struct flow_state {
 	view_index view_idx;
-	cv::Mat_<uchar> image;
+	std::vector<cv::Mat_<uchar>> image_pyramid;
 	std::vector<cv::Point2f> feature_positions;
 	std::vector<uchar> feature_status;
 	
 	flow_state() = default;
 	flow_state(const view_index& idx, const cv::Mat_<uchar>& img, std::size_t features_count) :
 		view_idx(idx),
-		image(img),
+		image_pyramid({img}),
 		feature_positions(features_count),
 		feature_status(features_count) { }
-		
+			
 	std::size_t features_count() const { return feature_positions.size(); }
+	
+	std::size_t valid_features_count() const;
 };
 
+std::size_t flow_state::valid_features_count() const {
+	std::size_t count = 0;
+	for(uchar status : feature_status) if(status) ++count;
+	return count;
+}
 
 int max_features_count;
 int horizontal_key;
@@ -87,30 +103,64 @@ cv::Mat_<uchar> load_image(const dataset_group& datag, const view_index& idx) {
 
 
 
-flow_state flow_to(const flow_state& origin_state, view_index dest_idx, const dataset_group& datag) {
-	cv::Mat_<uchar> dest_img = load_image(datag, dest_idx);
-	
+flow_state flow_to(flow_state& origin_state, view_index dest_idx, const dataset_group& datag, const cv::Size& window_size) {
 	std::size_t features_count = origin_state.features_count();
-	
-	flow_state state(dest_idx, dest_img, features_count);
 
-	std::vector<cv::Point2f>& dest_positions = state.feature_positions;
-	std::vector<uchar>& dest_status = state.feature_status;
-	std::vector<float> err(features_count);
-	cv::calcOpticalFlowPyrLK(origin_state.image, dest_img, origin_state.feature_positions, dest_positions, dest_status, err);
+	if(origin_state.image_pyramid.size() <= max_pyramid_level) {
+		cv::Mat_<uchar> orig_img;
+		origin_state.image_pyramid.front().copyTo(orig_img);
+		origin_state.image_pyramid.clear();
+		cv::buildOpticalFlowPyramid(
+			orig_img,
+			origin_state.image_pyramid,
+			window_size,
+			max_pyramid_level
+		);
+	}
+
+	cv::Mat_<uchar> dest_img = load_image(datag, dest_idx);
+	flow_state dest_state(dest_idx, dest_img, features_count);
+	if(max_pyramid_level > 0) {
+		dest_state.image_pyramid.clear();
+		cv::buildOpticalFlowPyramid(
+			dest_img,
+			dest_state.image_pyramid,
+			window_size,
+			max_pyramid_level
+		);
+	}
+
+	std::vector<cv::Point2f>& dest_positions = dest_state.feature_positions;
+	std::vector<uchar>& dest_status = dest_state.feature_status;
+	std::vector<float> dest_errs(features_count);
+	
+	cv::TermCriteria term(cv::TermCriteria::COUNT | cv::TermCriteria::EPS, 30, 0.01);
+	cv::calcOpticalFlowPyrLK(
+		origin_state.image_pyramid,
+		dest_state.image_pyramid,
+		origin_state.feature_positions,
+		dest_positions,
+		dest_status,
+		dest_errs,
+		window_size,
+		max_pyramid_level,
+		term
+	);
+	
 
 	auto position_ok = [&](const cv::Point2f& pos) -> bool {
 		return (pos.x > 0.0) && (pos.y > 0.0) && (pos.x < dest_img.cols) && (pos.y < dest_img.rows);
 	};
 
-	for(std::ptrdiff_t feature = 0; feature < features_count; ++feature) {
+	for(std::ptrdiff_t feature = 0; feature < features_count; ++feature) {	
 		bool status = origin_state.feature_status[feature]
 			&& dest_status[feature]
-			&& position_ok(dest_positions[feature]);
+			&& position_ok(dest_positions[feature])
+			&& dest_errs[feature] <= max_flow_err;
 		dest_status[feature] = status;
 	}
 
-	return state;
+	return dest_state;
 }
 
 
@@ -119,14 +169,17 @@ void do_horizontal_optical_flow(correspondences_type& cors, const view_index& re
 	int x_min = std::max(datas.x_min(), reference_idx.x - horizontal_outreach);
 	int x_max = std::min(datas.x_max(), reference_idx.x + horizontal_outreach);
 
-	if(verb) std::cout << "horizontal optical flow by increasing x starting at mid_x..." << std::endl;
 	flow_state state = mid_x_state;
+	state.image_pyramid = { state.image_pyramid.front() }; // let flow_to() recalculate pyramid, because window size if different
+
+	if(verb) std::cout << "horizontal optical flow by increasing x starting at mid_x..." << std::endl;
 	for(int x = mid_x_state.view_idx.x + datas.x_step(); x <= x_max; x += datas.x_step()) {
 		view_index idx(x, mid_x_state.view_idx.y);
 		print_flow_indicator(state.view_idx, idx);
-		flow_state new_state = flow_to(state, idx, datag);
+		flow_state new_state = flow_to(state, idx, datag, horizontal_optical_flow_window_size);
 		add_correspondences(cors, new_state);
 		state = std::move(new_state);
+		if(state.valid_features_count() == 0) break;
 	}
 	
 	if(verb) std::cout << "\nhorizontal optical flow by decreasing x starting at mid_x..." << std::endl;
@@ -134,19 +187,16 @@ void do_horizontal_optical_flow(correspondences_type& cors, const view_index& re
 	for(int x = mid_x_state.view_idx.x - datas.x_step(); x >= x_min; x -= datas.x_step()) {
 		view_index idx(x, mid_x_state.view_idx.y);
 		print_flow_indicator(state.view_idx, idx);
-		flow_state new_state = flow_to(state, idx, datag);
+		flow_state new_state = flow_to(state, idx, datag, horizontal_optical_flow_window_size);
 		add_correspondences(cors, new_state);
 		state = std::move(new_state);
+		if(state.valid_features_count() == 0) break;
 	}
 }
 
 
 std::vector<cv::Point2f> choose_reference_points(const cv::Mat_<uchar>& img, std::size_t max_wanted_features, const std::vector<vec2>& existing_points) {	
 	std::cout << "choosing features to track from reference image (wanted max: " << max_wanted_features << ")" << std::endl;
-	const real min_distance_between_features = 7;
-	const real min_distance_to_existing = 10;
-	const real quality_level = 0.01;
-	const real existing_pieces_amount = 0.7;
 
 	int width = img.cols, height = img.rows;
 	
@@ -154,7 +204,7 @@ std::vector<cv::Point2f> choose_reference_points(const cv::Mat_<uchar>& img, std
 	cv::Mat_<uchar> far_from_existing_points_mask(height, width);
 	far_from_existing_points_mask.setTo(255);
 	for(const vec2& pt : existing_points)
-		cv::circle(far_from_existing_points_mask, vec2_to_point(pt), min_distance_to_existing, 0, -1);
+		cv::circle(far_from_existing_points_mask, vec2_to_point(pt), min_distance_to_existing_features, 0, -1);
 
 	
 	auto get_piece_mask = [width, height](int piece) {
@@ -170,14 +220,14 @@ std::vector<cv::Point2f> choose_reference_points(const cv::Mat_<uchar>& img, std
 	};
 	const int pieces_count = 4;
 
-	int wanted_new_features = max_wanted_features - existing_points.size()*existing_pieces_amount;
+	int wanted_new_features = max_wanted_features - existing_points.size()*features_from_existing_pieces_amount;
 
 	for(int piece = 0; piece < pieces_count; ++piece) {
 		cv::Mat_<uchar> piece_mask = get_piece_mask(piece);
 		int wanted = wanted_new_features / pieces_count;
 		cv::Mat_<uchar> mask = piece_mask & far_from_existing_points_mask;
 		std::vector<cv::Point2f> piece_positions;
-		cv::goodFeaturesToTrack(img, piece_positions, wanted, quality_level, min_distance_between_features, mask);
+		cv::goodFeaturesToTrack(img, piece_positions, wanted, features_quality_level, min_distance_between_features, mask);
 		positions.insert(positions.end(), piece_positions.begin(), piece_positions.end());
 	}
 
@@ -185,7 +235,7 @@ std::vector<cv::Point2f> choose_reference_points(const cv::Mat_<uchar>& img, std
 		std::vector<cv::Point2f> near_positions;
 		int remaining_wanted_features = max_wanted_features - positions.size();
 		cv::Mat_<uchar> near_to_existing_points_mask = (far_from_existing_points_mask == 0);
-		cv::goodFeaturesToTrack(img, near_positions, remaining_wanted_features, quality_level, min_distance_between_features, near_to_existing_points_mask);
+		cv::goodFeaturesToTrack(img, near_positions, remaining_wanted_features, features_quality_level, min_distance_between_features, near_to_existing_points_mask);
 		positions.insert(positions.end(), near_positions.begin(), near_positions.end());
 	}
 	
@@ -224,10 +274,11 @@ correspondences_type do_2d_optical_flow(const dataset_group& datag, const view_i
 		for(int y = reference_idx.y + datas.y_step(); y <= y_max; y += datas.y_step()) {
 			view_index idx(reference_idx.x, y);
 			print_flow_indicator(state.view_idx, idx);
-			flow_state new_state = flow_to(state, idx, datag);
+			flow_state new_state = flow_to(state, idx, datag, vertical_optical_flow_window_size);
 			add_correspondences(cors, new_state);
 			vertical_origins.push_back(new_state);
 			state = std::move(new_state);
+			if(state.valid_features_count() == 0) break;
 		}
 		
 		
@@ -236,10 +287,11 @@ correspondences_type do_2d_optical_flow(const dataset_group& datag, const view_i
 		for(int y = reference_idx.y - datas.y_step(); y >= y_min; y -= datas.y_step()) {
 			view_index idx(reference_idx.x, y);
 			print_flow_indicator(state.view_idx, idx);
-			flow_state new_state = flow_to(state, idx, datag);
+			flow_state new_state = flow_to(state, idx, datag, vertical_optical_flow_window_size);
 			add_correspondences(cors, new_state);
 			vertical_origins.push_back(new_state);
 			state = std::move(new_state);
+			if(state.valid_features_count() == 0) break;
 		}
 
 		std::cout << "\nnow doing horizontal flows..." << std::endl;
@@ -283,11 +335,20 @@ int main(int argc, const char* argv[]) {
 	vertical_outreach = int_opt_arg(50);
 	std::string dataset_group_name = string_opt_arg("");
 
+	if(small_subset_mode) {
+		horizontal_key = datas.x_count();
+		horizontal_outreach = 100 * datas.x_step();
+		vertical_key = datas.x_count();
+		vertical_outreach = 10 * datas.y_step();
+	}
+
 	dataset_group datag = datas.group(dataset_group_name);
 
 	image_correspondences out_cors;
 	out_cors.dataset_group = dataset_group_name;
 	int global_feature_counter = 0;
+
+	cv::setNumThreads(0);
 
 	auto add_optical_flow = [&](int ref_x, int ref_y) {		
 		view_index reference_view_idx(ref_x, ref_y);
@@ -326,7 +387,6 @@ int main(int argc, const char* argv[]) {
 		for(int x = center_idx.x + horizontal_key; x <= datas.x_max(); x += horizontal_key) add_optical_flow(x, y);
 		for(int x = center_idx.x - horizontal_key; x >= datas.x_min(); x -= horizontal_key) add_optical_flow(x, y);		
 	}
-	
 
 	std::cout << "\nsaving image correspondences" << std::endl;
 	export_json_file(encode_image_correspondences(out_cors), out_cors_filename);

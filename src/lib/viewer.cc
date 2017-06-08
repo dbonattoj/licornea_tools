@@ -217,12 +217,16 @@ void viewer::show_modal() {
 	running_modal_ = true;
 	try {
 		int keycode = 0;
-		do {
+		while(running_modal_) {
 			update_modal();
 			keycode = cv::waitKey(0);
-			if(keycode > 0 && key_callback) key_callback(keycode); 
-		} while(!running_modal_ || keycode != escape_keycode);
-		running_modal_ = false;
+
+			if(keycode == escape_keycode) running_modal_ = false;
+			else if(keycode > 0 && key_callback) key_callback(keycode);
+
+			void* handle = cvGetWindowHandle(window_name_.c_str());
+			if(handle == nullptr) running_modal_ = false;
+		}
 	} catch(...) {
 		running_modal_ = false;
 		throw;

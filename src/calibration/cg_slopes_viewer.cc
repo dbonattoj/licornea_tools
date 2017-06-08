@@ -67,13 +67,13 @@ int main(int argc, const char* argv[]) {
 		image_size = back_image.size();
 	}
 	
-	viewer view("Slopes Viewer", image_size.width, image_size.height+20+(has_measured_slopes ? 20 : 0));
-	const real max_abs_angle = 30.0_deg;
-	auto& x_slider = view.add_real_slider("X", 0.0, -max_abs_angle, +max_abs_angle);
-	auto& y_slider = view.add_real_slider("Y", 0.0, -max_abs_angle, +max_abs_angle);
-	auto& z_slider = view.add_real_slider("Z", 0.0, -max_abs_angle, +max_abs_angle);
+	viewer view("Slopes Viewer", image_size.width, image_size.height+20+(has_measured_slopes ? 20 : 0), true);
+	const real max_abs_angle = 10.0_deg;
+	auto& x_slider = view.add_real_slider("X", 0.0, -max_abs_angle, +max_abs_angle, 1000);
+	auto& y_slider = view.add_real_slider("Y", 0.0, -max_abs_angle, +max_abs_angle, 1000);
+	auto& z_slider = view.add_real_slider("Z", 0.0, -max_abs_angle, +max_abs_angle, 1000);
 	auto& measured_width_slider = view.add_int_slider("measured width", 0, 0, 400);
-	auto& model_width_slider = view.add_int_slider("model width", 0, 200, 400);
+	auto& model_width_slider = view.add_int_slider("model width", 200, 0, 400);
 	auto& exaggeration_slider = view.add_real_slider("exaggeration", 1.0, 1.0, 100.0);
 
 
