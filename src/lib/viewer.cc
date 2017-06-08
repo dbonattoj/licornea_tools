@@ -80,13 +80,17 @@ void viewer::clear(int width, int height) {
 		shown_image_.setTo(background_color);
 }
 
+void viewer::clear(cv::Size sz) {
+	clear(sz.width, sz.height);
+}
+
 
 void viewer::clear() {
 	shown_image_.setTo(background_color);
 }
 
 
-cv::Mat_<uchar> viewer::visualize_depth(const cv::Mat_<float>& depth_img, float min_d, float max_d) {
+cv::Mat_<uchar> viewer::visualize_depth(const cv::Mat& depth_img, float min_d, float max_d) {
 	cv::Mat_<uchar> viz_depth_img;
 	float alpha = 255.0f / (max_d - min_d);
 	float beta = -alpha * min_d;

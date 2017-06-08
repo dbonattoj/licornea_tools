@@ -1,4 +1,5 @@
 #include "../lib/common.h"
+#include "../lib/args.h"
 #include <opencv2/opencv.hpp>
 #include <cstdlib>
 #include <cstdint>
@@ -47,16 +48,12 @@ void orthogonal_distance_to_depth(
 
 
 int main(int argc, const char* argv[]) {
-	if(argc <= 4) {
-		std::cout << "usage: " << argv[0] << " input_reprojected_depth.png output_disparity.yuv z_near z_far [output_bitdepth (8/16)]" << std::endl;
-		return EXIT_FAILURE;
-	}
-	const char* input_filename = argv[1];
-	const char* output_filename = argv[2];
-	ushort z_near = std::atoi(argv[3]);
-	ushort z_far = std::atoi(argv[4]);
-	bool output_disparity_16bit = false;
-	if(argc > 5 && std::atoi(argv[5]) == 16) output_disparity_16bit = true;
+	get_args(argc, argv, "input_reprojected_depth.png output_disparity.yuv z_near z_far [output_bitdepth (8/16)]");
+	std::string input_filename = in_filename_arg();
+	std::string output_filename = out_filename_arg();
+	ushort z_near = int_arg();
+	ushort z_far = int_arg();
+	bool output_disparity_16bit = (enum_opt_arg({"8", "16"}, "8") == "16");
 
 	cv::Mat_<ushort> depth;
 	{

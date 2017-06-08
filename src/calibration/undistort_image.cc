@@ -13,8 +13,7 @@ using namespace tlz;
 
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv,
-		"in_image.png out_image.json intrinsics.json texture/depth");
+	get_args(argc, argv, "in_image.png out_image.json intrinsics.json texture/depth");
 	std::string in_image_filename = in_filename_arg();
 	std::string out_image_filename = out_filename_arg();
 	intrinsics intr = intrinsics_arg();

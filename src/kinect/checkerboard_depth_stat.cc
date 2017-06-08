@@ -1,4 +1,5 @@
 #include "../lib/common.h"
+#include "../lib/args.h"
 #include "../lib/opencv.h"
 #include "../lib/intrinsics.h"
 #include "../lib/misc.h"
@@ -11,21 +12,15 @@
 
 using namespace tlz;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: checkerboard_depth_stat chk_samples.json cols rows square_width ir_intr.json out_stat.txt" << std::endl;
-	std::exit(1);
-}
+
 int main(int argc, const char* argv[]) {
-	if(argc <= 6) usage_fail();
-	std::string chk_samples_filename = argv[1];
-	int cols = std::atoi(argv[2]);
-	int rows = std::atoi(argv[3]);
-	real square_width = std::atof(argv[4]);
-	std::string ir_intrinsics_filename = argv[5];
-	std::string out_stat_filename = argv[6];
-		
-	std::cout << "loading intrinsics" << std::endl;
-	intrinsics ir_intr = decode_intrinsics(import_json_file(ir_intrinsics_filename));
+	get_args(argc, argv, "chk_samples.json cols rows square_width ir_intr.json out_stat.txt");
+	std::string chk_samples_filename = in_filename_arg();
+	int cols = int_arg();
+	int rows = int_arg();
+	real square_width = real_arg();
+	intrinsics ir_intr = intrinsics_arg();
+	std::string out_stat_filename = out_filename_arg();
 	
 	struct checkerboard_sample {
 		std::vector<vec2> corners;

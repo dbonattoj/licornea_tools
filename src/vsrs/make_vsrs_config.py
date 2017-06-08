@@ -44,11 +44,13 @@ ViewBlending                  0                        # 0...Blend left and righ
 
 def main(parameters_filename, cameras_filename, left_idx, virtual_idx, right_idx, output_virtual_filename, output_config_filename):
 	datas = Dataset(parameters_filename)
-	par = datas.parameters
 	
-	left_view = datas.view(left_idx).vsrs()
-	virtual_view = datas.view(virtual_idx).vsrs()
-	right_view = datas.view(right_idx).vsrs()
+	par = datas.parameters
+	vsrs_par = datas.group("vsrs").parameters
+	
+	left_view = datas.view(left_idx).group_view("vsrs")
+	virtual_view = datas.view(virtual_idx).group_view("vsrs")
+	right_view = datas.view(right_idx).group_view("vsrs")
 	
 	texture_left_filename = left_view.image_filename()
 	texture_right_filename = right_view.image_filename()
@@ -64,8 +66,8 @@ def main(parameters_filename, cameras_filename, left_idx, virtual_idx, right_idx
 	config = config_tmp.format(
 		width=par["width"],
 		height=par["height"],
-		z_near=par["vsrs"]["z_near"],
-		z_far=par["vsrs"]["z_far"],
+		z_near=vsrs_par["z_near"],
+		z_far=vsrs_par["z_far"],
 		cam_param=cameras_filename,
 		cam_left=left_view.camera_name(),
 		cam_virtual=virtual_view.camera_name(),

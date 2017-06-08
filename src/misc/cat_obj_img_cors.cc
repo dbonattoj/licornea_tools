@@ -1,21 +1,17 @@
 #include "../lib/common.h"
 #include "../lib/obj_img_correspondence.h"
 #include "../lib/json.h"
+#include "../lib/args.h"
 #include <string>
 
 using namespace tlz;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: cat_obj_img_cors in1.json in2.json out.json [1/2]" << std::endl;
-	std::exit(1);
-}
 int main(int argc, const char* argv[]) {
-	if(argc <= 3) usage_fail();
-	std::string cors1_filename = argv[1];
-	std::string cors2_filename = argv[2];
-	std::string out_cors_filename = argv[3];
-	int which = 0;
-	if(argc > 4) which = std::atoi(argv[4]) - 1;
+	get_args(argc, argv, "in1.json in2.json out.json [1/2]");
+	std::string cors1_filename = in_filename_arg();
+	std::string cors2_filename = in_filename_arg();
+	std::string out_cors_filename = out_filename_arg();
+	int which = int_opt_arg(1) - 1;
 
 	json cors1 = import_json_file(cors1_filename);
 	json cors2 = import_json_file(cors2_filename);

@@ -4,6 +4,7 @@
 #include "../lib/dataset.h"
 #include "../lib/random_color.h"
 #include "../lib/misc.h"
+#include "../lib/viewer.h"
 #include "lib/image_correspondence.h"
 #include "lib/feature_points.h"
 #include <vector>
@@ -16,14 +17,8 @@
 
 using namespace tlz;
 
-const std::string window_name = "Feature Weights";
-
 const cv::Vec3b point_color(0, 200, 0);
 
-std::function<void()> update_function;
-void update_callback(int = 0, void* = nullptr) {	
-	update_function();
-}
 
 
 std::map<std::string, real> compute_feature_point_weights(
@@ -125,23 +120,21 @@ int main(int argc, const char* argv[]) {
 	dataset datas = dataset_arg();
 	image_correspondences cors = image_correspondences_arg();
 	std::string out_cors_filename = out_filename_arg();
-	
-	std::string dataset_group = cors.dataset_group;
-	
-	int slider_x = datas.x_mid() - datas.x_min();
-	int slider_y = datas.y_mid() - datas.y_min();
-	int rad_pieces = 3;
-	int arg_pieces = 1;
-	int max_dot_rad = 10;
-	int image_opacity = 70;
-	
-	auto update = [&]() {
-		int x = slider_x + datas.x_min();
-		int y = slider_y + datas.y_min();
 		
-		if(!datas.x_valid(x) || !datas.y_valid(y)) return;
-		if(rad_pieces < 1 || arg_pieces < 1) return;
+	dataset_group datag = datas.group(cors.dataset_group);
+	
+	viewer view("Feature Weights");
+	auto& x_slider = view.add_int_slider("X", datas.x_mid(), datas.x_min(), datas.x_max(), datas.x_step());
+	auto& y_slider = view.add_int_slider("Y", datas.y_mid(), datas.y_min(), datas.y_max(), datas.y_step());
+	auto& rad_pieces_slider = view.add_int_slider("rad pieces", 3, 1, 10);
+	auto& arg_pieces_slider = view.add_int_slider("arg_pieces", 1, 1, 16);
+	auto& dot_size_slider = view.add_int_slider("dot size", 10, 1, 100);
+	auto& image_opacity_slider = view.add_real_slider("image", 0.0, 0.0, 1.0);
+	 
+	view.update_callback = [&]() {
+		int x = x_slider.value(), y = y_slider.value();
 		view_index idx(x, y);
+		if(! datas.valid(idx))) return;
 
 		cv::Mat_<cv::Vec3b> shown_img;
 		{
@@ -150,8 +143,7 @@ int main(int argc, const char* argv[]) {
 			if(img.empty()) return;
 			cv::cvtColor(img, shown_img, CV_GRAY2BGR);
 		}
-		if(image_opacity < 100) shown_img = shown_img * (image_opacity / 100.0);
-				
+		if(image_opacity_slider.value() < 1.0) shown_img = shown_img * image_opacity_slider.value();
 
 		feature_points fpoints = feature_points_for_view(cors, idx);
 		std::map<std::string, real> point_weights = compute_feature_point_weights(fpoints.points, rad_pieces, arg_pieces);
@@ -165,20 +157,10 @@ int main(int argc, const char* argv[]) {
 			cv::circle(shown_img, vec2_to_point(pt.position), max_dot_rad * rad, cv::Scalar(point_color), -1);
 		}	
 	
-		cv::imshow(window_name, shown_img);
+		view.clear(shown_img.size());
+		view.draw(cv::Point(0, 0), shown_img);
 	};
-	update_function = update;
 
-	cv::namedWindow(window_name, CV_WINDOW_NORMAL);
-
-	cv::createTrackbar("x", window_name, &slider_x, datas.x_max() - datas.x_min(), &update_callback);
-	cv::createTrackbar("y", window_name, &slider_y, datas.y_max() - datas.y_min(), &update_callback);
-	cv::createTrackbar("rad pieces", window_name, &rad_pieces, 10, &update_callback);
-	cv::createTrackbar("arg pieces", window_name, &arg_pieces, 16, &update_callback);
-	cv::createTrackbar("dot size", window_name, &max_dot_rad, 100, &update_callback);
-	cv::createTrackbar("image", window_name, &image_opacity, 100, &update_callback);
-
-	update();
 	
 	int key;
 	do {
@@ -188,6 +170,6 @@ int main(int argc, const char* argv[]) {
 	if(key == enter_keycode) {
 		std::cout << "computing feature weights for all views" << std::endl;
 		image_correspondences out_cors = cors;
-		
+		//////// TODO
 	}
 }

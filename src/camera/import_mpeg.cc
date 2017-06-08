@@ -1,29 +1,19 @@
+#include "../lib/args.h"
+#include "../lib/camera.h"
+#include "lib/camera_mpeg.h"
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <cstdlib>
 #include <iterator>
 
-#include "../lib/camera.h"
-#include "lib/camera_mpeg.h"
-
 using namespace tlz;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: import_mpeg in_cameras_mpeg.txt out_cameras.json [no_convert]\n";
-	std::exit(1);
-}
-
 int main(int argc, const char* argv[]) {
-	if(argc <= 2) usage_fail();
-	std::string in_cameras = argv[1];
-	std::string out_cameras = argv[2];
-	bool convert = true;
-	if(argc > 3) {
-		std::string no_convert = argv[3];
-		if(no_convert == "no_convert") convert = false;
-		else usage_fail();
-	}
+	get_args(argc, argv, "in_cameras_mpeg.txt out_cameras.json [no_convert]");
+	std::string in_cameras = in_filename_arg();
+	std::string out_cameras = out_filename_arg();
+	bool convert = ! bool_opt_arg("no_convert", false);
 	
 	std::vector<camera> cameras;
 	{

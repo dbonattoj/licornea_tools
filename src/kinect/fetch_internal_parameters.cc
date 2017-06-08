@@ -1,6 +1,7 @@
-#include <json.hpp>
+#include "lib/args.h"
 #include "lib/freenect2.h"
 #include "lib/kinect_internal_parameters.h"
+#include "lib/json.h"
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
@@ -32,13 +33,9 @@ kinect_internal_parameters fetch_internal_parameters() {
 }
 
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: fetch_internal_parameters out_internal_parameters.json" << std::endl;
-	std::exit(EXIT_FAILURE);
-}
 int main(int argc, const char* argv[]) {
-	if(argc <= 1) usage_fail();
-	const char* out_internal_parameters_filename = argv[1];
+	get_args(argc, argv, "out_internal_parameters.json");
+	std::string out_internal_parameters_filename = out_filename_arg();
 	
 	std::cout << "fetching from Kinect" << std::endl;
 	kinect_internal_parameters param = fetch_internal_parameters();

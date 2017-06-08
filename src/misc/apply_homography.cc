@@ -11,8 +11,7 @@ using namespace tlz;
 const cv::Vec3b background_color(0, 0, 0);
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv,
-		"homography.json in_image.png out_image.png texture/depth [border.json]");
+	get_args(argc, argv, "homography.json in_image.png out_image.png texture/depth [border.json]");
 	view_homography homography = homography_arg();
 	std::string in_image_filename = in_filename_arg();
 	std::string out_image_filename = out_filename_arg();

@@ -9,7 +9,6 @@
 #include "lib/image_correspondence.h"
 #include "../lib/args.h"
 #include "../lib/misc.h"
-#include "../lib/dataset.h"
 #include "../lib/intrinsics.h"
 #include "../lib/image_io.h"
 #include "../lib/json.h"
@@ -20,8 +19,7 @@ using namespace tlz;
 constexpr bool verbose = true;
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv, "dataset_parameters.json image_correspondences.json intrinsics.json R.json out_straight_depths.json");
-	dataset datas = dataset_arg();
+	get_args(argc, argv, "image_correspondences.json intrinsics.json R.json out_straight_depths.json");
 	image_correspondences cors = image_correspondences_arg();
 	intrinsics intr = intrinsics_arg();
 	mat33 R = decode_mat(json_arg());

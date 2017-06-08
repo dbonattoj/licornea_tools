@@ -7,11 +7,11 @@ class DatasetView:
 	y = 0
 	group = None
 		
-	def __init__(self, dataset_, x_, y_, grp_=None):
+	def __init__(self, dataset_, x_, y_, group=None):
 		self.dataset = dataset_
 		self.x = x_
 		self.y = y_
-		self.group = grp_
+		self.group = group
 
 	def local_parameters(self):
 		if self.group is None: return self.dataset.parameters
@@ -66,12 +66,21 @@ class DatasetView:
 		elif grp in self.dataset.parameters: return DatasetView(self.dataset, self.x, self.y, grp)
 		else: raise Exception("no {} group".format(grp))
 
-	def vsrs(self):
-		return self.group_view("vsrs")
-	def kinect_raw(self):
-		return self.group_view("kinect_raw")
-	def rectified(self):
-		return self.group_view("rectified")
+
+class DatasetGroup:
+	dataset = None
+	group = None
+	
+	def __init__(self, dataset_, group):
+		self.dataset = dataset_
+		self.group = group
+	
+	def parameters(self):
+		if self.group == "": return self.dataset.parameters
+		else: return self.dataset.parameters[self.group]
+	
+	def view(self, x, y=None):
+		return self.dataset.view(x, y).group_view(self.group)
 
 
 class Dataset:
@@ -136,7 +145,6 @@ class Dataset:
 		if self.is_2d() and len(self.y_index_range) == 3: return self.y_index_range[2]
 		else: return 1
 	def y_valid(self, y):
-		return True
 		return (y >= self.y_min()) and (y <= self.y_max()) and ((y - self.y_min()) % self.y_step() == 0)
 	def y_count(self):
 		return (self.y_max() - self.y_min() + self.y_step()) // self.y_step()		
@@ -151,6 +159,16 @@ class Dataset:
 	def y_mid(self):
 		if self.is_2d(): return self.y_min() + (((self.y_max() - self.y_min()) // (2 * self.y_step())) * self.y_step());
 		else: return 0
+	
+	def valid(self, x, y=None):
+		if self.is_2d(): return self.x_valid(x) && self.y_valid(y)
+		else: return self.x_valid(x)
+	
+	def indices(self):
+		if self.is_2d():
+			for y in self.y_indices(): for x in self.x_indices(): yield (x, y)
+		else:
+			for x in self.x_indices(): yield (x, None)
 
 	def view(self, x, y=None):
 		if y is None:

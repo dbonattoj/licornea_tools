@@ -15,7 +15,7 @@ def process_view(x, y):
 	if verbose: print "view x={}, y={}".format(x, y)
 	
 	view = dataset.view(x, y).group_view(dataset_group)
-	vsrs_view = view.vsrs()
+	vsrs_view = view.group_view("vsrs")
 	
 	if image:
 		out_yuv_image_filename = vsrs_view.image_filename()
@@ -62,7 +62,7 @@ if __name__ == '__main__':
 
 	dataset = Dataset(parameters_filename)
 	
-	indices = [(x, y) for y in dataset.y_indices() for x in dataset.x_indices()]
+	indices = [idx for idx in datas.indices()]
 	
 	batch_process(process_view, indices)
 	

@@ -1,3 +1,4 @@
+#include "lib/args.h"
 #include "lib/live/grabber.h"
 #include "lib/kinect_internal_parameters.h"
 #include "../lib/intrinsics.h"
@@ -8,15 +9,11 @@
 
 using namespace tlz;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: ir_distortion_viewer ir_intrinsics.json/internal ir/depth" << std::endl;
-	std::exit(EXIT_FAILURE);
-}
+
 int main(int argc, const char* argv[]) {
-	if(argc <= 2) usage_fail();
-	std::string ir_intrinsics_filename = argv[1];
-	std::string mode = argv[2];
-	if(mode != "ir" && mode != "depth") usage_fail();
+	get_args(argc, argv, "ir_intrinsics.json/internal ir/depth");
+	std::string ir_intrinsics_filename = string_arg();
+	std::string mode = enum_arg({ "ir", "depth" });
 	
 	bool show_depth = (mode == "depth");
 	

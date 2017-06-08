@@ -1,4 +1,5 @@
 #include "../lib/common.h"
+#include "../lib/args.h"
 #include "../lib/opencv.h"
 #include "../lib/intrinsics.h"
 #include "../lib/misc.h"
@@ -14,15 +15,11 @@ using namespace tlz;
 
 const real reprojection_error_max_threshold = 0.8;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: checkerboard_depth_samples cols rows out_chk_samples.json" << std::endl;
-	std::exit(1);
-}
 int main(int argc, const char* argv[]) {
-	if(argc <= 3) usage_fail();
-	int cols = std::atoi(argv[1]);
-	int rows = std::atoi(argv[2]);
-	std::string out_chk_samples_filename = argv[3];
+	get_args(argc, argv, "cols rows out_chk_samples.json");
+	int cols = int_arg();
+	int rows = int_arg();
+	std::string out_chk_samples_filename = out_filename_arg();
 		
 	grabber grab(grabber::depth | grabber::ir);
 

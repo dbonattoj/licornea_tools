@@ -1,4 +1,5 @@
 #include "../lib/common.h"
+#include "../lib/args.h"
 #include "../lib/opencv.h"
 #include "../lib/intrinsics.h"
 #include "../lib/misc.h"
@@ -17,16 +18,12 @@ enum class depth_mode {
 	reprojected
 };
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: checkerboard_color_depth cols rows square_width reprojection.json" << std::endl;
-	std::exit(1);
-}
 int main(int argc, const char* argv[]) {
-	if(argc <= 4) usage_fail();
-	int cols = std::atoi(argv[1]);
-	int rows = std::atoi(argv[2]);
-	real square_width = std::atof(argv[3]);
-	std::string reprojection_parameters_filename = argv[4];
+	get_args(argc, argv, "cols rows square_width reprojection.json");
+	int cols = int_arg();
+	int rows = int_arg();
+	real square_width = real_arg();
+	string reprojection_parameters_filename = in_filename_arg();
 	
 	std::cout << "loading reprojection parameters" << std::endl;
 	kinect_reprojection_parameters reprojection_parameters = decode_kinect_reprojection_parameters(import_json_file(reprojection_parameters_filename));

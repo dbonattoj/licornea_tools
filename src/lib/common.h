@@ -18,9 +18,10 @@ using uchar = std::uint8_t;
 using ushort = std::uint16_t;
 
 
-using vec4 = cv::Vec<real, 4>;
-using vec3 = cv::Vec<real, 3>;
 using vec2 = cv::Vec<real, 2>;
+using vec3 = cv::Vec<real, 3>;
+using vec4 = cv::Vec<real, 4>;
+
 using mat33 = cv::Matx<real, 3, 3>;
 using mat44 = cv::Matx<real, 4, 4>;
 
@@ -78,6 +79,9 @@ constexpr real rad_per_deg = pi / 180.0;
 
 constexpr real golden_ratio = 1.61803398874989484820;
 
+constexpr inline long double operator"" _deg (long double deg) {
+	return deg * rad_per_deg;
+}
 
 
 }

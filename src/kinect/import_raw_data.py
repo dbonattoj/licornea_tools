@@ -19,7 +19,7 @@ def process_view(x, y):
 	if verbose: print "view x={}, y={}".format(x, y)
 	
 	view = datas.view(x, y)
-	raw_view = view.kinect_raw()
+	raw_view = view.group_view("kinect_raw")
 	
 	if image:
 		out_image_filename = view.image_filename()
@@ -66,9 +66,9 @@ if __name__ == '__main__':
 		verbose = True
 
 	datas = Dataset(parameters_filename)
-	reprojection_parameters_filename = datas.filepath(datas.parameters["kinect_raw"]["kinect_reprojection_parameters_filename"])
+	reprojection_parameters_filename = datas.filepath(datas.group("kinect_raw").parameters()["kinect_reprojection_parameters_filename"])
 	
-	indices = [(x, y) for y in datas.y_indices() for x in datas.x_indices()]
+	indices = [idx for idx in datas.indices()]
 	
 	batch_process(process_view, indices)
 	

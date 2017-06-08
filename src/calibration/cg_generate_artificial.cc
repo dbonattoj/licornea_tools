@@ -6,7 +6,6 @@
 #include "../lib/args.h"
 #include "../lib/misc.h"
 #include "../lib/json.h"
-#include "../lib/dataset.h"
 #include "../lib/opencv.h"
 #include "../lib/camera.h"
 #include "../lib/image_io.h"
@@ -18,8 +17,7 @@ using namespace tlz;
 
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv,
-		"rotation.json intrinsics.json out_datas_dir/ [features_count=100] [num_x=30] [num_y=10] [step_x=3.0] [step_y=3.0]");
+	get_args(argc, argv, "rotation.json intrinsics.json out_datas_dir/ [features_count=100] [num_x=30] [num_y=10] [step_x=3.0] [step_y=3.0]");
 	mat33 R = decode_mat(json_arg());
 	intrinsics intr = intrinsics_arg();
 	std::string out_datas_dir = out_filename_arg();

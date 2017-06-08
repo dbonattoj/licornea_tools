@@ -1,20 +1,16 @@
 #include "../lib/common.h"
+#include "../lib/args.h"
 #include "../lib/opencv.h"
 #include <iostream>
 #include <string>
 
 using namespace tlz;
 
-[[noreturn]] void usage_fail() {
-	std::cerr << "usage: psnr image1.png image2.png\n";
-	std::cerr << std::endl;
-	std::exit(1);
-}
 
 int main(int argc, const char* argv[]) {
-	if(argc <= 2) usage_fail();
-	std::string image1_filename = argv[1];
-	std::string image2_filename = argv[2];
+	get_args(argc, argv, "image1.png image2.png");
+	std::string image1_filename = in_filename_arg();
+	std::string image2_filename = in_filename_arg();
 	
 	cv::Mat mat1 = cv::imread(image1_filename, CV_LOAD_IMAGE_COLOR);
 	cv::Mat mat2 = cv::imread(image2_filename, CV_LOAD_IMAGE_COLOR);

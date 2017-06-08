@@ -1,3 +1,4 @@
+#include "lib/args.h"
 #include "lib/kinect_internal_parameters.h"
 #include "../lib/intrinsics.h"
 #include "../lib/json.h"
@@ -6,14 +7,11 @@
 
 using namespace tlz;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: internal_ir_intrinsics internal_parameters.json ir_intr.json" << std::endl;
-	std::exit(EXIT_FAILURE);
-}
+
 int main(int argc, const char* argv[]) {
-	if(argc <= 2) usage_fail();
-	std::string internal_parameters_filename = argv[1];
-	std::string ir_intrinsics_filename = argv[2];
+	get_args(argc, argv, "internal_parameters.json out_ir_intr.json");
+	std::string internal_parameters_filename = in_filename_arg();
+	std::string ir_intrinsics_filename = out_filename_arg();
 
 	kinect_internal_parameters internal_parameters = decode_kinect_internal_parameters(import_json_file(internal_parameters_filename));
 	const auto& par = internal_parameters.ir;

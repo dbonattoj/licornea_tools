@@ -57,12 +57,23 @@ public:
 	int height() const;
 	
 	void clear(int width, int height);
+	void clear(cv::Size);
 	void clear();
+	
 	void draw(const cv::Mat_<cv::Vec3b>&, real blend = 1.0);
 	void draw(const cv::Mat_<uchar>&, real blend = 1.0);
+	
 	void draw(cv::Rect rect, const cv::Mat_<cv::Vec3b>& img, real blend = 1.0);
+	void draw(cv::Point pt, const cv::Mat_<cv::Vec3b>& img, real blend = 1.0)
+		{ draw(cv::Rect(pt, img.size()), img, blend); }
+		
 	void draw(cv::Rect rect, const cv::Mat_<uchar>& img, real blend = 1.0);
+	void draw(cv::Point pt, const cv::Mat_<uchar>& img, real blend = 1.0)
+		{ draw(cv::Rect(pt, img.size()), img, blend); }
+		
 	void draw_depth(cv::Rect rect, const cv::Mat_<float>& depth_img, float min_d, float max_d, real blend = 1.0);
+	void draw_depth(cv::Point pt, const cv::Mat_<float>& depth_img, float min_d, float max_d, real blend = 1.0)
+		{ draw_depth(cv::Rect(pt, depth_img.size()), depth_img, min_d, max_d, blend); }
 	
 	void draw_text(cv::Rect rect, const std::string& text, text_alignment);
 	void draw_text(cv::Rect rect, const std::string& text, text_alignment, cv::Vec3b color);
@@ -76,7 +87,7 @@ public:
 	void update_modal();
 	void close_modal();
 
-	static cv::Mat_<uchar> visualize_depth(const cv::Mat_<float>&, float min_d, float max_d);
+	static cv::Mat_<uchar> visualize_depth(const cv::Mat&, float min_d, float max_d);
 };
 
 

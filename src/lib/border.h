@@ -19,6 +19,7 @@ json encode_border(const border&);
 border decode_border(const json&);
 
 cv::Size add_border(const border&, const cv::Size&);
+cv::Point add_border(const border&, const cv::Point&);
 
 }
 

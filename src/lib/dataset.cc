@@ -84,6 +84,37 @@ dataset_view dataset_view::group_view(const std::string& grp) const {
 
 /////
 
+dataset_group::dataset_group(const dataset& datas, const std::string& grp) :
+	dataset_(datas), group_(grp) { }
+
+const json& dataset_group::parameters() const {
+	if(group_.empty()) return dataset_.parameters();
+	else return dataset_.parameters()[group_];
+}
+
+border dataset_group::image_border() const {
+	if(has(parameters(), "border")) return decode_border(parameters()["border"]);
+	else return border();
+}
+
+cv::Size dataset_group::image_size_with_border() const {
+	return add_border(image_border(), dataset_.image_size());
+}
+
+dataset_view dataset_group::view(int x) const {
+	return dataset_.view(x).group_view(group_);
+}
+
+dataset_view dataset_group::view(int x, int y) const {
+	return dataset_.view(x, y).group_view(group_);
+}
+
+dataset_view dataset_group::view(view_index idx) const {
+	return dataset_.view(idx).group_view(group_);
+}
+
+/////
+
 
 dataset::dataset(const std::string& parameters_filename) {
 	std::size_t last_sep_pos = parameters_filename.find_last_of('/');
@@ -118,6 +149,18 @@ std::string dataset::filepath(const std::string& relpath) const {
 
 std::string dataset::cameras_filename() const {
 	return filepath(parameters_["cameras_filename"]);
+}
+
+int dataset::image_width() const {
+	return parameters_["width"];
+}
+
+int dataset::image_height() const {
+	return parameters_["height"];
+}
+
+cv::Size dataset::image_size() const {
+	return cv::Size(image_width(), image_height());
 }
 
 int dataset::x_min() const {
@@ -186,6 +229,18 @@ int dataset::y_mid() const {
 	else return 0;
 }
 
+bool dataset::valid(view_index idx) const {
+	return x_valid(idx.x) && y_valid(idx.y);
+}
+
+std::vector<view_index> dataset::indices() const {
+	std::vector<view_index> list;
+	for(int x = x_min(); x <= x_max(); x += x_step())
+		for(int y = y_min(); y <= y_max(); y += y_step())
+			list.emplace_back(x, y);
+	return list;
+}
+
 dataset_view dataset::view(int x) const {
 	if(is_2d()) throw std::runtime_error("must specify y view index, for 2d dataset");
 	if(! x_valid(x)) throw std::runtime_error("x view index out of range");
@@ -206,6 +261,12 @@ dataset_view dataset::view(view_index idx) const {
 		if(idx.is_2d() && idx.y != 0) throw std::runtime_error("must specify 1d view index");
 		return view(idx.x);
 	}
+}
+
+dataset_group dataset::group(const std::string& grp) const {
+	if(grp.empty()) return dataset_group(*this, "");
+	else if(has(parameters_, grp)) return dataset_group(*this, grp);
+	else throw std::runtime_error("no group '" + grp + "' in dataset");
 }
 
 

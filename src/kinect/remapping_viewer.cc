@@ -1,4 +1,5 @@
 #include "../lib/common.h"
+#include "../lib/args.h"
 #include "../lib/opencv.h"
 #include "../lib/json.h"
 #include "../lib/obj_img_correspondence.h"
@@ -8,25 +9,27 @@
 #include "lib/live/grabber.h"
 #include "lib/live/checkerboard.h"
 #include "lib/kinect_reprojection.h"
+#include "lib/kinect_internal_parameters.h"
+#include "lib/freenect2.h"
 #include <libfreenect2/registration.h>
 #include <string>
 #include <cmath>
 
 using namespace tlz;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: remapping_viewer reprojection.json" << std::endl;
-	std::exit(1);
-}
 int main(int argc, const char* argv[]) {
-	if(argc <= 1) usage_fail();
-	std::string reprojection_parameters_filename = argv[1];
-
+	get_args(argc, argv, "internal.json reprojection.json");
+	std::string internal_parameters_filename = in_filename_arg();
+	std::string reprojection_parameters_filename = in_filename_arg();
+	
 	std::cout << "loading internal&reprojection parameters" << std::endl;
+	kinect_internal_parameters internal_parameters = decode_kinect_internal_parameters(import_json_file(internal_parameters_filename));
 	kinect_reprojection_parameters reprojection_parameters = decode_kinect_reprojection_parameters(import_json_file(reprojection_parameters_filename));
 
+	std::pair<freenect2_color_params, freenect2_ir_params> freenect2_internal = to_freenect2(internal_parameters);
+	libfreenect2::Registration registration(freenect2_internal.second, freenect2_internal.first);
+
 	grabber grab(grabber::color | grabber::ir | grabber::depth);
-	libfreenect2::Registration& registration = grab.registration();
 	kinect_reprojection	reproj(reprojection_parameters);
 
 	int h = 324;

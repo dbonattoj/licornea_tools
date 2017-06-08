@@ -1,7 +1,8 @@
-#include <opencv2/opencv.hpp>
+#include "../lib/args.h"
 #include "../lib/point.h"
 #include "../lib/ply_exporter.h"
 #include "../lib/image_io.h"
+#include "../lib/opencv.h"
 #include "lib/densify/depth_densify.h"
 #include "lib/kinect_internal_parameters.h"
 #include "lib/kinect_remapping.h"
@@ -25,19 +26,14 @@ void do_depth_remapping(const cv::Mat_<ushort>& in, cv::Mat_<ushort>& out, cv::M
 }
 
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: depth_reprojection input.png output.png output_mask.png internal_parameters.json method [was_flipped/was_not_flipped]" << std::endl;
-	std::exit(EXIT_FAILURE);
-}
 int main(int argc, const char* argv[]) {
-	if(argc <= 5) usage_fail();
-	std::string input_filename = argv[1];
-	std::string output_filename = argv[2];
-	std::string output_mask_filename = argv[3];
-	std::string internal_parameters_filename = argv[4];
-	std::string method = argv[5];
-	bool was_flipped = true;
-	if(argc > 6) was_flipped = (std::string(argv[6]) == "was_flipped");
+	get_args(argc, argv, "input.png output.png output_mask.png internal_parameters.json method [=was_flipped/was_not_flipped]");
+	std::string input_filename = in_filename_arg();
+	std::string output_filename = out_filename_arg();
+	std::string output_mask_filename = out_filename_arg();
+	std::string internal_parameters_filename = in_filename_arg();
+	std::string method = string_arg();
+	bool was_flipped = bool_opt_arg("was_flipped", true);
 	
 	std::cout << "reading parameters" << std::endl;
 	kinect_internal_parameters internal_parameters = decode_kinect_internal_parameters(import_json_file(internal_parameters_filename));

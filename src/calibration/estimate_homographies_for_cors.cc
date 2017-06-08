@@ -30,10 +30,7 @@ int main(int argc, const char* argv[]) {
 	view_homographies homographies;
 	
 	// for each view
-	for(int x = datas.x_min(); x <= datas.x_max(); x += datas.x_step())
-	for(int y = datas.y_min(); y <= datas.y_max(); y += datas.y_step()) {
-		view_index idx(x, y);
-		
+	for(view_index idx : datas.indices) {		
 		std::vector<vec2> src_points, dst_points;
 		
 		// collect feature points present in both views

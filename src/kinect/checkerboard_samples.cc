@@ -1,4 +1,5 @@
 #include "../lib/common.h"
+#include "../lib/args.h"
 #include "../lib/opencv.h"
 #include "../lib/image_io.h"
 #include "../lib/misc.h"
@@ -43,25 +44,18 @@ void save_correspondences_set() {
 	export_json_file(j_cors_set, out_cors_set_filename);
 }
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: checkerboard_samples color/ir/both cols rows square_width out_cors_set.json [out_images_dir/] [restore_from_images]" << std::endl;
-	std::exit(1);
-}
+
 int main(int argc, const char* argv[]) {
-	if(argc <= 5) usage_fail();
-	mode = argv[1];
-	cols = std::atoi(argv[2]);
-	rows = std::atoi(argv[3]);
-	square_width = std::atof(argv[4]);
-	out_cors_set_filename = argv[5];
-	std::string out_images_dirname;
-	if(argc > 6) out_images_dirname = argv[6];
-	if(mode != "color" && mode != "ir" && mode != "both") usage_fail();
-	bool restore_from_images = false;
-	if(argc > 7) restore_from_images = (std::string(argv[7]) == "restore_from_images");
+	get_args(argc, argv, "color/ir/both cols rows square_width out_cors_set.json [out_images_dir/] [restore_from_images]");
+	mode = enum_arg({ "color", "ir", "both" });
+	cols = int_arg();
+	rows = int_arg();
+	square_width = real_arg();
+	out_cors_set_filename = out_filename_arg();
+	out_images_dirname = out_filename_opt_arg();
+	bool restore_from_images = bool_opt_arg("restore_from_images", false);
 
 	bool autosave = false;
-
 	
 	if(restore_from_images) {
 	

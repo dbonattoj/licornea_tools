@@ -1,4 +1,6 @@
 #include "../lib/common.h"
+#include "../lib/args.h"
+#include "../lib/viewer.h"
 #include "../lib/opencv.h"
 #include <cstdlib>
 #include <iostream>
@@ -6,52 +8,14 @@
 
 using namespace tlz;
 
-bool is16bit = false;
-int slider_begin = -1;
-int slider_step = -1;
-int slider_range = -1;
-int z_near_slider_value = -1;
-int z_far_slider_value = -1;
-cv::Mat_<ushort> depth;
-cv::Mat_<uchar> shown_depth;
-std::string window_name;
-
-void update() {
-	ushort z_near = slider_begin + (z_near_slider_value * slider_step);
-	ushort z_far = slider_begin + (z_far_slider_value * slider_step);
-		
-	std::cout << "z_near=" << z_near << "    z_far=" << z_far << std::endl;
-	
-	double alpha = 255.0 / (z_far - z_near);
-	double beta = -alpha * z_near;
-
-	if(z_far > z_near) {
-		cv::convertScaleAbs(depth, shown_depth, alpha, beta);
-		shown_depth.setTo(0, (depth < z_near));
-		shown_depth.setTo(255, (depth > z_far));
-		shown_depth.setTo(0, (depth == 0));
-	}
-}
- 
-void update_callback(int = 0, void* = nullptr) {
-	update();
-	cv::imshow(window_name, shown_depth);
-}
-
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: view_depth depth.png [z_near z_far] [out.png]" << std::endl;
-	std::exit(EXIT_FAILURE);
-}
 
 int main(int argc, const char* argv[]) {
-	if(argc <= 1) usage_fail();
-	std::string depth_filename = argv[1];
-	std::string out_depth_filename;
-	int z_near = -1, z_far = -1;
-	if(argc > 2) z_near = std::atoi(argv[2]);
-	if(argc > 3) z_far = std::atoi(argv[3]);
-	if(argc > 4) out_depth_filename = argv[4];
-	
+	get_args(argc, argv, "depth.png [z_near z_far] [out.png]");
+	std::string depth_filename = in_filename_arg();
+	int z_near_init = int_opt_arg(-1);
+	int z_far_init = int_opt_arg(-1);
+	std::string out_depth_filename = out_filename_opt_arg();
+		
 	depth = cv::imread(depth_filename, CV_LOAD_IMAGE_ANYDEPTH);
 	is16bit = (depth.depth() == CV_16U);
 
@@ -70,39 +34,29 @@ int main(int argc, const char* argv[]) {
 		else if(value > max_value) max_value = value;
 		else if(value < min_value) min_value = value;
 	}
-	slider_begin = min_value;
-	slider_range = max_value - min_value;
 	
-	int max_range = 200;
-	if(slider_range > max_range) slider_step = slider_range / max_range;
-	else slider_step = 1;
-		
-	// initialize slider values
-	if(z_near != -1) z_near_slider_value = (z_near - slider_begin)/slider_step;
-	else z_near_slider_value = 0;
-
-	if(z_far != -1) z_far_slider_value = (z_far - slider_begin)/slider_step;
-	else z_far_slider_value = (max_value - slider_begin)/slider_step;
-
-	// initialize depth
-	update();
+	const int slider_steps = 200;
 	
 	if(out_depth_filename.empty()) {
-		// setup window
-		window_name = depth_filename;
-	
-		cv::namedWindow(window_name, CV_WINDOW_AUTOSIZE);
-		cv::createTrackbar("1. z_near", window_name, &z_near_slider_value, slider_range / slider_step, &update_callback);
-		cv::createTrackbar("2. z_far", window_name, &z_far_slider_value, slider_range / slider_step, &update_callback);
-
-		cv::imshow(window_name, shown_depth);
-
-		// wait for user
-		while(cv::waitKey(0) != escape_keycode);
+		viewer view("Depth map");
+		auto& z_near_slider = view.add_real_slider("z near", (z_near_init == -1 ? min_value : z_near_init), min_value, max_value, slider_steps);
+		auto& z_far_slider = view.add_real_slider("z far", (z_far_init == -1 ? max_value : z_near_init), min_value, max_value, slider_steps);
 		
+		auto update = [&]() {
+			real min_d = z_near_slider.value();
+			real max_d = z_far_slider.value();
+			
+			cv::Mat_<uchar> img = viewer::visualize_depth(depth, min_d, max_d);
+			view.clear(img.size());
+			view.draw(img);
+		};
+		view.update_callback = update;
+		view.show_modal();
+
 	} else {
-		// save to file
-		cv::imwrite(out_depth_filename, shown_depth);
+		cv::Mat_<uchar> img = viewer::visualize_depth(depth, z_near_init, z_far_init);
+		cv::imwrite(out_depth_filename, img);
 		std::cout << "saved to " << out_depth_filename << std::endl;
 	}
+
 }

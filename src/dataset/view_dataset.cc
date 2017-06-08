@@ -11,6 +11,7 @@ int main(int argc, const char* argv[]) {
 	get_args(argc, argv, "dataset_parameters.json [dataset_group]");
 	dataset datas = dataset_arg();
 	std::string dataset_group = string_opt_arg("");
+	dataset_group datag = datas.group(dataset_group);
 	
 	viewer view("Dataset Viewer", true);
 	auto& slider_x = view.add_int_slider("X", datas.x_mid(), datas.x_min(), datas.x_max(), datas.x_step());
@@ -18,9 +19,9 @@ int main(int argc, const char* argv[]) {
 
 	view.update_callback = [&]() {
 		view_index idx(slider_x.value(), slider_y.value());
-		if(! datas.x_valid(idx.x) || ! datas.y_valid(idx.y)) return;		
+		if(! datas.valid(idx)) return;		
 		
-		cv::Mat_<cv::Vec3b> img = load_texture(datas.view(idx).group_view(dataset_group).image_filename());
+		cv::Mat_<cv::Vec3b> img = load_texture(datag.view(idx).image_filename());
 		view.clear(img.cols, img.rows);
 		view.draw(img);
 	};

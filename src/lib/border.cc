@@ -28,5 +28,12 @@ cv::Size add_border(const border& bord, const cv::Size& sz) {
 	return out_sz;
 }
 
+cv::Point add_border(const border& bord, const cv::Point& pt) {
+	cv::Point out_pt = pt;
+	out_pt.x += bord.left;
+	out_pt.y += bord.top;
+	return out_pt;
+}
+
 
 }

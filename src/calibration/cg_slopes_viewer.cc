@@ -3,22 +3,14 @@
 #include "../lib/intrinsics.h"
 #include "../lib/dataset.h"
 #include "../lib/misc.h"
+#include "../lib/viewer.h"
 #include "lib/feature_points.h"
 #include "lib/cg/feature_slopes.h"
 #include <cstdlib>
 #include <iostream>
 #include <string>
-#include <functional>
 
 using namespace tlz;
-
-constexpr real comp_abs_max = 30.0 * rad_per_deg;
-constexpr int comp_slider_max = 1000;
-
-const cv::Vec3b label_color(255, 255,255);
-const cv::Vec3b background_color(0, 0, 0);
-
-std::function<void()> update_function;
 
 mat33 to_rotation_matrix(real x, real y, real z) {
 	mat33 Rx(
@@ -40,17 +32,6 @@ mat33 to_rotation_matrix(real x, real y, real z) {
 	return R.t();
 }
 
-void update_callback(int = 0, void* = nullptr) {	
-	update_function();
-}
-
-
-int to_int(real val) {
-	return ((val / comp_abs_max) + 1.0) * comp_slider_max / 2.0;
-}
-real from_int(int ival) {
-	return ((2.0 * ival / comp_slider_max) - 1.0) * comp_abs_max;
-}
  
 
 int main(int argc, const char* argv[]) {
@@ -58,6 +39,10 @@ int main(int argc, const char* argv[]) {
 	dataset datas = dataset_arg();
 	intrinsics intr = intrinsics_arg();
 	std::string point_or_slopes_filename = in_filename_arg();
+	std::string dataset_group_name = ""; // TODO include with feature_points
+
+	Assert(intr.distortion.is_none(), "must have not distortion");
+	dataset_group datag = datas.group(dataset_group_name);
 
 	std::cout << "loading feature points or slopes" << std::endl;
 	feature_points fpoints;
@@ -72,59 +57,40 @@ int main(int argc, const char* argv[]) {
 
 	std::cout << "preparing background image" << std::endl;
 	const cv::Vec3b background_color(0, 0, 0);
-	int width = datas.parameters()["width"];
-	int height = datas.parameters()["height"];
-	cv::Mat_<cv::Vec3b> back_image(height, width, background_color);
+	cv::Size image_size = datag.image_size_with_border();
+	cv::Mat_<cv::Vec3b> back_image(image_size, background_color);
 	if(fpoints.view_idx) {
 		view_index view_index = fpoints.view_idx;
 		std::string image_filename = datas.view(view_index).image_filename();
-		cv::Mat_<cv::Vec3b> img = cv::imread(image_filename, CV_LOAD_IMAGE_COLOR);
-	
-		cv::Mat_<cv::Vec3b> undist_img;
-		cv::undistort(
-			img,
-			undist_img,
-			intr.K,
-			intr.distortion.cv_coeffs(),
-			intr.K
-		);
-		
-		back_image = undist_img;
-		width = back_image.cols;
-		height = back_image.rows;
+		back_image = cv::imread(image_filename, CV_LOAD_IMAGE_COLOR);
+		image_size = img.size();
 	}
-
 	
-	std::cout << "running viewer" << std::endl;
+	viewer view("Slopes Viewer", image_size.width, image_size.height+20+(has_measured_slopes ? 20 : 0));
+	const real max_abs_angle = 30.0_deg;
+	auto& x_slider = view.add_real_slider("X", 0.0, -max_abs_angle, +max_abs_angle);
+	auto& y_slider = view.add_real_slider("Y", 0.0, -max_abs_angle, +max_abs_angle);
+	auto& z_slider = view.add_real_slider("Z", 0.0, -max_abs_angle, +max_abs_angle);
+	auto& measured_width_slider = view.add_int_slider("measured width", 0, 0, 400);
+	auto& model_width_slider = view.add_int_slider("model width", 0, 200, 400);
+	auto& exaggeration_slider = view.add_real_slider("exaggeration", 1.0, 1.0, 100.0);
+
 
 	const std::string window_name = "Slopes Viewer";
 
-	int x_int = comp_slider_max / 2;
-	int y_int = comp_slider_max / 2;
-	int z_int = comp_slider_max / 2;
-	int measured_width = 0;
-	int model_width = 200;
-	int exaggeration_int = 100;
-	
-	real herror = NAN;
-	real verror = NAN;
-	real error = NAN;
-
-	cv::Mat_<cv::Vec3b> viz_image(height, width);
-	cv::Mat_<cv::Vec3b> shown_image(height+20+(has_measured_slopes ? 20 : 0), width);
-	auto update = [&]() {
+	view.update_callback = [&]() {
 		// parameters
-		real x = from_int(x_int);
-		real y = from_int(y_int);
-		real z = from_int(z_int);
-		real exaggeration = exaggeration_int / 100.0;
+		real x = x_slider.value(), y = y_slider.value(), z = z_slider.value();
+		real exaggeration = exaggeration_slider.value();
+			
+		cv::Mat_<cv::Vec3b> viz_image(image_size);	
 				
 		// draw background
 		back_image.copyTo(viz_image);
 
 		// draw measured slopes
-		if(has_measured_slopes && measured_width > 0)
-			viz_image = visualize_feature_slopes(measured_fslopes, viz_image, measured_width, exaggeration, 2);
+		if(has_measured_slopes && measured_width_slider.value() > 0)
+			viz_image = visualize_feature_slopes(measured_fslopes, viz_image, measured_width_slider.value(), exaggeration, 2);
 
 		// make grayscale
 		{
@@ -150,8 +116,12 @@ int main(int argc, const char* argv[]) {
 			viz_image = visualize_feature_slopes(model_fslopes, viz_image, model_width, exaggeration, 1);
 		
 		shown_image.setTo(background_color);
-		viz_image.copyTo(cv::Mat(shown_image, cv::Rect(0, 20, width, height)));
 
+		view.draw(cv::Rect(0, 20, width, height), viz_image);
+
+		real herror = NAN;
+		real verror = NAN;
+		real error = NAN;
 		if(has_measured_slopes) {
 			herror = 0;
 			verror = 0;
@@ -174,31 +144,15 @@ int main(int argc, const char* argv[]) {
 		}
 
 		// draw label
-		int font = cv::FONT_HERSHEY_COMPLEX_SMALL;
-		double fontscale = 0.7;
-		int thickness = 1;
 		std::string label = "x=" + std::to_string(x * deg_per_rad) + "    y=" + std::to_string(y * deg_per_rad) + "    z=" + std::to_string(z * deg_per_rad);
-		cv::putText(shown_image, label, cv::Point(10, 13), font, fontscale, cv::Scalar(label_color), thickness);
-
+		view.draw_text(cv::Rect(10, 0, width-20, 20), label, viewer::left);
+	
 		if(has_measured_slopes) {
 			label = "herror=" + std::to_string(herror) + "    verror=" + std::to_string(verror) + "    error=" + std::to_string(error);
-			cv::putText(shown_image, label, cv::Point(10, 20+height+13), font, fontscale, cv::Scalar(label_color), thickness);
+			view.draw_text(cv::Rect(10, 20+height, width-20, 20), label, viewer::left);
 		}
-
-		cv::imshow(window_name, shown_image);
 	};
 	update_function = update;
 
-	cv::namedWindow(window_name, CV_WINDOW_NORMAL);
-
-	cv::createTrackbar("X", window_name, &x_int, comp_slider_max, &update_callback);
-	cv::createTrackbar("Y", window_name, &y_int, comp_slider_max, &update_callback);
-	cv::createTrackbar("Z", window_name, &z_int, comp_slider_max, &update_callback);
-	if(has_measured_slopes) cv::createTrackbar("measured width", window_name, &measured_width, 400, &update_callback);
-	cv::createTrackbar("model width", window_name, &model_width, 400, &update_callback);
-	cv::createTrackbar("exaggeration", window_name, &exaggeration_int, 1000, &update_callback);
-
-	update();
-	
-	while(cv::waitKey(0) != escape_keycode);
+	view.show_modal();
 }

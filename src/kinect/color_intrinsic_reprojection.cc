@@ -1,4 +1,5 @@
 #include "../lib/common.h"
+#include "../lib/args.h"
 #include "../lib/opencv.h"
 #include "../lib/intrinsics.h"
 #include "../lib/misc.h"
@@ -15,19 +16,14 @@ using namespace tlz;
 const cv::Vec3b orig_color(0, 0, 255);
 const cv::Vec3b reproj_color(0, 0, 255);
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: color_intrinsic_reprojection cols rows square_width color_intr.json" << std::endl;
-	std::exit(1);
-}
+
 int main(int argc, const char* argv[]) {
-	if(argc <= 4) usage_fail();
-	int cols = std::atoi(argv[1]);
-	int rows = std::atoi(argv[2]);
-	real square_width = std::atof(argv[3]);
-	std::string color_intrinsics_filename = argv[4];
-	
-	intrinsics color_intr = decode_intrinsics(import_json_file(color_intrinsics_filename));
-	
+	get_args(argc, argv, "cols rows square_width color_intr.json");
+	int cols = int_arg();
+	int rows = int_arg();
+	real square_width = real_arg();
+	intrinsics color_intr = intrinsics_arg();
+		
 	grabber grab(grabber::color);
 
 	viewer view(1920, 1080+30, true);

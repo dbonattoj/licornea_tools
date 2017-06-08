@@ -4,46 +4,37 @@
 #include "../lib/dataset.h"
 #include "../lib/misc.h"
 #include "../lib/image_io.h"
+#include "../lib/viewer.h"
 #include "lib/image_correspondence.h"
 #include "lib/feature_points.h"
 #include <cstdlib>
 #include <iostream>
 #include <string>
-#include <functional>
 
 using namespace tlz;
 
-
-std::function<void()> update_function;
-void update_callback(int = 0, void* = nullptr) {	
-	update_function();
-}
 
 int main(int argc, const char* argv[]) {
 	get_args(argc, argv, "dataset_parameters.json cors.json [dataset_group]");
 	dataset datas = dataset_arg();
 	image_correspondences cors = image_correspondences_arg();
-	std::string dataset_group = string_opt_arg(cors.dataset_group);
+	std::string dataset_group_name = string_opt_arg(cors.dataset_group);
 	
-	border bord = decode_border(get_or(datas.group_parameters(dataset_group), "border", json::object()));
+	dataset_group datag = datas.group(dataset_group_name);
 		
-	std::cout << "running viewer" << std::endl;
+	viewer view("Image Correspondences Viewer", datag.image_size_with_border());
+	auto& x_slider = view.add_int_slider("X", datas.x_mid(), datas.x_min(), datas.x_max(), datas.x_step());
+	auto& y_slider = view.add_int_slider("Y", datas.y_mid(), datas.y_min(), datas.y_max(), datas.y_step());
 
-	const std::string window_name = "Image Correspondences Viewer";
-
-	int slider_x = datas.x_mid() - datas.x_min();
-	int slider_y = datas.y_mid() - datas.y_min();
 	
-	auto update = [&]() {
-		int x = slider_x + datas.x_min();
-		int y = slider_y + datas.y_min();
-		
-		if(!datas.x_valid(x) || !datas.y_valid(y)) return;
+	view.update_callback = [&]() {
+		int x = slider_x.value(), y = slider_y.value();
 		view_index idx(x, y);
+		if(! datas.valid(idx)) return;
 		
 		cv::Mat_<cv::Vec3b> back_img;
 		{
-			std::string image_filename = datas.view(idx).group_view(dataset_group).image_filename();
+			std::string image_filename = datag.view(idx).image_filename();
 			cv::Mat_<uchar> img = cv::imread(image_filename, CV_LOAD_IMAGE_GRAYSCALE);
 			if(img.empty()) return;
 			cv::cvtColor(img, back_img, CV_GRAY2BGR);
@@ -51,21 +42,9 @@ int main(int argc, const char* argv[]) {
 		
 		cv::Mat_<cv::Vec3b> shown_img;
 
-		if(datas.x_valid(x) && datas.y_valid(y)) {
-			feature_points fpoints = feature_points_for_view(cors, idx);
-			shown_img = visualize_feature_points(fpoints, back_img, bord);
-		}
-	
-		cv::imshow(window_name, shown_img);
+		feature_points fpoints = feature_points_for_view(cors, idx);
+		shown_img = visualize_feature_points(fpoints, back_img, datag.border());
 	};
-	update_function = update;
 
-	cv::namedWindow(window_name, CV_WINDOW_NORMAL);
-
-	cv::createTrackbar("x", window_name, &slider_x, datas.x_max() - datas.x_min(), &update_callback);
-	if(datas.y_count() > 1) cv::createTrackbar("y", window_name, &slider_y, datas.y_max() - datas.y_min(), &update_callback);
-
-	update();
-	
-	while(cv::waitKey(0) != escape_keycode);
+	view.show_modal();
 }

@@ -1,4 +1,5 @@
 #include "../lib/common.h"
+#include "../lib/args.h"
 #include "../lib/opencv.h"
 #include "../lib/json.h"
 #include "../lib/intrinsics.h"
@@ -19,13 +20,9 @@ enum class depth_mode {
 	difference
 };
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: reprojection_viewer reprojection.json" << std::endl;
-	std::exit(1);
-}
 int main(int argc, const char* argv[]) {
-	if(argc <= 1) usage_fail();
-	std::string reprojection_parameters_filename = argv[1];
+	get_args(argc, argv, "reprojection.json");
+	std::string reprojection_parameters_filename = in_filename_arg();
 
 	std::cout << "loading reprojection parameters" << std::endl;
 	kinect_reprojection_parameters reprojection_parameters = decode_kinect_reprojection_parameters(import_json_file(reprojection_parameters_filename));

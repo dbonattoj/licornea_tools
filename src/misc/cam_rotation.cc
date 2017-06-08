@@ -1,3 +1,4 @@
+#include "../lib/args.h"
 #include "../lib/json.h"
 #include <iostream>
 #include <cstdlib>
@@ -16,17 +17,13 @@ bool is_orthogonal_matrix(const mat33& R) {
 	return cv::norm(I, R * R.t()) < epsilon;
 }
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: cam_rotation (from rotation_matrix.json / to out_rotation_matrix.json x y z)" << std::endl;
-	std::exit(1);
-}
 int main(int argc, const char* argv[]) {
-	if(argc <= 1) usage_fail();
-	std::string mode = argv[1];
+	get_args(argc, argv, "(from rotation_matrix.json / to out_rotation_matrix.json x y z)");
+	std::string mode = enum_arg({"from", "to"});
+	
 	if(mode == "from") {
-		if(argc <= 2) usage_fail();
-		std::string rotation_mat_filename = argv[2];
-		
+		std::string rotation_mat_filename = in_filename_arg();
+				
 		mat33 R = decode_mat(import_json_file(rotation_mat_filename));
 		if(! is_orthogonal_matrix(R)) throw std::runtime_error("R is not an orthogonal matrix");
 		
@@ -53,11 +50,10 @@ int main(int argc, const char* argv[]) {
 		std::cout << "z = " << z * deg_per_rad << "°" << std::endl;
 		
 	} else if(mode == "to") {
-		if(argc <= 5) usage_fail();
-		std::string out_rotation_mat_filename = argv[2];
-		real x = std::atof(argv[3]) * rad_per_deg;
-		real y = std::atof(argv[4]) * rad_per_deg;
-		real z = std::atof(argv[5]) * rad_per_deg;
+		std::string out_rotation_mat_filename = out_filename_arg();
+		real x = real_arg();
+		real y = real_arg();
+		real z = real_arg();
 		
 		mat33 Rx(
 			1.0, 0.0, 0.0,

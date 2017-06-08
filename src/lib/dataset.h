@@ -4,7 +4,9 @@
 #include <string>
 #include <utility>
 #include <iosfwd>
+#include "border.h"
 #include "json.h"
+#include "border.h"
 #include "args.h"
 
 namespace tlz {
@@ -55,7 +57,7 @@ private:
 	std::string format_filename(const std::string& tpl) const;
 
 public:
-	dataset_view(const dataset&, int x, int y, const std::string& files_group = "");
+	dataset_view(const dataset&, int x, int y, const std::string& grp = "");
 	
 	int x() const { return x_; }
 	int y() const { return y_; }
@@ -71,11 +73,29 @@ public:
 
 	std::string group() const;
 	dataset_view group_view(const std::string& name) const;
-
-	dataset_view vsrs() const { return group_view("vsrs"); }
-	dataset_view kinect_raw() const { return group_view("kinect_raw"); }
-	dataset_view rectified() const { return group_view("rectified"); }
 };
+
+
+class dataset_group {
+private:
+	const dataset& dataset_;
+	std::string group_;
+
+public:
+	dataset_group(const dataset&, const std::string& grp);
+	
+	const json& parameters() const;
+	const json& operator[](const std::string& key) const
+		{ return parameters()[key]; }
+	
+	border image_border() const;
+	cv::Size image_size_with_border() const;
+	
+	dataset_view view(int x) const;
+	dataset_view view(int x, int y) const;
+	dataset_view view(view_index) const;
+};
+
 
 class dataset {	
 private:
@@ -91,10 +111,14 @@ public:
 	bool is_2d() const;
 
 	const json& parameters() const { return parameters_; }
-	const json& group_parameters(const std::string& grp);
+	const json& operator[](const std::string& key) const
+		{ return parameters()[key]; }
 	
 	std::string filepath(const std::string& relpath) const;
 	
+	int image_width() const;
+	int image_height() const;
+	cv::Size image_size() const;
 	std::string cameras_filename() const;
 	
 	int x_min() const;
@@ -112,6 +136,11 @@ public:
 	int y_count() const;
 	int y_mid() const;
 	std::vector<int> y_indices() const;
+	
+	bool valid(view_index) const;
+	std::vector<view_index> indices() const;
+
+	dataset_group group(const std::string& grp) const;
 
 	dataset_view view(int x) const;
 	dataset_view view(int x, int y) const;

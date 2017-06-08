@@ -1,29 +1,25 @@
-#include <iostream>
-#include <string>
-#include <cstdlib>
-#include <stdexcept>
-#include <climits>
+#include "../lib/args.h"
 #include "../lib/json.h"
 #include "../lib/obj_img_correspondence.h"
 #include "../lib/opencv.h"
 #include "../lib/intrinsics.h"
 #include "lib/kinect_reprojection_parameters.h"
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <stdexcept>
+#include <climits>
 
 using namespace tlz;
 
-[[noreturn]] void usage_fail() {
-	std::cout << "usage: calibrate_color_ir_reprojection obj_img_cors_set.json color_intrinsics.json ir_intrinsics.json out_reprojection_params.json\n";
-	std::cout << std::endl;
-	std::exit(1);
-}
-
 int main(int argc, const char* argv[]) {
-	if(argc <= 4) usage_fail();
-	std::string obj_img_cors_set_filename = argv[1];
-	std::string color_intrinsics_filename = argv[2];
-	std::string ir_intrinsics_filename = argv[3];
-	std::string out_reprojection_parameters_filename = argv[4];
+	get_args(argc, argv, "obj_img_cors_set.json color_intrinsics.json ir_intrinsics.json out_reprojection_params.json");
+	std::string obj_img_cors_set_filename = in_filename_arg();
+	intrinsics color_intr = intrinsics_arg();
+	intrinsics ir_intr = intrinsics_arg();
+	std::string out_reprojection_parameters_filename = out_filename_arg();
 	
+
 	std::cout << "loading obj-img correspondences set" << std::endl;
 	auto cors_set = decode_obj_img_correspondences_set<1, 2>(import_json_file(obj_img_cors_set_filename));
 	

@@ -1,12 +1,10 @@
 #include "lib/freenect2.h"
-#include <cstdlib>
 #include <iostream>
-#include <fstream>
 #include <stdexcept>
 
 using namespace tlz;
 
-int main(int argc, const char* argv[]) {
+int main() {
 	using namespace libfreenect2;
 	
 	Freenect2 context;
