@@ -100,6 +100,16 @@ feature_points undistorted_feature_points_for_view(const image_correspondences& 
 }
 
 
+std::vector<vec2> positions(const feature_points& fpoints) {
+	std::vector<vec2> list;
+	for(const auto& kv : fpoints.points) {
+		const feature_point& fpoint = kv.second;
+		list.push_back(fpoint.position);
+	}
+	return list;
+}
+
+
 
 cv::Mat_<cv::Vec3b> visualize_feature_points(const feature_points& fpoints, const cv::Mat_<cv::Vec3b>& back_img, const border& bord) {
 	cv::Mat_<cv::Vec3b> img;

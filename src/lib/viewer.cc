@@ -74,10 +74,12 @@ int viewer::height() const {
 
 
 void viewer::clear(int width, int height) {
-	if(width != shown_image_.cols || height != shown_image_.rows)
+	if(width != shown_image_.cols || height != shown_image_.rows) {
 		shown_image_ = cv::Mat_<cv::Vec3b>(height, width, background_color);
-	else
+		cv::resizeWindow(window_name_, width, height);
+	} else {
 		shown_image_.setTo(background_color);
+	}
 }
 
 void viewer::clear(cv::Size sz) {

@@ -36,6 +36,8 @@ feature_points undistort(const feature_points&, const intrinsics&);
 feature_points feature_points_for_view(const image_correspondences& cors, view_index idx, bool is_distorted = true);
 feature_points undistorted_feature_points_for_view(const image_correspondences& cors, view_index idx, const intrinsics&);
 
+std::vector<vec2> positions(const feature_points&);
+
 cv::Mat_<cv::Vec3b> visualize_feature_points(const feature_points&, const cv::Mat_<cv::Vec3b>& back_img, const border& = border());
 
 inline feature_points feature_points_arg()

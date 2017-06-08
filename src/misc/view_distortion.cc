@@ -73,6 +73,7 @@ int main(int argc, const char* argv[]) {
 		// draw grids
 		auto drawn_grid = [&](const std::vector<vec2>& grid, const cv::Vec3b& col) {
 			cv::Mat_<cv::Vec3b> img(height, width);
+			img.setTo(view.background_color);
 			for(const vec2& pt : grid) {
 				int pt_x = pt[0] / scale, pt_y = pt[1] / scale;
 				if(pt_x < 0 || pt_x >= width || pt_y < 0 || pt_y >= height) continue;

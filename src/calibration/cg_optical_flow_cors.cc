@@ -77,7 +77,7 @@ void add_correspondences(correspondences_type& cors, const flow_state& state) {
 
 cv::Mat_<uchar> load_image(const dataset_group& datag, const view_index& idx) {
 	static std::mutex disk_read_lock;
-	std::lock_guard<std::mutex> lock(disk_read_lock);
+	//std::lock_guard<std::mutex> lock(disk_read_lock);
 	std::string image_filename = datag.view(idx).image_filename();
 	cv::Mat_<cv::Vec3b> col_img = load_texture(image_filename);
 	cv::Mat_<uchar> gray_img;
@@ -141,7 +141,35 @@ void do_horizontal_optical_flow(correspondences_type& cors, const view_index& re
 }
 
 
-correspondences_type do_2d_optical_flow(const dataset_group& datag, const view_index& reference_idx, std::size_t max_wanted_features) {
+std::vector<cv::Point2f> choose_reference_points(const cv::Mat_<uchar>& img, std::size_t max_wanted_points, const std::vector<vec2>& existing_points) {	
+	std::cout << "choosing features to track from reference image (wanted max: " << max_wanted_points << ")" << std::endl;
+	const real min_distance_between_features = 7;
+	const real min_distance_to_existing = 10;
+	const real quality_level = 0.3;
+	
+	std::vector<cv::Point2f> positions;
+	cv::Mat_<uchar> far_from_existing_points_mask(img.size(), 255);
+
+	for(const vec2& pt : existing_points)
+		cv::circle(far_from_existing_points_mask, vec2_to_point(pt), min_distance_to_existing, 0, -1);
+		
+	cv::goodFeaturesToTrack(img, positions, max_wanted_points - existing_points.size(), quality_level, min_distance_between_features, far_from_existing_points_mask);
+
+	
+	if(existing_points.size() > 0) {
+		std::vector<cv::Point2f> near_positions;
+		int remaining_wanted_points = max_wanted_points - positions.size();
+		cv::Mat_<uchar> near_to_existing_points_mask = (far_from_existing_points_mask == 0);
+		cv::goodFeaturesToTrack(img, near_positions, remaining_wanted_points, quality_level, min_distance_between_features, near_to_existing_points_mask);
+		positions.insert(positions.end(), near_positions.begin(), near_positions.end());
+	}
+	
+	std::cout << "got " << positions.size() << " features" << std::endl;
+	return positions;
+}
+
+
+correspondences_type do_2d_optical_flow(const dataset_group& datag, const view_index& reference_idx, std::size_t max_wanted_features, const std::vector<vec2>& existing_points) {
 	std::cout << "doing optical flow from reference view " << reference_idx << std::endl;
 
 	const dataset& datas = datag.set();
@@ -150,8 +178,7 @@ correspondences_type do_2d_optical_flow(const dataset_group& datag, const view_i
 
 	cv::Mat_<uchar> center_image = load_image(datag, reference_idx);
 	
-	std::vector<cv::Point2f> center_positions;
-	cv::goodFeaturesToTrack(center_image, center_positions, max_wanted_features, 0.3, 7);
+	std::vector<cv::Point2f> center_positions = choose_reference_points(center_image, max_wanted_features, existing_points);
 	std::size_t features_count = center_positions.size();
 
 	flow_state center_state(reference_idx, center_image, features_count);
@@ -192,7 +219,7 @@ correspondences_type do_2d_optical_flow(const dataset_group& datag, const view_i
 
 		std::cout << "\nnow doing horizontal flows..." << std::endl;
 		int done = 0;
-		#pragma omp parallel for num_threads(4)
+		#pragma omp parallel for
 		for(std::ptrdiff_t i = 0; i < vertical_origins.size(); i++) {
 			correspondences_type hcors;
 			
@@ -237,9 +264,12 @@ int main(int argc, const char* argv[]) {
 	out_cors.dataset_group = dataset_group_name;
 	int global_feature_counter = 0;
 
-	auto add_optical_flow = [&](int ref_x, int ref_y) {
+	auto add_optical_flow = [&](int ref_x, int ref_y) {		
 		view_index reference_view_idx(ref_x, ref_y);
-		correspondences_type cors = do_2d_optical_flow(datag, reference_view_idx, max_features_count);
+
+		std::vector<vec2> existing_feature_points = positions(feature_points_for_view(out_cors, reference_view_idx));
+
+		correspondences_type cors = do_2d_optical_flow(datag, reference_view_idx, max_features_count, existing_feature_points);
 		
 		std::map<local_feature_index, std::string> feature_names;
 		
