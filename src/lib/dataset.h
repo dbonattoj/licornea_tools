@@ -59,6 +59,8 @@ private:
 public:
 	dataset_view(const dataset&, int x, int y, const std::string& grp = "");
 	
+	const dataset& set() const { return dataset_; }
+	
 	int x() const { return x_; }
 	int y() const { return y_; }
 	
@@ -83,6 +85,8 @@ private:
 
 public:
 	dataset_group(const dataset&, const std::string& grp);
+	
+	const dataset& set() const { return dataset_; }
 	
 	const json& parameters() const;
 	const json& operator[](const std::string& key) const

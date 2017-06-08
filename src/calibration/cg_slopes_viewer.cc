@@ -4,6 +4,7 @@
 #include "../lib/dataset.h"
 #include "../lib/misc.h"
 #include "../lib/viewer.h"
+#include "../lib/assert.h"
 #include "lib/feature_points.h"
 #include "lib/cg/feature_slopes.h"
 #include <cstdlib>
@@ -63,7 +64,7 @@ int main(int argc, const char* argv[]) {
 		view_index view_index = fpoints.view_idx;
 		std::string image_filename = datas.view(view_index).image_filename();
 		back_image = cv::imread(image_filename, CV_LOAD_IMAGE_COLOR);
-		image_size = img.size();
+		image_size = back_image.size();
 	}
 	
 	viewer view("Slopes Viewer", image_size.width, image_size.height+20+(has_measured_slopes ? 20 : 0));
@@ -75,8 +76,6 @@ int main(int argc, const char* argv[]) {
 	auto& model_width_slider = view.add_int_slider("model width", 0, 200, 400);
 	auto& exaggeration_slider = view.add_real_slider("exaggeration", 1.0, 1.0, 100.0);
 
-
-	const std::string window_name = "Slopes Viewer";
 
 	view.update_callback = [&]() {
 		// parameters
@@ -112,12 +111,11 @@ int main(int argc, const char* argv[]) {
 			fslope.horizontal = model_horizontal_slope(fpoint.position, intr.K, R);
 			fslope.vertical = model_vertical_slope(fpoint.position, intr.K, R);
 		}
-		if(model_width > 0)
-			viz_image = visualize_feature_slopes(model_fslopes, viz_image, model_width, exaggeration, 1);
+		if(model_width_slider > 0)
+			viz_image = visualize_feature_slopes(model_fslopes, viz_image, model_width_slider, exaggeration, 1);
 		
-		shown_image.setTo(background_color);
-
-		view.draw(cv::Rect(0, 20, width, height), viz_image);
+		view.clear();
+		view.draw(cv::Point(0, 20), viz_image);
 
 		real herror = NAN;
 		real verror = NAN;
@@ -145,14 +143,13 @@ int main(int argc, const char* argv[]) {
 
 		// draw label
 		std::string label = "x=" + std::to_string(x * deg_per_rad) + "    y=" + std::to_string(y * deg_per_rad) + "    z=" + std::to_string(z * deg_per_rad);
-		view.draw_text(cv::Rect(10, 0, width-20, 20), label, viewer::left);
+		view.draw_text(cv::Rect(10, 0, image_size.width-20, 20), label, viewer::left);
 	
 		if(has_measured_slopes) {
 			label = "herror=" + std::to_string(herror) + "    verror=" + std::to_string(verror) + "    error=" + std::to_string(error);
-			view.draw_text(cv::Rect(10, 20+height, width-20, 20), label, viewer::left);
+			view.draw_text(cv::Rect(10, 20+image_size.height, image_size.width-20, 20), label, viewer::left);
 		}
 	};
-	update_function = update;
 
 	view.show_modal();
 }

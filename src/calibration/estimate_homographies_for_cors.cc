@@ -30,7 +30,7 @@ int main(int argc, const char* argv[]) {
 	view_homographies homographies;
 	
 	// for each view
-	for(view_index idx : datas.indices) {		
+	for(view_index idx : datas.indices()) {		
 		std::vector<vec2> src_points, dst_points;
 		
 		// collect feature points present in both views

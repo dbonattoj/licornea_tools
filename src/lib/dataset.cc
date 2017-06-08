@@ -137,12 +137,6 @@ bool dataset::is_2d() const {
 	return (y_index_range_.size() > 0);
 }
 
-const json& dataset::group_parameters(const std::string& grp) {
-	if(grp.empty()) return parameters_;
-	else if(has(parameters_, grp)) return parameters_[grp];
-	else throw std::runtime_error("no group '" + grp + "' in dataset");
-}
-
 std::string dataset::filepath(const std::string& relpath) const {
 	return dirname_ + relpath;
 }

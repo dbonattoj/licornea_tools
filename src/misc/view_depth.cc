@@ -16,8 +16,8 @@ int main(int argc, const char* argv[]) {
 	int z_far_init = int_opt_arg(-1);
 	std::string out_depth_filename = out_filename_opt_arg();
 		
-	depth = cv::imread(depth_filename, CV_LOAD_IMAGE_ANYDEPTH);
-	is16bit = (depth.depth() == CV_16U);
+	cv::Mat_<ushort> depth = cv::imread(depth_filename, CV_LOAD_IMAGE_ANYDEPTH);
+	bool is16bit = (depth.depth() == CV_16U);
 
 	// scale if too large (not when saving to file)
 	int max_cols = 1000;
@@ -35,10 +35,10 @@ int main(int argc, const char* argv[]) {
 		else if(value < min_value) min_value = value;
 	}
 	
-	const int slider_steps = 200;
 	
 	if(out_depth_filename.empty()) {
 		viewer view("Depth map");
+		const int slider_steps = 200;
 		auto& z_near_slider = view.add_real_slider("z near", (z_near_init == -1 ? min_value : z_near_init), min_value, max_value, slider_steps);
 		auto& z_far_slider = view.add_real_slider("z far", (z_far_init == -1 ? max_value : z_near_init), min_value, max_value, slider_steps);
 		

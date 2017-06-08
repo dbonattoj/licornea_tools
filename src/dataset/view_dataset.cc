@@ -3,6 +3,7 @@
 #include "../lib/dataset.h"
 #include "../lib/image_io.h"
 #include "../lib/viewer.h"
+#include <string>
 
 using namespace tlz;
 
@@ -10,8 +11,8 @@ using namespace tlz;
 int main(int argc, const char* argv[]) {
 	get_args(argc, argv, "dataset_parameters.json [dataset_group]");
 	dataset datas = dataset_arg();
-	std::string dataset_group = string_opt_arg("");
-	dataset_group datag = datas.group(dataset_group);
+	std::string dataset_group_name = string_opt_arg("");
+	dataset_group datag = datas.group(dataset_group_name);
 	
 	viewer view("Dataset Viewer", true);
 	auto& slider_x = view.add_int_slider("X", datas.x_mid(), datas.x_min(), datas.x_max(), datas.x_step());

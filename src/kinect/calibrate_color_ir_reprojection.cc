@@ -22,11 +22,8 @@ int main(int argc, const char* argv[]) {
 
 	std::cout << "loading obj-img correspondences set" << std::endl;
 	auto cors_set = decode_obj_img_correspondences_set<1, 2>(import_json_file(obj_img_cors_set_filename));
-	
-	std::cout << "loading intrinsics" << std::endl;
-	intrinsics color_intr = decode_intrinsics(import_json_file(color_intrinsics_filename));
-	intrinsics ir_intr = decode_intrinsics(import_json_file(ir_intrinsics_filename));
-	
+
+		
 	std::cout << "preparing input data" << std::endl;
 	std::vector<std::vector<cv::Vec3f>> object_points(cors_set.size());
 	std::vector<std::vector<cv::Vec2f>> color_image_points(cors_set.size());

@@ -82,23 +82,23 @@ int main(int argc, const char* argv[]) {
 		};
 		cv::Mat_<cv::Vec3b> reversed(height, width);
 		real reversed_alpha = reversed_opacity / 100.0;
-		shown_image.setTo(background_color);
 	
 		view.clear();
 
 		// ..upper row (regular & undistorted_distorted  |  distorted)
-		view.draw(cv::Point(0, 20), drawn_grid(regular_grid, marker_color1))
-		view.draw(cv::Point(0, 20), drawn_grid(undistorted_distorted_grid, marker_color1), reversed_alpha)
-		view.draw(cv::Point(width+border, 20), drawn_grid(distorted_grid, marker_color2))
+		view.draw(cv::Point(0, 20), drawn_grid(regular_grid, marker_color1));
+		view.draw(cv::Point(0, 20), drawn_grid(undistorted_distorted_grid, marker_color1), reversed_alpha);
+		view.draw(cv::Point(width+border, 20), drawn_grid(distorted_grid, marker_color2));
 		
 		// ..lower row (undistorted  |  regular & distorted_undistorted)
 		view.draw(cv::Point(0, height+border+20), drawn_grid(undistorted_grid, marker_color2));
-		view.draw(cv::Point(width+border, height+border+20), drawn_grid(regular_grid, marker_color1))
-		view.draw(cv::Point(width+border, height+border+20), drawn_grid(distorted_undistorted_grid, marker_color1), reversed_alpha)
+		view.draw(cv::Point(width+border, height+border+20), drawn_grid(regular_grid, marker_color1));
+		view.draw(cv::Point(width+border, height+border+20), drawn_grid(distorted_undistorted_grid, marker_color1), reversed_alpha);
 
 		
 		// draw label
 		std::string space = "    ";
+		const auto& d = intr.distortion;
 		std::string label = "k1=" + std::to_string(d.k1) + space + "k2=" + std::to_string(d.k2) + space + "k3=" + std::to_string(d.k3) + space + "p1=" + std::to_string(d.p1) + space + "p2=" + std::to_string(d.p2);
 		view.draw_text(cv::Rect(10, 2*height+20+border, 2*width+border-20, 20), label, viewer::center);
 		view.draw_text(cv::Rect(0, 0, width, 20), "no distortion");

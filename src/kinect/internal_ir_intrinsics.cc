@@ -1,7 +1,7 @@
-#include "lib/args.h"
-#include "lib/kinect_internal_parameters.h"
+#include "../lib/args.h"
 #include "../lib/intrinsics.h"
 #include "../lib/json.h"
+#include "lib/kinect_internal_parameters.h"
 #include <iostream>
 #include <cstdlib>
 

@@ -28,8 +28,7 @@ int main(int argc, const char* argv[]) {
 
 	
 	view.update_callback = [&]() {
-		int x = slider_x.value(), y = slider_y.value();
-		view_index idx(x, y);
+		view_index idx(x_slider, y_slider);
 		if(! datas.valid(idx)) return;
 		
 		cv::Mat_<cv::Vec3b> back_img;
@@ -43,7 +42,7 @@ int main(int argc, const char* argv[]) {
 		cv::Mat_<cv::Vec3b> shown_img;
 
 		feature_points fpoints = feature_points_for_view(cors, idx);
-		shown_img = visualize_feature_points(fpoints, back_img, datag.border());
+		shown_img = visualize_feature_points(fpoints, back_img, datag.image_border());
 	};
 
 	view.show_modal();

@@ -1,9 +1,9 @@
-#include "lib/args.h"
-#include "lib/live/grabber.h"
-#include "lib/kinect_internal_parameters.h"
+#include "../lib/args.h"
 #include "../lib/intrinsics.h"
 #include "../lib/viewer.h"
 #include "../lib/json.h"
+#include "lib/live/grabber.h"
+#include "lib/kinect_internal_parameters.h"
 #include <iostream>
 #include <cstdlib>
 

@@ -42,7 +42,6 @@ int horizontal_key;
 int horizontal_outreach;
 int vertical_key;
 int vertical_outreach;
-std::string dataset_group;
 
 using local_feature_index = std::ptrdiff_t;
 using correspondence_key_type = std::pair<local_feature_index, view_index>;
@@ -76,10 +75,10 @@ void add_correspondences(correspondences_type& cors, const flow_state& state) {
 }
 
 
-cv::Mat_<uchar> load_image(const dataset& datas, const view_index& idx) {
+cv::Mat_<uchar> load_image(const dataset_group& datag, const view_index& idx) {
 	static std::mutex disk_read_lock;
 	std::lock_guard<std::mutex> lock(disk_read_lock);
-	std::string image_filename = datas.view(idx).group_view(dataset_group).image_filename();
+	std::string image_filename = datag.view(idx).image_filename();
 	cv::Mat_<cv::Vec3b> col_img = load_texture(image_filename);
 	cv::Mat_<uchar> gray_img;
 	cv::cvtColor(col_img, gray_img, CV_BGR2GRAY);
@@ -88,8 +87,8 @@ cv::Mat_<uchar> load_image(const dataset& datas, const view_index& idx) {
 
 
 
-flow_state flow_to(const flow_state& origin_state, view_index dest_idx, const dataset& datas) {
-	cv::Mat_<uchar> dest_img = load_image(datas, dest_idx);
+flow_state flow_to(const flow_state& origin_state, view_index dest_idx, const dataset_group& datag) {
+	cv::Mat_<uchar> dest_img = load_image(datag, dest_idx);
 	
 	std::size_t features_count = origin_state.features_count();
 	
@@ -115,7 +114,8 @@ flow_state flow_to(const flow_state& origin_state, view_index dest_idx, const da
 }
 
 
-void do_horizontal_optical_flow(correspondences_type& cors, const view_index& reference_idx, const flow_state& mid_x_state, const dataset& datas, bool verb = false) {
+void do_horizontal_optical_flow(correspondences_type& cors, const view_index& reference_idx, const flow_state& mid_x_state, const dataset_group& datag, bool verb = false) {
+	const dataset& datas = datag.set();
 	int x_min = std::max(datas.x_min(), reference_idx.x - horizontal_outreach);
 	int x_max = std::min(datas.x_max(), reference_idx.x + horizontal_outreach);
 
@@ -124,7 +124,7 @@ void do_horizontal_optical_flow(correspondences_type& cors, const view_index& re
 	for(int x = mid_x_state.view_idx.x + datas.x_step(); x <= x_max; x += datas.x_step()) {
 		view_index idx(x, mid_x_state.view_idx.y);
 		print_flow_indicator(state.view_idx, idx);
-		flow_state new_state = flow_to(state, idx, datas);
+		flow_state new_state = flow_to(state, idx, datag);
 		add_correspondences(cors, new_state);
 		state = std::move(new_state);
 	}
@@ -134,20 +134,21 @@ void do_horizontal_optical_flow(correspondences_type& cors, const view_index& re
 	for(int x = mid_x_state.view_idx.x - datas.x_step(); x >= x_min; x -= datas.x_step()) {
 		view_index idx(x, mid_x_state.view_idx.y);
 		print_flow_indicator(state.view_idx, idx);
-		flow_state new_state = flow_to(state, idx, datas);
+		flow_state new_state = flow_to(state, idx, datag);
 		add_correspondences(cors, new_state);
 		state = std::move(new_state);
 	}
 }
 
 
-correspondences_type do_2d_optical_flow(const dataset& datas, const view_index& reference_idx, std::size_t max_wanted_features) {
+correspondences_type do_2d_optical_flow(const dataset_group& datag, const view_index& reference_idx, std::size_t max_wanted_features) {
 	std::cout << "doing optical flow from reference view " << reference_idx << std::endl;
 
+	const dataset& datas = datag.set();
 	int y_min = std::max(datas.y_min(), reference_idx.y - vertical_outreach);
 	int y_max = std::min(datas.y_max(), reference_idx.y + vertical_outreach);
 
-	cv::Mat_<uchar> center_image = load_image(datas, reference_idx);
+	cv::Mat_<uchar> center_image = load_image(datag, reference_idx);
 	
 	std::vector<cv::Point2f> center_positions;
 	cv::goodFeaturesToTrack(center_image, center_positions, max_wanted_features, 0.3, 7);
@@ -171,7 +172,7 @@ correspondences_type do_2d_optical_flow(const dataset& datas, const view_index& 
 		for(int y = reference_idx.y + datas.y_step(); y <= y_max; y += datas.y_step()) {
 			view_index idx(reference_idx.x, y);
 			print_flow_indicator(state.view_idx, idx);
-			flow_state new_state = flow_to(state, idx, datas);
+			flow_state new_state = flow_to(state, idx, datag);
 			add_correspondences(cors, new_state);
 			vertical_origins.push_back(new_state);
 			state = std::move(new_state);
@@ -183,7 +184,7 @@ correspondences_type do_2d_optical_flow(const dataset& datas, const view_index& 
 		for(int y = reference_idx.y - datas.y_step(); y >= y_min; y -= datas.y_step()) {
 			view_index idx(reference_idx.x, y);
 			print_flow_indicator(state.view_idx, idx);
-			flow_state new_state = flow_to(state, idx, datas);
+			flow_state new_state = flow_to(state, idx, datag);
 			add_correspondences(cors, new_state);
 			vertical_origins.push_back(new_state);
 			state = std::move(new_state);
@@ -196,7 +197,7 @@ correspondences_type do_2d_optical_flow(const dataset& datas, const view_index& 
 			correspondences_type hcors;
 			
 			const flow_state& origin_state = vertical_origins[i];
-			do_horizontal_optical_flow(hcors, reference_idx, origin_state, datas);
+			do_horizontal_optical_flow(hcors, reference_idx, origin_state, datag);
 									
 			#pragma omp critical
 			{
@@ -211,7 +212,7 @@ correspondences_type do_2d_optical_flow(const dataset& datas, const view_index& 
 	} else {
 		// 1D MODE
 	
-		do_horizontal_optical_flow(cors, reference_idx, center_state, datas, true);
+		do_horizontal_optical_flow(cors, reference_idx, center_state, datag, true);
 	}
 
 	return cors;
@@ -228,16 +229,17 @@ int main(int argc, const char* argv[]) {
 	horizontal_outreach = int_opt_arg(50);
 	vertical_key = int_opt_arg(80);
 	vertical_outreach = int_opt_arg(50);
-	dataset_group = string_opt_arg("");
+	std::string dataset_group_name = string_opt_arg("");
 
+	dataset_group datag = datas.group(dataset_group_name);
 
 	image_correspondences out_cors;
-	out_cors.dataset_group = dataset_group;
+	out_cors.dataset_group = dataset_group_name;
 	int global_feature_counter = 0;
 
 	auto add_optical_flow = [&](int ref_x, int ref_y) {
 		view_index reference_view_idx(ref_x, ref_y);
-		correspondences_type cors = do_2d_optical_flow(datas, reference_view_idx, max_features_count);
+		correspondences_type cors = do_2d_optical_flow(datag, reference_view_idx, max_features_count);
 		
 		std::map<local_feature_index, std::string> feature_names;
 		

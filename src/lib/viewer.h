@@ -42,7 +42,11 @@ public:
 	std::function<void(int event, int x, int y)> mouse_callback;
 
 	viewer(const std::string& title, int width, int height, bool resizeable = false);
+	viewer(const std::string& title, cv::Size sz, bool resizeable = false) :
+		viewer(title, sz.width, sz.height, resizeable) { }
 	viewer(int width, int height, bool resizeable = false);
+	viewer(cv::Size sz, bool resizeable = false) :
+		viewer(sz.width, sz.height, resizeable) { }
 	explicit viewer(const std::string& title, bool resizeable = false);
 	
 	viewer(const viewer&) = delete;
@@ -75,7 +79,7 @@ public:
 	void draw_depth(cv::Point pt, const cv::Mat_<float>& depth_img, float min_d, float max_d, real blend = 1.0)
 		{ draw_depth(cv::Rect(pt, depth_img.size()), depth_img, min_d, max_d, blend); }
 	
-	void draw_text(cv::Rect rect, const std::string& text, text_alignment);
+	void draw_text(cv::Rect rect, const std::string& text, text_alignment = left);
 	void draw_text(cv::Rect rect, const std::string& text, text_alignment, cv::Vec3b color);
 	void draw_2d_cross_indicator(cv::Rect rect, real value_x, real value_y, real max_abs_value);
 	void draw_2d_arrow_indicator(cv::Rect rect, real value_x, real value_y, real max_value);
@@ -115,7 +119,9 @@ public:
 	int slider_max() const;
 	
 	int value() const;
-	void set_value(int val); 
+	void set_value(int val);
+	
+	operator int () const { return value(); }
 };
 
 
@@ -131,6 +137,8 @@ public:
 	
 	real value() const;
 	void set_value(real val);
+	
+	operator real () const { return value(); }
 };
 
 

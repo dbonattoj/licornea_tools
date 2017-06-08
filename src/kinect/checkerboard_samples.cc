@@ -52,7 +52,7 @@ int main(int argc, const char* argv[]) {
 	rows = int_arg();
 	square_width = real_arg();
 	out_cors_set_filename = out_filename_arg();
-	out_images_dirname = out_filename_opt_arg();
+	std::string out_images_dirname = out_filename_opt_arg();
 	bool restore_from_images = bool_opt_arg("restore_from_images", false);
 
 	bool autosave = false;

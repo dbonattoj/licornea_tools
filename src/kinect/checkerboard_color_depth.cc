@@ -23,7 +23,7 @@ int main(int argc, const char* argv[]) {
 	int cols = int_arg();
 	int rows = int_arg();
 	real square_width = real_arg();
-	string reprojection_parameters_filename = in_filename_arg();
+	std::string reprojection_parameters_filename = in_filename_arg();
 	
 	std::cout << "loading reprojection parameters" << std::endl;
 	kinect_reprojection_parameters reprojection_parameters = decode_kinect_reprojection_parameters(import_json_file(reprojection_parameters_filename));

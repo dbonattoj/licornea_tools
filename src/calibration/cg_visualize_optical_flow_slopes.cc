@@ -41,8 +41,8 @@ int main(int argc, const char* argv[]) {
 	}
 		
 	std::cout << "drawing feature slopes" << std::endl;
-	cv::Mat_<cv::Vec3b> img = visualize_feature_points(fslopes, back_img, bord);
-	img = visualize_feature_slopes(fslopes, img, seg_width, exaggeration, 2, bord);
+	cv::Mat_<cv::Vec3b> img = visualize_feature_points(fslopes, back_img, datag.image_border());
+	img = visualize_feature_slopes(fslopes, img, seg_width, exaggeration, 2, datag.image_border());
 	
 	std::cout << "saving output visualization image" << std::endl;
 	cv::imwrite(visualization_filename, img);

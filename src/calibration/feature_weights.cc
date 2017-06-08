@@ -134,11 +134,11 @@ int main(int argc, const char* argv[]) {
 	view.update_callback = [&]() {
 		int x = x_slider.value(), y = y_slider.value();
 		view_index idx(x, y);
-		if(! datas.valid(idx))) return;
+		if(! datas.valid(idx)) return;
 
 		cv::Mat_<cv::Vec3b> shown_img;
 		{
-			std::string image_filename = datas.view(idx).group_view(dataset_group).image_filename();
+			std::string image_filename = datag.view(idx).image_filename();
 			cv::Mat_<uchar> img = cv::imread(image_filename, CV_LOAD_IMAGE_GRAYSCALE);
 			if(img.empty()) return;
 			cv::cvtColor(img, shown_img, CV_GRAY2BGR);
@@ -146,7 +146,7 @@ int main(int argc, const char* argv[]) {
 		if(image_opacity_slider.value() < 1.0) shown_img = shown_img * image_opacity_slider.value();
 
 		feature_points fpoints = feature_points_for_view(cors, idx);
-		std::map<std::string, real> point_weights = compute_feature_point_weights(fpoints.points, rad_pieces, arg_pieces);
+		std::map<std::string, real> point_weights = compute_feature_point_weights(fpoints.points, rad_pieces_slider, arg_pieces_slider);
 		
 		for(const auto& kv : fpoints.points) {
 			const std::string& feature_name = kv.first;
@@ -154,7 +154,7 @@ int main(int argc, const char* argv[]) {
 			real nweight = point_weights.at(feature_name);
 			real area = nweight * fpoints.points.size();
 			real rad = std::sqrt(area / pi);
-			cv::circle(shown_img, vec2_to_point(pt.position), max_dot_rad * rad, cv::Scalar(point_color), -1);
+			cv::circle(shown_img, vec2_to_point(pt.position), dot_size_slider * rad, cv::Scalar(point_color), -1);
 		}	
 	
 		view.clear(shown_img.size());

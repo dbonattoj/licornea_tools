@@ -15,13 +15,13 @@ void append_null_tail(std::ostream& output, std::streamsize length) {
 }
 
 
-void export_yuv_disparity(const char* filename, const cv::Mat_<uchar>& mat) {
+void export_yuv_disparity(std::string filename, const cv::Mat_<uchar>& mat) {
 	std::ofstream output(filename, std::ios::binary);
 	std::streamsize sz = mat.cols * mat.rows;
 	output.write(reinterpret_cast<const std::ofstream::char_type*>(mat.data), sz);
 	append_null_tail(output, sz);
 }
-void export_yuv_disparity(const char* filename, const cv::Mat_<ushort>& mat) {
+void export_yuv_disparity(std::string filename, const cv::Mat_<ushort>& mat) {
 	std::ofstream output(filename, std::ios::binary);
 	std::streamsize sz = mat.cols * mat.rows * 2;
 	output.write(reinterpret_cast<const std::ofstream::char_type*>(mat.data), sz);

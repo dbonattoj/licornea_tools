@@ -23,11 +23,11 @@ int main(int argc, const char* argv[]) {
 	dataset datas = dataset_arg();
 	image_correspondences cors = image_correspondences_arg();
 	std::string visualization_filename = out_filename_arg();
-	std::string dataset_group = cors.dataset_group;
 	std::string feature_name = string_arg();
 	int dot_radius = int_opt_arg(2);
 	
-	border bord = decode_border(get_or(datas.group_parameters(dataset_group), "border", json::object()));
+	dataset_group datag = datas.group(cors.dataset_group);
+	border bord = datag.image_border();
 
 	const image_correspondence_feature& feature = cors.features.at(feature_name);
 	view_index reference_idx = feature.reference_view;
@@ -35,7 +35,7 @@ int main(int argc, const char* argv[]) {
 	std::cout << "loading reference image" << std::endl;
 	cv::Mat_<cv::Vec3b> img;
 	{
-		std::string reference_image_filename = datas.view(reference_idx).group_view(dataset_group).image_filename();
+		std::string reference_image_filename = datag.view(reference_idx).image_filename();
 		cv::Mat_<cv::Vec3b> reference_image = cv::imread(reference_image_filename, CV_LOAD_IMAGE_COLOR);
 		cv::Mat_<uchar> reference_gray_img;
 		cv::cvtColor(reference_image, reference_gray_img, CV_BGR2GRAY);
