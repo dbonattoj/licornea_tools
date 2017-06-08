@@ -141,26 +141,51 @@ void do_horizontal_optical_flow(correspondences_type& cors, const view_index& re
 }
 
 
-std::vector<cv::Point2f> choose_reference_points(const cv::Mat_<uchar>& img, std::size_t max_wanted_points, const std::vector<vec2>& existing_points) {	
-	std::cout << "choosing features to track from reference image (wanted max: " << max_wanted_points << ")" << std::endl;
+std::vector<cv::Point2f> choose_reference_points(const cv::Mat_<uchar>& img, std::size_t max_wanted_features, const std::vector<vec2>& existing_points) {	
+	std::cout << "choosing features to track from reference image (wanted max: " << max_wanted_features << ")" << std::endl;
 	const real min_distance_between_features = 7;
 	const real min_distance_to_existing = 10;
-	const real quality_level = 0.3;
+	const real quality_level = 0.01;
+	const real existing_pieces_amount = 0.7;
+
+	int width = img.cols, height = img.rows;
 	
 	std::vector<cv::Point2f> positions;
-	cv::Mat_<uchar> far_from_existing_points_mask(img.size(), 255);
-
+	cv::Mat_<uchar> far_from_existing_points_mask(height, width);
+	far_from_existing_points_mask.setTo(255);
 	for(const vec2& pt : existing_points)
 		cv::circle(far_from_existing_points_mask, vec2_to_point(pt), min_distance_to_existing, 0, -1);
-		
-	cv::goodFeaturesToTrack(img, positions, max_wanted_points - existing_points.size(), quality_level, min_distance_between_features, far_from_existing_points_mask);
 
 	
+	auto get_piece_mask = [width, height](int piece) {
+		cv::Mat_<uchar> mask(height, width); mask.setTo(0);
+		int w = width/2, h = height/2;
+		switch(piece) {
+			case 0: mask(cv::Rect(0, 0, w, h)).setTo(255); break; // top-left
+			case 1: mask(cv::Rect(w, 0, w, h)).setTo(255); break; // top-right
+			case 2: mask(cv::Rect(0, h, w, h)).setTo(255); break; // bottom-left
+			case 3: mask(cv::Rect(w, h, w, h)).setTo(255); break; // bottom-right
+		}
+		return mask;
+	};
+	const int pieces_count = 4;
+
+	int wanted_new_features = max_wanted_features - existing_points.size()*existing_pieces_amount;
+
+	for(int piece = 0; piece < pieces_count; ++piece) {
+		cv::Mat_<uchar> piece_mask = get_piece_mask(piece);
+		int wanted = wanted_new_features / pieces_count;
+		cv::Mat_<uchar> mask = piece_mask & far_from_existing_points_mask;
+		std::vector<cv::Point2f> piece_positions;
+		cv::goodFeaturesToTrack(img, piece_positions, wanted, quality_level, min_distance_between_features, mask);
+		positions.insert(positions.end(), piece_positions.begin(), piece_positions.end());
+	}
+
 	if(existing_points.size() > 0) {
 		std::vector<cv::Point2f> near_positions;
-		int remaining_wanted_points = max_wanted_points - positions.size();
+		int remaining_wanted_features = max_wanted_features - positions.size();
 		cv::Mat_<uchar> near_to_existing_points_mask = (far_from_existing_points_mask == 0);
-		cv::goodFeaturesToTrack(img, near_positions, remaining_wanted_points, quality_level, min_distance_between_features, near_to_existing_points_mask);
+		cv::goodFeaturesToTrack(img, near_positions, remaining_wanted_features, quality_level, min_distance_between_features, near_to_existing_points_mask);
 		positions.insert(positions.end(), near_positions.begin(), near_positions.end());
 	}
 	
