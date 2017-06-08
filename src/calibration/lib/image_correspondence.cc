@@ -129,7 +129,45 @@ image_correspondences undistort(const image_correspondences& cors, const intrins
 }
 
 
+cv::Mat_<cv::Vec3b> visualize_view_points(const image_correspondence_feature& feature, const cv::Mat_<cv::Vec3b>& back_img, const cv::Vec3b& col, int dot_radius, const border& bord) {
+	cv::Mat_<cv::Vec3b> img;
+	back_img.copyTo(img);
 
+	bool is_2d = feature.points.begin()->first.is_2d();
+	if(! is_2d) {
+		// draw circle		
+		vec2 center_point = feature.points.at(feature.reference_view).position;
+		cv::Point center_point_cv(bord.left + center_point[0], bord.top + center_point[1]);
+		cv::circle(img, center_point_cv, 10, cv::Scalar(col), 2);
+		
+		// draw connecting line
+		std::vector<cv::Point> trail_points;
+		for(const auto& kv : feature.points) {
+			vec2 pt = kv.second.position;
+			pt[0] += bord.left; pt[1] += bord.top;
+			trail_points.emplace_back(pt[0], pt[1]);
+		}
+
+		std::vector<std::vector<cv::Point>> polylines = { trail_points };
+		cv::polylines(img, polylines, false, cv::Scalar(col), 2);
+		
+	} else {
+		// draw dot for each point
+		for(const auto& kv : feature.points) {
+			vec2 pt = kv.second.position;
+			pt[0] += bord.left; pt[1] += bord.top;
+			
+			cv::Point pt_cv(pt[0], pt[1]);
+			if(dot_radius <= 1) {
+				if(cv::Rect(cv::Point(), img.size()).contains(pt_cv)) img(pt_cv) = col;
+			} else {
+				cv::circle(img, pt_cv, 2, cv::Scalar(col), -1);
+			}
+		}
+	}
+
+	return img;
+}
 
 
 }

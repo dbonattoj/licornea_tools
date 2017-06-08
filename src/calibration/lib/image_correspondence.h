@@ -48,6 +48,8 @@ std::set<std::string> feature_names(const image_correspondences&);
 
 image_correspondences undistort(const image_correspondences&, const intrinsics&);
 
+cv::Mat_<cv::Vec3b> visualize_view_points(const image_correspondence_feature&, const cv::Mat_<cv::Vec3b>& back_img, const cv::Vec3b& col, int dot_size = 2, const border& = border());
+
 inline image_correspondences image_correspondences_arg()
 	{ return decode_image_correspondences(json_arg()); }
 
