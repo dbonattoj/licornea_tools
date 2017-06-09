@@ -7,6 +7,7 @@
 #include <mutex>
 #include <cmath>
 #include <map>
+#include <format.h>
 #include "lib/feature_points.h"
 #include "lib/image_correspondence.h"
 #include "../lib/args.h"
@@ -18,7 +19,7 @@
 using namespace tlz;
 
 const bool verbose = false;
-const bool small_subset_mode = true;
+const bool small_subset_mode = false;
 
 const real max_flow_err = 5.0;
 const real min_distance_between_features = 30;
@@ -323,6 +324,11 @@ correspondences_type do_2d_optical_flow(const dataset_group& datag, const view_i
 }
 
 
+std::string make_feature_name(int global_index) {
+	return fmt::format("feat{:04d}", global_index);
+}
+
+
 
 int main(int argc, const char* argv[]) {
 	get_args(argc, argv, "dataset_parameters.json out_image_correspondences.json [max_feature_count=100] [horiz_key=80] [horiz_outreach=50] [vert_key=80] [vert_outreach=50] [dataset_group]");
@@ -365,7 +371,7 @@ int main(int argc, const char* argv[]) {
 			const vec2& position = kv.second;
 			
 			std::string& feature_name = feature_names[local_feature_idx];
-			if(feature_name.empty()) feature_name = "feat" + std::to_string(global_feature_counter++);
+			if(feature_name.empty()) feature_name = make_feature_name(global_feature_counter++);
 			
 			image_correspondence_feature& feature = out_cors.features[feature_name];
 			feature.reference_view = reference_view_idx;

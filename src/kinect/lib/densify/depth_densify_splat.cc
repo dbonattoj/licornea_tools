@@ -7,6 +7,9 @@ namespace tlz {
 
 
 void depth_densify_splat::densify(const std::vector<sample>& orig_samples, cv::Mat_<real>& out, cv::Mat_<uchar>& out_mask) {
+	out = cv::Mat_<real>(texture_height, texture_width);
+	out_mask = cv::Mat_<uchar>(texture_height, texture_width);
+
 	std::vector<sample> samples = orig_samples;
 	auto cmp = [](const sample& a, const sample& b) { return (a.color_depth > b.color_depth); };
 	std::sort(samples.begin(), samples.end(), cmp);
@@ -23,7 +26,9 @@ void depth_densify_splat::densify(const std::vector<sample>& orig_samples, cv::M
 		
 		cv::circle(out, cv::Point(sx, sy), rad, new_d, -1);
 		cv::circle(out_mask, cv::Point(sx, sy), rad, 0xff, -1);
-	}	
+	}
+	
+	std::cout << "done" << std::endl;
 }
 
 }

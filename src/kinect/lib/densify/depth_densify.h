@@ -17,6 +17,7 @@ public:
 	virtual ~depth_densify_base() = default;
 
 	virtual void densify(const std::vector<sample>& samples, cv::Mat_<real>& out, cv::Mat_<uchar>& out_mask) = 0;
+	void densify(const std::vector<sample>& samples, cv::Mat_<real>& out);
 };
 
 std::unique_ptr<depth_densify_base> make_depth_densify(const std::string& method);

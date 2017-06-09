@@ -7,6 +7,7 @@
 #include "lib/live/grabber.h"
 #include "lib/live/checkerboard.h"
 #include "lib/kinect_reprojection.h"
+#include "lib/densify/depth_densify.h"
 #include <string>
 #include <cassert>
 #include <fstream>
@@ -36,50 +37,28 @@ int main(int argc, const char* argv[]) {
 	auto& min_d = view.add_int_slider("depth min ", 0, 0, 20000);
 	auto& max_d = view.add_int_slider("depth max", 6000, 0, 20000);
 	auto& granularity = view.add_int_slider("granularity", 15, 1, 60);
-	auto& scaledown = view.add_int_slider("scaledown (%)", 30, 10, 100);
 	auto& superimpose = view.add_int_slider("superimpose (%)", 0, 0, 100);
 		
 	depth_mode used_depth_mode = depth_mode::reprojected;
 
-	cv::Mat_<float> reprojected_depth(1080, 1920);
-	cv::Mat_<float> ir_z_buffer(1080, 1920);
+	auto densifier = make_depth_densify("fast");
+	cv::Mat_<real> reprojected_depth(1080, 1920);
 
 	std::cout << "running viewer... (esc to end)" << std::endl; 
 	bool running = true;
 	while(running) {
-		float scale = scaledown.value() / 100.0;
-		int scaled_w = 1920 * scale;
-		int scaled_h = 1080 * scale;
-
 		grab.grab();
 		view.clear();
 				
 		cv::Mat_<cv::Vec3b> color = grab.get_color_frame();
-		cv::Mat_<float> depth_ = grab.get_depth_frame();
+		cv::Mat_<real> depth = grab.get_depth_frame();
 		
-		cv::Mat_<float> depth = depth_;
-
 		// reproject depth
 		auto samples = reprojection.reproject_ir_to_color_samples(depth, depth, true);
-
-		ir_z_buffer.setTo(INFINITY);
-		reprojected_depth.setTo(0.0);
-		for(const auto& samp : samples) {
-			int scx = scale * samp.color_coordinates[0], scy = scale * samp.color_coordinates[1];
-			if(scx < 0 || scx >= scaled_w || scy < 0 || scy >= scaled_h) continue;
-
-			real d;
-			if(used_depth_mode == depth_mode::original) d = samp.ir_depth;
-			else if(used_depth_mode == depth_mode::reprojected) d = samp.color_depth;
-			
-			float& old_ir_z = ir_z_buffer(scy, scx);
-			if(samp.ir_depth > old_ir_z) continue;
-			reprojected_depth(scy, scx) = d;
-			old_ir_z = samp.ir_depth;
-		}
-		cv::Mat_<float> used_reprojected_depth;
-		cv::resize(cv::Mat(reprojected_depth, cv::Rect(0, 0, scaled_w, scaled_h)), used_reprojected_depth, cv::Size(1920, 1090), cv::INTER_NEAREST);
-
+		if(used_depth_mode == depth_mode::original)
+			for(auto& sample : samples) sample.color_depth = sample.ir_depth;
+		
+		densifier->densify(samples, reprojected_depth);
 
 		// detect checkerboard, compare calculated&measured(+reprojected) depth
 		checkerboard color_chk = detect_color_checkerboard(color, cols, rows, square_width);
@@ -90,7 +69,7 @@ int main(int argc, const char* argv[]) {
 		
 		std::vector<checkerboard_pixel_depth_sample> pixel_depths;
 		if(color_chk && granularity.value() > 0) {		
-			pixel_depths = checkerboard_pixel_depth_samples(color_chk, used_reprojected_depth, granularity.value());
+			pixel_depths = checkerboard_pixel_depth_samples(color_chk, reprojected_depth, granularity.value());
 			checkerboard_extrinsics ext = estimate_checkerboard_extrinsics(color_chk, color_intr);
 			calculate_checkerboard_pixel_depths(color_intr, ext, pixel_depths);
 			count = pixel_depths.size();
@@ -115,7 +94,7 @@ int main(int argc, const char* argv[]) {
 		view.draw(cv::Rect(0, 30, 754, 424), shown_color);
 
 		cv::Rect depth_rect(754, 30, 754, 424);
-		view.draw(depth_rect, visualize_checkerboard_pixel_samples(view.visualize_depth(used_reprojected_depth, min_d.value(), max_d.value()), pixel_depths, 4));
+		view.draw(depth_rect, visualize_checkerboard_pixel_samples(view.visualize_depth(reprojected_depth, min_d.value(), max_d.value()), pixel_depths, 4));
 
 		if(superimpose.value() > 0) {
 			float blend = superimpose.value() / 100.0;

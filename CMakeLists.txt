@@ -173,6 +173,7 @@ if(WITH_LIBFREENECT2)
 	program(ir_intrinsic_reprojection kinect kinect_lib ${FREENECT2_LIB})
 	program(color_intrinsic_reprojection kinect kinect_lib ${FREENECT2_LIB})
 	program(checkerboard_color_depth kinect kinect_lib ${FREENECT2_LIB})
+	program(parallel_wall kinect kinect_lib ${FREENECT2_LIB})
 endif()
 
 

@@ -7,6 +7,9 @@ namespace tlz {
 
 
 void depth_densify_mine::densify(const std::vector<sample>& orig_samples, cv::Mat_<real>& out_, cv::Mat_<uchar>& out_mask) {
+	out_ = cv::Mat_<real>(texture_height, texture_width);
+	out_mask = cv::Mat_<uchar>(texture_height, texture_width);
+
 	std::vector<sample> samples = orig_samples;
 	auto cmp = [](const sample& a, const sample& b) { return (a.color_depth > b.color_depth); };
 	std::sort(samples.begin(), samples.end(), cmp);
@@ -51,6 +54,7 @@ void depth_densify_mine::densify(const std::vector<sample>& orig_samples, cv::Ma
 	int rad = 5;
 	int rad_sq = rad*rad;
 
+	#pragma omp parallel for
 	for(int px = 0; px < texture_width; ++px)
 	for(int py = 0; py < texture_height; ++py) {
 		uchar& mask = out_mask(py, px);

@@ -185,6 +185,8 @@ void viewer::draw_2d_cross_indicator(cv::Rect rect, real value_x, real value_y, 
 	polylines.clear();
 	polylines.push_back({ cv::Point(indicator_x-indicator_rad, indicator_y), cv::Point(indicator_x+indicator_rad, indicator_y) });
 	polylines.push_back({ cv::Point(indicator_x, indicator_y-indicator_rad), cv::Point(indicator_x, indicator_y+indicator_rad) });
+	
+	cv::polylines(shown_image_, polylines, false, cv::Scalar(white), 5);
 	cv::polylines(shown_image_, polylines, false, cv::Scalar(indicator_color), 3);
 }
 
