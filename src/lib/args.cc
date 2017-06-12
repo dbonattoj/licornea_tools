@@ -19,6 +19,12 @@ void get_args(int argc, const char* argv[], const std::string& usage) {
 }
 
 
+bool batch_mode() {
+	const char* batch_mode_env = std::getenv("LICORNEA_BATCH_MODE");
+	if(batch_mode_env == nullptr) return false;
+	else return (std::string(batch_mode_env) == "1");
+}
+
 args_list::args_list(int argc, const char* argv[], const std::string& usage) :
 	executable_name_(argv[0]),
 	usage_(usage),
@@ -61,6 +67,17 @@ std::string in_filename_arg() {
 
 std::string out_filename_arg() {
 	const std::string& filename = string_arg();
+	make_parent_directories(filename);
+	if(file_exists(filename)) {
+		if(batch_mode()) {
+			std::cout << "overwriting existing output file " << filename << std::endl;
+		} else {
+			std::cout << "output file " << filename << " exists. Proceed? [y/n] ";
+			char answer;
+			std::cin >> answer;
+			if(answer != 'y' && answer != 'Y') throw std::runtime_error("not overwriting output file, exiting");
+		}
+	}
 	return filename;
 }
 

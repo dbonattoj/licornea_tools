@@ -117,4 +117,11 @@ feature_slopes merge_multiview_feature_slopes(const feature_slopes& a, const fea
 }
 
 
+feature_slopes feature_slopes_arg() {
+	std::cout << "loading feature slopes" << std::endl;
+	return decode_feature_slopes(json_arg());
+}
+
+
+
 }

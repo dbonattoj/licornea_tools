@@ -2,12 +2,10 @@
 #include "../lib/args.h"
 #include "../lib/opencv.h"
 #include "../lib/json.h"
-#include "../lib/intrinsics.h"
 #include "../lib/misc.h"
 #include "../lib/viewer.h"
 #include "lib/common.h"
 #include "lib/live/grabber.h"
-#include "lib/live/checkerboard.h"
 #include "lib/kinect_reprojection_parameters.h"
 #include "lib/kinect_reprojection.h"
 #include "lib/densify/depth_densify.h"
@@ -79,7 +77,7 @@ computation_result compute_depth_slopes(const cv::Mat_<real>& depth) {
 
 int main(int argc, const char* argv[]) {
 	get_args(argc, argv, "reprojection.json");
-	std::string reprojection_parameters_filename = in_filename_arg();
+	std::string reprojection_parameters_filename = in_filename_opt_arg("reprojection.json");
 
 	std::cout << "loading reprojection parameters" << std::endl;
 	kinect_reprojection_parameters reprojection_parameters = decode_kinect_reprojection_parameters(import_json_file(reprojection_parameters_filename));
@@ -92,7 +90,6 @@ int main(int argc, const char* argv[]) {
 	auto& border_x_slider = view.add_int_slider("border X (px)", 280, 250, texture_width/2 - 50);
 	auto& border_y_slider = view.add_int_slider("border Y (px)", 100, 0, texture_height/2 - 50);
 	auto& indicator_precision_slider = view.add_real_slider("precision", 1.0, 0.1, 2.0);
-
 
 	auto densifier = make_depth_densify("fast");
 	cv::Mat_<real> reprojected_depth;

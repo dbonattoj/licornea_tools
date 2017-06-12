@@ -30,6 +30,7 @@ public:
 args_list& args();
 void get_args(int argc, const char* argv[], const std::string& usage);
 
+bool batch_mode();
 
 std::string string_arg();
 inline std::string string_opt_arg(const std::string& def = "")

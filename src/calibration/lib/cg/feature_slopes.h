@@ -40,8 +40,7 @@ feature_slopes merge_multiview_feature_slopes(const feature_slopes& a, const fea
 
 cv::Mat_<cv::Vec3b> visualize_feature_slopes(const feature_slopes&, const cv::Mat_<cv::Vec3b>& back_img, int width = 200, real exaggeration = 1.0, int thickness = 2, const border& = border());
 
-inline feature_slopes feature_slopes_arg()
-	{ return decode_feature_slopes(json_arg()); }
+feature_slopes feature_slopes_arg();
 
 
 }

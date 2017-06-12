@@ -289,4 +289,11 @@ std::ostream& operator<<(std::ostream& stream, const view_index& idx) {
 }
 
 
+dataset dataset_arg() {
+	std::cout << "loading dataset parameters" << std::endl;
+	return dataset(in_filename_arg());
+}
+
+
+
 }

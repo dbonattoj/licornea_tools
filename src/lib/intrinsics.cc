@@ -116,5 +116,11 @@ std::vector<vec2> distort_points(const intrinsics& intr, const std::vector<vec2>
 }
 
 
+intrinsics intrinsics_arg() {
+	std::cout << "loading intrinsics" << std::endl;
+	return decode_intrinsics(json_arg());
+}
+
+
 
 }

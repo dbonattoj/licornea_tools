@@ -9,6 +9,9 @@ bool file_exists(const std::string& filename);
 
 void make_directory(const std::string& dirname);
 
+std::string filename_parent(const std::string& filename);
+void make_parent_directories(const std::string& filename);
+
 }
 
 #endif

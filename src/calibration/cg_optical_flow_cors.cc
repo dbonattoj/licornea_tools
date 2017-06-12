@@ -21,7 +21,7 @@ using namespace tlz;
 const bool verbose = false;
 const bool small_subset_mode = false;
 
-const real max_flow_err = 5.0;
+const real max_flow_err = 4.0;
 const real min_distance_between_features = 30;
 const real min_distance_to_existing_features = 50;
 const real features_quality_level = 0.5;

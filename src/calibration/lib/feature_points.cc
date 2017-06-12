@@ -130,4 +130,11 @@ cv::Mat_<cv::Vec3b> visualize_feature_points(const feature_points& fpoints, cons
 }
 
 
+feature_points feature_points_arg() {
+	std::cout << "loading feature points" << std::endl;
+	return decode_feature_points(json_arg());
+}
+
+
+
 }

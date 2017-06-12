@@ -108,4 +108,16 @@ border maximal_border(const view_homographies& homs, real width, real height) {
 }
 
 
+view_homography homography_arg() {
+	std::cout << "loading view homography" << std::endl;
+	return decode_view_homography(json_arg());
+}
+
+view_homographies homographies_arg() {
+	std::cout << "loading view homographies" << std::endl;
+	return decode_view_homographies(json_arg());
+}
+
+
+
 }

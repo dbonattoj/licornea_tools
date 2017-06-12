@@ -32,11 +32,8 @@ border maximal_border(const view_homography&, real width, real height);
 border maximal_border(const view_homographies&, real width, real height);
 
 
-inline view_homography homography_arg()
-	{ return decode_view_homography(json_arg()); }
-
-inline view_homographies homographies_arg()
-	{ return decode_view_homographies(json_arg()); }
+view_homography homography_arg();
+view_homographies homographies_arg();
 
 
 }

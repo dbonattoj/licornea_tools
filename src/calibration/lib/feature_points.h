@@ -40,8 +40,7 @@ std::vector<vec2> positions(const feature_points&);
 
 cv::Mat_<cv::Vec3b> visualize_feature_points(const feature_points&, const cv::Mat_<cv::Vec3b>& back_img, const border& = border());
 
-inline feature_points feature_points_arg()
-	{ return decode_feature_points(json_arg()); }
+feature_points feature_points_arg();
 
 }
 

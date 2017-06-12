@@ -151,8 +151,7 @@ public:
 	dataset_view view(view_index) const;
 };
 
-inline dataset dataset_arg()
-	{ return dataset(in_filename_arg()); }
+dataset dataset_arg();
 
 }
 

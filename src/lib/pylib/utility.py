@@ -10,34 +10,27 @@ def clamp(minvalue, value, maxvalue):
 def tools_directory():
 	return os.path.dirname(os.path.dirname(os.path.realpath(sys.argv[0])))
 
+
 def call_tool(tool, args):
 	if running_on_windows():
 		tool = tool + ".exe"
+		
+	args = [str(arg) for arg in args]
+	full_args = [os.path.join(tools_directory(), tool)] + args
 	
-	args = [str(arg) for arg in args]
-	full_args = [os.path.join(tools_directory(), tool)] + args
-	if verbose:
-		print "calling {}".format(tool)
-		subprocess.check_call(full_args)
-	else:
-		try:
-			subprocess.check_output(full_args)
-		except subprocess.CalledProcessError as err:
-			print "{} failed. output:\n{}".format(tool, err.output)
-			raise
-
-
-def call_tool_collect_output(tool, args):
-	if running_on_windows():
-		tool = tool + ".exe"
-	args = [str(arg) for arg in args]
-	full_args = [os.path.join(tools_directory(), tool)] + args
+	env = os.environ.copy()
+	env["LICORNEA_BATCH_MODE"] = "1"
+	
 	if verbose: print "calling {}".format(tool)
 	try:
-		return subprocess.check_output(full_args)
+		return subprocess.check_output(full_args, env=env)
 	except subprocess.CalledProcessError as err:
 		print "{} failed. output:\n{}".format(tool, err.output)
 		raise
+
+def call_tool_collect_output(tool, args):
+	return call_tool(tool, args)
+
 
 def yuv2png(yuv, png, width, height):
 	size = "{}x{}".format(width, height)
