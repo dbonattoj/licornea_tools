@@ -101,9 +101,9 @@ int main(int argc, const char* argv[]) {
 	std::size_t ref_grid_x_size = ref_x_positions.size();
 	std::size_t ref_grid_y_size = ref_y_positions.size();
 	
-	/*
+	
 	auto get_ref_idx = [&](int gx, int gy) {
-		return view_index(ref_x_positions(gx), ref_y_positions(gy));
+		return view_index(ref_x_positions.at(gx), ref_y_positions.at(gy));
 	};
 	for(int gx = 0; gx < ref_grid_x_size.size(); ++gx)
 	for(int gy = 0; gy < ref_grid_y_size.size(); ++gy) {
@@ -139,14 +139,31 @@ int main(int argc, const char* argv[]) {
 			}
 		}
 		
+		if(displacements_weights_sum == 0.0)
+			throw std::runtime_error("could not compute displacement from ref " + encode_view_index(ref_a) + " to ref " + encode_view_index(ref_b));
+		
 		return displacements_sum / displacements_weights_sum;
+	};
+	
+	auto add_reference_camera_position = [&](view_index ref_a, view_index ref_b) {
+		vec2 displacement = reference_camera_displacement(ref_a, ref_b);
+		absolute_reference_camera_positions[ref_b] = absolute_reference_camera_positions.at(ref_a) + displacement;
 	};
 	
 
 	int root_rx = ref_grid_x_size/2, root_ry = ref_grid_y_size/2;
 	absolute_reference_camera_positions[get_ref_idx(root_rx, root_ry)] = vec2(0.0, 0.0);
+	for(int rx = root_rx - 1; rx >= 0; rx--) {
+		add_reference_camera_position(get_ref_idx(rx+1, root_ry), get_ref_idx(rx, root_ry));
+		for(ry = root_ry - 1; ry >= 0; ry--) add_reference_camera_position(get_ref_idx(rx, ry+1), get_ref_idx(rx, ry));
+		for(ry = root_ry + 1; ry < ref_grid_y_size; ry++) add_reference_camera_position(get_ref_idx(rx, ry-1), get_ref_idx(rx, ry));
+	}
+	for(int rx = root_rx + 1; rx < ref_grid_x_size; rx++) {
+		add_reference_camera_position(get_ref_idx(rx-1, root_ry), get_ref_idx(rx, root_ry));
+		for(ry = root_ry - 1; ry >= 0; ry--) add_reference_camera_position(get_ref_idx(rx, ry+1), get_ref_idx(rx, ry));
+		for(ry = root_ry + 1; ry < ref_grid_y_size; ry++) add_reference_camera_position(get_ref_idx(rx, ry-1), get_ref_idx(rx, ry));		
+	}
 	
-	*/
 	
 /*
 	std::map<view_index, vec2> absolute_target_camera_positions;
