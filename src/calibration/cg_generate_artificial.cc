@@ -126,7 +126,7 @@ int main(int argc, const char* argv[]) {
 	
 	
 	std::cout << "saving correspondences" << std::endl;
-	export_json_file(encode_image_correspondences(cors), out_datas_dir + "/cors.json");
+	export_image_corresponcences(cors, out_datas_dir + "/cors.json");
 	
 	
 	std::cout << "saving cameras" << std::endl;

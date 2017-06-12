@@ -24,7 +24,9 @@ int main(int argc, const char* argv[]) {
 	
 	dataset_group datag = datas.group(dataset_group_name);
 		
-	viewer view("Image Correspondences Viewer", datag.image_size_with_border(), true);
+	cv::Size sz = datag.image_size_with_border();
+	sz.height += 20;
+	viewer view("Image Correspondences Viewer", sz, true);
 	
 	auto feature_names_s = feature_names(cors);
 	std::vector<std::string> feature_names(feature_names_s.begin(), feature_names_s.end());
@@ -39,6 +41,8 @@ int main(int argc, const char* argv[]) {
 		
 		if(! datas.valid(idx)) return;
 		
+		view.clear();
+		
 		cv::Mat_<cv::Vec3b> img;
 		{
 			std::string image_filename = datag.view(idx).image_filename();
@@ -51,6 +55,7 @@ int main(int argc, const char* argv[]) {
 		img = visualize_view_points(feature, img, col, 2, datag.image_border());
 
 		view.draw(cv::Point(0, 0), img);
+		view.draw_text(cv::Rect(10, sz.height-20, sz.width-20, 20), feature_name);
 	};
 
 	view.show_modal();

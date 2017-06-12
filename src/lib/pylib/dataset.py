@@ -98,11 +98,6 @@ class Dataset:
 		if "y_index_range" in self.parameters:
 			self.y_index_range = self.parameters["y_index_range"]		
 
-	def group_parameters(self, grp):
-		if grp is None or grp == "": return self.parameters
-		elif grp in self.parameters: return self.parameters[grp]
-		else: raise Exception("no {} group".format(grp))
-
 	def filepath(self, relpath):
 		return os.path.join(self.dirname, relpath)		
 
@@ -161,14 +156,22 @@ class Dataset:
 		else: return 0
 	
 	def valid(self, x, y=None):
-		if self.is_2d(): return self.x_valid(x) && self.y_valid(y)
+		if self.is_2d(): return self.x_valid(x) and self.y_valid(y)
 		else: return self.x_valid(x)
 	
 	def indices(self):
 		if self.is_2d():
-			for y in self.y_indices(): for x in self.x_indices(): yield (x, y)
+			for y in self.y_indices():
+				for x in self.x_indices():
+					yield (x, y)
 		else:
-			for x in self.x_indices(): yield (x, None)
+			for x in self.x_indices():
+				yield (x, None)
+
+	def group(self, grp):
+		if grp is None or grp == "": return DatasetGroup(self, None)
+		elif grp in self.parameters: return DatasetGroup(self, grp)
+		else: raise Exception("no {} group".format(grp))
 
 	def view(self, x, y=None):
 		if y is None:

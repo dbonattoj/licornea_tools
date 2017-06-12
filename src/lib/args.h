@@ -41,8 +41,7 @@ inline std::string in_filename_opt_arg(const std::string& def = "")
 	{ return (args().has_next_arg() ? in_filename_arg() : def); }
 
 std::string out_filename_arg();
-inline std::string out_filename_opt_arg(const std::string& def = "")
-	{ return (args().has_next_arg() ? out_filename_arg() : def); }
+std::string out_filename_opt_arg(const std::string& def = "");
 
 long int_arg();
 inline long int_opt_arg(long def)

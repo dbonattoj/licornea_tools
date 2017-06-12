@@ -46,7 +46,7 @@ def main(parameters_filename, cameras_filename, left_idx, virtual_idx, right_idx
 	datas = Dataset(parameters_filename)
 	
 	par = datas.parameters
-	vsrs_par = datas.group("vsrs").parameters
+	vsrs_par = datas.group("vsrs").parameters()
 	
 	left_view = datas.view(left_idx).group_view("vsrs")
 	virtual_view = datas.view(virtual_idx).group_view("vsrs")

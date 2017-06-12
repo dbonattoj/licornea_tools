@@ -2,19 +2,20 @@
 from pylib import *
 import sys, os, json, shutil
 
+datas = None
+datag = None
 simulate = False
-dataset_group = ""
 
 image = True
 depth = True
 
-overwrite_image = True
-overwrite_depth = True
+overwrite_image = False
+overwrite_depth = False
 
 def process_view(x, y):	
 	if verbose: print "view x={}, y={}".format(x, y)
 	
-	view = dataset.view(x, y).group_view(dataset_group)
+	view = datag.view(x, y)
 	vsrs_view = view.group_view("vsrs")
 	
 	if image:
@@ -52,6 +53,7 @@ if __name__ == '__main__':
 	parameters_filename = sys.argv[1]
 	if len(sys.argv) > 2:
 		if sys.argv[2] == "simulate": simulate = True
+	dataset_group = ""
 	if len(sys.argv) > 3:
 		dataset_group = sys.argv[3]
 
@@ -60,7 +62,8 @@ if __name__ == '__main__':
 		parallel = False
 		verbose = True
 
-	dataset = Dataset(parameters_filename)
+	datas = Dataset(parameters_filename)
+	datag = datas.group(dataset_group)
 	
 	indices = [idx for idx in datas.indices()]
 	

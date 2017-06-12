@@ -67,6 +67,7 @@ std::string in_filename_arg() {
 
 std::string out_filename_arg() {
 	const std::string& filename = string_arg();
+	if(filename == "-") throw std::runtime_error("expected filename argument, not -");
 	make_parent_directories(filename);
 	if(file_exists(filename)) {
 		if(batch_mode()) {
@@ -79,6 +80,17 @@ std::string out_filename_arg() {
 		}
 	}
 	return filename;
+}
+
+std::string out_filename_opt_arg(const std::string& def) {
+	if(! args().has_next_arg()) {
+		return def;
+	} else if(args().next_arg_is("-")) {
+		args().next_arg();
+		return def;
+	} else {
+		return out_filename_arg();
+	}
 }
 
 long int_arg() {

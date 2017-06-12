@@ -121,6 +121,7 @@ program(cg_unrotate_depth_map calibration calibration_lib)
 program(cg_filter_features calibration calibration_lib)
 program(estimate_homographies_for_cors calibration calibration_lib)
 program(homographies_to_cors calibration calibration_lib)
+program(copy_cors calibration calibration_lib)
 
 py_program(cg_warp_images calibration)
 

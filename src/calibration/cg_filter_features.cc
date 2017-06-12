@@ -7,10 +7,11 @@ using namespace tlz;
 const bool verbose = true;
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv, "dataset_parameters.json cors.json out_cors.json [expected_x_count] [expected_y_count]");
+	get_args(argc, argv, "dataset_parameters.json cors.json out_cors.json [use_depth?] [expected_x_count] [expected_y_count]");
 	dataset datas = dataset_arg();
 	image_correspondences cors = image_correspondences_arg();
 	std::string out_cors_filename = out_filename_arg();
+	bool use_depth = bool_opt_arg("use_depth", false);
 	int expected_x_count = int_opt_arg(300);
 	int expected_y_count = int_opt_arg(22);
 	
@@ -21,6 +22,7 @@ int main(int argc, const char* argv[]) {
 	const real min_completion = 0.5;
 	const real max_horizontal_y_diff = 10.0;
 	const real max_vertical_x_diff = 10.0;
+	const real max_depth_diff = 40.0;
 	
 	auto filter_feature = [&](image_correspondence_feature& feature) -> bool {
 		auto have = [&feature](int x, int y) -> bool {
@@ -29,6 +31,9 @@ int main(int argc, const char* argv[]) {
 		};
 		auto pos = [&feature](int x, int y) -> vec2 {
 			return feature.points.at(view_index(x, y)).position;
+		};
+		auto depth = [&feature](int x, int y) -> real {
+			return feature.points.at(view_index(x, y)).depth;
 		};
 
 
@@ -96,6 +101,22 @@ int main(int argc, const char* argv[]) {
 				return false;
 			}
 		}
+		
+		if(use_depth) {
+			real min_d = +INFINITY, max_d = 0.0;
+			for(int x = datas.x_min(); x <= datas.x_max(); x += datas.x_step())
+			for(int y = datas.y_min(); y <= datas.y_max(); y += datas.y_step()) {
+				if(! have(x, y)) continue;
+				real d = depth(x, y);
+				if(d == 0.0 || std::isnan(d)) continue;
+				if(d < min_d) min_d = d;
+				if(d > max_d) max_d = d;
+			}
+			if(max_d - min_d > max_depth_diff) {
+				if(verbose) std::cout << "depth diff: " << (max_d - min_d) << " > " << max_depth_diff << std::endl;
+				return false;
+			} 
+		}
 	
 		std::cout << "accepted" << std::endl;
 		return true;
@@ -119,5 +140,5 @@ int main(int argc, const char* argv[]) {
 	
 	std::cout << "keeping " << out_cors.features.size() << " of " << cors.features.size() << " features" << std::endl;
 	
-	export_json_file(encode_image_correspondences(out_cors), out_cors_filename);
+	export_image_corresponcences(out_cors, out_cors_filename);
 }

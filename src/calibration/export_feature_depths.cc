@@ -38,7 +38,10 @@ int main(int argc, const char* argv[]) {
 		for(int x : datas.x_indices()) {
 			depths_stream << ' ';
 			view_index view_idx(x, y);
-			const feature_point& pt = feature.points.at(view_idx);
+			
+			auto pt_it = feature.points.find(view_idx);
+			if(pt_it == feature.points.end()) continue;
+			const feature_point& pt = pt_it->second;
 						
 			real depth = pt.depth;
 			if(depth != 0.0) depths_stream << depth; 

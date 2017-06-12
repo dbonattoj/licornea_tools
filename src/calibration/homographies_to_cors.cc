@@ -43,5 +43,5 @@ int main(int argc, const char* argv[]) {
 		}
 	}
 	
-	export_json_file(encode_image_correspondences(dst_cors), out_dst_cors_filename);
+	export_image_corresponcences(dst_cors, out_dst_cors_filename);
 }

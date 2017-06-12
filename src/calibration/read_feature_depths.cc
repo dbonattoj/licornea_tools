@@ -16,12 +16,12 @@
 
 using namespace tlz;
 
-
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv, "dataset_parameters.json in_cors.json out_cors.json");
+	get_args(argc, argv, "dataset_parameters.json in_cors.json out_cors.json [xy_outreach=0]");
 	dataset datas = dataset_arg();
 	image_correspondences cors = image_correspondences_arg();
 	std::string out_cors_filename = out_filename_arg();
+	int xy_outreach = int_opt_arg(0);
 			
 	std::cout << "for each view, reading feature depths" << std::endl;
 	
@@ -38,15 +38,28 @@ int main(int argc, const char* argv[]) {
 			
 			feature_point& fpoint = fpoints.at(view_idx);
 			int x = fpoint.position[0], y = fpoint.position[1];
-			if(x < 0 || x >= depth.cols || y < 0 || y >= depth.rows) continue;
-			ushort depth_value = depth(y, x);
 			
-			if(depth_value != 0) fpoint.depth = depth_value;
+			if(xy_outreach == 0) {
+				if(x < 0 || x >= depth.cols || y < 0 || y >= depth.rows) continue;
+				ushort depth_value = depth(y, x);
+				if(depth_value != 0) fpoint.depth = depth_value;
+				
+			} else {
+				ushort max_depth_value = 0.0;
+				for(int y_ = y - xy_outreach; y_ <= y + xy_outreach; y_++)
+				for(int x_ = x - xy_outreach; x_ <= x + xy_outreach; x_++) {
+					if(x_ < 0 || x_ >= depth.cols || y_ < 0 || y_ >= depth.rows) continue;
+					ushort depth_value = depth(y, x);
+					if(depth_value > max_depth_value) max_depth_value = depth_value;
+				}
+				if(max_depth_value != 0) fpoint.depth = max_depth_value;
+				
+			}
 		}
 
 	}
 	
 	std::cout << "saving correspondences with depths" << std::endl;
-	export_json_file(encode_image_correspondences(cors), out_cors_filename);	
+	export_image_corresponcences(cors, out_cors_filename);	
 }
 

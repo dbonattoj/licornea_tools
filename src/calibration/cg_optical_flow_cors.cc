@@ -395,7 +395,7 @@ int main(int argc, const char* argv[]) {
 	}
 
 	std::cout << "\nsaving image correspondences" << std::endl;
-	export_json_file(encode_image_correspondences(out_cors), out_cors_filename);
+	export_image_corresponcences(out_cors, out_cors_filename);
 	
 	std::cout << "done" << std::endl;
 }

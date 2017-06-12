@@ -29,8 +29,8 @@ void do_depth_reprojection(const cv::Mat_<ushort>& in, cv::Mat_<ushort>& out, cv
 int main(int argc, const char* argv[]) {
 	get_args(argc, argv, "input.png output.png output_mask.png reprojection_parameters.json method [=was_flipped/was_not_flipped]");
 	std::string input_filename = in_filename_arg();
-	std::string output_filename = out_filename_arg();
-	std::string output_mask_filename = out_filename_arg();
+	std::string output_filename = out_filename_opt_arg();
+	std::string output_mask_filename = out_filename_opt_arg();
 	std::string reprojection_parameters_filename = in_filename_arg();
 	std::string method = string_arg();
 	bool was_flipped = bool_opt_arg("was_flipped", true);
@@ -53,8 +53,8 @@ int main(int argc, const char* argv[]) {
 		cv::flip(out_depth, out_depth, 1);
 		cv::flip(out_mask, out_mask, 1);
 	}
-	if(output_filename != "-") save_depth(output_filename.c_str(), out_depth);
-	if(output_mask_filename != "-") cv::imwrite(output_mask_filename.c_str(), out_mask);
+	if(!output_filename.empty()) save_depth(output_filename.c_str(), out_depth);
+	if(!output_mask_filename.empty()) cv::imwrite(output_mask_filename.c_str(), out_mask);
 	
 	std::cout << "done" << std::endl;
 }

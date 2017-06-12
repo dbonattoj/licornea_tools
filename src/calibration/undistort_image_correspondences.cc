@@ -20,6 +20,6 @@ int main(int argc, const char* argv[]) {
 		
 	image_correspondences out_cors = undistort(in_cors, intr);
 	
-	export_json_file(encode_image_correspondences(out_cors), out_cors_filename);
+	export_image_corresponcences(out_cors, out_cors_filename);
 }
 

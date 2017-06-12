@@ -2,6 +2,7 @@
 #include "../../lib/string.h"
 #include "../../lib/assert.h"
 #include <fstream>
+#include <iostream>
 
 namespace tlz {
 
@@ -163,6 +164,26 @@ image_correspondences import_binary_image_correspondences(const std::string& fil
 }
 
 
+void export_image_corresponcences(const image_correspondences& cors, const std::string& filename) {
+	if(file_name_extension(filename) == "json") {
+		std::cout << "exporting image correspondences to JSON" << std::endl;
+		export_json_file(encode_image_correspondences(cors), filename);
+	} else if(file_name_extension(filename) == "bin") {
+		std::cout << "exporting image correspondences to binary" << std::endl;
+		export_binary_image_correspondences(cors, filename);
+	} else {
+		throw std::runtime_error("unknown filename extension for image correspondences (need .json or .bin)");
+	}
+}
+
+image_correspondences import_image_correspondences(const std::string& filename) {
+	if(file_name_extension(filename) == "json") return decode_image_correspondences(import_json_file(filename));
+	else if(file_name_extension(filename) == "bin") return import_binary_image_correspondences(filename);
+	else throw std::runtime_error("unknown filename extension for image correspondences (need .json or .bin)");
+}
+
+
+
 std::set<view_index> reference_views(const image_correspondences& cors) {
 	std::set<view_index> reference_views;
 	for(const auto& kv : cors.features) reference_views.insert(kv.second.reference_view);
@@ -273,7 +294,7 @@ cv::Mat_<cv::Vec3b> visualize_view_points(const image_correspondence_feature& fe
 
 image_correspondences image_correspondences_arg() {
 	std::cout << "loading image correspondences" << std::endl;
-	return decode_image_correspondences(json_arg());
+	return import_image_correspondences(in_filename_arg());
 }
 
 

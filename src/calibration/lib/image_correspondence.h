@@ -42,6 +42,8 @@ json encode_image_correspondences(const image_correspondences&);
 void export_binary_image_correspondences(const image_correspondences& cors, const std::string& filename);
 image_correspondences import_binary_image_correspondences(const std::string& filename);
 
+void export_image_corresponcences(const image_correspondences& cors, const std::string& filename);
+image_correspondences import_image_correspondences(const std::string& filename);
 
 std::set<view_index> reference_views(const image_correspondences&);
 image_correspondences image_correspondences_with_reference(const image_correspondences&, const view_index& reference_view);
