@@ -105,14 +105,13 @@ int main(int argc, const char* argv[]) {
 	auto get_ref_idx = [&](int gx, int gy) {
 		return view_index(ref_x_positions.at(gx), ref_y_positions.at(gy));
 	};
-	for(int gx = 0; gx < ref_grid_x_size.size(); ++gx)
-	for(int gy = 0; gy < ref_grid_y_size.size(); ++gy) {
+	for(int gx = 0; gx < ref_grid_x_size; ++gx)
+	for(int gy = 0; gy < ref_grid_y_size; ++gy) {
 		view_index ref_idx = get_ref_idx(gx, gy);
-		if(reference_target_camera_positions.find(ref_idx) == reference_target_camera_positions.end())
+		if(ref_vws.find(ref_idx) == ref_vws.end())
 			throw std::runtime_error("reference views are not arranged in a grid");
 	}
 	
-	std::map<view_index, vec2> absolute_target_camera_positions;
 	
 	std::map<view_index, vec2> absolute_reference_camera_positions;
 
@@ -134,8 +133,8 @@ int main(int argc, const char* argv[]) {
 				vec2 ref_a_pos = reference_target_camera_positions.at(reference_target_key(ref_a, target));
 				vec2 ref_b_pos = reference_target_camera_positions.at(reference_target_key(ref_b, target));
 				
-				displacements_sum += (ref_b_pos - ref_a_pos);
-				displacements_weights_sim += 1.0;
+				displacements_sum += (ref_a_pos - ref_b_pos);
+				displacements_weights_sum += 1.0;
 			}
 		}
 		
@@ -155,25 +154,26 @@ int main(int argc, const char* argv[]) {
 	absolute_reference_camera_positions[get_ref_idx(root_rx, root_ry)] = vec2(0.0, 0.0);
 	for(int rx = root_rx - 1; rx >= 0; rx--) {
 		add_reference_camera_position(get_ref_idx(rx+1, root_ry), get_ref_idx(rx, root_ry));
-		for(ry = root_ry - 1; ry >= 0; ry--) add_reference_camera_position(get_ref_idx(rx, ry+1), get_ref_idx(rx, ry));
-		for(ry = root_ry + 1; ry < ref_grid_y_size; ry++) add_reference_camera_position(get_ref_idx(rx, ry-1), get_ref_idx(rx, ry));
+		for(int ry = root_ry - 1; ry >= 0; ry--) add_reference_camera_position(get_ref_idx(rx, ry+1), get_ref_idx(rx, ry));
+		for(int ry = root_ry + 1; ry < ref_grid_y_size; ry++) add_reference_camera_position(get_ref_idx(rx, ry-1), get_ref_idx(rx, ry));
 	}
 	for(int rx = root_rx + 1; rx < ref_grid_x_size; rx++) {
 		add_reference_camera_position(get_ref_idx(rx-1, root_ry), get_ref_idx(rx, root_ry));
-		for(ry = root_ry - 1; ry >= 0; ry--) add_reference_camera_position(get_ref_idx(rx, ry+1), get_ref_idx(rx, ry));
-		for(ry = root_ry + 1; ry < ref_grid_y_size; ry++) add_reference_camera_position(get_ref_idx(rx, ry-1), get_ref_idx(rx, ry));		
+		for(int ry = root_ry - 1; ry >= 0; ry--) add_reference_camera_position(get_ref_idx(rx, ry+1), get_ref_idx(rx, ry));
+		for(int ry = root_ry + 1; ry < ref_grid_y_size; ry++) add_reference_camera_position(get_ref_idx(rx, ry-1), get_ref_idx(rx, ry));		
 	}
 	
-	
-/*
 	std::map<view_index, vec2> absolute_target_camera_positions;
-	const view_index& first_ref = *ref_vws.begin();
-	for(const auto& kv : reference_target_camera_positions) {
-		if(reference(kv.first) == first_ref)
-			absolute_target_camera_positions[target(kv.first)] = kv.second;
-	}
-*/
 	
+
+	for(const auto& kv : reference_target_camera_positions) {
+		const view_index& ref_index = kv.first.first;
+		const view_index& target_index = kv.first.second;
+		const vec2& relative_target_pos = kv.second;
+		const vec2& absolute_reference_pos = absolute_reference_camera_positions.at(ref_index);
+		
+		absolute_target_camera_positions[target_index] = absolute_reference_pos + relative_target_pos;
+	}	
 	
 	
 	camera_array cameras;
