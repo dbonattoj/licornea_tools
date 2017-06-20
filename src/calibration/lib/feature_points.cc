@@ -119,10 +119,10 @@ cv::Mat_<cv::Vec3b> visualize_feature_points(const feature_points& fpoints, cons
 		const std::string& feature_name = kv.first;
 		const feature_point& fpoint = kv.second;
 		cv::Vec3b col = random_color(string_hash(feature_name));
-		cv::Point center_point = vec2_to_point(fpoint.position);
+		cv::Point2f center_point = vec2_to_point(fpoint.position);
 		center_point.x += bord.left;
 		center_point.y += bord.top;
-		cv::circle(img, center_point, 10, cv::Scalar(col), 2);
+		cv_aa_circle(img, center_point, 10, cv::Scalar(col), 2);
 		cv::Point label_point(center_point.x + 10, center_point.y - 10);
 		cv::putText(img, feature_name, label_point, cv::FONT_HERSHEY_COMPLEX_SMALL, 1.0, cv::Scalar(col));
 	}

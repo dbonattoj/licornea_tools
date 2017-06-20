@@ -6,6 +6,7 @@
 #include <fstream>
 #include <set>
 #include <map>
+#include <atomic>
 #include "lib/image_correspondence.h"
 #include "../lib/args.h"
 #include "../lib/misc.h"
@@ -25,11 +26,15 @@ int main(int argc, const char* argv[]) {
 			
 	std::cout << "for each view, reading feature depths" << std::endl;
 	
-	std::set<view_index> views = all_views(cors);
-	for(view_index view_idx : views) {
+	auto views = get_all_views(cors);
+	
+	std::atomic<int> counter(0);
+	#pragma omp parallel for
+	for(std::ptrdiff_t i = 0; i < views.size(); ++i) {
+		const view_index& view_idx = views[i];
+		
 		std::string depth_filename = datas.view(view_idx).depth_filename();
 		cv::Mat_<ushort> depth = load_depth(depth_filename);
-		std::cout << '.' << std::flush;
 				
 		for(auto& kv : cors.features) {
 			const std::string& feature_name = kv.first;
@@ -57,9 +62,16 @@ int main(int argc, const char* argv[]) {
 			}
 		}
 
+		std::cout << '.' << std::flush;
+		
+		++counter;
+		if(counter % 1000 == 0) {
+			#pragma omp critical
+			std::cout << '\n' << counter << " of " << views.size() << std::endl;
+		}
 	}
 	
 	std::cout << "saving correspondences with depths" << std::endl;
-	export_image_corresponcences(cors, out_cors_filename);	
+	export_image_corresponcences(cors, out_cors_filename);
 }
 

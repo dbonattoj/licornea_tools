@@ -3,4 +3,10 @@
 
 #include <opencv2/opencv.hpp>
 
+namespace tlz {
+
+void cv_aa_circle(cv::Mat& mat, const cv::Point2f& center, float rad, cv::Scalar col, int thickness);
+
+}
+
 #endif

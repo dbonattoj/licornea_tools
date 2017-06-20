@@ -22,5 +22,5 @@ int main(int argc, const char* argv[]) {
 		while(read_camera_mpeg(input, cam, convert)) cameras.push_back(cam);
 	}
 	
-	write_cameras_file(out_cameras, cameras);
+	export_cameras_file(cameras, out_cameras);
 }

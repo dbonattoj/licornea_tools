@@ -10,6 +10,10 @@ struct feature_point {
 	vec2 position;
 	real depth = 0.0;
 	real weight = 1.0;
+	
+	bool operator==(const feature_point& other) const {
+		return (position == other.position) && (depth == other.depth) && (weight == other.weight);
+	}
 };
 
 feature_point decode_feature_point(const json&);

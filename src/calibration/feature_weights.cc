@@ -123,7 +123,7 @@ int main(int argc, const char* argv[]) {
 		
 	dataset_group datag = datas.group(cors.dataset_group);
 	
-	viewer view("Feature Weights");
+	viewer view("Feature Weights", true);
 	auto& x_slider = view.add_int_slider("X", datas.x_mid(), datas.x_min(), datas.x_max(), datas.x_step());
 	auto& y_slider = view.add_int_slider("Y", datas.y_mid(), datas.y_min(), datas.y_max(), datas.y_step());
 	auto& rad_pieces_slider = view.add_int_slider("rad pieces", 3, 1, 10);
@@ -161,15 +161,12 @@ int main(int argc, const char* argv[]) {
 		view.draw(cv::Point(0, 0), shown_img);
 	};
 
-	
-	int key;
-	do {
-		key = cv::waitKey(0);
-	} while(key != escape_keycode && key != enter_keycode);
-	
+	view.show_modal();
+	/*
 	if(key == enter_keycode) {
 		std::cout << "computing feature weights for all views" << std::endl;
 		image_correspondences out_cors = cors;
 		//////// TODO
 	}
+	*/
 }

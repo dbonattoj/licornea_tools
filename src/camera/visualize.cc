@@ -10,16 +10,12 @@ using namespace tlz;
 
 int main(int argc, const char* argv[]) {
 	get_args(argc, argv, "in_cameras.json out_view.ply world/view [scale=1.0]");
-	std::string in_cameras = in_filename_arg();
+	camera_array cameras = cameras_arg();
 	std::string out_ply = out_filename_arg();
 	std::string mode = enum_arg({ "world", "view" });
 	real scale = real_opt_arg(1.0);
 	bool world = (mode == "world");
-	
-	std::ifstream input(in_cameras.c_str());
-	input.exceptions(std::ios_base::badbit);	
-	
-	auto cameras = read_cameras_file(in_cameras);
+		
 	Assert(cameras.size() > 0);
 	std::cout << cameras.size() << " cameras..." << std::endl;
 			

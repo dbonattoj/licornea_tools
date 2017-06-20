@@ -2,6 +2,12 @@
 from pylib import *
 import os, tempfile, subprocess, uuid
 
+def try_remove(filename):
+	try:
+		os.remove(filename)
+	except:
+		pass
+
 def main(vsrs_binary_filename, parameters_filename, left_idx, virtual_idx, right_idx, output_virtual_filename, cameras_filename = None):
 	datas = Dataset(parameters_filename)
 
@@ -30,8 +36,10 @@ def main(vsrs_binary_filename, parameters_filename, left_idx, virtual_idx, right
 		print "VSRS failed on {}. Output:\n{}".format(virtual_idx, output)
 		raise Exception("VSRS failed")
 		
-	os.remove(output_config_filename)
-
+	try_remove(output_config_filename)
+	try_remove(os.path.join(os.path.dirname(output_virtual_filename), "5.bmp"))
+	try_remove(os.path.join(os.path.dirname(output_virtual_filename), "6.bmp"))
+	try_remove(os.path.join(os.path.dirname(output_virtual_filename), "7.bmp"))
 
 if __name__ == '__main__':
 	def usage_fail():

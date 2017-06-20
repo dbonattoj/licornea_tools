@@ -82,6 +82,18 @@ std::string out_filename_arg() {
 	return filename;
 }
 
+
+std::string out_dirname_arg() {
+	const std::string& dirname = string_arg();
+	if(dirname == "-") throw std::runtime_error("expected filename argument, not -");
+	if(! file_exists(dirname)) {
+		make_parent_directories(dirname);
+	} else {
+		if(! is_directory(dirname)) throw std::runtime_error("file exists at " + dirname);
+	}
+	return dirname;
+}
+
 std::string out_filename_opt_arg(const std::string& def) {
 	if(! args().has_next_arg()) {
 		return def;

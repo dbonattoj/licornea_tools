@@ -13,30 +13,15 @@ namespace tlz {
 
 class dataset;
 
-struct view_index {
-	int x = -1;
-	int y = -1;
-	
+struct view_index : index_2d {
 	bool is_valid() const { return (x != -1); }
 	explicit operator bool () const { return is_valid(); }
 	
 	bool is_1d() const { return (y == -1); }
 	bool is_2d() const { return (y != -1); }
 
-	view_index() = default;
-	explicit view_index(int x_, int y_ = -1) : x(x_), y(y_) { }
+	explicit view_index(int x_ = -1, int y_ = -1) : index_2d(x_, y_) { }
 };
-
-inline bool operator==(const view_index& a, const view_index& b) {
-	return (a.y == b.y) && (a.x == b.x);
-}
-inline bool operator!=(const view_index& a, const view_index& b) {
-	return (a.y != b.y) || (a.x != b.x);
-}
-inline bool operator<(const view_index& a, const view_index& b) {
-	if(a.y == b.y) return (a.x < b.x);
-	else return (a.y < b.y);
-}
 
 std::string encode_view_index(view_index idx);
 view_index decode_view_index(const std::string& key);

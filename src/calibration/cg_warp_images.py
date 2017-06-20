@@ -9,7 +9,7 @@ intrinsics_filename = None
 unrotate = False
 
 image = True
-depth = True
+depth = False
 
 overwrite_image = True
 overwrite_depth = True
@@ -89,7 +89,7 @@ if __name__ == '__main__':
 	with open(homographies_filename, 'r') as f:
 		homographies = json.load(f)
 		
-	grp_par = datas.group_parameters("warped")
+	grp_par = datas.group("warped").parameters()
 	keys = ["top", "left", "bottom", "right"];
 	if "border" in grp_par:
 		bord_par = grp_par["border"]

@@ -85,6 +85,7 @@ int main(int argc, const char* argv[]) {
 				return false;
 			}
 		}
+		std::cout << "max Y deviation ok on all lines" << std::endl;
 		
 		// maximal X deviation of feature positions for views on all vertical axes
 		// must be <= max_vertical_x_diff
@@ -101,6 +102,7 @@ int main(int argc, const char* argv[]) {
 				return false;
 			}
 		}
+		std::cout << "max X deviation ok on all cols" << std::endl;
 		
 		if(use_depth) {
 			real min_d = +INFINITY, max_d = 0.0;
@@ -115,8 +117,9 @@ int main(int argc, const char* argv[]) {
 			if(max_d - min_d > max_depth_diff) {
 				if(verbose) std::cout << "depth diff: " << (max_d - min_d) << " > " << max_depth_diff << std::endl;
 				return false;
-			} 
+			}
 		}
+		std::cout << "depth differences ok" << std::endl;
 	
 		std::cout << "accepted" << std::endl;
 		return true;

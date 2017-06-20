@@ -9,7 +9,7 @@ densify_method = None
 internal_parameters_filename = None
 reprojection_parameters_filename = None
 
-image = True
+image = False
 depth = True
 
 overwrite_image = False

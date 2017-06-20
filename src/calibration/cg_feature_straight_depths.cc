@@ -40,7 +40,8 @@ int main(int argc, const char* argv[]) {
 			
 			vec2 i_measured_undist = fpoint.position;
 			real d_measured = fpoint.depth;
-		
+			if(d_measured == 0.0) continue;
+				
 			vec3 i_measured_h(i_measured_undist[0], i_measured_undist[1], 1.0);
 			i_measured_h *= d_measured;
 			

@@ -2,6 +2,7 @@
 #define LICORNEA_CAMERA_H_
 
 #include "common.h"
+#include "json.h"
 #include <vector>
 #include <map>
 #include <string>
@@ -15,15 +16,18 @@ struct camera {
 	vec3 translation;
 	
 	mat44 extrinsic() const;
+	vec3 position() const;
 };
 
 using camera_array = std::vector<camera>;
 
-camera_array read_cameras_file(const std::string& filename);
-void write_cameras_file(const std::string& filename, const camera_array&); // TODO rename "export"
+camera_array decode_cameras(const json&);
+void export_cameras_file(const camera_array& cams, const std::string& filename);
+
+camera_array cameras_arg();
 
 std::map<std::string, camera> cameras_map(const std::vector<camera>&);
-void write_cameras_file(const std::string& filename, const std::map<std::string, camera>&);
+void export_cameras_file(const std::string& filename, const std::map<std::string, camera>&);
 
 }
 

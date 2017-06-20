@@ -12,7 +12,7 @@ namespace tlz {
 
 struct view_homography {
 	mat33 mat;
-	real err;
+	real err = NAN;
 };
 using view_homographies = std::map<view_index, view_homography>;
 

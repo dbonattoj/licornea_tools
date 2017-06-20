@@ -3,8 +3,14 @@
 #include "../../lib/assert.h"
 #include <fstream>
 #include <iostream>
+#include <vector>
+#include <set>
 
 namespace tlz {
+	
+namespace {
+	int binary_cors_magic_ = 0x2D1111C0;
+}
 
 image_correspondence_feature decode_image_correspondence_feature(const json& j_feat) {
 	image_correspondence_feature feat;
@@ -90,7 +96,7 @@ void export_binary_image_correspondences(const image_correspondences& cors, cons
 		int32(idx.y);
 	};
 	
-	int32(0x2D1111C0);
+	int32(binary_cors_magic_);
 	short_string(cors.dataset_group);
 	int32(cors.features.size());
 	for(const auto& kv : cors.features) {
@@ -141,7 +147,7 @@ image_correspondences import_binary_image_correspondences(const std::string& fil
 	
 	image_correspondences cors;
 	int magic = int32();
-	if(magic != 0x2D1111C0) throw std::runtime_error("binary cors file does not have magic number");
+	if(magic != binary_cors_magic_) throw std::runtime_error("binary cors file does not have magic number");
 	cors.dataset_group = short_string();
 	std::size_t features_count = int32();
 	for(int i = 0; i < features_count; ++i) {
@@ -184,14 +190,49 @@ image_correspondences import_image_correspondences(const std::string& filename) 
 
 
 
-std::set<view_index> reference_views(const image_correspondences& cors) {
+cors_ref_grid references_grid(const image_correspondences& cors) {
+	cors_ref_grid grid;
+	
+	auto ref_vws = get_reference_views(cors);
+	
+	std::vector<int> ref_x_positions, ref_y_positions;
+	{
+		std::set<int> ref_x_positions_set, ref_y_positions_set;
+		for(const view_index& idx : ref_vws) {
+			ref_x_positions_set.insert(idx.x);
+			ref_y_positions_set.insert(idx.y);
+		}
+		for(int x : ref_x_positions_set) ref_x_positions.push_back(x);
+		for(int y : ref_y_positions_set) ref_y_positions.push_back(y);
+	}
+	
+	grid.count_x = ref_x_positions.size();
+	grid.count_y = ref_y_positions.size();
+	
+	for(int gx = 0; gx < grid.count_x; ++gx)
+	for(int gy = 0; gy < grid.count_y; ++gy) {
+		cors_ref_grid_index grid_idx(gx, gy);
+		view_index ref_idx(ref_x_positions.at(gx), ref_y_positions.at(gy));
+		if(ref_vws.find(ref_idx) == ref_vws.end())
+			throw std::runtime_error("reference views are not arranged in a grid");
+		grid.reference_views[grid_idx] = ref_idx;
+	}
+	
+	grid.center.x = grid.count_x/2;
+	grid.center.y = grid.count_y/2;
+	
+	return grid;
+}
+
+
+std::set<view_index> get_reference_views(const image_correspondences& cors) {
 	std::set<view_index> reference_views;
 	for(const auto& kv : cors.features) reference_views.insert(kv.second.reference_view);
 	return reference_views;
 }
 
 
-std::set<view_index> all_views(const image_correspondences& cors) {
+std::set<view_index> get_all_views_set(const image_correspondences& cors) {
 	std::set<view_index> views;
 	for(const auto& kv : cors.features)
 		for(const auto& kv2 : kv.second.points)
@@ -200,7 +241,16 @@ std::set<view_index> all_views(const image_correspondences& cors) {
 }
 
 
-std::set<std::string> feature_names(const image_correspondences& cors) {
+std::vector<view_index> get_all_views(const image_correspondences& cors) {
+	std::set<view_index> views = get_all_views_set(cors);
+	std::vector<view_index> out_views;
+	for(const view_index& idx : views)
+		out_views.push_back(idx);
+	return out_views;
+}
+
+
+std::set<std::string> get_feature_names(const image_correspondences& cors) {
 	std::set<std::string> features;
 	for(const auto& kv : cors.features)
 		features.insert(kv.first);
@@ -258,8 +308,8 @@ cv::Mat_<cv::Vec3b> visualize_view_points(const image_correspondence_feature& fe
 	if(! is_2d) {
 		// draw circle		
 		vec2 center_point = feature.points.at(feature.reference_view).position;
-		cv::Point center_point_cv(bord.left + center_point[0], bord.top + center_point[1]);
-		cv::circle(img, center_point_cv, 10, cv::Scalar(col), 2);
+		cv::Point2f center_point_cv(bord.left + center_point[0], bord.top + center_point[1]);
+		cv_aa_circle(img, center_point_cv, 10, cv::Scalar(col), 2);
 		
 		// draw connecting line
 		std::vector<cv::Point> trail_points;
@@ -278,11 +328,12 @@ cv::Mat_<cv::Vec3b> visualize_view_points(const image_correspondence_feature& fe
 			vec2 pt = kv.second.position;
 			pt[0] += bord.left; pt[1] += bord.top;
 			
-			cv::Point pt_cv(pt[0], pt[1]);
+			cv::Point2f pt_cv(pt[0], pt[1]);
+			
 			if(dot_radius <= 1) {
 				if(cv::Rect(cv::Point(), img.size()).contains(pt_cv)) img(pt_cv) = col;
 			} else {
-				cv::circle(img, pt_cv, 2, cv::Scalar(col), -1);
+				cv_aa_circle(img, pt_cv, dot_radius, cv::Scalar(col), -1);
 			}
 		}
 	}
@@ -290,6 +341,40 @@ cv::Mat_<cv::Vec3b> visualize_view_points(const image_correspondence_feature& fe
 	return img;
 }
 
+
+cv::Mat_<cv::Vec3b> visualize_view_points_closeup(const image_correspondence_feature& feature, const cv::Mat_<cv::Vec3b>& img, const cv::Vec3b& col, const view_index& ref_idx, const border& bord) {
+	real y_min = +INFINITY, y_max = -INFINITY, x_min = +INFINITY, x_max = -INFINITY;
+	for(const auto& kv : feature.points) {
+		vec2 pos = kv.second.position;
+		if(pos[0] > x_max) x_max = pos[0];
+		if(pos[0] < x_min) x_min = pos[0];
+		if(pos[1] > y_max) y_max = pos[1];
+		if(pos[1] < y_min) y_min = pos[1];
+	}
+	real scale = std::min({ img.cols/(x_max-x_min), img.rows/(y_max-y_min) });
+
+
+	cv::Rect roi(x_min+bord.left, y_min+bord.top, x_max-x_min, y_max-y_min);
+	
+	cv::Mat_<cv::Vec3b> out_img;
+	cv::resize(cv::Mat(img, roi), out_img, cv::Size(0,0), scale, scale, cv::INTER_CUBIC);
+
+	for(const auto& kv : feature.points) {
+		const view_index& idx = kv.first;
+		cv::Point2f pt_cv = vec2_to_point2f(kv.second.position);
+		pt_cv.x -= x_min;
+		pt_cv.y -= y_min;
+		pt_cv.x *= scale;
+		pt_cv.y *= scale;
+		
+		if(ref_idx && idx == ref_idx)
+			cv_aa_circle(out_img, pt_cv, 5, cv::Scalar(cv::Vec3b(0,0,255)), -1);
+
+		cv_aa_circle(out_img, pt_cv, 2, cv::Scalar(col), -1);
+	}
+	
+	return out_img;
+}
 
 
 image_correspondences image_correspondences_arg() {

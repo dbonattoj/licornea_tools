@@ -31,12 +31,9 @@ int main(int argc, const char* argv[]) {
 	std::string in_cameras_filename = argv[1];
 	std::string out_cameras_filename = argv[2];
 	std::string operation = argv[3];
-		
-	std::ifstream input(in_cameras_filename.c_str());
-	input.exceptions(std::ios_base::badbit);	
-	std::vector<camera> in_cameras = read_cameras_file(in_cameras_filename);
-	std::vector<camera> out_cameras;
-	input.close();
+	
+	camera_array in_cameras = decode_cameras(import_json_file(in_cameras_filename));
+	camera_array out_cameras;
 
 	int index = 0;
 	bool skip = false;
@@ -115,7 +112,7 @@ int main(int argc, const char* argv[]) {
 		if(out_cameras_filename == "replace") out_cameras_filename = in_cameras_filename;
 		std::cout << "writing to " << out_cameras_filename << std::endl;
 		std::ofstream output(out_cameras_filename.c_str());
-		write_cameras_file(out_cameras_filename, out_cameras);
+		export_cameras_file(out_cameras, out_cameras_filename);
 		output.close();
 	}
 	

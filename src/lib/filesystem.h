@@ -7,6 +7,8 @@ namespace tlz {
 	
 bool file_exists(const std::string& filename);
 
+bool is_directory(const std::string& filename);
+
 void make_directory(const std::string& dirname);
 
 std::string filename_parent(const std::string& filename);

@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <utility>
 #include <iostream>
+#include <initializer_list>
 
 #include <opencv2/core/core.hpp>
 
@@ -82,6 +83,36 @@ constexpr real golden_ratio = 1.61803398874989484820;
 constexpr inline long double operator"" _deg (long double deg) {
 	return deg * rad_per_deg;
 }
+
+
+struct index_2d {
+	int x;
+	int y;
+	
+	explicit index_2d(int x_= -1, int y_ = -1) : x(x_), y(y_) { }
+	index_2d(std::initializer_list<int> lst) : x(*lst.begin()), y(*(lst.begin() + 1)) { }
+};
+inline bool operator==(const index_2d& a, const index_2d& b) {
+	return (a.y == b.y) && (a.x == b.x);
+}
+inline bool operator!=(const index_2d& a, const index_2d& b) {
+	return (a.y != b.y) || (a.x != b.x);
+}
+inline bool operator<(const index_2d& a, const index_2d& b) {
+	if(a.y == b.y) return (a.x < b.x);
+	else return (a.y < b.y);
+}
+inline bool operator<=(const index_2d& a, const index_2d& b) {
+	return (a == b) || (a < b);
+}
+inline bool operator>(const index_2d& a, const index_2d& b) {
+	return !(a <= b);
+}
+inline bool operator>=(const index_2d& a, const index_2d& b) {
+	return (a == b) || (a > b);
+}
+
+
 
 
 }

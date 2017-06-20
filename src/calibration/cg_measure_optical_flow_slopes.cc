@@ -68,7 +68,7 @@ int main(int argc, const char* argv[]) {
 
 
 	std::cout << "saving slopes" << std::endl;
-	auto ref_views = reference_views(cors);
+	auto ref_views = get_reference_views(cors);
 	feature_slopes fslopes;
 	for(const view_index& ref_idx : ref_views) {
 		image_correspondences ref_cors = image_correspondences_with_reference(cors, ref_idx);

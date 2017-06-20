@@ -22,8 +22,8 @@ const bool verbose = false;
 const bool small_subset_mode = false;
 
 const real max_flow_err = 4.0;
-const real min_distance_between_features = 30;
-const real min_distance_to_existing_features = 50;
+const real min_distance_between_features = 60;
+const real min_distance_to_existing_features = 100;
 const real features_quality_level = 0.5;
 const real features_from_existing_pieces_amount = 0.7;
 const cv::Size horizontal_optical_flow_window_size(20, 20);
@@ -157,6 +157,7 @@ flow_state flow_to(flow_state& origin_state, view_index dest_idx, const dataset_
 		bool status = origin_state.feature_status[feature]
 			&& dest_status[feature]
 			&& position_ok(dest_positions[feature])
+			&& dest_positions[feature] != origin_state.feature_positions[feature]
 			&& dest_errs[feature] <= max_flow_err;
 		dest_status[feature] = status;
 	}

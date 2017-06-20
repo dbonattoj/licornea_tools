@@ -14,7 +14,7 @@ struct frm {
 }; 
 
 std::ostream& operator<<(std::ostream& stream, const frm& f) {
-	stream << std::setprecision(11) << std::setw(7) << std::setfill(' ') << f.value_;
+	stream << std::setprecision(11) << std::setw(17) << std::setfill(' ') << f.value_;
 	return stream;
 }
 
@@ -29,15 +29,16 @@ mat44 camera::extrinsic() const {
 		0.0, 0.0, 0.0, 1.0
 	);
 }
-	
-camera_array read_cameras_file(const std::string& filename) {
-	camera_array cameras;
-	
-	using namespace nlohmann;
-	
-	json j_root = import_json_file(filename);
-		
-	for(auto& j_cam : j_root) {
+
+
+vec3 camera::position() const {
+	return rotation.t() * translation;
+}
+
+
+camera_array decode_cameras(const json& j_cams) {
+	camera_array cams;
+	for(auto& j_cam : j_cams) {
 		camera cam;
 		cam.name = j_cam["name"];
 		cam.intrinsic = decode_mat(j_cam["K"]);
@@ -48,13 +49,13 @@ camera_array read_cameras_file(const std::string& filename) {
 		auto t = extrinsic.get_minor<3, 1>(0, 3);
 		cam.translation = vec3(t(0, 0), t(1, 0), t(2, 0));
 				
-		cameras.push_back(cam);
+		cams.push_back(cam);
 	}
-	return cameras;
+	return cams;
 }
 
 
-void write_cameras_file(const std::string& filename, const camera_array& cameras) {
+void export_cameras_file(const camera_array& cameras, const std::string& filename) {
 	// Does not use json.hpp, prints easier-to-read JSON.
 	
 	std::ofstream stream(filename);
@@ -82,16 +83,21 @@ void write_cameras_file(const std::string& filename, const camera_array& cameras
 }
 
 
+camera_array cameras_arg() {
+	return decode_cameras(json_arg());
+}
+
+
 std::map<std::string, camera> cameras_map(const camera_array& arr) {
 	std::map<std::string, camera> map;
 	for(const camera& cam : arr) map[cam.name] = cam;
 	return map;
 }
 
-void write_cameras_file(const std::string& filename, const std::map<std::string, camera>& map) {
+void export_cameras_file(const std::string& filename, const std::map<std::string, camera>& map) {
 	camera_array arr;
 	for(const auto& kv : map) arr.push_back(kv.second);
-	write_cameras_file(filename, arr);
+	export_cameras_file(arr, filename);
 }
 
 
