@@ -214,6 +214,7 @@ program(apply_homography misc)
 program(homography_maximal_border misc)
 program(homography_crop_border misc)
 program(touch misc)
+program(duplicates misc)
 
 py_program(list_skip_n_experiments misc)
 py_program(list_increase_baseline_experiments misc)

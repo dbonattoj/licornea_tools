@@ -66,7 +66,7 @@ int main(int argc, const char* argv[]) {
 			}
 		} catch(const std::exception&) { return; }
 		
-		view.draw_text(cv::Rect(10, sz.height-20, sz.width-20, 20), feature_name);
+		view.draw_text(cv::Rect(10, sz.height-20, sz.width-20, 20), "feature: " + feature_name + ", view: " + std::to_string(idx.x) + ", " + std::to_string(idx.y));
 	};
 
 	view.show_modal();

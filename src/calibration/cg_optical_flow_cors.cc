@@ -154,11 +154,12 @@ flow_state flow_to(flow_state& origin_state, view_index dest_idx, const dataset_
 	};
 
 	for(std::ptrdiff_t feature = 0; feature < features_count; ++feature) {	
-		bool status = origin_state.feature_status[feature]
-			&& dest_status[feature]
-			&& position_ok(dest_positions[feature])
-			&& dest_positions[feature] != origin_state.feature_positions[feature]
-			&& dest_errs[feature] <= max_flow_err;
+		bool status =
+			origin_state.feature_status[feature] &&
+			dest_status[feature] &&
+			position_ok(dest_positions[feature]) &&
+			dest_positions[feature] != origin_state.feature_positions[feature] &&
+			dest_errs[feature] <= max_flow_err;
 		dest_status[feature] = status;
 	}
 
