@@ -5,6 +5,37 @@
 #include "filesystem.h"
 
 namespace tlz {
+	
+namespace {
+	
+std::string out_filename_(const std::string& filename) {
+	if(filename == "") return "";
+	make_parent_directories(filename);
+	if(file_exists(filename)) {
+		if(batch_mode()) {
+			std::cout << "overwriting existing output file " << filename << std::endl;
+		} else {
+			std::cout << "output file " << filename << " exists. Proceed? [y/n] ";
+			char answer;
+			std::cin >> answer;
+			if(answer != 'y' && answer != 'Y') throw std::runtime_error("not overwriting output file, exiting");
+		}
+	}
+	return filename;
+}
+
+std::string out_dirname_(const std::string& dirname) {
+	if(dirname == "") return "";
+	if(! file_exists(dirname)) {
+		make_parent_directories(dirname);
+		make_directory(dirname);
+	} else {
+		if(! is_directory(dirname)) throw std::runtime_error("file exists at " + dirname);
+	}
+	return dirname;
+}
+
+}
 
 std::unique_ptr<args_list> args_list::instance = std::unique_ptr<args_list>();
 
@@ -68,40 +99,34 @@ std::string in_filename_arg() {
 std::string out_filename_arg() {
 	const std::string& filename = string_arg();
 	if(filename == "-") throw std::runtime_error("expected filename argument, not -");
-	make_parent_directories(filename);
-	if(file_exists(filename)) {
-		if(batch_mode()) {
-			std::cout << "overwriting existing output file " << filename << std::endl;
-		} else {
-			std::cout << "output file " << filename << " exists. Proceed? [y/n] ";
-			char answer;
-			std::cin >> answer;
-			if(answer != 'y' && answer != 'Y') throw std::runtime_error("not overwriting output file, exiting");
-		}
-	}
-	return filename;
-}
-
-
-std::string out_dirname_arg() {
-	const std::string& dirname = string_arg();
-	if(dirname == "-") throw std::runtime_error("expected filename argument, not -");
-	if(! file_exists(dirname)) {
-		make_parent_directories(dirname);
-	} else {
-		if(! is_directory(dirname)) throw std::runtime_error("file exists at " + dirname);
-	}
-	return dirname;
+	return out_filename_(filename);
 }
 
 std::string out_filename_opt_arg(const std::string& def) {
 	if(! args().has_next_arg()) {
-		return def;
+		return out_filename_(def);
 	} else if(args().next_arg_is("-")) {
 		args().next_arg();
-		return def;
+		return out_filename_(def);;
 	} else {
 		return out_filename_arg();
+	}
+}
+
+std::string out_dirname_arg() {
+	const std::string& dirname = string_arg();
+	if(dirname == "-") throw std::runtime_error("expected dirname argument, not -");
+	return out_dirname_(dirname);
+}
+
+std::string out_dirname_opt_arg(const std::string& def) {
+	if(! args().has_next_arg()) {
+		return out_dirname_(def);
+	} else if(args().next_arg_is("-")) {
+		args().next_arg();
+		return out_dirname_(def);
+	} else {
+		return out_dirname_arg();
 	}
 }
 

@@ -104,6 +104,18 @@ cv::Mat_<uchar> viewer::visualize_depth(const cv::Mat& depth_img, float min_d, f
 }
 
 
+cv::Mat_<uchar> viewer::visualize_ir(const cv::Mat& ir_orig, float min_ir, float max_ir) {
+	float alpha = 255.0f / (max_ir - min_ir);
+	float beta = -alpha * min_ir;
+	cv::Mat_<uchar> ir;
+	cv::convertScaleAbs(ir_orig, ir, alpha, beta);
+	ir.setTo(0, (ir_orig < min_ir));
+	ir.setTo(255, (ir_orig > max_ir));
+	ir.setTo(0, (ir_orig == 0));
+	return ir;
+}
+
+
 void viewer::draw(const cv::Mat_<cv::Vec3b>& img, real blend) {
 	draw(cv::Rect(0, 0, width(), height()), img, blend);
 }

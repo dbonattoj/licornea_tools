@@ -4,16 +4,18 @@ import sys, os, json, shutil
 
 simulate = False
 
+image = True
+depth = True
+
+overwrite_image = False
+overwrite_depth = False
+
+
 datas = None
 densify_method = None
 internal_parameters_filename = None
 reprojection_parameters_filename = None
 
-image = False
-depth = True
-
-overwrite_image = False
-overwrite_depth = False
 
 def process_view(x, y):	
 	if verbose: print "view x={}, y={}".format(x, y)

@@ -92,6 +92,7 @@ public:
 	void close_modal();
 
 	static cv::Mat_<uchar> visualize_depth(const cv::Mat&, float min_d, float max_d);
+	static cv::Mat_<uchar> visualize_ir(const cv::Mat&, float min_ir, float max_ir);
 };
 
 

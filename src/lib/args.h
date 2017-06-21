@@ -44,6 +44,7 @@ std::string out_filename_arg();
 std::string out_filename_opt_arg(const std::string& def = "");
 
 std::string out_dirname_arg();
+std::string out_dirname_opt_arg(const std::string& def = "");
 
 long int_arg();
 inline long int_opt_arg(long def)

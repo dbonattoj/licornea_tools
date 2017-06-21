@@ -28,7 +28,7 @@ int main(int argc, const char* argv[]) {
 			view.clear(img.cols, img.rows);
 			view.draw(img);
 		} catch(const std::runtime_error&) {
-			std::cout << "cound not load " << filename << std::endl; 
+			std::cout << "could not load " << filename << std::endl; 
 			view.clear();
 		}
 	};
