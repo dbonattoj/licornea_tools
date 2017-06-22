@@ -21,6 +21,7 @@ using namespace tlz;
 
 const bool verbose = false;
 
+// TODO interpolate missing --> make H with different source image +=> warp_images
 
 mat33 horizontal_unrotate_out_R(const mat33& R) {
 	vec3 n(1, 0, 0); // normal to plane x=0

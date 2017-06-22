@@ -58,6 +58,13 @@ bool is_file(const std::string& filename) {
 	else throw std::system_error(errno, std::system_category(), "stat() failed");
 }
 
+std::size_t file_size(const std::string& filename) {
+	struct stat sb;
+	int result = stat(filename.c_str(), &sb);
+	if(result == 0) return sb.st_size;
+	else throw std::system_error(errno, std::system_category(), "stat() failed");
+}
+
 void make_directory(const std::string& dirname) {
 	// don't fail if *directory* already exists at dirname
 	

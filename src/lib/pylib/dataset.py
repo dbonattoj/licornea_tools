@@ -99,7 +99,8 @@ class Dataset:
 			self.y_index_range = self.parameters["y_index_range"]		
 
 	def filepath(self, relpath):
-		return os.path.join(self.dirname, relpath)		
+		if relpath[0] == '/': return relpath
+		else: return os.path.join(self.dirname, relpath)		
 
 	def cameras_filename(self):
 		return self.filepath(self.parameters["cameras_filename"])

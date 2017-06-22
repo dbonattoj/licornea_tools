@@ -113,6 +113,23 @@ inline bool operator>=(const index_2d& a, const index_2d& b) {
 }
 
 
+struct view_index : index_2d {
+	bool is_valid() const { return (x != -1); }
+	explicit operator bool () const { return is_valid(); }
+	
+	bool is_1d() const { return (y == -1); }
+	bool is_2d() const { return (y != -1); }
+
+	explicit view_index(int x_ = -1, int y_ = -1) : index_2d(x_, y_) { }
+};
+
+std::string encode_view_index(view_index idx);
+view_index decode_view_index(const std::string& key);
+
+std::ostream& operator<<(std::ostream&, const view_index&);
+
+
+
 
 
 }

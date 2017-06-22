@@ -30,9 +30,6 @@ template<typename T> void flip_endianness(T& t) {
 	flip_endianness(reinterpret_cast<byte*>(&t), sizeof(T));
 }
 
-std::streamoff file_size(const std::string&);
-std::streamoff file_size(std::ifstream&);
-
 }
 
 #endif

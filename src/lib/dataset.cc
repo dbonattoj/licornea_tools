@@ -1,5 +1,6 @@
 #include "dataset.h"
 #include "string.h"
+#include "filesystem.h"
 #include <format.h>
 #include <stdexcept>
 #include <fstream>
@@ -7,8 +8,7 @@
 #include <ostream>
 
 namespace tlz {
-
-
+	
 int dataset_view::local_filename_x_() const {
 	float factor = get_or(local_parameters(), "filename_x_index_factor", 1.0);
 	int offset = get_or(local_parameters(), "filename_x_index_offset", 0);
@@ -138,7 +138,8 @@ bool dataset::is_2d() const {
 }
 
 std::string dataset::filepath(const std::string& relpath) const {
-	return dirname_ + relpath;
+	if(relpath.front() == '/') return relpath;
+	else return filename_append(dirname_, relpath);
 }
 
 std::string dataset::cameras_filename() const {

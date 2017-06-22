@@ -14,6 +14,7 @@
 #include "../lib/image_io.h"
 #include "../lib/json.h"
 #include "../lib/opencv.h"
+#include "../lib/filesystem.h"
 
 using namespace tlz;
 
@@ -34,7 +35,9 @@ int main(int argc, const char* argv[]) {
 		const view_index& view_idx = views[i];
 		
 		std::string depth_filename = datas.view(view_idx).depth_filename();
+		if(! file_exists(depth_filename)) continue;
 		cv::Mat_<ushort> depth = load_depth(depth_filename);
+		
 				
 		for(auto& kv : cors.features) {
 			const std::string& feature_name = kv.first;

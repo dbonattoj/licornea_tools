@@ -6,6 +6,8 @@
 
 using namespace tlz;
 
+// TODO support different out_R (not always I)
+
 int main(int args, const char* argv[]) {
 	get_args(args, argv, "in_depth_map.png intr.json R.json out_depth_map.png");
 	std::string in_depth_map_filename = in_filename_arg();

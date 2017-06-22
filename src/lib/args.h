@@ -62,6 +62,8 @@ bool bool_arg(const std::string& expected);
 inline bool bool_opt_arg(const std::string& expected, bool def = false)
 	{ return (args().has_next_arg() ? bool_arg(expected) : def); }
 
+view_index view_index_arg();
+
 }
 
 #endif

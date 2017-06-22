@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include "misc.h"
 #include "filesystem.h"
+#include "string.h"
 
 namespace tlz {
 	
@@ -46,6 +47,10 @@ args_list& args() {
 
 
 void get_args(int argc, const char* argv[], const std::string& usage) {
+	if(argc >= 2 && std::string(argv[1]) == "--help") {
+		std::cout << "usage: " << argv[0] << " " << usage << std::endl;
+		std::exit(EXIT_SUCCESS);
+	}
 	args_list::instance = std::make_unique<args_list>(argc, argv, usage);
 }
 
@@ -156,6 +161,16 @@ std::string enum_arg(const std::vector<std::string>& options) {
 bool bool_arg(const std::string& expected) {
 	const char* str = args().next_arg();
 	return (str == expected);
+}
+
+view_index view_index_arg() {
+	const std::string& str = string_arg();
+	view_index idx;
+	auto j_idx = explode_from_string<int>(',', str);
+	idx.x = j_idx[0];
+	if(j_idx.size() == 2)  idx.y = j_idx[1];
+	else idx.y = -1;
+	return idx;
 }
 
 }

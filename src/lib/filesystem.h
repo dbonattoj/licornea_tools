@@ -13,6 +13,7 @@ bool file_exists(const std::string& filename);
 
 bool is_directory(const std::string& filename);
 bool is_file(const std::string& filename);
+std::size_t file_size(const std::string& filename);
 
 void make_directory(const std::string& dirname);
 void make_parent_directories(const std::string& filename);

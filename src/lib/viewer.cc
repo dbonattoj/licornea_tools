@@ -264,7 +264,8 @@ viewer::int_slider& viewer::add_int_slider(const std::string& caption, int defau
 	auto slid_ptr = std::make_unique<int_slider>(default_val, min_val, max_val, step);
 	int_slider& slid = *slid_ptr;
 	sliders_.emplace_back(std::move(slid_ptr));
-	cv::createTrackbar(caption, window_name_, &slid.raw_value, slid.slider_max(), &slider_callback_, this);
+	bool no_slider = (min_val == max_val);
+	if(! no_slider) cv::createTrackbar(caption, window_name_, &slid.raw_value, slid.slider_max(), &slider_callback_, this);
 	return slid;
 }
 
