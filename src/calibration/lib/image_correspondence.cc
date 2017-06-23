@@ -189,42 +189,6 @@ image_correspondences import_image_correspondences(const std::string& filename) 
 }
 
 
-
-cors_ref_grid references_grid(const image_correspondences& cors) {
-	cors_ref_grid grid;
-	
-	auto ref_vws = get_reference_views(cors);
-	
-	std::vector<int> ref_x_positions, ref_y_positions;
-	{
-		std::set<int> ref_x_positions_set, ref_y_positions_set;
-		for(const view_index& idx : ref_vws) {
-			ref_x_positions_set.insert(idx.x);
-			ref_y_positions_set.insert(idx.y);
-		}
-		for(int x : ref_x_positions_set) ref_x_positions.push_back(x);
-		for(int y : ref_y_positions_set) ref_y_positions.push_back(y);
-	}
-	
-	grid.count_x = ref_x_positions.size();
-	grid.count_y = ref_y_positions.size();
-	
-	for(int gx = 0; gx < grid.count_x; ++gx)
-	for(int gy = 0; gy < grid.count_y; ++gy) {
-		cors_ref_grid_index grid_idx(gx, gy);
-		view_index ref_idx(ref_x_positions.at(gx), ref_y_positions.at(gy));
-		if(ref_vws.find(ref_idx) == ref_vws.end())
-			throw std::runtime_error("reference views are not arranged in a grid");
-		grid.reference_views[grid_idx] = ref_idx;
-	}
-	
-	grid.center.x = grid.count_x/2;
-	grid.center.y = grid.count_y/2;
-	
-	return grid;
-}
-
-
 std::set<view_index> get_reference_views(const image_correspondences& cors) {
 	std::set<view_index> reference_views;
 	for(const auto& kv : cors.features) reference_views.insert(kv.second.reference_view);

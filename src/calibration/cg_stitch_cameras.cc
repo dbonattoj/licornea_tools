@@ -1,0 +1,146 @@
+#include "../lib/common.h"
+#include "../lib/args.h"
+#include "../lib/json.h"
+#include "../lib/camera.h"
+#include "../lib/dataset.h"
+#include "../lib/intrinsics.h"
+#include "../lib/misc.h"
+#include "../lib/assert.h"
+#include "lib/cg/references_grid.h"
+#include "lib/cg/relative_camera_positions.h"
+#include <map>
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <utility>
+#include <set>
+
+using namespace tlz;
+
+const bool verbose = false;
+
+
+int main(int argc, const char* argv[]) {
+	get_args(argc, argv, "dataset_parameters.json refgrid.json rcpos.json intr.json R.json out_cameras.json");
+	dataset datas = dataset_arg();
+	references_grid rgrid = references_grid_arg(); 
+	relative_camera_positions rcpos = relative_camera_positions_arg();
+	intrinsics intr = intrinsics_arg();
+	mat33 R = decode_mat(json_arg());
+	std::string out_cameras_filename = out_filename_arg();
+		
+	Assert(intr.distortion.is_none(), "input cors + intrinsics must be without distortion");
+	
+	auto reference_target_camera_positions = rcpos.to_reference_target_positions();
+	auto all_target_vws = get_target_views(rcpos);
+
+	std::cout << "computing relative positions of reference views" << std::endl;
+	auto reference_camera_displacement = [&](view_index ref_a, view_index ref_b) {
+		vec2 displacements_sum = 0.0;
+		real displacements_weights_sum = 0.0;
+		std::map<view_index, vec2> ref_a_target_camera_positions;
+		
+		for(const auto& p : reference_target_camera_positions.at(ref_a)) {
+			const view_index& target = p.first;
+			const vec2& camera_position = p.second;
+			ref_a_target_camera_positions[target] = camera_position;
+		}
+		
+		for(const auto& p : reference_target_camera_positions.at(ref_b)) {
+			const view_index& target = p.first;
+			auto ref_a_pos_it = ref_a_target_camera_positions.find(target);
+			if(ref_a_pos_it != ref_a_target_camera_positions.end()) {
+				vec2 ref_a_pos = ref_a_pos_it->second;
+				vec2 ref_b_pos = p.second;
+				
+				displacements_sum += (ref_a_pos - ref_b_pos);
+				displacements_weights_sum += 1.0;
+			}
+		}
+
+		if(displacements_weights_sum == 0.0)
+			throw std::runtime_error("could not compute displacement from ref " + encode_view_index(ref_a) + " to ref " + encode_view_index(ref_b));
+		
+		return displacements_sum / displacements_weights_sum;
+	};
+	
+	
+	std::map<view_index, vec2> absolute_reference_camera_positions;
+	auto add_reference_camera_position = [&](const view_index& ref_a, const view_index& ref_b) {
+		std::cout << "    stitching position of reference view " << ref_b << " onto " << ref_a << std::endl;
+		vec2 displacement = reference_camera_displacement(ref_a, ref_b);
+		absolute_reference_camera_positions[ref_b] = absolute_reference_camera_positions.at(ref_a) + displacement;
+	};
+	
+	int mid_col = rgrid.cols() / 2, mid_row = rgrid.rows()/2;
+	absolute_reference_camera_positions[rgrid.view(mid_col, mid_row)] = vec2(0.0, 0.0);
+	for(int col = mid_col-1; col >= 0; col--) {
+		add_reference_camera_position(rgrid.view(col+1, mid_row), rgrid.view(col, mid_row));
+		for(int row = mid_row-1; row >= 0; row--) add_reference_camera_position(rgrid.view(col, row+1), rgrid.view(col, row));
+		for(int row = mid_row+1; row < rgrid.cols(); row++) add_reference_camera_position(rgrid.view(col, row-1), rgrid.view(col, row));
+	}
+	for(int col = mid_col+1; col < rgrid.cols(); col++) {
+		add_reference_camera_position(rgrid.view(col-1, mid_row), rgrid.view(col, mid_row));
+		for(int row = mid_row-1; row >= 0; row--) add_reference_camera_position(rgrid.view(col, row+1), rgrid.view(col, row));
+		for(int row = mid_row+1; row < rgrid.cols(); row++) add_reference_camera_position(rgrid.view(col, row-1), rgrid.view(col, row));		
+	}
+	
+	
+	std::map<view_index, vec2> absolute_target_camera_positions;
+	if(absolute_reference_camera_positions.size() == 1) {
+		for(const auto& p : reference_target_camera_positions.begin()->second) {
+			absolute_target_camera_positions[p.first] = p.second;
+		}
+		
+	} else {
+		reference_target_camera_positions.clear();
+		auto target_reference_camera_positions = rcpos.to_target_reference_positions();
+		
+		std::cout << "stitching camera positions from different reference views" << std::endl;
+		for(const view_index& target_index : all_target_vws) {
+			vec2 positions_sum(0.0, 0.0);
+			real positions_weights_sum = 0.0;
+			
+			auto target_positions_it = target_reference_camera_positions.find(target_index);
+			if(target_positions_it == target_reference_camera_positions.end()) continue;
+			
+			for(const auto& p : target_positions_it->second) {
+				const view_index& ref_index = p.first;
+				const vec2& pos = p.second;
+				const vec2& absolute_reference_pos = absolute_reference_camera_positions.at(ref_index);
+				real weight = 1.0;
+				vec2 abs_pos = absolute_reference_pos + pos;
+				positions_sum += abs_pos;
+				positions_weights_sum += weight;
+			}
+			
+			absolute_target_camera_positions[target_index] = positions_sum / positions_weights_sum;
+		}
+		
+	}
+	
+
+	std::cout << "computing camera array" << std::endl;
+	camera_array cameras;
+	for(const view_index& target_idx : all_target_vws) {
+		auto it = absolute_target_camera_positions.find(target_idx);
+		if(it == absolute_target_camera_positions.end()) {
+			std::cout << "no camera position for " << target_idx << std::endl;
+		}
+		const vec2& camera_position = it->second;
+		
+		camera cam;
+		cam.name = datas.view(target_idx).camera_name();
+		cam.intrinsic = intr.K;
+		cam.rotation = R;
+		cam.translation = R * vec3(camera_position[0], camera_position[1], 0.0);
+		cameras.push_back(cam);
+	}
+
+
+	std::cout << "saving cameras" << std::endl;
+	export_cameras_file(cameras, out_cameras_filename);
+	
+	std::cout << "done" << std::endl;	
+}
+

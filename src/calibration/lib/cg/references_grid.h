@@ -3,6 +3,7 @@
 
 #include "../../../lib/json.h"
 #include "../../../lib/args.h"
+#include "../image_correspondence.h"
 #include <string>
 
 namespace tlz {
@@ -23,7 +24,10 @@ struct references_grid {
 json encode_references_grid(const references_grid&);
 references_grid decode_references_grid(const json&);
 
+references_grid get_references_grid(const image_correspondences&);
+
 references_grid references_grid_arg();
+
 
 }
 
