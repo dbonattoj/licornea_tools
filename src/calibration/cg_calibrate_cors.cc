@@ -39,12 +39,11 @@ int main(int argc, const char* argv[]) {
 	auto ref_vws = get_reference_views(cors);
 	
 	std::cout << "estimating target camera positions, from each reference" << std::endl;
-	using reference_target_key = std::pair<view_index, view_index>;
-	auto reference = [](const reference_target_key& key) { return key.first; };
-	auto target = [](const reference_target_key& key) { return key.second; };
-	
-	std::map<reference_target_key, vec2> reference_target_camera_positions;
-	
+	using reference_view_index = view_index;
+	using target_view_index = view_index;
+	std::map<reference_view_index, std::vector<std::pair<target_view_index, vec2>>> reference_target_camera_positions;
+	std::map<target_view_index, std::vector<std::pair<reference_view_index, vec2>>> target_reference_camera_positions;
+		
 	for(const view_index& ref_idx : ref_vws) {
 		image_correspondences ref_cors = image_correspondences_with_reference(cors, ref_idx);
 		feature_points ref_fpoints = feature_points_for_view(ref_cors, ref_idx, false);
@@ -54,8 +53,6 @@ int main(int argc, const char* argv[]) {
 		for(const view_index& target_idx : all_vws) {			
 			feature_points target_fpoints = feature_points_for_view(ref_cors, target_idx, false);
 	
-			std::cout << "\n\n\n\n\ntarget " << target_idx << "\n\n";
-
 			vec2 target_camera_position_sum = 0.0;
 			real target_camera_position_weight_sum = 0.0;
 						
@@ -69,9 +66,7 @@ int main(int argc, const char* argv[]) {
 
 				const vec2& target_pos = target_fpoint.position;
 				vec2 straight_target_pos = mul_h(unrotate, target_pos);
-				
-				std::cout << target_pos << std::endl;
-				
+								
 				const vec2& reference_pos = reference_fpoint.position;				
 				vec2 straight_reference_pos = mul_h(unrotate, reference_pos);
 				
@@ -84,12 +79,10 @@ int main(int argc, const char* argv[]) {
 				target_camera_position_weight_sum += weight;
 			}
 			
-			if(target_camera_position_weight_sum > 0.0)
-				reference_target_camera_positions[reference_target_key(ref_idx, target_idx)] = target_camera_position_sum / target_camera_position_weight_sum;
-	
-			if(reference_target_camera_positions[reference_target_key(ref_idx, target_idx)] == reference_target_camera_positions[reference_target_key(ref_idx, view_index(target_idx.x+1,target_idx.y))]) {
-				std::cout << feature_points_for_view(ref_cors, target_idx, false).points.size() << std::endl;
-				return 1;
+			if(target_camera_position_weight_sum > 0.0) {
+				vec2 camera_position = target_camera_position_sum / target_camera_position_weight_sum;
+				reference_target_camera_positions[ref_idx].emplace_back(target_idx, camera_position);
+				target_reference_camera_positions[target_idx].emplace_back(ref_idx, camera_position);
 			}
 		}
 	}
@@ -100,20 +93,20 @@ int main(int argc, const char* argv[]) {
 	auto reference_camera_displacement = [&](view_index ref_a, view_index ref_b) {
 		vec2 displacements_sum = 0.0;
 		real displacements_weights_sum = 0.0;
-		std::set<view_index> ref_a_targets;
+		std::map<view_index, vec2> ref_a_target_camera_positions;
 		
-		for(const auto& kv : reference_target_camera_positions) {
-			const view_index& ref = kv.first.first;
-			const view_index& target = kv.first.second;
-			if(ref == ref_a) ref_a_targets.insert(target);
+		for(const auto& p : reference_target_camera_positions.at(ref_a)) {
+			const view_index& target = p.first;
+			const vec2& camera_position = p.second;
+			ref_a_target_camera_positions[target] = camera_position;
 		}
 		
-		for(const auto& kv : reference_target_camera_positions) {
-			const view_index& ref = kv.first.first;
-			const view_index& target = kv.first.second;
-			if(ref == ref_b && ref_a_targets.find(target) != ref_a_targets.end()) {
-				vec2 ref_a_pos = reference_target_camera_positions.at(reference_target_key(ref_a, target));
-				vec2 ref_b_pos = reference_target_camera_positions.at(reference_target_key(ref_b, target));
+		for(const auto& p : reference_target_camera_positions.at(ref_b)) {
+			const view_index& target = p.first;
+			auto ref_a_pos_it = ref_a_target_camera_positions.find(target);
+			if(ref_a_pos_it != ref_a_target_camera_positions.end()) {
+				vec2 ref_a_pos = ref_a_pos_it->second;
+				vec2 ref_b_pos = p.second;
 				
 				displacements_sum += (ref_a_pos - ref_b_pos);
 				displacements_weights_sum += 1.0;
@@ -153,8 +146,8 @@ int main(int argc, const char* argv[]) {
 	
 	std::map<view_index, vec2> absolute_target_camera_positions;
 	if(absolute_reference_camera_positions.size() == 1) {
-		for(const auto& kv : reference_target_camera_positions) {
-			absolute_target_camera_positions[target(kv.first)] = kv.second;
+		for(const auto& p : reference_target_camera_positions.begin()->second) {
+			absolute_target_camera_positions[p.first] = p.second;
 		}
 		
 	} else {
@@ -163,16 +156,17 @@ int main(int argc, const char* argv[]) {
 			vec2 positions_sum(0.0, 0.0);
 			real positions_weights_sum = 0.0;
 			
-			for(const auto& kv : reference_target_camera_positions) {
-				const view_index& ref_index = reference(kv.first);
-				if(target(kv.first) == target_index) {
-					vec2 pos = kv.second;
-					const vec2& absolute_reference_pos = absolute_reference_camera_positions.at(ref_index);
-					real weight = 1.0;
-					vec2 abs_pos = absolute_reference_pos + pos;
-					positions_sum += abs_pos;
-					positions_weights_sum += weight;
-				}
+			auto target_positions_it = target_reference_camera_positions.find(target_index);
+			if(target_positions_it == target_reference_camera_positions.end()) continue;
+			
+			for(const auto& p : target_positions_it->second) {
+				const view_index& ref_index = p.first;
+				const vec2& pos = p.second;
+				const vec2& absolute_reference_pos = absolute_reference_camera_positions.at(ref_index);
+				real weight = 1.0;
+				vec2 abs_pos = absolute_reference_pos + pos;
+				positions_sum += abs_pos;
+				positions_weights_sum += weight;
 			}
 			
 			absolute_target_camera_positions[target_index] = positions_sum / positions_weights_sum;

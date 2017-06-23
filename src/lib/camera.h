@@ -16,6 +16,8 @@ struct camera {
 	vec3 translation;
 	
 	mat44 extrinsic() const;
+	mat44 extrinsic_inv() const;
+	
 	vec3 position() const;
 };
 

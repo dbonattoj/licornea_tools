@@ -26,9 +26,7 @@ bool read_camera_mpeg(std::istream& input, camera& cam, bool convert) {
 	input >> cam.rotation(0, 0) >> cam.rotation(0, 1) >> cam.rotation(0, 2) >> cam.translation[0];
 	input >> cam.rotation(1, 0) >> cam.rotation(1, 1) >> cam.rotation(1, 2) >> cam.translation[1];
 	input >> cam.rotation(2, 0) >> cam.rotation(2, 1) >> cam.rotation(2, 2) >> cam.translation[2];
-	
-	cam.rotation = cam.rotation.t();
-	
+		
 	if(convert) cam.translation = -(cam.rotation * cam.translation);
 		
 	return true;
@@ -38,7 +36,7 @@ void write_camera_mpeg(std::ostream& output, const camera& orig_cam, bool conver
 	camera cam = orig_cam;
 	if(convert) cam.translation = -(cam.rotation.t() * cam.translation);
 
-	output << std::setprecision(16);
+	output << std::setprecision(20);
 	output << cam.name << "\n";
 	output << cam.intrinsic(0, 0) << ' ' << cam.intrinsic(0, 1) << ' ' << cam.intrinsic(0, 2) << '\n';
 	output << cam.intrinsic(1, 0) << ' ' << cam.intrinsic(1, 1) << ' ' << cam.intrinsic(1, 2) << '\n';

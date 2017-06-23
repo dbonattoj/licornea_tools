@@ -58,7 +58,7 @@ std::set<std::string> get_feature_names(const image_correspondences&);
 image_correspondences undistort(const image_correspondences&, const intrinsics&);
 
 cv::Mat_<cv::Vec3b> visualize_view_points(const image_correspondence_feature&, const cv::Mat_<cv::Vec3b>& back_img, const cv::Vec3b& col, int dot_size = 2, const border& = border());
-cv::Mat_<cv::Vec3b> visualize_view_points_closeup(const image_correspondence_feature&, const cv::Mat_<cv::Vec3b>& img, const cv::Vec3b& col, const view_index& ref = view_index(), const border& = border());
+cv::Mat_<cv::Vec3b> visualize_view_points_closeup(const image_correspondence_feature&, const cv::Mat_<cv::Vec3b>& img, const cv::Vec3b& col, const view_index& ref, real dots_opacity, const border& = border());
 
 cors_ref_grid references_grid(const image_correspondences&);
 

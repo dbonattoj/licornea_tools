@@ -40,7 +40,7 @@ cv::Mat_<cv::Vec3b> view_synthesis(
 		0.0, 0.0, 1.0, 0.0
 	};
 	
-	mat44 H = P_tg * tg_cam.extrinsic().inv() * ref_cam.extrinsic() * P_ref.inv();
+	mat44 H = P_ref * ref_cam.extrinsic() * tg_cam.extrinsic_inv() * P_tg.inv();
 	
 	cv::Mat_<cv::Vec3b> out_img(sz);
 	ref_img.copyTo(out_img);
@@ -118,20 +118,23 @@ int main(int argc, const char* argv[]) {
 	real z_far = 1600.0;
 
 	view.update_callback = [&]() {
-		view_index ref_idx(slider_ref_x, slider_ref_y);
-		view_index tg_idx(slider_tg_x, slider_tg_y);
-		if(! datas.valid(ref_idx) || ! datas.valid(tg_idx)) return;		
-		
-		cv::Mat_<cv::Vec3b> ref_image = load_texture(datag.view(ref_idx).image_filename());
-		cv::Mat_<cv::Vec3b> tg_image = load_texture(datag.view(tg_idx).image_filename());
-		cv::Mat_<ushort> tg_depth = load_depth(datag.view(tg_idx).depth_filename());
-		camera ref_cam = cams_map.at(datas.view(ref_idx).camera_name());
-		camera tg_cam = cams_map.at(datas.view(tg_idx).camera_name());
-		
-		cv::Mat_<cv::Vec3b> out_image = view_synthesis(
-			ref_image, tg_image, tg_depth, ref_cam, tg_cam, z_near, z_far, slider_opacity, 1.0-slider_darken_background);
+		view.clear();
+		try {
+			view_index ref_idx(slider_ref_x, slider_ref_y);
+			view_index tg_idx(slider_tg_x, slider_tg_y);
+			if(! datas.valid(ref_idx) || ! datas.valid(tg_idx)) return;		
 			
-		view.draw(cv::Point(0,0), out_image);
+			cv::Mat_<cv::Vec3b> ref_image = load_texture(datag.view(ref_idx).image_filename());
+			cv::Mat_<cv::Vec3b> tg_image = load_texture(datag.view(tg_idx).image_filename());
+			cv::Mat_<ushort> tg_depth = load_depth(datag.view(tg_idx).depth_filename());
+			camera ref_cam = cams_map.at(datas.view(ref_idx).camera_name());
+			camera tg_cam = cams_map.at(datas.view(tg_idx).camera_name());
+			
+			cv::Mat_<cv::Vec3b> out_image = view_synthesis(
+				ref_image, tg_image, tg_depth, ref_cam, tg_cam, z_near, z_far, slider_opacity, 1.0-slider_darken_background);
+		
+			view.draw(cv::Point(0,0), out_image);
+		} catch(const std::runtime_error&) { }
 	};
 
 	view.show_modal();

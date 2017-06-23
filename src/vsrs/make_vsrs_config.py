@@ -57,6 +57,8 @@ def main(parameters_filename, cameras_filename, left_idx, virtual_idx, right_idx
 	depth_left_filename = left_view.depth_filename()
 	depth_right_filename = right_view.depth_filename()
 
+	print texture_left_filename
+
 	assert(os.path.isfile(cameras_filename))
 	assert(os.path.isfile(texture_left_filename))
 	assert(os.path.isfile(texture_right_filename))

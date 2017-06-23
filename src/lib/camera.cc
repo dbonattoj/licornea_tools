@@ -31,6 +31,19 @@ mat44 camera::extrinsic() const {
 }
 
 
+mat44 camera::extrinsic_inv() const {
+	mat33 R_inv = rotation.t();
+	vec3 t_inv = -R_inv * translation;
+	return mat44(
+		R_inv(0, 0), R_inv(0, 1), R_inv(0, 2), t_inv[0],
+		R_inv(1, 0), R_inv(1, 1), R_inv(1, 2), t_inv[1],
+		R_inv(2, 0), R_inv(2, 1), R_inv(2, 2), t_inv[2],
+		0.0, 0.0, 0.0, 1.0
+	);
+}
+
+
+
 vec3 camera::position() const {
 	return rotation.t() * translation;
 }

@@ -342,7 +342,7 @@ cv::Mat_<cv::Vec3b> visualize_view_points(const image_correspondence_feature& fe
 }
 
 
-cv::Mat_<cv::Vec3b> visualize_view_points_closeup(const image_correspondence_feature& feature, const cv::Mat_<cv::Vec3b>& img, const cv::Vec3b& col, const view_index& ref_idx, const border& bord) {
+cv::Mat_<cv::Vec3b> visualize_view_points_closeup(const image_correspondence_feature& feature, const cv::Mat_<cv::Vec3b>& img, const cv::Vec3b& col, const view_index& ref_idx, real dots_opacity, const border& bord) {
 	real y_min = +INFINITY, y_max = -INFINITY, x_min = +INFINITY, x_max = -INFINITY;
 	for(const auto& kv : feature.points) {
 		vec2 pos = kv.second.position;
@@ -359,6 +359,9 @@ cv::Mat_<cv::Vec3b> visualize_view_points_closeup(const image_correspondence_fea
 	cv::Mat_<cv::Vec3b> out_img;
 	cv::resize(cv::Mat(img, roi), out_img, cv::Size(0,0), scale, scale, cv::INTER_CUBIC);
 
+	cv::Mat_<cv::Vec3b> out_img_with_dots;
+	out_img.copyTo(out_img_with_dots);
+	
 	for(const auto& kv : feature.points) {
 		const view_index& idx = kv.first;
 		cv::Point2f pt_cv = vec2_to_point2f(kv.second.position);
@@ -367,11 +370,15 @@ cv::Mat_<cv::Vec3b> visualize_view_points_closeup(const image_correspondence_fea
 		pt_cv.x *= scale;
 		pt_cv.y *= scale;
 		
-		if(ref_idx && idx == ref_idx)
+		if(ref_idx && idx == ref_idx) {
+			cv_aa_circle(out_img_with_dots, pt_cv, 5, cv::Scalar(cv::Vec3b(0,0,255)), -1);
 			cv_aa_circle(out_img, pt_cv, 5, cv::Scalar(cv::Vec3b(0,0,255)), -1);
+		}
 
-		cv_aa_circle(out_img, pt_cv, 2, cv::Scalar(col), -1);
+		cv_aa_circle(out_img_with_dots, pt_cv, 2, cv::Scalar(col), -1);
 	}
+	
+	cv::addWeighted(out_img_with_dots, dots_opacity, out_img, 1.0-dots_opacity, 0.0, out_img);
 	
 	return out_img;
 }

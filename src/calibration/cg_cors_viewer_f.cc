@@ -7,6 +7,8 @@
 #include "../lib/viewer.h"
 #include "../lib/string.h"
 #include "../lib/random_color.h"
+#include "../lib/filesystem.h"
+#include "../lib/image_io.h"
 #include "lib/image_correspondence.h"
 #include "lib/feature_points.h"
 #include <cstdlib>
@@ -15,6 +17,7 @@
 
 using namespace tlz;
 
+const real max_viz_depth = 6000;
 
 int main(int argc, const char* argv[]) {
 	get_args(argc, argv, "dataset_parameters.json cors.json closeup? [dataset_group]");
@@ -35,6 +38,10 @@ int main(int argc, const char* argv[]) {
 	auto& feature_slider = view.add_int_slider("feature", 0, 0, feature_names.size()-1);
 	auto& x_slider = view.add_int_slider("X", datas.x_mid(), datas.x_min(), datas.x_max(), datas.x_step());
 	auto& y_slider = view.add_int_slider("Y", datas.y_mid(), datas.y_min(), datas.y_max(), datas.y_step());
+	auto& depth_opacity_slider = view.add_real_slider("depth op", 0.0, 0.0, 1.0);
+	auto& d_min_slider = view.add_real_slider("d min", 0, 0, max_viz_depth);
+	auto& d_max_slider = view.add_real_slider("d max", max_viz_depth, 0, max_viz_depth);
+	auto& dots_opacity_slider = view.add_real_slider("dots op", 0.5, 0, 1.0);
 
 	
 	view.update_callback = [&]() {
@@ -49,8 +56,17 @@ int main(int argc, const char* argv[]) {
 		cv::Mat_<cv::Vec3b> img;
 		{
 			std::string image_filename = datag.view(idx).image_filename();
+			std::string depth_filename = datag.view(idx).depth_filename();
+
 			cv::Mat_<uchar> gray_img = cv::imread(image_filename, CV_LOAD_IMAGE_GRAYSCALE);
 			if(gray_img.empty()) return;
+			
+			if(depth_opacity_slider > 0.0 && file_exists(depth_filename)) {
+				cv::Mat_<ushort> depth_img = load_depth(depth_filename);
+				cv::Mat_<uchar> viz_depth_img = viewer::visualize_depth(depth_img, d_min_slider, d_max_slider);
+				cv::addWeighted(gray_img, 1.0-depth_opacity_slider, viz_depth_img, depth_opacity_slider, 0.0, gray_img);
+			}
+
 			cv::cvtColor(gray_img, img, CV_GRAY2BGR);
 		}
 
@@ -58,7 +74,7 @@ int main(int argc, const char* argv[]) {
 
 		try {
 			if(closeup) {
-				img = visualize_view_points_closeup(feature, img, col, idx, datag.image_border());
+				img = visualize_view_points_closeup(feature, img, col, idx, dots_opacity_slider, datag.image_border());
 				view.draw(cv::Rect(0, 0, sz.width, sz.height), img);
 			} else {
 				img = visualize_view_points(feature, img, col, 1, datag.image_border());
