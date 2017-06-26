@@ -2,15 +2,16 @@
 from pylib import *
 import sys, os, json, shutil
 
+image = True
+depth = True
+overwrite_image = False
+overwrite_depth = False
+
+##########
+
 datas = None
 datag = None
 simulate = False
-
-image = True
-depth = True
-
-overwrite_image = False
-overwrite_depth = False
 
 def process_view(x, y):	
 	if verbose: print "view x={}, y={}".format(x, y)
@@ -45,7 +46,7 @@ def process_view(x, y):
 
 
 def usage_fail():
-	print("usage: {} parameters.json [simulate] [dataset_group]\n".format(sys.argv[0]))
+	print("usage: {} dataset_parameters.json [simulate] [dataset_group]\n".format(sys.argv[0]))
 	sys.exit(1)
 
 if __name__ == '__main__':
