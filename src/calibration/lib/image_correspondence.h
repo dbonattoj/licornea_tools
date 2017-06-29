@@ -40,7 +40,8 @@ image_correspondences image_correspondences_with_reference(const image_correspon
 std::set<view_index> get_all_views_set(const image_correspondences&);
 std::vector<view_index> get_all_views(const image_correspondences&);
 
-std::set<std::string> get_feature_names(const image_correspondences&);
+std::set<std::string> get_feature_names_set(const image_correspondences&);
+std::vector<std::string> get_feature_names(const image_correspondences&);
 
 image_correspondences undistort(const image_correspondences&, const intrinsics&);
 

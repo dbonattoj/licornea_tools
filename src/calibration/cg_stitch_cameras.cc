@@ -14,6 +14,7 @@
 #include <cmath>
 #include <utility>
 #include <set>
+#include <fstream>
 
 using namespace tlz;
 
@@ -21,13 +22,14 @@ const bool verbose = false;
 
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv, "dataset_parameters.json refgrid.json rcpos.json intr.json R.json out_cameras.json");
+	get_args(argc, argv, "dataset_parameters.json refgrid.json rcpos.json intr.json R.json out_cameras.json [out_camera_centers.txt]");
 	dataset datas = dataset_arg();
 	references_grid rgrid = references_grid_arg(); 
 	relative_camera_positions rcpos = relative_camera_positions_arg();
 	intrinsics intr = intrinsics_arg();
 	mat33 R = decode_mat(json_arg());
 	std::string out_cameras_filename = out_filename_arg();
+	std::string out_camera_centers_filename = out_filename_opt_arg();
 		
 	Assert(intr.distortion.is_none(), "input cors + intrinsics must be without distortion");
 	
@@ -45,7 +47,7 @@ int main(int argc, const char* argv[]) {
 			const vec2& camera_position = p.second;
 			ref_a_target_camera_positions[target] = camera_position;
 		}
-		
+				
 		for(const auto& p : reference_target_camera_positions.at(ref_b)) {
 			const view_index& target = p.first;
 			auto ref_a_pos_it = ref_a_target_camera_positions.find(target);
@@ -69,6 +71,7 @@ int main(int argc, const char* argv[]) {
 	auto add_reference_camera_position = [&](const view_index& ref_a, const view_index& ref_b) {
 		std::cout << "    stitching position of reference view " << ref_b << " onto " << ref_a << std::endl;
 		vec2 displacement = reference_camera_displacement(ref_a, ref_b);
+		std::cout << "    ref" << ref_b << " = " << displacement << " + ref" << ref_a << std::endl;
 		absolute_reference_camera_positions[ref_b] = absolute_reference_camera_positions.at(ref_a) + displacement;
 	};
 	
@@ -77,12 +80,12 @@ int main(int argc, const char* argv[]) {
 	for(int col = mid_col-1; col >= 0; col--) {
 		add_reference_camera_position(rgrid.view(col+1, mid_row), rgrid.view(col, mid_row));
 		for(int row = mid_row-1; row >= 0; row--) add_reference_camera_position(rgrid.view(col, row+1), rgrid.view(col, row));
-		for(int row = mid_row+1; row < rgrid.cols(); row++) add_reference_camera_position(rgrid.view(col, row-1), rgrid.view(col, row));
+		for(int row = mid_row+1; row < rgrid.rows(); row++) add_reference_camera_position(rgrid.view(col, row-1), rgrid.view(col, row));
 	}
 	for(int col = mid_col+1; col < rgrid.cols(); col++) {
 		add_reference_camera_position(rgrid.view(col-1, mid_row), rgrid.view(col, mid_row));
 		for(int row = mid_row-1; row >= 0; row--) add_reference_camera_position(rgrid.view(col, row+1), rgrid.view(col, row));
-		for(int row = mid_row+1; row < rgrid.cols(); row++) add_reference_camera_position(rgrid.view(col, row-1), rgrid.view(col, row));		
+		for(int row = mid_row+1; row < rgrid.rows(); row++) add_reference_camera_position(rgrid.view(col, row-1), rgrid.view(col, row));		
 	}
 	
 	
@@ -140,6 +143,17 @@ int main(int argc, const char* argv[]) {
 
 	std::cout << "saving cameras" << std::endl;
 	export_cameras_file(cameras, out_cameras_filename);
+	
+	if(! out_camera_centers_filename.empty()) {
+		std::cout << "saving camera center positions" << std::endl;
+		std::ofstream out_camera_centers_stream(out_camera_centers_filename);
+		out_camera_centers_stream << "center_x center_y idx_x idx_y\n";
+		for(const auto& kv : absolute_target_camera_positions) {
+			const view_index& target_idx = kv.first;
+			const vec2& position = kv.second;
+			out_camera_centers_stream << position[0] << ' ' << position[1] << ' ' << target_idx.x << ' ' << target_idx.y << '\n';
+		}
+	}
 	
 	std::cout << "done" << std::endl;	
 }

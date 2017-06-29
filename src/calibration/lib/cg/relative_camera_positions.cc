@@ -24,7 +24,7 @@ auto relative_camera_positions::to_reference_target_positions() const -> referen
 	reference_target_positions_type map;
 	for(const auto& kv : positions) {
 		const view_index& ref_idx = kv.first.first;
-		const view_index& target_idx = kv.first.first;
+		const view_index& target_idx = kv.first.second;
 		const vec2& pos = kv.second;
 		map[ref_idx].emplace_back(target_idx, pos);
 	}
@@ -36,7 +36,7 @@ auto relative_camera_positions::to_target_reference_positions() const -> target_
 	target_reference_positions_type map;
 	for(const auto& kv : positions) {
 		const view_index& ref_idx = kv.first.first;
-		const view_index& target_idx = kv.first.first;
+		const view_index& target_idx = kv.first.second;
 		const vec2& pos = kv.second;
 		map[target_idx].emplace_back(ref_idx, pos);
 	}

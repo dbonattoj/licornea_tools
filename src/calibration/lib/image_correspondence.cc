@@ -197,28 +197,31 @@ std::set<view_index> get_reference_views(const image_correspondences& cors) {
 
 
 std::set<view_index> get_all_views_set(const image_correspondences& cors) {
-	std::set<view_index> views;
+	std::set<view_index> views_set;
 	for(const auto& kv : cors.features)
 		for(const auto& kv2 : kv.second.points)
-			views.insert(kv2.first);
-	return views;
+			views_set.insert(kv2.first); // std::set: each view_index gets inserted only once
+	return views_set;
 }
 
 
 std::vector<view_index> get_all_views(const image_correspondences& cors) {
-	std::set<view_index> views = get_all_views_set(cors);
-	std::vector<view_index> out_views;
-	for(const view_index& idx : views)
-		out_views.push_back(idx);
-	return out_views;
+	auto views_set = get_all_views_set(cors);
+	return std::vector<view_index>(views_set.begin(), views_set.end());
 }
 
 
-std::set<std::string> get_feature_names(const image_correspondences& cors) {
-	std::set<std::string> features;
+std::set<std::string> get_feature_names_set(const image_correspondences& cors) {
+	auto feature_names = get_feature_names(cors);
+	return std::set<std::string>(feature_names.begin(), feature_names.end());
+}
+
+
+std::vector<std::string> get_feature_names(const image_correspondences& cors) {
+	std::vector<std::string> feature_names;
 	for(const auto& kv : cors.features)
-		features.insert(kv.first);
-	return features;
+		feature_names.push_back(kv.first);
+	return feature_names;
 }
 
 

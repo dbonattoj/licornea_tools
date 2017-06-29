@@ -136,8 +136,10 @@ int main(int argc, const char* argv[]) {
 			if(verbose) std::cout << "bad points (not on lattice): " << bad_points.size() << " > " << max_bad_points_count << "; rejected feature" << std::endl;
 			return false;
 		} else if(bad_points.size() >= 1) {
+			
+			
 			if(verbose) std::cout << "bad points (not on lattice): " << bad_points.size() << " > " << max_bad_points_count << "; removing them" << std::endl;
-			for(const view_index& idx : bad_points) feature.points.erase(idx);
+			//for(const view_index& idx : bad_points) feature.points.erase(idx);
 		}
 
 		
