@@ -48,7 +48,7 @@ void orthogonal_distance_to_depth(
 
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv, "input_reprojected_depth.png output_disparity.yuv z_near z_far [output_bitdepth (8/16)]");
+	get_args(argc, argv, "depth.png out_disparity.yuv z_near z_far [8/16]");
 	std::string input_filename = in_filename_arg();
 	std::string output_filename = out_filename_arg();
 	ushort z_near = int_arg();

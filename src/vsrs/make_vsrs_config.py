@@ -85,10 +85,11 @@ def main(parameters_filename, cameras_filename, left_idx, virtual_idx, right_idx
 		print >>f, config
 
 
+# TODO support 2D dataset
 
 if __name__ == '__main__':
 	def usage_fail():
-		print("usage: {} parameters.json cameras.txt left_idx virtual_idx right_idx output_virtual.yuv output_config.txt\n".format(sys.argv[0]))
+		print("usage: {} dataset_parameters.json cameras.txt left_idx virtual_idx right_idx output_virtual.yuv output_config.txt\n".format(sys.argv[0]))
 		sys.exit(1)
 
 	if len(sys.argv) <= 7: usage_fail()

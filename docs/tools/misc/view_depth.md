@@ -1,6 +1,6 @@
-# misc/view_depth
+# misc/view\_depth
 
-Small GUI to visualize depth maps, with sliders to adjust visible range.
+GUI to visualize depth maps, with sliders to adjust visible range.
 
 ## Usage
 
@@ -13,12 +13,8 @@ visualization into this file. Otherwise, it displays a window with the visualiza
 
 ## Description
 
-The GUI looks like this:
-
-![Screenshot of view_depth](view_depth.png)
-
 Adjusting the sliders changes the visualized image in real time. Depending on the platform and/or version of OpenCV,
-numbers may be shown on the sliders (as in this screenshot). They are meaningless. The actual `z_near` and `z_far`
+numbers may be shown on the slider. They are meaningless. The actual `z_near` and `z_far`
 values are shown on the command line output as the sliders get adjusted. 
 
 Pixels with values lower of equal to `z_near` become black, and pixels with values greater or equal to `z_far` become
