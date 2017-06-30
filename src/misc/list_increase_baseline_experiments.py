@@ -12,7 +12,7 @@ center = int(sys.argv[2])
 max_baseline = int(sys.argv[3])
 out_experiments_filename = sys.argv[4]
 step = 1
-if len(sys.argv) > 5: step = sys.argv[5]
+if len(sys.argv) > 5: step = int(sys.argv[5])
 
 datas = Dataset(parameters_filename)
 if datas.is_2d(): raise Exception("2D camera parameters not supported")

@@ -126,15 +126,15 @@ cv::Mat import_raw_color(const std::string& yuv_filename, int width, int height,
 
 
 cv::Mat import_raw_mono(const std::string& yuv_filename, int width, int height, int bit_depth) {
-	std::ifstream yuv_stream(yuv_filename, std::ios_base::binary);
 	int type;
 	switch(bit_depth) {
 		case 8: type = CV_8U; break;
 		case 16: type = CV_16U; break;
 		default: throw std::invalid_argument("invalid raw image bit depth");
 	}
-	cv::Mat mat(width, height, type);
-	int length = width * height * 8 / bit_depth;
+	cv::Mat mat(height, width, type);
+	int length = width * height * bit_depth/8;
+	std::ifstream yuv_stream(yuv_filename, std::ios_base::binary);
 	read_raw(yuv_stream, mat.data, length);
 	return mat;
 }
@@ -151,8 +151,25 @@ void export_raw_color(const cv::Mat& img, const std::string& yuv_filename, raw_i
 }
 
 
-void export_raw_mono(const cv::Mat& img, const std::string& yuv_filename) {
-	
+void export_raw_mono(const cv::Mat& img, const std::string& yuv_filename, int out_bit_depth) {
+	int type;
+	int in_bit_depth;
+	switch(img.depth()) {
+		case CV_8U: in_bit_depth = 8; break;
+		case CV_16U: in_bit_depth = 16; break;
+		default: throw std::invalid_argument("invalid input image bit depth");
+	}
+	switch(out_bit_depth) {
+		case 8: type = CV_8U; break;
+		case 16: type = CV_16U; break;
+		default: throw std::invalid_argument("invalid raw image bit depth");
+	}
+	real alpha = std::exp2(out_bit_depth - in_bit_depth);
+	cv::Mat out_mat;
+	img.convertTo(out_mat, type, alpha);
+	int length = img.cols * img.rows * out_bit_depth/8;
+	std::ofstream yuv_stream(yuv_filename, std::ios_base::binary);
+	write_raw(yuv_stream, out_mat.data, length);
 }
 
 

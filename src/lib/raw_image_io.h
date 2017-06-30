@@ -15,7 +15,7 @@ cv::Mat import_raw_color(const std::string& yuv_filename, int width, int height,
 cv::Mat import_raw_mono(const std::string& yuv_filename, int width, int height, int bit_depth = 8);
 
 void export_raw_color(const cv::Mat& img, const std::string& yuv_filename, raw_image_format);
-void export_raw_mono(const cv::Mat& img, const std::string& yuv_filename, int bit_depth = -1);
+void export_raw_mono(const cv::Mat& img, const std::string& yuv_filename, int bit_depth);
 
 }
 

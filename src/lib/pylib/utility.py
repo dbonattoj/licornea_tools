@@ -31,16 +31,6 @@ def call_tool(tool, args):
 def call_tool_collect_output(tool, args):
 	return call_tool(tool, args)
 
-
-def yuv2png(yuv, png, width, height):
-	size = "{}x{}".format(width, height)
-	if running_on_windows(): raise Exception("TODO windows ffmpeg")
-	else: subprocess.call("ffmpeg -y -f rawvideo -vcodec rawvideo -s {} -pix_fmt yuv420p -i {} -frames 1 {} > /dev/null 2>&1".format(size, yuv, png), shell=True)
-
-def png2yuv(png, yuv):
-	if running_on_windows(): raise Exception("TODO windows ffmpeg")
-	else: subprocess.check_call("ffmpeg -y -i {} -pix_fmt yuv420p {} > /dev/null 2>&1".format(png, yuv), shell=True)
-
 def format_time(seconds):
 	m, s = divmod(seconds, 60)
 	h, m = divmod(m, 60)

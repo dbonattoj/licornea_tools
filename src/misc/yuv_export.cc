@@ -13,18 +13,20 @@ int main(int argc, const char* argv[]) {
 	std::string mode = enum_arg({ "ycbcr420", "rgb_planar", "rgb_interleaved", "mono8", "mono16" });
 
 	if(mode == "ycbcr420") {
-		cv::Mat_<cv::Vec3b> img = cv::imread(in_image_filename, cv::IMREAD_COLOR);
+		cv::Mat_<cv::Vec3b> img = cv::imread(in_image_filename, CV_LOAD_IMAGE_COLOR);
 		export_raw_color(img, out_yuv_image_filename, raw_image_format::ycbcr420);
 	} else if(mode == "rgb_planar") {
-		cv::Mat_<cv::Vec3b> img = cv::imread(in_image_filename, cv::IMREAD_COLOR);
+		cv::Mat_<cv::Vec3b> img = cv::imread(in_image_filename, CV_LOAD_IMAGE_COLOR);
 		export_raw_color(img, out_yuv_image_filename, raw_image_format::rgb_planar);
 	} else if(mode == "rgb_interleaved") {
-		cv::Mat_<cv::Vec3b> img = cv::imread(in_image_filename, cv::IMREAD_COLOR);
+		cv::Mat_<cv::Vec3b> img = cv::imread(in_image_filename, CV_LOAD_IMAGE_COLOR);
 		export_raw_color(img, out_yuv_image_filename, raw_image_format::rgb_interleaved);
 	} else if(mode == "mono8") {
-
+		cv::Mat_<uchar> img = cv::imread(in_image_filename, CV_LOAD_IMAGE_GRAYSCALE);
+		export_raw_mono(img, out_yuv_image_filename, 8);
 	} else if(mode == "mono16") {
-
+		cv::Mat_<uchar> img = cv::imread(in_image_filename, CV_LOAD_IMAGE_GRAYSCALE | CV_LOAD_IMAGE_ANYDEPTH);
+		export_raw_mono(img, out_yuv_image_filename, 16);
 	} else {
 		throw std::runtime_error("unknown yuv format");
 	}

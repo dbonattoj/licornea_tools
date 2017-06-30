@@ -24,7 +24,7 @@ OutputVirtualViewImageName     {output}      # Name of output virtual view video
 
 ColorSpace                     0                        # 0...YUV, 1...RGB
 Precision                      2                        # 1...Integer-pel, 2...Half-pel, 4...Quater-pel
-Filter                         1                        # 0...(Bi)-linear, 1...(Bi)-Cubic, 2...MPEG-4 AVC
+Filter                         2                        # 0...(Bi)-linear, 1...(Bi)-Cubic, 2...MPEG-4 AVC
 
 BoundaryNoiseRemoval		   		 1						# Boundary Noise Removal: Updated By GIST
 
@@ -35,35 +35,34 @@ ViewBlending                  0                        # 0...Blend left and righ
 
 #---- 1D mode      ------
 #---- In this example, all parameters below are commented and default values will be taken ----
-#SplattingOption       2                 # 0: disable; 1: Enable for all pixels; 2: Enable only for boundary pixels. Default: 2
-#BoundaryGrowth        40                # A parameter to enlarge the boundary area with SplattingOption = 2. Default: 40
-#MergingOption         2                 # 0: Z-buffer only; 1: Averaging only; 2: Adaptive merging using Z-buffer and averaging. Default: 2
-#DepthThreshold        75                # A threshold is only used with MergingOption = 2. Range: 0 ~ 255. Default: 75
-#HoleCountThreshold    30                # A threshold is only used with MergingOption = 2. Range: 0 ~ 49. Default: 30
+SplattingOption       2                 # 0: disable; 1: Enable for all pixels; 2: Enable only for boundary pixels. Default: 2
+BoundaryGrowth        40                # A parameter to enlarge the boundary area with SplattingOption = 2. Default: 40
+MergingOption         2                 # 0: Z-buffer only; 1: Averaging only; 2: Adaptive merging using Z-buffer and averaging. Default: 2
+DepthThreshold        75                # A threshold is only used with MergingOption = 2. Range: 0 ~ 255. Default: 75
+HoleCountThreshold    30                # A threshold is only used with MergingOption = 2. Range: 0 ~ 49. Default: 30
 """
 
-def main(parameters_filename, cameras_filename, left_idx, virtual_idx, right_idx, output_virtual_filename, output_config_filename):
-	datas = Dataset(parameters_filename)
-	
+def main(datas, cameras_filename, left_idx, virtual_idx, right_idx, output_virtual_filename, output_config_filename):	
 	par = datas.parameters
 	vsrs_par = datas.group("vsrs").parameters()
 	
-	left_view = datas.view(left_idx).group_view("vsrs")
-	virtual_view = datas.view(virtual_idx).group_view("vsrs")
-	right_view = datas.view(right_idx).group_view("vsrs")
+	left_view = datas.view(*left_idx).group_view("vsrs")
+	virtual_view = datas.view(*virtual_idx).group_view("vsrs")
+	right_view = datas.view(*right_idx).group_view("vsrs")
 	
 	texture_left_filename = left_view.image_filename()
 	texture_right_filename = right_view.image_filename()
 	depth_left_filename = left_view.depth_filename()
 	depth_right_filename = right_view.depth_filename()
 
-	print texture_left_filename
-
 	assert(os.path.isfile(cameras_filename))
 	assert(os.path.isfile(texture_left_filename))
 	assert(os.path.isfile(texture_right_filename))
 	assert(os.path.isfile(depth_left_filename))
 	assert(os.path.isfile(depth_right_filename))
+
+	print virtual_idx
+	assert(os.path.isfile(datas.view(*virtual_idx).image_filename())) # indicates if camera param exists
 
 	config = config_tmp.format(
 		width=par["width"],
@@ -85,8 +84,6 @@ def main(parameters_filename, cameras_filename, left_idx, virtual_idx, right_idx
 		print >>f, config
 
 
-# TODO support 2D dataset
-
 if __name__ == '__main__':
 	def usage_fail():
 		print("usage: {} dataset_parameters.json cameras.txt left_idx virtual_idx right_idx output_virtual.yuv output_config.txt\n".format(sys.argv[0]))
@@ -95,10 +92,11 @@ if __name__ == '__main__':
 	if len(sys.argv) <= 7: usage_fail()
 	parameters_filename = sys.argv[1]
 	cameras_filename = sys.argv[2]
-	left_idx = int(sys.argv[3])
-	virtual_idx = int(sys.argv[4])
-	right_idx = int(sys.argv[5])
+	left_idx = decode_view_index(sys.argv[3])
+	virtual_idx = decode_view_index(sys.argv[4])
+	right_idx = decode_view_index(sys.argv[5])
 	output_virtual_filename = sys.argv[6]
 	output_config_filename = sys.argv[7]
 
-	main(parameters_filename, cameras_filename, left_idx, virtual_idx, right_idx, output_virtual_filename, output_config_filename)
+	datas = Dataset(parameters_filename)
+	main(datas, cameras_filename, left_idx, virtual_idx, right_idx, output_virtual_filename, output_config_filename)

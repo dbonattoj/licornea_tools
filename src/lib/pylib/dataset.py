@@ -174,7 +174,7 @@ class Dataset:
 		elif grp in self.parameters: return DatasetGroup(self, grp)
 		else: raise Exception("no {} group".format(grp))
 
-	def view(self, x, y=None):
+	def view(self, x, y=None):		
 		if y is None:
 			if self.is_2d(): raise Exception("must specify y view index, for 2d dataset")
 			y = 0
@@ -190,6 +190,6 @@ def encode_view_index(x, y=None):
 
 def decode_view_index(string):
 	indices = string.split(',')
-	if len(indices) == 2: return (indices[0], indices[1])
-	else: return (indices[0], None)
+	if len(indices) == 2: return (int(indices[0]), int(indices[1]))
+	else: return (int(indices[0]), None)
 	
