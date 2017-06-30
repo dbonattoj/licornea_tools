@@ -110,16 +110,15 @@ Format is described at [https://pyformat.info/](https://pyformat.info/).
 The C++ tools use [fmt](https://github.com/fmtlib/fmt) to parse the format string (not `printf`).
 
 
-### Filenames
-"Filenames" are relative file paths. The file paths are always relative to the location of the parameters file.
-(All tools read them that way.)
+### Filenames 
+"Filenames" are relative file paths. The file paths are always relative to the location of the parameters file. Except if the filename begins with "/": then it is considered an absolute path.
 
 
 ### Groups
 `kinect_raw` and `vsrs` are _groups_. They contain additional files belonging to the view. `kinect_raw` are the raw,
 unprocessed files from the Kinect camera. `vsrs` are `.yuv` files for VSRS.
 
-They can have a different numbering. `filename_x_index_factor` ("_factor_") and `filename_x_index_offset` ("_offset_") are both optional. If they
+They can optionally have a different numbering. `filename_x_index_factor` ("_factor_") and `filename_x_index_offset` ("_offset_") are both optional. If they
 are not present, _factor_ defaults to 1, and _offset_ defaults to 0. (Same for Y).
 The _factor_ can be a real number. The _offset_ is always an integer. Both can be negative.
 
