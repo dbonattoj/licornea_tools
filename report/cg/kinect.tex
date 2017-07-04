@@ -1,0 +1,68 @@
+\documentclass{scrreprt}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\newcommand{\matr}[1]{\mathbf{#1}}
+
+\title{Camera grid calibration}
+\author{Tim Lenertz}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\chapter{Introduction}
+This report describes the method used to calibrate the extrinsic camera parameters of the 3DLicorneA data sets. If is applicable for dense 2D data sets, where cameras are placed on a more or less regular grid on a plane parallel to the scene. The optical flow of tracked features, and aggregated values from the depth maps, are used to compute the camera positions and orientations. No calibration pattern needs to be present in the scene.
+
+\section{Requirements}
+To use the method, there are the following requirements:
+\begin{itemize}
+\item The camera intrinsic parameters are known. This is the camera matrix $K$ and optionally the distortion coefficients. The method was used for the case where there is no distortion (Kinect v2), but with additional steps it can be used with distorted images.
+\item There is a depth map for all of some views. There is an extension to use the method without depth maps, by instead fixing the depth only for some feature points.
+\item The camera centers are arranged on an approximately regular 2D grid on a plane $P$. The distance between adjacent camera positions (in X and Y direction) is sufficiently small that feature points can be tracked using optical flow. For this disparities of features on adjacent views should be smaller than 15 pixels.
+\item Is is assumed that camera centers lie always exactly on the plane. That is, they never more towards or back from the scene. 
+\item The camera is facing approximately perpendicular to the plane $P$, towards the scene. There can be a small rotation $\matr{R}$ of the camera relative to $P$. It is estimated from the images, as part of the calibration. The yaw, pitch and roll angles should be smaller than $5\degree$. It is assumed that this angle remains constant for all views.
+\item There can be some missing images and depth maps in the data set.
+\item It is not necessary that the tracked feature points remain visible across the whole range of views. Calibration can be done on subsets of the camera positions, and then stitched together.
+\end{itemize}
+
+The method calculates one global rotation matrix $\matr{R}$, and for each view $v$, a 2D vector $(x_v, y_v)$ of the camera position on $P$. From this is computes an extrinsic matrix $\matr{Rt}$ for each view.
+ 
+\chapter{Method}
+Calibration is done in four steps: (1) Compute \emph{image correspondences} using feature tracking. (2) Estimate the \emph{camera rotation} $\matr{R}$. (3) Estimate \emph{straight depths} of the tracked features, i.e. their distance to $P$. (4) Deduce camera positions.
+ 
+\section{Image correspondences}
+
+\subsection{Reference views}
+
+\subsection{Choosing feature points}
+
+\subsection{Optical flow tracking}
+
+\subsection{Filtering features}
+
+
+\section{Camera rotation}
+
+\subsection{Optical flow slopes}
+
+\subsection{View feature depths}
+
+\section{Straight depths}
+
+\subsection{Aggregating view feature depths}
+
+\subsection{Depth from disparity}
+
+\section{Camera positions}
+
+\subsection{Relative camera positions}
+
+\subsection{Stitching}
+
+\subsection{Final camera extrinsics}
+ 
+\end{document}
