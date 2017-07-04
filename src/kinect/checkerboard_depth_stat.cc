@@ -117,10 +117,11 @@ int main(int argc, const char* argv[]) {
 	}
 	
 
-	std::cout << "saving collected point samples" << std::endl;
+	std::cout << "saving collected pixel depth samples" << std::endl;
 	{
 		std::ofstream stream(out_stat_filename);
 		stream << "x y measured calculated difference chk_reprojection_err dist_x dist_y chk_rot_x chk_rot_y chk_rot_z chk_t_x chk_t_y chk_t_z\n";
+		stream << std::setprecision(10);
 		for(const point_sample& samp : point_samples)
 			stream
 				<< samp.x << " "

@@ -38,7 +38,7 @@ int main(int argc, const char* argv[]) {
 
 	viewer view(3*w, 20+h+30);
 	auto& superimpose = view.add_int_slider("superimpose (%)", 0, 0, 100);
-	auto& offset = view.add_int_slider("depth offset (-200 + ..) (mm)", 200, -200, 200);
+	auto& offset = view.add_int_slider("depth offset (-200 + ..) (mm)", 0, -200, 200);
 	
 	cv::Mat_<uchar> homography_mapping(h, w);
 	cv::Mat_<uchar> freenect2_mapping(h, w);

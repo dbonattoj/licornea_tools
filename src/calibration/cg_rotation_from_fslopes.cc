@@ -11,32 +11,11 @@
 #include "../lib/opencv.h"
 #include "../lib/intrinsics.h"
 #include "../lib/assert.h"
+#include "../lib/rotation.h"
 
 using namespace tlz;
 
 constexpr bool verbose = true;
-
-
-mat33 to_rotation_matrix(real x, real y, real z) {
-	mat33 Rx(
-		1.0, 0.0, 0.0,
-		0.0, std::cos(x), -std::sin(x),
-		0.0, std::sin(x), std::cos(x)
-	);
-	mat33 Ry(
-		std::cos(y), 0.0, std::sin(y),
-		0.0, 1.0, 0.0,
-		-std::sin(y), 0.0, std::cos(y)
-	);
-	mat33 Rz(
-		std::cos(z), -std::sin(z), 0.0,
-		std::sin(z), std::cos(z), 0.0,
-		0.0, 0.0, 1.0
-	);
-	mat33 R = Rz * Ry * Rx;
-	return R.t();
-}
-
 
 template<typename Func>
 void one_dim_search_minimum(Func f, real& a, real& b, real tolerance) {
@@ -63,7 +42,7 @@ int main(int argc, const char* argv[]) {
 	Assert(! measured_fslopes.is_distorted);
 	
 	auto rotation_error = [&measured_fslopes, &intr](real x, real y, real z) {
-		mat33 R = to_rotation_matrix(x, y, z);
+		mat33 R = to_rotation_matrix(vec3(x, y, z));
 		
 		real fx = intr.fx(), fy = intr.fy(), cx = intr.cx(), cy = intr.cy();
 		real r11 = R(0, 0), r21 = R(1, 0), r31 = R(2, 0);
@@ -149,6 +128,6 @@ int main(int argc, const char* argv[]) {
 	}
 	
 	std::cout << "saving rotation matrix" << std::endl;
-	mat33 R = to_rotation_matrix(x, y, z);
+	mat33 R = to_rotation_matrix(vec3(x, y, z));
 	export_json_file(encode_mat(R), out_rotation_filename);
 }

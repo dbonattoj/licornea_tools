@@ -14,9 +14,6 @@ namespace tlz {
 struct feature_slope {
 	real horizontal = NAN;
 	real vertical = NAN;
-	
-	real horizontal_depth = NAN;
-	real vertical_depth = NAN; // TODO
 };
 struct feature_slopes : feature_points {
 	// feature points are undistorted

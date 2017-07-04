@@ -18,6 +18,9 @@ private:
 public:
 	explicit kinect_reprojection(const kinect_reprojection_parameters&);
 	
+	kinect_reprojection_parameters& parameters() { return reprojection_parameters_; }
+	const kinect_reprojection_parameters& parameters() const { return reprojection_parameters_; }
+	
 	std::vector<vec2> reproject_points_ir_to_color(
 		const std::vector<vec2> distorted_ir_i_xy,
 		const std::vector<real>& ir_z,

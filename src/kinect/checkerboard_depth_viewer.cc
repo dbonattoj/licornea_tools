@@ -70,7 +70,8 @@ int main(int argc, const char* argv[]) {
 
 		view.draw_text(cv::Rect(20, 424, 512+512, 30), "avg calculated: " + std::to_string(avg_calculated_depth) + " mm", viewer::left);
 		view.draw_text(cv::Rect(20+350, 424, 512+512, 30), "avg measured: " + std::to_string(avg_measured_depth) + " mm", viewer::left);
-		view.draw_text(cv::Rect(20+700, 424, 512+512, 30), "difference: " + std::to_string(avg_measured_depth-avg_calculated_depth) + " mm", viewer::left);
+		//view.draw_text(cv::Rect(20+700, 424, 512+512, 30), "difference: " + std::to_string(avg_measured_depth-avg_calculated_depth) + " mm", viewer::left);
+		view.draw_text(cv::Rect(20+700, 424, 512+512, 30), "ratio: " + std::to_string(avg_measured_depth/avg_calculated_depth), viewer::left);
 		
 		view.draw_text(cv::Rect(20, 424+30, 512+512-10, 30), "rms depth error: " + std::to_string(rms_depth_error) + " mm", viewer::left);
 		view.draw_text(cv::Rect(20+430, 424+30, 512+512-10, 30), "count: " + std::to_string(count), viewer::left);

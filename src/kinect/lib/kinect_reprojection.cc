@@ -46,33 +46,59 @@ std::vector<vec2> kinect_reprojection::reproject_points_ir_to_color(
 			continue;
 		}
 		
-		real off = 
-			reprojection_parameters_.depth_offset.x1y0 * undistorted_ir_i_xy[0] +
-			reprojection_parameters_.depth_offset.x0y1 * undistorted_ir_i_xy[1] +
-			reprojection_parameters_.depth_offset.x0y0;
-		//std::cout << off << std::endl;
-
-		real ir_z_off = ir_z - off;
-				
+		// apply depth offset of IR depths
+		real ir_z_offset = reprojection_parameters_.ir_depth_offset(undistorted_ir_i_xy);
+		real corrected_ir_z = ir_z - ir_z_offset;
+			
 		vec3 undistorted_ir_i_h(undistorted_ir_i_xy[0], undistorted_ir_i_xy[1], 1.0);
-		undistorted_ir_i_h *= ir_z_off;
+		undistorted_ir_i_h *= corrected_ir_z;
 		
 		vec3 ir_v = reprojection_parameters_.ir_intrinsics.K_inv * undistorted_ir_i_h;
 		color_v = reprojection_parameters_.rotation.t() * (ir_v - reprojection_parameters_.translation);
 		color_z = color_v[2];
 	}
 	
-	// distort XY coordinates of color points, if requested
 	std::vector<vec2> out_color_i_xy_points(n);
-	cv::projectPoints(
-		color_v_points,
-		vec3::zeros(),
-		vec3::zeros(),
-		reprojection_parameters_.color_intrinsics.K,
-		(distort_color ? reprojection_parameters_.color_intrinsics.distortion.cv_coeffs() : cv::noArray()),
-		out_color_i_xy_points
-	);
 	
+	if(reprojection_parameters_.color_depth_offset) {
+
+		// project points, without distortion
+		cv::projectPoints(
+			color_v_points,
+			vec3::zeros(),
+			vec3::zeros(),
+			reprojection_parameters_.color_intrinsics.K,
+			cv::noArray(),
+			out_color_i_xy_points
+		);	
+		
+		// apply depth offset to output color depths
+		#pragma omp parallel for
+		for(int idx = 0; idx < n; ++idx) {
+			real& color_z = out_color_z_points[idx];
+			const vec2& color_xy = out_color_i_xy_points[idx];
+			real color_z_offset = reprojection_parameters_.color_depth_offset(color_xy);
+			color_z -= color_z_offset;
+		}
+		
+		// now apply distortion (if any)
+		if(distort_points && reprojection_parameters_.color_intrinsics.distortion)
+			out_color_i_xy_points = distort_points(reprojection_parameters_.color_intrinsics, out_color_i_xy_points);
+	
+	} else {
+		
+		// project and distort XY coordinates of color points
+		cv::projectPoints(
+			color_v_points,
+			vec3::zeros(),
+			vec3::zeros(),
+			reprojection_parameters_.color_intrinsics.K,
+			(distort_color ? reprojection_parameters_.color_intrinsics.distortion.cv_coeffs() : cv::noArray()),
+			out_color_i_xy_points
+		);	
+
+	}
+
 	return out_color_i_xy_points;
 }
 
