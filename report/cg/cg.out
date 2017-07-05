@@ -8,14 +8,19 @@
 \BOOKMARK [2][-]{subsection.2.3.2}{Optical flow tracking}{section.2.3}% 8
 \BOOKMARK [2][-]{subsection.2.3.3}{Filtering features}{section.2.3}% 9
 \BOOKMARK [2][-]{subsection.2.3.4}{Reference views}{section.2.3}% 10
-\BOOKMARK [1][-]{section.2.4}{Camera rotation}{chapter.2}% 11
-\BOOKMARK [2][-]{subsection.2.4.1}{Optical flow slopes}{section.2.4}% 12
-\BOOKMARK [2][-]{subsection.2.4.2}{View feature depths}{section.2.4}% 13
-\BOOKMARK [1][-]{section.2.5}{Straight depths}{chapter.2}% 14
-\BOOKMARK [2][-]{subsection.2.5.1}{Aggregating view feature depths}{section.2.5}% 15
-\BOOKMARK [2][-]{subsection.2.5.2}{Depth from disparity}{section.2.5}% 16
-\BOOKMARK [1][-]{section.2.6}{Camera positions}{chapter.2}% 17
-\BOOKMARK [2][-]{subsection.2.6.1}{Relative camera positions}{section.2.6}% 18
-\BOOKMARK [2][-]{subsection.2.6.2}{Stitching}{section.2.6}% 19
-\BOOKMARK [2][-]{subsection.2.6.3}{Final camera extrinsics}{section.2.6}% 20
-\BOOKMARK [0][-]{chapter.3}{Implementation}{}% 21
+\BOOKMARK [2][-]{subsection.2.3.5}{Feature point depths}{section.2.3}% 11
+\BOOKMARK [2][-]{subsection.2.3.6}{Feature point weights}{section.2.3}% 12
+\BOOKMARK [1][-]{section.2.4}{Observations}{chapter.2}% 13
+\BOOKMARK [2][-]{subsection.2.4.1}{Rotation}{section.2.4}% 14
+\BOOKMARK [2][-]{subsection.2.4.2}{Depth}{section.2.4}% 15
+\BOOKMARK [1][-]{section.2.5}{Camera rotation}{chapter.2}% 16
+\BOOKMARK [2][-]{subsection.2.5.1}{Optical flow slopes}{section.2.5}% 17
+\BOOKMARK [2][-]{subsection.2.5.2}{Feature point depths}{section.2.5}% 18
+\BOOKMARK [1][-]{section.2.6}{Straight depths}{chapter.2}% 19
+\BOOKMARK [2][-]{subsection.2.6.1}{Aggregating feature point depths}{section.2.6}% 20
+\BOOKMARK [2][-]{subsection.2.6.2}{Depth from disparity}{section.2.6}% 21
+\BOOKMARK [1][-]{section.2.7}{Camera positions}{chapter.2}% 22
+\BOOKMARK [2][-]{subsection.2.7.1}{Relative camera positions}{section.2.7}% 23
+\BOOKMARK [2][-]{subsection.2.7.2}{Stitching}{section.2.7}% 24
+\BOOKMARK [2][-]{subsection.2.7.3}{Final camera extrinsics}{section.2.7}% 25
+\BOOKMARK [0][-]{chapter.3}{Implementation}{}% 26

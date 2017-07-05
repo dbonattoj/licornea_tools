@@ -8,15 +8,20 @@
 \contentsline {subsection}{\numberline {2.3.1}Choosing feature points}{6}{subsection.2.3.1}
 \contentsline {subsection}{\numberline {2.3.2}Optical flow tracking}{6}{subsection.2.3.2}
 \contentsline {subsection}{\numberline {2.3.3}Filtering features}{8}{subsection.2.3.3}
-\contentsline {subsection}{\numberline {2.3.4}Reference views}{10}{subsection.2.3.4}
-\contentsline {section}{\numberline {2.4}Camera rotation}{11}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}Optical flow slopes}{11}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {2.4.2}View feature depths}{11}{subsection.2.4.2}
-\contentsline {section}{\numberline {2.5}Straight depths}{11}{section.2.5}
-\contentsline {subsection}{\numberline {2.5.1}Aggregating view feature depths}{11}{subsection.2.5.1}
-\contentsline {subsection}{\numberline {2.5.2}Depth from disparity}{11}{subsection.2.5.2}
-\contentsline {section}{\numberline {2.6}Camera positions}{11}{section.2.6}
-\contentsline {subsection}{\numberline {2.6.1}Relative camera positions}{11}{subsection.2.6.1}
-\contentsline {subsection}{\numberline {2.6.2}Stitching}{11}{subsection.2.6.2}
-\contentsline {subsection}{\numberline {2.6.3}Final camera extrinsics}{11}{subsection.2.6.3}
-\contentsline {chapter}{\numberline {3}Implementation}{12}{chapter.3}
+\contentsline {subsection}{\numberline {2.3.4}Reference views}{9}{subsection.2.3.4}
+\contentsline {subsection}{\numberline {2.3.5}Feature point depths}{11}{subsection.2.3.5}
+\contentsline {subsection}{\numberline {2.3.6}Feature point weights}{11}{subsection.2.3.6}
+\contentsline {section}{\numberline {2.4}Observations}{12}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Rotation}{12}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Depth}{12}{subsection.2.4.2}
+\contentsline {section}{\numberline {2.5}Camera rotation}{13}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Optical flow slopes}{13}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Feature point depths}{13}{subsection.2.5.2}
+\contentsline {section}{\numberline {2.6}Straight depths}{13}{section.2.6}
+\contentsline {subsection}{\numberline {2.6.1}Aggregating feature point depths}{13}{subsection.2.6.1}
+\contentsline {subsection}{\numberline {2.6.2}Depth from disparity}{13}{subsection.2.6.2}
+\contentsline {section}{\numberline {2.7}Camera positions}{13}{section.2.7}
+\contentsline {subsection}{\numberline {2.7.1}Relative camera positions}{14}{subsection.2.7.1}
+\contentsline {subsection}{\numberline {2.7.2}Stitching}{14}{subsection.2.7.2}
+\contentsline {subsection}{\numberline {2.7.3}Final camera extrinsics}{14}{subsection.2.7.3}
+\contentsline {chapter}{\numberline {3}Implementation}{15}{chapter.3}
