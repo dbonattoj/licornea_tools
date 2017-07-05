@@ -1,0 +1,22 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}
+\contentsline {section}{\numberline {1.1}Requirements}{3}{section.1.1}
+\contentsline {chapter}{\numberline {2}Method}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Overview}{5}{section.2.1}
+\contentsline {section}{\numberline {2.2}Preliminaries}{5}{section.2.2}
+\contentsline {section}{\numberline {2.3}Image correspondences}{6}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Choosing feature points}{6}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Optical flow tracking}{6}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Filtering features}{8}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}Reference views}{10}{subsection.2.3.4}
+\contentsline {section}{\numberline {2.4}Camera rotation}{11}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Optical flow slopes}{11}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}View feature depths}{11}{subsection.2.4.2}
+\contentsline {section}{\numberline {2.5}Straight depths}{11}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Aggregating view feature depths}{11}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Depth from disparity}{11}{subsection.2.5.2}
+\contentsline {section}{\numberline {2.6}Camera positions}{11}{section.2.6}
+\contentsline {subsection}{\numberline {2.6.1}Relative camera positions}{11}{subsection.2.6.1}
+\contentsline {subsection}{\numberline {2.6.2}Stitching}{11}{subsection.2.6.2}
+\contentsline {subsection}{\numberline {2.6.3}Final camera extrinsics}{11}{subsection.2.6.3}
+\contentsline {chapter}{\numberline {3}Implementation}{12}{chapter.3}

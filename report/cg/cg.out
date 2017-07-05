@@ -1,0 +1,21 @@
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Requirements}{chapter.1}% 2
+\BOOKMARK [0][-]{chapter.2}{Method}{}% 3
+\BOOKMARK [1][-]{section.2.1}{Overview}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.2}{Preliminaries}{chapter.2}% 5
+\BOOKMARK [1][-]{section.2.3}{Image correspondences}{chapter.2}% 6
+\BOOKMARK [2][-]{subsection.2.3.1}{Choosing feature points}{section.2.3}% 7
+\BOOKMARK [2][-]{subsection.2.3.2}{Optical flow tracking}{section.2.3}% 8
+\BOOKMARK [2][-]{subsection.2.3.3}{Filtering features}{section.2.3}% 9
+\BOOKMARK [2][-]{subsection.2.3.4}{Reference views}{section.2.3}% 10
+\BOOKMARK [1][-]{section.2.4}{Camera rotation}{chapter.2}% 11
+\BOOKMARK [2][-]{subsection.2.4.1}{Optical flow slopes}{section.2.4}% 12
+\BOOKMARK [2][-]{subsection.2.4.2}{View feature depths}{section.2.4}% 13
+\BOOKMARK [1][-]{section.2.5}{Straight depths}{chapter.2}% 14
+\BOOKMARK [2][-]{subsection.2.5.1}{Aggregating view feature depths}{section.2.5}% 15
+\BOOKMARK [2][-]{subsection.2.5.2}{Depth from disparity}{section.2.5}% 16
+\BOOKMARK [1][-]{section.2.6}{Camera positions}{chapter.2}% 17
+\BOOKMARK [2][-]{subsection.2.6.1}{Relative camera positions}{section.2.6}% 18
+\BOOKMARK [2][-]{subsection.2.6.2}{Stitching}{section.2.6}% 19
+\BOOKMARK [2][-]{subsection.2.6.3}{Final camera extrinsics}{section.2.6}% 20
+\BOOKMARK [0][-]{chapter.3}{Implementation}{}% 21

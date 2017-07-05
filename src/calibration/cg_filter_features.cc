@@ -41,8 +41,8 @@ int main(int argc, const char* argv[]) {
 	const int min_vertical_count = expected_y_count * 1.0;
 	const real min_completion = 0.5;
 	const real max_depth_diff = 70.0;
-	const real max_lattice_deviation = 2.0;
-	const real max_bad_points = 0.1;
+	const real max_lattice_deviation = 4.0;
+	const real max_bad_points = 0.3;
 	
 	auto filter_feature = [&](image_correspondence_feature& feature) -> bool {
 		auto have = [&feature](int x, int y) -> bool {
@@ -125,7 +125,7 @@ int main(int argc, const char* argv[]) {
 			for(int y = datas.y_min(); y <= datas.y_max(); y += datas.y_step()) {
 				if(! have(x, y)) continue;
 				vec2 have_pos = pos(x, y);
-				vec2 lat_pos = ref_pos + lattice_u*(x - x_mid) + lattice_v*(y - y_mid);
+				vec2 lat_pos = ref_pos + lattice_u*(x - x_mid)/datas.x_step() + lattice_v*(y - y_mid)/datas.y_step();
 				vec2 dev = lat_pos - have_pos;
 				real sq_dev = sq(dev[0]) + sq(dev[1]);
 				if(sq_dev > max_sq_dev) bad_points.push_back(view_index(x, y));

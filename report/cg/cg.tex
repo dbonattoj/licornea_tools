@@ -1,0 +1,189 @@
+\documentclass{scrreprt}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\newcommand{\matr}[1]{\mathbf{#1}}
+
+\title{Camera grid calibration}
+\author{Tim Lenertz}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Introduction}
+This report describes the method used to calibrate the extrinsic camera parameters of the 3DLicorneA data sets. If is applicable for dense 2D data sets, where cameras are placed on a more or less regular grid on a plane parallel to the scene. The optical flow of tracked features, and aggregated values from the depth maps, are used to compute the camera positions and orientations. No calibration pattern needs to be present in the scene.
+
+\section{Requirements}
+To use the method, there are the following requirements:
+\begin{itemize}
+\item The intrinsic camera parameters are known. This is the camera matrix $K$ and optionally the distortion coefficients. The method was used for the case where there is no distortion (Kinect v2), but with additional steps it can be used with distorted images.
+\item The intrinsic camera parameters are the same for each image.
+\item There is a depth map for all or some views. There is an extension to use the method without depth maps, and instead giving a depth only for some feature points.
+\item The camera centers are arranged on an approximately regular 2D grid on a plane $P$. The distance between adjacent camera positions (in X and Y direction) is sufficiently small that feature points can be tracked using optical flow. For this disparities of features on adjacent views should be smaller than 15 pixels.
+\item It is assumed that camera centers lie always exactly on the plane. That is, they never more towards or back from the scene. 
+\item The camera is facing approximately perpendicular to the plane $P$, towards the scene. There can be a small rotation $\matr{R}$ of the camera relative to $P$. It is estimated from the images, as part of the calibration. The yaw, pitch and roll angles should be smaller than 5\textdegree. It is assumed that this angle remains constant for all views.
+\item There can be some missing images and depth maps in the data set.
+\item It is not necessary that the tracked feature points remain visible across the whole range of views. Calibration can be done on subsets of the camera positions, and then stitched together.
+\end{itemize}
+
+The method calculates one global rotation matrix $\matr{R}$, and for each view $v$, a 2D vector $(x_v, y_v)$ of the camera position on $P$. From this is computes an extrinsic matrix $\matr{Rt}$ for each view.
+
+
+\chapter{Method}
+Calibration is done in four steps: (1) Compute \emph{image correspondences} using feature tracking. (2) Estimate the \emph{camera rotation} $\matr{R}$. (3) Estimate \emph{straight depths} of the tracked features, i.e. their distance to $P$. (4) Deduce camera positions.
+
+\section{Overview}
+First the algorithm selects several \emph{feature points} on one on multiple \emph{reference views}. Using optical flow, it then tracks the position of the same features on the other views.
+
+With the pin-hole camera model, it is be possible to calculate the camera position on $P$ directly from a feature point's positions on different views, if the camera is pointing perpenticular to $P$, and the feature's distance to $P$ is known. So the algorithm first needs to estimate $\matr{R}$, and the straight depths of the features.
+
+To calculate $\matr{R}$, two methods are used. One uses a non-linear model which estimates $\matr{R}$ only from the slope of the lines that the tracked features make when the camera moves horizontally and vertically, without knowledge of the features' depths. The other method uses the depths of the features on the different views. Both estimate a full 3D rotation matrix.
+
+The distance of a feature to $P$ is called its \emph{straight depth}. Knowing $\matr{R}$, it can now be calculated from the feature points' depths in each view's depth map. If depth maps are not available, it is also possible to fix only the depth of one or more features, and deduce the rest from the relative scales of the different feature's disparities. 
+
+Using $\matr{R}$ and the \emph{straight depth} of each feature, the algorithm now estimates the set of camera positions on $P$, once for each feature. The results are aggregated to find the final camera positions.
+
+The resulting camera positions are in a coordinate system with the camera of the \emph{reference view} at origin. If multiple reference views were used in the feature tracking step, the entire procedure is repeated for each reference view, and in the end the camera positions are stitched together.
+
+\section{Preliminaries}
+The 2D dataset consists of several \emph{views}. A view $v$ consists of an image, and optionally a depth map, taken from one camera position. The views are enumerated with two integer indices $v(x,y)$. Views with the same $x$ index are (approximately) aligned vertically, views with the same $y$ index horizontally. This is relative to the camera image planes.
+
+The goal is to estimate the position and orientation of the camera for each view, i.e. to find the extrinsic camera matrices $\matr{Rt}_v$.
+
+If depth maps are used, they need to be in the same coordinate systems as the images. For each image pixel $(i_x,i_y)$, the value $d$ of the same pixel in the depth map needs to indicate the orthogonal distance from the camera center to that object point, orthogonal to the camera image plane. The camera matrices $\matr{Rt}_v$ will be expressed in the same unit as these depths.
+
+ 
+\section{Image correspondences}
+First some features $f$ are selected. They correspond to 3D points in the scene. This step aims to find for each feature $f$, the set of \emph{feature points} $p(f,v) = (x,y,d,w)$, that is the pixel coordinates $x,y$ where the feature is visible in each view $v$. This data is called the \emph{image correspondences}.
+
+A feature point optionally also contains a depth $d$, and a weight $w$. The depth is a distance orthogonal to the camere image plane of $v$. If $\matr{R} \neq \matr{I}$, then the depths $p_{f,*}$ of the same feature for different views will be different.
+
+
+\subsection{Choosing feature points}
+Features are chosen by choosing feature points on a \emph{reference view}. By default the center view in the dataset is used as reference view, but there can also be multiple reference views (see later).
+
+The chosen feature points need to be such that they are likely to remain \emph{stable} when doing feature tracking. It means that when one looks for a similar-looking nearby point on an adjacant view, it is likely to be the same scene point. An example is shown on figure \ref{fig:choosefeatures}.
+
+\begin{figure}
+\includegraphics[width=\textwidth]{choosefeatures.png}
+\caption{Chosen feature points}
+\label{fig:choosefeatures}
+\end{figure}
+
+The \emph{OpenCV} function \texttt{goodFeaturesToTrack} is used. Additionally, the image is first subdivided into 4 or more rectangular regions, and the best chosen features from each region are taken.
+
+The chosen features should be well distributed across the image, and have different depths. There should be about $300$ or more features, considering that many will be filtered out because their optical flow is unstable.
+
+
+\subsection{Optical flow tracking}
+Optical flow feature tracking is always done on adjacent views, for example $v(x,y)$ and $v(x+1,y)$. Then sequentially, it uses the corresponding feature points on $v(x+1,y)$ to estimate those for $v(x+2,y)$, and so on. So there is an error accumulation, which gets worse the longer the path that the view indices take is.
+
+The acquisition system moves line-by-line. So it is physically guaranteed that for any $v(x,y)$ and $v(x+1,y)$, the camera only moves by small amount, whereas for $v(x,y)$ and $v(x,y+1)$, there can be a larger deviation. So it is better to take most optical flow correspondences in $x$ direction.
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{opticalflow.pdf}
+\caption{Optical flow paths}
+\label{fig:opticalflow}
+\end{figure}
+
+The optical flow algorithm moves over the $(x,y)$ view indices as shown on figure \ref{fig:opticalflow}. The center view (black circle) is the reference view. As each step moving from $(x,y)$ to $(x',y')$, for each feature $f$, all the feature points $p(f,v(x',y'))$ are computed from those of $p(f,v(x,y))$. If no feature point $p(f,v(x',y'))$ could be computed anymore, the algorithm stops for that line.
+
+If the image for a view is missing, that view is skipped, and instead the correspondences are taken from the second-previous view, as shown. It is important that no view is missing in the column of the reference view, because then that entire line will be skipped.
+
+The reference view is not one of the edges, but instead in the center, and the optical flow steps are done in all four directions. This minimizes the total path taken, and reduces the accumulated error.
+
+The maximal number of steps to be taken in $x$ and in $y$ direction, called \emph{outreach}, can be set to a maximal limit. Using a smaller \emph{outreach}, and instead doing the calibration from multiple reference views, and combining the results in the end, can produce better final results.
+
+To compute the optical flow, the \emph{OpenCV} function \texttt{calcOpticalFlowPyrLK} is used. The parameters can be adjusted. It can also be set to use multi-scale image pyramids, so that larger features can be used.
+
+\begin{figure}
+\includegraphics[width=\textwidth]{ofgood1.png}
+\includegraphics[width=\textwidth]{ofgood2.png}
+\caption{Good feature correspondences}
+\label{fig:ofgood}
+\end{figure}
+
+Figures \ref{fig:ofgood} are examples of good feature correspondences. The background image is a close-up of the reference view image. The red dot is the feature point on this reference image. The other dots are the corresponding feature points on the other views. It can be seen that the arrangement of these points roughly corresponds to the camera (inverted) positions on $P$. The vertical gap on the second example is a result of the acquisition system: It did not take the $y$-step properly at that height. 
+
+\subsection{Filtering features}
+The next step is to filter the generated \emph{image correspondences}. It is important, because incorrect feature points can have a large impact on the final results. The optical flow procedure tends to generate a large number of bad correspondences. There is an algorithm to automatically filter out bad correspondences, but they should also be verified by hand.
+
+Figures \ref{fig:ofbad} are examples of good feature correspondences. In the first example, the deviation occured because a foreground object with a curved border moved in front of the tracked feature. Such deviations can also occur because of specular reflections (for example on the metal sink), and because of badly chosen feature (such as on the furry objects). In the second example, the pattern appears regular but the correspondence is still incorrect.
+
+The filtering algorithm removes all feature points for one a feature $f$ entirely, if there are too little feature points, or if the pattern deviates too much from a regular lattice.
+
+Properly filtering the correspondences is important: Having incorrect correspondences, and having too little correspondences, both have a large impact on the final result. In practice, for each view, there should remain feature points for about $100$ features.
+
+\begin{figure}
+\includegraphics[width=\textwidth]{ofbad2.png}
+\includegraphics[width=\textwidth]{ofbad1.png}
+\caption{Bad feature correspondences}
+\label{fig:ofbad}
+\end{figure}
+
+
+
+\subsection{Reference views}
+If the range of motion of the camera is large, or the field of view is small, many feature points that are visible in the center view, will not be visible on the extremity views. Also as said before it can be good to limit the optical flow \emph{outreach}, so as to reduce the accumulated error.
+
+When multile reference views are used, the entire calibration will be done for each reference view independently (except for the rotation estimation, as $\matr{R}$ is constant).
+
+Figure \ref{fig:refview} shows how reference views can be selected. The four colored dots are the reference views. They must be selected so that they are in a grid, for the stitching algorithm to work later. It is called the \emph{reference grid}. The \emph{x key} and \emph{y key} is the distance between reference view indices, in $x$ and $y$ direction.
+
+In the figure, the outreach is set so that for feature points chosen for one reference view, correspondences can only be found for views within the same-colored rectangle. For the stitching to work, there must be some overlap in these rectangles, as shown by the yellow regions in the figure. 
+
+The overlap should be large enough so that there will remain many views with feature points from two references, after the filtering.
+
+For example an \emph{outreach} of $80$, and a \emph{key} of $100$ can be a good choice. It would leave an overlap range of $60$.
+
+The algorithm chooses the \emph{reference grid} so that there are no missing images on the columns of the reference views' $x$ indices.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{refview.pdf}
+\caption{Reference views arrangement}
+\label{fig:refview}
+\end{figure}
+
+
+
+\section{Camera rotation}
+The next step is to determine the camera rotation $\matr{R}$. This is the rotation of the cameras relative to the plane $P$ on which the camera centers are placed. It is a 3D rotation matrix, with 3 degrees of freedom.
+
+If $\matr{R}$ is known to be very small, this step may be skipped, by simply setting $\matr{R} = \matr{I}$.
+
+
+\subsection{Optical flow slopes}
+
+\subsection{View feature depths}
+
+\section{Straight depths}
+Knowing $\matr{R}$, the \emph{straight depth} of each feature $f$ can now be calculated. It is the orthogonal distance of the feature point in the scene, to the plane $P$.
+
+
+\subsection{Aggregating view feature depths}
+
+\subsection{Depth from disparity}
+
+\section{Camera positions}
+Finally, having \emph{image correspondences}, the \emph{camera rotation}, and the \emph{straight depths}, the camera center positions can be computed.
+
+\subsection{Relative camera positions}
+
+\subsection{Stitching}
+
+\subsection{Final camera extrinsics}
+
+\chapter{Implementation}
+
+ 
+\end{document}

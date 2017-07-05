@@ -7,6 +7,7 @@
 #include <set>
 #include <map>
 #include <atomic>
+#include <limits>
 #include "lib/image_correspondence.h"
 #include "../lib/args.h"
 #include "../lib/misc.h"
@@ -53,14 +54,14 @@ int main(int argc, const char* argv[]) {
 				if(depth_value != 0) fpoint.depth = depth_value;
 				
 			} else {
-				ushort max_depth_value = 0.0;
+				ushort min_depth_value = std::numeric_limits<ushort>::max();
 				for(int y_ = y - xy_outreach; y_ <= y + xy_outreach; y_++)
 				for(int x_ = x - xy_outreach; x_ <= x + xy_outreach; x_++) {
 					if(x_ < 0 || x_ >= depth.cols || y_ < 0 || y_ >= depth.rows) continue;
 					ushort depth_value = depth(y, x);
-					if(depth_value > max_depth_value) max_depth_value = depth_value;
+					if(depth_value < min_depth_value) min_depth_value = depth_value;
 				}
-				if(max_depth_value != 0) fpoint.depth = max_depth_value;
+				if(min_depth_value != 0) fpoint.depth = min_depth_value;
 				
 			}
 		}

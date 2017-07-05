@@ -99,7 +99,12 @@ int main(int argc, const char* argv[]) {
 
 		std::map<view_index, vec2> relative_camera_positions;
 
-		for(const view_index& target_idx : all_vws) {			
+		for(const view_index& target_idx : all_vws) {	
+			if(target_idx == ref_idx) {
+				out_rcpos.position(ref_idx, target_idx) = vec2(0.0, 0.0);
+				continue;
+			}
+					
 			feature_points target_fpoints = feature_points_for_view(ref_cors, target_idx, false);
 	
 			std::vector<target_camera_position_sample> target_camera_position_samples;
@@ -123,8 +128,8 @@ int main(int argc, const char* argv[]) {
 				feature_target_camera_pos[0] = (straight_target_pos[0] - straight_reference_pos[0]) * straight_depth / intr.fx();
 				feature_target_camera_pos[1] = (straight_target_pos[1] - straight_reference_pos[1]) * straight_depth / intr.fy();
 	
-				if(target_idx.y % 50 == 0 && target_idx.x % 50 == 0)
-					out_file << feature_target_camera_pos[0]+(target_idx.x*10) << " " << feature_target_camera_pos[1]+(target_idx.y*10) << " " << feature_name.substr(4) << "\n";
+				//if(target_idx.y % 50 == 0 && target_idx.x % 50 == 0)
+				//	out_file << feature_target_camera_pos[0]+(target_idx.x*10) << " " << feature_target_camera_pos[1]+(target_idx.y*10) << " " << feature_name.substr(4) << "\n";
 		
 				real weight = target_fpoint.weight + reference_fpoint.weight;
 				target_camera_position_samples.push_back({ feature_target_camera_pos, weight });
@@ -137,7 +142,7 @@ int main(int argc, const char* argv[]) {
 
 				//if(target_idx.y % 50 == 0 && target_idx.x % 50 == 0)
 				//	out_final_file << final_pos[0]+(target_idx.x*10) << " " << final_pos[1]+(target_idx.y*10) << " " << target_idx.x << " " << target_idx.y << "\n";
-				out_final_file << ref_idx.x*3+final_pos[0] << " " << final_pos[1] << " " << target_idx.x << " " << target_idx.y << "\n";
+				//out_final_file << ref_idx.x*3+final_pos[0] << " " << final_pos[1] << " " << target_idx.x << " " << target_idx.y << "\n";
 			}
 		}
 	}
