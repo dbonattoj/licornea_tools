@@ -33,6 +33,9 @@ The method calculates one global rotation matrix $\matr{R}$, and for each view $
  
 \chapter{Method}
 Calibration is done in four steps: (1) Compute \emph{image correspondences} using feature tracking. (2) Estimate the \emph{camera rotation} $\matr{R}$. (3) Estimate \emph{straight depths} of the tracked features, i.e. their distance to $P$. (4) Deduce camera positions.
+\\ \\
+First the algorithm selects several \emph{feature points} on one on multiple \emph{reference views}. Using optical flow, it then tracks the position of the same features on the other views.
+ 
  
 \section{Image correspondences}
 

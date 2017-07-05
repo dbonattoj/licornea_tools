@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.10.23)  5 JUL 2017 00:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.10.23)  5 JUL 2017 11:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -549,6 +549,11 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 ]
 Chapter 2.
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--38
+
+ []
+
 [3
 
 ] (./kinect.aux) ) 
@@ -572,7 +577,7 @@ mr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfrm10
 fb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfsx1440.pfb
 ></usr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfsx2074.pfb><
 /usr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on kinect.pdf (3 pages, 139796 bytes).
+Output written on kinect.pdf (3 pages, 140842 bytes).
 PDF statistics:
  58 PDF objects out of 1000 (max. 8388607)
  42 compressed objects within 1 object stream
