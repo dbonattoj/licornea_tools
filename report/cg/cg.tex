@@ -213,11 +213,11 @@ Figure \ref{fig:differentdepths} shows how because of the rotation $\matr{R}$, t
 \label{sec:camrotation}
 The next step is to determine the camera rotation $\matr{R}$. This is the rotation of the cameras relative to the plane $P$ on which the camera centers are placed. It is a 3D rotation matrix, with 3 degrees of freedom.
 
-If $\matr{R}$ is known to be very small, this step can be skipped entirely, by simply setting $\matr{R} = \matr{I}$.
+If $\matr{R}$ is known to be very small, this step can be skipped entirely, by simply setting $\matr{R} = \matr{I}$. Otherwise, there are two methods to estimate $\matr{R}$.
 
-Otherwise, there are two methods to estimate $\matr{R}$: One is based only on the \emph{slopes} of the image correspondences, and does not need depth maps. It needs the cameras to be aligned on a regular grid. It seems to produce an accuracy of around $0.5\degr$ for the three rotation angles. It is described in the next section \ref{sec:sloperot}.
+One is based only on the \emph{slopes} of the image correspondences, and does not need depth maps. It needs the cameras to be aligned on a regular grid. It seems to produce an accuracy of around $0.5\degr$ for the three rotation angles. It is described in the next section \ref{sec:sloperot}.
 
-The other uses the differing depths of the feature points to estimate the rotation, by doing a least squares plane fitting operation, followed by an adjustment of the roll rotation. It is described in the next section \ref{sec:depthrot}. It seems to give better results. Its implementation is only experimental, and there are probably some errors in it.
+The other uses the differing depths of the feature points to estimate the rotation, by doing a least squares plane fitting operation, followed by an adjustment of the roll rotation. It is described in section \ref{sec:depthrot}. It seems to give better results. Its implementation is only experimental, and there are probably some errors in it.
 
 
 \subsection{Optical flow slopes}
@@ -346,8 +346,26 @@ On an artificially generated test dataset with a known camera rotation of $(10\d
 
 \subsection{Feature point depths}
 \label{sec:depthrot}
+As shown on figure \ref{fig:differentdepths}, feature points of the same feature get different depths on different views because of the rotation $\matr{R}$. The figure shows the situation in world space. There is one global position of the feature $f$, and different positions of the camera centers $v_1, v_2$.
+
+Figure \ref{fig:differentdepthsview} shows the same situation, but instead in the overlayed view spaces of the two cameras. The plane formed by the feature points for $f$ in the different view spaces, has the same orientation $\matr{R}$.
+
+This algorithm calculates for each feature $f$, the view space coordinates of the feature points $p(f,v_i) = \langle x,y,d,w\rangle$, using $\vec{v}_{f,v_i} = \matr{K}^{-1} (d x, d y, d)$. Then, using linear least squares, a plane it fitted to the points $\vec{v}_{f,v_i}$, and its normal vector $\vec{n}_f$ is computed.
+
+Then the computed normal vectors $\vec{n}_f$ for each feature $f$ are averaged to get a global estimate $\vec{n}$. A prelimilary rotation matrix $\matr{R}_{xy}$ is derived from $\vec{n}$. It contains the correct pitch and yaw rotation of the camera relative to $P$, but not the correct roll.
+
+Now again for each feature $f$, the view space points $\vec{v}_{f,v_i}$ are taken, and premultiplied by $\matr{R}_{xy}$. Using only the $x$ and $y$ components of the resulting vectors, a 2D rotation angle is estimated.
 
 
+\begin{figure}
+\centering
+\includegraphics[width=0.4\textwidth]{differentdepthsview.pdf}
+\caption{bla}
+\label{fig:differentdepthsview}
+\end{figure}
+
+
+\pagebreak
 
 \section{Straight depths}
 \label{ref:straightdepths}
