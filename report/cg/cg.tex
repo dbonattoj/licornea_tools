@@ -5,9 +5,16 @@
 \usepackage{textcomp}
 \usepackage[hidelinks]{hyperref}
 \usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
 \newcommand{\matr}[1]{\mathbf{#1}}
+\newcommand{\transpose}[1]{#1^\intercal}
+\newcommand{\degr}{\text{\textdegree}}
 
-\title{Camera grid self-calibration}
+\setcounter{secnumdepth}{5} 
+
+\title{Camera grid extrinsic self-calibration}
 \author{Tim Lenertz}
 \date{\today}
 
@@ -176,7 +183,7 @@ This is not implemented.
 \section{Observations}
 Looking at the image correspondences on figures \ref{fig:ofgood}, it can be seen that the arrangement of the feature points roughly corresponds to the (inverted) camera positions on $P$. (The vertical gap on the second figure is a result of the acquisition system: It did not take the $y$-step properly at that height.) 
 
-The feature points for every feature $f$ will be arranged in the same pattern, just at a different place in the image, and with a different scale (i.e. disparity). The basic idea of this calibration method is to overlay the feature points for several features, make their scale uniform, and take the averages, to get a good estimate of the camera positions.
+The feature points for every feature $f$ will be arranged in the same pattern, just at different places in the image, and with different scales (i.e. disparities). The basic idea of this calibration method is to overlay the feature points for several features, make their scale uniform, and take the averages, to get a good estimate of the camera positions.
 
 \begin{figure}
 \centering
@@ -186,7 +193,7 @@ The feature points for every feature $f$ will be arranged in the same pattern, j
 \end{figure}
 
 \subsection{Rotation}
-However this would only be correct if $\matr{R} = \matr{I}$. In reality, the rotation $\matr{R}$ distorts the feature points. For figure \ref{fig:onedimslopes}, a 1D optical flow was taken, with the camera moving on a horizontal axis only. The feature points were then overlayed, centered on one feature point, and given uniform scale. The figure shows these transformed feature points, one color for each feature. It can be seen that they form lines with different slopes. The scaling does not affect the slope. The different slopes are caused by the camera's rotation $\matr{R}$. In the 2D case, it is possible to calculate $\matr{R}$, using these slopes alone. This is done in section \ref{sec:camrotation}.
+However this would only be correct if $\matr{R} = \matr{I}$. In reality, the rotation $\matr{R}$ distorts the feature points. For figure \ref{fig:onedimslopes}, a 1D optical flow was taken, with the camera moving on a horizontal axis only. The feature points were then overlayed, centered on one feature point, and given uniform scale. The figure shows these transformed feature points, one color for each feature. It can be seen that they form lines with different slopes. The scaling does not affect the slope. The different slopes are caused by the camera's rotation $\matr{R}$. In the 2D case, it is possible to calculate $\matr{R}$, from these slopes alone. This is done in section \ref{sec:camrotation}.
 
 \subsection{Depth}
 Another problem is that if more than two sets of feature points should be given a common scale, one set of feature points would need to be chosen as reference. This would amplify the error in the correspondences of that particular feature. So it is better to calculate scaling factors in a more global way. This is done with the \emph{straight depths}, in section \ref{ref:straightdepths}.
@@ -202,22 +209,143 @@ Figure \ref{fig:differentdepths} shows how because of the rotation $\matr{R}$, t
 
 
 
-
-
-
 \section{Camera rotation}
 \label{sec:camrotation}
 The next step is to determine the camera rotation $\matr{R}$. This is the rotation of the cameras relative to the plane $P$ on which the camera centers are placed. It is a 3D rotation matrix, with 3 degrees of freedom.
 
-If $\matr{R}$ is known to be very small, this step may be skipped, by simply setting $\matr{R} = \matr{I}$.
+If $\matr{R}$ is known to be very small, this step can be skipped entirely, by simply setting $\matr{R} = \matr{I}$.
+
+Otherwise, there are two methods to estimate $\matr{R}$: One is based only on the \emph{slopes} of the image correspondences, and does not need depth maps. It needs the cameras to be aligned on a regular grid. It seems to produce an accuracy of around $0.5\degr$ for the three rotation angles. It is described in the next section \ref{sec:sloperot}.
+
+The other uses the differing depths of the feature points to estimate the rotation, by doing a least squares plane fitting operation, followed by an adjustment of the roll rotation. It is described in the next section \ref{sec:depthrot}. It seems to give better results. Its implementation is only experimental, and there are probably some errors in it.
 
 
 \subsection{Optical flow slopes}
+\label{sec:sloperot}
+
+\subsubsection{Flow equation}
+The camera intrinsic matrix $\matr{K}$ projects points in the camera view space $(v_x, v_y, v_z)$, to pixel positions on the image $(i_x, i_y)$ in homogeneous coordinates, according to
+
+\begin{equation}
+w \begin{bmatrix}
+	i_x \\ i_y \\ 1
+\end{bmatrix}
+= \begin{bmatrix}
+	f_x & 0 & c_x \\
+	0 & f_y & c_y \\
+	0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+	v_x \\ v_y \\ v_z
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+\label{eq:ofs_v_to_i}
+i_x = f_x \frac{v_x}{v_z} + c_x
+\hspace{1cm}
+i_y = f_y \frac{v_y}{v_z} + c_y
+\end{equation}
+
+\begin{equation}
+\label{eq:ofs_i_to_v}
+v_x = \frac{v_z}{f_x} (i_x - c_x)
+\hspace{1cm}
+v_y = \frac{v_z}{f_y} (i_y - c_y)
+\end{equation}
+
+As shown on figure \ref{fig:differentdepths}, the camera moves such that the camera center is on a plane $P$, and the camera has a constant rotation $\matr{R}$ relative to $P$.
+
+The \emph{world space} coordinate system is set such that its $z = 0$ plane is $P$, and its origin is any point $\vec{O}(0,0,0) \in P$.
+
+Let $\vec{i}(\vec{O})$ be some point in the image of the camera when it is placed at $O$. Let $\vec{v}(\vec{O})$ be the same point in the camera's view space, calculated with formula \ref{eq:ofs_i_to_v}, with a given value $z = v_z(\vec{O})$. Let $\vec{w}$ be the same point in \emph{world space}. For any camera center position $\vec{Q} \in P$, the relation is
+\begin{equation}
+\vec{v}(\vec{Q}) = \matr{R} (\vec{w} + \vec{Q})
+\end{equation}
+To get from world space to view space, the coordinate system is first translated by $\vec{Q}$ (where $Q_z = 0$), then rotated by $\matr{R}$. In particular,
+\begin{equation}
+\vec{v}(\vec{O}) = \matr{R} \vec{w}
+\end{equation}
+hence
+\begin{equation}
+\vec{v}(\vec{Q}) = \vec{v}(\vec{O}) + \matr{R} \vec{Q}
+\end{equation}
+Using formula \ref{eq:ofs_v_to_i}, $\vec{i}(\vec{Q})$ can now be calculated from this. So one has the function
+\begin{equation}
+\text{flow}_{\matr{R}} : \langle \vec{i}(\vec{O}), \vec{Q}, z \rangle \mapsto \vec{i}(\vec{Q})
+\end{equation} 
+
+\subsubsection{Horizontal and vertical camera movement}
+The following section will analyze how $\vec{i}(\vec{Q})$ evolves when $\vec{Q}$ moves on $P$. Most importantly, it is shown that when $\vec{Q}$ moves horizontally or vertically on $P$, then the \textbf{slope} at which $\vec{i}(\vec{Q})$ moves on the image does not depend on $z$.
+\\ \\
+Let $\vec{H} = (\epsilon,0,0)$ and $\vec{V} = (0,\epsilon,0)$. They represent a horizontal and vertical displacement of the camera on $P$, by some magnitude $\epsilon$.
+
+Because of the transformation between cartesian and homogeneous coordinates in formulae \ref{eq:ofs_v_to_i} and \ref{eq:ofs_i_to_v}, the function $\text{flow}_{\matr{R}}$ cannot be expressed directly as a matrix equation. $\matr{R}$ is decomposed:
+\begin{equation}
+\matr{R} = \begin{bmatrix}
+	r_{11} & r_{12} & r_{13} \\
+	r_{21} & r_{22} & r_{23} \\
+	r_{31} & r_{32} & r_{33}
+\end{bmatrix}
+\end{equation}
+
+To simplify the expressions, the coordinates of the chosen image point $\vec{i}(\vec{O})$ are simply denoted $(i_x, i_y)$. Also, $z = v_z(\vec{O})$.
+
+For the horizontal camera movement by $\vec{H}$, one gets:
+\begin{equation}
+i_x(\vec{H}) = \frac{i_x z + f_x r_{11} \epsilon + c_x r_{31} \epsilon}{z + r_{31} \epsilon}
+\hspace{5mm} \text{and} \hspace{5mm}
+i_y(\vec{H}) = \frac{i_y z + f_y r_{21} \epsilon + c_y r_{31} \epsilon}{z + r_{31} \epsilon}
+\end{equation}
+
+\subsubsection{Slopes}
+It can be shown that as $\epsilon$ varies, $\vec{i}(\vec{H})$ moves on a straight line. Its slope is
+\begin{equation}
+s_H = \frac{i_x - i_x(\vec{H})}{i_y - i_y(\vec{H})}
+\end{equation}
+This expression simplifies to
+\begin{equation}
+s_H = \frac{i_x - i_x(\vec{H})}{i_y - i_y(\vec{H})} = \frac{f_y r_{21} + c_y r_{31} - i_y r_{31}}{f_x r_{11} + c_x r_{31} - i_x r_{31}}
+\end{equation}
+The variables $\epsilon$ and $z$ both vanish. $s_H$ depends only on $\matr{R}$, $\matr{K}$ and $\vec{i}(\vec{O})$.
+
+For the vertical camera movement by $\vec{V}$, one gets the similar expression
+\begin{equation}
+s_V = \frac{i_y - i_y(\vec{V})}{i_x - i_x(\vec{V})} = \frac{f_x r_{12} + c_x r_{32} - i_x r_{32}}{f_y r_{22} + c_y r_{32} - i_y r_{32}}
+\end{equation}
+Note that $s_H$ is a slope $x/y$, whereas $s_V$ is a slope $y/x$. This is because $\matr{R}$ is expected to be near $\matr{I}$, and in that case $\vec{i}(\vec{H})$ and $\vec{i}(\vec{V})$ move almost horizontally and vertically on the images respectively, and so both slopes approach zero (and not infinity).
 
 
+\subsubsection{Samples from image correspondences}
+In order to apply this to estimate $\matr{R}$, the dataset must be such that the camera centers of views $v(x-1,y), v(x,y), v(x+1,y), \dots$ must be in an approximatly straight line (``horizontal''). For views $v(x,y-1), v(x,y), v(x,y+1), \dots$ they must also also be an approximatly straight line (``vertical''), which is perpenticular.
+
+After the \emph{image correspondences} were computed, for each \emph{feature} $f$, a horizontal and a vertical slope $s_H(f), s_V(f)$ are estimated using line fitting on the feature point correspondences for those view indices.
+
+This gives for each feature $f$ a sample
+\begin{equation}
+S_f = \langle p(f,v), s_H(f), s_V(f) \rangle
+\end{equation}
+$p(f,v)$ is the feature point position of $f$ for the reference view $v$. This corresponds to the $(i_x, i_y)$ from the previous formulae. If multiple reference views were used, the samples from different reference views can be put together here.
+
+
+\subsubsection{Estimating camera rotation}
+It is possible to estimate $\{r_{11}, r_{21}, r_{31}, r_{12}, r_{22}, r_{32}\}$ from these samples by solving two linear homogeneous least squares systems. From this $\matr{R}$ could probably be completed knowing it is an orthogonal matrix with $\det(\matr{R}) = 1$.
+
+But this is not done in the algorithm. Instead a parameterization of $\matr{R}$ with three Euler angles $(X,Y,Z)$ is optimized with an iterative method. The error to minimize is the mean squares sum of the predicted slopes for a given $\matr{R}$, minus the measured slopes.
+
+The parameterization $(X,Y,Z)$ of $\matr{R}$ is $\transpose{\matr{R}} = \matr{R_z}(Z) \matr{R_y}(Y) \matr{R_x}(X)$. $\transpose{\matr{R}}$ is the orientation of the camera in world space. So the \emph{roll} rotation $Z$ (around the optical axis) is performed last.
+
+The three angles are interdependent: Say $X$ is adjusted to minimize the error. Then $Y$ is adjusted to reduce the error even more. Now $X$ is no longer at the optical setting, and needs to be readjusted.
+
+The roll rotation has the most impact. Three golden-section searches are performed sequentially which optimize $Z$, $X$ and $Y$, in that order. The entire process is repeated iteratively until a certain error threshold. With each (outer) iteration, and tolerance and search interval of the (inner) golden-section searches are reduced.
+
+\subsubsection{Accuracy}
+On an artificially generated test dataset with a known camera rotation of $(10\degr, 20\degr, 5\degr)$, the estimated rotation was $(10.5289\degr, 20.6345\degr, 5.36933\degr)$. This artificial dataset has some random noise and outliers, $200$ features, and $30 \times 30$ views. It is hard to estimate the accuracy for real datasets because the real rotation is unknown and typically very small.
+
+\pagebreak
 
 \subsection{Feature point depths}
-
+\label{sec:depthrot}
 
 
 
