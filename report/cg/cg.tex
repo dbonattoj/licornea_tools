@@ -350,17 +350,23 @@ As shown on figure \ref{fig:differentdepths}, feature points of the same feature
 
 Figure \ref{fig:differentdepthsview} shows the same situation, but instead in the overlayed view spaces of the two cameras. The plane formed by the feature points for $f$ in the different view spaces, has the same orientation $\matr{R}$.
 
-This algorithm calculates for each feature $f$, the view space coordinates of the feature points $p(f,v_i) = \langle x,y,d,w\rangle$, using $\vec{v}_{f,v_i} = \matr{K}^{-1} (d x, d y, d)$. Then, using linear least squares, a plane it fitted to the points $\vec{v}_{f,v_i}$, and its normal vector $\vec{n}_f$ is computed.
+This algorithm calculates for each feature $f$, the view space coordinates of the feature points $p(f,v_i) = \langle x,y,d,w\rangle$, using $\vec{v}_{f,v_i} = \matr{K}^{-1} (d x, d y, d)$. Then, using linear least squares, a plane it fitted to the points $\vec{v}_{f,v_i}$, and its normal vector $\vec{n}_f$ is computed. This plane fitting should average out the noise in the depth measurements.
 
 Then the computed normal vectors $\vec{n}_f$ for each feature $f$ are averaged to get a global estimate $\vec{n}$. A prelimilary rotation matrix $\matr{R}_{xy}$ is derived from $\vec{n}$. It contains the correct pitch and yaw rotation of the camera relative to $P$, but not the correct roll.
 
-Now again for each feature $f$, the view space points $\vec{v}_{f,v_i}$ are taken, and premultiplied by $\matr{R}_{xy}$. Using only the $x$ and $y$ components of the resulting vectors, a 2D rotation angle is estimated.
+Now again for each feature $f$, the view space points $\vec{v}_{f,v_i}$ are taken, and premultiplied by $\matr{R}_{xy}$. Using only the $x$ and $y$ components of the resulting vectors, a 2D rotation angle $\alpha_f$ is estimated such that those 2D points become horizontally/vertically aligned.
+
+Again an average $\alpha$ is computed and transformed into a 3D roll rotation matrix $\matr{R}_z$.
+
+Finally $\matr{R}_{xy}$ and $\matr{R}_z$ are combined into $\matr{R}$.
+
+There might be some problems left with this implementation. On the artificially generated test dataset (same as previously), a rotation of $(9.93871\degr, 19.8223\degr, 5.22812\degr)$ was estimated. The correct values are $(10\degr, 20\degr, 5\degr)$. So the method appears to be more accurate.
 
 
 \begin{figure}
 \centering
 \includegraphics[width=0.4\textwidth]{differentdepthsview.pdf}
-\caption{bla}
+\caption{View of figure \ref{fig:differentdepths} from overlayed view space coordinate systems}
 \label{fig:differentdepthsview}
 \end{figure}
 
@@ -369,10 +375,25 @@ Now again for each feature $f$, the view space points $\vec{v}_{f,v_i}$ are take
 
 \section{Straight depths}
 \label{ref:straightdepths}
-Knowing $\matr{R}$, the \emph{straight depth} of each feature $f$ can now be calculated. It is the orthogonal distance of the feature point in the scene, to the plane $P$.
+Knowing $\matr{R}$, the \emph{straight depth} of each feature $f$ can now be calculated. It is the orthogonal distance of the feature point in the scene, to the plane $P$. This is the distance $\text{sd}$ in figure \ref{fig:differentdepths}. In can be samples from each feature point distance $d_i$, using the rotation $\matr{R}$ and the camera intrinsic matrix $\matr{K}$.
+
+Two methods are available for estimating the \emph{straight depth} $sd_f$ of each feature. One aggregates the measured feature point distances $d_i$. Another estimates the straight depths from the relative scales of the feature points, whereby one or more straight depths are fixed manually.
+
+In the case where no depth maps are available, the second method can be used. Some (minimally one) depth then need to be determined manually. If depth maps are available, the second method can still be used to complete or correct estimations from the first method.
+
 \subsection{Aggregating feature point depths}
+For each feature point $p(f,v) = \langle x,y,d,w \rangle$ which has a feature point depth $d$, the straight depth of that feature $sd_{f}$ can be estimated.
+
+The feature point is first back-projected into the camera's view space with $\vec{v} = \matr{K}^{-1} (d x, d y, d)$. Then it is transformed into the view space of a camera with the same optical center, but perpenticular to $P$. This is $\vec{v'} = \transpose{\matr{R}} \vec{v}$. The straight depth is the third component of $\vec{v'}$. This procedure is called ``unrotating'' the depth in some parts of the program.
+
+For each feature $f$, samples $sd_{f,v}$ are calculated in this way. They should theoretically be all the same, but due to noise, outliers, and the error in $\matr{R}$, they will differ. At least the noise part of the error can be removed by averaging the samples.
+
+To also remove the influence of outliers, the following procedure is used: First the median of the samples $sd_{f,v}$ is computed. It is not affected by outliers, but by the noise. Then the average of the $sd_{f,v}$, whose absolute difference to the median is below a given threshold $t$, is taken. This average if used as the final $sd_f$. $t$ is set to $10 \text{ mm}$. As a metric of accuracy, the standard deviation of these samples is also taken.
 
 \subsection{Depth from disparity}
+agfsdgd
+
+\pagebreak
 
 \section{Camera positions}
 Finally, having \emph{image correspondences}, the \emph{camera rotation}, and the \emph{straight depths}, the camera center positions can be computed.
