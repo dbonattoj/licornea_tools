@@ -130,6 +130,8 @@ program(homographies_to_cors calibration calibration_lib)
 program(copy_cors calibration calibration_lib)
 program(evaluate_rectification calibration calibration_lib)
 program(merge_cors calibration calibration_lib)
+program(remove_cors calibration calibration_lib)
+program(cameras_from_checkerboards calibration calibration_lib)
 
 py_program(cg_warp_images calibration)
 
@@ -192,6 +194,7 @@ install_pylib_link(dataset)
 
 program(view_dataset dataset)
 program(duplicates dataset)
+program(missing dataset)
 py_program(slice dataset)
 py_program(flip dataset)
 

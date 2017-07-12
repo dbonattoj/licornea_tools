@@ -1,8 +1,8 @@
 # If True, additional output is printed. Useful for debugging.
-verbose = False
+verbose = True
 
 # If True, batch jobs are run in parallel.
-parallel = False
+parallel = True
 
 # If parallel if True, number of parallel jobs to launch.
 # Should be adjusted to get best efficiency. For jobs that access a lot of different files, should be low,

@@ -134,7 +134,7 @@ int main(int argc, const char* argv[]) {
 				ref_image, tg_image, tg_depth, ref_cam, tg_cam, z_near, z_far, slider_opacity, 1.0-slider_darken_background);
 		
 			view.draw(cv::Point(0,0), out_image);
-		} catch(const std::runtime_error&) { }
+		} catch(const std::exception&) { }
 	};
 
 	view.show_modal();

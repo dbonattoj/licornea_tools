@@ -28,7 +28,7 @@ using view_feature_position_pair = std::pair<vec2, vec2>;
 using view_feature_position_pairs = std::map<view_index, view_feature_position_pair>;
 
 constexpr int min_position_pairs_count = 300;
-
+constexpr real max_relative_scale_error = 1.0;
 
 view_feature_position_pairs common_view_feature_positions(
 	const view_feature_positions& views1, const view_feature_positions& views2
@@ -55,7 +55,7 @@ view_feature_position_pairs common_view_feature_positions(
 
 struct estimate_relative_scale_result {
 	real scale = NAN;
-	real confidence = 0.0;
+	real weight = 0.0;
 };
 estimate_relative_scale_result estimate_relative_scale(const view_feature_position_pairs& ref_tg_positions) {
 	// find scale s and translation t which maps reference positions ref_i to target positions tg_i:
@@ -110,23 +110,21 @@ estimate_relative_scale_result estimate_relative_scale(const view_feature_positi
 		vec2 diff = tg_position - ref_to_tg_position;
 		error += sq(diff[0]) + sq(diff[1]);
 	}
-	real confidence = real(n) / error;
+	error = std::sqrt(error / real(ref_tg_positions.size()));
+		
+	if(error > max_relative_scale_error) return estimate_relative_scale_result();
 	
-	return {x[0], confidence};
+	return estimate_relative_scale_result {x[0], 1.0};
 }
 
 
-
-Eigen_vecX complete_straight_depths(const Eigen_vecX& known_depths, const Eigen_matXX& ratios, const Eigen_matXX& weights) {
+Eigen_vecX compute_global_ratios(const Eigen_matXX& ratios, const Eigen_matXX& weights) {
 	std::size_t ratios_count = 0;
-	std::size_t known_count = 0;
 	std::size_t features_count = ratios.rows();
 	for(int ref = 0; ref < features_count; ++ref) for(int tg = ref+1; tg < features_count; ++tg)
 		if(weights(tg, ref) != 0.0) ++ratios_count;
-	for(int known = 0; known < features_count; ++known)
-		if(known_depths[known] != 0.0) ++known_count;
-	
-	std::size_t rows = ratios_count + known_count;
+		
+	std::size_t rows = ratios_count + 1;
 	std::size_t cols = features_count;
 	
 	Eigen::SparseMatrix<real> A(rows, cols);
@@ -136,22 +134,16 @@ Eigen_vecX complete_straight_depths(const Eigen_vecX& known_depths, const Eigen_
 		real weight = weights(tg, ref);
 		if(weight == 0.0) continue;
 		
-		A.insert(row, ref) = ratios(tg, ref);
-		A.insert(row, tg) = -1.0;
+		A.insert(row, tg) = ratios(tg, ref);
+		A.insert(row, ref) = -1.0;
+
+		std::cout << ratios(tg, ref) << std::endl;
 		
 		++row;
 	}
 	
-	for(int known = 0; known < features_count; ++known) {
-		if(known_depths[known] == 0.0) continue;
-		
-		b.insert(row) = known_depths[known];
-		A.insert(row, known) = 1.0;
-
-		++row;
-		
-		std::cout << "known: " << known << " := " << known_depths[known] << std::endl;
-	}
+	b.insert(row) = 1.0;
+	A.insert(row, 0.0) = 1.0;	
 	
 	A.makeCompressed();
 	
@@ -165,17 +157,11 @@ Eigen_vecX complete_straight_depths(const Eigen_vecX& known_depths, const Eigen_
 
 	Assert(x.rows() == cols);
 
-	real rms_error = 0.0;
-	for(int known = 0; known < features_count; ++known) {
-		if(known_depths[known] == 0.0) continue;
-		real in = known_depths[known];
-		real out = x[known];
-		rms_error += sq(in - out);
-	}
-	rms_error = std::sqrt(rms_error / known_count);
-	std::cout << "rms_error=" << rms_error << std::endl;
-
 	return x;
+}
+
+
+Eigen_vecX complete_straight_depths(const Eigen_vecX& known_depths, const Eigen_vecX& global_ratios) {
 }
 
 
@@ -188,6 +174,7 @@ int main(int argc, const char* argv[]) {
 	straight_depths in_depths = straight_depths_arg();
 	std::string out_depths_filename = out_filename_arg();
 
+	std::cout << std::setprecision(10);
 	Eigen::initParallel();
 	
 	const int default_num_threads = Eigen::nbThreads();
@@ -198,24 +185,21 @@ int main(int argc, const char* argv[]) {
 	auto all_views = get_all_views(cors);
 	auto all_features = get_feature_names(cors);
 
-	//auto all_features2 = all_features;
-	//all_features.clear();
-	//for(int i = 0; i < 100; ++i) all_features.push_back(all_features2[i]);
-
-
+	std::size_t features_count = all_features.size();
+	//features_count = 20;
+	std::cout << "feature count: " << features_count << std::endl;
+	
 	std::map<std::string, int> feature_indices;
-	for(std::ptrdiff_t i = 0; i < all_features.size(); ++i)
+	for(std::ptrdiff_t i = 0; i < features_count; ++i)
 		feature_indices[all_features[i]] = i;
 
 
-	std::size_t features_count = all_features.size();
-	
-	
 	// undistort & unrotate correspondences, and get view feature positions foreach feature
+	// all_view_feature_xy = points in normalized view spaces (v_z = 1)
 	std::cout << "undistorting correspondences" << std::endl;
 	image_correspondences undist_cors = undistort(cors, intr);	
 	std::cout << "collecting unrotated view feature positions" << std::endl;
-	std::map<std::string, view_feature_positions> all_view_feature_positions;
+	std::map<std::string, view_feature_positions> all_view_feature_xy;
 	for(const auto& kv : undist_cors.features) {
 		const std::string& feature_name = kv.first;
 		const image_correspondence_feature& feature = kv.second;
@@ -223,26 +207,25 @@ int main(int argc, const char* argv[]) {
 		for(const auto& kv2 : feature.points) {
 			const view_index& idx = kv2.first;
 			const feature_point& fpoint = kv2.second;
-			vec2 unrotated_position = mul_h(unrotate, fpoint.position);
-			all_view_feature_positions[feature_name][idx] = unrotated_position;
+			vec2 unrotated_xy = mul_h(unrotate, fpoint.position);
+			all_view_feature_xy[feature_name][idx] = unrotated_xy;
 		}
 	}
 
-	// calculate relative depth rations for all feature pairs, using the image correspondences	
-	Eigen_matXX depth_ratios(features_count, features_count);
+	// calculate relative scale ratio for all feature pairs, using the image correspondences	
+	Eigen_matXX scale_ratios(features_count, features_count);
 	Eigen_matXX weights(features_count, features_count);
 	weights.setZero();
 
-	std::cout << "feature count: " << features_count << std::endl;
-
+	std::cout << "estimating pairwise relative scales of disparities" << std::endl;
 	#pragma omp parallel for schedule(guided)
 	for(int ref = 0; ref < features_count; ++ref) for(int tg = ref+1; tg < features_count; ++tg) {
 		// get feature position pairs for reference and target feature
 		// for views on which both features are present
 		const std::string& ref_feature_name = all_features.at(ref);
-		const view_feature_positions& ref_positions = all_view_feature_positions.at(ref_feature_name);
+		const view_feature_positions& ref_positions = all_view_feature_xy.at(ref_feature_name);
 		const std::string& tg_feature_name = all_features.at(tg);
-		const view_feature_positions& tg_positions = all_view_feature_positions.at(tg_feature_name);
+		const view_feature_positions& tg_positions = all_view_feature_xy.at(tg_feature_name);
 			
 		auto ref_tg_position_pairs = common_view_feature_positions(ref_positions, tg_positions);
 		if(ref_tg_position_pairs.size() < min_position_pairs_count) continue;
@@ -250,16 +233,14 @@ int main(int argc, const char* argv[]) {
 		// estimate scale of target view feature positions, relative to corresponding reference view features
 		estimate_relative_scale_result result = estimate_relative_scale(ref_tg_position_pairs);
 		if(std::isnan(result.scale)) continue;
-		
-		//#pragma omp critical
-		//std::cout << "ref=" << ref << ", tg=" << tg << ", scale=" << scale << ", inv_scale=" << 1.0/scale << std::endl;
 
-		depth_ratios(tg, ref) = 1.0 / result.scale;
-		weights(tg, ref) = result.confidence;
+		scale_ratios(tg, ref) = result.scale;
+		weights(tg, ref) = result.weight;
 
 		if(tg == features_count-1) std::cout << '.' << std::flush;
 	}
 	std::cout << std::endl;
+	
 
 	{
 		cv::Mat_<real> weights_img;
@@ -270,12 +251,22 @@ int main(int argc, const char* argv[]) {
 		cv::imwrite("w.png", weights_img2);
 
 		cv::Mat_<real> ratios_img;
-		cv::eigen2cv(depth_ratios, ratios_img);
+		cv::eigen2cv(scale_ratios, ratios_img);
 		cv::Mat_<uchar> ratios_img2;
 		cv::normalize(ratios_img, ratios_img2, 0, 255, cv::NORM_MINMAX, CV_8UC1);
 		cv::resize(ratios_img2, ratios_img2, cv::Size(0,0), 3, 3, cv::INTER_NEAREST);
 		cv::imwrite("r.png", ratios_img2);
 	}
+	
+	
+	
+	
+	std::cout << "calculating global scale ratios" << std::endl;
+	Eigen_vecX global_scale_ratios = compute_global_ratios(scale_ratios, weights);
+	
+	std::cout << global_scale_ratios  << std::endl;
+	
+	/*
 	
 	
 	// deduce depths of all features
@@ -285,15 +276,17 @@ int main(int argc, const char* argv[]) {
 	for(const auto& kv : in_depths) {
 		const std::string& feature_name = kv.first;
 		const straight_depth& sdepth = kv.second;
-		try {
-		int feature_index = feature_indices.at(feature_name);
-		known_depths[feature_index] = sdepth.depth;
-		} catch(...) {}
+		auto feature_index_it = feature_indices.find(feature_name);
+		if(feature_index_it != feature_indices.end()) {
+			int feature_index = feature_index_it->second;
+			known_depths[feature_index] = sdepth.depth;	
+		}
 	}
-
+		
+	std::cout << "completing straight depths from pairwise scales" << std::endl;
 	Eigen::setNbThreads(default_num_threads);
 	
-	Eigen_vecX completed_depths = complete_straight_depths(known_depths, depth_ratios, weights);
+	Eigen_vecX completed_depths = complete_straight_depths(known_depths, scale_ratios, weights);
 	
 	Eigen_matXn<2> known_completed(features_count, 2);
 	known_completed.setZero();
@@ -301,7 +294,12 @@ int main(int argc, const char* argv[]) {
 	known_completed.block(0, 1, features_count, 1) = completed_depths;
 	
 	std::cout << std::setprecision(10);
-	//std::cout << "known/completed:\n" << known_completed << std::endl;
+	std::cout << "known/completed:\n" << std::endl;
+	for(int row = 0; row < features_count; ++row) {
+			std::cout << known_completed(row, 0) << ";" << known_completed(row, 1) << "\n";
+	}
+
+return 0;
 
 	std::cout << "saving computed straight depths" << std::endl;
 	straight_depths out_straight_depths;
@@ -310,4 +308,5 @@ int main(int argc, const char* argv[]) {
 		out_straight_depths[all_features[known]] = depth;
 	}
 	export_json_file(encode_straight_depths(out_straight_depths), out_depths_filename);
+	*/
 }

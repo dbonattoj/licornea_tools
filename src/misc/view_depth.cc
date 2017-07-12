@@ -10,7 +10,7 @@ using namespace tlz;
 
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv, "depth.png [z_near z_far] [out.png]");
+	get_args(argc, argv, "depth.png [min_d max_d] [out.png]");
 	std::string depth_filename = in_filename_arg();
 	int z_near_init = int_opt_arg(-1);
 	int z_far_init = int_opt_arg(-1);
@@ -45,6 +45,8 @@ int main(int argc, const char* argv[]) {
 		auto update = [&]() {
 			real min_d = z_near_slider.value();
 			real max_d = z_far_slider.value();
+			
+			std::cout << "min_d=" << min_d << ", max_d=" << max_d << std::endl;
 			
 			cv::Mat_<uchar> img = viewer::visualize_depth(depth, min_d, max_d);
 			view.clear(img.size());
