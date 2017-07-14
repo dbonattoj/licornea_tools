@@ -22,17 +22,6 @@ def process_view(x, y):
 	
 	view = datas.view(x, y)
 	raw_view = view.group_view("kinect_raw")
-	
-	if image:
-		out_image_filename = view.image_filename()
-		in_image_filename = raw_view.image_filename()
-		if not os.path.isfile(in_image_filename):
-			print "kinect_raw image {} not found, skipping".format(in_image_filename)
-			
-		elif overwrite_image or not os.path.isfile(out_image_filename):
-			if verbose: print "copying image {} -> {}".format(in_image_filename, out_image_filename)
-			if not simulate:
-				shutil.copyfile(in_image_filename, out_image_filename)
 		
 	if depth:
 		out_depth_filename = view.depth_filename("-")
@@ -52,6 +41,21 @@ def process_view(x, y):
 					reprojection_parameters_filename,
 					densify_method
 				])
+
+	if image:
+		out_image_filename = view.image_filename()
+		in_image_filename = raw_view.image_filename()
+		if not os.path.isfile(in_image_filename):
+			print "kinect_raw image {} not found, skipping".format(in_image_filename)
+			
+		elif overwrite_image or not os.path.isfile(out_image_filename):
+			if verbose: print "copying image {} -> {}".format(in_image_filename, out_image_filename)
+			if not simulate:
+				call_tool("misc/touch", [
+					out_image_filename,
+					"no_create"
+				]) # workaround: create surrounding directories if needed
+				shutil.copyfile(in_image_filename, out_image_filename)
 			
 
 def usage_fail():

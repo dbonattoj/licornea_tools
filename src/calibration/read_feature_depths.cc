@@ -20,11 +20,12 @@
 using namespace tlz;
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv, "dataset_parameters.json in_cors.json out_cors.json [xy_outreach=0]");
+	get_args(argc, argv, "dataset_parameters.json in_cors.json out_cors.json [xy_outreach=0] [step=1]");
 	dataset datas = dataset_arg();
 	image_correspondences cors = image_correspondences_arg();
 	std::string out_cors_filename = out_filename_arg();
 	int xy_outreach = int_opt_arg(0);
+	int step = int_opt_arg(1);
 			
 	std::cout << "for each view, reading feature depths" << std::endl;
 	
@@ -33,6 +34,9 @@ int main(int argc, const char* argv[]) {
 	std::atomic<int> counter(0);
 	#pragma omp parallel for
 	for(std::ptrdiff_t i = 0; i < views.size(); ++i) {
+		++counter;
+		if(i % step != 0) continue;
+		
 		const view_index& view_idx = views[i];
 		
 		std::string depth_filename = datas.view(view_idx).depth_filename();
@@ -68,8 +72,7 @@ int main(int argc, const char* argv[]) {
 
 		std::cout << '.' << std::flush;
 		
-		++counter;
-		if(counter % 1000 == 0) {
+		if(counter/step % 1000 == 0) {
 			#pragma omp critical
 			std::cout << '\n' << counter << " of " << views.size() << std::endl;
 		}

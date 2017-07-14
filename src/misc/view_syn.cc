@@ -114,8 +114,8 @@ int main(int argc, const char* argv[]) {
 	auto& slider_opacity = view.add_real_slider("opacity", 0.5, 0.0, 1.0);
 	auto& slider_darken_background = view.add_real_slider("darken", 0.3, 0.0, 1.0);
 
-	real z_near = 600.0;
-	real z_far = 1600.0;
+	real z_near = 400.0;
+	real z_far = 2000.0;
 
 	view.update_callback = [&]() {
 		view.clear();
