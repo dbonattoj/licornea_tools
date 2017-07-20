@@ -4,7 +4,7 @@ import sys, os, json, shutil
 
 simulate = False
 
-image = True
+image = False
 depth = True
 
 overwrite_image = False

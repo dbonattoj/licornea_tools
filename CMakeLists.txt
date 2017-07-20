@@ -12,9 +12,10 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 # OpenCV
 find_package(OpenCV REQUIRED)
-link_libraries(${OpenCV_LIBRARIES})
+
 include_directories(SYSTEM ${OpenCV_INCLUDE_DIRS})
 
+set(FULL_OPENCV_LIB "${OpenCV_LIBRARIES}")
 
 # OpenMP
 find_package(OpenMP)
@@ -50,7 +51,7 @@ add_compile_options(-Wall -Wextra -Wno-sign-compare)
 file(GLOB_RECURSE COMMON_LIB_SRC "src/lib/*.cc")
 add_library(common_lib SHARED ${COMMON_LIB_SRC} "src/external/fmt/format.cc")
 
-target_link_libraries(common_lib ${OpenCV_LIBRARIES})
+target_link_libraries(common_lib opencv_core)
 install(TARGETS common_lib DESTINATION "lib/")
 
 
@@ -77,7 +78,7 @@ endmacro(install_pylib_link)
 # Macro to build+install C++ programs
 function(program name section)
 	add_executable(${name} "src/${section}/${name}.cc")
-	target_link_libraries(${name} common_lib ${ARGN})
+	target_link_libraries(${name} common_lib  opencv_core  opencv_calib3d opencv_imgproc ${ARGN})
 	install(TARGETS ${name} DESTINATION ${section})
 endfunction()
 
@@ -156,7 +157,7 @@ py_program(import_matlab camera)
 # Kinect
 file(GLOB_RECURSE KINECT_LIB_SRC "src/kinect/lib/*.cc")
 add_library(kinect_lib SHARED ${KINECT_LIB_SRC})
-target_link_libraries(kinect_lib common_lib)
+target_link_libraries(kinect_lib opencv_core opencv_imgproc opencv_calib3d common_lib)
 if(WITH_LIBFREENECT2)
 	target_link_libraries(kinect_lib ${FREENECT2_LIBRARY})
 endif()

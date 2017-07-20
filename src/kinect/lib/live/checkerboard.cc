@@ -6,6 +6,8 @@
 #include <climits>
 #include <cassert>
 
+#if 0
+
 // based on
 // https://github.com/code-iai/iai_kinect2/blob/master/kinect2_calibration/src/kinect2_calibration.cpp
 
@@ -410,3 +412,5 @@ void calculate_checkerboard_pixel_depths(const intrinsics& intr, const checkerbo
 }
 
 }
+
+#endif
