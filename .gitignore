@@ -1,4 +1,5 @@
 /data/
+/newdata/
 /vsrs/
 /package/
 /build/
@@ -9,3 +10,4 @@
 /.idea/
 /parallel_wall_indep/
 *.pyc
+

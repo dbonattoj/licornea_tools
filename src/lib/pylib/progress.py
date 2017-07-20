@@ -1,5 +1,5 @@
-from config import *
-from utility import *
+from .config import *
+from .utility import *
 import time, threading
 
 class Progress:
@@ -19,16 +19,16 @@ class Progress:
 		try:
 			self.done_count = self.done_count + incr
 			if self.done_count > 0:
-				elapsed_time = time.time() - self.start_time
+				elapsed_time = time.time() - self.start_time + 1
 				remaining_count = self.total_count - self.done_count
 				steps_per_second = self.done_count / elapsed_time
 				remaining_time_estimate = remaining_count / steps_per_second
-				print "done {} of {}. elapsed time: {}, estimated remaining time: {}".format(
+				print("done {} of {}. elapsed time: {}, estimated remaining time: {}".format(
 					self.done_count,
 					self.total_count,
 					format_time(elapsed_time),
 					format_time(remaining_time_estimate)
-				)
+				))
 		finally:
 			self.lock.release()
 

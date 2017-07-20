@@ -1,4 +1,4 @@
-from config import *
+from .config import *
 import sys, os, tempfile, threading, json, atexit
 
 temporary_lock = threading.Lock()

@@ -40,7 +40,9 @@ int main(int argc, const char* argv[]) {
 	for(view_index idx : datas.indices()) {
 		if(i++ % 100 == 0) std::cout << i << " of " << datas.indices().size() << std::endl;
 		else std::cout << '.' << std::flush;
-				
+
+	//	if(idx.y != datas.y_min() && idx.x != datas.x_min()) continue;
+		
 		// load image
 		dataset_view view = datag.view(idx);
 		std::string image_filename = view.image_filename();

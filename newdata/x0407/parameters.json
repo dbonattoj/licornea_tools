@@ -1,0 +1,20 @@
+{
+	"_" : "x index = Z",
+
+	"x_index_range" : [50, 550],
+	"y_index_range" : [300, 450],
+	
+	"camera_name_format" : "cam_{x:04d}{y:04d}0407",
+	"cameras_filename" : "cams.json",
+	"width" : 1920,
+	"height" : 1080,
+
+	"image_filename_format" : "/Users/timlenertz/Desktop/dfkds/texture/z{x:04d}/y{y:04d}/Kinect_z{x:04d}y{y:04d}x0407.png",
+	"depth_filename_format" : "G:/PROCESSING/xy_reproj/depth/z{x:04d}/y{y:04d}/Kinect_z{x:04d}y{y:04d}x0407.png",
+
+	"kinect_raw" : {
+		"image_filename_format" : "F:/DATASET/both_yz/Kinect/texture/z{x:04d}/y{y:04d}/Kinect_z{x:04d}y{y:04d}x0407.png",
+		"depth_filename_format" : "F:/DATASET/both_yz/Kinect/depth/z{x:04d}/y{y:04d}/Kinect_z{x:04d}y{y:04d}x0407.png",
+		"kinect_reprojection_parameters_filename" : "../kinect_reprojection.json"
+	}
+}

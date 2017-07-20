@@ -26,8 +26,11 @@
 \contentsline {section}{\numberline {2.6}Straight depths}{18}{section.2.6}
 \contentsline {subsection}{\numberline {2.6.1}Aggregating feature point depths}{18}{subsection.2.6.1}
 \contentsline {subsection}{\numberline {2.6.2}Depth from disparity}{18}{subsection.2.6.2}
-\contentsline {section}{\numberline {2.7}Camera positions}{19}{section.2.7}
-\contentsline {subsection}{\numberline {2.7.1}Relative camera positions}{19}{subsection.2.7.1}
-\contentsline {subsection}{\numberline {2.7.2}Stitching}{19}{subsection.2.7.2}
-\contentsline {subsection}{\numberline {2.7.3}Final camera extrinsics}{19}{subsection.2.7.3}
-\contentsline {chapter}{\numberline {3}Implementation}{20}{chapter.3}
+\contentsline {subsubsection}{\numberline {2.6.2.1}Pairwise scale ratios}{19}{subsubsection.2.6.2.1}
+\contentsline {subsubsection}{\numberline {2.6.2.2}Global scale ratios}{19}{subsubsection.2.6.2.2}
+\contentsline {subsubsection}{\numberline {2.6.2.3}Depths}{19}{subsubsection.2.6.2.3}
+\contentsline {section}{\numberline {2.7}Camera positions}{21}{section.2.7}
+\contentsline {subsection}{\numberline {2.7.1}Relative camera positions}{21}{subsection.2.7.1}
+\contentsline {subsection}{\numberline {2.7.2}Stitching}{21}{subsection.2.7.2}
+\contentsline {subsection}{\numberline {2.7.3}Final camera extrinsics}{21}{subsection.2.7.3}
+\contentsline {chapter}{\numberline {3}Implementation}{22}{chapter.3}

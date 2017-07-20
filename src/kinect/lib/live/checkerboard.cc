@@ -6,8 +6,6 @@
 #include <climits>
 #include <cassert>
 
-#if 0
-
 // based on
 // https://github.com/code-iai/iai_kinect2/blob/master/kinect2_calibration/src/kinect2_calibration.cpp
 
@@ -62,7 +60,7 @@ checkerboard detect_color_checkerboard(cv::Mat_<cv::Vec3b>& img, int cols, int r
 
 
 checkerboard detect_ir_checkerboard(cv::Mat_<uchar>& img, int cols, int rows, real square_width) {	
-	static cv::Ptr<cv::CLAHE> clahe = nullptr;
+	static cv::Ptr<cv::CLAHE> clahe; // TODO zero-initialize?
 	if(! clahe) clahe = cv::createCLAHE(1.5, cv::Size(32, 32));
 	
 	cv::Mat_<uchar> larger_img;
@@ -230,7 +228,7 @@ checkerboard_extrinsics estimate_checkerboard_extrinsics(const checkerboard& chk
 			0.05,
 			chk.corners_count(),
 			cv::noArray(),
-			cv::ITERATIVE
+			CV_ITERATIVE
 		);
 	} else {
 		cv::solvePnP(
@@ -412,5 +410,3 @@ void calculate_checkerboard_pixel_depths(const intrinsics& intr, const checkerbo
 }
 
 }
-
-#endif

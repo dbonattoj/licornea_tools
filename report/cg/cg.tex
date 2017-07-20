@@ -379,19 +379,68 @@ Knowing $\matr{R}$, the \emph{straight depth} of each feature $f$ can now be cal
 
 Two methods are available for estimating the \emph{straight depth} $sd_f$ of each feature. One aggregates the measured feature point distances $d_i$. Another estimates the straight depths from the relative scales of the feature points, whereby one or more straight depths are fixed manually.
 
-In the case where no depth maps are available, the second method can be used. Some (minimally one) depth then need to be determined manually. If depth maps are available, the second method can still be used to complete or correct estimations from the first method.
+In the case where no depth maps are available, the second method can be used. Some (at least one) depth then need to be determined manually. If depth maps are available, the second method can still be used to complete or correct estimations from the first method.
 
 \subsection{Aggregating feature point depths}
 For each feature point $p(f,v) = \langle x,y,d,w \rangle$ which has a feature point depth $d$, the straight depth of that feature $sd_{f}$ can be estimated.
 
-The feature point is first back-projected into the camera's view space with $\vec{v} = \matr{K}^{-1} (d x, d y, d)$. Then it is transformed into the view space of a camera with the same optical center, but perpenticular to $P$. This is $\vec{v'} = \transpose{\matr{R}} \vec{v}$. The straight depth is the third component of $\vec{v'}$. This procedure is called ``unrotating'' the depth in some parts of the program.
+The feature point is first back-projected into the camera's view space with $\vec{v} = \matr{K}^{-1} (d x, d y, d)$. Then it is transformed into the view space of a camera with the same optical center, but perpenticular to $P$. This is $\vec{v'} = \transpose{\matr{R}} \vec{v}$. The straight depth is the third component of $\vec{v'}$.
 
 For each feature $f$, samples $sd_{f,v}$ are calculated in this way. They should theoretically be all the same, but due to noise, outliers, and the error in $\matr{R}$, they will differ. At least the noise part of the error can be removed by averaging the samples.
 
 To also remove the influence of outliers, the following procedure is used: First the median of the samples $sd_{f,v}$ is computed. It is not affected by outliers, but by the noise. Then the average of the $sd_{f,v}$, whose absolute difference to the median is below a given threshold $t$, is taken. This average if used as the final $sd_f$. $t$ is set to $10 \text{ mm}$. As a metric of accuracy, the standard deviation of these samples is also taken.
 
 \subsection{Depth from disparity}
-agfsdgd
+This alternate method computes straight depths using only the relative scales of the different features' disparities, and some fixed feature depth given as input. It proceeds in three steps: (1) Calculate the relative scale for each pair of features. (2) Derive a global scale for each feature. (3) Using at least one \emph{known depth}, calculate the depth of each feature.
+
+First the feature points of each feature are undistorted (if any distortion) and unrotated. For this the image coordinates are premultiplied by $\matr{K} \transpose{\matr{R}} \matr{K}^{-1}$. This is invariant of the feature depths, and $d$ is fixed to $1$.
+
+\subsubsection{Pairwise scale ratios}
+The feature points of each feature $f_i$ now all have the same pattern, except for a different scale, a different position in the image, and a different subset of covered views.
+
+For each pair of features $(f_\text{i}, f_\text{j})$, using linear least squares, a relative scale $s_{j\rightarrow i}$, and a translation $\vec{t} \in \mathbb{R}^2$ are computed which optimally fit
+\begin{equation*}
+\forall v : p(f_i, v) = s_{j\rightarrow i} \times \left( p(f_j, v) + \vec{t} \right)
+\end{equation*}
+
+The resulting $s_{j\rightarrow i}$ is discarded or assigned a lower weight if the two features do not have enough feature points in common, or the error of the least-squares solution is too large.
+
+Calculating $s_{j\rightarrow i}$ for each feature pair $(f_\text{i}, f_\text{j})$ gives a \emph{pairwise scales matrix}, as seen shown in figures \ref{fig:ratios} and \ref{fig:ratios_multiref}. The axis are the feature indices $i$ and $j$. Because each unordered pair is considered only once, the matrix is triangular. When there are multiple reference views, features from two different reference views have none (or little) feature points in common. This causes the black areas in the lower-left part in figure \ref{fig:ratios_multiref}.
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{ratios.png}
+\caption{Pairwise feature scales matrix}
+\label{fig:ratios}
+
+\vspace*{\floatsep}
+
+\includegraphics[width=0.6\textwidth]{ratios_multiref.png}
+\caption{Pairwise feature scales matrix (multiple reference views)}
+\label{fig:ratios_multiref}
+\end{figure}
+
+
+\subsubsection{Global scale ratios}
+The next step is to deduce global scales $S = \{ s_{f_0}, s_{f_1}, s_{f_2}, ... \}$ from these samples. The \emph{global scale} of one (arbitrarily chosen) feature $f_0$ is set to $s_{f_0} = 1$.
+
+Then all the global scales $S$ are calculated such that
+\begin{equation}
+\forall i,j : \frac{s_{f_i}}{s_{f_j}} = s_{j\rightarrow i}
+\end{equation}
+
+This is done by solving a sparse linear least-squares system. The system consists of equations of the form $s_{f_j} \times s_{j\rightarrow i} - s_{f_i} = 0$, and one $s_{f_0} = 1$. So the $\matr{A}$ matrix is sparse, and has one column for each relative scale ratio, and one row for each feature.
+
+
+\subsubsection{Depths}
+The scale ratios relate directly to the depths: Using the pin-hole camera model, one gets
+\begin{equation}
+\frac{z_j}{z_i} = s_{j\rightarrow i}
+\end{equation}
+where $z_i, z_j$ are the straight depths of the features $f_i, f_j$.
+
+
 
 \pagebreak
 

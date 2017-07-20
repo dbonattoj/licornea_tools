@@ -12,10 +12,7 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 # OpenCV
 find_package(OpenCV REQUIRED)
-
 include_directories(SYSTEM ${OpenCV_INCLUDE_DIRS})
-
-set(FULL_OPENCV_LIB "${OpenCV_LIBRARIES}")
 
 # OpenMP
 find_package(OpenMP)
@@ -43,7 +40,11 @@ endif()
 include_directories(SYSTEM src/external/include)
 include_directories(SYSTEM src/external/fmt)
 
-add_compile_options(-Wall -Wextra -Wno-sign-compare)
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+
+else()
+	add_compile_options(-Wall -Wextra -Wno-sign-compare)
+endif()
 
 
 
@@ -51,7 +52,7 @@ add_compile_options(-Wall -Wextra -Wno-sign-compare)
 file(GLOB_RECURSE COMMON_LIB_SRC "src/lib/*.cc")
 add_library(common_lib SHARED ${COMMON_LIB_SRC} "src/external/fmt/format.cc")
 
-target_link_libraries(common_lib opencv_core)
+target_link_libraries(common_lib ${OpenCV_LIBRARIES})
 install(TARGETS common_lib DESTINATION "lib/")
 
 
@@ -64,21 +65,29 @@ install(
 
 
 # Marco to link pylib/ into subdirectories
-macro(install_pylib_link section)
-	install(
-		CODE "execute_process( \
-			WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX} \
-			COMMAND ${CMAKE_COMMAND} -E create_symlink \
-			../lib/pylib \
-			${section}/pylib \
-		)"
-	)
-endmacro(install_pylib_link)
+function(install_pylib_link section)
+	if(WIN32)
+		install(
+			DIRECTORY "src/lib/pylib"
+			DESTINATION "${section}"
+			PATTERN "*.py"
+		)	
+	else()
+		install(
+			CODE "execute_process( \
+				WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX} \
+				COMMAND ${CMAKE_COMMAND} -E create_symlink \
+				../lib/pylib \
+				${section}/pylib \
+			)"
+		)
+	endif()
+endfunction(install_pylib_link)
 
 # Macro to build+install C++ programs
 function(program name section)
 	add_executable(${name} "src/${section}/${name}.cc")
-	target_link_libraries(${name} common_lib  opencv_core  opencv_calib3d opencv_imgproc ${ARGN})
+	target_link_libraries(${name} common_lib ${OpenCV_LIBRARIES} ${ARGN})
 	install(TARGETS ${name} DESTINATION ${section})
 endfunction()
 
@@ -157,7 +166,7 @@ py_program(import_matlab camera)
 # Kinect
 file(GLOB_RECURSE KINECT_LIB_SRC "src/kinect/lib/*.cc")
 add_library(kinect_lib SHARED ${KINECT_LIB_SRC})
-target_link_libraries(kinect_lib opencv_core opencv_imgproc opencv_calib3d common_lib)
+target_link_libraries(kinect_lib common_lib)
 if(WITH_LIBFREENECT2)
 	target_link_libraries(kinect_lib ${FREENECT2_LIBRARY})
 endif()

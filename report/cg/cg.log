@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.2.15)  7 JUL 2017 16:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.2.15)  20 JUL 2017 20:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -961,52 +961,68 @@ File: differentdepthsview.pdf Graphic file (type pdf)
 <use differentdepthsview.pdf>
 Package pdftex.def Info: differentdepthsview.pdf used on input line 368.
 (pdftex.def)             Requested size: 167.29967pt x 129.79231pt.
- [17 <./differentdepthsview.pdf>] [18] [19]
+ [17 <./differentdepthsview.pdf>] [18]
+<ratios.png, id=355, 1003.75pt x 1003.75pt>
+File: ratios.png Graphic file (type png)
+ <use ratios.png>
+Package pdftex.def Info: ratios.png used on input line 413.
+(pdftex.def)             Requested size: 250.95587pt x 250.9522pt.
+
+<ratios_multiref.png, id=356, 1199.48125pt x 1199.48125pt>
+File: ratios_multiref.png Graphic file (type png)
+
+<use ratios_multiref.png>
+Package pdftex.def Info: ratios_multiref.png used on input line 419.
+(pdftex.def)             Requested size: 250.95587pt x 250.94676pt.
+ [19] [20 <./ratios.png (PNG copy)> <./ratios_multiref.png (PNG copy)>] [21]
 chapter 3.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 410.
-[20
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 459.
+[22
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 410.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 459.
  (./cg.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 410.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 410.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 459.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 459.
 Package rerunfilecheck Info: File `cg.out' has not changed.
 (rerunfilecheck)             Checksum: 005D4296E7914018F81BD59CE6A6D309;1708.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 410.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 459.
  ) 
 Here is how much of TeX's memory you used:
- 9277 strings out of 494953
- 137007 string characters out of 6180977
- 285055 words of memory out of 5000000
- 12351 multiletter control sequences out of 15000+600000
+ 9298 strings out of 494953
+ 137351 string characters out of 6180977
+ 285198 words of memory out of 5000000
+ 12361 multiletter control sequences out of 15000+600000
  21552 words of font info for 61 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  42i,7n,66p,758b,388s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/timlenertz/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </h
-ome/timlenertz/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.600pk> </home/ti
-mlenertz/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecsx1200.600pk> </home/timlener
-tz/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1095.600pk> </home/timlenertz/.te
-xmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk> </home/timlenertz/.texmf-va
-r/fonts/pk/ljfour/jknappen/ec/ecsx1440.600pk> </home/timlenertz/.texmf-var/font
-s/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/timlenertz/.texmf-var/fonts/pk/l
-jfour/jknappen/ec/ecsx1095.600pk> </home/timlenertz/.texmf-var/fonts/pk/ljfour/
-jknappen/ec/ecrm1440.600pk> </home/timlenertz/.texmf-var/fonts/pk/ljfour/jknapp
-en/ec/ecsx2074.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-bx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/symbols/msam10.pfb>
-Output written on cg.pdf (20 pages, 5156935 bytes).
+ </home/timlenertz/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.600pk> </h
+ome/timlenertz/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </home/ti
+mlenertz/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.600pk> </home/timlener
+tz/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecsx1200.600pk> </home/timlenertz/.te
+xmf-var/fonts/pk/ljfour/jknappen/ec/ecti1095.600pk> </home/timlenertz/.texmf-va
+r/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk> </home/timlenertz/.texmf-var/font
+s/pk/ljfour/jknappen/ec/ecsx1440.600pk> </home/timlenertz/.texmf-var/fonts/pk/l
+jfour/jknappen/ec/ecrm1095.600pk> </home/timlenertz/.texmf-var/fonts/pk/ljfour/
+jknappen/ec/ecsx1095.600pk> </home/timlenertz/.texmf-var/fonts/pk/ljfour/jknapp
+en/ec/ecrm1440.600pk> </home/timlenertz/.texmf-var/fonts/pk/ljfour/jknappen/ec/
+ecsx2074.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+bx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/s
+ymbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/sy
+mbols/msbm10.pfb>
+Output written on cg.pdf (22 pages, 5234077 bytes).
 PDF statistics:
- 728 PDF objects out of 1000 (max. 8388607)
- 387 compressed objects within 4 object streams
- 75 named destinations out of 1000 (max. 500000)
- 259 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 767 PDF objects out of 1000 (max. 8388607)
+ 414 compressed objects within 5 object streams
+ 84 named destinations out of 1000 (max. 500000)
+ 269 words of extra memory for PDF output out of 10000 (max. 10000000)
 

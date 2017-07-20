@@ -82,7 +82,7 @@ std::vector<vec2> kinect_reprojection::reproject_points_ir_to_color(
 		}
 		
 		// now apply distortion (if any)
-		if(distort_points && reprojection_parameters_.color_intrinsics.distortion)
+		if(distort_points && !reprojection_parameters_.color_intrinsics.distortion.is_none())
 			out_color_i_xy_points = distort_points(reprojection_parameters_.color_intrinsics, out_color_i_xy_points);
 	
 	} else {
