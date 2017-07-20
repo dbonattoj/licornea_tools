@@ -61,8 +61,8 @@ int main(int argc, const char* argv[]) {
 		out_translation,
 		cv::noArray(),
 		cv::noArray(),
-		term,
-		cv::CALIB_FIX_INTRINSIC
+		cv::CALIB_FIX_INTRINSIC, // reversed arguments order on windows?
+		term                     //
 	);
 	
 	{

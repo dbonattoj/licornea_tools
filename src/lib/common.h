@@ -15,8 +15,8 @@ namespace tlz {
 
 using real = double;
 using byte = std::uint8_t;
-using uchar = std::uint8_t;
-using ushort = std::uint16_t;
+//using uchar = std::uint8_t;
+//using ushort = std::uint16_t;
 
 
 using vec2 = cv::Vec<real, 2>;

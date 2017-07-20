@@ -1,6 +1,7 @@
 #include "dataset.h"
 #include "string.h"
 #include "filesystem.h"
+#include "os.h"
 #include <format.h>
 #include <stdexcept>
 #include <fstream>
@@ -139,7 +140,10 @@ bool dataset::is_2d() const {
 
 std::string dataset::filepath(const std::string& relpath) const {
 	if(relpath.front() == '/') return relpath;
-	else return filename_append(dirname_, relpath);
+	#ifdef LICORNEA_OS_WINDOWS
+		if((relpath.size() > 2) && (relpath[1] == ':')) return relpath;
+	#endif
+	return filename_append(dirname_, relpath);
 }
 
 std::string dataset::cameras_filename() const {

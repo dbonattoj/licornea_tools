@@ -1,5 +1,5 @@
-from config import *
-from progress import *
+from .config import *
+from .progress import *
 import sys, os, json, math, threading
 
 if parallel:
@@ -20,7 +20,7 @@ def batch_process(function, argtup_gen):
 		results = Parallel(n_jobs=parallel_jobs, backend="threading")(delayed(step, check_pickle=False)(argtup) for argtup in argtup_list)
 		# need threading backend because Progress uses shared variable and mutex
 
-	print "finished {}, elapsed time {}".format(total_count, format_time(progress.elapsed_time()))
+	print("finished {}, elapsed time {}".format(total_count, format_time(progress.elapsed_time())))
 
 	return results
 
@@ -39,6 +39,6 @@ def small_batch_process(function, argtup_gen):
 	else:
 		results = Parallel(n_jobs=parallel_jobs, backend="threading")(delayed(step, check_pickle=False)(argtup) for argtup in argtup_list)
 
-	print ""
+	print("")
 
 	return results

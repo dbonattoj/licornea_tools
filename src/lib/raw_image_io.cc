@@ -34,7 +34,8 @@ cv::Mat_<cv::Vec3b> import_ycbcr420(std::ifstream& yuv_stream, int width, int he
 	cv::resize(cr_channel, cr_channel, sz, 0, 0, cv::INTER_CUBIC);
 
 	cv::Mat_<cv::Vec3b> ycrcb;
-	cv::merge({y_channel, cr_channel, cb_channel}, ycrcb);
+	std::vector<cv::Mat> src {y_channel, cr_channel, cb_channel};
+	cv::merge(src, ycrcb);
 	
 	cv::Mat_<cv::Vec3b> bgr;
 	cv::cvtColor(ycrcb, bgr, CV_YCrCb2BGR);
@@ -50,14 +51,14 @@ void export_ycbcr420(std::ofstream& yuv_stream, const cv::Mat_<cv::Vec3b>& bgr) 
 	cv::cvtColor(bgr, ycrcb, CV_BGR2YCrCb);
 	
 	cv::Mat_<uchar> y_channel(sz), cb_channel(sz), cr_channel(sz);
-	std::vector<cv::Mat> dst { y_channel, cb_channel, cr_channel };
+	std::vector<cv::Mat> dst { y_channel, cr_channel, cb_channel };
 	cv::split(ycrcb, dst);
 	cv::resize(cb_channel, cb_channel, sub_sz, 0, 0, cv::INTER_CUBIC);
 	cv::resize(cr_channel, cr_channel, sub_sz, 0, 0, cv::INTER_CUBIC);
 	
 	write_raw(yuv_stream, y_channel.data, y_channel.cols*y_channel.rows);
-	write_raw(yuv_stream, cr_channel.data, cr_channel.cols*cr_channel.rows);
 	write_raw(yuv_stream, cb_channel.data, cb_channel.cols*cb_channel.rows);
+	write_raw(yuv_stream, cr_channel.data, cr_channel.cols*cr_channel.rows);
 }
 
 
@@ -76,7 +77,8 @@ cv::Mat_<cv::Vec3b> import_rgb_planar(std::ifstream& yuv_stream, int width, int 
 	cv::Mat_<cv::Vec3b> bgr(sz);
 	int from_to[] = { 0, 0, 0, 1, 0, 2 };
 	std::vector<cv::Mat> dst { bgr };
-	cv::mixChannels({b_channel, g_channel, r_channel}, dst, from_to, 3);
+	std::vector<cv::Mat> src { b_channel, g_channel, r_channel };
+	cv::mixChannels(src, dst, from_to, 3);
 	
 	return bgr;
 }
@@ -85,7 +87,7 @@ void export_rgb_planar(std::ofstream& yuv_stream, const cv::Mat_<cv::Vec3b>& bgr
 	cv::Size sz = bgr.size();
 
 	cv::Mat_<uchar> r_channel(sz), g_channel(sz), b_channel(sz);
-	cv::vector<cv::Mat> dst { b_channel, g_channel, r_channel };
+	std::vector<cv::Mat> dst { b_channel, g_channel, r_channel };
 	cv::split(bgr, dst);
 
 	write_raw(yuv_stream, r_channel.data, sz.width*sz.height);

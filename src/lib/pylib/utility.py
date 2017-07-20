@@ -1,4 +1,4 @@
-from config import *
+from .config import *
 import sys, os, subprocess, platform, json
 
 def running_on_windows():
@@ -13,6 +13,7 @@ def tools_directory():
 
 def call_tool(tool, args):
 	if running_on_windows():
+		tool = tool.replace("/", "\\")
 		tool = tool + ".exe"
 		
 	args = [str(arg) for arg in args]
@@ -21,11 +22,11 @@ def call_tool(tool, args):
 	env = os.environ.copy()
 	env["LICORNEA_BATCH_MODE"] = "1"
 	
-	if verbose: print "calling {}".format(tool)
+	if verbose: print("calling {}".format(tool))
 	try:
 		return subprocess.check_output(full_args, env=env)
 	except subprocess.CalledProcessError as err:
-		print "{} failed. output:\n{}".format(tool, err.output)
+		print("{} failed. output:\n{}".format(tool, err.output))
 		raise
 
 def call_tool_collect_output(tool, args):

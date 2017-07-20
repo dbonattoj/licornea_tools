@@ -37,6 +37,9 @@ obj_img_correspondences_set<Obj_count, Img_count> decode_obj_img_correspondences
 struct obj_img_correspondences_set_dim {
 	std::size_t obj_count = 0;
 	std::size_t img_count = 0;
+	obj_img_correspondences_set_dim() = default;
+	obj_img_correspondences_set_dim(std::size_t obj_c, std::size_t img_c) :
+		obj_count(obj_c), img_count(img_c) { }
 };
 obj_img_correspondences_set_dim decode_obj_img_correspondences_set_dim(const json&);
 

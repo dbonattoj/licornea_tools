@@ -42,13 +42,13 @@ endif()
 include_directories(SYSTEM src/external/include)
 include_directories(SYSTEM src/external/fmt)
 
-add_compile_options(-Wall -Wextra -Wno-sign-compare)
+#add_compile_options(-Wall -Wextra -Wno-sign-compare)
 
 
 
 # Common library
 file(GLOB_RECURSE COMMON_LIB_SRC "src/lib/*.cc")
-add_library(common_lib SHARED ${COMMON_LIB_SRC} "src/external/fmt/format.cc")
+add_library(common_lib STATIC ${COMMON_LIB_SRC} "src/external/fmt/format.cc")
 
 target_link_libraries(common_lib ${OpenCV_LIBRARIES})
 install(TARGETS common_lib DESTINATION "lib/")
@@ -63,16 +63,24 @@ install(
 
 
 # Marco to link pylib/ into subdirectories
-macro(install_pylib_link section)
-	install(
-		CODE "execute_process( \
-			WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX} \
-			COMMAND ${CMAKE_COMMAND} -E create_symlink \
-			../lib/pylib \
-			${section}/pylib \
-		)"
-	)
-endmacro(install_pylib_link)
+function(install_pylib_link section)
+	if(WIN32)
+		install(
+			DIRECTORY "src/lib/pylib"
+			DESTINATION "${section}"
+			PATTERN "*.py"
+		)	
+	else()
+		install(
+			CODE "execute_process( \
+				WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX} \
+				COMMAND ${CMAKE_COMMAND} -E create_symlink \
+				../lib/pylib \
+				${section}/pylib \
+			)"
+		)
+	endif()
+endfunction(install_pylib_link)
 
 # Macro to build+install C++ programs
 function(program name section)
@@ -91,7 +99,7 @@ endmacro()
 
 # Calibration
 file(GLOB_RECURSE CALIBRATION_LIB_SRC "src/calibration/lib/*.cc")
-add_library(calibration_lib SHARED ${CALIBRATION_LIB_SRC})
+add_library(calibration_lib STATIC ${CALIBRATION_LIB_SRC})
 target_link_libraries(calibration_lib common_lib)
 install(TARGETS calibration_lib DESTINATION "lib/")
 install_pylib_link(calibration)
@@ -113,12 +121,12 @@ program(cg_model_optical_flow_slopes calibration calibration_lib)
 program(cg_visualize_fslopes calibration calibration_lib)
 program(cg_generate_artificial calibration calibration_lib)
 program(cg_rotation_from_fslopes calibration calibration_lib)
-program(cg_rotation_from_depths calibration calibration_lib)
+#program(cg_rotation_from_depths calibration calibration_lib)
 program(cg_slopes_viewer calibration calibration_lib)
 program(cg_cors_viewer_f calibration calibration_lib)
 program(cg_cors_viewer_v calibration calibration_lib)
 program(cg_straight_depths_from_depths calibration calibration_lib)
-program(cg_straight_depths_from_disparity calibration calibration_lib)
+#program(cg_straight_depths_from_disparity calibration calibration_lib)
 program(cg_unrotate_depth_map calibration calibration_lib)
 program(cg_filter_features calibration calibration_lib)
 program(cg_rectify calibration calibration_lib)
@@ -139,7 +147,7 @@ py_program(cg_warp_images calibration)
 
 # Camera
 file(GLOB_RECURSE CAMERA_LIB_SRC "src/camera/lib/*.cc")
-add_library(camera_lib SHARED ${CAMERA_LIB_SRC})
+add_library(camera_lib STATIC ${CAMERA_LIB_SRC})
 target_link_libraries(camera_lib common_lib)
 install(TARGETS camera_lib DESTINATION "lib/")
 install_pylib_link(camera)
@@ -155,7 +163,7 @@ py_program(import_matlab camera)
 
 # Kinect
 file(GLOB_RECURSE KINECT_LIB_SRC "src/kinect/lib/*.cc")
-add_library(kinect_lib SHARED ${KINECT_LIB_SRC})
+add_library(kinect_lib STATIC ${KINECT_LIB_SRC})
 target_link_libraries(kinect_lib common_lib)
 if(WITH_LIBFREENECT2)
 	target_link_libraries(kinect_lib ${FREENECT2_LIBRARY})
