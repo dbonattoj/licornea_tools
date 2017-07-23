@@ -298,6 +298,14 @@ i_x(\vec{H}) = \frac{i_x z + f_x r_{11} \epsilon + c_x r_{31} \epsilon}{z + r_{3
 i_y(\vec{H}) = \frac{i_y z + f_y r_{21} \epsilon + c_y r_{31} \epsilon}{z + r_{31} \epsilon}
 \end{equation}
 
+And for the vertical camera movement by $\vec{V}$, one gets:
+\begin{equation}
+i_x(\vec{V}) = \frac{i_x z + f_x r_{12} \epsilon + c_x r_{32} \epsilon}{z + r_{32} \epsilon}
+\hspace{5mm} \text{and} \hspace{5mm}
+i_y(\vec{V}) = \frac{i_y z + f_y r_{22} \epsilon + c_y r_{32} \epsilon}{z + r_{32} \epsilon}
+\end{equation}
+
+
 \subsubsection{Slopes}
 It can be shown that as $\epsilon$ varies, $\vec{i}(\vec{H})$ moves on a straight line. Its slope is
 \begin{equation}
@@ -382,6 +390,7 @@ Two methods are available for estimating the \emph{straight depth} $sd_f$ of eac
 In the case where no depth maps are available, the second method can be used. Some (at least one) depth then need to be determined manually. If depth maps are available, the second method can still be used to complete or correct estimations from the first method.
 
 \subsection{Aggregating feature point depths}
+\label{sec:sdepth_from_depth}
 For each feature point $p(f,v) = \langle x,y,d,w \rangle$ which has a feature point depth $d$, the straight depth of that feature $sd_{f}$ can be estimated.
 
 The feature point is first back-projected into the camera's view space with $\vec{v} = \matr{K}^{-1} (d x, d y, d)$. Then it is transformed into the view space of a camera with the same optical center, but perpenticular to $P$. This is $\vec{v'} = \transpose{\matr{R}} \vec{v}$. The straight depth is the third component of $\vec{v'}$.
@@ -393,19 +402,19 @@ To also remove the influence of outliers, the following procedure is used: First
 \subsection{Depth from disparity}
 This alternate method computes straight depths using only the relative scales of the different features' disparities, and some fixed feature depth given as input. It proceeds in three steps: (1) Calculate the relative scale for each pair of features. (2) Derive a global scale for each feature. (3) Using at least one \emph{known depth}, calculate the depth of each feature.
 
-First the feature points of each feature are undistorted (if any distortion) and unrotated. For this the image coordinates are premultiplied by $\matr{K} \transpose{\matr{R}} \matr{K}^{-1}$. This is invariant of the feature depths, and $d$ is fixed to $1$.
+First the feature points $p(f,v)$ of each feature are undistorted (if any distortion) and unrotated. For this the image coordinates are premultiplied by $\matr{K} \transpose{\matr{R}} \matr{K}^{-1}$. This is invariant of the feature depths, and $d$ is fixed to $1$.
 
 \subsubsection{Pairwise scale ratios}
 The feature points of each feature $f_i$ now all have the same pattern, except for a different scale, a different position in the image, and a different subset of covered views.
 
-For each pair of features $(f_\text{i}, f_\text{j})$, using linear least squares, a relative scale $s_{j\rightarrow i}$, and a translation $\vec{t} \in \mathbb{R}^2$ are computed which optimally fit
+For each pair of features $(f_\text{i}, f_\text{j})$, using linear least squares, a relative scale $r_{j\rightarrow i}$, and a translation $\vec{t} \in \mathbb{R}^2$ are computed which optimally fit
 \begin{equation*}
-\forall v : p(f_i, v) = s_{j\rightarrow i} \times \left( p(f_j, v) + \vec{t} \right)
+\forall v : p(f_i, v) = r_{j\rightarrow i} \times \left( p(f_j, v) + \vec{t} \right)
 \end{equation*}
 
-The resulting $s_{j\rightarrow i}$ is discarded or assigned a lower weight if the two features do not have enough feature points in common, or the error of the least-squares solution is too large.
+The resulting $r_{j\rightarrow i}$ is discarded or assigned a lower weight if the two features do not have enough feature points in common, or the error of the least-squares solution is too large. The resulting $\vec{t}$ is not used.
 
-Calculating $s_{j\rightarrow i}$ for each feature pair $(f_\text{i}, f_\text{j})$ gives a \emph{pairwise scales matrix}, as seen shown in figures \ref{fig:ratios} and \ref{fig:ratios_multiref}. The axis are the feature indices $i$ and $j$. Because each unordered pair is considered only once, the matrix is triangular. When there are multiple reference views, features from two different reference views have none (or little) feature points in common. This causes the black areas in the lower-left part in figure \ref{fig:ratios_multiref}.
+Calculating $r_{j\rightarrow i}$ for each feature pair $(f_\text{i}, f_\text{j})$ gives a \emph{pairwise scales matrix}, as seen shown in figures \ref{fig:ratios} and \ref{fig:ratios_multiref}. The axis are the feature indices $i$ and $j$. Because each unordered pair is considered only once, the matrix is triangular. When there are multiple reference views, features from two different reference views have none (or little) feature points in common. This causes the black areas in the lower-left part in figure \ref{fig:ratios_multiref}.
 
 
 \begin{figure}
@@ -414,7 +423,7 @@ Calculating $s_{j\rightarrow i}$ for each feature pair $(f_\text{i}, f_\text{j})
 \caption{Pairwise feature scales matrix}
 \label{fig:ratios}
 
-\vspace*{\floatsep}
+\vspace{1cm}
 
 \includegraphics[width=0.6\textwidth]{ratios_multiref.png}
 \caption{Pairwise feature scales matrix (multiple reference views)}
@@ -423,24 +432,40 @@ Calculating $s_{j\rightarrow i}$ for each feature pair $(f_\text{i}, f_\text{j})
 
 
 \subsubsection{Global scale ratios}
-The next step is to deduce global scales $S = \{ s_{f_0}, s_{f_1}, s_{f_2}, ... \}$ from these samples. The \emph{global scale} of one (arbitrarily chosen) feature $f_0$ is set to $s_{f_0} = 1$.
+The next step is to deduce global scales $\{ r_{f_0}, r_{f_1}, r_{f_2}, ... \}$ from these samples. The \emph{global scale} of one (arbitrarily chosen) feature $f_0$ is set to $r_{f_0} = 1$.
 
-Then all the global scales $S$ are calculated such that
-\begin{equation}
-\forall i,j : \frac{s_{f_i}}{s_{f_j}} = s_{j\rightarrow i}
-\end{equation}
+Then all the global scales are calculated such that
+\begin{equation*}
+\forall i,j : \frac{r_{f_j}}{r_{f_i}} = r_{j\rightarrow i}
+\end{equation*}
 
-This is done by solving a sparse linear least-squares system. The system consists of equations of the form $s_{f_j} \times s_{j\rightarrow i} - s_{f_i} = 0$, and one $s_{f_0} = 1$. So the $\matr{A}$ matrix is sparse, and has one column for each relative scale ratio, and one row for each feature.
+This is done by solving a sparse linear least-squares system. The system consists of equations of the form $r_{f_j} \times r_{j\rightarrow i} - r_{f_i} = 0$, and one $r_{f_0} = 1$. So the $\matr{A}$ matrix is sparse, and has one column for each relative scale ratio, and one row for each feature.
 
 
 \subsubsection{Depths}
 The scale ratios relate directly to the depths: Using the pin-hole camera model, one gets
-\begin{equation}
-\frac{z_j}{z_i} = s_{j\rightarrow i}
-\end{equation}
-where $z_i, z_j$ are the straight depths of the features $f_i, f_j$.
+\begin{equation*}
+\forall i,j : \frac{sd_i}{sd_j} = \frac{r_{f_j}}{r_{f_i}}
+\end{equation*}
+where $sd_i, sd_j$ are the straight depths of the features $f_i, f_j$. As a consequence, there is one global $s$ such that
+\begin{equation*}
+\forall i : sd_{i} = s \times r_{f_j}
+\end{equation*}
+One or multiple \emph{known depths} $\{ sd'_0, sd'_1, ... \}$ need to be given as input. From these, $s$ is calculated using again a linear least squares system (or just a single equation) $sd'_{i} = s \times r_{f_i}$.
 
+Then, the remaining $sd_i$ can be computed using $s$ and the global scales $r_{f_i}$.
 
+\subsubsection{Results}
+Figure \ref{fig:depthcomp} shows the straight depth of $282$ features, sorted in ascending order. The ``measured'' (red) line are the depth values taken from the depth maps, using the previous method in section \ref{sec:sdepth_from_depth}. The ``calculated'' (blue) line are the same depth values, calculated only using the relative scales of the feature points. Only $5$ \emph{known depth} values were taken to compute these values. The RMS error in this example is about $17 \text{ mm}$.
+
+This graph does not indicate whether the measured or the calculated values are wrong: The jumps in the ``calculated'' line occur only because the samples have been sorted by the ``measured'' values.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{depthcomp.pdf}
+\caption{Calculated v. measured straight depths.}
+\label{fig:depthcomp}
+\end{figure}
 
 \pagebreak
 
@@ -448,10 +473,27 @@ where $z_i, z_j$ are the straight depths of the features $f_i, f_j$.
 Finally, having \emph{image correspondences}, the \emph{camera rotation}, and the \emph{straight depths}, the camera center positions can be computed.
 
 \subsection{Relative camera positions}
+A position $c = (x, y)$ of the camera center on the plane $P$ is calculated for each view, for each feature. It there are multiple \emph{reference views}, then a set of \emph{relative camera positions} is calculated for each reference view independently.
+
+If there is distortion in the camera intrinsics, all feature points $p(f,v)$ are first undistorted. Then they are unrotated, by premultiplication with $\matr{K} \transpose{\matr{R}} \matr{K}^{-1}$.
+
+The camera position for the reference view $rv$  itself is always set to $c_{rv} = (0, 0)$. For each other \emph{target} view $v$, for each of its feature points $p(f,v)$, a camera position of $v$ is calculated using
+\begin{equation*}
+c_{f,v} = \left( \frac{\left[p_x(f,v) - p_x(f,rv)\right] \times sd_f}{f_x}, \frac{\left[p_y(f,v) - p_y(f,rv)\right] \times sd_f}{f_y} \right)
+\end{equation*}
+where $f_x, f_y$ are the focal lengths from the camera intrinsic matrix $\matr{K}$.
+
+In theory all $c_{*,v}$ should have the same value, but there is some deviation because of errors in the image correspondences, rotation or straight depth. Figure \ref{fig:rcpositions} ...
+
+For each view $v$, given the samples $c_{*,v}$, a final camera position $c_v$ is calculated: First the mean position $\hat{c}_v$ of the samples $c_{*,v}$ is taken. Then the samples are sorted by their euclidian distance to $\hat{c}_v$. The again the mean is taken, this time of only the middle $90\%$ of the sorted samples. This is the final $c_v$. This process should average out noise, and be robust against outliers.
+
 
 \subsection{Stitching}
 
+
 \subsection{Final camera extrinsics}
+
+
 
 \chapter{Implementation}
 
