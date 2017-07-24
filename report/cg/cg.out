@@ -23,4 +23,24 @@
 \BOOKMARK [2][-]{subsection.2.7.1}{Relative camera positions}{section.2.7}% 23
 \BOOKMARK [2][-]{subsection.2.7.2}{Stitching}{section.2.7}% 24
 \BOOKMARK [2][-]{subsection.2.7.3}{Final camera extrinsics}{section.2.7}% 25
-\BOOKMARK [0][-]{chapter.3}{Implementation}{}% 26
+\BOOKMARK [0][-]{chapter.3}{Usage}{}% 26
+\BOOKMARK [1][-]{section.3.1}{Preliminaries}{chapter.3}% 27
+\BOOKMARK [1][-]{section.3.2}{Image correspondences}{chapter.3}% 28
+\BOOKMARK [2][-]{subsection.3.2.1}{Reference grid}{section.3.2}% 29
+\BOOKMARK [2][-]{subsection.3.2.2}{Undistort images \(if applicable\)}{section.3.2}% 30
+\BOOKMARK [2][-]{subsection.3.2.3}{Optical flow features}{section.3.2}% 31
+\BOOKMARK [2][-]{subsection.3.2.4}{Optical flow correspondences}{section.3.2}% 32
+\BOOKMARK [2][-]{subsection.3.2.5}{Merge image correspondences}{section.3.2}% 33
+\BOOKMARK [2][-]{subsection.3.2.6}{Visualizing image correspondences}{section.3.2}% 34
+\BOOKMARK [2][-]{subsection.3.2.7}{Feature point depths \(if applicable\)}{section.3.2}% 35
+\BOOKMARK [2][-]{subsection.3.2.8}{Filtering image correspondences}{section.3.2}% 36
+\BOOKMARK [2][-]{subsection.3.2.9}{Undistort image correspondences \(if applicable\)}{section.3.2}% 37
+\BOOKMARK [1][-]{section.3.3}{Rotation estimation}{chapter.3}% 38
+\BOOKMARK [2][-]{subsection.3.3.1}{Measuring optical flow slopes}{section.3.3}% 39
+\BOOKMARK [2][-]{subsection.3.3.2}{Visualizing optical flow slopes}{section.3.3}% 40
+\BOOKMARK [2][-]{subsection.3.3.3}{Optimizing optical flow slopes}{section.3.3}% 41
+\BOOKMARK [2][-]{subsection.3.3.4}{Rotation from depths}{section.3.3}% 42
+\BOOKMARK [1][-]{section.3.4}{Straight depths}{chapter.3}% 43
+\BOOKMARK [2][-]{subsection.3.4.1}{Aggregate feature point depths}{section.3.4}% 44
+\BOOKMARK [2][-]{subsection.3.4.2}{Depth from disparity}{section.3.4}% 45
+\BOOKMARK [1][-]{section.3.5}{Camera positions}{chapter.3}% 46

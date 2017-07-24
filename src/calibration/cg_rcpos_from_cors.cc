@@ -91,6 +91,8 @@ int main(int argc, const char* argv[]) {
 	auto all_vws = get_all_views(cors);
 	auto ref_vws = get_reference_views(cors);
 	
+	view_index ref2 = *(++++ref_vws.begin());
+	
 	std::cout << "estimating target camera positions, from each reference" << std::endl;
 	relative_camera_positions out_rcpos;		
 	for(const view_index& ref_idx : ref_vws) {
@@ -128,8 +130,8 @@ int main(int argc, const char* argv[]) {
 				feature_target_camera_pos[0] = (straight_target_pos[0] - straight_reference_pos[0]) * straight_depth / intr.fx();
 				feature_target_camera_pos[1] = (straight_target_pos[1] - straight_reference_pos[1]) * straight_depth / intr.fy();
 	
-				//if(target_idx.y % 50 == 0 && target_idx.x % 50 == 0)
-				//	out_file << feature_target_camera_pos[0]+(target_idx.x*10) << " " << feature_target_camera_pos[1]+(target_idx.y*10) << " " << feature_name.substr(4) << "\n";
+				if(target_idx.y >= 148 && target_idx.y < 152 && target_idx.x >= 497 && target_idx.x < 502 && ref_idx == ref2)
+					out_file << feature_target_camera_pos[0] << " " << feature_target_camera_pos[1] << " " << feature_name.substr(4) << " " << target_idx.x << " " << target_idx.y << "\n";
 		
 				real weight = target_fpoint.weight + reference_fpoint.weight;
 				target_camera_position_samples.push_back({ feature_target_camera_pos, weight });
@@ -140,9 +142,8 @@ int main(int argc, const char* argv[]) {
 			if(final_pos != vec2(0.0, 0.0)) {
 				out_rcpos.position(ref_idx, target_idx) = final_pos;
 
-				//if(target_idx.y % 50 == 0 && target_idx.x % 50 == 0)
-				//	out_final_file << final_pos[0]+(target_idx.x*10) << " " << final_pos[1]+(target_idx.y*10) << " " << target_idx.x << " " << target_idx.y << "\n";
-				//out_final_file << ref_idx.x*3+final_pos[0] << " " << final_pos[1] << " " << target_idx.x << " " << target_idx.y << "\n";
+				if(target_idx.y >= 148 && target_idx.y < 152 && target_idx.x >= 497 && target_idx.x < 502 && ref_idx == ref2)
+					out_final_file << final_pos[0] << " " << final_pos[1] << " " << target_idx.x << " " << target_idx.y << "\n";
 			}
 		}
 	}

@@ -359,7 +359,7 @@ int main(int argc, const char* argv[]) {
 	std::cout << "known/completed:\n" << std::endl;
 	for(int row = 0; row < features_count; ++row) {
 		if(known_depths[row] == 0) continue;
-		std::cout << known_completed(row, 0) << "    " << known_completed(row, 1) << "\n";
+		std::cout << known_completed(row, 0) << ";" << known_completed(row, 1) << "\n";
 	}
 
 

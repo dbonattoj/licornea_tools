@@ -1,37 +1,57 @@
 \select@language {english}
-\contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}
-\contentsline {section}{\numberline {1.1}Requirements}{3}{section.1.1}
-\contentsline {chapter}{\numberline {2}Method}{5}{chapter.2}
-\contentsline {section}{\numberline {2.1}Overview}{5}{section.2.1}
-\contentsline {section}{\numberline {2.2}Preliminaries}{5}{section.2.2}
-\contentsline {section}{\numberline {2.3}Image correspondences}{6}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}Choosing feature points}{6}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}Optical flow tracking}{6}{subsection.2.3.2}
-\contentsline {subsection}{\numberline {2.3.3}Filtering features}{8}{subsection.2.3.3}
-\contentsline {subsection}{\numberline {2.3.4}Reference views}{9}{subsection.2.3.4}
-\contentsline {subsection}{\numberline {2.3.5}Feature point depths}{11}{subsection.2.3.5}
-\contentsline {subsection}{\numberline {2.3.6}Feature point weights}{11}{subsection.2.3.6}
-\contentsline {section}{\numberline {2.4}Observations}{12}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}Rotation}{12}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {2.4.2}Depth}{12}{subsection.2.4.2}
-\contentsline {section}{\numberline {2.5}Camera rotation}{13}{section.2.5}
-\contentsline {subsection}{\numberline {2.5.1}Optical flow slopes}{14}{subsection.2.5.1}
-\contentsline {subsubsection}{\numberline {2.5.1.1}Flow equation}{14}{subsubsection.2.5.1.1}
-\contentsline {subsubsection}{\numberline {2.5.1.2}Horizontal and vertical camera movement}{14}{subsubsection.2.5.1.2}
-\contentsline {subsubsection}{\numberline {2.5.1.3}Slopes}{15}{subsubsection.2.5.1.3}
-\contentsline {subsubsection}{\numberline {2.5.1.4}Samples from image correspondences}{15}{subsubsection.2.5.1.4}
-\contentsline {subsubsection}{\numberline {2.5.1.5}Estimating camera rotation}{16}{subsubsection.2.5.1.5}
-\contentsline {subsubsection}{\numberline {2.5.1.6}Accuracy}{16}{subsubsection.2.5.1.6}
-\contentsline {subsection}{\numberline {2.5.2}Feature point depths}{17}{subsection.2.5.2}
-\contentsline {section}{\numberline {2.6}Straight depths}{18}{section.2.6}
-\contentsline {subsection}{\numberline {2.6.1}Aggregating feature point depths}{18}{subsection.2.6.1}
-\contentsline {subsection}{\numberline {2.6.2}Depth from disparity}{18}{subsection.2.6.2}
-\contentsline {subsubsection}{\numberline {2.6.2.1}Pairwise scale ratios}{19}{subsubsection.2.6.2.1}
-\contentsline {subsubsection}{\numberline {2.6.2.2}Global scale ratios}{19}{subsubsection.2.6.2.2}
-\contentsline {subsubsection}{\numberline {2.6.2.3}Depths}{19}{subsubsection.2.6.2.3}
-\contentsline {subsubsection}{\numberline {2.6.2.4}Results}{21}{subsubsection.2.6.2.4}
-\contentsline {section}{\numberline {2.7}Camera positions}{22}{section.2.7}
-\contentsline {subsection}{\numberline {2.7.1}Relative camera positions}{22}{subsection.2.7.1}
-\contentsline {subsection}{\numberline {2.7.2}Stitching}{22}{subsection.2.7.2}
-\contentsline {subsection}{\numberline {2.7.3}Final camera extrinsics}{22}{subsection.2.7.3}
-\contentsline {chapter}{\numberline {3}Implementation}{23}{chapter.3}
+\contentsline {chapter}{\numberline {1}Introduction}{4}{chapter.1}
+\contentsline {section}{\numberline {1.1}Requirements}{4}{section.1.1}
+\contentsline {chapter}{\numberline {2}Method}{6}{chapter.2}
+\contentsline {section}{\numberline {2.1}Overview}{6}{section.2.1}
+\contentsline {section}{\numberline {2.2}Preliminaries}{6}{section.2.2}
+\contentsline {section}{\numberline {2.3}Image correspondences}{7}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Choosing feature points}{7}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Optical flow tracking}{7}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Filtering features}{9}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}Reference views}{10}{subsection.2.3.4}
+\contentsline {subsection}{\numberline {2.3.5}Feature point depths}{12}{subsection.2.3.5}
+\contentsline {subsection}{\numberline {2.3.6}Feature point weights}{12}{subsection.2.3.6}
+\contentsline {section}{\numberline {2.4}Observations}{13}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Rotation}{13}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Depth}{13}{subsection.2.4.2}
+\contentsline {section}{\numberline {2.5}Camera rotation}{14}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Optical flow slopes}{15}{subsection.2.5.1}
+\contentsline {subsubsection}{\numberline {2.5.1.1}Flow equation}{15}{subsubsection.2.5.1.1}
+\contentsline {subsubsection}{\numberline {2.5.1.2}Horizontal and vertical camera movement}{15}{subsubsection.2.5.1.2}
+\contentsline {subsubsection}{\numberline {2.5.1.3}Slopes}{16}{subsubsection.2.5.1.3}
+\contentsline {subsubsection}{\numberline {2.5.1.4}Samples from image correspondences}{16}{subsubsection.2.5.1.4}
+\contentsline {subsubsection}{\numberline {2.5.1.5}Estimating camera rotation}{17}{subsubsection.2.5.1.5}
+\contentsline {subsubsection}{\numberline {2.5.1.6}Accuracy}{17}{subsubsection.2.5.1.6}
+\contentsline {subsection}{\numberline {2.5.2}Feature point depths}{18}{subsection.2.5.2}
+\contentsline {section}{\numberline {2.6}Straight depths}{19}{section.2.6}
+\contentsline {subsection}{\numberline {2.6.1}Aggregating feature point depths}{19}{subsection.2.6.1}
+\contentsline {subsection}{\numberline {2.6.2}Depth from disparity}{19}{subsection.2.6.2}
+\contentsline {subsubsection}{\numberline {2.6.2.1}Pairwise scale ratios}{20}{subsubsection.2.6.2.1}
+\contentsline {subsubsection}{\numberline {2.6.2.2}Global scale ratios}{20}{subsubsection.2.6.2.2}
+\contentsline {subsubsection}{\numberline {2.6.2.3}Depths}{20}{subsubsection.2.6.2.3}
+\contentsline {subsubsection}{\numberline {2.6.2.4}Results}{22}{subsubsection.2.6.2.4}
+\contentsline {section}{\numberline {2.7}Camera positions}{23}{section.2.7}
+\contentsline {subsection}{\numberline {2.7.1}Relative camera positions}{23}{subsection.2.7.1}
+\contentsline {subsection}{\numberline {2.7.2}Stitching}{23}{subsection.2.7.2}
+\contentsline {subsection}{\numberline {2.7.3}Final camera extrinsics}{24}{subsection.2.7.3}
+\contentsline {chapter}{\numberline {3}Usage}{25}{chapter.3}
+\contentsline {section}{\numberline {3.1}Preliminaries}{25}{section.3.1}
+\contentsline {section}{\numberline {3.2}Image correspondences}{25}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Reference grid}{25}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Undistort images (if applicable)}{25}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Optical flow features}{26}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}Optical flow correspondences}{26}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.5}Merge image correspondences}{26}{subsection.3.2.5}
+\contentsline {subsection}{\numberline {3.2.6}Visualizing image correspondences}{27}{subsection.3.2.6}
+\contentsline {subsection}{\numberline {3.2.7}Feature point depths (if applicable)}{27}{subsection.3.2.7}
+\contentsline {subsection}{\numberline {3.2.8}Filtering image correspondences}{27}{subsection.3.2.8}
+\contentsline {subsection}{\numberline {3.2.9}Undistort image correspondences (if applicable)}{28}{subsection.3.2.9}
+\contentsline {section}{\numberline {3.3}Rotation estimation}{28}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Measuring optical flow slopes}{28}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Visualizing optical flow slopes}{28}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Optimizing optical flow slopes}{28}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.3.4}Rotation from depths}{28}{subsection.3.3.4}
+\contentsline {section}{\numberline {3.4}Straight depths}{29}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Aggregate feature point depths}{29}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Depth from disparity}{29}{subsection.3.4.2}
+\contentsline {section}{\numberline {3.5}Camera positions}{29}{section.3.5}

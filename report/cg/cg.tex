@@ -8,10 +8,13 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{listings}
 \newcommand{\matr}[1]{\mathbf{#1}}
 \newcommand{\transpose}[1]{#1^\intercal}
 \newcommand{\degr}{\text{\textdegree}}
 
+\lstset{basicstyle=\footnotesize\ttfamily}
+\lstset{xleftmargin=5mm}
 \setcounter{secnumdepth}{5} 
 
 \title{Camera grid extrinsic self-calibration}
@@ -143,6 +146,7 @@ Properly filtering the correspondences is important: Having incorrect correspond
 
 
 \subsection{Reference views}
+\label{sec:refviews}
 If the range of motion of the camera is large, or the field of view is small, many feature points that are visible in the center view, will not be visible on the extremity views. Also as said before it can be good to limit the optical flow \emph{outreach}, so as to reduce the accumulated error.
 
 When multile reference views are used, the entire calibration will be done for each reference view independently (except for the rotation estimation, as $\matr{R}$ is constant).
@@ -483,19 +487,260 @@ c_{f,v} = \left( \frac{\left[p_x(f,v) - p_x(f,rv)\right] \times sd_f}{f_x}, \fra
 \end{equation*}
 where $f_x, f_y$ are the focal lengths from the camera intrinsic matrix $\matr{K}$.
 
-In theory all $c_{*,v}$ should have the same value, but there is some deviation because of errors in the image correspondences, rotation or straight depth. Figure \ref{fig:rcpositions} ...
+In theory all $c_{*,v}$ should have the same value, but there is some deviation because of errors in the image correspondences, rotation or straight depth.
 
 For each view $v$, given the samples $c_{*,v}$, a final camera position $c_v$ is calculated: First the mean position $\hat{c}_v$ of the samples $c_{*,v}$ is taken. Then the samples are sorted by their euclidian distance to $\hat{c}_v$. The again the mean is taken, this time of only the middle $90\%$ of the sorted samples. This is the final $c_v$. This process should average out noise, and be robust against outliers.
 
+Figure \ref{fig:rcpositions} shows the final $c_v$ (dots) for a subset of views in a dataset, along with all the samples $c_{*,v}$ (crosses of the same color) used to compute that average.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{rcpos.png}
+\caption{Computed camera positions (for each feature, and average).}
+\label{fig:rcpositions}
+\end{figure}
+
+
 
 \subsection{Stitching}
+If only one \emph{reference view} was used, this completes the calibration process.
+
+If multiple \emph{reference views} were used, the previous step is repeated for each reference view, giving each time \emph{relative camera positions} with this reference view at origin. To stitch these together into \emph{absolute camera positions} in a common coordinate system, the absolute camera positions of the reference views need to be determined.
+
+As shown in section \ref{sec:refviews}, the reference views need to be in a grid. (Allowing for arbitrarily chosen reference views would render this algorithm more complex.) The center reference view is chosen as origin, its \emph{absolute camera position} is set to $(0,0)$. The distances between horizontally and vertically adjacent reference view camera positions, is computed by comparing \emph{relative camera positions} that exist for both reference views.
+
+For this to work the reference views grid in section \ref{sec:refviews} needed to be set so that the overlap is big enough. Note that for the optical flow, the \emph{outreach} is an upper bound, not all features are tracked that far, and many are filtered out. This algorithm only compares horizontally and vertically adjacent reference views, no others.
 
 
 \subsection{Final camera extrinsics}
+The final $\matr{Rt}$ extrinsic camera matrix to compute is a transformation from \emph{world space} to \emph{view space}, such that
+\begin{equation*}
+v = \matr{R} w + \vec{t}
+\end{equation*}
+The world space can be any coordinate system, but must be the same for every view.
+
+For this method, world space is set to lie on the plane $P$. The \emph{absolute camera positions} are translations in world space, where the third component is set to $z = 0$. The computed $\matr{R}$ is the orientation of the camera in world space. The transformation is
+\begin{equation*}
+v = \matr{R} (w + \vec{c_v})
+\end{equation*}
+To obtain the final $\matr{Rt}$ matrices, $\matr{R}$ is unchanged, and the translation is set to $\vec{t} = \matr{R} \vec{c_v}$.
+
+
+\chapter{Usage}
+The above method is implemented as part of the \texttt{licornea\_tools} package. Tools in \texttt{calibration} that are prefixed with \texttt{cg} are specific to it.
+
+\section{Preliminaries}
+Before doing the \emph{camera grid} calibration, the following needs to be done:
+\begin{itemize}
+\item Prepare \texttt{parameters.json} dataset parameters file for the dataset. It indicates the index ranges (and steps), and the locations and file name formats of the images and depths.
+\item Prepare \texttt{intr.json} file with intrinsic parameters of the camera. It can contain distortion coefficients, if the images (and depths) are distorted. But this was not tested.
+\item Do the reprojection of the depth maps. The reprojected depth maps will be at the location indicated by \texttt{depth\_filename\_format} in the root group of the dataset parameters.
+\end{itemize}
 
 
 
-\chapter{Implementation}
+\section{Image correspondences}
 
- 
+\subsection{Reference grid}
+Firstly, the \emph{references view grid} can be chosen using
+\begin{lstlisting}[language=bash]
+calibration/cg_choose_refgrid parameters.json 200 100 refgrid.json
+\end{lstlisting}
+This computes a \emph{reference grid} (indices of the \emph{reference views}), and puts it into \texttt{redgrid.json}. Here, the \emph{horizontal key} is $200$, and the \emph{vertical key} is $100$. If the keys are larger than the horizontal and vertical ranges, the \emph{reference grid} will consist only of one reference view. The program chooses the \emph{reference views} such that there are no missing views on each vertical axis.
+
+\subsection{Undistort images (if applicable)}
+If there is distortion in the images (defined in the intrinsic parameters file), then an image can be undistorted using
+\begin{lstlisting}[language=bash]
+calibration/undistort_image in_image.png out_image.png intr.json texture
+\end{lstlisting}
+For the depth maps, use \texttt{depth} instead of \texttt{texture}. It will then use nearest neighbor interpolation. This needs to be done for each image and each depth map in the dataset.
+
+Alternately, it is also possible to computethe optical flow on the distorted images, and undistort the \emph{image correspondences} later.
+
+\subsection{Optical flow features}
+Now the feature points on the reference views to track are selected using
+\begin{lstlisting}[language=bash]
+calibration/cg_optical_flow_features parameters.json refgrid.json of/
+\end{lstlisting}
+It displays a graphical user interface, and the parameters can be adjusted such that good feature points get selected for all reference views. Hitting \emph{Enter} puts a file \texttt{of/fpoints\_*.json} into the \texttt{of/} directory, for each containing the feature points for each reference view.
+
+All of the features will get globally unique names of the form \texttt{feat\_R###}, where \texttt{R} is the number of the reference view, and \texttt{###} the number of the feature.
+
+\subsection{Optical flow correspondences}
+Now the optical flow correspondences can be computed, using
+\begin{lstlisting}[language=bash]
+calibration/cg_optical_flow_cors parameters.json of/fpoints_100,100.json
+250 150 cors_100,100.bin
+\end{lstlisting}
+This computes the \emph{image correspondences} from the optical flow for the reference view feature points \texttt{of/fpoints\_100,100.json}. They get written into \texttt{cors\_100,100.bin}. If there are multiple reference views, this process needs to be repeated for each one, by calling the program once for each file in \texttt{of/}.
+
+In this example, the \emph{horizontal outreach} is $250$, and the \emph{vertical outreach} is $150$.
+
+This process takes by far the most time in the calibration process. It will open each image file once. The \emph{image correspondences} output file can have a \texttt{.bin} or a \texttt{.json} filename extension. If \texttt{.bin} is used, they are stored in a binary format that takes up less disk space, and can be read faster. This is useful for large datasets.
+
+To copy the \emph{image correspondences} from/to binary format, use
+\begin{lstlisting}[language=bash]
+calibration/copy_cors cors_100,100.json cors_100,100.bin
+\end{lstlisting}
+
+Information about the \emph{image correspondences} can be obtained using
+\begin{lstlisting}[language=bash]
+calibration/cors_info parameters.json cors_100,100.bin
+\end{lstlisting}
+
+\subsection{Merge image correspondences}
+The \emph{image correspondences} computed for the different \emph{reference views} should now be merged into one file, using
+\begin{lstlisting}[language=bash]
+calibration/merge_cors cors_100,100_f2.bin cors_200,100_f2.bin cors_all.bin
+\end{lstlisting}
+If there are more than two reference views it should be called multiple times. The resulting file will still contain the information about the different reference views. This makes the follwing steps easier. All of the programs are aware that there can be features with different reference views in the image correspondences file.
+
+
+\subsection{Visualizing image correspondences}
+The resulting \emph{image correspondences} can be visualized in two ways:
+
+To see the all the feature points on one view, use
+\begin{lstlisting}[language=bash]
+calibration/cg_cors_viewer_v cors_all.bin
+\end{lstlisting}
+It displays a graphical user interface where the view to show can be ajusted.
+
+To see all the feature points of one feature, use
+\begin{lstlisting}[language=bash]
+calibration/cg_cors_viewer_f cors_all.bin 
+\end{lstlisting}
+It displays a graphical user interface where the feature to show can be adjusted. It displays a dot for each position of this feature (on a different view). The (backdrop) view to show can also be adjusted. With
+\begin{lstlisting}[language=bash]
+calibration/cg_cors_viewer_f cors_100,100.bin closeup
+\end{lstlisting}
+It instead displays a closeup view of the image, with only the area where the feature points are placed. It can also show the corresponding depth map as overlay. Figures \ref{fig:ofgood} and \ref{fig:ofbad} were generated with this.
+
+
+
+\subsection{Feature point depths (if applicable)}
+The feature point depths can be added to the \emph{image correspondences} using
+\begin{lstlisting}[language=bash]
+calibration/read_feature_depths cors_all.bin
+cors_all_with_depths.bin
+\end{lstlisting}
+It will open each (reprojected) depth map file once, which can also take a lot of time. The image correspondences with depth are stored into \texttt{cors\_all\_with\_depth.bin} in this example. The output file can also be the same as the input file (then it will replace it).
+
+
+\subsection{Filtering image correspondences}
+The feature points should be filtered both automatically and manually.
+First use
+\begin{lstlisting}[language=bash]
+calibration/cg_filter_features parameters.json cors_all.bin
+cors_all_f.bin 125 75 use_depth
+\end{lstlisting}
+To filter out most obvious bad image correspondences. In this example $125$ and $75$ are the number of \emph{expected feature points} in horizontal and vertical directions. It should be the \emph{outreach} divided by two. (Because if the reference view is close to the border, only half of the outreach can be done). If \texttt{use\_depth} is provided, it also checks the constancy of the feature depths. It should be set, unless the calibration is done without depth maps. Some hardcoded parameters in \texttt{src/calibration/cg\_filter\_features.cc} probably need to be adjusted to get good results for a particular data set.
+
+To filter out the remaining bad features, \texttt{cg\_cors\_viewer\_f} should be used in \texttt{closeup} mode. The names of the features to remove should be noted. Then, use
+\begin{lstlisting}[language=bash]
+calibration/remove_cors cors_all_f.bin cors_all_f2.bin 
+feat1003,feat1010,feat2110,feat3001
+\end{lstlisting}
+to filter out those feature, and write the remaining image correspondences into the file \texttt{cors\_all\_2.bin}.
+
+
+\subsection{Undistort image correspondences (if applicable)}
+If there is distortion (defined in the intrinsic parameters file), and the images were not undistorted before, and \emph{image correspondences} can be undistorted now, using
+\begin{lstlisting}[language=bash]
+calibration/undistord_cors cors_all_f2.bin
+cors_all_f2_undist.bin intr.json
+\end{lstlisting}
+It puts each feature point to the position where it would be if the image had been undistorted before the optical flow computation.
+
+
+
+
+\section{Rotation estimation}
+As described before, the rotation estimation can be done using the slopes of the optical flow (when no depth maps are available), or using the feature point depths.
+
+
+\subsection{Measuring optical flow slopes}
+The optical flow slopes on the image correspondences can be measured using
+\begin{lstlisting}[language=bash]
+calibration/cg_measure_optical_flow_slopes parameters.json cors_all_f2.bin
+intr.json slopes.json
+\end{lstlisting}
+It will measure a horizontal and a vertical slope for each feature point from each reference view, and write it into \texttt{slopes.json}.
+
+
+\subsection{Visualizing optical flow slopes}
+To visualize optical flow slopes (actual and model), use
+\begin{lstlisting}[language=bash]
+calibration/cg_slopes_viewer parameters.json intr.json slopes.json
+\end{lstlisting}
+where \texttt{slopes.json} are measured optical flow slopes. If there are no measured optical flow slopes, a feature points file can also be given as input, such as \texttt{of/fpoints\_100,100.json}.
+
+It displays a graphical user interface where the model Euler angles can be adjusted, and the modelled slopes are displayed, along with the measured slopes. This can be used to manually estimate Euler angles that correspond to the measured optical flow slopes.
+
+
+\subsection{Optimizing optical flow slopes}
+To estimate a camera rotation $\matr{R}$ using the measured optical flow slopes, use
+\begin{lstlisting}[language=bash]
+calibration/cg_rotation_from_fslopes intr.json slopes.json R.json
+\end{lstlisting}
+It will save the estimated rotation matrix into \texttt{R.json}.
+
+
+\subsection{Rotation from depths}
+To instead estimate the rotation using the feature points depths, use
+\begin{lstlisting}[language=bash]
+calibration/cg_rotation_from_depths cors_all_f2.bin intr.json R.json
+\end{lstlisting}
+
+
+\section{Straight depths}
+\subsection{Aggregate feature point depths}
+To calculate the feature point \emph{straight depths} using the feature points depths, use
+\begin{lstlisting}[language=bash]
+calibration/cg_straight_depths_from_depths cors_all_f2.bin R.json
+depths.json
+\end{lstlisting}
+
+\subsection{Depth from disparity}
+To estimate the straight depths using only the relative scales of the feature points, use
+\begin{lstlisting}[language=bash]
+calibration/cg_straight_depths_from_disparity cors_all_f.bin intr.json
+R.json some_depths.json depths.json
+\end{lstlisting}
+The file \texttt{some\_depths.json} needs to contain at least one measured \emph{straight depth}, or more to get a better fit. If no depth maps are available, it can for example be obtained manually using laser distance measurement on one of the chosen feature points of a reference view.
+
+This can also be used to complete the straight depths obtained from aggregating feature point depths: Two image correspondences files \texttt{cors\_all\_f.bin} and \texttt{cors\_all\_fd.bin} are maintained. The latter has been filtered with the \texttt{use\_depth} option when using \texttt{calibration/cg\_filter\_features}, the formed without it. 
+
+Then \texttt{cg\_straight\_depths\_from\_depths} is executed on \texttt{cors\_all\_fd.bin}. To also obtain straight depth for the additional image correspondences that remain in the file \texttt{cors\_all\_f.bin}, \texttt{cg\_straight\_depths\_from\_disparity} is now used, whereby the previously obtained straight depth are given as \texttt{some\_depths.json}. 
+
+
+
+\section{Camera positions}
+To compute the \emph{relative camera positions}, for each reference view, use
+\begin{lstlisting}[language=bash]
+calibration/cg_rcpos_from_cors parameters.json cors_all_f2.bin intr.json
+R.json depths.json rcpos.json
+\end{lstlisting}
+The resulting \texttt{rcpos.json} file will contain \emph{relative camera positions} for each reference view. There is no need to run the program multiple times.
+
+To stitch the relative camera positions together and obtain the final camera parameters, use
+\begin{lstlisting}[language=bash]
+calibration/cg_stitch_cameras refgrid.json rcpos.json intr.json R.json
+cams.json
+\end{lstlisting}
+Here \texttt{refgrid.json} is the \emph{reference grid} file chosen as the first step. This needs to be done even if there is only one reference view. \texttt{cams.json} will contain the final camera parameters.
+
+To visualize the camera parameters, use
+\begin{lstlisting}[language=bash]
+camera/visualize cams.json cams.ply world 0.3
+\end{lstlisting}
+It will generate the PLY file \texttt{cams.ply} containing a 3D visualization of the cameras in world space. $0.3$ is the size of the cameras in this visualization.
+
+To convert the camera parameters into the format and convention used by VSRS, use
+\begin{lstlisting}[language=bash]
+camera/export_mpeg cams.json cams.txt
+\end{lstlisting}
+
+
+
+
 \end{document}
