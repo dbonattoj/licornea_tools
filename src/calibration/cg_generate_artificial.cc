@@ -17,7 +17,7 @@
 using namespace tlz;
 
 bool noisy_position = true;
-bool noisy_rotation = true;
+bool noisy_rotation = false;
 
 int main(int argc, const char* argv[]) {
 	get_args(argc, argv, "rotation.json intrinsics.json out_datas_dir/ [features_count=100] [num_x=30] [num_y=30] [step_x=3.0] [step_y=3.0]");
@@ -93,9 +93,9 @@ int main(int argc, const char* argv[]) {
 	std::map<view_index, vec3> view_camera_centers;
 	std::map<view_index, mat33> view_camera_rotations;
 	
-	std::normal_distribution<real> pos_noise_dist(0.0, step_x/15.0), pos_outlier_noise_dist(0.0, step_x/2.0);
+	std::normal_distribution<real> pos_noise_dist(0.0, step_x/15.0), pos_outlier_noise_dist(0.0, step_x/6.0);
 	std::bernoulli_distribution pos_outlier_dist(0.01);
-	std::normal_distribution<real> rot_noise_dist(0.0, 0.07_deg), rot_roll_noise_dist(0.0, 0.004_deg);
+	std::normal_distribution<real> rot_noise_dist(0.0, 0.007_deg), rot_roll_noise_dist(0.0, 0.004_deg);
 	
 	for(int y = 0; y < num_y; ++y) for(int x = 0; x < num_x; ++x) {
 		view_index idx(x, y);

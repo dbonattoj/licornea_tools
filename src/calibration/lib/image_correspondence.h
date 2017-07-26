@@ -43,6 +43,8 @@ std::vector<view_index> get_all_views(const image_correspondences&);
 std::set<std::string> get_feature_names_set(const image_correspondences&);
 std::vector<std::string> get_feature_names(const image_correspondences&);
 
+std::string short_feature_name(const std::string& full_feature_name);
+
 image_correspondences undistort(const image_correspondences&, const intrinsics&);
 
 cv::Mat_<cv::Vec3b> visualize_view_points(const image_correspondence_feature&, const cv::Mat_<cv::Vec3b>& back_img, const cv::Vec3b& col, int dot_size = 2, const border& = border());

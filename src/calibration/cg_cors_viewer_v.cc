@@ -35,7 +35,10 @@ int main(int argc, const char* argv[]) {
 		{
 			std::string image_filename = datag.view(idx).image_filename();
 			cv::Mat_<uchar> gray_img = cv::imread(image_filename, CV_LOAD_IMAGE_GRAYSCALE);
-			if(gray_img.empty()) return;
+			if(gray_img.empty()) {
+				gray_img = cv::Mat_<uchar>(datag.image_size_with_border());
+				gray_img.setTo(0);
+			}
 			cv::cvtColor(gray_img, img, CV_GRAY2BGR);
 		}
 		feature_points fpoints = feature_points_for_view(cors, idx);

@@ -17,6 +17,7 @@ struct references_grid {
 	
 	std::size_t size() const { return cols() * rows(); }
 	view_index view(std::ptrdiff_t col, std::ptrdiff_t row) const;
+	bool has_view(const view_index&) const;
 	
 	bool is_valid() const { return x_indices.size() > 0; }
 };

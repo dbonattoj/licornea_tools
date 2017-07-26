@@ -225,6 +225,13 @@ std::vector<std::string> get_feature_names(const image_correspondences& cors) {
 }
 
 
+std::string short_feature_name(const std::string& full_feature_name) {
+	auto pos = full_feature_name.find_first_of('#');
+	if(pos == std::string::npos) return full_feature_name;
+	else return full_feature_name.substr(0, pos);
+}
+
+
 image_correspondences image_correspondences_with_reference(const image_correspondences& cors, const view_index& reference_view) {
 	image_correspondences out_cors;
 	out_cors.dataset_group = cors.dataset_group;

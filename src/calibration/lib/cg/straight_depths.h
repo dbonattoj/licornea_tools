@@ -16,7 +16,7 @@ struct straight_depth {
 };
 
 using straight_depths = std::map<std::string, straight_depth>;
-	
+
 json encode_straight_depths(const straight_depths&);
 straight_depths decode_straight_depths(const json&);
 

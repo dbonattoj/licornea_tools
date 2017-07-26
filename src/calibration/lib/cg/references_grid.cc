@@ -1,9 +1,16 @@
 #include "references_grid.h"
+#include <algorithm>
 
 namespace tlz {
 
 view_index references_grid::view(std::ptrdiff_t col, std::ptrdiff_t row) const {
 	return view_index(x_indices.at(col), y_indices.at(row));
+}
+
+
+bool references_grid::has_view(const view_index& idx) const {
+	return std::any_of(x_indices.cbegin(), x_indices.cend(), [idx](const int& x){ return x == idx.x; })
+		&& std::any_of(y_indices.cbegin(), y_indices.cend(), [idx](const int& y){ return y == idx.y; });
 }
 
 

@@ -28,7 +28,7 @@ using view_feature_position_pair = std::pair<vec2, vec2>;
 using view_feature_position_pairs = std::map<view_index, view_feature_position_pair>;
 
 constexpr int min_position_pairs_count = 300;
-constexpr real max_relative_scale_error = 1.0;
+constexpr real max_relative_scale_error = 0.3;
 
 view_feature_position_pairs common_view_feature_positions(
 	const view_feature_positions& views1, const view_feature_positions& views2
@@ -56,65 +56,109 @@ view_feature_position_pairs common_view_feature_positions(
 struct estimate_relative_scale_result {
 	real scale = NAN;
 	real weight = 0.0;
+	
+	explicit operator bool () const { return ! std::isnan(scale); }
 };
-estimate_relative_scale_result estimate_relative_scale(const view_feature_position_pairs& ref_tg_positions) {
-	// find scale s and translation t which maps reference positions ref_i to target positions tg_i:
-	// tg_i = s * (ref_i + t)
-	
-	// solve using linear least squares system Ax = b with x = [s, s*tx, s*ty]
-	
-	std::size_t n = ref_tg_positions.size();
+estimate_relative_scale_result estimate_relative_scale(
+	const view_feature_position_pairs& src_tg_positions,
+	const view_index& center_view = view_index()
+) {
+	// find scale s and translation t which maps source positions src_i to target positions tg_i:
+	// tg_i = s*src_i + t
 
-	// fill matrices A, b
-	Eigen_matXn<3> A(2*n, 3);
-	Eigen_vecX b(2*n);
-	std::ptrdiff_t row = 0;
-	for(const auto& kv : ref_tg_positions) {
-		const view_feature_position_pair& p = kv.second;
-		const vec2& ref_position = p.first;
-		const vec2& tg_position = p.second;
+	real scale;
+	vec2 translation;
+	
+	if(center_view) {
+		// center on center_view, and solve for scale only
+		vec2 src_center_position = src_tg_positions.at(center_view).first;
+		vec2 tg_center_position = src_tg_positions.at(center_view).second;
 		
-		A(row, 0) = ref_position[0];
-		A(row, 1) = 1.0;
-		A(row, 2) = 0.0;
-		b[row] = tg_position[0];
-		row++;
+		
+		real scales_sum = 0, scales_weights_sum = 0;
+		for(const auto& kv : src_tg_positions) {
+			const view_index& idx = kv.first;
+			if(idx == center_view) continue;
+			const view_feature_position_pair& p = kv.second;
+			const vec2& src_position = p.first;
+			const vec2& tg_position = p.second;
+			
+			const vec2& src_offset = src_position - src_center_position;
+			const vec2& tg_offset = tg_position - tg_center_position;
+						
+			real x_scale = tg_offset[0] / src_offset[0];
+			real x_weight = std::max({ sq(src_offset[0]), sq(tg_offset[0]) });
+			scales_sum += x_weight * x_scale;
+			scales_weights_sum += x_weight;
+			
+			real y_scale = tg_offset[1] / src_offset[1];
+			real y_weight = std::max({ sq(src_offset[1]), sq(tg_offset[1]) });
+			scales_sum += y_weight * y_scale;
+			scales_weights_sum += y_weight;
+		}
+		
+		scale = scales_sum / scales_weights_sum;
+		translation = tg_center_position - src_center_position*scale;
 
-		A(row, 0) = ref_position[1];
-		A(row, 1) = 0.0;
-		A(row, 2) = 1.0;
-		b[row] = tg_position[1];
-		row++;
+	} else {
+		// solve using linear least squares system Ax = b with x = [s, tx, ty]
+		std::size_t n = src_tg_positions.size();
+	
+		// fill matrices A, b
+		Eigen_matXn<3> A(2*n, 3);
+		Eigen_vecX b(2*n);
+		std::ptrdiff_t row = 0;
+		for(const auto& kv : src_tg_positions) {
+			const view_feature_position_pair& p = kv.second;
+			const vec2& src_position = p.first;
+			const vec2& tg_position = p.second;
+			
+			A(row, 0) = src_position[0];
+			A(row, 1) = 1.0;
+			A(row, 2) = 0.0;
+			b[row] = tg_position[0];
+			row++;
+	
+			A(row, 0) = src_position[1];
+			A(row, 1) = 0.0;
+			A(row, 2) = 1.0;
+			b[row] = tg_position[1];
+			row++;
+		}
+		
+		// solve using linear least squares
+		Eigen::ColPivHouseholderQR<Eigen_matXn<3>> solver(A);
+		if(solver.info() != Eigen::Success) return estimate_relative_scale_result();
+		Eigen_vec<3> x = solver.solve(b);
+		if(solver.info() != Eigen::Success) return estimate_relative_scale_result();
+
+		scale = x[0];
+		translation = vec2(x[1], x[2]);
 	}
 	
-	// solve using linear least squares
-	Eigen::ColPivHouseholderQR<Eigen_matXn<3>> solver(A);
-	if(solver.info() != Eigen::Success) return estimate_relative_scale_result();
-	Eigen_vec<3> x = solver.solve(b);
-	if(solver.info() != Eigen::Success) return estimate_relative_scale_result();
 	
-	//std::cout << std::setprecision(10) << std::endl;
-		
+	
 	// measure error of solution
 	real error = 0.0;
-	for(const auto& kv : ref_tg_positions) {
+	for(const auto& kv : src_tg_positions) {
 		const view_feature_position_pair& p = kv.second;
-		const vec2& ref_position = p.first;
+		const vec2& src_position = p.first;
 		const vec2& tg_position = p.second;
-	
-		vec2 ref_to_tg_position(
-			x[0]*ref_position[0] + x[1],
-			x[0]*ref_position[1] + x[2]
-		);
 
-		vec2 diff = tg_position - ref_to_tg_position;
+		vec2 src_to_tg_position = scale*src_position + translation;
+
+		vec2 diff = tg_position - src_to_tg_position;
 		error += sq(diff[0]) + sq(diff[1]);
 	}
-	error = std::sqrt(error / real(ref_tg_positions.size()));
-		
+	error = std::sqrt(error / real(src_tg_positions.size()));
+	
+	//std::cout << "err=" << error << std::endl;
+	
 	if(error > max_relative_scale_error) return estimate_relative_scale_result();
 	
-	return estimate_relative_scale_result {x[0], 1.0};
+	real weight = (center_view ? 10.0 : 1.0) * 1.0/sq(error);
+	
+	return estimate_relative_scale_result {scale, weight};
 }
 
 
@@ -288,25 +332,30 @@ int main(int argc, const char* argv[]) {
 	std::cout << "estimating pairwise relative scales of disparities" << std::endl;
 	#pragma omp parallel for schedule(guided)
 	for(int ref = 0; ref < features_count; ++ref) for(int tg = ref+1; tg < features_count; ++tg) {
-		// get feature position pairs for reference and target feature
+		// get feature position pairs for source and target feature
 		// for views on which both features are present
-		const std::string& ref_feature_name = all_features.at(ref);
-		const view_feature_positions& ref_positions = all_view_feature_xy.at(ref_feature_name);
+		const std::string& src_feature_name = all_features.at(ref);
+		const view_feature_positions& src_positions = all_view_feature_xy.at(src_feature_name);
 		const std::string& tg_feature_name = all_features.at(tg);
 		const view_feature_positions& tg_positions = all_view_feature_xy.at(tg_feature_name);
-			
-		auto ref_tg_position_pairs = common_view_feature_positions(ref_positions, tg_positions);
-		if(ref_tg_position_pairs.size() < min_position_pairs_count) continue;
+		
+		auto src_tg_position_pairs = common_view_feature_positions(src_positions, tg_positions);
+		if(src_tg_position_pairs.size() < min_position_pairs_count) continue;
+		
 		
 		// estimate scale of target view feature positions, relative to corresponding reference view features
-		estimate_relative_scale_result result = estimate_relative_scale(ref_tg_position_pairs);
-		if(std::isnan(result.scale)) continue;
-
-		//const real max_scale = 1.1;
-		//if(result.scale > max_scale || result.scale < 1.0/max_scale) continue;
+		estimate_relative_scale_result result;
+		view_index src_reference = cors.features.at(src_feature_name).reference_view;
+		view_index tg_reference = cors.features.at(tg_feature_name).reference_view;
+		if(src_reference == tg_reference) result = estimate_relative_scale(src_tg_position_pairs, src_reference);
+		else result = estimate_relative_scale(src_tg_position_pairs);
+		if(! result) continue;
 
 		scale_ratios(tg, ref) = result.scale;
 		weights(tg, ref) = result.weight;		
+
+		std::cout << result.weight << std::endl;
+		continue;
 
 		if(verbose)
 			std::cout << ref << "/" << (features_count-1) << " <--> " << tg << "/" << (features_count-1) << std::endl;

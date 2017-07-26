@@ -24,9 +24,9 @@ int main(int argc, const char* argv[]) {
 		
 	} else if(mode == "to") {
 		std::string out_rotation_mat_filename = out_filename_arg();
-		real x = real_arg();
-		real y = real_arg();
-		real z = real_arg();
+		real x = real_arg() * rad_per_deg;
+		real y = real_arg() * rad_per_deg;
+		real z = real_arg() * rad_per_deg;
 		
 		vec3 euler(x, y, z);
 		mat33 R = to_rotation_matrix(euler);

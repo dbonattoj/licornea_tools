@@ -59,7 +59,10 @@ int main(int argc, const char* argv[]) {
 			std::string depth_filename = datag.view(idx).depth_filename();
 
 			cv::Mat_<uchar> gray_img = cv::imread(image_filename, CV_LOAD_IMAGE_GRAYSCALE);
-			if(gray_img.empty()) return;
+			if(gray_img.empty()) {
+				gray_img = cv::Mat_<uchar>(datag.image_size_with_border());
+				gray_img.setTo(0);
+			}
 			
 			if(depth_opacity_slider > 0.0 && file_exists(depth_filename)) {
 				cv::Mat_<ushort> depth_img = load_depth(depth_filename);
