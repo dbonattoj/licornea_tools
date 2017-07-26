@@ -77,9 +77,9 @@ int main(int argc, const char* argv[]) {
 		
 		real initial_outreach = 10.0 * rad_per_deg;
 		real initial_tolerance = 1.0 * rad_per_deg;
-		real min_error = 1e-10;
-		real min_error_diff = 1e-10;
-		int max_iterations = -1;
+		real min_error = 1e-20;
+		real min_error_diff = 1e-20;
+		int max_iterations = 500;
 		real outreach_scaledown = 0.001;
 		real tolerance_scaledown = 0.005;
 		
@@ -91,9 +91,9 @@ int main(int argc, const char* argv[]) {
 			if(verbose) {
 				std::cout << "iterations = " << iterations << "\n";
 				std::cout << "err = " << err << "\n";
-				std::cout << "x = " << x * deg_per_rad << "\n";
-				std::cout << "y = " << y * deg_per_rad << "\n";
-				std::cout << "z = " << z * deg_per_rad << "\n";
+				std::cout << "x = " << x * deg_per_rad << "°\n";
+				std::cout << "y = " << y * deg_per_rad << "°\n";
+				std::cout << "z = " << z * deg_per_rad << "°\n";
 				std::cout << "outreach = " << outreach << "\n";
 				std::cout << "tolerance = " << tolerance << "\n\n" << std::endl;
 			} else {
@@ -122,9 +122,9 @@ int main(int argc, const char* argv[]) {
 		}
 		
 		std::cout << "\nfound minimum err = " << err << "\n";
-		std::cout << "x = " << x * deg_per_rad << "\n";
-		std::cout << "y = " << y * deg_per_rad << "\n";
-		std::cout << "z = " << z * deg_per_rad << std::endl;
+		std::cout << "x = " << x * deg_per_rad << "°\n";
+		std::cout << "y = " << y * deg_per_rad << "°\n";
+		std::cout << "z = " << z * deg_per_rad << "°" << std::endl;
 	}
 	
 	std::cout << "saving rotation matrix" << std::endl;

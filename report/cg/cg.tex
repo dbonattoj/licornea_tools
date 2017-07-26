@@ -45,7 +45,7 @@ To use the method, there are the following requirements:
 
 
 \chapter{Method}
-Calibration is done in four steps: (1) Compute \emph{image correspondences} using feature tracking. (2) Estimate the \emph{camera rotation} $\matr{R}$. (3) Estimate \emph{straight depths} of the tracked features, i.e. their distance to $P$. (4) Deduce camera positions.
+The calibration is done in four steps: (1) Compute \emph{image correspondences} using feature tracking. (2) Estimate the \emph{camera rotation} $\matr{R}$. (3) Estimate \emph{straight depths} of the tracked features, i.e. their distance to $P$. (4) Deduce camera positions.
 
 The method calculates one global rotation matrix $\matr{R}$, and for each view $v$, a 2D vector $\vec{c_v}$ of the camera center position on the plane $P$. From this it then computes the extrinsic matrix $\matr{Rt}$ for each view.
 

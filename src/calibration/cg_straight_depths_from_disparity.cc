@@ -308,7 +308,10 @@ int main(int argc, const char* argv[]) {
 		scale_ratios(tg, ref) = result.scale;
 		weights(tg, ref) = result.weight;		
 
-		if(tg == features_count-1) std::cout << '.' << std::flush;
+		if(verbose)
+			std::cout << ref << "/" << (features_count-1) << " <--> " << tg << "/" << (features_count-1) << std::endl;
+		else if(tg == features_count-1)
+			std::cout << '.' << std::flush;
 	}
 	std::cout << std::endl;
 	
