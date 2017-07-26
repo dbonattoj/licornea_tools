@@ -42,12 +42,14 @@ int main(int argc, const char* argv[]) {
 		real displacements_weights_sum = 0.0;
 		std::map<view_index, vec2> ref_a_target_camera_positions;
 		
+		if(reference_target_camera_positions.find(ref_a) != reference_target_camera_positions.end())
 		for(const auto& p : reference_target_camera_positions.at(ref_a)) {
 			const view_index& target = p.first;
 			const vec2& camera_position = p.second;
 			ref_a_target_camera_positions[target] = camera_position;
 		}
-				
+			
+		if(reference_target_camera_positions.find(ref_b) != reference_target_camera_positions.end())	
 		for(const auto& p : reference_target_camera_positions.at(ref_b)) {
 			const view_index& target = p.first;
 			auto ref_a_pos_it = ref_a_target_camera_positions.find(target);
@@ -101,23 +103,24 @@ int main(int argc, const char* argv[]) {
 		
 		std::cout << "stitching camera positions from different reference views" << std::endl;
 		for(const view_index& target_index : all_target_vws) {
-			vec2 positions_sum(0.0, 0.0);
-			real positions_weights_sum = 0.0;
+			int min_idx_dist = 0;
 			
 			auto target_positions_it = target_reference_camera_positions.find(target_index);
 			if(target_positions_it == target_reference_camera_positions.end()) continue;
 			
 			for(const auto& p : target_positions_it->second) {
 				const view_index& ref_index = p.first;
+				int dist = sq(ref_index.x - target_index.x) + sq(ref_index.y - target_index.y);
+				if(min_idx_dist != 0 && dist >= min_idx_dist) continue;
+				
 				const vec2& pos = p.second;
+				if(absolute_reference_camera_positions.find(ref_index) == absolute_reference_camera_positions.end()) continue;
 				const vec2& absolute_reference_pos = absolute_reference_camera_positions.at(ref_index);
-				real weight = 1.0;
+
 				vec2 abs_pos = absolute_reference_pos + pos;
-				positions_sum += abs_pos;
-				positions_weights_sum += weight;
+				absolute_target_camera_positions[target_index] = abs_pos;
+				min_idx_dist = dist;
 			}
-			
-			absolute_target_camera_positions[target_index] = positions_sum / positions_weights_sum;
 		}
 		
 	}

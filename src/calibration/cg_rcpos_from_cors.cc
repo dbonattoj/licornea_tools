@@ -73,7 +73,7 @@ vec2 compute_target_camera_position(std::vector<target_camera_position_sample>& 
 		stddev += samp.w * cv::norm(samp.pos - mean);
 	}
 	stddev = std::sqrt(stddev / weight_sum);
-	std::cout << stddev << std::endl;
+	//std::cout << stddev << std::endl;
 	if(stddev > maximal_position_stddev) return vec2();
 	
 	return mean;
@@ -109,7 +109,7 @@ int main(int argc, const char* argv[]) {
 	for(const view_index& ref_idx : ref_vws) {
 		int final_relative_views_count = 0;
 		std::cout << "   reference view " << ref_idx << std::endl;
-		if(ref_idx != ref2) continue;
+		//if(ref_idx != ref2) continue;
 		
 		image_correspondences ref_cors = image_correspondences_with_reference(cors, ref_idx);
 		feature_points ref_fpoints = feature_points_for_view(ref_cors, ref_idx, false);
