@@ -91,10 +91,21 @@ int main(int argc, const char* argv[]) {
 	}
 	
 	
+	std::ofstream out_camera_centers_stream;
+	if(! out_camera_centers_filename.empty()) {
+		out_camera_centers_stream.open(out_camera_centers_filename);
+		out_camera_centers_stream << "x y idx_x idx_y chosen\n";
+		out_camera_centers_stream << std::setprecision(10);
+	}
+
 	std::map<view_index, vec2> absolute_target_camera_positions;
 	if(absolute_reference_camera_positions.size() == 1) {
 		for(const auto& p : reference_target_camera_positions.begin()->second) {
-			absolute_target_camera_positions[p.first] = p.second;
+			const view_index& target_idx = p.first;
+			const vec2& pos = p.second;
+			absolute_target_camera_positions[p.first] = pos;
+			if(out_camera_centers_stream.is_open())
+				out_camera_centers_stream << pos[0] << ' ' << pos[1] << ' ' << target_idx.x << ' ' << target_idx.y << " 1\n";
 		}
 		
 	} else {
@@ -104,36 +115,55 @@ int main(int argc, const char* argv[]) {
 		std::vector<real> overlap_radii;
 		
 		std::cout << "stitching camera positions from different reference views" << std::endl;
-		for(const view_index& target_index : all_target_vws) {
-			int min_idx_dist = 0;
-			
-			auto target_positions_it = target_reference_camera_positions.find(target_index);
+		for(const view_index& target_idx : all_target_vws) {
+			auto target_positions_it = target_reference_camera_positions.find(target_idx);
 			if(target_positions_it == target_reference_camera_positions.end()) continue;
 			
-			std::vector<vec2> samples;
+			struct sample {
+				vec2 position;
+				view_index target_idx;
+				view_index ref_idx;
+				
+				sample(const vec2& pos, const view_index& tg, const view_index& rf) :
+					position(pos), target_idx(tg), ref_idx(rf) { }
+				
+				int idx_dist() const {
+					return sq(ref_idx.x - target_idx.x) + sq(ref_idx.y - target_idx.y);
+				}
+			};
+			std::ptrdiff_t chosen_sample_i = -1;
+			std::vector<sample> samples;
 			
 			for(const auto& p : target_positions_it->second) {
-				const view_index& ref_index = p.first;
-				int dist = sq(ref_index.x - target_index.x) + sq(ref_index.y - target_index.y);
-				if(min_idx_dist != 0 && dist >= min_idx_dist) continue;
+				const view_index& ref_idx = p.first;
 				
 				const vec2& pos = p.second;
-				if(absolute_reference_camera_positions.find(ref_index) == absolute_reference_camera_positions.end()) continue;
-				const vec2& absolute_reference_pos = absolute_reference_camera_positions.at(ref_index);
+				if(absolute_reference_camera_positions.find(ref_idx) == absolute_reference_camera_positions.end()) continue;
+				const vec2& absolute_reference_pos = absolute_reference_camera_positions.at(ref_idx);
 
 				vec2 abs_pos = absolute_reference_pos + pos;
-				absolute_target_camera_positions[target_index] = abs_pos;
-				min_idx_dist = dist;
 				
-				samples.push_back(abs_pos);
+				samples.emplace_back(abs_pos, target_idx, ref_idx);
+				
+				if(chosen_sample_i == -1) chosen_sample_i = samples.size()-1;
+				else if(samples.back().idx_dist() < samples.at(chosen_sample_i).idx_dist()) chosen_sample_i = samples.size()-1;		
+			}
+
+			for(const sample& samp : samples) {
+				bool chosen = (&samp == &samples.at(chosen_sample_i));
+				if(chosen)
+					absolute_target_camera_positions[samp.target_idx] = samp.position;
+
+				if(out_camera_centers_stream.is_open())
+					out_camera_centers_stream << samp.position[0] << ' ' << samp.position[1] << ' ' << samp.target_idx.x << ' ' << samp.target_idx.y << ' ' << (chosen ? '1' : '0') << '\n';
 			}
 
 			if(samples.size() > 1) {
 				vec2 mean(0.0, 0.0);
-				for(const vec2& samp : samples) mean += samp;
+				for(const sample& samp : samples) mean += samp.position;
 				mean /= real(samples.size());
 				real max_dist = 0;
-				for(const vec2& samp : samples) max_dist = std::max(max_dist, cv::norm(samp, mean));
+				for(const sample& samp : samples) max_dist = std::max(max_dist, cv::norm(samp.position, mean));
 				overlap_radii.push_back(max_dist);
 			}
 		}
@@ -169,17 +199,6 @@ int main(int argc, const char* argv[]) {
 
 	std::cout << "saving cameras" << std::endl;
 	export_cameras_file(cameras, out_cameras_filename);
-	
-	if(! out_camera_centers_filename.empty()) {
-		std::cout << "saving camera center positions" << std::endl;
-		std::ofstream out_camera_centers_stream(out_camera_centers_filename);
-		out_camera_centers_stream << "center_x center_y idx_x idx_y\n";
-		for(const auto& kv : absolute_target_camera_positions) {
-			const view_index& target_idx = kv.first;
-			const vec2& position = kv.second;
-			out_camera_centers_stream << position[0] << ' ' << position[1] << ' ' << target_idx.x << ' ' << target_idx.y << '\n';
-		}
-	}
 	
 	std::cout << "done" << std::endl;	
 }

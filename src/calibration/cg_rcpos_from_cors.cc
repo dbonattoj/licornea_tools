@@ -58,7 +58,7 @@ target_camera_position_result compute_target_camera_position(const std::map<std:
 
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv, "dataset_parameters.json cors.json intr.json R.json straight_depths.json out_rcpos.json [sample_positions.txt] [final_positions.txt]");
+	get_args(argc, argv, "dataset_parameters.json cors.json intr.json R.json straight_depths.json out_rcpos.json [out_sample_positions.txt] [out_final_positions.txt]");
 	dataset datas = dataset_arg();
 	image_correspondences cors = image_correspondences_arg();
 	intrinsics intr = intrinsics_arg();
@@ -205,7 +205,7 @@ int main(int argc, const char* argv[]) {
 
 		int final_relative_views_count = 0;
 			
-		if(ref_idx != ref2) continue;
+	//	if(ref_idx != ref2) continue;
 		
 		image_correspondences ref_cors = image_correspondences_with_reference(cors, ref_idx);
 		feature_points ref_fpoints = feature_points_for_view(ref_cors, ref_idx, false);
