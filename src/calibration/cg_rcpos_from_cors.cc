@@ -25,28 +25,25 @@ constexpr std::size_t minimal_samples_count = 2;
 constexpr real position_inlier_percentile = 0.8;
 constexpr real maximal_position_stddev = 0.6;
 
-struct target_camera_position_sample {
-	vec2 pos;
-	real w;
+struct target_camera_position_result {
+	vec2 position = vec2(0.0, 0.0);
+	real variance = NAN;
+	
+	explicit operator bool () const { return (position != vec2(0.0, 0.0)); }
 };
-
-
-vec2 compute_target_camera_position(std::vector<target_camera_position_sample>& samples) {	
-	if(samples.size() < minimal_samples_count) return vec2();
+target_camera_position_result compute_target_camera_position(std::vector<vec2>& samples) {	
+	if(samples.size() < minimal_samples_count) return target_camera_position_result();
 	
 	vec2 sum(0.0, 0.0);
-	real weight_sum = 0.0;
-	for(const auto& samp : samples) {
-		sum += samp.w * samp.pos;
-		weight_sum += samp.w;
-	}
-	vec2 mean = sum / weight_sum;
+	real count = samples.size();
+	for(const vec2& samp : samples) sum += samp;
+	vec2 mean = sum / count;
 
 	
-	auto mag = [&mean](const target_camera_position_sample& position) {
-		return sq(position.pos[0] + mean[0]) + sq(position.pos[1] + mean[1]);
+	auto mag = [&mean](const vec2& position) {
+		return sq(position[0] + mean[0]) + sq(position[1] + mean[1]);
 	};
-	auto cmp = [&mag](const target_camera_position_sample& a, const target_camera_position_sample& b) {
+	auto cmp = [&mag](const vec2& a, const vec2& b) {
 		return (mag(a) < mag(b));
 	};
 	std::sort(
@@ -58,25 +55,19 @@ vec2 compute_target_camera_position(std::vector<target_camera_position_sample>& 
 	const std::ptrdiff_t margin = samples.size() * ((1.0 - position_inlier_percentile)/2.0);
 	auto begin_it = samples.begin() + margin;
 	auto end_it = samples.end() - margin;
+	count = end_it - begin_it;
 	sum = vec2(0.0, 0.0);
-	weight_sum = 0.0;
-	for(auto it = begin_it; it != end_it; ++it) {
-		const auto& samp = *it;
-		sum += samp.w * samp.pos;
-		weight_sum += samp.w;
-	}
-	mean = sum / weight_sum;
+	for(auto it = begin_it; it != end_it; ++it) sum += *it;
+	mean = sum / count;
 	
-	real stddev = 0.0;
-	for(auto it = begin_it; it != end_it; ++it) {
-		const auto& samp = *it;
-		stddev += samp.w * cv::norm(samp.pos - mean);
-	}
-	stddev = std::sqrt(stddev / weight_sum);
+	real variance = 0.0;
+	for(auto it = begin_it; it != end_it; ++it) variance += sq((*it)[0] - mean[0]) + sq((*it)[1] - mean[1]);
+	variance /= count;
+	real stddev = std::sqrt(variance);
 	//std::cout << stddev << std::endl;
-	if(stddev > maximal_position_stddev) return vec2();
+	if(stddev > maximal_position_stddev) return target_camera_position_result();
 	
-	return mean;
+	return target_camera_position_result{mean, variance};
 }
 
 
@@ -99,15 +90,18 @@ int main(int argc, const char* argv[]) {
 	
 	mat33 unrotate = intr.K * R.t() * intr.K_inv;
 	
+	std::cout << "collecting all view indices and all reference view indices" << std::endl;
 	auto all_vws = get_all_views(cors);
 	auto ref_vws = get_reference_views(cors);
 	
-	view_index ref2 = *(++++++ref_vws.begin());
+	//view_index ref2 = *(++++++ref_vws.begin());
 		
 	std::cout << "estimating target camera positions, from each reference" << std::endl;
 	relative_camera_positions out_rcpos;		
 	for(const view_index& ref_idx : ref_vws) {
 		int final_relative_views_count = 0;
+		std::vector<real> final_position_variances;
+		
 		std::cout << "   reference view " << ref_idx << std::endl;
 		//if(ref_idx != ref2) continue;
 		
@@ -121,10 +115,10 @@ int main(int argc, const char* argv[]) {
 				out_rcpos.position(ref_idx, target_idx) = vec2(0.0, 0.0);
 				continue;
 			}
-					
+			
 			feature_points target_fpoints = feature_points_for_view(ref_cors, target_idx, false);
 	
-			std::vector<target_camera_position_sample> target_camera_position_samples;
+			std::vector<vec2> target_camera_position_samples;
 			target_camera_position_samples.reserve(target_fpoints.points.size());
 							
 			for(const auto& kv : target_fpoints.points) {			
@@ -153,25 +147,28 @@ int main(int argc, const char* argv[]) {
 				//if(target_idx.x >= 450 && target_idx.x <= 455 && target_idx.y >= 150 && target_idx.y <= 155)
 					out_file << feature_target_camera_pos[0] << " " << feature_target_camera_pos[1] << " " << shrt_feature_name.substr(4) << " " << target_idx.x << " " << target_idx.y << "\n";
 		
-				real weight = target_fpoint.weight + reference_fpoint.weight;
-				target_camera_position_samples.push_back({ feature_target_camera_pos, weight });
+				target_camera_position_samples.push_back(feature_target_camera_pos);
 			}
 			
 			
-			vec2 final_pos = compute_target_camera_position(target_camera_position_samples);
-			if(final_pos != vec2(0.0, 0.0)) {
-				out_rcpos.position(ref_idx, target_idx) = final_pos;
+			target_camera_position_result final_pos = compute_target_camera_position(target_camera_position_samples);
+			if(final_pos) {
+				out_rcpos.position(ref_idx, target_idx) = final_pos.position;
+				final_position_variances.push_back(final_pos.variance);
 				++final_relative_views_count;
 
 				//if(target_idx.x >= 450 && target_idx.x <= 455 && target_idx.y >= 150 && target_idx.y <= 155)
-					out_final_file << final_pos[0] << " " << final_pos[1] << " " << target_idx.x << " " << target_idx.y << "\n";
+					out_final_file << final_pos.position[0] << " " << final_pos.position[1] << " " << target_idx.x << " " << target_idx.y << "\n";
 			}		
 		}
 		
-		std::cout << "   relative positions for " << final_relative_views_count << " views" << std::endl;
+		std::cout << "      relative positions for " << final_relative_views_count << " views" << std::endl;
+		std::sort(final_position_variances.begin(), final_position_variances.end());
+		std::cout << "      highest stddev: " << std::sqrt(final_position_variances.back()) << std::endl;
+		std::cout << "      median stddev: " << std::sqrt(final_position_variances[final_position_variances.size()/2]) << std::endl;
 	}
 	
-	
+		
 	std::cout << "saving relative camera positions" << std::endl;
 	export_json_file(encode_relative_camera_positions(out_rcpos), out_rcpos_filename);
 }

@@ -101,12 +101,16 @@ int main(int argc, const char* argv[]) {
 		reference_target_camera_positions.clear();
 		auto target_reference_camera_positions = rcpos.to_target_reference_positions();
 		
+		std::vector<real> overlap_radii;
+		
 		std::cout << "stitching camera positions from different reference views" << std::endl;
 		for(const view_index& target_index : all_target_vws) {
 			int min_idx_dist = 0;
 			
 			auto target_positions_it = target_reference_camera_positions.find(target_index);
 			if(target_positions_it == target_reference_camera_positions.end()) continue;
+			
+			std::vector<vec2> samples;
 			
 			for(const auto& p : target_positions_it->second) {
 				const view_index& ref_index = p.first;
@@ -120,9 +124,28 @@ int main(int argc, const char* argv[]) {
 				vec2 abs_pos = absolute_reference_pos + pos;
 				absolute_target_camera_positions[target_index] = abs_pos;
 				min_idx_dist = dist;
+				
+				samples.push_back(abs_pos);
+			}
+
+			if(samples.size() > 1) {
+				vec2 mean(0.0, 0.0);
+				for(const vec2& samp : samples) mean += samp;
+				mean /= real(samples.size());
+				real max_dist = 0;
+				for(const vec2& samp : samples) max_dist = std::max(max_dist, cv::norm(samp, mean));
+				overlap_radii.push_back(max_dist);
 			}
 		}
 		
+		real overlap_radii_avg = 0.0;
+		for(real overlap_radius : overlap_radii) overlap_radii_avg += overlap_radius;
+		overlap_radii_avg /= overlap_radii.size();
+		std::sort(overlap_radii.begin(), overlap_radii.end());
+		std::cout << "    overlapping positions (more = better): " << overlap_radii.size() << std::endl;
+		std::cout << "    average radius (smaller = better): " << overlap_radii_avg << std::endl;
+		std::cout << "    median radius: " << overlap_radii[overlap_radii.size()/2] << std::endl;
+		std::cout << "    maximum radius: " << overlap_radii.back() << std::endl;
 	}
 	
 
