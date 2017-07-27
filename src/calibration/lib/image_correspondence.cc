@@ -189,10 +189,17 @@ image_correspondences import_image_correspondences(const std::string& filename) 
 }
 
 
-std::set<view_index> get_reference_views(const image_correspondences& cors) {
-	std::set<view_index> reference_views;
-	for(const auto& kv : cors.features) reference_views.insert(kv.second.reference_view);
-	return reference_views;
+std::set<view_index> get_reference_views_set(const image_correspondences& cors) {
+	std::set<view_index> reference_views_set;
+	for(const auto& kv : cors.features)
+		reference_views_set.insert(kv.second.reference_view);
+	return reference_views_set;
+}
+
+
+std::vector<view_index> get_reference_views(const image_correspondences& cors) {
+	std::set<view_index> reference_views_set = get_reference_views_set(cors);
+	return std::vector<view_index>(reference_views_set.begin(), reference_views_set.end());
 }
 
 

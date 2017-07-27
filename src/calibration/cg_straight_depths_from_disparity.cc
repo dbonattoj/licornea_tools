@@ -20,7 +20,7 @@
 
 using namespace tlz;
 
-constexpr bool verbose = true;
+constexpr bool verbose = false;
 
 using view_feature_positions = std::map<view_index, vec2>;
 
@@ -204,67 +204,28 @@ Eigen_vecX compute_global_ratios(const Eigen_matXX& ratios, const Eigen_matXX& w
 
 
 
-Eigen_vecX complete_depths(const Eigen_vecX& known_depths, const Eigen_vecX& global_ratios, bool with_offset) {
-	std::size_t known_count = 0;
-	for(std::ptrdiff_t i = 0; i < known_depths.rows(); ++i)
-		if(known_depths[i] != 0) ++known_count;
+Eigen_vecX complete_depths(const Eigen_vecX& known_depths, const Eigen_vecX& global_ratios) {
+	real ratios_sum = 0.0, known_sum = 0.0;
 	
-	real scale, offset;
-	if(with_offset) {
-		Eigen_matXn<2> A(known_count, 2);
-		Eigen_vecX b(known_count);
+	for(std::ptrdiff_t i = 0; i < known_depths.rows(); ++i) {
+		if(known_depths[i] == 0) continue;
+		if(global_ratios[i] == 0) continue;
 		
-		std::ptrdiff_t row = 0;
-		for(std::ptrdiff_t i = 0; i < known_depths.rows(); ++i) {
-			if(known_depths[i] == 0) continue;
-			
-			A(row, 0) = global_ratios[i];
-			A(row, 1) = 1.0;
-			b[row] = known_depths[i];
-			++row;
-		}
-
-		Eigen::LLT<decltype(A)> solver(A);
-		Eigen_vec<2> x = solver.solve(b);
-		
-		scale = x[0];
-		offset = x[1];
-		
-		std::cout << "offset:  " << offset << std::endl;
-
-
-	} else {
-		Eigen_matXn<1> A(known_count, 1);
-		Eigen_vecX b(known_count);
-		
-		std::ptrdiff_t row = 0;
-		for(std::ptrdiff_t i = 0; i < known_depths.rows(); ++i) {
-			if(known_depths[i] == 0) continue;
-			Assert(row < known_count);
-			
-			A(row, 0) = global_ratios[i];
-			b[row] = known_depths[i];
-			++row;
-		}
-
-		Eigen::LLT<decltype(A)> solver(A);
-		Eigen_vec<1> x = solver.solve(b);
-
-		scale = x[0];
-		offset = 0.0;
+		ratios_sum += global_ratios[i];
+		known_sum += known_depths[i];
 	}
-	
-	
+	real scale = known_sum / ratios_sum;
+		
 	Eigen_vecX depths = scale * global_ratios;
-
 
 	real rms_error = 0.0;
 	real count = 0.0;
 	for(std::ptrdiff_t i = 0; i < known_depths.rows(); ++i) {
 		if(known_depths[i] == 0) continue;
+		if(depths[i] == 0) continue;
 	
 		real known = known_depths[i];
-		real re_known = depths[i] + offset;
+		real re_known = depths[i];
 		
 		rms_error += sq(known - re_known);
 		count += 1.0;
@@ -354,12 +315,9 @@ int main(int argc, const char* argv[]) {
 		scale_ratios(tg, ref) = result.scale;
 		weights(tg, ref) = result.weight;		
 
-		std::cout << result.weight << std::endl;
-		continue;
-
 		if(verbose)
 			std::cout << ref << "/" << (features_count-1) << " <--> " << tg << "/" << (features_count-1) << std::endl;
-		else if(tg == features_count-1)
+		else
 			std::cout << '.' << std::flush;
 	}
 	std::cout << std::endl;
@@ -399,7 +357,7 @@ int main(int argc, const char* argv[]) {
 			known_depths[feature_index] = sdepth.depth;	
 		}
 	}
-	Eigen_vecX depths = complete_depths(known_depths, global_scale_ratios, false);
+	Eigen_vecX depths = complete_depths(known_depths, global_scale_ratios);
 
 
 	Eigen_matXn<2> known_completed(features_count, 2);
@@ -411,15 +369,17 @@ int main(int argc, const char* argv[]) {
 	std::cout << "known/completed:\n" << std::endl;
 	for(int row = 0; row < features_count; ++row) {
 		if(known_depths[row] == 0) continue;
+		if(depths[row] == 0) continue;
 		std::cout << known_completed(row, 0) << ";" << known_completed(row, 1) << "\n";
 	}
 
 
 	std::cout << "saving computed depths" << std::endl;
 	straight_depths out_straight_depths;
-	for(int known = 0; known < features_count; ++known) {
-		real depth = depths[known];
-		out_straight_depths[all_features[known]] = depth;
+	for(int row = 0; row < features_count; ++row) {
+		if(depths[row] == 0) continue;
+		real depth = depths[row];
+		out_straight_depths[all_features[row]] = depth;
 	}
 	export_json_file(encode_straight_depths(out_straight_depths), out_depths_filename);
 }

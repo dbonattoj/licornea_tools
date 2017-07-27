@@ -34,7 +34,8 @@ struct image_correspondences {
 };
 
 
-std::set<view_index> get_reference_views(const image_correspondences&);
+std::set<view_index> get_reference_views_set(const image_correspondences&);
+std::vector<view_index> get_reference_views(const image_correspondences&);
 image_correspondences image_correspondences_with_reference(const image_correspondences&, const view_index& reference_view);
 
 std::set<view_index> get_all_views_set(const image_correspondences&);

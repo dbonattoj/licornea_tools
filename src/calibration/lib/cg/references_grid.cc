@@ -33,7 +33,7 @@ references_grid decode_references_grid(const json& j_grid) {
 references_grid get_references_grid(const image_correspondences& cors) {
 	references_grid grid;
 	
-	auto ref_vws = get_reference_views(cors);
+	auto ref_vws = get_reference_views_set(cors);
 	
 	std::vector<int> ref_x_positions, ref_y_positions;
 	{
