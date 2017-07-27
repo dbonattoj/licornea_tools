@@ -49,14 +49,14 @@ int main(int argc, const char* argv[]) {
 	} else {
 		vec3 sz(1.0, 1.0, 0.5);
 		vertices = {
-			vec3(-sz[0], +sz[1], +sz[2]),
-			vec3(+sz[0], +sz[1], +sz[2]),
-			vec3(-sz[0], -sz[1], +sz[2]),
-			vec3(+sz[0], -sz[1], +sz[2]),
-			vec3(-sz[0], +sz[1], -sz[2]),
-			vec3(+sz[0], +sz[1], -sz[2]),
-			vec3(-sz[0], -sz[1], -sz[2]),
-			vec3(+sz[0], -sz[1], -sz[2])
+			vec3(-sz[0], +sz[1], +sz[2]), // 0
+			vec3(+sz[0], +sz[1], +sz[2]), // 1
+			vec3(-sz[0], -sz[1], +sz[2]), // 2
+			vec3(+sz[0], -sz[1], +sz[2]), // 3
+			vec3(-sz[0], +sz[1], -sz[2]), // 4
+			vec3(+sz[0], +sz[1], -sz[2]), // 5
+			vec3(-sz[0], -sz[1], -sz[2]), // 6
+			vec3(+sz[0], -sz[1], -sz[2])  // 7
 		};
 		faces = {
 			{0, 2, 3, 1}, // front

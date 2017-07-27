@@ -9,7 +9,7 @@
 \contentsline {subsection}{\numberline {2.3.2}Optical flow tracking}{6}{subsection.2.3.2}
 \contentsline {subsection}{\numberline {2.3.3}Filtering features}{8}{subsection.2.3.3}
 \contentsline {subsection}{\numberline {2.3.4}Reference views}{8}{subsection.2.3.4}
-\contentsline {subsection}{\numberline {2.3.5}Feature point depths}{10}{subsection.2.3.5}
+\contentsline {subsection}{\numberline {2.3.5}Feature point depths}{11}{subsection.2.3.5}
 \contentsline {subsection}{\numberline {2.3.6}Feature point weights}{11}{subsection.2.3.6}
 \contentsline {section}{\numberline {2.4}Observations}{12}{section.2.4}
 \contentsline {subsection}{\numberline {2.4.1}Rotation}{12}{subsection.2.4.1}
@@ -33,25 +33,25 @@
 \contentsline {section}{\numberline {2.7}Camera positions}{22}{section.2.7}
 \contentsline {subsection}{\numberline {2.7.1}Relative camera positions}{22}{subsection.2.7.1}
 \contentsline {subsection}{\numberline {2.7.2}Stitching}{22}{subsection.2.7.2}
-\contentsline {subsection}{\numberline {2.7.3}Final camera extrinsics}{23}{subsection.2.7.3}
-\contentsline {chapter}{\numberline {3}Usage}{24}{chapter.3}
-\contentsline {section}{\numberline {3.1}Preliminaries}{24}{section.3.1}
-\contentsline {section}{\numberline {3.2}Image correspondences}{24}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Reference grid}{24}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Undistort images (if applicable)}{24}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}Optical flow features}{25}{subsection.3.2.3}
-\contentsline {subsection}{\numberline {3.2.4}Optical flow correspondences}{25}{subsection.3.2.4}
-\contentsline {subsection}{\numberline {3.2.5}Merge image correspondences}{25}{subsection.3.2.5}
-\contentsline {subsection}{\numberline {3.2.6}Visualizing image correspondences}{26}{subsection.3.2.6}
-\contentsline {subsection}{\numberline {3.2.7}Feature point depths (if applicable)}{26}{subsection.3.2.7}
-\contentsline {subsection}{\numberline {3.2.8}Filtering image correspondences}{26}{subsection.3.2.8}
-\contentsline {subsection}{\numberline {3.2.9}Undistort image correspondences (if applicable)}{27}{subsection.3.2.9}
-\contentsline {section}{\numberline {3.3}Rotation estimation}{27}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Measuring optical flow slopes}{27}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Visualizing optical flow slopes}{27}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}Optimizing optical flow slopes}{27}{subsection.3.3.3}
-\contentsline {subsection}{\numberline {3.3.4}Rotation from depths}{27}{subsection.3.3.4}
-\contentsline {section}{\numberline {3.4}Straight depths}{28}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Aggregate feature point depths}{28}{subsection.3.4.1}
-\contentsline {subsection}{\numberline {3.4.2}Depth from disparity}{28}{subsection.3.4.2}
-\contentsline {section}{\numberline {3.5}Camera positions}{28}{section.3.5}
+\contentsline {subsection}{\numberline {2.7.3}Final camera extrinsics}{24}{subsection.2.7.3}
+\contentsline {chapter}{\numberline {3}Usage}{25}{chapter.3}
+\contentsline {section}{\numberline {3.1}Preliminaries}{25}{section.3.1}
+\contentsline {section}{\numberline {3.2}Image correspondences}{25}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Reference grid}{25}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Undistort images (if applicable)}{25}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Optical flow features}{26}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}Optical flow correspondences}{26}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.5}Merge image correspondences}{26}{subsection.3.2.5}
+\contentsline {subsection}{\numberline {3.2.6}Visualizing image correspondences}{27}{subsection.3.2.6}
+\contentsline {subsection}{\numberline {3.2.7}Feature point depths (if applicable)}{27}{subsection.3.2.7}
+\contentsline {subsection}{\numberline {3.2.8}Filtering image correspondences}{27}{subsection.3.2.8}
+\contentsline {subsection}{\numberline {3.2.9}Undistort image correspondences (if applicable)}{28}{subsection.3.2.9}
+\contentsline {section}{\numberline {3.3}Rotation estimation}{28}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Measuring optical flow slopes}{28}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Visualizing optical flow slopes}{28}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Optimizing optical flow slopes}{28}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.3.4}Rotation from depths}{28}{subsection.3.3.4}
+\contentsline {section}{\numberline {3.4}Straight depths}{29}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Aggregate feature point depths}{29}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Depth from disparity}{29}{subsection.3.4.2}
+\contentsline {section}{\numberline {3.5}Camera positions}{29}{section.3.5}

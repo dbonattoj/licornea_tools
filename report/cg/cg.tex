@@ -146,19 +146,18 @@ Properly filtering the correspondences is important: Having incorrect correspond
 
 \subsection{Reference views}
 \label{sec:refviews}
-If the range of motion of the camera is large, or the field of view is small, many feature points that are visible in the center view, will not be visible on the extremity views. Also as said before it can be good to limit the optical flow \emph{outreach}, so as to reduce the accumulated error.
-
+If the range of motion of the camera is large, or the field of view is small, many feature points that are visible in the center view, will not be visible on the extremity views. 
 When multiple reference views are used, the entire calibration will be done for each reference view independently (except for the rotation estimation, as $\matr{R}$ is constant).
 
-Figure \ref{fig:refview} shows how reference views can be selected. The four colored dots are the reference views. They must be selected so that they are in a grid, for the stitching algorithm to work later. It is called the \emph{reference grid}. The \emph{x key} and \emph{y key} is the distance between reference view indices, in $x$ and $y$ direction.
+Figure \ref{fig:refview} shows how reference views can be selected. The four colored dots are the reference views. They must be selected so that they are in a grid, for the stitching algorithm to work later. It is called the \emph{reference grid} (or \emph{reference views grid}). The \emph{x key} and \emph{y key} is the distance between reference view indices, in $x$ and $y$ direction.
 
-In the figure, the outreach is set so that for feature points chosen for one reference view, correspondences can only be found for views within the same-colored rectangle. For the stitching to work, there must be some overlap in these rectangles, as shown by the yellow regions in the figure. 
+The \emph{outreach} indicates the maximal range of view indices around the \emph{reference view}, for which correspondences will be searched. In the figure these regions are shown as the colored rectangles. For the stitching to work, there must be some overlap in these rectangles, as shown by the yellow regions in the figure.
 
-The overlap should be large enough so that there will remain many views with feature points from two references, after the filtering.
+The overlap should be large enough so that there will remain many views with feature points from two references, after the filtering. The \emph{outreach} should be kept relatively small, for two reasons: (1) The maximal propagated error from the optical flow feature tracking is larger if the outreach is large. This also makes it more likely for entire features to be filtered out, even though a smaller portion of its feature points are good. (2) When camera positions are computed at the end, the impact of the error in the camera rotation and in the feature depths, becomes much larger for views that are further away from the reference view. (see later, in section \ref{sec:campos})
 
 For example an \emph{outreach} of $80$, and a \emph{key} of $100$ can be a good choice. It would leave an overlap range of $60$.
 
-The algorithm chooses the \emph{reference grid} so that there are no missing images on the columns of the reference views' $x$ indices.
+Given a horizontal/vertical \emph{outreach} and \emph{key}, the algorithm chooses the \emph{reference grid} so that there are no missing images on the columns of the reference views' $x$ indices.
 
 \begin{figure}
 \centering
@@ -420,12 +419,21 @@ First the feature points $p(f,v)$ of each feature are undistorted (if any distor
 \subsubsection{Pairwise scale ratios}
 The feature points of each feature $f_i$ now all have the same pattern, except for a different scale, a different position in the image, and a different subset of covered views.
 
-For each pair of features $(f_\text{i}, f_\text{j})$, using linear least squares, a relative scale $r_{j\rightarrow i}$, and a translation $\vec{t} \in \mathbb{R}^2$ are computed which optimally fit
+For each pair of features $(f_\text{i}, f_\text{j})$, a relative scale $r_{j\rightarrow i}$, and a translation $\vec{t} \in \mathbb{R}^2$ are computed which make the two \emph{feature point} sets overlap, by optimizing
+\begin{equation}
+\forall v : p(f_i, v) = r_{j\rightarrow i} p(f_j, v) + \vec{t}
+\end{equation}
+
+If the two features were taken on different \emph{reference views}, then this linear least squares problem is solved for $r_{j\rightarrow i}$ and $\vec{t}$.
+
+Otherwise, if the two features were taken on the same \emph{reference view} $rv$, then is is known that $p(f_i, rv)$ and $p(f_j, rv)$ should coincide perfectly: They represent the same view, and they were initially chosen as feature points, so they have no error. So the feature point positions for $fv$ are fixed, and foreach view $v \neq rv$, a sample of $s$ is calculated using
 \begin{equation*}
-\forall v : p(f_i, v) = r_{j\rightarrow i} \times \left( p(f_j, v) + \vec{t} \right)
+\foreach v : r_{v,j\rightarrow i} = \frac{p(f_i, rv) - p(f_i, v)}{p(f_j, rv) - p(f_j, v)}
 \end{equation*}
 
-The resulting $r_{j\rightarrow i}$ is discarded or assigned a lower weight if the two features do not have enough feature points in common, or the error of the least-squares solution is too large. The resulting $\vec{t}$ is not used.
+Samples closer to the $rv$ are given a lower weight. They have more error because of the limited pixel resolution. The samples are then averaged to obtain $r_{j\rightarrow i}$. The translation is set to $\vec{t} = p(f_i, rv) - s \times p(f_j, rv)$.
+
+The resulting $r_{j\rightarrow i}$ is discarded or assigned a lower weight if the error of the solution is too large. The resulting $\vec{t}$ is not further used.
 
 Calculating $r_{j\rightarrow i}$ for each feature pair $(f_\text{i}, f_\text{j})$ gives a \emph{pairwise scales matrix}, as seen shown in figures \ref{fig:ratios} and \ref{fig:ratios_multiref}. The axis are the feature indices $i$ and $j$. Because each unordered pair is considered only once, the matrix is triangular. When there are multiple reference views, features from two different reference views have none (or little) feature points in common. This causes the black areas in the lower-left part in figure \ref{fig:ratios_multiref}.
 
@@ -464,18 +472,21 @@ where $sd_i, sd_j$ are the straight depths of the features $f_i, f_j$. As a cons
 \begin{equation*}
 \forall i : sd_{i} = s \times r_{f_j}
 \end{equation*}
-One or multiple \emph{known depths} $\{ sd'_0, sd'_1, ... \}$ need to be given as input. From these, $s$ is calculated using again a linear least squares system (or just a single equation) $sd'_{i} = s \times r_{f_i}$.
+One or multiple \emph{known depths} $\{ sd'_0, sd'_1, ... \}$ need to be given as input. From these, $s$ is calculated using 
+\begin{equation*}
+s = \frac{\sum_{i} sd'_{i}}{\sum_{i} r_{f_i}}
+\end{equation*}
 
-Then, the remaining $sd_i$ can be computed using $s$ and the global scales $r_{f_i}$.
+\noindent Then, the remaining $sd_i$ can be computed using $s$ and the global scales $r_{f_i}$.
 
 \subsubsection{Results}
-Figure \ref{fig:depthcomp} shows the straight depth of $282$ features, sorted in ascending order. The ``measured'' (red) line are the depth values taken from the depth maps, using the previous method in section \ref{sec:sdepth_from_depth}. The ``calculated'' (blue) line are the same depth values, calculated only using the relative scales of the feature points. Only $5$ \emph{known depth} values were taken to compute these values. The RMS error in this example is about $17 \text{ mm}$.
+Figure \ref{fig:depthcomp} shows the straight depth of $135$ features, sorted in ascending order. The ``measured'' (red) line are the depth values taken from the depth maps, using the previous method in section \ref{sec:sdepth_from_depth}. The ``calculated'' (blue) line are the same depth values, calculated only using the relative scales of the feature points. Only $3$ \emph{known depth} values were taken to compute these values.
 
-This graph does not indicate whether the measured or the calculated values are wrong: The jumps in the ``calculated'' line occur only because the samples have been sorted by the ``measured'' values.
+The room mean square error in this example is about $17.60 \text{ mm}$. This error can be both in the measured and in the calculated depth values. This graph does not indicate whether the measured or the calculated values are wrong: The ``measured'' line is smooth only because the samples have been sorted by the ``measured'' values.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.9\textwidth]{depthcomp.pdf}
+\includegraphics[width=\textwidth]{depthcmp.pdf}
 \caption{Calculated v. measured straight depths}
 \label{fig:depthcomp}
 \end{figure}
@@ -483,24 +494,27 @@ This graph does not indicate whether the measured or the calculated values are w
 \pagebreak
 
 \section{Camera positions}
+\label{sec:campos}
 Finally, having \emph{image correspondences}, the \emph{camera rotation}, and the \emph{straight depths}, the camera center positions can be computed.
 
 \subsection{Relative camera positions}
-A position $c = (x, y)$ of the camera center on the plane $P$ is calculated for each view, for each feature. It there are multiple \emph{reference views}, then a set of \emph{relative camera positions} is calculated for each reference view independently.
+For each \emph{reference view}, a set of \emph{relative camera positions} $c_v$ will be computed. It is the position of the camera center for view $v$, relative to that of the reference view. If there are multiple \emph{reference views}, the process is repeated for each reference view. The different sets of \emph{relative camera positions} will then be \emph{stitched} together in the next step.
 
 If there is distortion in the camera intrinsics, all feature points $p(f,v)$ are first undistorted. Then they are unrotated, by premultiplication with $\matr{K} \transpose{\matr{R}} \matr{K}^{-1}$.
 
-The camera position for the reference view $rv$  itself is always set to $c_{rv} = (0, 0)$. For each other \emph{target} view $v$, for each of its feature points $p(f,v)$, a camera position of $v$ is calculated using
+The camera position for the reference view $rv$  itself is always set to $c_{rv} = (0, 0)$. 
+
+For each other \emph{target} view $v$, for each of its feature points $p(f,v)$, a sample $c_{f,v} = (x, y)$ of the camera position is calculated using
 \begin{equation*}
 c_{f,v} = \left( \frac{\left[p_x(f,v) - p_x(f,rv)\right] \times sd_f}{f_x}, \frac{\left[p_y(f,v) - p_y(f,rv)\right] \times sd_f}{f_y} \right)
 \end{equation*}
-where $f_x, f_y$ are the focal lengths from the camera intrinsic matrix $\matr{K}$.
+where $f_x, f_y$ are the focal lengths from the camera intrinsic matrix $\matr{K}$. This is derived directly from the pin-hole camera model.
 
-In theory all $c_{*,v}$ should have the same value, but there is some deviation because of errors in the image correspondences, rotation or straight depth.
+In theory all $c_{*,v}$ should have the same value (for the same $v$), but there can be a large deviation because of errors in the image correspondences, rotation or straight depth. The deviations necessarily get larger the further the target view $v$ is from the reference view $rv$. This is why in section \ref{sec:refviews}, the \emph{outreach} of the optical flow needed to be kept small.
 
-For each view $v$, given the samples $c_{*,v}$, a final camera position $c_v$ is calculated: First the mean position $\hat{c}_v$ of the samples $c_{*,v}$ is taken. Then the samples are sorted by their euclidian distance to $\hat{c}_v$. The again the mean is taken, this time of only the middle $90\%$ of the sorted samples. This is the final $c_v$. This process should average out noise, and be robust against outliers.
 
-Figure \ref{fig:rcpositions} shows the final $c_v$ (dots) for a subset of views in a dataset, along with all the samples $c_{*,v}$ (crosses of the same color) used to compute that average.
+
+
 
 \begin{figure}
 \centering

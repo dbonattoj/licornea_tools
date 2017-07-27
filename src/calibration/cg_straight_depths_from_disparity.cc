@@ -74,7 +74,6 @@ estimate_relative_scale_result estimate_relative_scale(
 		vec2 src_center_position = src_tg_positions.at(center_view).first;
 		vec2 tg_center_position = src_tg_positions.at(center_view).second;
 		
-		
 		real scales_sum = 0, scales_weights_sum = 0;
 		for(const auto& kv : src_tg_positions) {
 			const view_index& idx = kv.first;
