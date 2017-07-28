@@ -1,6 +1,6 @@
 #!/usr/local/bin/python
 from pylib import *
-import os, json
+import sys, os, json, shutil
 
 def usage_fail():
 	print("usage: {} parameters.json step out_experiments.json [limit]\n".format(sys.argv[0]))

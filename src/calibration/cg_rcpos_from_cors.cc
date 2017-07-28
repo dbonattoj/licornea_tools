@@ -205,7 +205,7 @@ int main(int argc, const char* argv[]) {
 
 		int final_relative_views_count = 0;
 			
-	//	if(ref_idx != ref2) continue;
+	//if(ref_idx != ref2) continue;
 		
 		image_correspondences ref_cors = image_correspondences_with_reference(cors, ref_idx);
 		feature_points ref_fpoints = feature_points_for_view(ref_cors, ref_idx, false);
@@ -247,13 +247,14 @@ int main(int argc, const char* argv[]) {
 					for(const auto& kv : samples) {
 						const std::string& shrt_feature_name = kv.first;
 						const vec2& pos = kv.second;
-						bool print_sample = print_all_sample_positions || std::abs(std::abs(target_idx.x - ref_idx.x) - std::abs(target_idx.y - ref_idx.y)) < 4;
+						bool print_sample = print_all_sample_positions || std::abs(std::abs(target_idx.x - ref_idx.x) - std::abs(target_idx.y - ref_idx.y)) < 20;
 						if(out_sample_positions_stream.is_open() && print_sample)
 							out_sample_positions_stream <<
 								pos[0] << ' ' <<
 								pos[1] << ' ' <<
-								shrt_feature_name.substr(4) << ' ' <<
+								std::stoi(shrt_feature_name.substr(4))+1000 << ' ' <<
 								target_idx.x << ' ' <<
+								target_idx.y << ' ' <<
 								ref_idx.x << ' ' <<
 								ref_idx.y << '\n';
 					}

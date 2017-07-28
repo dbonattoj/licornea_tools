@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.2.15)  27 JUL 2017 19:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.2.15)  28 JUL 2017 16:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -37,9 +37,14 @@ Package tocbasic Info: omitting babel extension for `lot'
 (tocbasic)             for `lot' on input line 127.
 Package tocbasic Info: defining new hook before heading of `' on input line 158
 8.
-Class scrreprt Info: File `scrsize11pt.clo' used instead of
-(scrreprt)           file `scrsize11.clo' to setup font sizes on input line 224
-8.
+Package scrreprt Info: You've used standard option `11pt'.
+(scrreprt)             This is correct!
+(scrreprt)             Internally I'm using `fontsize=11pt'.
+(scrreprt)             If you'd like to set the option with \KOMAoptions,
+(scrreprt)             you'd have to use `fontsize=11pt' there
+(scrreprt)             instead of `11pt', too.
+Class scrreprt Info: File `scrsize11pt.clo' used to setup font sizes on input l
+ine 2248.
 
 (/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrsize11pt.clo
 File: scrsize11pt.clo 2015/10/03 v3.19a KOMA-Script font size class option (11p
@@ -424,6 +429,10 @@ Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 ))
+(/usr/share/texlive/texmf-dist/tex/latex/preprint/fullpage.sty
+Package: fullpage 1999/02/23 1.1 (PWD)
+\FP@margin=\skip48
+)
 (/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
 Package textcomp Info: Sub-encoding information:
@@ -695,7 +704,7 @@ Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
-\Hy@SectionHShift=\skip48
+\Hy@SectionHShift=\skip49
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
@@ -720,7 +729,7 @@ File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2016/03/03 v2.15a AMS math features
-\@mathmargin=\skip49
+\@mathmargin=\skip50
 
 For additional information on amsmath, use the `?' option.
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
@@ -770,8 +779,8 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 631.
 \totwidth@=\dimen117
 \lineht@=\dimen118
 \@envbody=\toks20
-\multlinegap=\skip50
-\multlinetaggap=\skip51
+\multlinegap=\skip51
+\multlinetaggap=\skip52
 \mathdisplay@stack=\toks21
 LaTeX Info: Redefining \[ on input line 2735.
 LaTeX Info: Redefining \] on input line 2736.
@@ -813,29 +822,29 @@ Package: listings 2015/06/04 1.6 (Carsten Heinz)
  (./cg.aux)
 \openout1 = `cg.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 24.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 24.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 26.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 26.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
 \AtBeginShipoutBox=\box31
-Package hyperref Info: Link coloring OFF on input line 24.
+Package hyperref Info: Link coloring OFF on input line 26.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -845,9 +854,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count121
 )
-LaTeX Info: Redefining \ref on input line 24.
-LaTeX Info: Redefining \pageref on input line 24.
-LaTeX Info: Redefining \nameref on input line 24.
+LaTeX Info: Redefining \ref on input line 26.
+LaTeX Info: Redefining \pageref on input line 26.
+LaTeX Info: Redefining \nameref on input line 26.
 
 (./cg.out) (./cg.out)
 \@outlinefile=\write3
@@ -883,17 +892,17 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \c@lstlisting=\count128
-LaTeX Font Info:    Try loading font information for T1+cmss on input line 27.
+LaTeX Font Info:    Try loading font information for T1+cmss on input line 29.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmss.fd
 File: t1cmss.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 27.
+LaTeX Font Info:    Try loading font information for U+msa on input line 29.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 27.
+LaTeX Font Info:    Try loading font information for U+msb on input line 29.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -930,88 +939,88 @@ Class scrreprt Warning: \float@addtolists detected!
 chapter 2.
 [5
 
-] <choosefeatures.png, id=268, 1432.35126pt x 809.0225pt>
+] <choosefeatures.png, id=340, 1432.35126pt x 809.0225pt>
 File: choosefeatures.png Graphic file (type png)
 
 <use choosefeatures.png>
-Package pdftex.def Info: choosefeatures.png used on input line 87.
-(pdftex.def)             Requested size: 418.25555pt x 236.24002pt.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 92.
+Package pdftex.def Info: choosefeatures.png used on input line 88.
+(pdftex.def)             Requested size: 452.96796pt x 255.84335pt.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 93.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-) [6]
-<opticalflow.pdf, id=279, 1081.20477pt x 853.58266pt>
+) [6 <./choosefeatures.png>] <opticalflow.pdf, id=350, 1081.20477pt x 853.58266
+pt>
 File: opticalflow.pdf Graphic file (type pdf)
- <use opticalflow.pdf>
-Package pdftex.def Info: opticalflow.pdf used on input line 105.
-(pdftex.def)             Requested size: 250.95587pt x 198.11728pt.
 
-<ofgood1.png, id=281, 1244.65pt x 143.53625pt>
+<use opticalflow.pdf>
+Package pdftex.def Info: opticalflow.pdf used on input line 106.
+(pdftex.def)             Requested size: 226.48398pt x 178.80179pt.
+ <ofgood1.png, id=352, 1244.65pt x 143.53625pt>
 File: ofgood1.png Graphic file (type png)
- <use ofgood1.png>
-Package pdftex.def Info: ofgood1.png used on input line 121.
-(pdftex.def)             Requested size: 418.25555pt x 48.2344pt.
 
-<ofgood2.png, id=282, 1242.6425pt x 305.14pt>
+<use ofgood1.png>
+Package pdftex.def Info: ofgood1.png used on input line 122.
+(pdftex.def)             Requested size: 452.96796pt x 52.23807pt.
+ <ofgood2.png, id=353, 1242.6425pt x 305.14pt>
 File: ofgood2.png Graphic file (type png)
- <use ofgood2.png>
-Package pdftex.def Info: ofgood2.png used on input line 122.
-(pdftex.def)             Requested size: 418.25555pt x 102.70326pt.
 
-<ofbad2.png, id=283, 1236.62pt x 456.70625pt>
+<use ofgood2.png>
+Package pdftex.def Info: ofgood2.png used on input line 123.
+(pdftex.def)             Requested size: 452.96796pt x 111.2285pt.
+ <ofbad2.png, id=354, 1236.62pt x 456.70625pt>
 File: ofbad2.png Graphic file (type png)
- <use ofbad2.png>
-Package pdftex.def Info: ofbad2.png used on input line 128.
-(pdftex.def)             Requested size: 418.25555pt x 154.46968pt.
 
-<ofbad1.png, id=284, 1234.6125pt x 523.9575pt>
+<use ofbad2.png>
+Package pdftex.def Info: ofbad2.png used on input line 129.
+(pdftex.def)             Requested size: 452.96796pt x 167.29222pt.
+ <ofbad1.png, id=355, 1234.6125pt x 523.9575pt>
 File: ofbad1.png Graphic file (type png)
- <use ofbad1.png>
-Package pdftex.def Info: ofbad1.png used on input line 129.
-(pdftex.def)             Requested size: 418.25555pt x 177.5036pt.
- [7 <./choosefeatures.png>] [8 <./opticalflow.pdf>] [9 <./ofgood1.png> <./ofgoo
-d2.png> <./ofbad2.png> <./ofbad1.png>] <refview.pdf, id=314, 2190.86229pt x 162
-1.8071pt>
+
+<use ofbad1.png>
+Package pdftex.def Info: ofbad1.png used on input line 130.
+(pdftex.def)             Requested size: 452.96796pt x 192.23027pt.
+ [7 <./opticalflow.pdf>] [8 <./ofgood1.png> <./ofgood2.png> <./ofbad2.png> <./o
+fbad1.png>] <refview.pdf, id=379, 2190.86229pt x 1621.8071pt>
 File: refview.pdf Graphic file (type pdf)
 
 <use refview.pdf>
-Package pdftex.def Info: refview.pdf used on input line 164.
-(pdftex.def)             Requested size: 334.60571pt x 247.69023pt.
- [10 <./refview.pdf>] [11]
-<onedimslopes.pdf, id=335, 1020.81375pt x 455.7025pt>
+Package pdftex.def Info: refview.pdf used on input line 155.
+(pdftex.def)             Requested size: 226.48398pt x 167.63449pt.
+ [9 <./refview.pdf>] [10]
+<onedimslopes.pdf, id=401, 1020.28743pt x 455.27258pt>
 File: onedimslopes.pdf Graphic file (type pdf)
  <use onedimslopes.pdf>
 Package pdftex.def Info: onedimslopes.pdf used on input line 196.
-(pdftex.def)             Requested size: 418.25555pt x 186.71407pt.
+(pdftex.def)             Requested size: 452.96796pt x 202.1198pt.
 
-[12 <./onedimslopes.pdf>]
-<differentdepths.pdf, id=350, 616.3025pt x 283.0575pt>
+[11 <./onedimslopes.pdf>]
+<differentdepths.pdf, id=416, 616.3025pt x 283.0575pt>
 File: differentdepths.pdf Graphic file (type pdf)
 
 <use differentdepths.pdf>
 Package pdftex.def Info: differentdepths.pdf used on input line 207.
-(pdftex.def)             Requested size: 292.7776pt x 134.47098pt.
- <xdepths.pdf, id=351, 455.7025pt x 255.95625pt>
+(pdftex.def)             Requested size: 317.07619pt x 145.63153pt.
+ <xdepths.pdf, id=417, 455.7025pt x 255.95625pt>
 File: xdepths.pdf Graphic file (type pdf)
 
 <use xdepths.pdf>
 Package pdftex.def Info: xdepths.pdf used on input line 214.
-(pdftex.def)             Requested size: 334.60571pt x 187.94395pt.
- [13 <./differentdepths.pdf> <./xdepths.pdf>] [14]
-Underfull \hbox (badness 10000) in paragraph at lines 292--295
+(pdftex.def)             Requested size: 362.37573pt x 203.54282pt.
+ [12 <./differentdepths.pdf> <./xdepths.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 294--297
 
  []
 
-[15] [16] <differentdepthsview.pdf, id=431, 398.48875pt x 309.155pt>
+[13] [14] [15] <differentdepthsview.pdf, id=495, 398.48875pt x 309.155pt>
 File: differentdepthsview.pdf Graphic file (type pdf)
 
 <use differentdepthsview.pdf>
-Package pdftex.def Info: differentdepthsview.pdf used on input line 388.
-(pdftex.def)             Requested size: 167.29967pt x 129.79231pt.
- [17 <./differentdepthsview.pdf>] [18]
+Package pdftex.def Info: differentdepthsview.pdf used on input line 390.
+(pdftex.def)             Requested size: 181.18442pt x 140.56667pt.
+ [16 <./differentdepthsview.pdf>] [17]
 ! Undefined control sequence.
-l.431 \foreach
+l.435 \foreach
                v : r_{v,j\rightarrow i} = \frac{p(f_i, rv) - p(f_i, v)}{p(f_...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1019,115 +1028,169 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-<ratios.png, id=469, 1003.75pt x 1003.75pt>
+<ratios.png, id=533, 1003.75pt x 1003.75pt>
 File: ratios.png Graphic file (type png)
  <use ratios.png>
-Package pdftex.def Info: ratios.png used on input line 443.
-(pdftex.def)             Requested size: 250.95587pt x 250.9522pt.
+Package pdftex.def Info: ratios.png used on input line 447.
+(pdftex.def)             Requested size: 271.78352pt x 271.78192pt.
 
-<ratios_multiref.png, id=470, 1199.48125pt x 1199.48125pt>
+<ratios_multiref.png, id=534, 1199.48125pt x 1199.48125pt>
 File: ratios_multiref.png Graphic file (type png)
 
 <use ratios_multiref.png>
-Package pdftex.def Info: ratios_multiref.png used on input line 449.
-(pdftex.def)             Requested size: 250.95587pt x 250.94676pt.
- [19] [20 <./ratios.png (PNG copy)> <./ratios_multiref.png (PNG copy)>] <depthc
-mp.pdf, id=491, 739.88542pt x 294.62831pt>
+Package pdftex.def Info: ratios_multiref.png used on input line 453.
+(pdftex.def)             Requested size: 271.78352pt x 271.7751pt.
+ [18] [19 <./ratios.png (PNG copy)> <./ratios_multiref.png (PNG copy)>] <depthc
+mp.pdf, id=549, 739.88542pt x 294.62831pt>
 File: depthcmp.pdf Graphic file (type pdf)
 
 <use depthcmp.pdf>
-Package pdftex.def Info: depthcmp.pdf used on input line 489.
-(pdftex.def)             Requested size: 418.25555pt x 166.55072pt.
- [21 <./depthcmp.pdf>]
+Package pdftex.def Info: depthcmp.pdf used on input line 505.
+(pdftex.def)             Requested size: 452.96796pt x 180.37488pt.
+ [20 <./depthcmp.pdf>]
+<rcpos_art_wrongR.pdf, id=573, 462.82585pt x 347.99052pt>
+File: rcpos_art_wrongR.pdf Graphic file (type pdf)
 
-LaTeX Warning: File `rcpos.png' not found on input line 521.
+<use rcpos_art_wrongR.pdf>
+Package pdftex.def Info: rcpos_art_wrongR.pdf used on input line 545.
+(pdftex.def)             Requested size: 362.37573pt x 272.46693pt.
 
+<rcpos_art_wrongD.pdf, id=574, 462.87076pt x 347.9846pt>
+File: rcpos_art_wrongD.pdf Graphic file (type pdf)
 
-! Package pdftex.def Error: File `rcpos.png' not found.
+<use rcpos_art_wrongD.pdf>
+Package pdftex.def Info: rcpos_art_wrongD.pdf used on input line 551.
+(pdftex.def)             Requested size: 362.37573pt x 272.44637pt.
+ [21]
+<rcpos_real_cent.pdf, id=585, 455.95366pt x 347.98357pt>
+File: rcpos_real_cent.pdf Graphic file (type pdf)
 
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.521 ...egraphics[width=0.8\textwidth]{rcpos.png}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+<use rcpos_real_cent.pdf>
+Package pdftex.def Info: rcpos_real_cent.pdf used on input line 559.
+(pdftex.def)             Requested size: 221.95677pt x 169.39838pt.
 
-[22] [23] [24]
+<rcpos_real_cent_f.pdf, id=586, 452.24043pt x 347.98311pt>
+File: rcpos_real_cent_f.pdf Graphic file (type pdf)
+
+<use rcpos_real_cent_f.pdf>
+Package pdftex.def Info: rcpos_real_cent_f.pdf used on input line 560.
+(pdftex.def)             Requested size: 221.95677pt x 170.78932pt.
+
+<rcpos_real_far.pdf, id=587, 462.81216pt x 347.98463pt>
+File: rcpos_real_far.pdf Graphic file (type pdf)
+
+<use rcpos_real_far.pdf>
+Package pdftex.def Info: rcpos_real_far.pdf used on input line 565.
+(pdftex.def)             Requested size: 221.95677pt x 166.88734pt.
+
+<rcpos_real_far_f.pdf, id=588, 462.8122pt x 347.98904pt>
+File: rcpos_real_far_f.pdf Graphic file (type pdf)
+
+<use rcpos_real_far_f.pdf>
+Package pdftex.def Info: rcpos_real_far_f.pdf used on input line 566.
+(pdftex.def)             Requested size: 221.95677pt x 166.88947pt.
+
+<rcpos_real_close.pdf, id=589, 462.81268pt x 347.98296pt>
+File: rcpos_real_close.pdf Graphic file (type pdf)
+
+<use rcpos_real_close.pdf>
+Package pdftex.def Info: rcpos_real_close.pdf used on input line 571.
+(pdftex.def)             Requested size: 221.95677pt x 166.88655pt.
+
+<rcpos_real_close_f.pdf, id=590, 462.81195pt x 331.55914pt>
+File: rcpos_real_close_f.pdf Graphic file (type pdf)
+
+<use rcpos_real_close_f.pdf>
+Package pdftex.def Info: rcpos_real_close_f.pdf used on input line 572.
+(pdftex.def)             Requested size: 221.95677pt x 159.00998pt.
+ <abspos_out.pdf, id=597, 901.76903pt x 510.708pt>
+File: abspos_out.pdf Graphic file (type pdf)
+
+<use abspos_out.pdf>
+Package pdftex.def Info: abspos_out.pdf used on input line 606.
+(pdftex.def)             Requested size: 452.96796pt x 256.53786pt.
+ <abspos.pdf, id=598, 462.52798pt x 347.69899pt>
+File: abspos.pdf Graphic file (type pdf)
+
+<use abspos.pdf>
+Package pdftex.def Info: abspos.pdf used on input line 611.
+(pdftex.def)             Requested size: 362.37573pt x 272.42436pt.
+ [22] [23 <./rcpos_art_wrongR.pdf> <./rcpos_art_wrongD.pdf
+
+pdfTeX warning: pdflatex (file ./rcpos_art_wrongD.pdf): PDF inclusion: multiple
+ pdfs with page group included in a single page
+>] [24 <./rcpos_real_cent.pdf> <./rcpos_real_cent_f.pdf
+
+pdfTeX warning: pdflatex (file ./rcpos_real_cent_f.pdf): PDF inclusion: multipl
+e pdfs with page group included in a single page
+> <./rcpos_real_far.pdf
+
+pdfTeX warning: pdflatex (file ./rcpos_real_far.pdf): PDF inclusion: multiple p
+dfs with page group included in a single page
+> <./rcpos_real_far_f.pdf
+
+pdfTeX warning: pdflatex (file ./rcpos_real_far_f.pdf): PDF inclusion: multiple
+ pdfs with page group included in a single page
+> <./rcpos_real_close.pdf
+
+pdfTeX warning: pdflatex (file ./rcpos_real_close.pdf): PDF inclusion: multiple
+ pdfs with page group included in a single page
+> <./rcpos_real_close_f.pdf
+
+pdfTeX warning: pdflatex (file ./rcpos_real_close_f.pdf): PDF inclusion: multip
+le pdfs with page group included in a single page
+>] [25 <./abspos_out.pdf> <./abspos.pdf
+
+pdfTeX warning: pdflatex (file ./abspos.pdf): PDF inclusion: multiple pdfs with
+ page group included in a single page
+>] [26]
 chapter 3.
+
+Overfull \hbox (0.11906pt too wide) in paragraph at lines 645--646
+\T1/cmr/m/n/10.95 The above method is im-ple-mented as part of the \T1/cmtt/m/n
+/10.95 licornea_tools \T1/cmr/m/n/10.95 pack-age. Tools in \T1/cmtt/m/n/10.95 c
+alibration
+ []
+
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
-)
-Overfull \hbox (19.75804pt too wide) in paragraph at lines 572--573
-\T1/cmr/m/n/10.95 This com-putes a \T1/cmr/m/it/10.95 ref-er-ence grid \T1/cmr/
-m/n/10.95 (in-dices of the \T1/cmr/m/it/10.95 ref-er-ence views\T1/cmr/m/n/10.9
-5 ), and puts it into \T1/cmtt/m/n/10.95 redgrid.json\T1/cmr/m/n/10.95 .
+) [27
+
+] [28]
+Overfull \hbox (33.54994pt too wide) in paragraph at lines 763--764
+\T1/cmr/m/n/10.95 to fil-ter out those fea-tures, and save the re-main-ing im-a
+ge cor-re-spon-dences into the file \T1/cmtt/m/n/10.95 cors_all_f2.bin\T1/cmr/m
+/n/10.95 . 
  []
 
-
-Overfull \hbox (4.1151pt too wide) in paragraph at lines 577--578
-[][][][][][][][][][][][][][][][][][][][] 
+[29] [30]
+Overfull \hbox (29.62943pt too wide) in paragraph at lines 833--834
+\T1/cmr/m/n/10.95 The lat-ter has been fil-tered with the \T1/cmtt/m/n/10.95 us
+e_depth \T1/cmr/m/n/10.95 op-tion when us-ing \T1/cmtt/m/n/10.95 calibration/cg
+_filter_features\T1/cmr/m/n/10.95 ,
  []
 
-[25
-
-]
-Overfull \hbox (22.33011pt too wide) in paragraph at lines 588--589
-\T1/cmr/m/n/10.95 fea-ture points get se-lected for all ref-er-ence views. Hit-
-ting \T1/cmr/m/it/10.95 En-ter \T1/cmr/m/n/10.95 puts a file \T1/cmtt/m/n/10.95
- of/fpoints_*.json
- []
-
-
-Overfull \hbox (4.1151pt too wide) in paragraph at lines 595--596
-[][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (21.12111pt too wide) in paragraph at lines 617--618
-[][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-[26] [27]
-Overfull \hbox (15.45244pt too wide) in paragraph at lines 692--693
-[][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (20.43445pt too wide) in paragraph at lines 704--705
-\T1/cmr/m/n/10.95 flow slopes, a fea-ture points file can also be given as in-p
-ut, such as \T1/cmtt/m/n/10.95 of/fpoints_100,100.json\T1/cmr/m/n/10.95 . 
- []
-
-[28]
-Overfull \hbox (4.1151pt too wide) in paragraph at lines 751--752
-[][][][][][][][][][][][][][][][][][] 
- []
-
-[29]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 780.
- [30]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 780.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 873.
+[31]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 873.
  (./cg.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 780.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 780.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 873.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 873.
 Package rerunfilecheck Info: File `cg.out' has not changed.
-(rerunfilecheck)             Checksum: 807726921DA2CA826E6838AF5E27C778;3263.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 780.
+(rerunfilecheck)             Checksum: B468A3E265BD5AB7556FF8C991D5D916;4392.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 873.
  ) 
 Here is how much of TeX's memory you used:
- 11223 strings out of 494953
- 162977 string characters out of 6180977
- 328043 words of memory out of 5000000
- 14173 multiletter control sequences out of 15000+600000
+ 11330 strings out of 494953
+ 165115 string characters out of 6180977
+ 329271 words of memory out of 5000000
+ 14256 multiletter control sequences out of 15000+600000
  22630 words of font info for 63 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 42i,7n,66p,757b,1181s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,7n,66p,758b,1181s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/timlenertz/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0900.600pk> </h
 ome/timlenertz/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.600pk> </home/ti
 mlenertz/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </home/timlener
@@ -1152,10 +1215,10 @@ fonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols
 /msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/
 msbm10.pfb>
-Output written on cg.pdf (30 pages, 5341338 bytes).
+Output written on cg.pdf (31 pages, 8236798 bytes).
 PDF statistics:
- 1077 PDF objects out of 1200 (max. 8388607)
- 644 compressed objects within 7 object streams
- 174 named destinations out of 1000 (max. 500000)
- 439 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1192 PDF objects out of 1200 (max. 8388607)
+ 743 compressed objects within 8 object streams
+ 185 named destinations out of 1000 (max. 500000)
+ 601 words of extra memory for PDF output out of 10000 (max. 10000000)
 

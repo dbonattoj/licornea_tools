@@ -1,0 +1,1711 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="77cm"
+   height="57cm"
+   viewBox="173 28 1523 1138"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="refview2.svg">
+  <metadata
+     id="metadata648">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs646" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1591"
+     inkscape:window-height="1010"
+     id="namedview644"
+     showgrid="false"
+     inkscape:zoom="0.18179509"
+     inkscape:cx="1995.4444"
+     inkscape:cy="924.92419"
+     inkscape:window-x="59"
+     inkscape:window-y="34"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <rect
+     style="fill: none; fill-opacity:0; stroke-width: 12; stroke: #ff0000"
+     x="190"
+     y="116"
+     width="780"
+     height="620"
+     id="rect16" />
+  <rect
+     style="fill: none; fill-opacity:0; stroke-width: 12; stroke: #b67600"
+     x="910"
+     y="536"
+     width="780"
+     height="620"
+     id="rect18" />
+  <rect
+     style="fill: none; fill-opacity:0; stroke-width: 12; stroke: #0000ff"
+     x="180"
+     y="540"
+     width="780"
+     height="620"
+     id="rect20" />
+  <rect
+     style="fill: none; fill-opacity:0; stroke-width: 12; stroke: #008000"
+     x="900"
+     y="120"
+     width="780"
+     height="620"
+     id="rect22" />
+  <g
+     id="g24">
+    <ellipse
+       style="fill: #afafaf"
+       cx="210"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse26" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="210"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse28" />
+  </g>
+  <g
+     id="g30">
+    <ellipse
+       style="fill: #afafaf"
+       cx="330"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse32" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="330"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse34" />
+  </g>
+  <g
+     id="g36">
+    <ellipse
+       style="fill: #afafaf"
+       cx="450"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse38" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="450"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse40" />
+  </g>
+  <g
+     id="g42">
+    <ellipse
+       style="fill: #afafaf"
+       cx="570"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse44" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="570"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse46" />
+  </g>
+  <g
+     id="g48">
+    <ellipse
+       style="fill: #afafaf"
+       cx="690"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse50" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="690"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse52" />
+  </g>
+  <g
+     id="g54">
+    <ellipse
+       style="fill: #afafaf"
+       cx="810"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse56" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="810"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse58" />
+  </g>
+  <g
+     id="g60">
+    <ellipse
+       style="fill: #afafaf"
+       cx="930"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse62" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="930"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse64" />
+  </g>
+  <g
+     id="g66">
+    <ellipse
+       style="fill: #afafaf"
+       cx="210"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse68" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="210"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse70" />
+  </g>
+  <g
+     id="g72">
+    <ellipse
+       style="fill: #afafaf"
+       cx="450"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse74" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="450"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse76" />
+  </g>
+  <g
+     id="g78">
+    <ellipse
+       style="fill: #afafaf"
+       cx="570"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse80" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="570"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse82" />
+  </g>
+  <g
+     id="g84">
+    <ellipse
+       style="fill: #afafaf"
+       cx="690"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse86" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="690"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse88" />
+  </g>
+  <g
+     id="g90">
+    <ellipse
+       style="fill: #afafaf"
+       cx="810"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse92" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="810"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse94" />
+  </g>
+  <g
+     id="g96">
+    <ellipse
+       style="fill: #afafaf"
+       cx="930"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse98" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="930"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse100" />
+  </g>
+  <g
+     id="g102">
+    <ellipse
+       style="fill: #afafaf"
+       cx="210"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse104" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="210"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse106" />
+  </g>
+  <g
+     id="g108">
+    <ellipse
+       style="fill: #afafaf"
+       cx="330"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse110" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="330"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse112" />
+  </g>
+  <g
+     id="g114">
+    <ellipse
+       style="fill: #afafaf"
+       cx="450"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse116" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="450"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse118" />
+  </g>
+  <g
+     id="g120">
+    <ellipse
+       style="fill: #ff0000"
+       cx="570"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse122" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2.35099e-37; stroke: #000000"
+       cx="570"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse124" />
+  </g>
+  <g
+     id="g126">
+    <ellipse
+       style="fill: #afafaf"
+       cx="810"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse128" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="810"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse130" />
+  </g>
+  <g
+     id="g132">
+    <ellipse
+       style="fill: #afafaf"
+       cx="930"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse134" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="930"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse136" />
+  </g>
+  <g
+     id="g138">
+    <ellipse
+       style="fill: #afafaf"
+       cx="210"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse140" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="210"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse142" />
+  </g>
+  <g
+     id="g144">
+    <ellipse
+       style="fill: #afafaf"
+       cx="330"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse146" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="330"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse148" />
+  </g>
+  <g
+     id="g150">
+    <ellipse
+       style="fill: #afafaf"
+       cx="450"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse152" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="450"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse154" />
+  </g>
+  <g
+     id="g156">
+    <ellipse
+       style="fill: #afafaf"
+       cx="570"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse158" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="570"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse160" />
+  </g>
+  <g
+     id="g162">
+    <ellipse
+       style="fill: #afafaf"
+       cx="690"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse164" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="690"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse166" />
+  </g>
+  <g
+     id="g168">
+    <ellipse
+       style="fill: #afafaf"
+       cx="810"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse170" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="810"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse172" />
+  </g>
+  <g
+     id="g174">
+    <ellipse
+       style="fill: #afafaf"
+       cx="930"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse176" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="930"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse178" />
+  </g>
+  <g
+     id="g180">
+    <ellipse
+       style="fill: #afafaf"
+       cx="210"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse182" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="210"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse184" />
+  </g>
+  <g
+     id="g186">
+    <ellipse
+       style="fill: #afafaf"
+       cx="450"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse188" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="450"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse190" />
+  </g>
+  <g
+     id="g192">
+    <ellipse
+       style="fill: #afafaf"
+       cx="570"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse194" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="570"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse196" />
+  </g>
+  <g
+     id="g198">
+    <ellipse
+       style="fill: #afafaf"
+       cx="690"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse200" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="690"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse202" />
+  </g>
+  <g
+     id="g204">
+    <ellipse
+       style="fill: #afafaf"
+       cx="810"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse206" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="810"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse208" />
+  </g>
+  <g
+     id="g210">
+    <ellipse
+       style="fill: #afafaf"
+       cx="930"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse212" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="930"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse214" />
+  </g>
+  <g
+     id="g216">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1050"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse218" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1050"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse220" />
+  </g>
+  <g
+     id="g222">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1170"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse224" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1170"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse226" />
+  </g>
+  <g
+     id="g228">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1290"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse230" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1290"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse232" />
+  </g>
+  <g
+     id="g234">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1410"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse236" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1410"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse238" />
+  </g>
+  <g
+     id="g240">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1530"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse242" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1530"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse244" />
+  </g>
+  <g
+     id="g246">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1650"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse248" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1650"
+       cy="150"
+       rx="10"
+       ry="10"
+       id="ellipse250" />
+  </g>
+  <g
+     id="g252">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1170"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse254" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1170"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse256" />
+  </g>
+  <g
+     id="g258">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1290"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse260" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1290"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse262" />
+  </g>
+  <g
+     id="g264">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1410"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse266" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1410"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse268" />
+  </g>
+  <g
+     id="g270">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1530"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse272" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1530"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse274" />
+  </g>
+  <g
+     id="g276">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1650"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse278" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1650"
+       cy="290"
+       rx="10"
+       ry="10"
+       id="ellipse280" />
+  </g>
+  <g
+     id="g282">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1050"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse284" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1050"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse286" />
+  </g>
+  <g
+     id="g288">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1170"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse290" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1170"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse292" />
+  </g>
+  <g
+     id="g294">
+    <ellipse
+       style="fill: #008000"
+       cx="1290"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse296" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2.35099e-37; stroke: #000000"
+       cx="1290"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse298" />
+  </g>
+  <g
+     id="g300">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1530"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse302" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1530"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse304" />
+  </g>
+  <g
+     id="g306">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1650"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse308" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1650"
+       cy="430"
+       rx="10"
+       ry="10"
+       id="ellipse310" />
+  </g>
+  <g
+     id="g312">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1050"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse314" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1050"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse316" />
+  </g>
+  <g
+     id="g318">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1170"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse320" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1170"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse322" />
+  </g>
+  <g
+     id="g324">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1290"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse326" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1290"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse328" />
+  </g>
+  <g
+     id="g330">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1410"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse332" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1410"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse334" />
+  </g>
+  <g
+     id="g336">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1530"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse338" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1530"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse340" />
+  </g>
+  <g
+     id="g342">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1650"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse344" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1650"
+       cy="570"
+       rx="10"
+       ry="10"
+       id="ellipse346" />
+  </g>
+  <g
+     id="g348">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1170"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse350" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1170"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse352" />
+  </g>
+  <g
+     id="g354">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1290"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse356" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1290"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse358" />
+  </g>
+  <g
+     id="g360">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1410"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse362" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1410"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse364" />
+  </g>
+  <g
+     id="g366">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1530"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse368" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1530"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse370" />
+  </g>
+  <g
+     id="g372">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1650"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse374" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1650"
+       cy="710"
+       rx="10"
+       ry="10"
+       id="ellipse376" />
+  </g>
+  <g
+     id="g378">
+    <ellipse
+       style="fill: #afafaf"
+       cx="210"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse380" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="210"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse382" />
+  </g>
+  <g
+     id="g384">
+    <ellipse
+       style="fill: #afafaf"
+       cx="330"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse386" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="330"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse388" />
+  </g>
+  <g
+     id="g390">
+    <ellipse
+       style="fill: #afafaf"
+       cx="450"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse392" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="450"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse394" />
+  </g>
+  <g
+     id="g396">
+    <ellipse
+       style="fill: #0000ff"
+       cx="570"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse398" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2.35099e-37; stroke: #000000"
+       cx="570"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse400" />
+  </g>
+  <g
+     id="g402">
+    <ellipse
+       style="fill: #afafaf"
+       cx="810"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse404" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="810"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse406" />
+  </g>
+  <g
+     id="g408">
+    <ellipse
+       style="fill: #afafaf"
+       cx="930"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse410" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="930"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse412" />
+  </g>
+  <g
+     id="g414">
+    <ellipse
+       style="fill: #afafaf"
+       cx="210"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse416" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="210"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse418" />
+  </g>
+  <g
+     id="g420">
+    <ellipse
+       style="fill: #afafaf"
+       cx="330"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse422" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="330"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse424" />
+  </g>
+  <g
+     id="g426">
+    <ellipse
+       style="fill: #afafaf"
+       cx="450"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse428" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="450"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse430" />
+  </g>
+  <g
+     id="g432">
+    <ellipse
+       style="fill: #afafaf"
+       cx="570"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse434" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="570"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse436" />
+  </g>
+  <g
+     id="g438">
+    <ellipse
+       style="fill: #afafaf"
+       cx="690"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse440" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="690"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse442" />
+  </g>
+  <g
+     id="g444">
+    <ellipse
+       style="fill: #afafaf"
+       cx="810"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse446" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="810"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse448" />
+  </g>
+  <g
+     id="g450">
+    <ellipse
+       style="fill: #afafaf"
+       cx="930"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse452" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="930"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse454" />
+  </g>
+  <g
+     id="g456">
+    <ellipse
+       style="fill: #afafaf"
+       cx="210"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse458" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="210"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse460" />
+  </g>
+  <g
+     id="g462">
+    <ellipse
+       style="fill: #afafaf"
+       cx="330"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse464" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="330"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse466" />
+  </g>
+  <g
+     id="g468">
+    <ellipse
+       style="fill: #afafaf"
+       cx="450"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse470" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="450"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse472" />
+  </g>
+  <g
+     id="g474">
+    <ellipse
+       style="fill: #afafaf"
+       cx="570"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse476" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="570"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse478" />
+  </g>
+  <g
+     id="g480">
+    <ellipse
+       style="fill: #afafaf"
+       cx="690"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse482" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="690"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse484" />
+  </g>
+  <g
+     id="g486">
+    <ellipse
+       style="fill: #afafaf"
+       cx="810"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse488" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="810"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse490" />
+  </g>
+  <g
+     id="g492">
+    <ellipse
+       style="fill: #afafaf"
+       cx="930"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse494" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="930"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse496" />
+  </g>
+  <g
+     id="g498">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1050"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse500" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1050"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse502" />
+  </g>
+  <g
+     id="g504">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1170"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse506" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1170"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse508" />
+  </g>
+  <g
+     id="g510">
+    <ellipse
+       style="fill: #b67600"
+       cx="1290"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse512" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2.35099e-37; stroke: #000000"
+       cx="1290"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse514" />
+  </g>
+  <g
+     id="g516">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1530"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse518" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1530"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse520" />
+  </g>
+  <g
+     id="g522">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1650"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse524" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1650"
+       cy="850"
+       rx="10"
+       ry="10"
+       id="ellipse526" />
+  </g>
+  <g
+     id="g528">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1050"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse530" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1050"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse532" />
+  </g>
+  <g
+     id="g534">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1170"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse536" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1170"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse538" />
+  </g>
+  <g
+     id="g540">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1290"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse542" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1290"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse544" />
+  </g>
+  <g
+     id="g546">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1410"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse548" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1410"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse550" />
+  </g>
+  <g
+     id="g552">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1530"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse554" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1530"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse556" />
+  </g>
+  <g
+     id="g558">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1650"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse560" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1650"
+       cy="990"
+       rx="10"
+       ry="10"
+       id="ellipse562" />
+  </g>
+  <g
+     id="g564">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1050"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse566" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1050"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse568" />
+  </g>
+  <g
+     id="g570">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1170"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse572" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1170"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse574" />
+  </g>
+  <g
+     id="g576">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1290"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse578" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1290"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse580" />
+  </g>
+  <g
+     id="g582">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1410"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse584" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1410"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse586" />
+  </g>
+  <g
+     id="g588">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1530"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse590" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1530"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse592" />
+  </g>
+  <g
+     id="g594">
+    <ellipse
+       style="fill: #afafaf"
+       cx="1650"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse596" />
+    <ellipse
+       style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000"
+       cx="1650"
+       cy="1130"
+       rx="10"
+       ry="10"
+       id="ellipse598" />
+  </g>
+</svg>

@@ -1,7 +1,8 @@
-\documentclass{scrreprt}
+\documentclass[11pt]{scrreprt}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
+\usepackage{fullpage}
 \usepackage{textcomp}
 \usepackage[hidelinks]{hyperref}
 \usepackage{graphicx}
@@ -16,6 +17,7 @@
 \lstset{basicstyle=\footnotesize\ttfamily}
 \lstset{xleftmargin=5mm}
 \setcounter{secnumdepth}{5} 
+\setcounter{tocdepth}{5}
 
 \title{Camera grid extrinsic self-calibration}
 \author{Tim Lenertz}
@@ -35,10 +37,10 @@ To use the method, there are the following requirements:
 \begin{itemize}
 \item The intrinsic camera parameters are known. This is the camera matrix $\matr{K}$ and optionally the distortion coefficients. The method was used for the case where there is no distortion (Kinect v2), but with additional steps it can be used with distorted images.
 \item The intrinsic camera parameters are the same for each image.
-\item There is a depth map for all or some views. There is an extension to use the method without depth maps, and instead giving a depth only for some feature points.
-\item The camera centers are arranged on an approximately regular 2D grid on a plane $P$. The distance between adjacent camera positions (in X and Y direction) is sufficiently small that feature points can be tracked using optical flow. For this disparities of features on adjacent views should be smaller than 15 pixels.
-\item It is assumed that camera centers lie always exactly on the plane. That is, they never more towards or back from the scene. 
-\item The camera is facing approximately perpendicular to the plane $P$, towards the scene. There can be a small rotation $\matr{R}$ of the camera relative to $P$. It is estimated from the images, as part of the calibration. The yaw, pitch and roll angles should be smaller than 5\textdegree. It is assumed that this angle remains constant for all views.
+\item There can be a depth map for all or some views. If not, the depth values for some features (at least one) needs to be specified manually.
+\item The camera centers are arranged on an approximately regular 2D grid on a frontal plane $P$. The distance between adjacent camera positions (in $x$ and $y$ direction) is sufficiently small that feature points can be tracked using optical flow.
+\item It is assumed that camera centers lie always exactly on the plane. That is, they never more towards or back from the scene.
+\item The camera is facing approximately perpendicular to the plane $P$, towards the scene. There can be a small rotation $\matr{R}$ of the camera relative to $P$. It is estimated as part of the calibration. The yaw, pitch and roll angles should be smaller than 5\textdegree. It is assumed that this rotation remains constant for all views.
 \item There can be some missing images and depth maps in the data set.
 \item It is not necessary that the tracked feature points remain visible across the whole range of views. Calibration can be done on subsets of the camera positions, and then stitched together.
 \end{itemize}
@@ -47,39 +49,38 @@ To use the method, there are the following requirements:
 \chapter{Method}
 The calibration is done in four steps: (1) Compute \emph{image correspondences} using feature tracking. (2) Estimate the \emph{camera rotation} $\matr{R}$. (3) Estimate \emph{straight depths} of the tracked features, i.e. their distance to $P$. (4) Deduce camera positions.
 
-The method calculates one global rotation matrix $\matr{R}$, and for each view $v$, a 2D vector $\vec{c_v}$ of the camera center position on the plane $P$. From this it then computes the extrinsic matrix $\matr{Rt}$ for each view.
+The method calculates one global rotation matrix $\matr{R}$, and for each view $v$, a 2D vector $\vec{c_v}$ of the camera center position on the plane $P$. From this it then obtains the extrinsic matrices $\matr{Rt}$.
 
 \section{Overview}
-First the algorithm selects several \emph{feature points} on one on multiple \emph{reference views}. Using optical flow, it then tracks the position of the same features on the other views.
+First the algorithm selects several \emph{feature points} on one on multiple \emph{reference views}. Using optical flow, it then tracks the position of the those features on the other views.
 
-With the pin-hole camera model, it is be possible to calculate the camera position on $P$ directly from a feature point's positions on different views, if the camera is pointing perpendicular to $P$, and the feature's distance to $P$ is known. So the algorithm first needs to estimate $\matr{R}$, and the straight depths of the features.
+With the pin-hole camera model, it is be possible to calculate the camera position on $P$ directly from a feature point's positions on different views - when the camera is pointing perpendicular to $P$, and the feature's distance to $P$ is known. So the algorithm first needs to estimate $\matr{R}$, and the distances of the features.
 
-To calculate $\matr{R}$, two methods are used. One uses a non-linear model which estimates $\matr{R}$ only from the slope of the lines that the tracked features make when the camera moves horizontally and vertically, without knowledge of the features' depths. The other method uses the depths of the features on the different views. Both estimate a full 3D rotation matrix.
+To calculate $\matr{R}$, two methods are can be used. One uses a non-linear model which estimates $\matr{R}$ only from the slope of the lines that the tracked features make when the camera moves horizontally and vertically, without knowledge of the features' depths. The other method uses the depths of the features on the different views. Both estimate a full 3D rotation matrix.
 
-The distance of a feature to $P$ is called its \emph{straight depth}. Knowing $\matr{R}$, it can now be calculated from the feature points' depths in each view's depth map. If depth maps are not available, it is also possible to fix only the depth of one or more features, and deduce the rest from the relative scales of the different feature's disparities. 
+The orthogonal distance of a feature to $P$ will be called its \emph{straight depth}. Knowing $\matr{R}$ (and $\matr{K}$), it can now be calculated from the feature points' depths in each view's depth map. If depth maps are not available, it is also possible to fix only the depth of one or more features, and deduce the rest from the relative scales of the different feature's disparities. These two methods are available.
 
-Using $\matr{R}$ and the \emph{straight depth} of each feature, the algorithm now estimates the set of camera positions on $P$, once for each feature. The results are aggregated to find the final camera positions.
-
-The resulting camera positions are in a coordinate system with the camera of the \emph{reference view} at origin. If multiple reference views were used in the feature tracking step, the entire procedure is repeated for each reference view, and in the end the camera positions are stitched together.
-
+Using $\matr{R}$ and the \emph{straight depth} of each feature, the algorithm now estimates the set of camera positions on $P$, one for each feature. They are averaged to get one camera position for each view.
 
 
 \section{Preliminaries}
-The 2D dataset consists of several \emph{views}. A view $v$ consists of an image, and optionally a depth map, taken from one camera position. The views are enumerated with two integer indices $v(x,y)$. Views with the same $x$ index are (approximately) aligned vertically, views with the same $y$ index horizontally. This is relative to the camera image planes.
+The 2D dataset consists of several \emph{views}. A view $v$ consists of an image, and optionally a depth map, taken from one camera position. The views are enumerated with two integer indices $v(x,y)$. Views with the same $x$ index are (approximately) aligned vertically, views with the same $y$ index horizontally.
 
 The goal is to estimate the position and orientation of the camera for each view, i.e. to find the extrinsic camera matrices $\matr{Rt}_v$.
 
-If depth maps are used, they need to be in the same coordinate systems as the images. For each image pixel $(i_x,i_y)$, the value $d$ of the same pixel in the depth map needs to indicate the orthogonal distance from the camera center to that object point, orthogonal to the camera image plane. The camera matrices $\matr{Rt}_v$ will be expressed in the same unit as these depths.
+If depth maps are used, they need to be in the same coordinate systems as the images. For each image pixel $(i_x,i_y)$, the value $d$ of the same pixel in the depth map needs to indicate the distance from the camera center to that object point, perpendicular to the camera image plane. The camera matrices $\matr{Rt}_v$ will be expressed in the same unit as these depths.
 
  
 \section{Image correspondences}
-First some features $f$ are selected. They correspond to 3D points in the scene. This step aims to find for each feature $f$, the set of \emph{feature points} $p(f,v) = (x,y,d,w)$, that is the pixel coordinates $x,y$ where the feature is visible in each view $v$. This data is called the \emph{image correspondences}.
+First some features $f$ are selected. They correspond to 3D points in the scene. This step aims to find for each feature $f$, the set of \emph{feature points} $p(f,v) = (x,y,d,w)$, that is the pixel coordinates $x,y$ where the feature $f$ is visible in each view $v$. This data is called the \emph{image correspondences}.
 
-A feature point optionally also contains a depth $d$, and a weight $w$. The depth is a distance orthogonal to the camera image plane of $v$. If $\matr{R} \neq \matr{I}$, then the depths $p_{f,*}$ of the same feature for different views will be different.
+A feature point optionally also contains its orthogonal depth $d$, and a weight $w$. When $\matr{R} \neq \matr{I}$, the depths $p_{f,*}$ of the same feature for different views will be different.
 
 
 \subsection{Choosing feature points}
-Features are chosen by choosing feature points on a \emph{reference view}. By default the center view in the dataset is used as reference view, but there can also be multiple reference views (see later).
+Features are obtained by choosing feature points on a \emph{reference view}. By default the center view in the dataset is used as reference view.
+
+But if the range of motion of the camera is large, or the field of view is small, many feature points that are visible in the center view, will not be visible on the extremity views. For this reason, it is also possible to select features on multiple \emph{reference views}. The entire procedure will then be done for each reference view independently, and in the end the obtained camera positions are stitched together.
 
 The chosen feature points need to be such that they are likely to remain \emph{stable} when doing feature tracking. It means that when one looks for a similar-looking nearby point on an adjacent view, it is likely to be the same scene point. An example is shown on figure \ref{fig:choosefeatures}.
 
@@ -89,20 +90,20 @@ The chosen feature points need to be such that they are likely to remain \emph{s
 \label{fig:choosefeatures}
 \end{figure}
 
-The \emph{OpenCV} function \texttt{goodFeaturesToTrack} is used. Additionally, the image is first subdivided into 4 or more rectangular regions, and the best chosen features from each region are taken.
+The \emph{OpenCV} function \texttt{goodFeaturesToTrack} is used. Also, the image is first subdivided into 4 or more rectangular regions, and the best chosen features from each region are taken.
 
 The chosen features should be well distributed across the image, and have different depths. There should be about $300$ or more features, considering that many will be filtered out because their optical flow is unstable.
 
 
 \subsection{Optical flow tracking}
-Optical flow feature tracking is always done on adjacent views, for example $v(x,y)$ and $v(x+1,y)$. Then sequentially, it uses the corresponding feature points on $v(x+1,y)$ to estimate those for $v(x+2,y)$, and so on. So there is an error accumulation, which gets worse the longer the path that the view indices take is.
+Optical flow feature tracking is always done on adjacent views, for example $v(x,y)$ and $v(x+1,y)$. Then sequentially, it uses the corresponding feature points on $v(x+1,y)$ to estimate those for $v(x+2,y)$, and so on. So there is an error accumulation, which gets worse the longer the path that the view indices take.
 
-The acquisition system moves line-by-line. So it is physically guaranteed that for any $v(x,y)$ and $v(x+1,y)$, the camera only moves by small amount, whereas for $v(x,y)$ and $v(x,y+1)$, there can be a larger deviation. So it is better to take most optical flow correspondences in $x$ direction.
+The acquisition system moves line-by-line. So it is physically guaranteed that for any $v(x,y)$ and $v(x+1,y)$, the camera only moves by a small amount, whereas for $v(x,y)$ and $v(x,y+1)$, there can be a larger deviation. So it is better to take most optical flow correspondences in $x$ direction.
 
 
 \begin{figure}
 \centering
-\includegraphics[width=0.6\textwidth]{opticalflow.pdf}
+\includegraphics[width=0.5\textwidth]{opticalflow.pdf}
 \caption{Optical flow paths}
 \label{fig:opticalflow}
 \end{figure}
@@ -115,7 +116,7 @@ The reference view is not one of the edges, but instead in the center, and the o
 
 The maximal number of steps to be taken in $x$ and in $y$ direction, called \emph{outreach}, can be set to a maximal limit. Using a smaller \emph{outreach}, and instead doing the calibration from multiple reference views, and combining the results in the end, can produce better final results.
 
-To compute the optical flow, the \emph{OpenCV} function \texttt{calcOpticalFlowPyrLK} is used. The parameters can be adjusted. It can also be set to use multi-scale image pyramids, so that larger features can be used.
+To compute the optical flow, the \emph{OpenCV} function \texttt{calcOpticalFlowPyrLK} is used. The parameters can be adjusted. It can also be set to automatically generate multi-scale image pyramids. Thay way larger images can be used.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{ofgood1.png}
@@ -136,60 +137,59 @@ Figures \ref{fig:ofgood} are examples of good feature correspondences. The backg
 \subsection{Filtering features}
 The next step is to filter the generated \emph{image correspondences}. It is important, because incorrect feature points can have a large impact on the final results. The optical flow procedure tends to generate a large number of bad correspondences. There is an algorithm to automatically filter out bad correspondences, but they should also be verified by hand.
 
-Figures \ref{fig:ofbad} are examples of good feature correspondences. In the first example, the deviation occurred because a foreground object with a curved border moved in front of the tracked feature. Such deviations can also occur because of specular reflections (for example on the metal sink), and because of badly chosen feature (such as on the furry objects). In the second example, the pattern appears regular but the correspondence is still incorrect.
+Figures \ref{fig:ofbad} are examples of good feature correspondences. In the first example, the deviation occurred because a foreground object with a curved border moved in front of the tracked feature. In the second example, the pattern appears regular but the correspondence is still incorrect. Deviations can also occur because of specular reflections (for example on the metal sink), because of badly chosen feature (such as on the furry objects), or because of the limited pixel resolution.
 
 The filtering algorithm removes all feature points for one a feature $f$ entirely, if there are too little feature points, or if the pattern deviates too much from a regular lattice.
 
-Properly filtering the correspondences is important: Having incorrect correspondences, and having too little correspondences, both have a large impact on the final result. In practice, for each view, there should remain feature points for about $100$ features.
-
+Properly filtering the correspondences is important: Having incorrect correspondences, and having too little correspondences, both have a large impact on the final result. In practice, for each view, there should remain about $100$ features.
 
 
 \subsection{Reference views}
 \label{sec:refviews}
-If the range of motion of the camera is large, or the field of view is small, many feature points that are visible in the center view, will not be visible on the extremity views. 
-When multiple reference views are used, the entire calibration will be done for each reference view independently (except for the rotation estimation, as $\matr{R}$ is constant).
+As explained, it is possible to use multiple \emph{reference views}. They must be chosen on a grid called the the \emph{reference grid} (or \emph{reference views grid}).
 
-Figure \ref{fig:refview} shows how reference views can be selected. The four colored dots are the reference views. They must be selected so that they are in a grid, for the stitching algorithm to work later. It is called the \emph{reference grid} (or \emph{reference views grid}). The \emph{x key} and \emph{y key} is the distance between reference view indices, in $x$ and $y$ direction.
+Figure \ref{fig:refview} shows how the reference views can be selected. The four colored dots are the reference views. The \emph{x key} and \emph{y key} is the distance between reference view indices, in $x$ and $y$ direction.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{refview.pdf}
+\caption{Reference views arrangement}
+\label{fig:refview}
+\end{figure}
 
 The \emph{outreach} indicates the maximal range of view indices around the \emph{reference view}, for which correspondences will be searched. In the figure these regions are shown as the colored rectangles. For the stitching to work, there must be some overlap in these rectangles, as shown by the yellow regions in the figure.
 
 The overlap should be large enough so that there will remain many views with feature points from two references, after the filtering. The \emph{outreach} should be kept relatively small, for two reasons: (1) The maximal propagated error from the optical flow feature tracking is larger if the outreach is large. This also makes it more likely for entire features to be filtered out, even though a smaller portion of its feature points are good. (2) When camera positions are computed at the end, the impact of the error in the camera rotation and in the feature depths, becomes much larger for views that are further away from the reference view. (see later, in section \ref{sec:campos})
 
-For example an \emph{outreach} of $80$, and a \emph{key} of $100$ can be a good choice. It would leave an overlap range of $60$.
+For example an \emph{outreach} of $80$, and a \emph{key} of $100$ can be a good choice. It would leave an overlap range of $60$. Generally, the \emph{outreach} should be small and the \emph{overlap} large.
 
 Given a horizontal/vertical \emph{outreach} and \emph{key}, the algorithm chooses the \emph{reference grid} so that there are no missing images on the columns of the reference views' $x$ indices.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth]{refview.pdf}
-\caption{Reference views arrangement}
-\label{fig:refview}
-\end{figure}
 
 
 \subsection{Feature point depths}
 If depth maps are available, they are used to attribute a depth value $d$ to each feature point $p(f,v) = (x,y,d,w)$. The depth is read from the view's depth map, at pixel position $(x,y)$.
 
-However, features are often located on the border of foreground objects. Taking a single pixel value in the depth map could incorrectly take the depth of the background, or an incorrect intermediary value. Therefore the algorithm takes a small pixel window around $(x,y)$, and retains the minimal value in it.
+However, features are often located on the border of foreground objects. Taking a single pixel value in the depth map could incorrectly take the depth of the background, or an intermediary value. Therefore the algorithm takes a small pixel window around $(x,y)$, and retains the minimal (i.e. closest to camera) value in it.
 
 
 
 \subsection{Feature point weights}
-Feature points $p(f,v)$ can have a weight value. If many feature points are clustered together on a small region of the image (for example a checkerboard), it is reasonable to given them a lower weight, and to give a higher weight to more isolated feature points. The weight could also depend on a confidence value calculated for the correspondence.
+Feature points $p(f,v)$ can have a weight value. If many feature points are clustered together on a small region of the image (for example a checkerboard), it is reasonable to given them a lower weight, and to give a higher weight to more isolated feature points.
 
 Especially for the rotation estimation from optical flow slopes (see later), it is important that all regions in the image are uniformly represented.
 
 This is not implemented.
 
+
 \pagebreak
 \section{Observations}
 Looking at the image correspondences on figures \ref{fig:ofgood}, it can be seen that the arrangement of the feature points roughly corresponds to the (inverted) camera positions on $P$. (The vertical gap on the second figure is a result of the acquisition system: It did not take the $y$-step properly at that height.) 
 
-The feature points for every feature $f$ will be arranged in the same pattern, just at different places in the image, and with different scales (i.e. disparities). The basic idea of this calibration method is to overlay the feature points for several features, make their scale uniform, and take the averages, to get a good estimate of the camera positions.
+The feature points for every feature $f$ will be arranged in the same pattern, just at different places in the image, with different scales (i.e. disparities), and with a distortion due to the camera orientation $\matr{R}$. The basic idea of this calibration method is to overlay the feature points for several features, make their scale uniform, remove the rotation distortion, and take the averages. From this the camera position is then derived.
 
 
 \subsection{Rotation}
-However this would only be correct if $\matr{R} = \matr{I}$. In reality, the rotation $\matr{R}$ distorts the feature points. For figure \ref{fig:onedimslopes}, a 1D optical flow was taken, with the camera moving on a horizontal axis only. The feature points were then overlaid, centered on one feature point, and given uniform scale. The figure shows these transformed feature points, one color for each feature. It can be seen that they form lines with different slopes. The scaling does not affect the slope. The different slopes are caused by the camera's rotation $\matr{R}$. In the 2D case, it is possible to calculate $\matr{R}$, from these slopes alone. This is done in section \ref{sec:camrotation}.
+The rotation $\matr{R}$ (orientation of the camera relative to the plane $P$) distorts the feature points. For figure \ref{fig:onedimslopes}, a 1D optical flow was taken, with the camera moving on a horizontal axis only. The feature points were then overlaid, centered on one feature point, and given uniform scale. The figure shows these transformed feature points, one color for each feature. It can be seen that they form lines with different slopes. The scaling does not affect the slope. The different slopes are caused by the camera's rotation $\matr{R}$. In the 2D case, it is possible to estimate $\matr{R}$, from these slopes alone. This is done in section \ref{sec:camrotation}.
 
 \begin{figure}[h]
 \centering
@@ -200,7 +200,7 @@ However this would only be correct if $\matr{R} = \matr{I}$. In reality, the rot
 
 \pagebreak
 \subsection{Depth}
-Another problem is that if more than two sets of feature points should be given a common scale, one set of feature points would need to be chosen as reference. This would amplify the error in the correspondences of that particular feature. So it is better to calculate scaling factors in a more global way. This is done with the \emph{straight depths}, in section \ref{ref:straightdepths}.
+Another problem is that if more than two sets of feature points should be given a common scale, one set of feature points would need to be chosen as reference. But this would amplify the error in the correspondences of that particular feature. So it is better to calculate scaling factors in a more global way. This is done with the \emph{straight depths}, in section \ref{ref:straightdepths}.
 
 \begin{figure}[h]
 \centering
@@ -218,6 +218,8 @@ Another problem is that if more than two sets of feature points should be given 
 
 Figure \ref{fig:differentdepths} shows how because of the rotation $\matr{R}$, the feature points depths $d_1, d_2$ for one feature $f$ are not all equal. Figure \ref{fig:xdepths} shows the feature point depths from one data set, of $7$ different features, as the $x$ index of the view varies. Despite the noise, a clear linear increase can be seen, with the same slope for each feature.
 
+In the 2D case, these instead be parallel planes. In section \ref{sec:depthrot}, the yaw and pitch components of the rotation $\matr{R}$ are estimated from this.
+
 In section \ref{ref:straightdepths} all of these feature points depths are aggregated together, to calculate the straight depth $sd_f$ of each feature, using $\matr{R}$ and the camera intrinsic matrix $\matr{K}$.
 
 
@@ -226,11 +228,11 @@ In section \ref{ref:straightdepths} all of these feature points depths are aggre
 \label{sec:camrotation}
 The next step is to determine the camera rotation $\matr{R}$. This is the rotation of the cameras relative to the plane $P$ on which the camera centers are placed. It is a 3D rotation matrix, with 3 degrees of freedom.
 
-If $\matr{R}$ is known to be very small, this step can be skipped entirely, by simply setting $\matr{R} = \matr{I}$. Otherwise, there are two methods to estimate $\matr{R}$.
+There are two methods to estimate $\matr{R}$.
 
 One is based only on the \emph{slopes} of the image correspondences, and does not need depth maps. It needs the cameras to be aligned on a regular grid. It seems to produce an accuracy of around $0.5\degr$ for the three rotation angles. It is described in the next section \ref{sec:sloperot}.
 
-The other uses the differing depths of the feature points to estimate the rotation, by doing a least squares plane fitting operation, followed by an adjustment of the roll rotation. It is described in section \ref{sec:depthrot}. It seems to give better results. Its implementation is only experimental, and there are probably some errors in it.
+The other uses the differing depths of the feature points to estimate the rotation, by doing a least squares plane fitting operation, followed by an adjustment of the roll rotation. It is described in section \ref{sec:depthrot}. It seems to give better results.
 
 
 \subsection{Optical flow slopes}
@@ -356,7 +358,7 @@ But this is not done in the algorithm. Instead a parametrization of $\matr{R}$ w
 
 The parametrization $(X,Y,Z)$ of $\matr{R}$ is $\transpose{\matr{R}} = \matr{R_z}(Z) \matr{R_y}(Y) \matr{R_x}(X)$. $\transpose{\matr{R}}$ is the orientation of the camera in world space. So the \emph{roll} rotation $Z$ (around the optical axis) is performed last.
 
-The three angles are interdependent: Say $X$ is adjusted to minimize the error. Then $Y$ is adjusted to reduce the error even more. Now $X$ is no longer at the optical setting, and needs to be readjusted.
+The three angles are interdependent: Say $X$ is adjusted to minimize the error. Then $Y$ is adjusted to reduce the error even more. Now $X$ is no longer at the optimal setting, and needs to be readjusted.
 
 The roll rotation has the most impact. Three golden-section searches are performed sequentially which optimize $Z$, $X$ and $Y$, in that order. The entire process is repeated iteratively until a certain error threshold. With each (outer) iteration, the tolerance and search interval of the (inner) golden-section searches are reduced.
 
@@ -380,7 +382,7 @@ Again an average $\alpha$ is computed and transformed into a 3D roll rotation ma
 
 Finally $\matr{R}_{xy}$ and $\matr{R}_z$ are combined into $\matr{R}$.
 
-There might be some problems left with this implementation. On the artificially generated test dataset (same as previously), a rotation of $(9.93871\degr, 19.8223\degr, 5.22812\degr)$ was estimated. The correct values are $(10\degr, 20\degr, 5\degr)$. So the method appears to be more accurate.
+There are some problems left with this implementation. On the artificially generated test dataset (same as previously), a rotation of $(9.93871\degr, 19.8223\degr, 5.22812\degr)$ was estimated. The correct values are $(10\degr, 20\degr, 5\degr)$. So the method appears to be more accurate.
 
 
 \begin{figure}
@@ -409,7 +411,9 @@ The feature point is first back-projected into the camera's view space with $\ve
 
 For each feature $f$, samples $sd_{f,v}$ are calculated in this way. They should theoretically be all the same, but due to noise, outliers, and the error in $\matr{R}$, they will differ. At least the noise part of the error can be removed by averaging the samples.
 
-To also remove the influence of outliers, the following procedure is used: First the median of the samples $sd_{f,v}$ is computed. It is not affected by outliers, but by the noise. Then the average of the $sd_{f,v}$, whose absolute difference to the median is below a given threshold $t$, is taken. This average if used as the final $sd_f$. $t$ is set to $10 \text{ mm}$. As a metric of accuracy, the standard deviation of these samples is also taken.
+To also remove the influence of outliers, the following procedure is used: First the median of the samples $sd_{f,v}$ is computed. It is not affected by outliers, but by the noise. Then the $sd_{f,v}$ whose absolute difference to the median is above a given threshold, are removed. The remaining samples are averaged.
+
+This average is used as the final $sd_f$. $t$ is set to $10 \text{ mm}$. As a metric of accuracy, the standard deviation of these samples is also taken.
 
 \subsection{Depth from disparity}
 This alternate method computes straight depths using only the relative scales of the different features' disparities, and some fixed feature depth given as input. It proceeds in three steps: (1) Calculate the relative scale for each pair of features. (2) Derive a global scale for each feature. (3) Using at least one \emph{known depth}, calculate the depth of each feature.
@@ -419,21 +423,21 @@ First the feature points $p(f,v)$ of each feature are undistorted (if any distor
 \subsubsection{Pairwise scale ratios}
 The feature points of each feature $f_i$ now all have the same pattern, except for a different scale, a different position in the image, and a different subset of covered views.
 
-For each pair of features $(f_\text{i}, f_\text{j})$, a relative scale $r_{j\rightarrow i}$, and a translation $\vec{t} \in \mathbb{R}^2$ are computed which make the two \emph{feature point} sets overlap, by optimizing
+For each pair of features $(f_\text{i}, f_\text{j})$, a relative scale $r_{j\rightarrow i}$, and a translation $\vec{t} \in \mathbb{R}^2$ are computed that make the two \emph{feature point} sets overlap, by optimizing
 \begin{equation}
 \forall v : p(f_i, v) = r_{j\rightarrow i} p(f_j, v) + \vec{t}
 \end{equation}
 
 If the two features were taken on different \emph{reference views}, then this linear least squares problem is solved for $r_{j\rightarrow i}$ and $\vec{t}$.
 
-Otherwise, if the two features were taken on the same \emph{reference view} $rv$, then is is known that $p(f_i, rv)$ and $p(f_j, rv)$ should coincide perfectly: They represent the same view, and they were initially chosen as feature points, so they have no error. So the feature point positions for $fv$ are fixed, and foreach view $v \neq rv$, a sample of $s$ is calculated using
+Otherwise, if the two features were taken on the same \emph{reference view} $rv$, then is is known that $p(f_i, rv)$ and $p(f_j, rv)$ should coincide perfectly: They represent the same view, and they were initially chosen as feature points, so they have no error. So the feature point positions for $fv$ are fixed, and for each view $v \neq rv$, a sample of $r_{j\rightarrow i}$ is calculated using
 \begin{equation*}
 \foreach v : r_{v,j\rightarrow i} = \frac{p(f_i, rv) - p(f_i, v)}{p(f_j, rv) - p(f_j, v)}
 \end{equation*}
 
 Samples closer to the $rv$ are given a lower weight. They have more error because of the limited pixel resolution. The samples are then averaged to obtain $r_{j\rightarrow i}$. The translation is set to $\vec{t} = p(f_i, rv) - s \times p(f_j, rv)$.
 
-The resulting $r_{j\rightarrow i}$ is discarded or assigned a lower weight if the error of the solution is too large. The resulting $\vec{t}$ is not further used.
+The resulting $r_{j\rightarrow i}$ is discarded or assigned a lower weight if the error of the solution is too large. The resulting $\vec{t}$ is not further used (only to calculate the error).
 
 Calculating $r_{j\rightarrow i}$ for each feature pair $(f_\text{i}, f_\text{j})$ gives a \emph{pairwise scales matrix}, as seen shown in figures \ref{fig:ratios} and \ref{fig:ratios_multiref}. The axis are the feature indices $i$ and $j$. Because each unordered pair is considered only once, the matrix is triangular. When there are multiple reference views, features from two different reference views have none (or little) feature points in common. This causes the black areas in the lower-left part in figure \ref{fig:ratios_multiref}.
 
@@ -460,7 +464,15 @@ Then all the global scales are calculated such that
 \forall i,j : \frac{r_{f_j}}{r_{f_i}} = r_{j\rightarrow i}
 \end{equation*}
 
-This is done by solving a sparse linear least-squares system. The system consists of equations of the form $r_{f_j} \times r_{j\rightarrow i} - r_{f_i} = 0$, and one $r_{f_0} = 1$. So the $\matr{A}$ matrix is sparse, and has one column for each relative scale ratio, and one row for each feature.
+This is done by solving a sparse linear least-squares system $\matr{A} \vec{x} = \vec{b}$. The system consists of equations
+\begin{equation*}
+\begin{cases}
+\forall i,j : r_{f_j} \times r_{j\rightarrow i} - r_{f_i} = 0\\
+r_{f_0} = 1
+\end{cases}
+\end{equation*}
+
+\noindent So the $\matr{A}$ matrix is very large and sparse. It has one column for each relative scale ratio, and one row for each feature. A sparse QR decomposition is done to compute it, using the \emph{Eigen} linear algebra library.
 
 
 \subsubsection{Depths}
@@ -472,17 +484,21 @@ where $sd_i, sd_j$ are the straight depths of the features $f_i, f_j$. As a cons
 \begin{equation*}
 \forall i : sd_{i} = s \times r_{f_j}
 \end{equation*}
-One or multiple \emph{known depths} $\{ sd'_0, sd'_1, ... \}$ need to be given as input. From these, $s$ is calculated using 
+
+\noindent One or multiple \emph{known depths} $\{ sd'_0, sd'_1, ... \}$ need to be given as input. They must also be \emph{straight depths}. From these, $s$ is calculated using 
 \begin{equation*}
 s = \frac{\sum_{i} sd'_{i}}{\sum_{i} r_{f_i}}
 \end{equation*}
 
-\noindent Then, the remaining $sd_i$ can be computed using $s$ and the global scales $r_{f_i}$.
+\noindent Then, the remaining $sd_i$ are calculated using $s$ and the global scales $r_{f_i}$.
+
+This parameter $s$ will be the scale of the final camera positions. If it is at a wrong value, then the coordinate system of the final camera positions will globally be at the wrong scale (not corresponding to the actual size of the scene, given by the depth maps). This will lead to an error when view synthesis is done, that gets larger linearily with the baseline. It may be needed to manually readjust the scale after the calibration is done.
+
 
 \subsubsection{Results}
 Figure \ref{fig:depthcomp} shows the straight depth of $135$ features, sorted in ascending order. The ``measured'' (red) line are the depth values taken from the depth maps, using the previous method in section \ref{sec:sdepth_from_depth}. The ``calculated'' (blue) line are the same depth values, calculated only using the relative scales of the feature points. Only $3$ \emph{known depth} values were taken to compute these values.
 
-The room mean square error in this example is about $17.60 \text{ mm}$. This error can be both in the measured and in the calculated depth values. This graph does not indicate whether the measured or the calculated values are wrong: The ``measured'' line is smooth only because the samples have been sorted by the ``measured'' values.
+The root mean square error in this example is about $17.60 \text{ mm}$. This error can be both in the measured and in the calculated depth values. This graph does not indicate whether the measured or the calculated values are wrong: The ``measured'' line is smooth only because the samples have been sorted by the ``measured'' values.
 
 \begin{figure}
 \centering
@@ -491,36 +507,72 @@ The room mean square error in this example is about $17.60 \text{ mm}$. This err
 \label{fig:depthcomp}
 \end{figure}
 
-\pagebreak
 
+\pagebreak
 \section{Camera positions}
 \label{sec:campos}
 Finally, having \emph{image correspondences}, the \emph{camera rotation}, and the \emph{straight depths}, the camera center positions can be computed.
 
 \subsection{Relative camera positions}
-For each \emph{reference view}, a set of \emph{relative camera positions} $c_v$ will be computed. It is the position of the camera center for view $v$, relative to that of the reference view. If there are multiple \emph{reference views}, the process is repeated for each reference view. The different sets of \emph{relative camera positions} will then be \emph{stitched} together in the next step.
+For each \emph{reference view}, a set of \emph{relative camera positions} $c_v$ will be computed. It is the position of the camera center for view $v$, relative to that of the \emph{reference view}. If there are multiple reference views, the process is repeated for each reference view. The different sets of \emph{relative camera positions} will then be \emph{stitched} together in the next step.
 
 If there is distortion in the camera intrinsics, all feature points $p(f,v)$ are first undistorted. Then they are unrotated, by premultiplication with $\matr{K} \transpose{\matr{R}} \matr{K}^{-1}$.
 
-The camera position for the reference view $rv$  itself is always set to $c_{rv} = (0, 0)$. 
+The camera position for the reference view $rv$ itself is always set to $c_{rv} = (0, 0)$. 
 
-For each other \emph{target} view $v$, for each of its feature points $p(f,v)$, a sample $c_{f,v} = (x, y)$ of the camera position is calculated using
+For each other \emph{target} view $v$, for each of its feature points $p(f,v)$, a sample $c_{f,v} = (x, y)$ of its camera position is calculated using
 \begin{equation*}
 c_{f,v} = \left( \frac{\left[p_x(f,v) - p_x(f,rv)\right] \times sd_f}{f_x}, \frac{\left[p_y(f,v) - p_y(f,rv)\right] \times sd_f}{f_y} \right)
 \end{equation*}
 where $f_x, f_y$ are the focal lengths from the camera intrinsic matrix $\matr{K}$. This is derived directly from the pin-hole camera model.
 
-In theory all $c_{*,v}$ should have the same value (for the same $v$), but there can be a large deviation because of errors in the image correspondences, rotation or straight depth. The deviations necessarily get larger the further the target view $v$ is from the reference view $rv$. This is why in section \ref{sec:refviews}, the \emph{outreach} of the optical flow needed to be kept small.
+In theory all $c_{*,v}$ should have the same value (for the same $v$), but there can be a large deviation because of errors in the image correspondences, rotation, or straight depth. The deviations necessarily get larger the further the target view $v$ is from the reference view $rv$. This is why in section \ref{sec:refviews}, the \emph{outreach} of the optical flow needed to be kept small.
+
+Figures \ref{fig:rcpos_art_wrongR} and \ref{fig:rcpos_art_wrongD} show the relative camera positions computed for an artificial data set. This is an artificially generated scene with random features, for which the accurate image correspondences, rotation, camera parameters and depths are known. The figures show all the \emph{samples} $c_{f,v}$, with a different color for each $f$. At the center is the reference view $rv$. On figure \ref{fig:rcpos_art_wrongR}, the rotation is set to a slightly incorrect value. On figure \ref{fig:rcpos_art_wrongD}, the straight depths for some features are set an an incorrect value. When they are both set to the correct value, a perfect overlap is obtained.
+
+The rotation $\matr{R}$ is a global value, and an incorrect value will affect all samples equally. But the straight depth $sd_f$ is different for each each feature $f$. So, in a first pass, the algorithm finds \emph{bad features}, whose straight depth is likely to be incorrect.
+
+For each view $v$, it takes the mean of the feature points $p(f,v)$, and then takes each feature point's distance $e(f,v)$ to the mean. For features with an incorrect straight depth, this value will likely be larger. (Even though the mean is also affected by the outliers.) After this is done for each view, the average $e(f)$ is calculated for each feature. The features whose $e(f)$ are largest are marked as \emph{bad features} and removed. During this procedure, features from all \emph{reference views} are considered.
+
+Figures \ref{fig:rcpos_real_cent}, \ref{fig:rcpos_real_far} and \ref{fig:rcpos_real_close} show camera position samples $c_{f,v}$ for a real dataset, both before and after this filtering. The distance between adjacent camera positions is about $1\text{ mm}$. Figure \ref{fig:rcpos_real_close} is a close-up view of feature points, far from the center (i.e. the reference view $rv$). It can be seen that after the filtering, the outlier samples are removed and the camera positions become recognizable.
+
+The camera positions $c_v$ are computed by averaging the filtered camera position samples $c_{f,v}$. They are shown on figure \ref{fig:rcpos_real_close} also (the $\bullet$ symbols). If the variance is too large, or there are not enough samples, the camera position $c_v$ is rejected. If outliers are removed, then this averaging should remove the noise in the image correspondences.
 
 
-
-
-
-\begin{figure}
+\begin{figure}[p]
 \centering
-\includegraphics[width=0.8\textwidth]{rcpos.png}
-\caption{Computed camera positions (for each feature, and average)}
-\label{fig:rcpositions}
+
+\includegraphics[width=0.8\textwidth]{rcpos_art_wrongR.pdf}
+\caption{Camera positions for artificial dataset (erroneous $\matr{R}$)}
+\label{fig:rcpos_art_wrongR}
+
+\vspace{1cm}
+
+\includegraphics[width=0.8\textwidth]{rcpos_art_wrongD.pdf}
+\caption{Camera positions for artificial dataset (erroneous straight depths)}
+\label{fig:rcpos_art_wrongD}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+
+\includegraphics[width=0.49\textwidth]{rcpos_real_cent.pdf}
+\includegraphics[width=0.49\textwidth]{rcpos_real_cent_f.pdf}
+\caption{Camera positions for real dataset, unfiltered and filtered (close to center)}
+\label{fig:rcpos_real_cent}
+\vspace{1cm}
+
+\includegraphics[width=0.49\textwidth]{rcpos_real_far.pdf}
+\includegraphics[width=0.49\textwidth]{rcpos_real_far_f.pdf}
+\caption{Camera positions for real dataset, unfiltered and filtered (far from center)}
+\label{fig:rcpos_real_far}
+\vspace{1cm}
+
+\includegraphics[width=0.49\textwidth]{rcpos_real_close.pdf}
+\includegraphics[width=0.49\textwidth]{rcpos_real_close_f.pdf}
+\caption{Camera positions for real dataset, unfiltered and filtered (close-up)}
+\label{fig:rcpos_real_close}
+
 \end{figure}
 
 
@@ -528,11 +580,49 @@ In theory all $c_{*,v}$ should have the same value (for the same $v$), but there
 \subsection{Stitching}
 If only one \emph{reference view} was used, this completes the calibration process.
 
-If multiple \emph{reference views} were used, the previous step is repeated for each reference view, giving each time \emph{relative camera positions} with this reference view at origin. To stitch these together into \emph{absolute camera positions} in a common coordinate system, the absolute camera positions of the reference views need to be determined.
+If multiple \emph{reference views} were used, the previous step is repeated for each reference view, giving each time \emph{relative camera positions} with that reference view at origin. To stitch these together into \emph{absolute camera positions} in a common coordinate system, the absolute camera positions of the reference views need to be determined.
 
-As shown in section \ref{sec:refviews}, the reference views need to be in a grid. (Allowing for arbitrarily chosen reference views would render this algorithm more complex.) The center reference view is chosen as origin, its \emph{absolute camera position} is set to $(0,0)$. The distances between horizontally and vertically adjacent reference view camera positions, is computed by comparing \emph{relative camera positions} that exist for both reference views.
+As shown in section \ref{sec:refviews}, the reference views need to be in a grid. (Allowing for arbitrarily chosen reference views would render this algorithm more complex.) The center reference view is chosen as origin, its \emph{absolute camera position} is set to $(0,0)$. The distances between horizontally and vertically adjacent reference view camera positions, are computed by comparing \emph{relative camera positions} that exist for both reference views.
 
-For this to work the reference views grid in section \ref{sec:refviews} needed to be set so that the overlap is big enough. Note that for the optical flow, the \emph{outreach} is an upper bound, not all features are tracked that far, and many are filtered out. This algorithm only compares horizontally and vertically adjacent reference views, no others.
+For this to work the reference views grid in section \ref{sec:refviews} needed to be set so that the overlap is big enough. Note that for the optical flow, the \emph{outreach} is an upper bound, not all features are tracked that far, and many are filtered out.
+
+This algorithm only compares horizontally and vertically adjacent reference views, no others. An algorithm that takes all overlaps into account and does not require the reference views to be on a grid might be better, but would be more complicated.
+
+Then, knowing the \emph{absolute camera positions} of each reference view $C_{rv}$, and \emph{relative camera positions} $c^{(rv)}_{v}$, the final \emph{absolute camera positions} for each view $v$ are computed as
+\begin{equation*}
+C_{v} = C_{rv} + c^{(rv)}_{v}
+\end{equation*}
+
+\noindent For views $v$ where relative camera positions exists for multiple reference views $rv$, only the one where $\| v - rv \|$ is smallest is taken (the euclidian distance between view indices).
+
+The distances between these absolute camera position samples is used as metric of accuracy. It should ideally be zero.
+
+Figures \ref{fig:abspos_out} and \ref{fig:abspos} show final absolute camera positions, for a real dataset. The irregularity in the bottom area of figure \ref{fig:abspos_out} was caused by the vertical camera movement in the acquisition system. The distance between adjacent camera positions is about $1\text{ mm}$. The close-up figure \ref{fig:abspos} shows how the best sample for $C_v$ was chosen during the stitching. Rejected samples are in gray. This figure is greatly exaggerated in $y$ direction.
+
+
+\begin{figure}
+\centering
+
+\includegraphics[width=\textwidth]{abspos_out.pdf}
+\caption{Stitched absolute camera positions}
+\label{fig:abspos_out}
+\vspace{2cm}
+
+\includegraphics[width=0.8\textwidth]{abspos.pdf}
+\caption{Stitched absolute camera positions, close-up with rejected samples}
+\label{fig:abspos}
+
+\end{figure}
+
+
+\subsection{Redistributing image correspondences}
+The \emph{reference views} and \emph{outreach} were initially set for the optical flow tracking. However, for the camera position computation, it may be better to have more reference views, with even smaller outreach.
+
+There is a program to \emph{redistribute} the image correspondences. For each \emph{reference view} $rv$, some views are selected that will become \emph{pseudo-reference views} $rv'$, in the new image correspondences. Overlapping subsets of the feature points with reference view $rv$, with a limited radial \emph{outreach}, are selected and copied for $rv'$.
+
+They are \emph{pseudo-reference views} unlike with the real \emph{reference view}, they have an error from the optical flow feature tracking.
+
+But no better results were obtained from this.
 
 
 \subsection{Final camera extrinsics}
@@ -547,6 +637,8 @@ For this method, world space is set to lie on the plane $P$. The \emph{absolute 
 v = \matr{R} (w + \vec{c_v})
 \end{equation*}
 To obtain the final $\matr{Rt}$ matrices, $\matr{R}$ is unchanged, and the translation is set to $\vec{t} = \matr{R} \vec{c_v}$.
+
+This concludes the calibration.
 
 
 \chapter{Usage}
@@ -569,14 +661,14 @@ Firstly, the \emph{references view grid} can be chosen using
 \begin{lstlisting}[language=bash]
 calibration/cg_choose_refgrid parameters.json 200 100 refgrid.json
 \end{lstlisting}
-This computes a \emph{reference grid} (indices of the \emph{reference views}), and puts it into \texttt{redgrid.json}. Here, the \emph{horizontal key} is $200$, and the \emph{vertical key} is $100$. If the keys are larger than the horizontal and vertical ranges, the \emph{reference grid} will consist only of one reference view. The program chooses the \emph{reference views} such that there are no missing views on each vertical axis.
+This computes a \emph{reference grid} (indices of the \emph{reference views}), and puts it into \texttt{refgrid.json}. Here, the \emph{horizontal key} is $200$, and the \emph{vertical key} is $100$. If the keys are larger than the horizontal and vertical ranges, the \emph{reference grid} will consist only of one reference view. The program chooses the \emph{reference views} such that there are no missing views on each vertical axis.
 
 \subsection{Undistort images (if applicable)}
 If there is distortion in the images (defined in the intrinsic parameters file), then an image can be undistorted using
 \begin{lstlisting}[language=bash]
 calibration/undistort_image in_image.png out_image.png intr.json texture
 \end{lstlisting}
-For the depth maps, use \texttt{depth} instead of \texttt{texture}. It will then use nearest neighbor interpolation. This needs to be done for each image and each depth map in the dataset.s.
+For the depth maps, use \texttt{depth} instead of \texttt{texture}. It will then use nearest neighbor interpolation. This needs to be done for each image and each depth map in the dataset.
 
 Alternately, it is also possible to compute the optical flow on the distorted images, and undistort the \emph{image correspondences} later.
 
@@ -585,7 +677,7 @@ Now the feature points on the reference views to track are selected using
 \begin{lstlisting}[language=bash]
 calibration/cg_optical_flow_features parameters.json refgrid.json of/
 \end{lstlisting}
-It displays a graphical user interface, and the parameters can be adjusted such that good feature points get selected for all reference views. Hitting \emph{Enter} puts a file \texttt{of/fpoints\_*.json} into the \texttt{of/} directory, for each containing the feature points for each reference view.
+It displays a graphical user interface, and the parameters can be adjusted such that good feature points get selected for all reference views. Hitting \emph{Enter} puts a file \texttt{of/fpoints\_*.json} into the \texttt{of/} directory, each containing the feature points for one reference view.
 
 All of the features will get globally unique names of the form \texttt{feat\_RFFF}, where \texttt{R} is the number of the reference view, and \texttt{FFF} the number of the feature.
 
@@ -627,30 +719,31 @@ To see the all the feature points on one view, use
 \begin{lstlisting}[language=bash]
 calibration/cg_cors_viewer_v cors_all.bin
 \end{lstlisting}
-It displays a graphical user interface where the view to show can be ajusted.
+It displays a graphical user interface where the view to show can be selected.
 
 To see all the feature points of one feature, use
 \begin{lstlisting}[language=bash]
 calibration/cg_cors_viewer_f cors_all.bin 
 \end{lstlisting}
 
-\noindent It displays a graphical user interface where the feature to show can be adjusted. It displays a dot for each position of this feature (on a different view). The (backdrop) view to show can also be adjusted. With
+\noindent It displays a graphical user interface where the feature to show can be selected. It displays a dot for each position of this feature (on a different view). The (backdrop) view to show can also be selected. With
 \begin{lstlisting}[language=bash]
 calibration/cg_cors_viewer_f cors_100,100.bin closeup
 \end{lstlisting}
-
-\noindent It instead displays a closeup view of the image, with only the area where the feature points are placed. It can also show the corresponding depth map as overlay. Figures \ref{fig:ofgood} and \ref{fig:ofbad} were generated with this.
+it instead displays a closeup view of the image, with only the area where the feature points are placed. It can also show the corresponding depth map as overlay. Figures \ref{fig:ofgood} and \ref{fig:ofbad} were generated with this.
 
 
 
 \subsection{Feature point depths (if applicable)}
 The feature point depths can be added to the \emph{image correspondences} using
 \begin{lstlisting}[language=bash]
-calibration/read_feature_depths cors_all.bin
+calibration/read_feature_depths cors_all.bin 1
 cors_all_with_depths.bin
 \end{lstlisting}
 
 \noindent It will open each (reprojected) depth map file once, which can also take a lot of time. The image correspondences with depth are stored into \texttt{cors\_all\_with\_depth.bin} in this example. The output file can also be the same as the input file (then it will replace it).
+
+An optional parameter (here \texttt{1}) indicates the margin of the window to look for a depth. With the value $1$, it looks at the pixel obtained by rounding down the feature point position (floating point value), plus a margin of $1$ pixels, forming a $3 \times 3$ pixel square window. It selects the minimal value in this window as the feature point depth.
 
 
 \subsection{Filtering image correspondences}
@@ -660,26 +753,24 @@ First use
 calibration/cg_filter_features parameters.json cors_all.bin
 cors_all_f.bin 125 75 use_depth
 \end{lstlisting}
-to filter out most obvious bad image correspondences. In this example $125$ and $75$ are the number of \emph{expected feature points} in horizontal and vertical directions. It should be the \emph{outreach} divided by two. (Because if the reference view is close to the border, only half of the outreach can be done). If \texttt{use\_depth} is provided, it also checks the constancy of the feature depths. It should be set, unless the calibration is done without depth maps. Some hardcoded parameters in \texttt{src/calibration/cg\_filter\_features.cc} probably need to be adjusted to get good results for a particular data set.
+to filter out most obvious bad image correspondences. In this example $125$ and $75$ are the number of \emph{expected feature points} in horizontal and vertical directions. It should be the \emph{outreach} divided by two. (Because if the reference view is close to the border, only half of the outreach can be done). If \texttt{use\_depth} is provided, it also checks the constancy of the feature depths. (There will be a slight linear increase in the depths, but there must be no jumps) It should be set, unless the calibration is done without depth maps. Some hardcoded parameters in \texttt{src/calibration/cg\_filter\_features.cc} probably need to be adjusted to get good results for a particular data set.
 
 To filter out the remaining bad features, \texttt{cg\_cors\_viewer\_f} should be used in \texttt{closeup} mode. The names of the features to remove should be noted. Then, use
 \begin{lstlisting}[language=bash]
 calibration/remove_cors cors_all_f.bin cors_all_f2.bin 
 feat1003,feat1010,feat2110,feat3001
 \end{lstlisting}
-to filter out those feature, and write the remaining image correspondences into the file \texttt{cors\_all\_2.bin}.
+to filter out those features, and save the remaining image correspondences into the file \texttt{cors\_all\_f2.bin}.
 
 
 \subsection{Undistort image correspondences (if applicable)}
-If there is distortion (defined in the intrinsic parameters file), and the images were not undistorted before, and \emph{image correspondences} can be undistorted now, using
+If there is distortion (defined in the intrinsic parameters file), and the images were not undistorted before, the \emph{image correspondences} can be undistorted now, with
 \begin{lstlisting}[language=bash]
 calibration/undistort_cors cors_all_f2.bin
 cors_all_f2_undist.bin intr.json
 \end{lstlisting}
 
-\noindent It puts each feature point to the position where it would be if the image had been undistorted before the optical flow computation. The \emph{undistorted} image correspondences must be used for the subsequent step
-
-
+\noindent It puts each feature point to the position where it would be if the image had been undistorted before the optical flow computation. The \emph{undistorted} image correspondences must be used for the subsequent steps.
 
 
 \section{Rotation estimation}
@@ -701,7 +792,7 @@ To visualize optical flow slopes (actual and model), use
 \begin{lstlisting}[language=bash]
 calibration/cg_slopes_viewer parameters.json intr.json slopes.json
 \end{lstlisting}
-where \texttt{slopes.json} are measured optical flow slopes. If there are no measured optical flow slopes, a feature points file can also be given as input, such as \texttt{of/fpoints\_100,100.json}.
+where \texttt{slopes.json} are measured optical flow slopes. If there are no measured optical flow slopes, a feature points file can also be given as input (instead of \texttt{slopes.json}), such as \texttt{of/fpoints\_100,100.json}.
 
 It displays a graphical user interface where the model Euler angles can be adjusted, and the modelled slopes are displayed, along with the measured slopes. This can be used to manually estimate Euler angles that correspond to the measured optical flow slopes.
 
@@ -739,21 +830,23 @@ R.json some_depths.json depths.json
 
 \noindent The file \texttt{some\_depths.json} needs to contain at least one measured \emph{straight depth}, or more to get a better fit. If no depth maps are available, it can for example be obtained manually using laser distance measurement on one of the chosen feature points of a reference view.
 
-This can also be used to complete the straight depths obtained from aggregating feature point depths: Two image correspondences files \texttt{cors\_all\_f.bin} and \texttt{cors\_all\_fd.bin} are maintained. The latter has been filtered with the \texttt{use\_depth} option when using \texttt{calibration/cg\_filter\_features}, the formed without it. 
+This can also be used to complete the straight depths obtained from aggregating feature point depths: Two image correspondences files \texttt{cors\_all\_f.bin} and \texttt{cors\_all\_fd.bin} are maintained. The latter has been filtered with the \texttt{use\_depth} option when using \texttt{calibration/cg\_filter\_features}, the former without it. 
 
-Then \texttt{cg\_straight\_depths\_from\_depths} is executed on \texttt{cors\_all\_fd.bin}. To also obtain straight depth for the additional image correspondences that remain in the file \texttt{cors\_all\_f.bin}, \texttt{cg\_straight\_depths\_from\_disparity} is now used, whereby the previously obtained straight depth are given as \texttt{some\_depths.json}. 
+Then \texttt{cg\_straight\_depths\_from\_depths} is executed on \texttt{cors\_all\_fd.bin}. To also obtain straight depths for the additional image correspondences that remain in the file \texttt{cors\_all\_f.bin}, \texttt{cg\_straight\_depths\_from\_disparity} is now used, whereby the previously obtained straight depths are given as \texttt{some\_depths.json}. 
 
 
 
 \section{Camera positions}
-To compute the \emph{relative camera positions}, for each reference view, use
+\subsection{Relative camera positions}
+To compute the \emph{relative camera positions}, use
 \begin{lstlisting}[language=bash]
 calibration/cg_rcpos_from_cors parameters.json cors_all_f2.bin intr.json
 R.json depths.json rcpos.json
 \end{lstlisting}
 
-\noindent The resulting \texttt{rcpos.json} file will contain \emph{relative camera positions} for each reference view. There is no need to run the program multiple times.
+\noindent The resulting \texttt{rcpos.json} file will contain the \emph{relative camera positions} for all the reference views. There is no need to run the program multiple times.
 
+\subsection{Stitching}
 To stitch the relative camera positions together and obtain the final camera parameters, use
 \begin{lstlisting}[language=bash]
 calibration/cg_stitch_cameras refgrid.json rcpos.json intr.json R.json
@@ -762,6 +855,8 @@ cams.json
 
 \noindent Here \texttt{refgrid.json} is the \emph{reference grid} file chosen as the first step. This needs to be done even if there is only one reference view. \texttt{cams.json} will contain the final camera parameters.
 
+
+\subsection{Visualization and export}
 To visualize the camera parameters, use
 \begin{lstlisting}[language=bash]
 camera/visualize cams.json cams.ply world 0.3
@@ -773,8 +868,6 @@ To convert the camera parameters into the format and convention used by VSRS, us
 \begin{lstlisting}[language=bash]
 camera/export_mpeg cams.json cams.txt
 \end{lstlisting}
-
-
 
 
 \end{document}
