@@ -1,5 +1,8 @@
 #!/usr/local/bin/python
-from pylib import *
+from pylib.dataset import *
+from pylib.utility import *
+from pylib.temporary import *
+from pylib.config import *
 import os, subprocess, uuid
 
 import make_vsrs_config
@@ -23,7 +26,7 @@ def main(vsrs_binary_filename, datas, left_idx, virtual_idx, right_idx, output_v
 	with temporary_file("yuv") as tmp_virtual_yuv_filename, \
 		temporary_file("txt") as tmp_config_filename, \
 		temporary_file("txt") as tmp_cameras_filename:
-		
+				
 		# Make temporary VSRS cameras file, if none is provided
 		if cameras_filename is None:
 			cameras_filename = tmp_cameras_filename.filename

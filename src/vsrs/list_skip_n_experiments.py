@@ -1,5 +1,5 @@
 #!/usr/local/bin/python
-from pylib import *
+from pylib.dataset import *
 import sys, os, json, shutil
 
 def usage_fail():
@@ -30,7 +30,7 @@ for index in range(min_idx, max_idx, x_index_step):
 	assert((left_index - min_idx) % x_index_step == 0)
 	assert((index - min_idx) % x_index_step == 0)
 	assert((right_index - min_idx) % x_index_step == 0)
-	experiments.append([left_index, index, right_index])
+	experiments.append([encode_view_index(left_index), encode_view_index(index), encode_view_index(right_index)])
 
 with open(out_experiments_filename, 'w') as f:
 	print >>f, json.dumps(experiments)

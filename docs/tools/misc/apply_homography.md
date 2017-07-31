@@ -2,8 +2,6 @@
 
 Distorts an image given a [view homography](data/view_homography.html).
 
-## Usage
-
     misc/apply_homography homography.json in_image.png out_image.png texture/depth [border.json]
     
 Reads the image `in_image.png`, applies the homography matrix from `homography.json`, and writes the output image into `out_image.png`.

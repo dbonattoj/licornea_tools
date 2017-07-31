@@ -2,8 +2,6 @@
 
 Convert camera rotation from Euler angles to rotation matrix, and reverse.
 
-## Usage
-
     misc/cam_rotation to out_rotation_matrix.json x y z
     
 In the first form, writes a 3x3 rotation matrix to `out_rotation_matrix.json`, containing the rotation given by the angles in `x`, `y`, `z`, given in degrees.

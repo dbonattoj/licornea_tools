@@ -1,5 +1,4 @@
 #!/usr/local/bin/python
-from pylib import *
 
 config_tmp = """
 #================ Input Parameters ================
@@ -26,7 +25,7 @@ ColorSpace                     0                        # 0...YUV, 1...RGB
 Precision                      2                        # 1...Integer-pel, 2...Half-pel, 4...Quater-pel
 Filter                         2                        # 0...(Bi)-linear, 1...(Bi)-Cubic, 2...MPEG-4 AVC
 
-BoundaryNoiseRemoval		   		 1						# Boundary Noise Removal: Updated By GIST
+BoundaryNoiseRemoval		   		 0						# Boundary Noise Removal: Updated By GIST
 
 SynthesisMode                  0                        # 0...General, 1...1D parallel
 
@@ -41,6 +40,9 @@ MergingOption         2                 # 0: Z-buffer only; 1: Averaging only; 2
 DepthThreshold        75                # A threshold is only used with MergingOption = 2. Range: 0 ~ 255. Default: 75
 HoleCountThreshold    30                # A threshold is only used with MergingOption = 2. Range: 0 ~ 49. Default: 30
 """
+
+from pylib.dataset import *
+import os
 
 def main(datas, cameras_filename, left_idx, virtual_idx, right_idx, output_virtual_filename, output_config_filename):	
 	par = datas.parameters
@@ -61,7 +63,6 @@ def main(datas, cameras_filename, left_idx, virtual_idx, right_idx, output_virtu
 	assert(os.path.isfile(depth_left_filename))
 	assert(os.path.isfile(depth_right_filename))
 
-	print virtual_idx
 	assert(os.path.isfile(datas.view(*virtual_idx).image_filename())) # indicates if camera param exists
 
 	config = config_tmp.format(

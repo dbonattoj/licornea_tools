@@ -1,5 +1,5 @@
 #!/usr/local/bin/python
-from pylib import *
+from pylib.dataset import *
 import string, sys
 
 class FormatPlaceholder:

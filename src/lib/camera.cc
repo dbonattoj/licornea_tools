@@ -107,6 +107,16 @@ std::map<std::string, camera> cameras_map(const camera_array& arr) {
 	return map;
 }
 
+
+intrinsics to_undistorted_intrinsics(const camera& cam, int width, int height) {
+	intrinsics intr;
+	intr.width = width;
+	intr.height = height;
+	intr.K = cam.intrinsic;
+	intr.K_inv = cam.intrinsic.inv();
+	return intr;
+}
+
 void export_cameras_file(const std::string& filename, const std::map<std::string, camera>& map) {
 	camera_array arr;
 	for(const auto& kv : map) arr.push_back(kv.second);

@@ -2,16 +2,12 @@
 
 GUI to visualize depth maps, with sliders to adjust visible range.
 
-## Usage
-
     misc/view_depth depth.png [z_near] [z_far] [out_visualization.png]
     
 `depth.png` must be a single channel, 8 or 16 bit image file (PNG or another file format), non-normalized depth values.
 For example the raw depth images captured by Kinect. If `out_visualization.png` is passed, the program stores a
 visualization into this file. Otherwise, it displays a window with the visualization and sliders to adjust the range.
 `z_near` and `z_far` are the range of values to be visualized.
-
-## Description
 
 Adjusting the sliders changes the visualized image in real time. Depending on the platform and/or version of OpenCV,
 numbers may be shown on the slider. They are meaningless. The actual `z_near` and `z_far`

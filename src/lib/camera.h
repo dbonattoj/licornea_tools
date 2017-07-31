@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "json.h"
+#include "../../lib/intrinsics.h"
 #include <vector>
 #include <map>
 #include <string>
@@ -27,6 +28,7 @@ camera_array decode_cameras(const json&);
 void export_cameras_file(const camera_array& cams, const std::string& filename);
 
 camera_array cameras_arg();
+intrinsics to_undistorted_intrinsics(const camera&, int width, int height);
 
 std::map<std::string, camera> cameras_map(const std::vector<camera>&);
 void export_cameras_file(const std::string& filename, const std::map<std::string, camera>&);

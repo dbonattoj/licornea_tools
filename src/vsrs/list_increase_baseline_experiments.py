@@ -1,6 +1,6 @@
 #!/usr/local/bin/python
-from pylib import *
-import os, json
+from pylib.dataset import *
+import os, json, sys
 
 def usage_fail():
 	print("usage: {} parameters.json center max_baseline out_experiments.json [step]\n".format(sys.argv[0]))
@@ -30,7 +30,7 @@ for rad in range(1, max_baseline // 2, x_index_step*step):
 	right_index = index + rad
 	if not(datas.x_valid(index) and datas.x_valid(left_index) and datas.x_valid(right_index)):
 		continue
-	experiments.append([left_index, index, right_index])
+	experiments.append([encode_view_index(left_index), encode_view_index(index), encode_view_index(right_index)])
 
 with open(out_experiments_filename, 'w') as f:
 	print >>f, json.dumps(experiments)

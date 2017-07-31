@@ -23,10 +23,10 @@ using namespace tlz;
 
 constexpr bool verbose = false;
 constexpr std::size_t minimal_samples_count = 2;
-constexpr real maximal_position_stddev = 0.6;
+constexpr real maximal_position_stddev = 1000.0;
 
 constexpr bool find_bad_features = true;
-constexpr real features_inlier_percentile = 0.3;
+constexpr real features_inlier_percentile = 0.8;
 
 constexpr bool print_all_sample_positions = false;
 
@@ -264,6 +264,15 @@ int main(int argc, const char* argv[]) {
 		
 		#pragma omp critical
 		std::cout << "      reference view " << ref_idx << ": final relative positions for " << final_relative_views_count << " views" << std::endl;
+	}
+	
+	std::cout << "checking for which views there is a position" << std::endl;
+	auto tpos = out_rcpos.to_target_reference_positions();
+	auto really_all_target_views = datas.indices();
+	for(const view_index& target_idx : really_all_target_views) {
+		if(tpos.find(target_idx) == tpos.end()) {
+			std::cout << "no camera position for " << target_idx << std::endl;
+		}
 	}
 	
 		

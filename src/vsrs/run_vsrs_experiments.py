@@ -1,5 +1,7 @@
 #!/usr/local/bin/python
-from pylib import *
+from pylib.dataset import *
+from pylib.batch import *
+from pylib.utility import *
 import os, tempfile, uuid
 import run_vsrs
 
@@ -29,7 +31,7 @@ if __name__ == '__main__':
 	experiments_indexed = []
 	i = 0
 	for exp in experiments:
-		experiments_indexed.append([i, exp[0],exp[1],exp[2]])
+		experiments_indexed.append([i, exp[0], exp[1], exp[2]])
 		i = i + 1
 	
 	def run(exp_index, left_cam, this_cam, right_cam):	
@@ -38,7 +40,7 @@ if __name__ == '__main__':
 			return
 		
 		try:
-			run_vsrs.main(vsrs_binary_filename, datas, (left_cam,0), (this_cam,0), (right_cam,0), virtual_filename, cameras_filename)
+			run_vsrs.main(vsrs_binary_filename, datas, decode_view_index(left_cam), decode_view_index(this_cam), decode_view_index(right_cam), virtual_filename, cameras_filename)
 		except:
 			print "{} failed".format(exp_index)
 	

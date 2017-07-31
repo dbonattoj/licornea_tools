@@ -14,7 +14,10 @@ int main(int argc, const char* argv[]) {
 	std::string dataset_group_name = string_opt_arg("");
 	dataset_group datag = datas.group(dataset_group_name);
 	
-	viewer view("Dataset Viewer", datag.image_size_with_border(), true);
+	cv::Size sz = datag.image_size_with_border();
+	sz.height += 20;
+	
+	viewer view("Dataset Viewer", sz, true);
 	auto& slider_x = view.add_int_slider("X", datas.x_mid(), datas.x_min(), datas.x_max(), datas.x_step());
 	auto& slider_y = view.add_int_slider("Y", datas.y_mid(), datas.y_min(), datas.y_max(), datas.y_step());
 
@@ -23,13 +26,13 @@ int main(int argc, const char* argv[]) {
 		if(! datas.valid(idx)) return;		
 		
 		std::string filename = datag.view(idx).image_filename();
+		view.clear();
+		view.draw_text(cv::Rect(10, 0, sz.width-20, 20), "index: " + encode_view_index(idx));
 		try {
 			cv::Mat_<cv::Vec3b> img = load_texture(filename);
-			view.clear(img.cols, img.rows);
-			view.draw(img);
+			view.draw(cv::Point(0, 20), img);
 		} catch(const std::runtime_error&) {
 			std::cout << "could not load " << filename << std::endl; 
-			view.clear();
 		}
 	};
 

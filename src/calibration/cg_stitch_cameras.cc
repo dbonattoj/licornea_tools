@@ -181,7 +181,8 @@ int main(int argc, const char* argv[]) {
 
 	std::cout << "computing camera array" << std::endl;
 	camera_array cameras;
-	for(const view_index& target_idx : all_target_vws) {
+	auto really_all_target_views = datas.indices();
+	for(const view_index& target_idx : really_all_target_views) {
 		auto it = absolute_target_camera_positions.find(target_idx);
 		if(it == absolute_target_camera_positions.end()) {
 			std::cout << "no camera position for " << target_idx << std::endl;

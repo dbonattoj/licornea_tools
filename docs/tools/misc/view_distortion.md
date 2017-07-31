@@ -2,13 +2,9 @@
 
 GUI to visualize effect of intrinsic camera distortion parameters.
 
-## Usage
-
     misc/view_distortion intr.json
     
 `intr.json` are [intrinsic parameters](data/intrinsics.json) of a calibrated camera.
-
-## Description
 
 Displays sliders to adjust values of the distortion coefficients `k1`, `k2`, `k3`, `p1` and `p2`. Displays four images:
 
