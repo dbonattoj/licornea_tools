@@ -12,7 +12,7 @@ Click links on left sidebar to see the documentation for the programs.
 - [**CG report**](cg.pdf) - Method and tutorial of camera grid calibration
 
 ## Categories
-- **Calibration** -
+- **[Calibration](#calibration)** -
 Calibration of camera intrinsics and extrinsics. Undistortion. Prefixed with `cg_`: Tools for [camera grid](cg.pdf) extrinsic self-calibration method, for frontal cameras plane.
 - **Camera** -
 Export and import of camera parameters. Transformations and visualization.
