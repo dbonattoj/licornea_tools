@@ -10,11 +10,8 @@ Click links on left sidebar to see the documentation for the programs.
 
 - [**Installation**](installation.md) - How to build and install the tools
 - [**CG report**](cg.pdf) - Method and tutorial of camera grid calibration
-- [**Epipolar lines report**](epipolar.pdf) - How to compute epipolar lines from camera parameters
-- [**Epipolar sketch**](epipolar_sketch/index.html) - Interactive sketch showing epipolar lines
 
 ## Categories
-
 - **Calibration** -
 Calibration of camera intrinsics and extrinsics. Undistortion. Prefixed with `cg_`: Tools for [camera grid](cg.pdf) extrinsic self-calibration method, for frontal cameras plane.
 - **Camera** -
@@ -43,4 +40,8 @@ Various other tools.
 - [**Kinect reprojection parameters**](data/reprojection.html) - Parameters to map Kinect depth pixels to color pixels
 - [**VSRS experiments**](data/experiments.html) - List of view synthesis experiments
 - [**View homographies**](data/view_homography.html) - Homography matrices to apply to images
+
+## More
+- [**Epipolar lines report**](epipolar.pdf) - How to compute epipolar lines from camera parameters
+- [**Epipolar sketch**](epipolar_sketch/index.html) - Interactive sketch showing epipolar lines
 
