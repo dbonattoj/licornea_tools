@@ -3,12 +3,8 @@
 Convert depth map to YUV disparity map for use with VSRS.
 
     vsrs/vsrs_disparity depth.png out_disparity.yuv z_near z_far [8/16]
-    
-## Usage
-  
+      
 `depth.png` is a 16 bit depth image, where pixel values are orthogonal distances. `z_near` and `z_far` must be set to the minimal/maximal depth values in the region of interest. A YUV file is written to `out_disparity.yuv`. It is by default 8 bit, but can be set to 16 bit if `16` is put as the last argument.
-
-## Description
 
 The output YUV file is a 3 channel YUV240 file, but only the first channel (Luma Y) is filled with depth values. It is padded to twice that size to add empty UV channels, because this is needed by VSRS.
 

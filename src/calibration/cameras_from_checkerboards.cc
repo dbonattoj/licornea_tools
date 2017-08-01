@@ -36,10 +36,17 @@ int main(int argc, const char* argv[]) {
 	
 	camera_array cameras;
 	
-	int i = 0;
-	for(view_index idx : datas.indices()) {
-		if(i++ % 100 == 0) std::cout << i << " of " << datas.indices().size() << std::endl;
-		else std::cout << '.' << std::flush;
+	auto indices = datas.indices();
+	
+	#pragma omp parallel for
+	for(std::ptrdiff_t i = 0; i < indices.size(); ++i) {
+		if(i++ % 100 == 0) {
+			#pragma omp critical
+			std::cout << i << " of " << datas.indices().size() << std::endl;
+		} else {
+			std::cout << '.' << std::flush;
+		}
+		const view_index& idx = indices[i];
 
 	//	if(idx.y != datas.y_min() && idx.x != datas.x_min()) continue;
 		
@@ -106,9 +113,17 @@ int main(int argc, const char* argv[]) {
 		cam.intrinsic = intr.K;
 		cam.rotation = rotation;
 		cam.translation = translation;
+		
+		#pragma omp critical
 		cameras.push_back(cam);
 	}
 	std::cout << std::endl;
+	
+	
+	// sort cameras
+	std::sort(cameras.begin(), cameras.end(), [](const camera& a, const camera& b) {
+		return (a.name < b.name);
+	});
 	
 
 	std::cout << "saving cameras" << std::endl;
