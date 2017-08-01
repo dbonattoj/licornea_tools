@@ -14,15 +14,15 @@ Click links on left sidebar to see the documentation for the programs.
 ## Categories
 - **[Calibration](#calibration)** -
 Calibration of camera intrinsics and extrinsics. Undistortion. Prefixed with `cg_`: Tools for [camera grid](cg.pdf) extrinsic self-calibration method, for frontal cameras plane.
-- **Camera** -
+- **[Camera](#camera)** -
 Export and import of camera parameters. Transformations and visualization.
-- **Dataset** -
+- **[Dataset](#dataset)** -
 Manage [dataset parameters](data/dataset.html), find missing and duplicate files, view dataset.
-- **Kinect** -
+- **[Kinect](#kinect)** -
 Connect to Kinect v2 camera. Intrinsic calibration using checkerboard patterns. Reprojection of depth maps.
-- **VSRS** -
+- **[VSRS](#vsrs)** -
 Run VSRS once or automatically on a set of [experiments](data/experiments.html). Evaluate PSNR results.
-- **Misc** -
+- **[Misc](#misc)** -
 Various other tools.
 
 ## Data formats
