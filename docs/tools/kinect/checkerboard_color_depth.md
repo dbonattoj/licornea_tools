@@ -13,4 +13,4 @@ Detects checkerboard in _color_ image. For pixels in it, it takes the depth in t
 Then compares these two values for each pixel. The reprojection depends on all calibrated values (color/IR intrinsics+distortion, pose transformation). So it tests if these are correct (when the error is small). 
 
 Can also collect samples of the error depending on checkerboard position. Can be used to make a model of the absolute depth offset.
-Unlike [kinect/checkerboard\_depth\_stat](tools/kinect/checkerboard_depth_stat.html), this is in _color image space_.
+Unlike [kinect/checkerboard\_depth\_stat](checkerboard_depth_stat.html), this is in _color image space_.

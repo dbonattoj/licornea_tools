@@ -12,5 +12,5 @@ Formats:
 - `mono8`: 8 bit monochrome
 - `mono16`: 16 bit monochrome
 
-To generate VSRS disparity maps from depth maps, [vsrs/vsrs\_disparity](tools/vsrs/vsrs_disparity.html) must instead be used.
+To generate VSRS disparity maps from depth maps, [vsrs/vsrs\_disparity](../vsrs/vsrs_disparity.html) must instead be used.
 

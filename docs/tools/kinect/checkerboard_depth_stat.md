@@ -4,7 +4,7 @@ Saves statistics of calculated v. measured checkerboard depths in IR image.
 
     kinect/checkerboard_depth_stat chk_samples.json cols rows square_width ir_intr.json out_stat.txt
 
-`chk_samples.json` is obtained from [kinect/checkerboard\_depth\_samples](tools/kinect/checkerboard_depth_samples.html).
+`chk_samples.json` is obtained from [kinect/checkerboard\_depth\_samples](checkerboard_depth_samples.html).
 
 For all pixels on checkerboard (in IR image), takes their depth in two ways:
 

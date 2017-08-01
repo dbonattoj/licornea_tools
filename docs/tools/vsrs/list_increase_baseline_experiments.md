@@ -6,4 +6,4 @@ Make 1D experiments list where baseline is increased.
 
 Virtual view index is fixed to `center`. Baseline increases from 0 to `max_baseline`, in steps of `step` (default 1, or whatever `x_step` dataset parameters have).
 
-Dataset must be 1D. Use [dataset/slice](tools/dataset/slice.html) to take a 1D slice of a 2D dataset.
+Dataset must be 1D. Use [dataset/slice](../dataset/slice.html) to take a 1D slice of a 2D dataset.

@@ -1,6 +1,6 @@
 # misc/apply\_homography
 
-Distorts an image given a [view homography](data/view_homography.html).
+Distorts an image given a [view homography](../../data/view_homography.html).
 
     misc/apply_homography homography.json in_image.png out_image.png texture/depth [border.json]
     

@@ -4,7 +4,7 @@ GUI to test view synthesis on dataset in real time, without VSRS.
 
     misc/view_syn dataset_parameters.json cameras.json [dataset_group]
     
-Loads [dataset](data/dataset.html) [dataset_parameters.json] and [camera array](data/cameras.json). Optionally use images and depth from the dataset group `dataset_group`, instead of the main group.
+Loads [dataset](data/dataset.html) [dataset_parameters.json] and [camera array](../../data/cameras.json). Optionally use images and depth from the dataset group `dataset_group`, instead of the main group.
 
 It does a simple pixel-wise forward warping with, with depth test.
 

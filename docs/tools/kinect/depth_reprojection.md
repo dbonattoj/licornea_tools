@@ -10,7 +10,7 @@ Reprojects and upscales raw Kinect depth map, to a depth map of the color image.
 
 `output.png` and `output_mask.png` can be set to `-` if they should not be used.
 
-`reprojection_parameters.json` are the (reprojection parameters)[data/reprojection.html] obtained from [kinect/calibrate\_color\_ir\_reprojection](tools/kinect/calibrate_color_ir_reprojection.html).
+`reprojection_parameters.json` are the (reprojection parameters)[../../data/reprojection.html] obtained from [kinect/calibrate\_color\_ir\_reprojection](calibrate_color_ir_reprojection.html).
 
 `method` is the upsampling/densification algorithm to use. Choices are:
 
