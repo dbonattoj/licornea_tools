@@ -27,6 +27,6 @@ For example when a checkerboard is captured multiple times with two cameras, the
 
 ## Usage
 
-[kinect/checkerboard\_samples](tools/kinect/checkerboard_samples.html) generates a 1-object-2-image correspondences set with chessboard corners, from images taken with a Kinect's color and IR camera.
+[kinect/checkerboard\_samples](../tools/kinect/checkerboard_samples.html) generates a 1-object-2-image correspondences set with chessboard corners, from images taken with a Kinect's color and IR camera.
 
-[misc/cat\_obj\_img\_cors](misc/cat_obj_img_cors.html) is used to merge multiple object-image correspondences sets together.
+[misc/cat\_obj\_img\_cors](../tools/misc/cat_obj_img_cors.html) is used to merge multiple object-image correspondences sets together.

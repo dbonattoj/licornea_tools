@@ -129,13 +129,15 @@ The mapping is:
 
 In this example `x = 101, 102, 103` becomes in `raw_kinect`: `local_x = 684, 683, 682`.
 
+The default `image_filename_format`, etc. values (not in a _group_) are said to be in the _root group_ or _default group_. 
+
 
 ## Manipulation
 There are tools for manipulating dataset parameter files in `dataset/`.
 
-`dataset/slice.py` make a 1D slice of a 2D parameters file, by fixing the Y index to a certain value.
+[dataset/slice](../tools/dataset/slice.html) make a 1D slice of a 2D parameters file, by fixing the Y index to a certain value.
 It produces a 1D dataset parameters file. The example 1D parameters file was generated using this, by fixing Y to 151.
 
 To instead make a slice fixing the X index: It is not possible to have only a Y index in the file.
-Instead `dataset/flip.py` can be used to _swap_ the meanings of the Y and X index. Then `dataset/slice.py` is used 
+Instead [dataset/flip](../tools/dataset/flip.html) can be used to _swap_ the meanings of the Y and X index. Then [dataset/slice](../tools/dataset/slice.html) is used 
 on that new, flipped parameters file.
