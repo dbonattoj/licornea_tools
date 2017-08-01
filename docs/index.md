@@ -11,6 +11,7 @@ Building installs all the executables/scripts into the `bin/` directory, from wh
 - [Installation](installation.md) - How to build and install the tools
 - [CG report](cg.pdf) - Method and tutorial of camera grid calibration
 - [Epipolar lines report](epipolar.pdf) - How to compute epipolar lines from camera parameters
+- [Epipolar sketch](epipolar_sketch/index.html) - Interactive sketch showing epipolar lines
 
 
 ## Data formats
