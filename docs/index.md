@@ -11,7 +11,7 @@ Click links on left sidebar to see the documentation for the programs.
 - [**Installation**](installation.md) - How to build and install the tools
 - [**CG report**](cg.pdf) - Method and tutorial of camera grid calibration
 
-## Categories
+## Tools categories
 - **[Calibration](#calibration)** -
 Calibration of camera intrinsics and extrinsics. Undistortion. Prefixed with `cg_`: Tools for [camera grid](cg.pdf) extrinsic self-calibration method, for frontal cameras plane.
 - **[Camera](#camera)** -
