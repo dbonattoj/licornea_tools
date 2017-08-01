@@ -31,7 +31,7 @@ Various other tools.
 - [**Camera parameters**](data/cameras.html) - Array of intrinsic and extrinsic camera parameters
 - [**Image correspondences**](data/image_correspondences.html) - Corresponding feature points on many views
 - [**Feature points**](data/feature_points.html) - Set of points on a views
-- [**Feature point slopes**](data/feature_points.html) - Slope of the line that feature points form
+- [**Feature point slopes**](data/feature_slopes.html) - Slope of the line that feature points form
 - [**Straight depths**](data/straight_depths.html) - Planar depths of tracked features
 - [**Reference views grid**](data/references_grid.html) - Grid of reference view indices
 - [**Relative camera positions**](data/relative_camera_positions.html) - Positions of camera centers, relative to reference view

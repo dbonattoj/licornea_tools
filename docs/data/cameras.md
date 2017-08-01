@@ -1,6 +1,6 @@
 # Camera parameters
 
-Similar to the [dataset parameters](data/dataset.html), _camera parameters_ are stored in a JSON format used by all the tools.
+Similar to the [dataset parameters](dataset.html), _camera parameters_ are stored in a JSON format used by all the tools.
 Each camera is defined by a _name_, an _extrinsic_ matrix and an _intrinsic_ matrix.
 
 The extrinsic matrix `Rt` is a 4x4 rigid transformation matrix in homogeneous coordinates. The last row is always
