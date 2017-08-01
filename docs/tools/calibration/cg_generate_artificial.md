@@ -6,10 +6,10 @@ Generate artificial dataset with images and depth maps, with randomized known fe
 
 Camera rotation matrix `R.json`, and camera intrinsics `intr.json` for the new dataset must be given as input. Files for dataset will be written into `out_datas_dir/`, consisting of:
 
-- `out_datas_dir/parameters.json`: [Dataset parameters](../../data/dataset.json)
-- `out_datas_dir/cors.json`: Perfect [image correspondences](../../data/image_correspondences.json) from simulated optical flow.
-- `out_datas_dir/straight_depths.json`: Perfect [straight depths](../../data/straight_depths.json) for the features.
-- `out_datas_dir/cameras.json`: Perfect [camera parameters](../../data/cameras.json) of the dataset;
+- `out_datas_dir/parameters.json`: [Dataset parameters](../../data/dataset.html)
+- `out_datas_dir/cors.json`: Perfect [image correspondences](../../data/image_correspondences.html) from simulated optical flow.
+- `out_datas_dir/straight_depths.json`: Perfect [straight depths](../../data/straight_depths.html) for the features.
+- `out_datas_dir/cameras.json`: Perfect [camera parameters](../../data/cameras.html) of the dataset;
 - `out_datas_dir/image/y###_x###.png`: Generated textures of the dataset.
 - `out_datas_dir/depth/y###_x###.png`: Generated depth maps of the dataset, 16 bit monochrome PNG files.
 

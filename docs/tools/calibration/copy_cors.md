@@ -1,6 +1,6 @@
 # calibration/copy\_cors
 
-Copy [image correspondences](../../image_correspondences.html), convert between JSON or binary formats.
+Copy [image correspondences](../../data/image_correspondences.html), convert between JSON or binary formats.
 
     calibration/copy_cors in_cors.json out_cors.json
 

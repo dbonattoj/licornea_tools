@@ -6,4 +6,6 @@ Estimate pose transformation matrix from Kinect color camera to IR camera spaces
         
 `color_intrinsics.json` and `ir_intrinsics.json` are obtained from [calibration/calibrate\_intrinsics](../calibration/calibrate_intrinsics.html).
 
-`obj_img_cors_set.json` is a 1-object-2-image [1-object-2-image correspondences set](../../data/cat_obj_img_cors.html) with coordinates of the checkerboard corners on the color and IR image. It is obtained using [kinect/checkerboard\_samples](checkerboard_samples.html).
+`obj_img_cors_set.json` is a 1-object-2-image [1-object-2-image correspondences set](../../data/obj_img_cors.html) with coordinates of the checkerboard corners on the color and IR image. It is obtained using [kinect/checkerboard\_samples](checkerboard_samples.html).
+
+The program outputs the [reprojection parameters](../../data/reprojection.html) for the Kinect.

@@ -6,16 +6,15 @@ The tools consists of several small command-line programs written in C++ and Pyt
 
 The C++ programs require [**OpenCV**](http://opencv.org) to be installed on the system. The programs that operate with the **Kinect v2** require [**libfreenect2**](https://github.com/OpenKinect/libfreenect2). The rest of the programs can still be built if it is not available. Building is done with [**CMake**](https://cmake.org). The C++ programs require a C++14 compatible compiler. It has been tested with a recent version of Clang++/LLVM on Linux. Other than the C++ standard library, and some external libraries that are included with the source code, there are no additional dependencies.
 
-This is the installation on Linux / macOS. On Windows, Visual Studio project files, or `NMake` makefiles can be generated with CMake instead.
+This is the installation on Linux / macOS. On Windows, Visual Studio project files be generated with CMake instead.
 
 1. Install CMake and OpenCV on the system.
 2. (Optional) Install libfreenect2. It needs to be compiled from source. When building libfreenect2 with its CMake script, `CMAKE_INSTALL_PREFIX` needs to be set to `path/to/licornea_tools/external/freenect2`. `make install` then copies its library and header files into that directory, where the `licornea_tools` CMake script will find them.
 3. Go to `licornea_tools/` top left directory.
 4. `mkdir build; cd build`
 5. `cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../bin ..`. If libfreenect2 was installed, also pass `-DWITH_LIBFREENECT2=ON`. Possibly the OpenCV installation directory also needs to be adjusted using `-DOpenCV_DIR=...` (or similar depending on system).
-6. For the Python scripts, there are some configuration options in `src/lib/pylib/config.py`, relating to parallelized execution of batch jobs.
-7. Build using `make`. There may be some warnings, and some errors that need to be fixed in the code if compiling with a diffent platform/compiler. There may be `rpath` issues on macOS.
-8. Install using `make install`. The tools will be installed in `licornea_tools/bin`, Python scripts (copies) along with executables, in their subdirectories.
+6. Build using `make`. There may be some warnings, and some errors that need to be fixed in the code if compiling with a diffent platform/compiler. There may be `rpath` issues on macOS. On windows, use `...`
+7. Install using `make install`. The tools will be installed in `licornea_tools/bin`, Python scripts (copies) along with executables, in their subdirectories.
 
 
 # Usage

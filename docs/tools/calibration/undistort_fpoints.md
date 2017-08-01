@@ -6,4 +6,4 @@ Undistort [feature points](../../data/feature_points.html).
 
 In case image correspondences were taken on distorted images, this removes the distortion from one set of [feature points](../../data/feature_points.html). [Intrinsics](../../data/intrinsics.html) with the distortion coefficients must be given.
 
-To undistort all feature points in [image correspondences](../../data/image_correspondences.html), use [calibration/undist\_cors](undist_cors.html) instead.
+To undistort all feature points in [image correspondences](../../data/image_correspondences.html), use [calibration/undistort\_cors](undistort_cors.html) instead.

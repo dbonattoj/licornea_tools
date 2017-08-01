@@ -1,6 +1,6 @@
 # vsrs/list\_parametric\_experiments
 
-Make experiments list where virtual view moves on a parametric curve.
+Make [experiments](../../data/experiments.html) list where virtual view moves on a parametric curve.
 
     vsrs/list_parametric_experiments parameters.json x_key y_key frames out_experiments.json
 

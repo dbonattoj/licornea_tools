@@ -1,6 +1,6 @@
 # calibration/calibrate\_intrinsics
 
-Estimate camera intrinsics from a [1-object-1-image correspondences set](../../data/cat_obj_img_cors.html).
+Estimate camera intrinsics from a [1-object-1-image correspondences set](../../data/obj_img_cors.html).
 
     calibration/calibrate_intrinsics obj_img_cors_set.json image_width image_height out_intrinsics.json [no_distortion]
 

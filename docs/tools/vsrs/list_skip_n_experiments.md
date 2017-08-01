@@ -1,6 +1,6 @@
 # vsrs/list\_skip\_n\_experiments
 
-Make 1D experiments list where every _n_-th view is taken as input.
+Make 1D [experiments](../../data/experiments.html) list where every _n_-th view is taken as input.
 
     vsrs/list_skip_n_experiments parameters.json step out_experiments.json [limit]
 

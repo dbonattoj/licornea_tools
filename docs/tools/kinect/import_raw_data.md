@@ -4,7 +4,7 @@ Batch copy images and reproject depth maps from Kinect.
 
     kinect/import_raw_data.py dataset_parameters.json densify_method [simulate]
 
-In the given [dataset parameters](./../data/dataset.html), the textures and depth filenames must be defined for the root group, and for the `kinect_raw` group.
+In the given [dataset parameters](../../data/dataset.html), the textures and depth filenames must be defined for the root group, and for the `kinect_raw` group.
 
 It copies textures from `kinect_raw` files to the files for the root group.
 
