@@ -4,6 +4,8 @@ These are several programs that do single processing steps in the 3DLicorneA pip
 
 The programs are organized into categories, in the different subdirectories `vsrs/`, `kinect/`, etc. Each `.py` and each `.cc` file is one program. Only the C++ programs operate on the content of images. Some Python programs are scripts that call other programs on a set of inputs, to do batch operations. (For example, exporting an entire dataset to VSRS format).
 
+Click links on left sidebar to see the documentation for the programs.
+
 ## Information
 
 - [Installation](installation.md) - How to build and install the tools
