@@ -20,7 +20,7 @@ with open(sidebar_filename, "w") as f:
 	print >>f, "<small>"
 	for category, name in tools:
 		if category != last_category:
-			print >>f, "<a name=\"" + category + "\"></a><br/><strong>" + category + "</strong>"
+			print >>f, "<a name=\"" + category + "\"></a><strong>" + category + "</strong><br/>"
 			last_category = category
 		
 		link = "/tools/" + category + "/" + name + ".html"
