@@ -2,9 +2,7 @@
 
 These are several programs that do single processing steps in the 3DLicorneA pipeline. Each program works independently, taking some input data and generating output data. Parameters are usually exchanged in JSON-based formats.
 
-The programs are organized into thematic groups, in the different subdirectories `vsrs/`, `kinect/`, etc. Each `.py` and each `.cc` file is one program. Only the C++ programs operate on the content of images. Some Python programs are scripts that call other programs on a set of inputs, to do batch operations. (For example, exporting an entire dataset to VSRS format).
-
-Building installs all the executables/scripts into the `bin/` directory, from which they should be used.
+The programs are organized into categories, in the different subdirectories `vsrs/`, `kinect/`, etc. Each `.py` and each `.cc` file is one program. Only the C++ programs operate on the content of images. Some Python programs are scripts that call other programs on a set of inputs, to do batch operations. (For example, exporting an entire dataset to VSRS format).
 
 ## Information
 
@@ -13,6 +11,25 @@ Building installs all the executables/scripts into the `bin/` directory, from wh
 - [Epipolar lines report](epipolar.pdf) - How to compute epipolar lines from camera parameters
 - [Epipolar sketch](epipolar_sketch/index.html) - Interactive sketch showing epipolar lines
 
+## Categories
+
+### Calibration
+Calibration of camera intrinsics and extrinsics. Undistortion. Prefixed with `cg_`: Tools for [camera grid](cg.pdf) extrinsic self-calibration method, for frontal cameras plane.
+
+### Camera
+Export and import of camera parameters. Transformations and visualization.
+
+### Dataset
+Manage [dataset parameters](data/dataset.html), find missing and duplicate files, view dataset.
+
+### Kinect
+Connect to Kinect v2 camera. Intrinsic calibration using checkerboard patterns. Reprojection of depth maps.
+
+### VSRS
+Run VSRS once or automatically on a set of [experiments](data/experiments.html). Evaluate PSNR results.
+
+### Misc
+Various other tools.
 
 ## Data formats
 
