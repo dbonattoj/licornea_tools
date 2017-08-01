@@ -10,10 +10,26 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+    <style>
+	body.wrapper {
+		width: 1000px
+	}
+		
+    header {
+		position: static;
+		display: inline;
+		width: 270px;
+	}
+	
+	section {
+		width: 700px;
+	}
+    </style>
   </head>
   <body>
     <div class="wrapper">
-      <header style="display: inline !important">
+      <header>
         <h1>{{ site.title | default: site.github.repository_name }}</h1>
         <p>{{ site.description | default: site.github.project_tagline }}</p>
 
