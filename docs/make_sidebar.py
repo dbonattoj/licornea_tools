@@ -22,5 +22,10 @@ with open(sidebar_filename, "w") as f:
 		if category != last_category:
 			print >>f, "<strong>" + category + "</strong><br/>"
 			last_category = category
-		print >>f, "&nbsp;&nbsp;&nbsp;<a href=\"/licornea_tools/tools/" + category + "/" + name + ".html\">" + name + "</a><br/>"
+		
+		link = "/tools/" + category + "/" + name + ".html"
+		link = "{{ '" + link + "' | relative_url }}"
+
+		print >>f, "&nbsp;&nbsp;&nbsp;<a href=\"" + link + "\">" + name + "</a><br/>"
+		
 	print >>f, "</small>"
