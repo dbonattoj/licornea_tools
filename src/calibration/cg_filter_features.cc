@@ -7,8 +7,12 @@
 
 using namespace tlz;
 
-const bool verbose = true;
-const real lattice_avg_percentile = 0.8;
+constexpr bool verbose = true;
+constexpr real lattice_avg_percentile = 0.8;
+constexpr real min_completion = 0.5;
+constexpr real max_depth_diff = 70.0;
+constexpr real max_lattice_deviation = 4.0;
+constexpr real max_bad_points = 0.3;
 
 vec2 avg_lattice_vector(std::vector<vec2>& samples, bool horiz) {
 	auto slope = [horiz](const vec2& vec) {
@@ -27,7 +31,7 @@ vec2 avg_lattice_vector(std::vector<vec2>& samples, bool horiz) {
 }
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv, "dataset_parameters.json cors.json out_cors.json expected_x_count expected_y_count [use_depth?]");
+	get_args(argc, argv, "dataset_parameters.json cors.json out_cors.json expected_x_count expected_y_count [use_depth]");
 	dataset datas = dataset_arg();
 	image_correspondences cors = image_correspondences_arg();
 	std::string out_cors_filename = out_filename_arg();
@@ -36,13 +40,8 @@ int main(int argc, const char* argv[]) {
 	bool use_depth = bool_opt_arg("use_depth", false);
 	
 	dataset_group datag = datas.group(cors.dataset_group);
-	
 	const int min_horizontal_count = expected_x_count * 0.7;
 	const int min_vertical_count = expected_y_count * 1.0;
-	const real min_completion = 0.5;
-	const real max_depth_diff = 70.0;
-	const real max_lattice_deviation = 4.0;
-	const real max_bad_points = 0.3;
 	
 	auto filter_feature = [&](image_correspondence_feature& feature) -> bool {
 		auto have = [&feature](int x, int y) -> bool {
@@ -136,8 +135,7 @@ int main(int argc, const char* argv[]) {
 			if(verbose) std::cout << "bad points (not on lattice): " << bad_points.size() << " > " << max_bad_points_count << "; rejected feature" << std::endl;
 			return false;
 		} else if(bad_points.size() >= 1) {
-			
-			
+
 			if(verbose) std::cout << "bad points (not on lattice): " << bad_points.size() << " > " << max_bad_points_count << "; removing them" << std::endl;
 			//for(const view_index& idx : bad_points) feature.points.erase(idx);
 		}

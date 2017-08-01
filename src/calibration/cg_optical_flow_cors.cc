@@ -19,13 +19,13 @@
 
 using namespace tlz;
 
-const bool verbose = false;
+constexpr bool verbose = false;
 
-const real max_flow_err = 4.0;
-const real min_distance_between_features = 60;
+constexpr real max_flow_err = 4.0;
+constexpr real min_distance_between_features = 60;
+constexpr int max_pyramid_level = 3;
 const cv::Size horizontal_optical_flow_window_size(20, 20);
 const cv::Size vertical_optical_flow_window_size(20, 20);
-const int max_pyramid_level = 3;
 
 struct flow_state {
 	view_index view_idx;

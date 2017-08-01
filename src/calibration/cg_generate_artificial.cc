@@ -20,7 +20,7 @@ bool noisy_position = true;
 bool noisy_rotation = false;
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv, "rotation.json intrinsics.json out_datas_dir/ [features_count=100] [num_x=30] [num_y=30] [step_x=3.0] [step_y=3.0]");
+	get_args(argc, argv, "R.json intr.json out_datas_dir/ [features_count=100] [num_x=30] [num_y=30] [step_x=3.0] [step_y=3.0]");
 	mat33 R = decode_mat(json_arg());
 	intrinsics intr = intrinsics_arg();
 	std::string out_datas_dir = out_dirname_arg();
@@ -65,8 +65,6 @@ int main(int argc, const char* argv[]) {
 	make_directory(out_datas_dir);
 	make_directory(out_datas_dir + "/image");
 	make_directory(out_datas_dir + "/depth");
-	make_directory(out_datas_dir + "/warped_image");
-	make_directory(out_datas_dir + "/warped_depth");
 
 
 	std::cout << "generating dataset parameters" << std::endl;
@@ -80,9 +78,6 @@ int main(int argc, const char* argv[]) {
 		j_dataset["depth_filename_format"] = "depth/y{y}_x{x}.png";
 		j_dataset["cameras_filename"] = "cameras.json";
 		j_dataset["camera_name_format"] = "camera_y{y}_x{x}";
-		j_dataset["warped"] = json::object();
-		j_dataset["warped"]["image_filename_format"] = "warped_image/y{y}_x{x}.png";
-		j_dataset["warped"]["depth_filename_format"] = "warped_depth/y{y}_x{x}.png";
 		export_json_file(j_dataset, out_datas_dir + "/parameters.json");
 	}
 	

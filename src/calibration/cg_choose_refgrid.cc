@@ -17,7 +17,7 @@ const int max_reference_x_deviation = 5;
 
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv, "dataset_parameters.json  horiz_key vert_key out_refgrid.json [dataset_group]");
+	get_args(argc, argv, "dataset_parameters.json horiz_key vert_key out_refgrid.json [dataset_group]");
 	dataset datas = dataset_arg();
 	int horizontal_key = int_arg();
 	int vertical_key = int_arg();

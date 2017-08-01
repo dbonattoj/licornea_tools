@@ -21,14 +21,15 @@
 using namespace tlz;
 
 constexpr bool verbose = false;
+constexpr int min_position_pairs_count = 300;
+constexpr real max_relative_scale_error = 0.3;
+constexpr bool make_visualizations = false;
 
 using view_feature_positions = std::map<view_index, vec2>;
 
 using view_feature_position_pair = std::pair<vec2, vec2>;
 using view_feature_position_pairs = std::map<view_index, view_feature_position_pair>;
 
-constexpr int min_position_pairs_count = 300;
-constexpr real max_relative_scale_error = 0.3;
 
 view_feature_position_pairs common_view_feature_positions(
 	const view_feature_positions& views1, const view_feature_positions& views2
@@ -322,20 +323,20 @@ int main(int argc, const char* argv[]) {
 	std::cout << std::endl;
 	
 
-	{
+	if(make_visualizations) {
 		cv::Mat_<real> weights_img;
 		cv::eigen2cv(weights, weights_img);
 		cv::Mat_<uchar> weights_img2;
 		cv::normalize(weights_img, weights_img2, 0, 255, cv::NORM_MINMAX, CV_8UC1);
 		cv::resize(weights_img2, weights_img2, cv::Size(0,0), 3, 3, cv::INTER_NEAREST);
-		cv::imwrite("w.png", weights_img2);
+		cv::imwrite("pairwise_scale_weights.png", weights_img2, { CV_IMWRITE_PNG_COMPRESSION, 9 });
 
 		cv::Mat_<real> ratios_img;
 		cv::eigen2cv(scale_ratios, ratios_img);
 		cv::Mat_<uchar> ratios_img2;
 		cv::normalize(ratios_img, ratios_img2, 0, 255, cv::NORM_MINMAX, CV_8UC1);
 		cv::resize(ratios_img2, ratios_img2, cv::Size(0,0), 5, 5, cv::INTER_NEAREST);
-		cv::imwrite("r.png", ratios_img2, { CV_IMWRITE_PNG_COMPRESSION, 9 });
+		cv::imwrite("pairwise_scales.png", ratios_img2, { CV_IMWRITE_PNG_COMPRESSION, 9 });
 	}
 		
 	

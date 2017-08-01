@@ -15,15 +15,15 @@ using namespace tlz;
 constexpr bool verbose = true;
 constexpr int min_features_count = 10;
 constexpr real max_reprojection_error = 100.0;
-constexpr int random_count = 1000000;
 
 int main(int argc, const char* argv[]) {
-	get_args(argc, argv, "dataset_parameters.json cors.json cams.json out_samples.txt [random/all]");
+	get_args(argc, argv, "dataset_parameters.json cors.json cams.json out_samples.txt [random/all] [random_count=100000]");
 	dataset datas = dataset_arg();
 	image_correspondences cors = image_correspondences_arg();
 	camera_array cams = cameras_arg();
 	std::string out_samples_filename = out_filename_arg();
-	std::string mode = enum_opt_arg({"random", "all"}, "random");
+	std::string mode = enum_opt_arg({"random", "all"}, "all");
+	int random_count = int_opt_arg(10000);
 	
 	auto cams_map = cameras_map(cams);
 	

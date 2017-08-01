@@ -112,8 +112,6 @@ program(cors_view_fpoints calibration calibration_lib)
 program(undistort_image calibration calibration_lib)
 program(undistort_fpoints calibration calibration_lib)
 program(undistort_cors calibration calibration_lib)
-program(visualize_cors calibration calibration_lib)
-program(visualize_fpoints calibration calibration_lib)
 program(read_feature_depths calibration calibration_lib)
 program(export_feature_depths calibration calibration_lib)
 program(cg_optical_flow_cors calibration calibration_lib)
@@ -136,13 +134,10 @@ program(cg_stitch_cameras calibration calibration_lib)
 program(cg_redistribute_cors calibration calibration_lib)
 program(cg_compare_straight_depths calibration calibration_lib)
 program(copy_cors calibration calibration_lib)
-program(evaluate_rectification calibration calibration_lib)
 program(evaluate_calibration calibration calibration_lib)
 program(merge_cors calibration calibration_lib)
 program(remove_cors calibration calibration_lib)
 program(cameras_from_checkerboards calibration calibration_lib)
-
-py_program(cg_warp_images calibration)
 
 
 
