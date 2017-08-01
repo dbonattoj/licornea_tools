@@ -8,7 +8,7 @@ Click links on left sidebar to see the documentation for the programs.
 
 ## Information
 
-- [**Installation**](installation.md) - How to build and install the tools
+- [**Installation and usage**](installation.md) - How to build, install and execute the tools
 - [**CG report**](cg.pdf) - Method and tutorial of camera grid calibration
 
 ## Tools categories
