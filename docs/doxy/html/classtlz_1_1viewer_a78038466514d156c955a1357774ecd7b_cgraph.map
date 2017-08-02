@@ -1,0 +1,15 @@
+<map id="tlz::viewer::draw_depth" name="tlz::viewer::draw_depth">
+<area shape="rect" id="node2" href="$classtlz_1_1viewer.html#a7f8bb5582e18ad278881cc065d7c21fa" title="tlz::viewer::draw_depth" alt="" coords="213,63,371,90"/>
+<area shape="rect" id="node3" href="$classtlz_1_1viewer.html#a6a59617413dc76948b6802399ddf555b" title="tlz::viewer::visualize\l_depth" alt="" coords="421,5,563,47"/>
+<area shape="rect" id="node7" href="$classtlz_1_1viewer.html#ad4fda702b7c5af2cb0bb9bc3842113f3" title="tlz::viewer::draw_text" alt="" coords="219,114,365,141"/>
+<area shape="rect" id="node8" href="$classtlz_1_1viewer.html#a09c3c6e9c5a5341576cea9210a6d8246" title="tlz::viewer::draw_2d\l_cross_indicator" alt="" coords="223,165,361,207"/>
+<area shape="rect" id="node9" href="$classtlz_1_1viewer.html#ac882ef84c24e8c209c13e2308c5c8c0c" title="tlz::viewer::draw_2d\l_arrow_indicator" alt="" coords="223,231,361,272"/>
+<area shape="rect" id="node10" href="$classtlz_1_1viewer.html#a96ab5d3d95f438355c6a221658199184" title="tlz::viewer::show" alt="" coords="231,297,353,323"/>
+<area shape="rect" id="node11" href="$classtlz_1_1viewer.html#a4ccb30b02c81909ba1af97745375385a" title="tlz::viewer::show_modal" alt="" coords="211,347,373,374"/>
+<area shape="rect" id="node12" href="$classtlz_1_1viewer.html#a39742c89e09f32e2d2c9162882dc158c" title="tlz::viewer::update\l_modal" alt="" coords="427,365,557,407"/>
+<area shape="rect" id="node13" href="$classtlz_1_1viewer.html#ae84f2b4938b897ac7cef4940056a1949" title="tlz::viewer::close\l_modal" alt="" coords="231,449,353,491"/>
+<area shape="rect" id="node14" href="$classtlz_1_1viewer.html#adef64a6ebf1391fd02c1231b9fde281f" title="tlz::viewer::visualize_ir" alt="" coords="215,515,369,542"/>
+<area shape="rect" id="node4" href="$classtlz_1_1viewer.html#a5f0412cff89a343ad52431689502389d" title="tlz::viewer::draw" alt="" coords="433,71,551,98"/>
+<area shape="rect" id="node5" href="$classtlz_1_1viewer.html#acc43bf1dd1d0c3cdc35a948d4c194769" title="tlz::viewer::width" alt="" coords="613,46,734,73"/>
+<area shape="rect" id="node6" href="$classtlz_1_1viewer.html#af74a8aef9dde68eeff6b1e2561b39014" title="tlz::viewer::height" alt="" coords="611,97,736,123"/>
+</map>

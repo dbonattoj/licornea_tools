@@ -1,0 +1,6 @@
+<map id="tlz::decode_kinect_reprojection_parameters" name="tlz::decode_kinect_reprojection_parameters">
+<area shape="rect" id="node2" href="$namespacetlz.html#a8cba4853d0d796a01c72f59f36f2a492" title="tlz::decode_intrinsics" alt="" coords="221,56,367,83"/>
+<area shape="rect" id="node3" href="$namespacetlz.html#a066563a26e2de02f215b179f3d3a53da" title="tlz::decode_mat" alt="" coords="415,5,529,32"/>
+<area shape="rect" id="node4" href="$namespacetlz.html#a252af14b9b4ac6502d3e9c5dd8dc90b8" title="tlz::has" alt="" coords="577,107,643,133"/>
+<area shape="rect" id="node5" href="$namespacetlz.html#add846dc50c32dfb356cb1a7ac11d37ac" title="tlz::get_or" alt="" coords="432,107,512,133"/>
+</map>

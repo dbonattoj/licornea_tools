@@ -1,0 +1,82 @@
+\hypertarget{image__correspondence_8h}{}\section{src/calibration/lib/image\+\_\+correspondence.h File Reference}
+\label{image__correspondence_8h}\index{src/calibration/lib/image\+\_\+correspondence.\+h@{src/calibration/lib/image\+\_\+correspondence.\+h}}
+{\ttfamily \#include \char`\"{}../../lib/json.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../../lib/dataset.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../../lib/args.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../../lib/intrinsics.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}feature\+\_\+point.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$utility$>$}\\*
+{\ttfamily \#include $<$set$>$}\\*
+Include dependency graph for image\+\_\+correspondence.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{image__correspondence_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{image__correspondence_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtlz_1_1image__correspondence__feature}{tlz\+::image\+\_\+correspondence\+\_\+feature}
+\begin{DoxyCompactList}\small\item\em Feature on set of views. Optionally one view is \char`\"{}reference\char`\"{}. \end{DoxyCompactList}\item 
+struct \hyperlink{structtlz_1_1image__correspondences}{tlz\+::image\+\_\+correspondences}
+\begin{DoxyCompactList}\small\item\em Set of features, each on set of views. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::set$<$ view\+\_\+index $>$ \hyperlink{namespacetlz_a50da847dcfcd4a37035f36baf5658b0d}{tlz\+::get\+\_\+reference\+\_\+views\+\_\+set} (const image\+\_\+correspondences \&cors)
+\item 
+std\+::vector$<$ view\+\_\+index $>$ \hyperlink{namespacetlz_a32596acc6a938f73bf6fb8be1591f316}{tlz\+::get\+\_\+reference\+\_\+views} (const image\+\_\+correspondences \&cors)
+\item 
+image\+\_\+correspondences \hyperlink{namespacetlz_ae26f7675ecb867cba4f721a2533bceb6}{tlz\+::image\+\_\+correspondences\+\_\+with\+\_\+reference} (const image\+\_\+correspondences \&cors, const view\+\_\+index \&reference\+\_\+view)
+\item 
+std\+::set$<$ view\+\_\+index $>$ \hyperlink{namespacetlz_a5649e44b2c9d8527dcdcc6282b4850c3}{tlz\+::get\+\_\+all\+\_\+views\+\_\+set} (const image\+\_\+correspondences \&cors)
+\item 
+std\+::vector$<$ view\+\_\+index $>$ \hyperlink{namespacetlz_ace8122bb9e3521f3fbaa00a88a1d5928}{tlz\+::get\+\_\+all\+\_\+views} (const image\+\_\+correspondences \&cors)
+\item 
+std\+::set$<$ std\+::string $>$ \hyperlink{namespacetlz_a45905d439e8ba051a7159b7fef851eb7}{tlz\+::get\+\_\+feature\+\_\+names\+\_\+set} (const image\+\_\+correspondences \&cors)
+\item 
+std\+::vector$<$ std\+::string $>$ \hyperlink{namespacetlz_adeaba792165d6750fff2c8a9b692d10b}{tlz\+::get\+\_\+feature\+\_\+names} (const image\+\_\+correspondences \&cors)
+\item 
+std\+::string \hyperlink{namespacetlz_a322d5c4e810a487f114fd4a5e7dcf826}{tlz\+::short\+\_\+feature\+\_\+name} (const std\+::string \&full\+\_\+feature\+\_\+name)
+\item 
+image\+\_\+correspondences \hyperlink{namespacetlz_a7b2f763ca7c6cba833a13225c93ad55c}{tlz\+::undistort} (const image\+\_\+correspondences \&cors, const intrinsics \&intr)
+\item 
+cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \hyperlink{namespacetlz_abf1d01f09b5e0671d1538ea8259cdb1e}{tlz\+::visualize\+\_\+view\+\_\+points} (const image\+\_\+correspondence\+\_\+feature \&feature, const cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \&back\+\_\+img, const cv\+::\+Vec3b \&col, int dot\+\_\+radius, const \hyperlink{view__distortion_8cc_ae411f3a1782e7245d23e7b4772e1a21f}{border} \&bord)
+\item 
+cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \hyperlink{namespacetlz_a7f1e6601e70df95f0c06c82252c66e1b}{tlz\+::visualize\+\_\+view\+\_\+points\+\_\+closeup} (const image\+\_\+correspondence\+\_\+feature \&feature, const cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \&img, const cv\+::\+Vec3b \&col, const view\+\_\+index \&ref\+\_\+idx, real dots\+\_\+opacity, const \hyperlink{view__distortion_8cc_ae411f3a1782e7245d23e7b4772e1a21f}{border} \&bord)
+\item 
+image\+\_\+correspondence\+\_\+feature \hyperlink{namespacetlz_ab83b0eb933afca1abe8ccd3470207691}{tlz\+::decode\+\_\+image\+\_\+correspondence\+\_\+feature} (const json \&j\+\_\+feat)
+\item 
+json \hyperlink{namespacetlz_aa875dcb2a47f0a406887a14c6f515bfd}{tlz\+::encode\+\_\+image\+\_\+correspondence\+\_\+feature} (const image\+\_\+correspondence\+\_\+feature \&feat)
+\item 
+image\+\_\+correspondences \hyperlink{namespacetlz_a24915249769d936c24ceb34f50b06104}{tlz\+::decode\+\_\+image\+\_\+correspondences} (const json \&j\+\_\+cors)
+\item 
+json \hyperlink{namespacetlz_a5425610b090d56218f8a7272ba402bfb}{tlz\+::encode\+\_\+image\+\_\+correspondences} (const image\+\_\+correspondences \&cors)
+\item 
+void \hyperlink{namespacetlz_a24bb23db2319f38046e6de526a0cb20e}{tlz\+::export\+\_\+binary\+\_\+image\+\_\+correspondences} (const image\+\_\+correspondences \&cors, const std\+::string \&filename)
+\item 
+image\+\_\+correspondences \hyperlink{namespacetlz_a2ec439452fda5eeb03f60715e50fa96a}{tlz\+::import\+\_\+binary\+\_\+image\+\_\+correspondences} (const std\+::string \&filename)
+\item 
+void \hyperlink{namespacetlz_a703280f6c42435c957e976f0ab000b30}{tlz\+::export\+\_\+image\+\_\+corresponcences} (const image\+\_\+correspondences \&cors, const std\+::string \&filename)
+\item 
+image\+\_\+correspondences \hyperlink{namespacetlz_ad75d99f2e1623434fbadee66f3ff29a1}{tlz\+::import\+\_\+image\+\_\+correspondences} (const std\+::string \&filename)
+\item 
+image\+\_\+correspondences \hyperlink{namespacetlz_a11d8bb3ca89f4957bfde1cd0d5429a16}{tlz\+::image\+\_\+correspondences\+\_\+arg} ()
+\end{DoxyCompactItemize}

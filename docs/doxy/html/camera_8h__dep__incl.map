@@ -1,0 +1,13 @@
+<map id="src/lib/camera.h" name="src/lib/camera.h">
+<area shape="rect" id="node2" href="$cameras__from__checkerboards_8cc.html" title="src/calibration/cameras\l_from_checkerboards.cc" alt="" coords="5,80,171,121"/>
+<area shape="rect" id="node3" href="$cg__generate__artificial_8cc.html" title="src/calibration/cg\l_generate_artificial.cc" alt="" coords="195,80,344,121"/>
+<area shape="rect" id="node4" href="$cg__stitch__cameras_8cc.html" title="src/calibration/cg\l_stitch_cameras.cc" alt="" coords="368,80,504,121"/>
+<area shape="rect" id="node5" href="$evaluate__calibration_8cc.html" title="src/calibration/evaluate\l_calibration.cc" alt="" coords="529,80,685,121"/>
+<area shape="rect" id="node6" href="$export__mpeg_8cc.html" title="src/camera/export_mpeg.cc" alt="" coords="709,87,893,114"/>
+<area shape="rect" id="node7" href="$import__mpeg_8cc.html" title="src/camera/import_mpeg.cc" alt="" coords="917,87,1101,114"/>
+<area shape="rect" id="node8" href="$camera__mpeg_8cc.html" title="src/camera/lib/camera\l_mpeg.cc" alt="" coords="1126,80,1277,121"/>
+<area shape="rect" id="node9" href="$transform_8cc.html" title="src/camera/transform.cc" alt="" coords="1301,87,1465,114"/>
+<area shape="rect" id="node10" href="$visualize_8cc.html" title="src/camera/visualize.cc" alt="" coords="1489,87,1649,114"/>
+<area shape="rect" id="node11" href="$camera_8cc.html" title="src/lib/camera.cc" alt="" coords="1673,87,1796,114"/>
+<area shape="rect" id="node12" href="$view__syn_8cc.html" title="src/misc/view_syn.cc" alt="" coords="1820,87,1969,114"/>
+</map>

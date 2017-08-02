@@ -1,0 +1,87 @@
+\hypertarget{classtlz_1_1ply__exporter}{}\section{tlz\+:\+:ply\+\_\+exporter Class Reference}
+\label{classtlz_1_1ply__exporter}\index{tlz\+::ply\+\_\+exporter@{tlz\+::ply\+\_\+exporter}}
+
+
+Exports point cloud into P\+LY file.  
+
+
+
+
+{\ttfamily \#include $<$ply\+\_\+exporter.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtlz_1_1ply__exporter_af50ce371c128cab1c17209ef6172c542}{ply\+\_\+exporter} (const std\+::string \&filename, bool full=true, bool ascii=false, \hyperlink{namespacetlz_a9643974618d6e98138d9b009f5f6123d}{line\+\_\+delimitor} ld=\hyperlink{namespacetlz_a9643974618d6e98138d9b009f5f6123da618441d41cce47dbcfd9bed6e5ff64e6}{line\+\_\+delimitor\+::\+LF})
+\item 
+\hyperlink{classtlz_1_1ply__exporter_a04c96aa28c1731b78b37e9de3d30f29b}{$\sim$ply\+\_\+exporter} ()
+\item 
+{\footnotesize template$<$typename It $>$ }\\void \hyperlink{classtlz_1_1ply__exporter_abca05c1238efe13b3ab00bda8e4a23d2}{write} (It begin, It end)
+\item 
+void \hyperlink{classtlz_1_1ply__exporter_a50d9d05ee04c68020969f73ed1a7ccd3}{close} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Exports point cloud into P\+LY file. 
+
+Can generate binary or A\+S\+C\+II format, and either only X\+YZ coordinates or with color, weight and normals. 
+
+Definition at line 13 of file ply\+\_\+exporter.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{tlz\+::ply\+\_\+exporter@{tlz\+::ply\+\_\+exporter}!ply\+\_\+exporter@{ply\+\_\+exporter}}
+\index{ply\+\_\+exporter@{ply\+\_\+exporter}!tlz\+::ply\+\_\+exporter@{tlz\+::ply\+\_\+exporter}}
+\subsubsection[{\texorpdfstring{ply\+\_\+exporter(const std\+::string \&filename, bool full=true, bool ascii=false, line\+\_\+delimitor ld=line\+\_\+delimitor\+::\+L\+F)}{ply_exporter(const std::string &filename, bool full=true, bool ascii=false, line_delimitor ld=line_delimitor::LF)}}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::ply\+\_\+exporter\+::ply\+\_\+exporter (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{filename, }
+\item[{bool}]{full = {\ttfamily true}, }
+\item[{bool}]{ascii = {\ttfamily false}, }
+\item[{{\bf line\+\_\+delimitor}}]{ld = {\ttfamily {\bf line\+\_\+delimitor\+::\+LF}}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\hypertarget{classtlz_1_1ply__exporter_af50ce371c128cab1c17209ef6172c542}{}\label{classtlz_1_1ply__exporter_af50ce371c128cab1c17209ef6172c542}
+
+
+Definition at line 13 of file ply\+\_\+exporter.\+cc.
+
+\index{tlz\+::ply\+\_\+exporter@{tlz\+::ply\+\_\+exporter}!````~ply\+\_\+exporter@{$\sim$ply\+\_\+exporter}}
+\index{````~ply\+\_\+exporter@{$\sim$ply\+\_\+exporter}!tlz\+::ply\+\_\+exporter@{tlz\+::ply\+\_\+exporter}}
+\subsubsection[{\texorpdfstring{$\sim$ply\+\_\+exporter()}{~ply_exporter()}}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::ply\+\_\+exporter\+::$\sim$ply\+\_\+exporter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1ply__exporter_a04c96aa28c1731b78b37e9de3d30f29b}{}\label{classtlz_1_1ply__exporter_a04c96aa28c1731b78b37e9de3d30f29b}
+
+
+Definition at line 45 of file ply\+\_\+exporter.\+cc.
+
+
+
+\subsection{Member Function Documentation}
+\index{tlz\+::ply\+\_\+exporter@{tlz\+::ply\+\_\+exporter}!close@{close}}
+\index{close@{close}!tlz\+::ply\+\_\+exporter@{tlz\+::ply\+\_\+exporter}}
+\subsubsection[{\texorpdfstring{close()}{close()}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::ply\+\_\+exporter\+::close (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1ply__exporter_a50d9d05ee04c68020969f73ed1a7ccd3}{}\label{classtlz_1_1ply__exporter_a50d9d05ee04c68020969f73ed1a7ccd3}
+
+
+Definition at line 50 of file ply\+\_\+exporter.\+cc.
+
+\index{tlz\+::ply\+\_\+exporter@{tlz\+::ply\+\_\+exporter}!write@{write}}
+\index{write@{write}!tlz\+::ply\+\_\+exporter@{tlz\+::ply\+\_\+exporter}}
+\subsubsection[{\texorpdfstring{write(\+It begin, It end)}{write(It begin, It end)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename It $>$ void tlz\+::ply\+\_\+exporter\+::write (
+\begin{DoxyParamCaption}
+\item[{It}]{begin, }
+\item[{It}]{end}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1ply__exporter_abca05c1238efe13b3ab00bda8e4a23d2}{}\label{classtlz_1_1ply__exporter_abca05c1238efe13b3ab00bda8e4a23d2}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\hyperlink{ply__exporter_8h}{ply\+\_\+exporter.\+h}\item 
+src/lib/\hyperlink{ply__exporter_8cc}{ply\+\_\+exporter.\+cc}\end{DoxyCompactItemize}

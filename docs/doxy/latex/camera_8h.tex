@@ -1,0 +1,54 @@
+\hypertarget{camera_8h}{}\section{src/lib/camera.h File Reference}
+\label{camera_8h}\index{src/lib/camera.\+h@{src/lib/camera.\+h}}
+{\ttfamily \#include \char`\"{}common.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}json.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../../lib/intrinsics.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+Include dependency graph for camera.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{camera_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{camera_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtlz_1_1camera}{tlz\+::camera}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{namespacetlz_a7c35ad93fe55f736afafa798f3885c8e}{tlz\+::camera\+\_\+array} = std\+::vector$<$ camera $>$
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+camera\+\_\+array \hyperlink{namespacetlz_a8d445609e681336909da63eb443186b4}{tlz\+::decode\+\_\+cameras} (const json \&j\+\_\+cams)
+\item 
+void \hyperlink{namespacetlz_a445f7e177edcda36ece43a5fcd78615f}{tlz\+::export\+\_\+cameras\+\_\+file} (const camera\+\_\+array \&cameras, const std\+::string \&filename)
+\item 
+camera\+\_\+array \hyperlink{namespacetlz_aa5e0f8e51747ba6008a12ea8942ad9f7}{tlz\+::cameras\+\_\+arg} ()
+\item 
+intrinsics \hyperlink{namespacetlz_af042832f21784a7cb232f62d3b507006}{tlz\+::to\+\_\+undistorted\+\_\+intrinsics} (const camera \&cam, int width, int height)
+\item 
+std\+::map$<$ std\+::string, camera $>$ \hyperlink{namespacetlz_aee5cd009d147cc17dfb4e8433a78b521}{tlz\+::cameras\+\_\+map} (const std\+::vector$<$ camera $>$ \&)
+\item 
+void \hyperlink{namespacetlz_a5b28f7b4a28b81d7562b9cf661f1e745}{tlz\+::export\+\_\+cameras\+\_\+file} (const std\+::string \&filename, const std\+::map$<$ std\+::string, camera $>$ \&map)
+\end{DoxyCompactItemize}

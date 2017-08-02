@@ -1,0 +1,5 @@
+<map id="tlz::kinect_reprojection_parameters" name="tlz::kinect_reprojection_parameters">
+<area shape="rect" id="node2" href="$structtlz_1_1kinect__reprojection__parameters_1_1depth__offset__polyfit.html" title="tlz::kinect_reprojection\l_parameters::depth_offset\l_polyfit" alt="" coords="5,95,180,151"/>
+<area shape="rect" id="node3" href="$structtlz_1_1intrinsics.html" title="tlz::intrinsics" alt="" coords="205,109,301,136"/>
+<area shape="rect" id="node4" href="$structtlz_1_1distortion__parameters.html" title="tlz::distortion_parameters" alt="" coords="168,5,337,32"/>
+</map>

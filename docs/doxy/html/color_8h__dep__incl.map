@@ -1,0 +1,18 @@
+<map id="src/lib/color.h" name="src/lib/color.h">
+<area shape="rect" id="node2" href="$kinect__reprojection_8h.html" title="src/kinect/lib/kinect\l_reprojection.h" alt="" coords="396,80,531,121"/>
+<area shape="rect" id="node9" href="$point_8h.html" title="src/lib/point.h" alt="" coords="1073,87,1173,114"/>
+<area shape="rect" id="node15" href="$kinect__remapping_8h.html" title="src/kinect/lib/kinect\l_remapping.h" alt="" coords="1236,80,1371,121"/>
+<area shape="rect" id="node17" href="$color_8cc.html" title="src/lib/color.cc" alt="" coords="1395,87,1502,114"/>
+<area shape="rect" id="node3" href="$checkerboard__color__depth_8cc.html" title="src/kinect/checkerboard\l_color_depth.cc" alt="" coords="5,169,167,211"/>
+<area shape="rect" id="node4" href="$depth__reprojection_8cc.html" title="src/kinect/depth_reprojection.cc" alt="" coords="663,259,869,285"/>
+<area shape="rect" id="node5" href="$kinect__reprojection_8cc.html" title="src/kinect/lib/kinect\l_reprojection.cc" alt="" coords="243,169,377,211"/>
+<area shape="rect" id="node6" href="$parallel__wall_8cc.html" title="src/kinect/parallel\l_wall.cc" alt="" coords="401,169,525,211"/>
+<area shape="rect" id="node7" href="$remapping__viewer_8cc.html" title="src/kinect/remapping\l_viewer.cc" alt="" coords="549,169,692,211"/>
+<area shape="rect" id="node8" href="$reprojection__viewer_8cc.html" title="src/kinect/reprojection\l_viewer.cc" alt="" coords="716,169,867,211"/>
+<area shape="rect" id="node10" href="$depth__remapping_8cc.html" title="src/kinect/depth_remapping.cc" alt="" coords="1069,259,1269,285"/>
+<area shape="rect" id="node11" href="$ply__exporter_8h.html" title="src/lib/ply_exporter.h" alt="" coords="943,177,1085,203"/>
+<area shape="rect" id="node13" href="$ply__importer_8h.html" title="src/lib/ply_importer.h" alt="" coords="1161,177,1304,203"/>
+<area shape="rect" id="node12" href="$ply__exporter_8cc.html" title="src/lib/ply_exporter.cc" alt="" coords="893,259,1044,285"/>
+<area shape="rect" id="node14" href="$ply__importer_8cc.html" title="src/lib/ply_importer.cc" alt="" coords="1293,259,1444,285"/>
+<area shape="rect" id="node16" href="$kinect__remapping_8cc.html" title="src/kinect/lib/kinect\l_remapping.cc" alt="" coords="1380,169,1515,211"/>
+</map>

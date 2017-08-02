@@ -1,0 +1,14 @@
+<map id="src/lib/obj_img_correspondence.h" name="src/lib/obj_img_correspondence.h">
+<area shape="rect" id="node2" href="$calibrate__intrinsics_8cc.html" title="src/calibration/calibrate\l_intrinsics.cc" alt="" coords="5,80,161,121"/>
+<area shape="rect" id="node3" href="$calibrate__color__ir__reprojection_8cc.html" title="src/kinect/calibrate\l_color_ir_reprojection.cc" alt="" coords="186,80,349,121"/>
+<area shape="rect" id="node4" href="$checkerboard__depth__parallel_8cc.html" title="src/kinect/checkerboard\l_depth_parallel.cc" alt="" coords="373,80,535,121"/>
+<area shape="rect" id="node5" href="$checkerboard__depth__samples_8cc.html" title="src/kinect/checkerboard\l_depth_samples.cc" alt="" coords="559,80,720,121"/>
+<area shape="rect" id="node6" href="$checkerboard__depth__stat_8cc.html" title="src/kinect/checkerboard\l_depth_stat.cc" alt="" coords="744,80,905,121"/>
+<area shape="rect" id="node7" href="$checkerboard__depth__viewer_8cc.html" title="src/kinect/checkerboard\l_depth_viewer.cc" alt="" coords="929,80,1091,121"/>
+<area shape="rect" id="node8" href="$checkerboard__samples_8cc.html" title="src/kinect/checkerboard\l_samples.cc" alt="" coords="1115,80,1276,121"/>
+<area shape="rect" id="node9" href="$color__intrinsic__reprojection_8cc.html" title="src/kinect/color_intrinsic\l_reprojection.cc" alt="" coords="1301,80,1463,121"/>
+<area shape="rect" id="node10" href="$ir__intrinsic__reprojection_8cc.html" title="src/kinect/ir_intrinsic\l_reprojection.cc" alt="" coords="1488,80,1631,121"/>
+<area shape="rect" id="node11" href="$remapping__viewer_8cc.html" title="src/kinect/remapping\l_viewer.cc" alt="" coords="1655,80,1797,121"/>
+<area shape="rect" id="node12" href="$obj__img__correspondence_8cc.html" title="src/lib/obj_img_correspondence.cc" alt="" coords="1821,87,2044,114"/>
+<area shape="rect" id="node13" href="$cat__obj__img__cors_8cc.html" title="src/misc/cat_obj_img\l_cors.cc" alt="" coords="2069,80,2215,121"/>
+</map>

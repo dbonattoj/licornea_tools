@@ -1,0 +1,64 @@
+\hypertarget{ir__intrinsic__reprojection_8cc}{}\section{src/kinect/ir\+\_\+intrinsic\+\_\+reprojection.cc File Reference}
+\label{ir__intrinsic__reprojection_8cc}\index{src/kinect/ir\+\_\+intrinsic\+\_\+reprojection.\+cc@{src/kinect/ir\+\_\+intrinsic\+\_\+reprojection.\+cc}}
+{\ttfamily \#include \char`\"{}../lib/common.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/args.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/opencv.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/intrinsics.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/misc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/obj\+\_\+img\+\_\+correspondence.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/viewer.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/live/grabber.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/live/checkerboard.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$cassert$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+Include dependency graph for ir\+\_\+intrinsic\+\_\+reprojection.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ir__intrinsic__reprojection_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const cv\+::\+Vec3b \hyperlink{ir__intrinsic__reprojection_8cc_a7c87895bc67d7f4acd7414dc88772fa2}{orig\+\_\+color} (0, 0, 255)
+\item 
+const cv\+::\+Vec3b \hyperlink{ir__intrinsic__reprojection_8cc_a954d54d7632b9f17ffc41545566f0565}{reproj\+\_\+color} (0, 0, 255)
+\item 
+int \hyperlink{ir__intrinsic__reprojection_8cc_ac0f2228420376f4db7e1274f2b41667c}{main} (int argc, const char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{ir\+\_\+intrinsic\+\_\+reprojection.\+cc@{ir\+\_\+intrinsic\+\_\+reprojection.\+cc}!main@{main}}
+\index{main@{main}!ir\+\_\+intrinsic\+\_\+reprojection.\+cc@{ir\+\_\+intrinsic\+\_\+reprojection.\+cc}}
+\subsubsection[{\texorpdfstring{main(int argc, const char $\ast$argv[])}{main(int argc, const char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{const char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{ir__intrinsic__reprojection_8cc_ac0f2228420376f4db7e1274f2b41667c}{}\label{ir__intrinsic__reprojection_8cc_ac0f2228420376f4db7e1274f2b41667c}
+
+
+Definition at line 20 of file ir\+\_\+intrinsic\+\_\+reprojection.\+cc.
+
+\index{ir\+\_\+intrinsic\+\_\+reprojection.\+cc@{ir\+\_\+intrinsic\+\_\+reprojection.\+cc}!orig\+\_\+color@{orig\+\_\+color}}
+\index{orig\+\_\+color@{orig\+\_\+color}!ir\+\_\+intrinsic\+\_\+reprojection.\+cc@{ir\+\_\+intrinsic\+\_\+reprojection.\+cc}}
+\subsubsection[{\texorpdfstring{orig\+\_\+color(0, 0, 255)}{orig_color(0, 0, 255)}}]{\setlength{\rightskip}{0pt plus 5cm}const cv\+::\+Vec3b orig\+\_\+color (
+\begin{DoxyParamCaption}
+\item[{0}]{, }
+\item[{0}]{, }
+\item[{255}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{ir__intrinsic__reprojection_8cc_a7c87895bc67d7f4acd7414dc88772fa2}{}\label{ir__intrinsic__reprojection_8cc_a7c87895bc67d7f4acd7414dc88772fa2}
+\index{ir\+\_\+intrinsic\+\_\+reprojection.\+cc@{ir\+\_\+intrinsic\+\_\+reprojection.\+cc}!reproj\+\_\+color@{reproj\+\_\+color}}
+\index{reproj\+\_\+color@{reproj\+\_\+color}!ir\+\_\+intrinsic\+\_\+reprojection.\+cc@{ir\+\_\+intrinsic\+\_\+reprojection.\+cc}}
+\subsubsection[{\texorpdfstring{reproj\+\_\+color(0, 0, 255)}{reproj_color(0, 0, 255)}}]{\setlength{\rightskip}{0pt plus 5cm}const cv\+::\+Vec3b reproj\+\_\+color (
+\begin{DoxyParamCaption}
+\item[{0}]{, }
+\item[{0}]{, }
+\item[{255}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{ir__intrinsic__reprojection_8cc_a954d54d7632b9f17ffc41545566f0565}{}\label{ir__intrinsic__reprojection_8cc_a954d54d7632b9f17ffc41545566f0565}

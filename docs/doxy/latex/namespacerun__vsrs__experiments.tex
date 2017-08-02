@@ -1,0 +1,124 @@
+\hypertarget{namespacerun__vsrs__experiments}{}\section{run\+\_\+vsrs\+\_\+experiments Namespace Reference}
+\label{namespacerun__vsrs__experiments}\index{run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespacerun__vsrs__experiments_a059f24f18fd95eb85872cdcf43c6667c}{usage\+\_\+fail} ()
+\item 
+def \hyperlink{namespacerun__vsrs__experiments_adf0062078b9b0fe8148b28f1ac2bf06f}{run} (exp\+\_\+index, left\+\_\+cam, this\+\_\+cam, right\+\_\+cam)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespacerun__vsrs__experiments_a2ccbb110feafbaec437f5ff9aad76bc5}{vsrs\+\_\+binary\+\_\+filename} = sys.\+argv\mbox{[}1\mbox{]}
+\item 
+\hyperlink{namespacerun__vsrs__experiments_ab796f5c8f678b861ed3f34beb71e181b}{parameters\+\_\+filename} = sys.\+argv\mbox{[}2\mbox{]}
+\item 
+\hyperlink{namespacerun__vsrs__experiments_ad6902d87996045a9e7e607a7045f3901}{in\+\_\+experiments\+\_\+filename} = sys.\+argv\mbox{[}3\mbox{]}
+\item 
+\hyperlink{namespacerun__vsrs__experiments_ae05c0e64146770296e94c641b040b5c6}{out\+\_\+virtual\+\_\+dirname} = sys.\+argv\mbox{[}4\mbox{]}
+\item 
+\hyperlink{namespacerun__vsrs__experiments_aacf2ecb4f74a741c31ee436ca7018d07}{datas} = \hyperlink{classpylib_1_1dataset_1_1Dataset}{Dataset}(\hyperlink{namespacerun__vsrs__experiments_ab796f5c8f678b861ed3f34beb71e181b}{parameters\+\_\+filename})
+\item 
+\hyperlink{namespacerun__vsrs__experiments_ab3219370020230066ea966510359fbc1}{cameras\+\_\+filename} = os.\+path.\+join(\hyperlink{namespacerun__vsrs__experiments_ae05c0e64146770296e94c641b040b5c6}{out\+\_\+virtual\+\_\+dirname}, \char`\"{}vsrs\+\_\+cameras.\+txt\char`\"{})
+\item 
+\hyperlink{namespacerun__vsrs__experiments_a77b5d05bfd21ce9b4ff6b6e6545587d0}{experiments} = json.\+load(f)
+\item 
+list \hyperlink{namespacerun__vsrs__experiments_abec2d7761f5ef2f337a46cbc4a8977b7}{experiments\+\_\+indexed} = \mbox{[}$\,$\mbox{]}
+\item 
+int \hyperlink{namespacerun__vsrs__experiments_a45f41fbaac363730cac7f912b2382e2b}{i} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}!run@{run}}
+\index{run@{run}!run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{run(exp\+\_\+index, left\+\_\+cam, this\+\_\+cam, right\+\_\+cam)}{run(exp_index, left_cam, this_cam, right_cam)}}]{\setlength{\rightskip}{0pt plus 5cm}def run\+\_\+vsrs\+\_\+experiments.\+run (
+\begin{DoxyParamCaption}
+\item[{}]{exp\+\_\+index, }
+\item[{}]{left\+\_\+cam, }
+\item[{}]{this\+\_\+cam, }
+\item[{}]{right\+\_\+cam}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacerun__vsrs__experiments_adf0062078b9b0fe8148b28f1ac2bf06f}{}\label{namespacerun__vsrs__experiments_adf0062078b9b0fe8148b28f1ac2bf06f}
+
+
+Definition at line 37 of file run\+\_\+vsrs\+\_\+experiments.\+py.
+
+\index{run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}!usage\+\_\+fail@{usage\+\_\+fail}}
+\index{usage\+\_\+fail@{usage\+\_\+fail}!run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{usage\+\_\+fail()}{usage_fail()}}]{\setlength{\rightskip}{0pt plus 5cm}def run\+\_\+vsrs\+\_\+experiments.\+usage\+\_\+fail (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacerun__vsrs__experiments_a059f24f18fd95eb85872cdcf43c6667c}{}\label{namespacerun__vsrs__experiments_a059f24f18fd95eb85872cdcf43c6667c}
+
+
+Definition at line 9 of file run\+\_\+vsrs\+\_\+experiments.\+py.
+
+
+
+\subsection{Variable Documentation}
+\index{run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}!cameras\+\_\+filename@{cameras\+\_\+filename}}
+\index{cameras\+\_\+filename@{cameras\+\_\+filename}!run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{cameras\+\_\+filename}{cameras_filename}}]{\setlength{\rightskip}{0pt plus 5cm}run\+\_\+vsrs\+\_\+experiments.\+cameras\+\_\+filename = os.\+path.\+join({\bf out\+\_\+virtual\+\_\+dirname}, \char`\"{}vsrs\+\_\+cameras.\+txt\char`\"{})}\hypertarget{namespacerun__vsrs__experiments_ab3219370020230066ea966510359fbc1}{}\label{namespacerun__vsrs__experiments_ab3219370020230066ea966510359fbc1}
+
+
+Definition at line 22 of file run\+\_\+vsrs\+\_\+experiments.\+py.
+
+\index{run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}!datas@{datas}}
+\index{datas@{datas}!run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{datas}{datas}}]{\setlength{\rightskip}{0pt plus 5cm}run\+\_\+vsrs\+\_\+experiments.\+datas = {\bf Dataset}({\bf parameters\+\_\+filename})}\hypertarget{namespacerun__vsrs__experiments_aacf2ecb4f74a741c31ee436ca7018d07}{}\label{namespacerun__vsrs__experiments_aacf2ecb4f74a741c31ee436ca7018d07}
+
+
+Definition at line 19 of file run\+\_\+vsrs\+\_\+experiments.\+py.
+
+\index{run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}!experiments@{experiments}}
+\index{experiments@{experiments}!run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{experiments}{experiments}}]{\setlength{\rightskip}{0pt plus 5cm}run\+\_\+vsrs\+\_\+experiments.\+experiments = json.\+load(f)}\hypertarget{namespacerun__vsrs__experiments_a77b5d05bfd21ce9b4ff6b6e6545587d0}{}\label{namespacerun__vsrs__experiments_a77b5d05bfd21ce9b4ff6b6e6545587d0}
+
+
+Definition at line 29 of file run\+\_\+vsrs\+\_\+experiments.\+py.
+
+\index{run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}!experiments\+\_\+indexed@{experiments\+\_\+indexed}}
+\index{experiments\+\_\+indexed@{experiments\+\_\+indexed}!run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{experiments\+\_\+indexed}{experiments_indexed}}]{\setlength{\rightskip}{0pt plus 5cm}list run\+\_\+vsrs\+\_\+experiments.\+experiments\+\_\+indexed = \mbox{[}$\,$\mbox{]}}\hypertarget{namespacerun__vsrs__experiments_abec2d7761f5ef2f337a46cbc4a8977b7}{}\label{namespacerun__vsrs__experiments_abec2d7761f5ef2f337a46cbc4a8977b7}
+
+
+Definition at line 31 of file run\+\_\+vsrs\+\_\+experiments.\+py.
+
+\index{run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}!i@{i}}
+\index{i@{i}!run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{i}{i}}]{\setlength{\rightskip}{0pt plus 5cm}int run\+\_\+vsrs\+\_\+experiments.\+i = 0}\hypertarget{namespacerun__vsrs__experiments_a45f41fbaac363730cac7f912b2382e2b}{}\label{namespacerun__vsrs__experiments_a45f41fbaac363730cac7f912b2382e2b}
+
+
+Definition at line 32 of file run\+\_\+vsrs\+\_\+experiments.\+py.
+
+\index{run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}!in\+\_\+experiments\+\_\+filename@{in\+\_\+experiments\+\_\+filename}}
+\index{in\+\_\+experiments\+\_\+filename@{in\+\_\+experiments\+\_\+filename}!run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{in\+\_\+experiments\+\_\+filename}{in_experiments_filename}}]{\setlength{\rightskip}{0pt plus 5cm}run\+\_\+vsrs\+\_\+experiments.\+in\+\_\+experiments\+\_\+filename = sys.\+argv\mbox{[}3\mbox{]}}\hypertarget{namespacerun__vsrs__experiments_ad6902d87996045a9e7e607a7045f3901}{}\label{namespacerun__vsrs__experiments_ad6902d87996045a9e7e607a7045f3901}
+
+
+Definition at line 16 of file run\+\_\+vsrs\+\_\+experiments.\+py.
+
+\index{run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}!out\+\_\+virtual\+\_\+dirname@{out\+\_\+virtual\+\_\+dirname}}
+\index{out\+\_\+virtual\+\_\+dirname@{out\+\_\+virtual\+\_\+dirname}!run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{out\+\_\+virtual\+\_\+dirname}{out_virtual_dirname}}]{\setlength{\rightskip}{0pt plus 5cm}run\+\_\+vsrs\+\_\+experiments.\+out\+\_\+virtual\+\_\+dirname = sys.\+argv\mbox{[}4\mbox{]}}\hypertarget{namespacerun__vsrs__experiments_ae05c0e64146770296e94c641b040b5c6}{}\label{namespacerun__vsrs__experiments_ae05c0e64146770296e94c641b040b5c6}
+
+
+Definition at line 17 of file run\+\_\+vsrs\+\_\+experiments.\+py.
+
+\index{run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}!parameters\+\_\+filename@{parameters\+\_\+filename}}
+\index{parameters\+\_\+filename@{parameters\+\_\+filename}!run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{parameters\+\_\+filename}{parameters_filename}}]{\setlength{\rightskip}{0pt plus 5cm}run\+\_\+vsrs\+\_\+experiments.\+parameters\+\_\+filename = sys.\+argv\mbox{[}2\mbox{]}}\hypertarget{namespacerun__vsrs__experiments_ab796f5c8f678b861ed3f34beb71e181b}{}\label{namespacerun__vsrs__experiments_ab796f5c8f678b861ed3f34beb71e181b}
+
+
+Definition at line 15 of file run\+\_\+vsrs\+\_\+experiments.\+py.
+
+\index{run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}!vsrs\+\_\+binary\+\_\+filename@{vsrs\+\_\+binary\+\_\+filename}}
+\index{vsrs\+\_\+binary\+\_\+filename@{vsrs\+\_\+binary\+\_\+filename}!run\+\_\+vsrs\+\_\+experiments@{run\+\_\+vsrs\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{vsrs\+\_\+binary\+\_\+filename}{vsrs_binary_filename}}]{\setlength{\rightskip}{0pt plus 5cm}run\+\_\+vsrs\+\_\+experiments.\+vsrs\+\_\+binary\+\_\+filename = sys.\+argv\mbox{[}1\mbox{]}}\hypertarget{namespacerun__vsrs__experiments_a2ccbb110feafbaec437f5ff9aad76bc5}{}\label{namespacerun__vsrs__experiments_a2ccbb110feafbaec437f5ff9aad76bc5}
+
+
+Definition at line 14 of file run\+\_\+vsrs\+\_\+experiments.\+py.
+

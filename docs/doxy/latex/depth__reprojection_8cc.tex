@@ -1,0 +1,62 @@
+\hypertarget{depth__reprojection_8cc}{}\section{src/kinect/depth\+\_\+reprojection.cc File Reference}
+\label{depth__reprojection_8cc}\index{src/kinect/depth\+\_\+reprojection.\+cc@{src/kinect/depth\+\_\+reprojection.\+cc}}
+{\ttfamily \#include \char`\"{}../lib/args.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/point.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/ply\+\_\+exporter.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/image\+\_\+io.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/opencv.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/kinect\+\_\+reprojection.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/densify/depth\+\_\+densify.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/kinect\+\_\+internal\+\_\+parameters.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/common.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$cstdlib$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$stdexcept$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+Include dependency graph for depth\+\_\+reprojection.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{depth__reprojection_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{depth__reprojection_8cc_a6dde206a715a5b5af069615e3cb882fd}{do\+\_\+depth\+\_\+reprojection} (const cv\+::\+Mat\+\_\+$<$ ushort $>$ \&in, cv\+::\+Mat\+\_\+$<$ ushort $>$ \&out, cv\+::\+Mat\+\_\+$<$ uchar $>$ \&out\+\_\+mask, const \hyperlink{classtlz_1_1kinect__reprojection}{kinect\+\_\+reprojection} \&reproj, const std\+::string \&method)
+\item 
+int \hyperlink{depth__reprojection_8cc_ac0f2228420376f4db7e1274f2b41667c}{main} (int argc, const char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{depth\+\_\+reprojection.\+cc@{depth\+\_\+reprojection.\+cc}!do\+\_\+depth\+\_\+reprojection@{do\+\_\+depth\+\_\+reprojection}}
+\index{do\+\_\+depth\+\_\+reprojection@{do\+\_\+depth\+\_\+reprojection}!depth\+\_\+reprojection.\+cc@{depth\+\_\+reprojection.\+cc}}
+\subsubsection[{\texorpdfstring{do\+\_\+depth\+\_\+reprojection(const cv\+::\+Mat\+\_\+$<$ ushort $>$ \&in, cv\+::\+Mat\+\_\+$<$ ushort $>$ \&out, cv\+::\+Mat\+\_\+$<$ uchar $>$ \&out\+\_\+mask, const kinect\+\_\+reprojection \&reproj, const std\+::string \&method)}{do_depth_reprojection(const cv::Mat_< ushort > &in, cv::Mat_< ushort > &out, cv::Mat_< uchar > &out_mask, const kinect_reprojection &reproj, const std::string &method)}}]{\setlength{\rightskip}{0pt plus 5cm}void do\+\_\+depth\+\_\+reprojection (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat\+\_\+$<$ ushort $>$ \&}]{in, }
+\item[{cv\+::\+Mat\+\_\+$<$ ushort $>$ \&}]{out, }
+\item[{cv\+::\+Mat\+\_\+$<$ uchar $>$ \&}]{out\+\_\+mask, }
+\item[{const {\bf kinect\+\_\+reprojection} \&}]{reproj, }
+\item[{const std\+::string \&}]{method}
+\end{DoxyParamCaption}
+)}\hypertarget{depth__reprojection_8cc_a6dde206a715a5b5af069615e3cb882fd}{}\label{depth__reprojection_8cc_a6dde206a715a5b5af069615e3cb882fd}
+
+
+Definition at line 20 of file depth\+\_\+reprojection.\+cc.
+
+\index{depth\+\_\+reprojection.\+cc@{depth\+\_\+reprojection.\+cc}!main@{main}}
+\index{main@{main}!depth\+\_\+reprojection.\+cc@{depth\+\_\+reprojection.\+cc}}
+\subsubsection[{\texorpdfstring{main(int argc, const char $\ast$argv[])}{main(int argc, const char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{const char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{depth__reprojection_8cc_ac0f2228420376f4db7e1274f2b41667c}{}\label{depth__reprojection_8cc_ac0f2228420376f4db7e1274f2b41667c}
+
+
+Definition at line 29 of file depth\+\_\+reprojection.\+cc.
+

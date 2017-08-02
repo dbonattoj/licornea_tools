@@ -1,0 +1,61 @@
+\hypertarget{parallel__wall_8cc}{}\section{src/kinect/parallel\+\_\+wall.cc File Reference}
+\label{parallel__wall_8cc}\index{src/kinect/parallel\+\_\+wall.\+cc@{src/kinect/parallel\+\_\+wall.\+cc}}
+{\ttfamily \#include \char`\"{}../lib/common.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/args.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/opencv.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/json.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/misc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/viewer.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/common.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/live/grabber.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/kinect\+\_\+reprojection\+\_\+parameters.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/kinect\+\_\+reprojection.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/densify/depth\+\_\+densify.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+Include dependency graph for parallel\+\_\+wall.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parallel__wall_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structcomputation__result}{computation\+\_\+result}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structcomputation__result}{computation\+\_\+result} \hyperlink{parallel__wall_8cc_afcd23386ba8a2a7d29d328c923075b2d}{compute\+\_\+depth\+\_\+slopes} (const cv\+::\+Mat\+\_\+$<$ \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} $>$ \&depth)
+\item 
+int \hyperlink{parallel__wall_8cc_ac0f2228420376f4db7e1274f2b41667c}{main} (int argc, const char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{parallel\+\_\+wall.\+cc@{parallel\+\_\+wall.\+cc}!compute\+\_\+depth\+\_\+slopes@{compute\+\_\+depth\+\_\+slopes}}
+\index{compute\+\_\+depth\+\_\+slopes@{compute\+\_\+depth\+\_\+slopes}!parallel\+\_\+wall.\+cc@{parallel\+\_\+wall.\+cc}}
+\subsubsection[{\texorpdfstring{compute\+\_\+depth\+\_\+slopes(const cv\+::\+Mat\+\_\+$<$ real $>$ \&depth)}{compute_depth_slopes(const cv::Mat_< real > &depth)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf computation\+\_\+result} compute\+\_\+depth\+\_\+slopes (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat\+\_\+$<$ {\bf real} $>$ \&}]{depth}
+\end{DoxyParamCaption}
+)}\hypertarget{parallel__wall_8cc_afcd23386ba8a2a7d29d328c923075b2d}{}\label{parallel__wall_8cc_afcd23386ba8a2a7d29d328c923075b2d}
+
+
+Definition at line 23 of file parallel\+\_\+wall.\+cc.
+
+\index{parallel\+\_\+wall.\+cc@{parallel\+\_\+wall.\+cc}!main@{main}}
+\index{main@{main}!parallel\+\_\+wall.\+cc@{parallel\+\_\+wall.\+cc}}
+\subsubsection[{\texorpdfstring{main(int argc, const char $\ast$argv[])}{main(int argc, const char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{const char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{parallel__wall_8cc_ac0f2228420376f4db7e1274f2b41667c}{}\label{parallel__wall_8cc_ac0f2228420376f4db7e1274f2b41667c}
+
+
+Definition at line 78 of file parallel\+\_\+wall.\+cc.
+

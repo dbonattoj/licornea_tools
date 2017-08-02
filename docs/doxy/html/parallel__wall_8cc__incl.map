@@ -1,0 +1,18 @@
+<map id="src/kinect/parallel_wall.cc" name="src/kinect/parallel_wall.cc">
+<area shape="rect" id="node2" href="$lib_2common_8h.html" title="../lib/common.h" alt="" coords="1869,483,1981,509"/>
+<area shape="rect" id="node11" href="$args_8h.html" title="../lib/args.h" alt="" coords="1401,408,1487,435"/>
+<area shape="rect" id="node14" href="$opencv_8h.html" title="../lib/opencv.h" alt="" coords="2131,408,2235,435"/>
+<area shape="rect" id="node16" href="$json_8h.html" title="../lib/json.h" alt="" coords="1629,333,1715,360"/>
+<area shape="rect" id="node18" href="$misc_8h.html" title="../lib/misc.h" alt="" coords="235,408,325,435"/>
+<area shape="rect" id="node22" href="$viewer_8h.html" title="../lib/viewer.h" alt="" coords="881,333,981,360"/>
+<area shape="rect" id="node24" href="$kinect_2lib_2common_8h.html" title="lib/common.h" alt="" coords="2447,408,2547,435"/>
+<area shape="rect" id="node25" href="$grabber_8h.html" title="lib/live/grabber.h" alt="" coords="911,95,1028,121"/>
+<area shape="rect" id="node34" href="$kinect__reprojection__parameters_8h.html" title="lib/kinect_reprojection\l_parameters.h" alt="" coords="1785,169,1933,211"/>
+<area shape="rect" id="node36" href="$kinect__reprojection_8h.html" title="lib/kinect_reprojection.h" alt="" coords="2009,95,2167,121"/>
+<area shape="rect" id="node41" href="$depth__densify_8h.html" title="lib/densify/depth_densify.h" alt="" coords="1755,333,1933,360"/>
+<area shape="rect" id="node27" href="$freenect2_8h.html" title="../freenect2.h" alt="" coords="1459,177,1557,203"/>
+<area shape="rect" id="node29" href="$kinect__internal__parameters_8h.html" title="kinect_internal_parameters.h" alt="" coords="1368,259,1557,285"/>
+<area shape="rect" id="node35" href="$intrinsics_8h.html" title="../../lib/intrinsics.h" alt="" coords="1790,259,1917,285"/>
+<area shape="rect" id="node37" href="$color_8h.html" title="../../lib/color.h" alt="" coords="2337,333,2439,360"/>
+<area shape="rect" id="node38" href="$ir__to__color__sample_8h.html" title="ir_to_color_sample.h" alt="" coords="1963,408,2106,435"/>
+</map>

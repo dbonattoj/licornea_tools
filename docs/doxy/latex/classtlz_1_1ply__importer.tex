@@ -1,0 +1,142 @@
+\hypertarget{classtlz_1_1ply__importer}{}\section{tlz\+:\+:ply\+\_\+importer Class Reference}
+\label{classtlz_1_1ply__importer}\index{tlz\+::ply\+\_\+importer@{tlz\+::ply\+\_\+importer}}
+
+
+Imports point cloud from P\+LY file.  
+
+
+
+
+{\ttfamily \#include $<$ply\+\_\+importer.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtlz_1_1ply__importer_a839033d91e5fd741f77dee40df2100c4}{ply\+\_\+importer} (const std\+::string \&filename, \hyperlink{namespacetlz_a9643974618d6e98138d9b009f5f6123d}{line\+\_\+delimitor} ld=\hyperlink{namespacetlz_a9643974618d6e98138d9b009f5f6123daad921d60486366258809553a3db49a4a}{line\+\_\+delimitor\+::unknown})
+\item 
+std\+::size\+\_\+t \hyperlink{classtlz_1_1ply__importer_a598f029fa08ee8805c58aab4da6181c3}{size} () const 
+\item 
+void \hyperlink{classtlz_1_1ply__importer_afe3049c4802c6928ebca0612b371a78c}{rewind} ()
+\item 
+std\+::ptrdiff\+\_\+t \hyperlink{classtlz_1_1ply__importer_a1b181b2af7d2ba5624c1f076a84ce3fd}{tell} () const 
+\item 
+void \hyperlink{classtlz_1_1ply__importer_a4caef5aaee64c0fa8a12876ec02750df}{read} (\hyperlink{structtlz_1_1point__xyz}{point\+\_\+xyz} $\ast$, std\+::size\+\_\+t sz)
+\item 
+void \hyperlink{classtlz_1_1ply__importer_af956b9c491db81db9c522c793137fab1}{read} (\hyperlink{structtlz_1_1point__full}{point\+\_\+full} $\ast$, std\+::size\+\_\+t sz)
+\item 
+bool \hyperlink{classtlz_1_1ply__importer_ae17e8e5043bf6e5b53c43d91d73ea20d}{is\+\_\+binary} () const 
+\item 
+bool \hyperlink{classtlz_1_1ply__importer_aa398f1eb91c00aa9967bc5b9dbc2ef15}{is\+\_\+ascii} () const 
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Imports point cloud from P\+LY file. 
+
+Reads only points (vertices), possibly with R\+GB color and normal vector data. Supports A\+S\+C\+II and binary formats. Detects line ending type from file. File may contains other elements except vertex, but those are not read. List-\/type properties are not supported, and are only tolerated in elements behinds vertex. 
+
+Definition at line 33 of file ply\+\_\+importer.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{tlz\+::ply\+\_\+importer@{tlz\+::ply\+\_\+importer}!ply\+\_\+importer@{ply\+\_\+importer}}
+\index{ply\+\_\+importer@{ply\+\_\+importer}!tlz\+::ply\+\_\+importer@{tlz\+::ply\+\_\+importer}}
+\subsubsection[{\texorpdfstring{ply\+\_\+importer(const std\+::string \&filename, line\+\_\+delimitor ld=line\+\_\+delimitor\+::unknown)}{ply_importer(const std::string &filename, line_delimitor ld=line_delimitor::unknown)}}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::ply\+\_\+importer\+::ply\+\_\+importer (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{filename, }
+\item[{{\bf line\+\_\+delimitor}}]{ld = {\ttfamily {\bf line\+\_\+delimitor\+::unknown}}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\hypertarget{classtlz_1_1ply__importer_a839033d91e5fd741f77dee40df2100c4}{}\label{classtlz_1_1ply__importer_a839033d91e5fd741f77dee40df2100c4}
+
+
+Definition at line 213 of file ply\+\_\+importer.\+cc.
+
+
+
+\subsection{Member Function Documentation}
+\index{tlz\+::ply\+\_\+importer@{tlz\+::ply\+\_\+importer}!is\+\_\+ascii@{is\+\_\+ascii}}
+\index{is\+\_\+ascii@{is\+\_\+ascii}!tlz\+::ply\+\_\+importer@{tlz\+::ply\+\_\+importer}}
+\subsubsection[{\texorpdfstring{is\+\_\+ascii() const }{is_ascii() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool tlz\+::ply\+\_\+importer\+::is\+\_\+ascii (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classtlz_1_1ply__importer_aa398f1eb91c00aa9967bc5b9dbc2ef15}{}\label{classtlz_1_1ply__importer_aa398f1eb91c00aa9967bc5b9dbc2ef15}
+
+
+Definition at line 102 of file ply\+\_\+importer.\+h.
+
+\index{tlz\+::ply\+\_\+importer@{tlz\+::ply\+\_\+importer}!is\+\_\+binary@{is\+\_\+binary}}
+\index{is\+\_\+binary@{is\+\_\+binary}!tlz\+::ply\+\_\+importer@{tlz\+::ply\+\_\+importer}}
+\subsubsection[{\texorpdfstring{is\+\_\+binary() const }{is_binary() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool tlz\+::ply\+\_\+importer\+::is\+\_\+binary (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classtlz_1_1ply__importer_ae17e8e5043bf6e5b53c43d91d73ea20d}{}\label{classtlz_1_1ply__importer_ae17e8e5043bf6e5b53c43d91d73ea20d}
+
+
+Definition at line 101 of file ply\+\_\+importer.\+h.
+
+\index{tlz\+::ply\+\_\+importer@{tlz\+::ply\+\_\+importer}!read@{read}}
+\index{read@{read}!tlz\+::ply\+\_\+importer@{tlz\+::ply\+\_\+importer}}
+\subsubsection[{\texorpdfstring{read(point\+\_\+xyz $\ast$, std\+::size\+\_\+t sz)}{read(point_xyz *, std::size_t sz)}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::ply\+\_\+importer\+::read (
+\begin{DoxyParamCaption}
+\item[{{\bf point\+\_\+xyz} $\ast$}]{buffer, }
+\item[{std\+::size\+\_\+t}]{sz}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1ply__importer_a4caef5aaee64c0fa8a12876ec02750df}{}\label{classtlz_1_1ply__importer_a4caef5aaee64c0fa8a12876ec02750df}
+
+
+Definition at line 280 of file ply\+\_\+importer.\+cc.
+
+\index{tlz\+::ply\+\_\+importer@{tlz\+::ply\+\_\+importer}!read@{read}}
+\index{read@{read}!tlz\+::ply\+\_\+importer@{tlz\+::ply\+\_\+importer}}
+\subsubsection[{\texorpdfstring{read(point\+\_\+full $\ast$, std\+::size\+\_\+t sz)}{read(point_full *, std::size_t sz)}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::ply\+\_\+importer\+::read (
+\begin{DoxyParamCaption}
+\item[{{\bf point\+\_\+full} $\ast$}]{buffer, }
+\item[{std\+::size\+\_\+t}]{sz}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1ply__importer_af956b9c491db81db9c522c793137fab1}{}\label{classtlz_1_1ply__importer_af956b9c491db81db9c522c793137fab1}
+
+
+Definition at line 291 of file ply\+\_\+importer.\+cc.
+
+\index{tlz\+::ply\+\_\+importer@{tlz\+::ply\+\_\+importer}!rewind@{rewind}}
+\index{rewind@{rewind}!tlz\+::ply\+\_\+importer@{tlz\+::ply\+\_\+importer}}
+\subsubsection[{\texorpdfstring{rewind()}{rewind()}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::ply\+\_\+importer\+::rewind (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1ply__importer_afe3049c4802c6928ebca0612b371a78c}{}\label{classtlz_1_1ply__importer_afe3049c4802c6928ebca0612b371a78c}
+
+
+Definition at line 207 of file ply\+\_\+importer.\+cc.
+
+\index{tlz\+::ply\+\_\+importer@{tlz\+::ply\+\_\+importer}!size@{size}}
+\index{size@{size}!tlz\+::ply\+\_\+importer@{tlz\+::ply\+\_\+importer}}
+\subsubsection[{\texorpdfstring{size() const }{size() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::size\+\_\+t tlz\+::ply\+\_\+importer\+::size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1ply__importer_a598f029fa08ee8805c58aab4da6181c3}{}\label{classtlz_1_1ply__importer_a598f029fa08ee8805c58aab4da6181c3}
+
+
+Definition at line 307 of file ply\+\_\+importer.\+cc.
+
+\index{tlz\+::ply\+\_\+importer@{tlz\+::ply\+\_\+importer}!tell@{tell}}
+\index{tell@{tell}!tlz\+::ply\+\_\+importer@{tlz\+::ply\+\_\+importer}}
+\subsubsection[{\texorpdfstring{tell() const }{tell() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::ptrdiff\+\_\+t tlz\+::ply\+\_\+importer\+::tell (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1ply__importer_a1b181b2af7d2ba5624c1f076a84ce3fd}{}\label{classtlz_1_1ply__importer_a1b181b2af7d2ba5624c1f076a84ce3fd}
+
+
+Definition at line 302 of file ply\+\_\+importer.\+cc.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\hyperlink{ply__importer_8h}{ply\+\_\+importer.\+h}\item 
+src/lib/\hyperlink{ply__importer_8cc}{ply\+\_\+importer.\+cc}\end{DoxyCompactItemize}

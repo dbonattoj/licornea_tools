@@ -1,0 +1,109 @@
+\hypertarget{classtlz_1_1kinect__reprojection}{}\section{tlz\+:\+:kinect\+\_\+reprojection Class Reference}
+\label{classtlz_1_1kinect__reprojection}\index{tlz\+::kinect\+\_\+reprojection@{tlz\+::kinect\+\_\+reprojection}}
+
+
+{\ttfamily \#include $<$kinect\+\_\+reprojection.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Value $>$ }\\using \hyperlink{classtlz_1_1kinect__reprojection_afe84b47774e13076ec08d9d5376262d7}{sample} = \hyperlink{structtlz_1_1ir__to__color__sample}{ir\+\_\+to\+\_\+color\+\_\+sample}$<$ Value $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtlz_1_1kinect__reprojection_a172adb65033a3dbb99c9515b5b877871}{kinect\+\_\+reprojection} (const \hyperlink{structtlz_1_1kinect__reprojection__parameters}{kinect\+\_\+reprojection\+\_\+parameters} \&)
+\item 
+\hyperlink{structtlz_1_1kinect__reprojection__parameters}{kinect\+\_\+reprojection\+\_\+parameters} \& \hyperlink{classtlz_1_1kinect__reprojection_ab8b19da78edaa6a044b34f39960804b7}{parameters} ()
+\item 
+const \hyperlink{structtlz_1_1kinect__reprojection__parameters}{kinect\+\_\+reprojection\+\_\+parameters} \& \hyperlink{classtlz_1_1kinect__reprojection_a896a8e25965b184f6ce9f30d5d1aaf88}{parameters} () const 
+\item 
+std\+::vector$<$ \hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} $>$ \hyperlink{classtlz_1_1kinect__reprojection_a15890a47741e1be6217d2870ecbe3f5a}{reproject\+\_\+points\+\_\+ir\+\_\+to\+\_\+color} (const std\+::vector$<$ \hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} $>$ distorted\+\_\+ir\+\_\+i\+\_\+xy, const std\+::vector$<$ \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} $>$ \&ir\+\_\+z, std\+::vector$<$ \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} $>$ \&out\+\_\+color\+\_\+z, bool distort\+\_\+color=true) const 
+\item 
+{\footnotesize template$<$typename Value , typename Depth $>$ }\\std\+::vector$<$ \hyperlink{classtlz_1_1kinect__reprojection_afe84b47774e13076ec08d9d5376262d7}{sample}$<$ Value $>$ $>$ \hyperlink{classtlz_1_1kinect__reprojection_a0e55570a8afb6c70598495ea716e1dfe}{reproject\+\_\+ir\+\_\+to\+\_\+color\+\_\+samples} (const cv\+::\+Mat\+\_\+$<$ Value $>$ \&distorted\+\_\+ir\+\_\+values, const cv\+::\+Mat\+\_\+$<$ Depth $>$ \&distorted\+\_\+ir\+\_\+z, bool distort\+\_\+color=true) const 
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 14 of file kinect\+\_\+reprojection.\+h.
+
+
+
+\subsection{Member Typedef Documentation}
+\index{tlz\+::kinect\+\_\+reprojection@{tlz\+::kinect\+\_\+reprojection}!sample@{sample}}
+\index{sample@{sample}!tlz\+::kinect\+\_\+reprojection@{tlz\+::kinect\+\_\+reprojection}}
+\subsubsection[{\texorpdfstring{sample}{sample}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Value $>$ using {\bf tlz\+::kinect\+\_\+reprojection\+::sample} =  {\bf ir\+\_\+to\+\_\+color\+\_\+sample}$<$Value$>$}\hypertarget{classtlz_1_1kinect__reprojection_afe84b47774e13076ec08d9d5376262d7}{}\label{classtlz_1_1kinect__reprojection_afe84b47774e13076ec08d9d5376262d7}
+
+
+Definition at line 31 of file kinect\+\_\+reprojection.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{tlz\+::kinect\+\_\+reprojection@{tlz\+::kinect\+\_\+reprojection}!kinect\+\_\+reprojection@{kinect\+\_\+reprojection}}
+\index{kinect\+\_\+reprojection@{kinect\+\_\+reprojection}!tlz\+::kinect\+\_\+reprojection@{tlz\+::kinect\+\_\+reprojection}}
+\subsubsection[{\texorpdfstring{kinect\+\_\+reprojection(const kinect\+\_\+reprojection\+\_\+parameters \&)}{kinect_reprojection(const kinect_reprojection_parameters &)}}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::kinect\+\_\+reprojection\+::kinect\+\_\+reprojection (
+\begin{DoxyParamCaption}
+\item[{const {\bf kinect\+\_\+reprojection\+\_\+parameters} \&}]{reproj}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\hypertarget{classtlz_1_1kinect__reprojection_a172adb65033a3dbb99c9515b5b877871}{}\label{classtlz_1_1kinect__reprojection_a172adb65033a3dbb99c9515b5b877871}
+
+
+Definition at line 7 of file kinect\+\_\+reprojection.\+cc.
+
+
+
+\subsection{Member Function Documentation}
+\index{tlz\+::kinect\+\_\+reprojection@{tlz\+::kinect\+\_\+reprojection}!parameters@{parameters}}
+\index{parameters@{parameters}!tlz\+::kinect\+\_\+reprojection@{tlz\+::kinect\+\_\+reprojection}}
+\subsubsection[{\texorpdfstring{parameters()}{parameters()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kinect\+\_\+reprojection\+\_\+parameters}\& tlz\+::kinect\+\_\+reprojection\+::parameters (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classtlz_1_1kinect__reprojection_ab8b19da78edaa6a044b34f39960804b7}{}\label{classtlz_1_1kinect__reprojection_ab8b19da78edaa6a044b34f39960804b7}
+
+
+Definition at line 21 of file kinect\+\_\+reprojection.\+h.
+
+\index{tlz\+::kinect\+\_\+reprojection@{tlz\+::kinect\+\_\+reprojection}!parameters@{parameters}}
+\index{parameters@{parameters}!tlz\+::kinect\+\_\+reprojection@{tlz\+::kinect\+\_\+reprojection}}
+\subsubsection[{\texorpdfstring{parameters() const }{parameters() const }}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf kinect\+\_\+reprojection\+\_\+parameters}\& tlz\+::kinect\+\_\+reprojection\+::parameters (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classtlz_1_1kinect__reprojection_a896a8e25965b184f6ce9f30d5d1aaf88}{}\label{classtlz_1_1kinect__reprojection_a896a8e25965b184f6ce9f30d5d1aaf88}
+
+
+Definition at line 22 of file kinect\+\_\+reprojection.\+h.
+
+\index{tlz\+::kinect\+\_\+reprojection@{tlz\+::kinect\+\_\+reprojection}!reproject\+\_\+ir\+\_\+to\+\_\+color\+\_\+samples@{reproject\+\_\+ir\+\_\+to\+\_\+color\+\_\+samples}}
+\index{reproject\+\_\+ir\+\_\+to\+\_\+color\+\_\+samples@{reproject\+\_\+ir\+\_\+to\+\_\+color\+\_\+samples}!tlz\+::kinect\+\_\+reprojection@{tlz\+::kinect\+\_\+reprojection}}
+\subsubsection[{\texorpdfstring{reproject\+\_\+ir\+\_\+to\+\_\+color\+\_\+samples(const cv\+::\+Mat\+\_\+$<$ Value $>$ \&distorted\+\_\+ir\+\_\+values, const cv\+::\+Mat\+\_\+$<$ Depth $>$ \&distorted\+\_\+ir\+\_\+z, bool distort\+\_\+color=true) const }{reproject_ir_to_color_samples(const cv::Mat_< Value > &distorted_ir_values, const cv::Mat_< Depth > &distorted_ir_z, bool distort_color=true) const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Value , typename Depth $>$ std\+::vector$<${\bf sample}$<$Value$>$ $>$ tlz\+::kinect\+\_\+reprojection\+::reproject\+\_\+ir\+\_\+to\+\_\+color\+\_\+samples (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat\+\_\+$<$ Value $>$ \&}]{distorted\+\_\+ir\+\_\+values, }
+\item[{const cv\+::\+Mat\+\_\+$<$ Depth $>$ \&}]{distorted\+\_\+ir\+\_\+z, }
+\item[{bool}]{distort\+\_\+color = {\ttfamily true}}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1kinect__reprojection_a0e55570a8afb6c70598495ea716e1dfe}{}\label{classtlz_1_1kinect__reprojection_a0e55570a8afb6c70598495ea716e1dfe}
+\index{tlz\+::kinect\+\_\+reprojection@{tlz\+::kinect\+\_\+reprojection}!reproject\+\_\+points\+\_\+ir\+\_\+to\+\_\+color@{reproject\+\_\+points\+\_\+ir\+\_\+to\+\_\+color}}
+\index{reproject\+\_\+points\+\_\+ir\+\_\+to\+\_\+color@{reproject\+\_\+points\+\_\+ir\+\_\+to\+\_\+color}!tlz\+::kinect\+\_\+reprojection@{tlz\+::kinect\+\_\+reprojection}}
+\subsubsection[{\texorpdfstring{reproject\+\_\+points\+\_\+ir\+\_\+to\+\_\+color(const std\+::vector$<$ vec2 $>$ distorted\+\_\+ir\+\_\+i\+\_\+xy, const std\+::vector$<$ real $>$ \&ir\+\_\+z, std\+::vector$<$ real $>$ \&out\+\_\+color\+\_\+z, bool distort\+\_\+color=true) const }{reproject_points_ir_to_color(const std::vector< vec2 > distorted_ir_i_xy, const std::vector< real > &ir_z, std::vector< real > &out_color_z, bool distort_color=true) const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ {\bf vec2} $>$ tlz\+::kinect\+\_\+reprojection\+::reproject\+\_\+points\+\_\+ir\+\_\+to\+\_\+color (
+\begin{DoxyParamCaption}
+\item[{const std\+::vector$<$ {\bf vec2} $>$}]{distorted\+\_\+ir\+\_\+i\+\_\+xy, }
+\item[{const std\+::vector$<$ {\bf real} $>$ \&}]{ir\+\_\+z, }
+\item[{std\+::vector$<$ {\bf real} $>$ \&}]{out\+\_\+color\+\_\+z, }
+\item[{bool}]{distort\+\_\+color = {\ttfamily true}}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1kinect__reprojection_a15890a47741e1be6217d2870ecbe3f5a}{}\label{classtlz_1_1kinect__reprojection_a15890a47741e1be6217d2870ecbe3f5a}
+
+
+Definition at line 11 of file kinect\+\_\+reprojection.\+cc.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/kinect/lib/\hyperlink{kinect__reprojection_8h}{kinect\+\_\+reprojection.\+h}\item 
+src/kinect/lib/\hyperlink{kinect__reprojection_8cc}{kinect\+\_\+reprojection.\+cc}\end{DoxyCompactItemize}

@@ -1,0 +1,62 @@
+\hypertarget{depth__remapping_8cc}{}\section{src/kinect/depth\+\_\+remapping.cc File Reference}
+\label{depth__remapping_8cc}\index{src/kinect/depth\+\_\+remapping.\+cc@{src/kinect/depth\+\_\+remapping.\+cc}}
+{\ttfamily \#include \char`\"{}../lib/args.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/point.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/ply\+\_\+exporter.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/image\+\_\+io.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/opencv.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/densify/depth\+\_\+densify.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/kinect\+\_\+internal\+\_\+parameters.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/kinect\+\_\+remapping.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/common.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$cstdlib$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$stdexcept$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+Include dependency graph for depth\+\_\+remapping.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{depth__remapping_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{depth__remapping_8cc_a63b909cef5838b26348dd48f01b99cd1}{do\+\_\+depth\+\_\+remapping} (const cv\+::\+Mat\+\_\+$<$ ushort $>$ \&in, cv\+::\+Mat\+\_\+$<$ ushort $>$ \&out, cv\+::\+Mat\+\_\+$<$ uchar $>$ \&out\+\_\+mask, const \hyperlink{classtlz_1_1kinect__remapping}{kinect\+\_\+remapping} \&remap, const std\+::string \&method)
+\item 
+int \hyperlink{depth__remapping_8cc_ac0f2228420376f4db7e1274f2b41667c}{main} (int argc, const char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{depth\+\_\+remapping.\+cc@{depth\+\_\+remapping.\+cc}!do\+\_\+depth\+\_\+remapping@{do\+\_\+depth\+\_\+remapping}}
+\index{do\+\_\+depth\+\_\+remapping@{do\+\_\+depth\+\_\+remapping}!depth\+\_\+remapping.\+cc@{depth\+\_\+remapping.\+cc}}
+\subsubsection[{\texorpdfstring{do\+\_\+depth\+\_\+remapping(const cv\+::\+Mat\+\_\+$<$ ushort $>$ \&in, cv\+::\+Mat\+\_\+$<$ ushort $>$ \&out, cv\+::\+Mat\+\_\+$<$ uchar $>$ \&out\+\_\+mask, const kinect\+\_\+remapping \&remap, const std\+::string \&method)}{do_depth_remapping(const cv::Mat_< ushort > &in, cv::Mat_< ushort > &out, cv::Mat_< uchar > &out_mask, const kinect_remapping &remap, const std::string &method)}}]{\setlength{\rightskip}{0pt plus 5cm}void do\+\_\+depth\+\_\+remapping (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat\+\_\+$<$ ushort $>$ \&}]{in, }
+\item[{cv\+::\+Mat\+\_\+$<$ ushort $>$ \&}]{out, }
+\item[{cv\+::\+Mat\+\_\+$<$ uchar $>$ \&}]{out\+\_\+mask, }
+\item[{const {\bf kinect\+\_\+remapping} \&}]{remap, }
+\item[{const std\+::string \&}]{method}
+\end{DoxyParamCaption}
+)}\hypertarget{depth__remapping_8cc_a63b909cef5838b26348dd48f01b99cd1}{}\label{depth__remapping_8cc_a63b909cef5838b26348dd48f01b99cd1}
+
+
+Definition at line 20 of file depth\+\_\+remapping.\+cc.
+
+\index{depth\+\_\+remapping.\+cc@{depth\+\_\+remapping.\+cc}!main@{main}}
+\index{main@{main}!depth\+\_\+remapping.\+cc@{depth\+\_\+remapping.\+cc}}
+\subsubsection[{\texorpdfstring{main(int argc, const char $\ast$argv[])}{main(int argc, const char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{const char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{depth__remapping_8cc_ac0f2228420376f4db7e1274f2b41667c}{}\label{depth__remapping_8cc_ac0f2228420376f4db7e1274f2b41667c}
+
+
+Definition at line 29 of file depth\+\_\+remapping.\+cc.
+

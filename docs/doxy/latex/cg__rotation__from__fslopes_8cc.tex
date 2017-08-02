@@ -1,0 +1,75 @@
+\hypertarget{cg__rotation__from__fslopes_8cc}{}\section{src/calibration/cg\+\_\+rotation\+\_\+from\+\_\+fslopes.cc File Reference}
+\label{cg__rotation__from__fslopes_8cc}\index{src/calibration/cg\+\_\+rotation\+\_\+from\+\_\+fslopes.\+cc@{src/calibration/cg\+\_\+rotation\+\_\+from\+\_\+fslopes.\+cc}}
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$cassert$>$}\\*
+{\ttfamily \#include \char`\"{}lib/cg/feature\+\_\+slopes.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/args.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/misc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/json.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/opencv.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/intrinsics.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/assert.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/rotation.\+h\char`\"{}}\\*
+Include dependency graph for cg\+\_\+rotation\+\_\+from\+\_\+fslopes.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cg__rotation__from__fslopes_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Func $>$ }\\void \hyperlink{cg__rotation__from__fslopes_8cc_a47b91afd196cb08bd947ef4df3563db2}{one\+\_\+dim\+\_\+search\+\_\+minimum} (Func f, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} \&a, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} \&b, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} tolerance)
+\item 
+int \hyperlink{cg__rotation__from__fslopes_8cc_ac0f2228420376f4db7e1274f2b41667c}{main} (int argc, const char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr bool \hyperlink{cg__rotation__from__fslopes_8cc_aa0809dffbdf183a6a189ebb277bf6866}{verbose} = true
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{cg\+\_\+rotation\+\_\+from\+\_\+fslopes.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+fslopes.\+cc}!main@{main}}
+\index{main@{main}!cg\+\_\+rotation\+\_\+from\+\_\+fslopes.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+fslopes.\+cc}}
+\subsubsection[{\texorpdfstring{main(int argc, const char $\ast$argv[])}{main(int argc, const char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{const char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{cg__rotation__from__fslopes_8cc_ac0f2228420376f4db7e1274f2b41667c}{}\label{cg__rotation__from__fslopes_8cc_ac0f2228420376f4db7e1274f2b41667c}
+
+
+Definition at line 36 of file cg\+\_\+rotation\+\_\+from\+\_\+fslopes.\+cc.
+
+\index{cg\+\_\+rotation\+\_\+from\+\_\+fslopes.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+fslopes.\+cc}!one\+\_\+dim\+\_\+search\+\_\+minimum@{one\+\_\+dim\+\_\+search\+\_\+minimum}}
+\index{one\+\_\+dim\+\_\+search\+\_\+minimum@{one\+\_\+dim\+\_\+search\+\_\+minimum}!cg\+\_\+rotation\+\_\+from\+\_\+fslopes.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+fslopes.\+cc}}
+\subsubsection[{\texorpdfstring{one\+\_\+dim\+\_\+search\+\_\+minimum(\+Func f, real \&a, real \&b, real tolerance)}{one_dim_search_minimum(Func f, real &a, real &b, real tolerance)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Func $>$ void one\+\_\+dim\+\_\+search\+\_\+minimum (
+\begin{DoxyParamCaption}
+\item[{Func}]{f, }
+\item[{{\bf real} \&}]{a, }
+\item[{{\bf real} \&}]{b, }
+\item[{{\bf real}}]{tolerance}
+\end{DoxyParamCaption}
+)}\hypertarget{cg__rotation__from__fslopes_8cc_a47b91afd196cb08bd947ef4df3563db2}{}\label{cg__rotation__from__fslopes_8cc_a47b91afd196cb08bd947ef4df3563db2}
+
+
+Definition at line 21 of file cg\+\_\+rotation\+\_\+from\+\_\+fslopes.\+cc.
+
+
+
+\subsection{Variable Documentation}
+\index{cg\+\_\+rotation\+\_\+from\+\_\+fslopes.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+fslopes.\+cc}!verbose@{verbose}}
+\index{verbose@{verbose}!cg\+\_\+rotation\+\_\+from\+\_\+fslopes.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+fslopes.\+cc}}
+\subsubsection[{\texorpdfstring{verbose}{verbose}}]{\setlength{\rightskip}{0pt plus 5cm}constexpr bool verbose = true}\hypertarget{cg__rotation__from__fslopes_8cc_aa0809dffbdf183a6a189ebb277bf6866}{}\label{cg__rotation__from__fslopes_8cc_aa0809dffbdf183a6a189ebb277bf6866}
+
+
+Definition at line 18 of file cg\+\_\+rotation\+\_\+from\+\_\+fslopes.\+cc.
+

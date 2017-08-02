@@ -1,0 +1,39 @@
+\hypertarget{feature__points_8cc}{}\section{src/calibration/lib/feature\+\_\+points.cc File Reference}
+\label{feature__points_8cc}\index{src/calibration/lib/feature\+\_\+points.\+cc@{src/calibration/lib/feature\+\_\+points.\+cc}}
+{\ttfamily \#include \char`\"{}feature\+\_\+points.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}image\+\_\+correspondence.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../../lib/random\+\_\+color.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../../lib/json.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../../lib/string.\+h\char`\"{}}\\*
+Include dependency graph for feature\+\_\+points.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{feature__points_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+feature\+\_\+points \hyperlink{namespacetlz_abc92401653ee5627160c4f3c48a11311}{tlz\+::decode\+\_\+feature\+\_\+points} (const json \&j\+\_\+fpoints)
+\item 
+json \hyperlink{namespacetlz_a0b42822a3802ba98cfb8d42223b3149d}{tlz\+::encode\+\_\+feature\+\_\+points} (const feature\+\_\+points \&fpoints)
+\item 
+feature\+\_\+points \hyperlink{namespacetlz_abab56a7d5e8f6eba9520c66a15fafa6d}{tlz\+::feature\+\_\+points\+\_\+for\+\_\+view} (const image\+\_\+correspondences \&cors, view\+\_\+index idx, bool is\+\_\+distorted)
+\item 
+feature\+\_\+points \hyperlink{namespacetlz_ae9eeca909bec8ca797356b56d3cfbb90}{tlz\+::undistort} (const feature\+\_\+points \&dist\+\_\+fpoints, const intrinsics \&intr)
+\item 
+feature\+\_\+points \hyperlink{namespacetlz_aff19d91ea9462be84d8e7db9015686bf}{tlz\+::undistorted\+\_\+feature\+\_\+points\+\_\+for\+\_\+view} (const image\+\_\+correspondences \&cors, view\+\_\+index idx, const intrinsics \&intr)
+\item 
+std\+::vector$<$ vec2 $>$ \hyperlink{namespacetlz_a2d22b0db00d90ecf5eb79fd0a5b7bcf9}{tlz\+::positions} (const feature\+\_\+points \&fpoints)
+\item 
+cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \hyperlink{namespacetlz_a4f0806fc3ebaf4a594e02c8a01792197}{tlz\+::visualize\+\_\+feature\+\_\+points} (const feature\+\_\+points \&fpoints, const cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \&back\+\_\+img, const \hyperlink{view__distortion_8cc_ae411f3a1782e7245d23e7b4772e1a21f}{border} \&bord)
+\item 
+feature\+\_\+points \hyperlink{namespacetlz_accab66b2847b4c4ea3170487b64903c1}{tlz\+::feature\+\_\+points\+\_\+arg} ()
+\end{DoxyCompactItemize}

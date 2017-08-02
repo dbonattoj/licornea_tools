@@ -1,0 +1,52 @@
+\hypertarget{intrinsics_8h}{}\section{src/lib/intrinsics.h File Reference}
+\label{intrinsics_8h}\index{src/lib/intrinsics.\+h@{src/lib/intrinsics.\+h}}
+{\ttfamily \#include \char`\"{}opencv.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}json.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}args.\+h\char`\"{}}\\*
+Include dependency graph for intrinsics.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{intrinsics_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{intrinsics_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtlz_1_1distortion__parameters}{tlz\+::distortion\+\_\+parameters}
+\item 
+struct \hyperlink{structtlz_1_1intrinsics}{tlz\+::intrinsics}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+intrinsics \hyperlink{namespacetlz_a8cba4853d0d796a01c72f59f36f2a492}{tlz\+::decode\+\_\+intrinsics} (const json \&j\+\_\+intr)
+\item 
+json \hyperlink{namespacetlz_a46c3e46d56bc36cf6b1236522563bc4a}{tlz\+::encode\+\_\+intrinsics} (const intrinsics \&intr)
+\item 
+vec2 \hyperlink{namespacetlz_a67f7411515a0538e3a39b9d0602ed854}{tlz\+::undistort\+\_\+point} (const intrinsics \&intr, const vec2 \&distorted)
+\item 
+std\+::vector$<$ vec2 $>$ \hyperlink{namespacetlz_a8b5e4acbb884887859e414ffe06a09f8}{tlz\+::undistort\+\_\+points} (const intrinsics \&intr, const std\+::vector$<$ vec2 $>$ \&distorted)
+\item 
+std\+::vector$<$ cv\+::\+Vec2f $>$ \hyperlink{namespacetlz_a6280e1948639b2ce3463810663036f8c}{tlz\+::undistort\+\_\+points} (const intrinsics \&intr, const std\+::vector$<$ cv\+::\+Vec2f $>$ \&distorted)
+\item 
+vec2 \hyperlink{namespacetlz_aa0b38daa346fbb57c8f6668de69ea2d1}{tlz\+::distort\+\_\+point} (const intrinsics \&intr, const vec2 \&undistorted)
+\item 
+std\+::vector$<$ vec2 $>$ \hyperlink{namespacetlz_ab01b1e8009a6b2ae9fe0fd559de7dd20}{tlz\+::distort\+\_\+points} (const intrinsics \&intr, const std\+::vector$<$ vec2 $>$ \&undistorted)
+\item 
+intrinsics \hyperlink{namespacetlz_a170805c7a8ede64a93e0ee23196e5b7c}{tlz\+::intrinsics\+\_\+arg} ()
+\end{DoxyCompactItemize}

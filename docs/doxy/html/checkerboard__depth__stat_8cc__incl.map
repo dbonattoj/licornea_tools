@@ -1,0 +1,10 @@
+<map id="src/kinect/checkerboard_depth_stat.cc" name="src/kinect/checkerboard_depth_stat.cc">
+<area shape="rect" id="node2" href="$lib_2common_8h.html" title="../lib/common.h" alt="" coords="379,319,491,345"/>
+<area shape="rect" id="node11" href="$args_8h.html" title="../lib/args.h" alt="" coords="742,244,829,271"/>
+<area shape="rect" id="node14" href="$opencv_8h.html" title="../lib/opencv.h" alt="" coords="527,169,631,196"/>
+<area shape="rect" id="node16" href="$intrinsics_8h.html" title="../lib/intrinsics.h" alt="" coords="573,95,688,121"/>
+<area shape="rect" id="node19" href="$misc_8h.html" title="../lib/misc.h" alt="" coords="1307,244,1397,271"/>
+<area shape="rect" id="node23" href="$obj__img__correspondence_8h.html" title="../lib/obj_img_correspondence.h" alt="" coords="763,95,970,121"/>
+<area shape="rect" id="node26" href="$checkerboard_8h.html" title="lib/live/checkerboard.h" alt="" coords="1279,95,1431,121"/>
+<area shape="rect" id="node17" href="$json_8h.html" title="json.h" alt="" coords="757,169,814,196"/>
+</map>

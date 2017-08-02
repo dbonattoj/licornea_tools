@@ -1,0 +1,43 @@
+\hypertarget{raw__image__io_8h}{}\section{src/lib/raw\+\_\+image\+\_\+io.h File Reference}
+\label{raw__image__io_8h}\index{src/lib/raw\+\_\+image\+\_\+io.\+h@{src/lib/raw\+\_\+image\+\_\+io.\+h}}
+{\ttfamily \#include \char`\"{}common.\+h\char`\"{}}\\*
+Include dependency graph for raw\+\_\+image\+\_\+io.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{raw__image__io_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{raw__image__io_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{namespacetlz_a2f57d45973aaddeff07516fa8cc48e46}{tlz\+::raw\+\_\+image\+\_\+format} \{ \hyperlink{namespacetlz_a2f57d45973aaddeff07516fa8cc48e46a86e9a4ccaef824ab228794dfa922dde4}{tlz\+::raw\+\_\+image\+\_\+format\+::ycbcr420}, 
+\hyperlink{namespacetlz_a2f57d45973aaddeff07516fa8cc48e46a9ea80d9dd289380a982d722b364310ee}{tlz\+::raw\+\_\+image\+\_\+format\+::rgb\+\_\+planar}, 
+\hyperlink{namespacetlz_a2f57d45973aaddeff07516fa8cc48e46a8fd0d55627eb3647ea8451c0b65e1f05}{tlz\+::raw\+\_\+image\+\_\+format\+::rgb\+\_\+interleaved}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+cv\+::\+Mat \hyperlink{namespacetlz_a3bddcd47f2814721b6dcbce3ff38ad29}{tlz\+::import\+\_\+raw\+\_\+color} (const std\+::string \&yuv\+\_\+filename, int width, int height, raw\+\_\+image\+\_\+format form)
+\item 
+cv\+::\+Mat \hyperlink{namespacetlz_aca079a3372b17056eb30950d52737d38}{tlz\+::import\+\_\+raw\+\_\+mono} (const std\+::string \&yuv\+\_\+filename, int width, int height, int bit\+\_\+depth)
+\item 
+void \hyperlink{namespacetlz_ae3f8393be662f8f617b5350138b7002f}{tlz\+::export\+\_\+raw\+\_\+color} (const cv\+::\+Mat \&img, const std\+::string \&yuv\+\_\+filename, raw\+\_\+image\+\_\+format form)
+\item 
+void \hyperlink{namespacetlz_abe3f12fe91d69fddc9db8e838da1af11}{tlz\+::export\+\_\+raw\+\_\+mono} (const cv\+::\+Mat \&img, const std\+::string \&yuv\+\_\+filename, int out\+\_\+bit\+\_\+depth)
+\end{DoxyCompactItemize}

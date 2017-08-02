@@ -1,0 +1,138 @@
+\hypertarget{structflow__state}{}\section{flow\+\_\+state Struct Reference}
+\label{structflow__state}\index{flow\+\_\+state@{flow\+\_\+state}}
+
+
+Collaboration diagram for flow\+\_\+state\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=163pt]{structflow__state__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structflow__state_a7f44e3a4701be71718b470f0f133dce5}{flow\+\_\+state} ()=default
+\item 
+\hyperlink{structflow__state_a9cca42e1283a846ee639d3f9fd0569ff}{flow\+\_\+state} (const \hyperlink{structtlz_1_1view__index}{view\+\_\+index} \&idx, const cv\+::\+Mat\+\_\+$<$ uchar $>$ \&img, std\+::size\+\_\+t \hyperlink{structflow__state_a04a62f8006f54b559ef6fcc25b87e66b}{features\+\_\+count})
+\item 
+std\+::size\+\_\+t \hyperlink{structflow__state_a04a62f8006f54b559ef6fcc25b87e66b}{features\+\_\+count} () const 
+\item 
+std\+::size\+\_\+t \hyperlink{structflow__state_a70ebb1f3987cbd90e1fd2666a0b68cf5}{valid\+\_\+features\+\_\+count} () const 
+\item 
+bool \hyperlink{structflow__state_ac8be37941073fba44d3bd34de142a9e4}{is\+\_\+valid} () const 
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structtlz_1_1view__index}{view\+\_\+index} \hyperlink{structflow__state_acec6eb589835df528397b781483bf477}{view\+\_\+idx}
+\item 
+std\+::vector$<$ cv\+::\+Mat\+\_\+$<$ uchar $>$ $>$ \hyperlink{structflow__state_a83570bddb99be6487a926cab5735cff5}{image\+\_\+pyramid}
+\item 
+std\+::vector$<$ cv\+::\+Point2f $>$ \hyperlink{structflow__state_ac30b8c82b7f7f10fa99304293ce6b14b}{feature\+\_\+positions}
+\item 
+std\+::vector$<$ uchar $>$ \hyperlink{structflow__state_afe1e6db4eac958ecc432ee6c20d4e2b5}{feature\+\_\+status}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 30 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{flow\+\_\+state@{flow\+\_\+state}!flow\+\_\+state@{flow\+\_\+state}}
+\index{flow\+\_\+state@{flow\+\_\+state}!flow\+\_\+state@{flow\+\_\+state}}
+\subsubsection[{\texorpdfstring{flow\+\_\+state()=default}{flow_state()=default}}]{\setlength{\rightskip}{0pt plus 5cm}flow\+\_\+state\+::flow\+\_\+state (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [default]}}\hypertarget{structflow__state_a7f44e3a4701be71718b470f0f133dce5}{}\label{structflow__state_a7f44e3a4701be71718b470f0f133dce5}
+\index{flow\+\_\+state@{flow\+\_\+state}!flow\+\_\+state@{flow\+\_\+state}}
+\index{flow\+\_\+state@{flow\+\_\+state}!flow\+\_\+state@{flow\+\_\+state}}
+\subsubsection[{\texorpdfstring{flow\+\_\+state(const view\+\_\+index \&idx, const cv\+::\+Mat\+\_\+$<$ uchar $>$ \&img, std\+::size\+\_\+t features\+\_\+count)}{flow_state(const view_index &idx, const cv::Mat_< uchar > &img, std::size_t features_count)}}]{\setlength{\rightskip}{0pt plus 5cm}flow\+\_\+state\+::flow\+\_\+state (
+\begin{DoxyParamCaption}
+\item[{const {\bf view\+\_\+index} \&}]{idx, }
+\item[{const cv\+::\+Mat\+\_\+$<$ uchar $>$ \&}]{img, }
+\item[{std\+::size\+\_\+t}]{features\+\_\+count}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{structflow__state_a9cca42e1283a846ee639d3f9fd0569ff}{}\label{structflow__state_a9cca42e1283a846ee639d3f9fd0569ff}
+
+
+Definition at line 37 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+
+
+\subsection{Member Function Documentation}
+\index{flow\+\_\+state@{flow\+\_\+state}!features\+\_\+count@{features\+\_\+count}}
+\index{features\+\_\+count@{features\+\_\+count}!flow\+\_\+state@{flow\+\_\+state}}
+\subsubsection[{\texorpdfstring{features\+\_\+count() const }{features_count() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::size\+\_\+t flow\+\_\+state\+::features\+\_\+count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{structflow__state_a04a62f8006f54b559ef6fcc25b87e66b}{}\label{structflow__state_a04a62f8006f54b559ef6fcc25b87e66b}
+
+
+Definition at line 43 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{flow\+\_\+state@{flow\+\_\+state}!is\+\_\+valid@{is\+\_\+valid}}
+\index{is\+\_\+valid@{is\+\_\+valid}!flow\+\_\+state@{flow\+\_\+state}}
+\subsubsection[{\texorpdfstring{is\+\_\+valid() const }{is_valid() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool flow\+\_\+state\+::is\+\_\+valid (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{structflow__state_ac8be37941073fba44d3bd34de142a9e4}{}\label{structflow__state_ac8be37941073fba44d3bd34de142a9e4}
+
+
+Definition at line 45 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{flow\+\_\+state@{flow\+\_\+state}!valid\+\_\+features\+\_\+count@{valid\+\_\+features\+\_\+count}}
+\index{valid\+\_\+features\+\_\+count@{valid\+\_\+features\+\_\+count}!flow\+\_\+state@{flow\+\_\+state}}
+\subsubsection[{\texorpdfstring{valid\+\_\+features\+\_\+count() const }{valid_features_count() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::size\+\_\+t flow\+\_\+state\+::valid\+\_\+features\+\_\+count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{structflow__state_a70ebb1f3987cbd90e1fd2666a0b68cf5}{}\label{structflow__state_a70ebb1f3987cbd90e1fd2666a0b68cf5}
+
+
+Definition at line 48 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+
+
+\subsection{Member Data Documentation}
+\index{flow\+\_\+state@{flow\+\_\+state}!feature\+\_\+positions@{feature\+\_\+positions}}
+\index{feature\+\_\+positions@{feature\+\_\+positions}!flow\+\_\+state@{flow\+\_\+state}}
+\subsubsection[{\texorpdfstring{feature\+\_\+positions}{feature_positions}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$cv\+::\+Point2f$>$ flow\+\_\+state\+::feature\+\_\+positions}\hypertarget{structflow__state_ac30b8c82b7f7f10fa99304293ce6b14b}{}\label{structflow__state_ac30b8c82b7f7f10fa99304293ce6b14b}
+
+
+Definition at line 33 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{flow\+\_\+state@{flow\+\_\+state}!feature\+\_\+status@{feature\+\_\+status}}
+\index{feature\+\_\+status@{feature\+\_\+status}!flow\+\_\+state@{flow\+\_\+state}}
+\subsubsection[{\texorpdfstring{feature\+\_\+status}{feature_status}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$uchar$>$ flow\+\_\+state\+::feature\+\_\+status}\hypertarget{structflow__state_afe1e6db4eac958ecc432ee6c20d4e2b5}{}\label{structflow__state_afe1e6db4eac958ecc432ee6c20d4e2b5}
+
+
+Definition at line 34 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{flow\+\_\+state@{flow\+\_\+state}!image\+\_\+pyramid@{image\+\_\+pyramid}}
+\index{image\+\_\+pyramid@{image\+\_\+pyramid}!flow\+\_\+state@{flow\+\_\+state}}
+\subsubsection[{\texorpdfstring{image\+\_\+pyramid}{image_pyramid}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$cv\+::\+Mat\+\_\+$<$uchar$>$ $>$ flow\+\_\+state\+::image\+\_\+pyramid}\hypertarget{structflow__state_a83570bddb99be6487a926cab5735cff5}{}\label{structflow__state_a83570bddb99be6487a926cab5735cff5}
+
+
+Definition at line 32 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{flow\+\_\+state@{flow\+\_\+state}!view\+\_\+idx@{view\+\_\+idx}}
+\index{view\+\_\+idx@{view\+\_\+idx}!flow\+\_\+state@{flow\+\_\+state}}
+\subsubsection[{\texorpdfstring{view\+\_\+idx}{view_idx}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf view\+\_\+index} flow\+\_\+state\+::view\+\_\+idx}\hypertarget{structflow__state_acec6eb589835df528397b781483bf477}{}\label{structflow__state_acec6eb589835df528397b781483bf477}
+
+
+Definition at line 31 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/calibration/\hyperlink{cg__optical__flow__cors_8cc}{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}\end{DoxyCompactItemize}

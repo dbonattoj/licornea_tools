@@ -1,0 +1,39 @@
+\hypertarget{import__matlab_8py}{}\section{src/camera/import\+\_\+matlab.py File Reference}
+\label{import__matlab_8py}\index{src/camera/import\+\_\+matlab.\+py@{src/camera/import\+\_\+matlab.\+py}}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceimport__matlab}{import\+\_\+matlab}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceimport__matlab_a8072dc5b88b2718c14efe0cd3033f397}{import\+\_\+matlab.\+usage\+\_\+fail} ()
+\item 
+def \hyperlink{namespaceimport__matlab_a43c35054e148e026c772896fcf0ee506}{import\+\_\+matlab.\+v} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespaceimport__matlab_a759337ff99df77b7e83b057fce792564}{import\+\_\+matlab.\+txt\+\_\+filename} = sys.\+argv\mbox{[}1\mbox{]}
+\item 
+\hyperlink{namespaceimport__matlab_a51215342792268f23af9e7982d0569b7}{import\+\_\+matlab.\+output\+\_\+filename} = sys.\+argv\mbox{[}2\mbox{]}
+\item 
+\hyperlink{namespaceimport__matlab_afe357346cb875eacc89e2820a1fa44ea}{import\+\_\+matlab.\+data} = f.\+read()
+\item 
+\hyperlink{namespaceimport__matlab_ae6e8a21abac9a4c55a32dd4b2049fbf5}{import\+\_\+matlab.\+numbers} = re.\+findall(r\textquotesingle{}(-\/?\textbackslash{}d$\ast$\textbackslash{}.?\textbackslash{}d+(e-\/?\textbackslash{}d+)?)\textquotesingle{}, data)
+\item 
+\hyperlink{namespaceimport__matlab_a8982716ca70e72d99bdc65fbe0e2d827}{import\+\_\+matlab.\+cam\+\_\+count} = len(numbers)//(3$\ast$3 + 3$\ast$4 + 2)
+\item 
+list \hyperlink{namespaceimport__matlab_a1260a243c2dd91664fa50ae9afef31bd}{import\+\_\+matlab.\+output\+\_\+array} = \mbox{[}$\,$\mbox{]}
+\item 
+int \hyperlink{namespaceimport__matlab_aea76e0452b3fe0bf3b1340e4f2383a36}{import\+\_\+matlab.\+i} = 1
+\item 
+list \hyperlink{namespaceimport__matlab_aabc884a43d7f54d120363b5b1f7aa797}{import\+\_\+matlab.\+K}
+\item 
+list \hyperlink{namespaceimport__matlab_af35611fc15f922f0c3fde1ffb49832cd}{import\+\_\+matlab.\+Rt}
+\item 
+dictionary \hyperlink{namespaceimport__matlab_a2396c58f5f7eff335900411b0fa50b3b}{import\+\_\+matlab.\+output\+\_\+camera}
+\item 
+\hyperlink{namespaceimport__matlab_a06f190c191c2bbb695c9c7cb2f828c5a}{import\+\_\+matlab.\+output} = open(output\+\_\+filename, \textquotesingle{}w\textquotesingle{})
+\end{DoxyCompactItemize}

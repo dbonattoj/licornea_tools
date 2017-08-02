@@ -1,0 +1,61 @@
+\hypertarget{checkerboard_8cc}{}\section{src/kinect/lib/live/checkerboard.cc File Reference}
+\label{checkerboard_8cc}\index{src/kinect/lib/live/checkerboard.\+cc@{src/kinect/lib/live/checkerboard.\+cc}}
+{\ttfamily \#include \char`\"{}checkerboard.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../../lib/common.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../../lib/misc.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$algorithm$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$climits$>$}\\*
+{\ttfamily \#include $<$cassert$>$}\\*
+Include dependency graph for checkerboard.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{checkerboard_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+checkerboard \hyperlink{namespacetlz_addbb2acf9d24eda4bf25536c55ae84d8}{tlz\+::detect\+\_\+color\+\_\+checkerboard} (cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \&img, int \hyperlink{checkerboard__samples_8cc_a4407a60bc4387adae24cee658711f2d9}{cols}, int \hyperlink{checkerboard__samples_8cc_a061459acc9e078fa4699e0e349887215}{rows}, real \hyperlink{checkerboard__samples_8cc_ac9c5e9ae84febda1283c11202619c086}{square\+\_\+width})
+\item 
+checkerboard \hyperlink{namespacetlz_abc33c7b74cbbd686b06228c1fdad9214}{tlz\+::detect\+\_\+ir\+\_\+checkerboard} (cv\+::\+Mat\+\_\+$<$ uchar $>$ \&img, int \hyperlink{checkerboard__samples_8cc_a4407a60bc4387adae24cee658711f2d9}{cols}, int \hyperlink{checkerboard__samples_8cc_a061459acc9e078fa4699e0e349887215}{rows}, real \hyperlink{checkerboard__samples_8cc_ac9c5e9ae84febda1283c11202619c086}{square\+\_\+width})
+\item 
+checkerboard \hyperlink{namespacetlz_a44d7b1eca8ce426dd5e6761ab8a7f832}{tlz\+::detect\+\_\+ir\+\_\+checkerboard} (cv\+::\+Mat\+\_\+$<$ ushort $>$ \&ir\+\_\+orig, int \hyperlink{checkerboard__samples_8cc_a4407a60bc4387adae24cee658711f2d9}{cols}, int \hyperlink{checkerboard__samples_8cc_a061459acc9e078fa4699e0e349887215}{rows}, real \hyperlink{checkerboard__samples_8cc_ac9c5e9ae84febda1283c11202619c086}{square\+\_\+width})
+\item 
+std\+::vector$<$ vec3 $>$ \hyperlink{namespacetlz_acc37da60bde41595da4139110c2d36e6}{tlz\+::checkerboard\+\_\+world\+\_\+corners} (int \hyperlink{checkerboard__samples_8cc_a4407a60bc4387adae24cee658711f2d9}{cols}, int \hyperlink{checkerboard__samples_8cc_a061459acc9e078fa4699e0e349887215}{rows}, real \hyperlink{checkerboard__samples_8cc_ac9c5e9ae84febda1283c11202619c086}{square\+\_\+width})
+\item 
+std\+::vector$<$ vec2 $>$ \hyperlink{namespacetlz_a6693dca816d6f48429d1c607ced26f3b}{tlz\+::checkerboard\+\_\+image\+\_\+corners} (const checkerboard \&chk)
+\item 
+cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \hyperlink{namespacetlz_a0ae3b183b2bd5a5074615f7eb2b7677d}{tlz\+::visualize\+\_\+checkerboard} (const cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \&img, const checkerboard \&chk, const checkerboard\+\_\+visualization\+\_\+parameters \&param)
+\item 
+cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \hyperlink{namespacetlz_af6edf796bfd0c3be17266982632b8e28}{tlz\+::visualize\+\_\+checkerboard} (const cv\+::\+Mat\+\_\+$<$ uchar $>$ \&img, const checkerboard \&chk, const checkerboard\+\_\+visualization\+\_\+parameters \&param)
+\item 
+cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \hyperlink{namespacetlz_aa6dbbbefcc3d6f2e8a52d7e50c7414a8}{tlz\+::visualize\+\_\+checkerboard} (const cv\+::\+Mat\+\_\+$<$ ushort $>$ \&img, const checkerboard \&chk, const checkerboard\+\_\+visualization\+\_\+parameters \&param)
+\item 
+cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \hyperlink{namespacetlz_ab1a9db5eb0f9631c1d0b88d38dee54c7}{tlz\+::visualize\+\_\+checkerboard\+\_\+pixel\+\_\+samples} (const cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \&img, const std\+::vector$<$ checkerboard\+\_\+pixel\+\_\+depth\+\_\+sample $>$ \&pixels, int rad)
+\item 
+cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \hyperlink{namespacetlz_a9de9ec9a4079abe7e1512b6a858709e4}{tlz\+::visualize\+\_\+checkerboard\+\_\+pixel\+\_\+samples} (const cv\+::\+Mat\+\_\+$<$ uchar $>$ \&img, const std\+::vector$<$ checkerboard\+\_\+pixel\+\_\+depth\+\_\+sample $>$ \&pixels, int rad)
+\item 
+obj\+\_\+img\+\_\+correspondences$<$ 1, 1 $>$ \hyperlink{namespacetlz_ac4a9d8aef6e9eed327aedbb69975cfb9}{tlz\+::checkerboard\+\_\+obj\+\_\+img\+\_\+correspondences} (const checkerboard \&chk)
+\item 
+obj\+\_\+img\+\_\+correspondences$<$ 1, 2 $>$ \hyperlink{namespacetlz_a37c58db2fc50f660edd9245c26e1c097}{tlz\+::checkerboard\+\_\+obj\+\_\+2img\+\_\+correspondences} (const checkerboard \&chk1, const checkerboard \&chk2)
+\item 
+checkerboard\+\_\+extrinsics \hyperlink{namespacetlz_ac176ab31932290f05fb3c647f8ecdd85}{tlz\+::estimate\+\_\+checkerboard\+\_\+extrinsics} (const checkerboard \&chk, const intrinsics \&intr)
+\item 
+real \hyperlink{namespacetlz_a5e1056b3850f12627a759922716bee56}{tlz\+::checkerboard\+\_\+reprojection\+\_\+error} (const checkerboard \&chk, const intrinsics \&intr, const checkerboard\+\_\+extrinsics \&ext)
+\item 
+vec2 \hyperlink{namespacetlz_a492777e414b1a5103f074696c2385c9e}{tlz\+::checkerboard\+\_\+parallel\+\_\+measures} (const checkerboard \&chk)
+\item 
+real \hyperlink{namespacetlz_a53bbde5568ab51896f6c4c2730d91256}{tlz\+::calculate\+\_\+parallel\+\_\+checkerboard\+\_\+depth} (const checkerboard \&chk, const intrinsics \&intr)
+\item 
+std\+::vector$<$ checkerboard\+\_\+pixel\+\_\+depth\+\_\+sample $>$ \hyperlink{namespacetlz_a48aea98fe42d152179154953ece9b366}{tlz\+::checkerboard\+\_\+pixel\+\_\+depth\+\_\+samples} (const checkerboard \&chk, const cv\+::\+Mat\+\_\+$<$ float $>$ \&depth\+\_\+image, int granularity)
+\item 
+void \hyperlink{namespacetlz_a14afc7fea76a0b1ef43be4abfcdb97e4}{tlz\+::calculate\+\_\+checkerboard\+\_\+pixel\+\_\+depths} (const intrinsics \&intr, const checkerboard\+\_\+extrinsics \&ext, std\+::vector$<$ checkerboard\+\_\+pixel\+\_\+depth\+\_\+sample $>$ \&inout\+\_\+samples)
+\end{DoxyCompactItemize}

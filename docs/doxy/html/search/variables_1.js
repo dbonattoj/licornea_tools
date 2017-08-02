@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['calculated_5fdepth',['calculated_depth',['../structtlz_1_1checkerboard__pixel__depth__sample.html#ab03d53bb5a02c6923087cde16c78817f',1,'tlz::checkerboard_pixel_depth_sample']]],
+  ['camera_5fname',['camera_name',['../structtlz_1_1multiprojection_1_1input.html#a6597b508cdca1e14a6554fc4eeffe8b6',1,'tlz::multiprojection::input']]],
+  ['cb',['cb',['../structtlz_1_1ycbcr__color.html#a8ae3049dcb5bb1cf2c21790530060eb4',1,'tlz::ycbcr_color']]],
+  ['coeff_5fabs_5fmax',['coeff_abs_max',['../view__distortion_8cc.html#ad0c0262dd05d48421f16b6d726466fac',1,'view_distortion.cc']]],
+  ['color',['color',['../structtlz_1_1kinect__internal__parameters.html#a2c38ef1e11008eb5244bca830ccb6494',1,'tlz::kinect_internal_parameters::color()'],['../structtlz_1_1point__full.html#a9d4008e552791fe881aa1019de53423a',1,'tlz::point_full::color()']]],
+  ['color_5fchks',['color_chks',['../checkerboard__samples_8cc.html#a00467e5d428be2381d4d9a41b1ad1ffb',1,'checkerboard_samples.cc']]],
+  ['color_5fcoordinates',['color_coordinates',['../structtlz_1_1ir__to__color__sample.html#ae93e5fa29e82dd8ba7a157e06563dfc7',1,'tlz::ir_to_color_sample']]],
+  ['color_5fdepth',['color_depth',['../structtlz_1_1ir__to__color__sample.html#a1b39105fe64f453fe447bab716082a3a',1,'tlz::ir_to_color_sample']]],
+  ['color_5fdepth_5foffset',['color_depth_offset',['../structtlz_1_1kinect__reprojection__parameters.html#a9c841a8a22e389589254c6b0bcac5e7f',1,'tlz::kinect_reprojection_parameters']]],
+  ['color_5fintrinsics',['color_intrinsics',['../structtlz_1_1kinect__reprojection__parameters.html#a606d0519bab1b1dec71c3845aa5437f6',1,'tlz::kinect_reprojection_parameters']]],
+  ['cols',['cols',['../structtlz_1_1checkerboard.html#ac5b0100ef79d834843f1917818ea0551',1,'tlz::checkerboard::cols()'],['../checkerboard__samples_8cc.html#a4407a60bc4387adae24cee658711f2d9',1,'cols():&#160;checkerboard_samples.cc']]],
+  ['confidence',['confidence',['../structtlz_1_1straight__depth.html#a4ba5f192be0e4ca1563c1f6c615ea406',1,'tlz::straight_depth']]],
+  ['coordinates',['coordinates',['../structtlz_1_1checkerboard__pixel__depth__sample.html#ae75dff6faf6e8813249ebeebd43c51f1',1,'tlz::checkerboard_pixel_depth_sample']]],
+  ['corners',['corners',['../structtlz_1_1checkerboard.html#ae747cabacc7e1ff435bb968957687da6',1,'tlz::checkerboard']]],
+  ['cr',['cr',['../structtlz_1_1ycbcr__color.html#afa551c8ab50c0f44d39eb215603f1960',1,'tlz::ycbcr_color']]],
+  ['cv_5fvisualization',['cv_visualization',['../structtlz_1_1checkerboard__visualization__parameters.html#ac1ed8e800153fc2f33391af0b005ed54',1,'tlz::checkerboard_visualization_parameters']]]
+];

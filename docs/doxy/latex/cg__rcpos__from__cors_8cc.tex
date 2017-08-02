@@ -1,0 +1,128 @@
+\hypertarget{cg__rcpos__from__cors_8cc}{}\section{src/calibration/cg\+\_\+rcpos\+\_\+from\+\_\+cors.cc File Reference}
+\label{cg__rcpos__from__cors_8cc}\index{src/calibration/cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc@{src/calibration/cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc}}
+{\ttfamily \#include \char`\"{}../lib/common.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/args.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/json.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/dataset.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/intrinsics.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/misc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/assert.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/feature\+\_\+points.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/image\+\_\+correspondence.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/cg/relative\+\_\+camera\+\_\+positions.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/cg/straight\+\_\+depths.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+{\ttfamily \#include $<$utility$>$}\\*
+{\ttfamily \#include $<$set$>$}\\*
+{\ttfamily \#include $<$algorithm$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+Include dependency graph for cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cg__rcpos__from__cors_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtarget__camera__position__result}{target\+\_\+camera\+\_\+position\+\_\+result}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structtarget__camera__position__result}{target\+\_\+camera\+\_\+position\+\_\+result} \hyperlink{cg__rcpos__from__cors_8cc_a799a945b91cda6ec9cecb2b12d851c96}{compute\+\_\+target\+\_\+camera\+\_\+position} (const std\+::map$<$ std\+::string, \hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} $>$ \&samples)
+\item 
+int \hyperlink{cg__rcpos__from__cors_8cc_ac0f2228420376f4db7e1274f2b41667c}{main} (int argc, const char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr bool \hyperlink{cg__rcpos__from__cors_8cc_aa0809dffbdf183a6a189ebb277bf6866}{verbose} = false
+\item 
+constexpr std\+::size\+\_\+t \hyperlink{cg__rcpos__from__cors_8cc_a3d4f791651f52461fb4b2f737ff7b28a}{minimal\+\_\+samples\+\_\+count} = 2
+\item 
+constexpr \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} \hyperlink{cg__rcpos__from__cors_8cc_a8c4316bc946b250bdff16a4eca02b1fc}{maximal\+\_\+position\+\_\+stddev} = 1000.\+0
+\item 
+constexpr bool \hyperlink{cg__rcpos__from__cors_8cc_a95fdd0933dd85effde861e532f69c115}{find\+\_\+bad\+\_\+features} = true
+\item 
+constexpr \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} \hyperlink{cg__rcpos__from__cors_8cc_a74b38e3437ce2ffc22c117f0bed0b831}{features\+\_\+inlier\+\_\+percentile} = 0.\+8
+\item 
+constexpr bool \hyperlink{cg__rcpos__from__cors_8cc_aef06abf2b97252362f730483eaabf103}{print\+\_\+all\+\_\+sample\+\_\+positions} = false
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc@{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc}!compute\+\_\+target\+\_\+camera\+\_\+position@{compute\+\_\+target\+\_\+camera\+\_\+position}}
+\index{compute\+\_\+target\+\_\+camera\+\_\+position@{compute\+\_\+target\+\_\+camera\+\_\+position}!cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc@{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{compute\+\_\+target\+\_\+camera\+\_\+position(const std\+::map$<$ std\+::string, vec2 $>$ \&samples)}{compute_target_camera_position(const std::map< std::string, vec2 > &samples)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf target\+\_\+camera\+\_\+position\+\_\+result} compute\+\_\+target\+\_\+camera\+\_\+position (
+\begin{DoxyParamCaption}
+\item[{const std\+::map$<$ std\+::string, {\bf vec2} $>$ \&}]{samples}
+\end{DoxyParamCaption}
+)}\hypertarget{cg__rcpos__from__cors_8cc_a799a945b91cda6ec9cecb2b12d851c96}{}\label{cg__rcpos__from__cors_8cc_a799a945b91cda6ec9cecb2b12d851c96}
+
+
+Definition at line 43 of file cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc.
+
+\index{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc@{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc}!main@{main}}
+\index{main@{main}!cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc@{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{main(int argc, const char $\ast$argv[])}{main(int argc, const char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{const char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{cg__rcpos__from__cors_8cc_ac0f2228420376f4db7e1274f2b41667c}{}\label{cg__rcpos__from__cors_8cc_ac0f2228420376f4db7e1274f2b41667c}
+
+
+Definition at line 64 of file cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc.
+
+
+
+\subsection{Variable Documentation}
+\index{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc@{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc}!features\+\_\+inlier\+\_\+percentile@{features\+\_\+inlier\+\_\+percentile}}
+\index{features\+\_\+inlier\+\_\+percentile@{features\+\_\+inlier\+\_\+percentile}!cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc@{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{features\+\_\+inlier\+\_\+percentile}{features_inlier_percentile}}]{\setlength{\rightskip}{0pt plus 5cm}constexpr {\bf real} features\+\_\+inlier\+\_\+percentile = 0.\+8}\hypertarget{cg__rcpos__from__cors_8cc_a74b38e3437ce2ffc22c117f0bed0b831}{}\label{cg__rcpos__from__cors_8cc_a74b38e3437ce2ffc22c117f0bed0b831}
+
+
+Definition at line 29 of file cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc.
+
+\index{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc@{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc}!find\+\_\+bad\+\_\+features@{find\+\_\+bad\+\_\+features}}
+\index{find\+\_\+bad\+\_\+features@{find\+\_\+bad\+\_\+features}!cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc@{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{find\+\_\+bad\+\_\+features}{find_bad_features}}]{\setlength{\rightskip}{0pt plus 5cm}constexpr bool find\+\_\+bad\+\_\+features = true}\hypertarget{cg__rcpos__from__cors_8cc_a95fdd0933dd85effde861e532f69c115}{}\label{cg__rcpos__from__cors_8cc_a95fdd0933dd85effde861e532f69c115}
+
+
+Definition at line 28 of file cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc.
+
+\index{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc@{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc}!maximal\+\_\+position\+\_\+stddev@{maximal\+\_\+position\+\_\+stddev}}
+\index{maximal\+\_\+position\+\_\+stddev@{maximal\+\_\+position\+\_\+stddev}!cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc@{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{maximal\+\_\+position\+\_\+stddev}{maximal_position_stddev}}]{\setlength{\rightskip}{0pt plus 5cm}constexpr {\bf real} maximal\+\_\+position\+\_\+stddev = 1000.\+0}\hypertarget{cg__rcpos__from__cors_8cc_a8c4316bc946b250bdff16a4eca02b1fc}{}\label{cg__rcpos__from__cors_8cc_a8c4316bc946b250bdff16a4eca02b1fc}
+
+
+Definition at line 26 of file cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc.
+
+\index{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc@{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc}!minimal\+\_\+samples\+\_\+count@{minimal\+\_\+samples\+\_\+count}}
+\index{minimal\+\_\+samples\+\_\+count@{minimal\+\_\+samples\+\_\+count}!cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc@{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{minimal\+\_\+samples\+\_\+count}{minimal_samples_count}}]{\setlength{\rightskip}{0pt plus 5cm}constexpr std\+::size\+\_\+t minimal\+\_\+samples\+\_\+count = 2}\hypertarget{cg__rcpos__from__cors_8cc_a3d4f791651f52461fb4b2f737ff7b28a}{}\label{cg__rcpos__from__cors_8cc_a3d4f791651f52461fb4b2f737ff7b28a}
+
+
+Definition at line 25 of file cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc.
+
+\index{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc@{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc}!print\+\_\+all\+\_\+sample\+\_\+positions@{print\+\_\+all\+\_\+sample\+\_\+positions}}
+\index{print\+\_\+all\+\_\+sample\+\_\+positions@{print\+\_\+all\+\_\+sample\+\_\+positions}!cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc@{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{print\+\_\+all\+\_\+sample\+\_\+positions}{print_all_sample_positions}}]{\setlength{\rightskip}{0pt plus 5cm}constexpr bool print\+\_\+all\+\_\+sample\+\_\+positions = false}\hypertarget{cg__rcpos__from__cors_8cc_aef06abf2b97252362f730483eaabf103}{}\label{cg__rcpos__from__cors_8cc_aef06abf2b97252362f730483eaabf103}
+
+
+Definition at line 31 of file cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc.
+
+\index{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc@{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc}!verbose@{verbose}}
+\index{verbose@{verbose}!cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc@{cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{verbose}{verbose}}]{\setlength{\rightskip}{0pt plus 5cm}constexpr bool verbose = false}\hypertarget{cg__rcpos__from__cors_8cc_aa0809dffbdf183a6a189ebb277bf6866}{}\label{cg__rcpos__from__cors_8cc_aa0809dffbdf183a6a189ebb277bf6866}
+
+
+Definition at line 24 of file cg\+\_\+rcpos\+\_\+from\+\_\+cors.\+cc.
+

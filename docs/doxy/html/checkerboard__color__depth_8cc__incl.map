@@ -1,0 +1,18 @@
+<map id="src/kinect/checkerboard_color_depth.cc" name="src/kinect/checkerboard_color_depth.cc">
+<area shape="rect" id="node2" href="$lib_2common_8h.html" title="../lib/common.h" alt="" coords="544,483,656,509"/>
+<area shape="rect" id="node11" href="$args_8h.html" title="../lib/args.h" alt="" coords="1189,408,1275,435"/>
+<area shape="rect" id="node14" href="$opencv_8h.html" title="../lib/opencv.h" alt="" coords="137,408,241,435"/>
+<area shape="rect" id="node16" href="$intrinsics_8h.html" title="../lib/intrinsics.h" alt="" coords="788,259,903,285"/>
+<area shape="rect" id="node19" href="$misc_8h.html" title="../lib/misc.h" alt="" coords="1747,408,1837,435"/>
+<area shape="rect" id="node23" href="$viewer_8h.html" title="../lib/viewer.h" alt="" coords="515,333,615,360"/>
+<area shape="rect" id="node25" href="$grabber_8h.html" title="lib/live/grabber.h" alt="" coords="1788,95,1905,121"/>
+<area shape="rect" id="node34" href="$checkerboard_8h.html" title="lib/live/checkerboard.h" alt="" coords="1169,95,1321,121"/>
+<area shape="rect" id="node37" href="$kinect__reprojection_8h.html" title="lib/kinect_reprojection.h" alt="" coords="330,95,489,121"/>
+<area shape="rect" id="node44" href="$depth__densify_8h.html" title="lib/densify/depth_densify.h" alt="" coords="639,333,817,360"/>
+<area shape="rect" id="node17" href="$json_8h.html" title="json.h" alt="" coords="841,333,898,360"/>
+<area shape="rect" id="node27" href="$freenect2_8h.html" title="../freenect2.h" alt="" coords="2387,177,2485,203"/>
+<area shape="rect" id="node29" href="$kinect__internal__parameters_8h.html" title="kinect_internal_parameters.h" alt="" coords="1509,259,1699,285"/>
+<area shape="rect" id="node38" href="$color_8h.html" title="../../lib/color.h" alt="" coords="43,333,146,360"/>
+<area shape="rect" id="node39" href="$kinect__reprojection__parameters_8h.html" title="kinect_reprojection\l_parameters.h" alt="" coords="677,169,808,211"/>
+<area shape="rect" id="node40" href="$ir__to__color__sample_8h.html" title="ir_to_color_sample.h" alt="" coords="317,408,459,435"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="tlz::viewer::viewer" name="tlz::viewer::viewer">
+<area shape="rect" id="node2" href="$classtlz_1_1viewer.html#ab840cedc6c257c4270c43d59705842cc" title="tlz::viewer::viewer" alt="" coords="190,5,318,32"/>
+<area shape="rect" id="node3" href="$classtlz_1_1viewer.html#a2db3e67ba1350a8be839d1725bd7ebc2" title="tlz::viewer::~viewer" alt="" coords="186,56,322,83"/>
+<area shape="rect" id="node4" href="$classtlz_1_1viewer.html#af41f88c9e47de049a1a7ff895c5fb5a1" title="tlz::viewer::operator=" alt="" coords="181,107,327,133"/>
+<area shape="rect" id="node5" href="$classtlz_1_1viewer.html#a2bf9d63d7a1a5ec4d5bdabc13d9ab688" title="tlz::viewer::add_int\l_slider" alt="" coords="188,158,320,199"/>
+<area shape="rect" id="node6" href="$classtlz_1_1viewer.html#a4be73d43a59e54ac622a45ecb042e351" title="tlz::viewer::add_real\l_slider" alt="" coords="185,223,323,265"/>
+<area shape="rect" id="node7" href="$classtlz_1_1viewer.html#acc43bf1dd1d0c3cdc35a948d4c194769" title="tlz::viewer::width" alt="" coords="377,315,498,341"/>
+<area shape="rect" id="node8" href="$classtlz_1_1viewer.html#af74a8aef9dde68eeff6b1e2561b39014" title="tlz::viewer::height" alt="" coords="375,391,500,417"/>
+<area shape="rect" id="node9" href="$classtlz_1_1viewer.html#a2a8d3e239c7f75ea8cc0ddd953276289" title="tlz::viewer::clear" alt="" coords="195,391,313,417"/>
+<area shape="rect" id="node10" href="$classtlz_1_1viewer.html#a5f0412cff89a343ad52431689502389d" title="tlz::viewer::draw" alt="" coords="195,340,313,367"/>
+</map>

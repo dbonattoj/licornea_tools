@@ -1,0 +1,14 @@
+<map id="tlz::dataset_view::y" name="tlz::dataset_view::y">
+<area shape="rect" id="node2" href="$classtlz_1_1dataset__view.html#a4951a6300847e0fed4fecf79d8753b58" title="tlz::dataset_view::\llocal_parameters" alt="" coords="544,113,673,155"/>
+<area shape="rect" id="node4" href="$classtlz_1_1dataset__view.html#a327a842dc304656596d65b9bbf52fb1c" title="tlz::dataset_view::\llocal_filename" alt="" coords="367,188,496,229"/>
+<area shape="rect" id="node7" href="$classtlz_1_1dataset__view.html#a38cfd9cd54168855c54c607d01184c17" title="tlz::dataset_view::\lcamera_name" alt="" coords="367,5,496,47"/>
+<area shape="rect" id="node8" href="$classtlz_1_1dataset__view.html#af3c734eaed33af07993255db63d3fc54" title="tlz::dataset_view::\limage_filename" alt="" coords="189,123,319,164"/>
+<area shape="rect" id="node9" href="$classtlz_1_1dataset__view.html#a63238745feff55e3d0bea101589895c1" title="tlz::dataset_view::\ldepth_filename" alt="" coords="189,188,319,229"/>
+<area shape="rect" id="node10" href="$classtlz_1_1dataset__view.html#adcb6370e1971f53a5dc49bbafed33725" title="tlz::dataset_view::\lmask_filename" alt="" coords="189,253,319,295"/>
+<area shape="rect" id="node11" href="$classtlz_1_1dataset__view.html#a3bd68edab92df988a6b0c13d65b6bfca" title="tlz::dataset_view::\lgroup" alt="" coords="189,421,319,463"/>
+<area shape="rect" id="node12" href="$classtlz_1_1dataset__view.html#a1ec7ba844d313cddc558874fe85246a8" title="tlz::dataset_view::\lgroup_view" alt="" coords="544,247,673,288"/>
+<area shape="rect" id="node3" href="$classtlz_1_1dataset.html#ab14f5b1f18c0ab423c18270b7ca46bd2" title="tlz::dataset::parameters" alt="" coords="721,121,881,147"/>
+<area shape="rect" id="node5" href="$namespacetlz.html#add846dc50c32dfb356cb1a7ac11d37ac" title="tlz::get_or" alt="" coords="569,195,649,222"/>
+<area shape="rect" id="node6" href="$namespacetlz.html#a252af14b9b4ac6502d3e9c5dd8dc90b8" title="tlz::has" alt="" coords="769,195,834,222"/>
+<area shape="rect" id="node13" href="$classtlz_1_1dataset__view.html#a31a73cf70078f270c9045bc0babadee2" title="tlz::dataset_view::\ldataset_view" alt="" coords="737,247,866,288"/>
+</map>

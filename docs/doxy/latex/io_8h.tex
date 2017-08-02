@@ -1,0 +1,53 @@
+\hypertarget{io_8h}{}\section{src/lib/io.h File Reference}
+\label{io_8h}\index{src/lib/io.\+h@{src/lib/io.\+h}}
+{\ttfamily \#include $<$iosfwd$>$}\\*
+{\ttfamily \#include $<$limits$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include \char`\"{}common.\+h\char`\"{}}\\*
+Include dependency graph for io.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{io_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{io_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{namespacetlz_a9643974618d6e98138d9b009f5f6123d}{tlz\+::line\+\_\+delimitor} \{ \hyperlink{namespacetlz_a9643974618d6e98138d9b009f5f6123daad921d60486366258809553a3db49a4a}{tlz\+::line\+\_\+delimitor\+::unknown}, 
+\hyperlink{namespacetlz_a9643974618d6e98138d9b009f5f6123da618441d41cce47dbcfd9bed6e5ff64e6}{tlz\+::line\+\_\+delimitor\+::\+LF}, 
+\hyperlink{namespacetlz_a9643974618d6e98138d9b009f5f6123da1d7b33fc26ca22c2011aaa97fecc43d8}{tlz\+::line\+\_\+delimitor\+::\+CR}, 
+\hyperlink{namespacetlz_a9643974618d6e98138d9b009f5f6123da50d5a4893c775dd805a095efef17ef3d}{tlz\+::line\+\_\+delimitor\+::\+C\+R\+LF}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+line\+\_\+delimitor \hyperlink{namespacetlz_ab101d0ce024c59a97e86f22ae025b073}{tlz\+::detect\+\_\+line\+\_\+delimitor} (std\+::istream \&, std\+::size\+\_\+t max\+\_\+offset=512)
+\begin{DoxyCompactList}\small\item\em Detects line delimitor used in given file. \end{DoxyCompactList}\item 
+void \hyperlink{namespacetlz_a539629dfec76af8b466f904f4b44163f}{tlz\+::read\+\_\+line} (std\+::istream \&str, std\+::string \&line, line\+\_\+delimitor ld)
+\item 
+void \hyperlink{namespacetlz_ad751f045b05eab91faec1abdc6c1848f}{tlz\+::skip\+\_\+line} (std\+::istream \&str, line\+\_\+delimitor ld)
+\item 
+void \hyperlink{namespacetlz_a4e9cdc9ca668d5050a9dfbfd7d60437d}{tlz\+::write\+\_\+line} (std\+::ostream \&str, const std\+::string \&line, line\+\_\+delimitor ld)
+\item 
+void \hyperlink{namespacetlz_ab1d9ef738ca24791409c5af520dff3e6}{tlz\+::end\+\_\+line} (std\+::ostream \&str, line\+\_\+delimitor ld)
+\item 
+void \hyperlink{namespacetlz_ad134248963f7c5229eb03a238cb88b17}{tlz\+::flip\+\_\+endianness} (byte $\ast$data, std\+::size\+\_\+t sz)
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{namespacetlz_a12f7eba952e631efe7e5a85bf27157a4}{tlz\+::flip\+\_\+endianness} (T \&t)
+\end{DoxyCompactItemize}

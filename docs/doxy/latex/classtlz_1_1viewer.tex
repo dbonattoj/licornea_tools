@@ -1,0 +1,632 @@
+\hypertarget{classtlz_1_1viewer}{}\section{tlz\+:\+:viewer Class Reference}
+\label{classtlz_1_1viewer}\index{tlz\+::viewer@{tlz\+::viewer}}
+
+
+{\ttfamily \#include $<$viewer.\+h$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classtlz_1_1viewer_1_1int__slider}{int\+\_\+slider}
+\item 
+class \hyperlink{classtlz_1_1viewer_1_1real__slider}{real\+\_\+slider}
+\item 
+class \hyperlink{classtlz_1_1viewer_1_1slider__base}{slider\+\_\+base}
+\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{classtlz_1_1viewer_a280addd8c203232bdaf5ae4dc85a139a}{text\+\_\+alignment} \{ \hyperlink{classtlz_1_1viewer_a280addd8c203232bdaf5ae4dc85a139aa7d9efcc435fbfbde49c6c8e256405f68}{left}, 
+\hyperlink{classtlz_1_1viewer_a280addd8c203232bdaf5ae4dc85a139aa896ad3baba90240ef5aa5c2c66b14fcf}{center}, 
+\hyperlink{classtlz_1_1viewer_a280addd8c203232bdaf5ae4dc85a139aa242c9b07c716c6be5cade53a54244ec3}{right}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtlz_1_1viewer_ab840cedc6c257c4270c43d59705842cc}{viewer} (const std\+::string \&title, int \hyperlink{classtlz_1_1viewer_acc43bf1dd1d0c3cdc35a948d4c194769}{width}, int \hyperlink{classtlz_1_1viewer_af74a8aef9dde68eeff6b1e2561b39014}{height}, bool resizeable=false)
+\item 
+\hyperlink{classtlz_1_1viewer_a197747fd66bf0c2cb69ac598e08f6e79}{viewer} (const std\+::string \&title, cv\+::\+Size sz, bool resizeable=false)
+\item 
+\hyperlink{classtlz_1_1viewer_a3d7acc2df49af00c659dd55c6898344d}{viewer} (int \hyperlink{classtlz_1_1viewer_acc43bf1dd1d0c3cdc35a948d4c194769}{width}, int \hyperlink{classtlz_1_1viewer_af74a8aef9dde68eeff6b1e2561b39014}{height}, bool resizeable=false)
+\item 
+\hyperlink{classtlz_1_1viewer_a29d63e7cbf892927adc12c2c35c28c5d}{viewer} (cv\+::\+Size sz, bool resizeable=false)
+\item 
+\hyperlink{classtlz_1_1viewer_af946932c9c9ac062feaa9e15b55b79b8}{viewer} (const std\+::string \&title, bool resizeable=false)
+\item 
+\hyperlink{classtlz_1_1viewer_a916b709d0d5e9f08f0291c104b2edb0b}{viewer} (const \hyperlink{classtlz_1_1viewer}{viewer} \&)=delete
+\item 
+\hyperlink{classtlz_1_1viewer_a2db3e67ba1350a8be839d1725bd7ebc2}{$\sim$viewer} ()
+\item 
+\hyperlink{classtlz_1_1viewer}{viewer} \& \hyperlink{classtlz_1_1viewer_af41f88c9e47de049a1a7ff895c5fb5a1}{operator=} (const \hyperlink{classtlz_1_1viewer}{viewer} \&)=delete
+\item 
+\hyperlink{classtlz_1_1viewer_1_1int__slider}{int\+\_\+slider} \& \hyperlink{classtlz_1_1viewer_a2bf9d63d7a1a5ec4d5bdabc13d9ab688}{add\+\_\+int\+\_\+slider} (const std\+::string \&caption, int default\+\_\+val, int min\+\_\+val, int max\+\_\+val, int step=1)
+\item 
+\hyperlink{classtlz_1_1viewer_1_1real__slider}{real\+\_\+slider} \& \hyperlink{classtlz_1_1viewer_a4be73d43a59e54ac622a45ecb042e351}{add\+\_\+real\+\_\+slider} (const std\+::string \&caption, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} default\+\_\+val, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} min\+\_\+val, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} max\+\_\+val, int steps=100)
+\item 
+int \hyperlink{classtlz_1_1viewer_acc43bf1dd1d0c3cdc35a948d4c194769}{width} () const 
+\item 
+int \hyperlink{classtlz_1_1viewer_af74a8aef9dde68eeff6b1e2561b39014}{height} () const 
+\item 
+void \hyperlink{classtlz_1_1viewer_a0ad9ee28b8127c63b2886b04fb36e3dc}{clear} (int \hyperlink{classtlz_1_1viewer_acc43bf1dd1d0c3cdc35a948d4c194769}{width}, int \hyperlink{classtlz_1_1viewer_af74a8aef9dde68eeff6b1e2561b39014}{height})
+\item 
+void \hyperlink{classtlz_1_1viewer_abf8fc445268cb0728c87c0962a774fb8}{clear} (cv\+::\+Size)
+\item 
+void \hyperlink{classtlz_1_1viewer_a2a8d3e239c7f75ea8cc0ddd953276289}{clear} ()
+\item 
+void \hyperlink{classtlz_1_1viewer_a5f0412cff89a343ad52431689502389d}{draw} (const cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \&, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} blend=1.\+0)
+\item 
+void \hyperlink{classtlz_1_1viewer_a3aac899e0fc8dcd0889d261a10690443}{draw} (const cv\+::\+Mat\+\_\+$<$ uchar $>$ \&, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} blend=1.\+0)
+\item 
+void \hyperlink{classtlz_1_1viewer_a867304c9793f767be94e5dc59f4c750e}{draw} (cv\+::\+Rect rect, const cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \&img, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} blend=1.\+0)
+\item 
+void \hyperlink{classtlz_1_1viewer_a3a31847220e3d5b88038d87585217fc8}{draw} (cv\+::\+Point pt, const cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \&img, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} blend=1.\+0)
+\item 
+void \hyperlink{classtlz_1_1viewer_ab2abefe044b4d33984b44039024f043f}{draw} (cv\+::\+Rect rect, const cv\+::\+Mat\+\_\+$<$ uchar $>$ \&img, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} blend=1.\+0)
+\item 
+void \hyperlink{classtlz_1_1viewer_a47a85ba549b86f7ec391069c0cded9c5}{draw} (cv\+::\+Point pt, const cv\+::\+Mat\+\_\+$<$ uchar $>$ \&img, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} blend=1.\+0)
+\item 
+void \hyperlink{classtlz_1_1viewer_a7f8bb5582e18ad278881cc065d7c21fa}{draw\+\_\+depth} (cv\+::\+Rect rect, const cv\+::\+Mat\+\_\+$<$ float $>$ \&depth\+\_\+img, float min\+\_\+d, float max\+\_\+d, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} blend=1.\+0)
+\item 
+void \hyperlink{classtlz_1_1viewer_a78038466514d156c955a1357774ecd7b}{draw\+\_\+depth} (cv\+::\+Point pt, const cv\+::\+Mat\+\_\+$<$ float $>$ \&depth\+\_\+img, float min\+\_\+d, float max\+\_\+d, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} blend=1.\+0)
+\item 
+void \hyperlink{classtlz_1_1viewer_ad4fda702b7c5af2cb0bb9bc3842113f3}{draw\+\_\+text} (cv\+::\+Rect rect, const std\+::string \&text, \hyperlink{classtlz_1_1viewer_a280addd8c203232bdaf5ae4dc85a139a}{text\+\_\+alignment}=\hyperlink{classtlz_1_1viewer_a280addd8c203232bdaf5ae4dc85a139aa7d9efcc435fbfbde49c6c8e256405f68}{left})
+\item 
+void \hyperlink{classtlz_1_1viewer_a77f6415434e333f66ede754eda425cd7}{draw\+\_\+text} (cv\+::\+Rect rect, const std\+::string \&text, \hyperlink{classtlz_1_1viewer_a280addd8c203232bdaf5ae4dc85a139a}{text\+\_\+alignment}, cv\+::\+Vec3b color)
+\item 
+void \hyperlink{classtlz_1_1viewer_a09c3c6e9c5a5341576cea9210a6d8246}{draw\+\_\+2d\+\_\+cross\+\_\+indicator} (cv\+::\+Rect rect, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} value\+\_\+x, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} value\+\_\+y, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} max\+\_\+abs\+\_\+value)
+\item 
+void \hyperlink{classtlz_1_1viewer_ac882ef84c24e8c209c13e2308c5c8c0c}{draw\+\_\+2d\+\_\+arrow\+\_\+indicator} (cv\+::\+Rect rect, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} value\+\_\+x, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} value\+\_\+y, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} max\+\_\+value)
+\item 
+bool \hyperlink{classtlz_1_1viewer_aabb3cdde75783ed1a41801fb236bc50e}{show} (int \&keycode)
+\item 
+bool \hyperlink{classtlz_1_1viewer_a96ab5d3d95f438355c6a221658199184}{show} ()
+\item 
+void \hyperlink{classtlz_1_1viewer_a4ccb30b02c81909ba1af97745375385a}{show\+\_\+modal} ()
+\item 
+void \hyperlink{classtlz_1_1viewer_a39742c89e09f32e2d2c9162882dc158c}{update\+\_\+modal} ()
+\item 
+void \hyperlink{classtlz_1_1viewer_ae84f2b4938b897ac7cef4940056a1949}{close\+\_\+modal} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static cv\+::\+Mat\+\_\+$<$ uchar $>$ \hyperlink{classtlz_1_1viewer_a6a59617413dc76948b6802399ddf555b}{visualize\+\_\+depth} (const cv\+::\+Mat \&, float min\+\_\+d, float max\+\_\+d)
+\item 
+static cv\+::\+Mat\+\_\+$<$ uchar $>$ \hyperlink{classtlz_1_1viewer_adef64a6ebf1391fd02c1231b9fde281f}{visualize\+\_\+ir} (const cv\+::\+Mat \&, float min\+\_\+ir, float max\+\_\+ir)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+cv\+::\+Vec3b \hyperlink{classtlz_1_1viewer_af7c1c138d35a19bee709bc368f10b7fa}{black} = cv\+::\+Vec3b(0, 0, 0)
+\item 
+cv\+::\+Vec3b \hyperlink{classtlz_1_1viewer_a3dadda68d6b156de3fe6cc68ff9bc623}{white} = cv\+::\+Vec3b(255, 255, 255)
+\item 
+cv\+::\+Vec3b \hyperlink{classtlz_1_1viewer_a0d5822b6c9ca68bf0edf44d6ff017937}{indicator\+\_\+color} = cv\+::\+Vec3b(255, 100, 100)
+\item 
+cv\+::\+Vec3b \hyperlink{classtlz_1_1viewer_ad8bf1e38972c92316347477b1b6225bb}{background\+\_\+color} = cv\+::\+Vec3b(0, 0, 0)
+\item 
+cv\+::\+Vec3b \hyperlink{classtlz_1_1viewer_a483a152f05561ae8f33fafae05a08b5f}{text\+\_\+color} = cv\+::\+Vec3b(255, 255, 255)
+\item 
+std\+::function$<$ void()$>$ \hyperlink{classtlz_1_1viewer_a7142596a0bf1aac7b0358759651639b4}{update\+\_\+callback}
+\item 
+std\+::function$<$ void(int keycode)$>$ \hyperlink{classtlz_1_1viewer_a2eb7558722a69604c1d9c96c1b1dcc83}{key\+\_\+callback}
+\item 
+std\+::function$<$ void(int event, int x, int y)$>$ \hyperlink{classtlz_1_1viewer_a8b095fdc711fecee7f8c5916e0fcc351}{mouse\+\_\+callback}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 13 of file viewer.\+h.
+
+
+
+\subsection{Member Enumeration Documentation}
+\index{tlz\+::viewer@{tlz\+::viewer}!text\+\_\+alignment@{text\+\_\+alignment}}
+\index{text\+\_\+alignment@{text\+\_\+alignment}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{text\+\_\+alignment}{text_alignment}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf tlz\+::viewer\+::text\+\_\+alignment}}\hypertarget{classtlz_1_1viewer_a280addd8c203232bdaf5ae4dc85a139a}{}\label{classtlz_1_1viewer_a280addd8c203232bdaf5ae4dc85a139a}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{left@{left}!tlz\+::viewer@{tlz\+::viewer}}\index{tlz\+::viewer@{tlz\+::viewer}!left@{left}}\item[{\em 
+left\hypertarget{classtlz_1_1viewer_a280addd8c203232bdaf5ae4dc85a139aa7d9efcc435fbfbde49c6c8e256405f68}{}\label{classtlz_1_1viewer_a280addd8c203232bdaf5ae4dc85a139aa7d9efcc435fbfbde49c6c8e256405f68}
+}]\index{center@{center}!tlz\+::viewer@{tlz\+::viewer}}\index{tlz\+::viewer@{tlz\+::viewer}!center@{center}}\item[{\em 
+center\hypertarget{classtlz_1_1viewer_a280addd8c203232bdaf5ae4dc85a139aa896ad3baba90240ef5aa5c2c66b14fcf}{}\label{classtlz_1_1viewer_a280addd8c203232bdaf5ae4dc85a139aa896ad3baba90240ef5aa5c2c66b14fcf}
+}]\index{right@{right}!tlz\+::viewer@{tlz\+::viewer}}\index{tlz\+::viewer@{tlz\+::viewer}!right@{right}}\item[{\em 
+right\hypertarget{classtlz_1_1viewer_a280addd8c203232bdaf5ae4dc85a139aa242c9b07c716c6be5cade53a54244ec3}{}\label{classtlz_1_1viewer_a280addd8c203232bdaf5ae4dc85a139aa242c9b07c716c6be5cade53a54244ec3}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 19 of file viewer.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{tlz\+::viewer@{tlz\+::viewer}!viewer@{viewer}}
+\index{viewer@{viewer}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{viewer(const std\+::string \&title, int width, int height, bool resizeable=false)}{viewer(const std::string &title, int width, int height, bool resizeable=false)}}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::viewer\+::viewer (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{title, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{bool}]{resizeable = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_ab840cedc6c257c4270c43d59705842cc}{}\label{classtlz_1_1viewer_ab840cedc6c257c4270c43d59705842cc}
+
+
+Definition at line 30 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!viewer@{viewer}}
+\index{viewer@{viewer}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{viewer(const std\+::string \&title, cv\+::\+Size sz, bool resizeable=false)}{viewer(const std::string &title, cv::Size sz, bool resizeable=false)}}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::viewer\+::viewer (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{title, }
+\item[{cv\+::\+Size}]{sz, }
+\item[{bool}]{resizeable = {\ttfamily false}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classtlz_1_1viewer_a197747fd66bf0c2cb69ac598e08f6e79}{}\label{classtlz_1_1viewer_a197747fd66bf0c2cb69ac598e08f6e79}
+
+
+Definition at line 45 of file viewer.\+h.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!viewer@{viewer}}
+\index{viewer@{viewer}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{viewer(int width, int height, bool resizeable=false)}{viewer(int width, int height, bool resizeable=false)}}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::viewer\+::viewer (
+\begin{DoxyParamCaption}
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{bool}]{resizeable = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_a3d7acc2df49af00c659dd55c6898344d}{}\label{classtlz_1_1viewer_a3d7acc2df49af00c659dd55c6898344d}
+
+
+Definition at line 45 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!viewer@{viewer}}
+\index{viewer@{viewer}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{viewer(cv\+::\+Size sz, bool resizeable=false)}{viewer(cv::Size sz, bool resizeable=false)}}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::viewer\+::viewer (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Size}]{sz, }
+\item[{bool}]{resizeable = {\ttfamily false}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classtlz_1_1viewer_a29d63e7cbf892927adc12c2c35c28c5d}{}\label{classtlz_1_1viewer_a29d63e7cbf892927adc12c2c35c28c5d}
+
+
+Definition at line 48 of file viewer.\+h.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!viewer@{viewer}}
+\index{viewer@{viewer}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{viewer(const std\+::string \&title, bool resizeable=false)}{viewer(const std::string &title, bool resizeable=false)}}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::viewer\+::viewer (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{title, }
+\item[{bool}]{resizeable = {\ttfamily false}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\hypertarget{classtlz_1_1viewer_af946932c9c9ac062feaa9e15b55b79b8}{}\label{classtlz_1_1viewer_af946932c9c9ac062feaa9e15b55b79b8}
+
+
+Definition at line 49 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!viewer@{viewer}}
+\index{viewer@{viewer}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{viewer(const viewer \&)=delete}{viewer(const viewer &)=delete}}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::viewer\+::viewer (
+\begin{DoxyParamCaption}
+\item[{const {\bf viewer} \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [delete]}}\hypertarget{classtlz_1_1viewer_a916b709d0d5e9f08f0291c104b2edb0b}{}\label{classtlz_1_1viewer_a916b709d0d5e9f08f0291c104b2edb0b}
+\index{tlz\+::viewer@{tlz\+::viewer}!````~viewer@{$\sim$viewer}}
+\index{````~viewer@{$\sim$viewer}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{$\sim$viewer()}{~viewer()}}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::viewer\+::$\sim$viewer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_a2db3e67ba1350a8be839d1725bd7ebc2}{}\label{classtlz_1_1viewer_a2db3e67ba1350a8be839d1725bd7ebc2}
+
+
+Definition at line 61 of file viewer.\+cc.
+
+
+
+\subsection{Member Function Documentation}
+\index{tlz\+::viewer@{tlz\+::viewer}!add\+\_\+int\+\_\+slider@{add\+\_\+int\+\_\+slider}}
+\index{add\+\_\+int\+\_\+slider@{add\+\_\+int\+\_\+slider}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{add\+\_\+int\+\_\+slider(const std\+::string \&caption, int default\+\_\+val, int min\+\_\+val, int max\+\_\+val, int step=1)}{add_int_slider(const std::string &caption, int default_val, int min_val, int max_val, int step=1)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf viewer\+::int\+\_\+slider} \& tlz\+::viewer\+::add\+\_\+int\+\_\+slider (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{caption, }
+\item[{int}]{default\+\_\+val, }
+\item[{int}]{min\+\_\+val, }
+\item[{int}]{max\+\_\+val, }
+\item[{int}]{step = {\ttfamily 1}}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_a2bf9d63d7a1a5ec4d5bdabc13d9ab688}{}\label{classtlz_1_1viewer_a2bf9d63d7a1a5ec4d5bdabc13d9ab688}
+
+
+Definition at line 263 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!add\+\_\+real\+\_\+slider@{add\+\_\+real\+\_\+slider}}
+\index{add\+\_\+real\+\_\+slider@{add\+\_\+real\+\_\+slider}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{add\+\_\+real\+\_\+slider(const std\+::string \&caption, real default\+\_\+val, real min\+\_\+val, real max\+\_\+val, int steps=100)}{add_real_slider(const std::string &caption, real default_val, real min_val, real max_val, int steps=100)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf viewer\+::real\+\_\+slider} \& tlz\+::viewer\+::add\+\_\+real\+\_\+slider (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{caption, }
+\item[{{\bf real}}]{default\+\_\+val, }
+\item[{{\bf real}}]{min\+\_\+val, }
+\item[{{\bf real}}]{max\+\_\+val, }
+\item[{int}]{steps = {\ttfamily 100}}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_a4be73d43a59e54ac622a45ecb042e351}{}\label{classtlz_1_1viewer_a4be73d43a59e54ac622a45ecb042e351}
+
+
+Definition at line 273 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!clear@{clear}}
+\index{clear@{clear}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{clear(int width, int height)}{clear(int width, int height)}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::viewer\+::clear (
+\begin{DoxyParamCaption}
+\item[{int}]{width, }
+\item[{int}]{height}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_a0ad9ee28b8127c63b2886b04fb36e3dc}{}\label{classtlz_1_1viewer_a0ad9ee28b8127c63b2886b04fb36e3dc}
+
+
+Definition at line 76 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!clear@{clear}}
+\index{clear@{clear}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{clear(cv\+::\+Size)}{clear(cv::Size)}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::viewer\+::clear (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Size}]{sz}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_abf8fc445268cb0728c87c0962a774fb8}{}\label{classtlz_1_1viewer_abf8fc445268cb0728c87c0962a774fb8}
+
+
+Definition at line 85 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!clear@{clear}}
+\index{clear@{clear}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{clear()}{clear()}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::viewer\+::clear (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_a2a8d3e239c7f75ea8cc0ddd953276289}{}\label{classtlz_1_1viewer_a2a8d3e239c7f75ea8cc0ddd953276289}
+
+
+Definition at line 90 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!close\+\_\+modal@{close\+\_\+modal}}
+\index{close\+\_\+modal@{close\+\_\+modal}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{close\+\_\+modal()}{close_modal()}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::viewer\+::close\+\_\+modal (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_ae84f2b4938b897ac7cef4940056a1949}{}\label{classtlz_1_1viewer_ae84f2b4938b897ac7cef4940056a1949}
+
+
+Definition at line 258 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!draw@{draw}}
+\index{draw@{draw}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{draw(const cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \&, real blend=1.\+0)}{draw(const cv::Mat_< cv::Vec3b > &, real blend=1.0)}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::viewer\+::draw (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \&}]{img, }
+\item[{{\bf real}}]{blend = {\ttfamily 1.0}}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_a5f0412cff89a343ad52431689502389d}{}\label{classtlz_1_1viewer_a5f0412cff89a343ad52431689502389d}
+
+
+Definition at line 119 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!draw@{draw}}
+\index{draw@{draw}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{draw(const cv\+::\+Mat\+\_\+$<$ uchar $>$ \&, real blend=1.\+0)}{draw(const cv::Mat_< uchar > &, real blend=1.0)}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::viewer\+::draw (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat\+\_\+$<$ uchar $>$ \&}]{img, }
+\item[{{\bf real}}]{blend = {\ttfamily 1.0}}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_a3aac899e0fc8dcd0889d261a10690443}{}\label{classtlz_1_1viewer_a3aac899e0fc8dcd0889d261a10690443}
+
+
+Definition at line 124 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!draw@{draw}}
+\index{draw@{draw}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{draw(cv\+::\+Rect rect, const cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \&img, real blend=1.\+0)}{draw(cv::Rect rect, const cv::Mat_< cv::Vec3b > &img, real blend=1.0)}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::viewer\+::draw (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Rect}]{rect, }
+\item[{const cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \&}]{img, }
+\item[{{\bf real}}]{blend = {\ttfamily 1.0}}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_a867304c9793f767be94e5dc59f4c750e}{}\label{classtlz_1_1viewer_a867304c9793f767be94e5dc59f4c750e}
+
+
+Definition at line 130 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!draw@{draw}}
+\index{draw@{draw}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{draw(cv\+::\+Point pt, const cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \&img, real blend=1.\+0)}{draw(cv::Point pt, const cv::Mat_< cv::Vec3b > &img, real blend=1.0)}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::viewer\+::draw (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Point}]{pt, }
+\item[{const cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \&}]{img, }
+\item[{{\bf real}}]{blend = {\ttfamily 1.0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classtlz_1_1viewer_a3a31847220e3d5b88038d87585217fc8}{}\label{classtlz_1_1viewer_a3a31847220e3d5b88038d87585217fc8}
+
+
+Definition at line 71 of file viewer.\+h.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!draw@{draw}}
+\index{draw@{draw}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{draw(cv\+::\+Rect rect, const cv\+::\+Mat\+\_\+$<$ uchar $>$ \&img, real blend=1.\+0)}{draw(cv::Rect rect, const cv::Mat_< uchar > &img, real blend=1.0)}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::viewer\+::draw (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Rect}]{rect, }
+\item[{const cv\+::\+Mat\+\_\+$<$ uchar $>$ \&}]{img, }
+\item[{{\bf real}}]{blend = {\ttfamily 1.0}}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_ab2abefe044b4d33984b44039024f043f}{}\label{classtlz_1_1viewer_ab2abefe044b4d33984b44039024f043f}
+
+
+Definition at line 154 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!draw@{draw}}
+\index{draw@{draw}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{draw(cv\+::\+Point pt, const cv\+::\+Mat\+\_\+$<$ uchar $>$ \&img, real blend=1.\+0)}{draw(cv::Point pt, const cv::Mat_< uchar > &img, real blend=1.0)}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::viewer\+::draw (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Point}]{pt, }
+\item[{const cv\+::\+Mat\+\_\+$<$ uchar $>$ \&}]{img, }
+\item[{{\bf real}}]{blend = {\ttfamily 1.0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classtlz_1_1viewer_a47a85ba549b86f7ec391069c0cded9c5}{}\label{classtlz_1_1viewer_a47a85ba549b86f7ec391069c0cded9c5}
+
+
+Definition at line 75 of file viewer.\+h.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!draw\+\_\+2d\+\_\+arrow\+\_\+indicator@{draw\+\_\+2d\+\_\+arrow\+\_\+indicator}}
+\index{draw\+\_\+2d\+\_\+arrow\+\_\+indicator@{draw\+\_\+2d\+\_\+arrow\+\_\+indicator}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{draw\+\_\+2d\+\_\+arrow\+\_\+indicator(cv\+::\+Rect rect, real value\+\_\+x, real value\+\_\+y, real max\+\_\+value)}{draw_2d_arrow_indicator(cv::Rect rect, real value_x, real value_y, real max_value)}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::viewer\+::draw\+\_\+2d\+\_\+arrow\+\_\+indicator (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Rect}]{rect, }
+\item[{{\bf real}}]{value\+\_\+x, }
+\item[{{\bf real}}]{value\+\_\+y, }
+\item[{{\bf real}}]{max\+\_\+value}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_ac882ef84c24e8c209c13e2308c5c8c0c}{}\label{classtlz_1_1viewer_ac882ef84c24e8c209c13e2308c5c8c0c}
+
+
+Definition at line 206 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!draw\+\_\+2d\+\_\+cross\+\_\+indicator@{draw\+\_\+2d\+\_\+cross\+\_\+indicator}}
+\index{draw\+\_\+2d\+\_\+cross\+\_\+indicator@{draw\+\_\+2d\+\_\+cross\+\_\+indicator}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{draw\+\_\+2d\+\_\+cross\+\_\+indicator(cv\+::\+Rect rect, real value\+\_\+x, real value\+\_\+y, real max\+\_\+abs\+\_\+value)}{draw_2d_cross_indicator(cv::Rect rect, real value_x, real value_y, real max_abs_value)}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::viewer\+::draw\+\_\+2d\+\_\+cross\+\_\+indicator (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Rect}]{rect, }
+\item[{{\bf real}}]{value\+\_\+x, }
+\item[{{\bf real}}]{value\+\_\+y, }
+\item[{{\bf real}}]{max\+\_\+abs\+\_\+value}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_a09c3c6e9c5a5341576cea9210a6d8246}{}\label{classtlz_1_1viewer_a09c3c6e9c5a5341576cea9210a6d8246}
+
+
+Definition at line 186 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!draw\+\_\+depth@{draw\+\_\+depth}}
+\index{draw\+\_\+depth@{draw\+\_\+depth}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{draw\+\_\+depth(cv\+::\+Rect rect, const cv\+::\+Mat\+\_\+$<$ float $>$ \&depth\+\_\+img, float min\+\_\+d, float max\+\_\+d, real blend=1.\+0)}{draw_depth(cv::Rect rect, const cv::Mat_< float > &depth_img, float min_d, float max_d, real blend=1.0)}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::viewer\+::draw\+\_\+depth (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Rect}]{rect, }
+\item[{const cv\+::\+Mat\+\_\+$<$ float $>$ \&}]{depth\+\_\+img, }
+\item[{float}]{min\+\_\+d, }
+\item[{float}]{max\+\_\+d, }
+\item[{{\bf real}}]{blend = {\ttfamily 1.0}}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_a7f8bb5582e18ad278881cc065d7c21fa}{}\label{classtlz_1_1viewer_a7f8bb5582e18ad278881cc065d7c21fa}
+
+
+Definition at line 161 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!draw\+\_\+depth@{draw\+\_\+depth}}
+\index{draw\+\_\+depth@{draw\+\_\+depth}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{draw\+\_\+depth(cv\+::\+Point pt, const cv\+::\+Mat\+\_\+$<$ float $>$ \&depth\+\_\+img, float min\+\_\+d, float max\+\_\+d, real blend=1.\+0)}{draw_depth(cv::Point pt, const cv::Mat_< float > &depth_img, float min_d, float max_d, real blend=1.0)}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::viewer\+::draw\+\_\+depth (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Point}]{pt, }
+\item[{const cv\+::\+Mat\+\_\+$<$ float $>$ \&}]{depth\+\_\+img, }
+\item[{float}]{min\+\_\+d, }
+\item[{float}]{max\+\_\+d, }
+\item[{{\bf real}}]{blend = {\ttfamily 1.0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classtlz_1_1viewer_a78038466514d156c955a1357774ecd7b}{}\label{classtlz_1_1viewer_a78038466514d156c955a1357774ecd7b}
+
+
+Definition at line 79 of file viewer.\+h.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!draw\+\_\+text@{draw\+\_\+text}}
+\index{draw\+\_\+text@{draw\+\_\+text}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{draw\+\_\+text(cv\+::\+Rect rect, const std\+::string \&text, text\+\_\+alignment=left)}{draw_text(cv::Rect rect, const std::string &text, text_alignment=left)}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::viewer\+::draw\+\_\+text (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Rect}]{rect, }
+\item[{const std\+::string \&}]{text, }
+\item[{{\bf text\+\_\+alignment}}]{align = {\ttfamily {\bf left}}}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_ad4fda702b7c5af2cb0bb9bc3842113f3}{}\label{classtlz_1_1viewer_ad4fda702b7c5af2cb0bb9bc3842113f3}
+
+
+Definition at line 182 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!draw\+\_\+text@{draw\+\_\+text}}
+\index{draw\+\_\+text@{draw\+\_\+text}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{draw\+\_\+text(cv\+::\+Rect rect, const std\+::string \&text, text\+\_\+alignment, cv\+::\+Vec3b color)}{draw_text(cv::Rect rect, const std::string &text, text_alignment, cv::Vec3b color)}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::viewer\+::draw\+\_\+text (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Rect}]{rect, }
+\item[{const std\+::string \&}]{text, }
+\item[{{\bf text\+\_\+alignment}}]{align, }
+\item[{cv\+::\+Vec3b}]{color}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_a77f6415434e333f66ede754eda425cd7}{}\label{classtlz_1_1viewer_a77f6415434e333f66ede754eda425cd7}
+
+
+Definition at line 167 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!height@{height}}
+\index{height@{height}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{height() const }{height() const }}]{\setlength{\rightskip}{0pt plus 5cm}int tlz\+::viewer\+::height (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1viewer_af74a8aef9dde68eeff6b1e2561b39014}{}\label{classtlz_1_1viewer_af74a8aef9dde68eeff6b1e2561b39014}
+
+
+Definition at line 71 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!operator=@{operator=}}
+\index{operator=@{operator=}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{operator=(const viewer \&)=delete}{operator=(const viewer &)=delete}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf viewer}\& tlz\+::viewer\+::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf viewer} \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [delete]}}\hypertarget{classtlz_1_1viewer_af41f88c9e47de049a1a7ff895c5fb5a1}{}\label{classtlz_1_1viewer_af41f88c9e47de049a1a7ff895c5fb5a1}
+\index{tlz\+::viewer@{tlz\+::viewer}!show@{show}}
+\index{show@{show}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{show(int \&keycode)}{show(int &keycode)}}]{\setlength{\rightskip}{0pt plus 5cm}bool tlz\+::viewer\+::show (
+\begin{DoxyParamCaption}
+\item[{int \&}]{keycode}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_aabb3cdde75783ed1a41801fb236bc50e}{}\label{classtlz_1_1viewer_aabb3cdde75783ed1a41801fb236bc50e}
+
+
+Definition at line 218 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!show@{show}}
+\index{show@{show}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{show()}{show()}}]{\setlength{\rightskip}{0pt plus 5cm}bool tlz\+::viewer\+::show (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_a96ab5d3d95f438355c6a221658199184}{}\label{classtlz_1_1viewer_a96ab5d3d95f438355c6a221658199184}
+
+
+Definition at line 224 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!show\+\_\+modal@{show\+\_\+modal}}
+\index{show\+\_\+modal@{show\+\_\+modal}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{show\+\_\+modal()}{show_modal()}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::viewer\+::show\+\_\+modal (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_a4ccb30b02c81909ba1af97745375385a}{}\label{classtlz_1_1viewer_a4ccb30b02c81909ba1af97745375385a}
+
+
+Definition at line 230 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!update\+\_\+modal@{update\+\_\+modal}}
+\index{update\+\_\+modal@{update\+\_\+modal}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{update\+\_\+modal()}{update_modal()}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::viewer\+::update\+\_\+modal (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1viewer_a39742c89e09f32e2d2c9162882dc158c}{}\label{classtlz_1_1viewer_a39742c89e09f32e2d2c9162882dc158c}
+
+
+Definition at line 251 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!visualize\+\_\+depth@{visualize\+\_\+depth}}
+\index{visualize\+\_\+depth@{visualize\+\_\+depth}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{visualize\+\_\+depth(const cv\+::\+Mat \&, float min\+\_\+d, float max\+\_\+d)}{visualize_depth(const cv::Mat &, float min_d, float max_d)}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Mat\+\_\+$<$ uchar $>$ tlz\+::viewer\+::visualize\+\_\+depth (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{depth\+\_\+img, }
+\item[{float}]{min\+\_\+d, }
+\item[{float}]{max\+\_\+d}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{classtlz_1_1viewer_a6a59617413dc76948b6802399ddf555b}{}\label{classtlz_1_1viewer_a6a59617413dc76948b6802399ddf555b}
+
+
+Definition at line 95 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!visualize\+\_\+ir@{visualize\+\_\+ir}}
+\index{visualize\+\_\+ir@{visualize\+\_\+ir}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{visualize\+\_\+ir(const cv\+::\+Mat \&, float min\+\_\+ir, float max\+\_\+ir)}{visualize_ir(const cv::Mat &, float min_ir, float max_ir)}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Mat\+\_\+$<$ uchar $>$ tlz\+::viewer\+::visualize\+\_\+ir (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{ir\+\_\+orig, }
+\item[{float}]{min\+\_\+ir, }
+\item[{float}]{max\+\_\+ir}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{classtlz_1_1viewer_adef64a6ebf1391fd02c1231b9fde281f}{}\label{classtlz_1_1viewer_adef64a6ebf1391fd02c1231b9fde281f}
+
+
+Definition at line 107 of file viewer.\+cc.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!width@{width}}
+\index{width@{width}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{width() const }{width() const }}]{\setlength{\rightskip}{0pt plus 5cm}int tlz\+::viewer\+::width (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1viewer_acc43bf1dd1d0c3cdc35a948d4c194769}{}\label{classtlz_1_1viewer_acc43bf1dd1d0c3cdc35a948d4c194769}
+
+
+Definition at line 66 of file viewer.\+cc.
+
+
+
+\subsection{Member Data Documentation}
+\index{tlz\+::viewer@{tlz\+::viewer}!background\+\_\+color@{background\+\_\+color}}
+\index{background\+\_\+color@{background\+\_\+color}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{background\+\_\+color}{background_color}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Vec3b tlz\+::viewer\+::background\+\_\+color = cv\+::\+Vec3b(0, 0, 0)}\hypertarget{classtlz_1_1viewer_ad8bf1e38972c92316347477b1b6225bb}{}\label{classtlz_1_1viewer_ad8bf1e38972c92316347477b1b6225bb}
+
+
+Definition at line 37 of file viewer.\+h.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!black@{black}}
+\index{black@{black}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{black}{black}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Vec3b tlz\+::viewer\+::black = cv\+::\+Vec3b(0, 0, 0)}\hypertarget{classtlz_1_1viewer_af7c1c138d35a19bee709bc368f10b7fa}{}\label{classtlz_1_1viewer_af7c1c138d35a19bee709bc368f10b7fa}
+
+
+Definition at line 34 of file viewer.\+h.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!indicator\+\_\+color@{indicator\+\_\+color}}
+\index{indicator\+\_\+color@{indicator\+\_\+color}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{indicator\+\_\+color}{indicator_color}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Vec3b tlz\+::viewer\+::indicator\+\_\+color = cv\+::\+Vec3b(255, 100, 100)}\hypertarget{classtlz_1_1viewer_a0d5822b6c9ca68bf0edf44d6ff017937}{}\label{classtlz_1_1viewer_a0d5822b6c9ca68bf0edf44d6ff017937}
+
+
+Definition at line 36 of file viewer.\+h.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!key\+\_\+callback@{key\+\_\+callback}}
+\index{key\+\_\+callback@{key\+\_\+callback}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{key\+\_\+callback}{key_callback}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::function$<$void(int keycode)$>$ tlz\+::viewer\+::key\+\_\+callback}\hypertarget{classtlz_1_1viewer_a2eb7558722a69604c1d9c96c1b1dcc83}{}\label{classtlz_1_1viewer_a2eb7558722a69604c1d9c96c1b1dcc83}
+
+
+Definition at line 41 of file viewer.\+h.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!mouse\+\_\+callback@{mouse\+\_\+callback}}
+\index{mouse\+\_\+callback@{mouse\+\_\+callback}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{mouse\+\_\+callback}{mouse_callback}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::function$<$void(int event, int x, int y)$>$ tlz\+::viewer\+::mouse\+\_\+callback}\hypertarget{classtlz_1_1viewer_a8b095fdc711fecee7f8c5916e0fcc351}{}\label{classtlz_1_1viewer_a8b095fdc711fecee7f8c5916e0fcc351}
+
+
+Definition at line 42 of file viewer.\+h.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!text\+\_\+color@{text\+\_\+color}}
+\index{text\+\_\+color@{text\+\_\+color}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{text\+\_\+color}{text_color}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Vec3b tlz\+::viewer\+::text\+\_\+color = cv\+::\+Vec3b(255, 255, 255)}\hypertarget{classtlz_1_1viewer_a483a152f05561ae8f33fafae05a08b5f}{}\label{classtlz_1_1viewer_a483a152f05561ae8f33fafae05a08b5f}
+
+
+Definition at line 38 of file viewer.\+h.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!update\+\_\+callback@{update\+\_\+callback}}
+\index{update\+\_\+callback@{update\+\_\+callback}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{update\+\_\+callback}{update_callback}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::function$<$void()$>$ tlz\+::viewer\+::update\+\_\+callback}\hypertarget{classtlz_1_1viewer_a7142596a0bf1aac7b0358759651639b4}{}\label{classtlz_1_1viewer_a7142596a0bf1aac7b0358759651639b4}
+
+
+Definition at line 40 of file viewer.\+h.
+
+\index{tlz\+::viewer@{tlz\+::viewer}!white@{white}}
+\index{white@{white}!tlz\+::viewer@{tlz\+::viewer}}
+\subsubsection[{\texorpdfstring{white}{white}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Vec3b tlz\+::viewer\+::white = cv\+::\+Vec3b(255, 255, 255)}\hypertarget{classtlz_1_1viewer_a3dadda68d6b156de3fe6cc68ff9bc623}{}\label{classtlz_1_1viewer_a3dadda68d6b156de3fe6cc68ff9bc623}
+
+
+Definition at line 35 of file viewer.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\hyperlink{viewer_8h}{viewer.\+h}\item 
+src/lib/\hyperlink{lib_2viewer_8cc}{viewer.\+cc}\end{DoxyCompactItemize}

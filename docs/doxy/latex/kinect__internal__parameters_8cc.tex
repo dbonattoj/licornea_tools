@@ -1,0 +1,65 @@
+\hypertarget{kinect__internal__parameters_8cc}{}\section{src/kinect/lib/kinect\+\_\+internal\+\_\+parameters.cc File Reference}
+\label{kinect__internal__parameters_8cc}\index{src/kinect/lib/kinect\+\_\+internal\+\_\+parameters.\+cc@{src/kinect/lib/kinect\+\_\+internal\+\_\+parameters.\+cc}}
+{\ttfamily \#include \char`\"{}kinect\+\_\+internal\+\_\+parameters.\+h\char`\"{}}\\*
+Include dependency graph for kinect\+\_\+internal\+\_\+parameters.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kinect__internal__parameters_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{kinect__internal__parameters_8cc_ade4b7fc8f535672ec4e0bc6f7aad316a}{C\+O\+L\+O\+R\+\_\+\+P\+A\+R\+AM}(\+\_\+\+\_\+field\+\_\+\+\_\+)~j\mbox{[}\char`\"{}color\char`\"{}\mbox{]}\mbox{[}\#\+\_\+\+\_\+field\+\_\+\+\_\+\mbox{]} = param.\+color.\+\_\+\+\_\+field\+\_\+\+\_\+;
+\item 
+\#define \hyperlink{kinect__internal__parameters_8cc_aa03b22024c4d41db305966d204f4a2c3}{I\+R\+\_\+\+P\+A\+R\+AM}(\+\_\+\+\_\+field\+\_\+\+\_\+)~j\mbox{[}\char`\"{}ir\char`\"{}\mbox{]}\mbox{[}\#\+\_\+\+\_\+field\+\_\+\+\_\+\mbox{]} = param.\+ir.\+\_\+\+\_\+field\+\_\+\+\_\+;
+\item 
+\#define \hyperlink{kinect__internal__parameters_8cc_ade4b7fc8f535672ec4e0bc6f7aad316a}{C\+O\+L\+O\+R\+\_\+\+P\+A\+R\+AM}(\+\_\+\+\_\+field\+\_\+\+\_\+)~param.\+color.\+\_\+\+\_\+field\+\_\+\+\_\+ = j\mbox{[}\char`\"{}color\char`\"{}\mbox{]}\mbox{[}\#\+\_\+\+\_\+field\+\_\+\+\_\+\mbox{]};
+\item 
+\#define \hyperlink{kinect__internal__parameters_8cc_aa03b22024c4d41db305966d204f4a2c3}{I\+R\+\_\+\+P\+A\+R\+AM}(\+\_\+\+\_\+field\+\_\+\+\_\+)~param.\+ir.\+\_\+\+\_\+field\+\_\+\+\_\+ = j\mbox{[}\char`\"{}ir\char`\"{}\mbox{]}\mbox{[}\#\+\_\+\+\_\+field\+\_\+\+\_\+\mbox{]};
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+json \hyperlink{namespacetlz_a411d4a181eea862f9d9a6c23174512bc}{tlz\+::encode\+\_\+kinect\+\_\+internal\+\_\+parameters} (const kinect\+\_\+internal\+\_\+parameters \&param)
+\item 
+kinect\+\_\+internal\+\_\+parameters \hyperlink{namespacetlz_a23ae826b33c7d428c32ce1bf2e6b1630}{tlz\+::decode\+\_\+kinect\+\_\+internal\+\_\+parameters} (const json \&j)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{kinect\+\_\+internal\+\_\+parameters.\+cc@{kinect\+\_\+internal\+\_\+parameters.\+cc}!C\+O\+L\+O\+R\+\_\+\+P\+A\+R\+AM@{C\+O\+L\+O\+R\+\_\+\+P\+A\+R\+AM}}
+\index{C\+O\+L\+O\+R\+\_\+\+P\+A\+R\+AM@{C\+O\+L\+O\+R\+\_\+\+P\+A\+R\+AM}!kinect\+\_\+internal\+\_\+parameters.\+cc@{kinect\+\_\+internal\+\_\+parameters.\+cc}}
+\subsubsection[{\texorpdfstring{C\+O\+L\+O\+R\+\_\+\+P\+A\+R\+AM}{COLOR_PARAM}}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+O\+L\+O\+R\+\_\+\+P\+A\+R\+AM(
+\begin{DoxyParamCaption}
+\item[{}]{\+\_\+\+\_\+field\+\_\+\+\_\+}
+\end{DoxyParamCaption}
+)~j\mbox{[}\char`\"{}color\char`\"{}\mbox{]}\mbox{[}\#\+\_\+\+\_\+field\+\_\+\+\_\+\mbox{]} = param.\+color.\+\_\+\+\_\+field\+\_\+\+\_\+;}\hypertarget{kinect__internal__parameters_8cc_ade4b7fc8f535672ec4e0bc6f7aad316a}{}\label{kinect__internal__parameters_8cc_ade4b7fc8f535672ec4e0bc6f7aad316a}
+\index{kinect\+\_\+internal\+\_\+parameters.\+cc@{kinect\+\_\+internal\+\_\+parameters.\+cc}!C\+O\+L\+O\+R\+\_\+\+P\+A\+R\+AM@{C\+O\+L\+O\+R\+\_\+\+P\+A\+R\+AM}}
+\index{C\+O\+L\+O\+R\+\_\+\+P\+A\+R\+AM@{C\+O\+L\+O\+R\+\_\+\+P\+A\+R\+AM}!kinect\+\_\+internal\+\_\+parameters.\+cc@{kinect\+\_\+internal\+\_\+parameters.\+cc}}
+\subsubsection[{\texorpdfstring{C\+O\+L\+O\+R\+\_\+\+P\+A\+R\+AM}{COLOR_PARAM}}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+O\+L\+O\+R\+\_\+\+P\+A\+R\+AM(
+\begin{DoxyParamCaption}
+\item[{}]{\+\_\+\+\_\+field\+\_\+\+\_\+}
+\end{DoxyParamCaption}
+)~param.\+color.\+\_\+\+\_\+field\+\_\+\+\_\+ = j\mbox{[}\char`\"{}color\char`\"{}\mbox{]}\mbox{[}\#\+\_\+\+\_\+field\+\_\+\+\_\+\mbox{]};}\hypertarget{kinect__internal__parameters_8cc_ade4b7fc8f535672ec4e0bc6f7aad316a}{}\label{kinect__internal__parameters_8cc_ade4b7fc8f535672ec4e0bc6f7aad316a}
+\index{kinect\+\_\+internal\+\_\+parameters.\+cc@{kinect\+\_\+internal\+\_\+parameters.\+cc}!I\+R\+\_\+\+P\+A\+R\+AM@{I\+R\+\_\+\+P\+A\+R\+AM}}
+\index{I\+R\+\_\+\+P\+A\+R\+AM@{I\+R\+\_\+\+P\+A\+R\+AM}!kinect\+\_\+internal\+\_\+parameters.\+cc@{kinect\+\_\+internal\+\_\+parameters.\+cc}}
+\subsubsection[{\texorpdfstring{I\+R\+\_\+\+P\+A\+R\+AM}{IR_PARAM}}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+R\+\_\+\+P\+A\+R\+AM(
+\begin{DoxyParamCaption}
+\item[{}]{\+\_\+\+\_\+field\+\_\+\+\_\+}
+\end{DoxyParamCaption}
+)~j\mbox{[}\char`\"{}ir\char`\"{}\mbox{]}\mbox{[}\#\+\_\+\+\_\+field\+\_\+\+\_\+\mbox{]} = param.\+ir.\+\_\+\+\_\+field\+\_\+\+\_\+;}\hypertarget{kinect__internal__parameters_8cc_aa03b22024c4d41db305966d204f4a2c3}{}\label{kinect__internal__parameters_8cc_aa03b22024c4d41db305966d204f4a2c3}
+\index{kinect\+\_\+internal\+\_\+parameters.\+cc@{kinect\+\_\+internal\+\_\+parameters.\+cc}!I\+R\+\_\+\+P\+A\+R\+AM@{I\+R\+\_\+\+P\+A\+R\+AM}}
+\index{I\+R\+\_\+\+P\+A\+R\+AM@{I\+R\+\_\+\+P\+A\+R\+AM}!kinect\+\_\+internal\+\_\+parameters.\+cc@{kinect\+\_\+internal\+\_\+parameters.\+cc}}
+\subsubsection[{\texorpdfstring{I\+R\+\_\+\+P\+A\+R\+AM}{IR_PARAM}}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+R\+\_\+\+P\+A\+R\+AM(
+\begin{DoxyParamCaption}
+\item[{}]{\+\_\+\+\_\+field\+\_\+\+\_\+}
+\end{DoxyParamCaption}
+)~param.\+ir.\+\_\+\+\_\+field\+\_\+\+\_\+ = j\mbox{[}\char`\"{}ir\char`\"{}\mbox{]}\mbox{[}\#\+\_\+\+\_\+field\+\_\+\+\_\+\mbox{]};}\hypertarget{kinect__internal__parameters_8cc_aa03b22024c4d41db305966d204f4a2c3}{}\label{kinect__internal__parameters_8cc_aa03b22024c4d41db305966d204f4a2c3}

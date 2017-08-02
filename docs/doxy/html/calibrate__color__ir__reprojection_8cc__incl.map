@@ -1,0 +1,9 @@
+<map id="src/kinect/calibrate_color_ir_reprojection.cc" name="src/kinect/calibrate_color_ir_reprojection.cc">
+<area shape="rect" id="node2" href="$args_8h.html" title="../lib/args.h" alt="" coords="210,333,297,360"/>
+<area shape="rect" id="node14" href="$json_8h.html" title="../lib/json.h" alt="" coords="250,259,337,285"/>
+<area shape="rect" id="node16" href="$obj__img__correspondence_8h.html" title="../lib/obj_img_correspondence.h" alt="" coords="435,184,642,211"/>
+<area shape="rect" id="node17" href="$opencv_8h.html" title="opencv.h" alt="" coords="100,259,175,285"/>
+<area shape="rect" id="node21" href="$intrinsics_8h.html" title="../lib/intrinsics.h" alt="" coords="195,184,309,211"/>
+<area shape="rect" id="node22" href="$kinect__reprojection__parameters_8h.html" title="lib/kinect_reprojection\l_parameters.h" alt="" coords="161,95,309,136"/>
+<area shape="rect" id="node3" href="$lib_2common_8h.html" title="common.h" alt="" coords="376,408,459,435"/>
+</map>

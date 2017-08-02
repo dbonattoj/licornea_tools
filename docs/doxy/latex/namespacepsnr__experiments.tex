@@ -1,0 +1,232 @@
+\hypertarget{namespacepsnr__experiments}{}\section{psnr\+\_\+experiments Namespace Reference}
+\label{namespacepsnr__experiments}\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespacepsnr__experiments_a71c162efb1f4c9ac9d416b0fe18fa166}{usage\+\_\+fail} ()
+\item 
+def \hyperlink{namespacepsnr__experiments_a38a394d6318ffc25ddba2bb10a9016a7}{run} (\hyperlink{namespacepsnr__experiments_ac658a4900340b7cee6bed9c8e0fafe26}{exp\+\_\+index}, \hyperlink{namespacepsnr__experiments_a73bc4364dfa07a7d47d805235227b20b}{left\+\_\+cam}, this\+\_\+cam, \hyperlink{namespacepsnr__experiments_a920b8cd9a2b238288683cc42577e1e78}{right\+\_\+cam})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespacepsnr__experiments_a5deb1c458380e20e1f7ada545e800a33}{vsrs\+\_\+binary\+\_\+filename} = sys.\+argv\mbox{[}1\mbox{]}
+\item 
+\hyperlink{namespacepsnr__experiments_a0232c22d1dfe44a97729ae546b058128}{parameters\+\_\+filename} = sys.\+argv\mbox{[}2\mbox{]}
+\item 
+\hyperlink{namespacepsnr__experiments_a32f07a4a298cf1838c1266dcbb7c768f}{in\+\_\+experiments\+\_\+filename} = sys.\+argv\mbox{[}3\mbox{]}
+\item 
+\hyperlink{namespacepsnr__experiments_a2b33b493337c179f491d18d3a4febdbf}{out\+\_\+results\+\_\+filename} = sys.\+argv\mbox{[}4\mbox{]}
+\item 
+\hyperlink{namespacepsnr__experiments_ad1579004777449df35b7cd0424133b10}{datas} = \hyperlink{classpylib_1_1dataset_1_1Dataset}{Dataset}(\hyperlink{namespacepsnr__experiments_a0232c22d1dfe44a97729ae546b058128}{parameters\+\_\+filename})
+\item 
+\hyperlink{namespacepsnr__experiments_a493d7ff5bdc4bfa915290d691912964f}{cameras\+\_\+filename} = os.\+path.\+join(os.\+path.\+dirname(\hyperlink{namespacepsnr__experiments_a2b33b493337c179f491d18d3a4febdbf}{out\+\_\+results\+\_\+filename}), \char`\"{}vsrs\+\_\+cameras.\+txt\char`\"{})
+\item 
+\hyperlink{namespacepsnr__experiments_ae848e8dc4a88ad45dc8f4fc578a145a3}{experiments} = json.\+load(f)
+\item 
+list \hyperlink{namespacepsnr__experiments_a6d491e2a38ac5e79f929cbe85e195d5f}{experiments\+\_\+indexed} = \mbox{[}$\,$\mbox{]}
+\item 
+int \hyperlink{namespacepsnr__experiments_a95bd6fade9f6e50f91daf28b20ab6d33}{n} = 0
+\item 
+list \hyperlink{namespacepsnr__experiments_a891f44706ebab018824dda78fa13840d}{psnr\+\_\+results} = \mbox{[}None\mbox{]}$\ast$\hyperlink{namespacepsnr__experiments_a95bd6fade9f6e50f91daf28b20ab6d33}{n}
+\item 
+\hyperlink{namespacepsnr__experiments_ac658a4900340b7cee6bed9c8e0fafe26}{exp\+\_\+index}
+\item 
+\hyperlink{namespacepsnr__experiments_a73bc4364dfa07a7d47d805235227b20b}{left\+\_\+cam}
+\item 
+\hyperlink{namespacepsnr__experiments_ac86607a93b7487822749da9fa9a881c3}{virtual\+\_\+cam}
+\item 
+\hyperlink{namespacepsnr__experiments_a920b8cd9a2b238288683cc42577e1e78}{right\+\_\+cam}
+\item 
+\hyperlink{namespacepsnr__experiments_a6ba2472659fdf21533f42747332314d5}{psnr} = \hyperlink{namespacepsnr__experiments_a891f44706ebab018824dda78fa13840d}{psnr\+\_\+results}\mbox{[}i\mbox{]}
+\item 
+\hyperlink{namespacepsnr__experiments_a8a6c602a87ff03d2d46adca89a1e40a6}{left\+\_\+x}
+\item 
+\hyperlink{namespacepsnr__experiments_a42d4bc5bf8a4d16a6ad24adc915524c9}{left\+\_\+y}
+\item 
+\hyperlink{namespacepsnr__experiments_a7f575b8c058710f86762fea9a6a51fa0}{virtual\+\_\+x}
+\item 
+\hyperlink{namespacepsnr__experiments_aa8d539be966b440eb296d7ac86bebd0c}{virtual\+\_\+y}
+\item 
+\hyperlink{namespacepsnr__experiments_abeb7ea20616f61e643624bf7cfea24c3}{right\+\_\+x}
+\item 
+\hyperlink{namespacepsnr__experiments_a75d9f6e7c130f394ccdd236191603e5c}{right\+\_\+y}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!run@{run}}
+\index{run@{run}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{run(exp\+\_\+index, left\+\_\+cam, this\+\_\+cam, right\+\_\+cam)}{run(exp_index, left_cam, this_cam, right_cam)}}]{\setlength{\rightskip}{0pt plus 5cm}def psnr\+\_\+experiments.\+run (
+\begin{DoxyParamCaption}
+\item[{}]{exp\+\_\+index, }
+\item[{}]{left\+\_\+cam, }
+\item[{}]{this\+\_\+cam, }
+\item[{}]{right\+\_\+cam}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacepsnr__experiments_a38a394d6318ffc25ddba2bb10a9016a7}{}\label{namespacepsnr__experiments_a38a394d6318ffc25ddba2bb10a9016a7}
+
+
+Definition at line 43 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!usage\+\_\+fail@{usage\+\_\+fail}}
+\index{usage\+\_\+fail@{usage\+\_\+fail}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{usage\+\_\+fail()}{usage_fail()}}]{\setlength{\rightskip}{0pt plus 5cm}def psnr\+\_\+experiments.\+usage\+\_\+fail (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacepsnr__experiments_a71c162efb1f4c9ac9d416b0fe18fa166}{}\label{namespacepsnr__experiments_a71c162efb1f4c9ac9d416b0fe18fa166}
+
+
+Definition at line 11 of file psnr\+\_\+experiments.\+py.
+
+
+
+\subsection{Variable Documentation}
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!cameras\+\_\+filename@{cameras\+\_\+filename}}
+\index{cameras\+\_\+filename@{cameras\+\_\+filename}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{cameras\+\_\+filename}{cameras_filename}}]{\setlength{\rightskip}{0pt plus 5cm}psnr\+\_\+experiments.\+cameras\+\_\+filename = os.\+path.\+join(os.\+path.\+dirname({\bf out\+\_\+results\+\_\+filename}), \char`\"{}vsrs\+\_\+cameras.\+txt\char`\"{})}\hypertarget{namespacepsnr__experiments_a493d7ff5bdc4bfa915290d691912964f}{}\label{namespacepsnr__experiments_a493d7ff5bdc4bfa915290d691912964f}
+
+
+Definition at line 25 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!datas@{datas}}
+\index{datas@{datas}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{datas}{datas}}]{\setlength{\rightskip}{0pt plus 5cm}psnr\+\_\+experiments.\+datas = {\bf Dataset}({\bf parameters\+\_\+filename})}\hypertarget{namespacepsnr__experiments_ad1579004777449df35b7cd0424133b10}{}\label{namespacepsnr__experiments_ad1579004777449df35b7cd0424133b10}
+
+
+Definition at line 21 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!exp\+\_\+index@{exp\+\_\+index}}
+\index{exp\+\_\+index@{exp\+\_\+index}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{exp\+\_\+index}{exp_index}}]{\setlength{\rightskip}{0pt plus 5cm}psnr\+\_\+experiments.\+exp\+\_\+index}\hypertarget{namespacepsnr__experiments_ac658a4900340b7cee6bed9c8e0fafe26}{}\label{namespacepsnr__experiments_ac658a4900340b7cee6bed9c8e0fafe26}
+
+
+Definition at line 68 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!experiments@{experiments}}
+\index{experiments@{experiments}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{experiments}{experiments}}]{\setlength{\rightskip}{0pt plus 5cm}psnr\+\_\+experiments.\+experiments = json.\+load(f)}\hypertarget{namespacepsnr__experiments_ae848e8dc4a88ad45dc8f4fc578a145a3}{}\label{namespacepsnr__experiments_ae848e8dc4a88ad45dc8f4fc578a145a3}
+
+
+Definition at line 33 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!experiments\+\_\+indexed@{experiments\+\_\+indexed}}
+\index{experiments\+\_\+indexed@{experiments\+\_\+indexed}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{experiments\+\_\+indexed}{experiments_indexed}}]{\setlength{\rightskip}{0pt plus 5cm}list psnr\+\_\+experiments.\+experiments\+\_\+indexed = \mbox{[}$\,$\mbox{]}}\hypertarget{namespacepsnr__experiments_a6d491e2a38ac5e79f929cbe85e195d5f}{}\label{namespacepsnr__experiments_a6d491e2a38ac5e79f929cbe85e195d5f}
+
+
+Definition at line 35 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!in\+\_\+experiments\+\_\+filename@{in\+\_\+experiments\+\_\+filename}}
+\index{in\+\_\+experiments\+\_\+filename@{in\+\_\+experiments\+\_\+filename}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{in\+\_\+experiments\+\_\+filename}{in_experiments_filename}}]{\setlength{\rightskip}{0pt plus 5cm}psnr\+\_\+experiments.\+in\+\_\+experiments\+\_\+filename = sys.\+argv\mbox{[}3\mbox{]}}\hypertarget{namespacepsnr__experiments_a32f07a4a298cf1838c1266dcbb7c768f}{}\label{namespacepsnr__experiments_a32f07a4a298cf1838c1266dcbb7c768f}
+
+
+Definition at line 18 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!left\+\_\+cam@{left\+\_\+cam}}
+\index{left\+\_\+cam@{left\+\_\+cam}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{left\+\_\+cam}{left_cam}}]{\setlength{\rightskip}{0pt plus 5cm}psnr\+\_\+experiments.\+left\+\_\+cam}\hypertarget{namespacepsnr__experiments_a73bc4364dfa07a7d47d805235227b20b}{}\label{namespacepsnr__experiments_a73bc4364dfa07a7d47d805235227b20b}
+
+
+Definition at line 68 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!left\+\_\+x@{left\+\_\+x}}
+\index{left\+\_\+x@{left\+\_\+x}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{left\+\_\+x}{left_x}}]{\setlength{\rightskip}{0pt plus 5cm}psnr\+\_\+experiments.\+left\+\_\+x}\hypertarget{namespacepsnr__experiments_a8a6c602a87ff03d2d46adca89a1e40a6}{}\label{namespacepsnr__experiments_a8a6c602a87ff03d2d46adca89a1e40a6}
+
+
+Definition at line 70 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!left\+\_\+y@{left\+\_\+y}}
+\index{left\+\_\+y@{left\+\_\+y}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{left\+\_\+y}{left_y}}]{\setlength{\rightskip}{0pt plus 5cm}psnr\+\_\+experiments.\+left\+\_\+y}\hypertarget{namespacepsnr__experiments_a42d4bc5bf8a4d16a6ad24adc915524c9}{}\label{namespacepsnr__experiments_a42d4bc5bf8a4d16a6ad24adc915524c9}
+
+
+Definition at line 70 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!n@{n}}
+\index{n@{n}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{n}{n}}]{\setlength{\rightskip}{0pt plus 5cm}int psnr\+\_\+experiments.\+n = 0}\hypertarget{namespacepsnr__experiments_a95bd6fade9f6e50f91daf28b20ab6d33}{}\label{namespacepsnr__experiments_a95bd6fade9f6e50f91daf28b20ab6d33}
+
+
+Definition at line 36 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!out\+\_\+results\+\_\+filename@{out\+\_\+results\+\_\+filename}}
+\index{out\+\_\+results\+\_\+filename@{out\+\_\+results\+\_\+filename}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{out\+\_\+results\+\_\+filename}{out_results_filename}}]{\setlength{\rightskip}{0pt plus 5cm}psnr\+\_\+experiments.\+out\+\_\+results\+\_\+filename = sys.\+argv\mbox{[}4\mbox{]}}\hypertarget{namespacepsnr__experiments_a2b33b493337c179f491d18d3a4febdbf}{}\label{namespacepsnr__experiments_a2b33b493337c179f491d18d3a4febdbf}
+
+
+Definition at line 19 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!parameters\+\_\+filename@{parameters\+\_\+filename}}
+\index{parameters\+\_\+filename@{parameters\+\_\+filename}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{parameters\+\_\+filename}{parameters_filename}}]{\setlength{\rightskip}{0pt plus 5cm}psnr\+\_\+experiments.\+parameters\+\_\+filename = sys.\+argv\mbox{[}2\mbox{]}}\hypertarget{namespacepsnr__experiments_a0232c22d1dfe44a97729ae546b058128}{}\label{namespacepsnr__experiments_a0232c22d1dfe44a97729ae546b058128}
+
+
+Definition at line 17 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!psnr@{psnr}}
+\index{psnr@{psnr}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{psnr}{psnr}}]{\setlength{\rightskip}{0pt plus 5cm}psnr\+\_\+experiments.\+psnr = {\bf psnr\+\_\+results}\mbox{[}i\mbox{]}}\hypertarget{namespacepsnr__experiments_a6ba2472659fdf21533f42747332314d5}{}\label{namespacepsnr__experiments_a6ba2472659fdf21533f42747332314d5}
+
+
+Definition at line 69 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!psnr\+\_\+results@{psnr\+\_\+results}}
+\index{psnr\+\_\+results@{psnr\+\_\+results}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{psnr\+\_\+results}{psnr_results}}]{\setlength{\rightskip}{0pt plus 5cm}list psnr\+\_\+experiments.\+psnr\+\_\+results = \mbox{[}None\mbox{]}$\ast${\bf n}}\hypertarget{namespacepsnr__experiments_a891f44706ebab018824dda78fa13840d}{}\label{namespacepsnr__experiments_a891f44706ebab018824dda78fa13840d}
+
+
+Definition at line 41 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!right\+\_\+cam@{right\+\_\+cam}}
+\index{right\+\_\+cam@{right\+\_\+cam}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{right\+\_\+cam}{right_cam}}]{\setlength{\rightskip}{0pt plus 5cm}psnr\+\_\+experiments.\+right\+\_\+cam}\hypertarget{namespacepsnr__experiments_a920b8cd9a2b238288683cc42577e1e78}{}\label{namespacepsnr__experiments_a920b8cd9a2b238288683cc42577e1e78}
+
+
+Definition at line 68 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!right\+\_\+x@{right\+\_\+x}}
+\index{right\+\_\+x@{right\+\_\+x}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{right\+\_\+x}{right_x}}]{\setlength{\rightskip}{0pt plus 5cm}psnr\+\_\+experiments.\+right\+\_\+x}\hypertarget{namespacepsnr__experiments_abeb7ea20616f61e643624bf7cfea24c3}{}\label{namespacepsnr__experiments_abeb7ea20616f61e643624bf7cfea24c3}
+
+
+Definition at line 72 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!right\+\_\+y@{right\+\_\+y}}
+\index{right\+\_\+y@{right\+\_\+y}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{right\+\_\+y}{right_y}}]{\setlength{\rightskip}{0pt plus 5cm}psnr\+\_\+experiments.\+right\+\_\+y}\hypertarget{namespacepsnr__experiments_a75d9f6e7c130f394ccdd236191603e5c}{}\label{namespacepsnr__experiments_a75d9f6e7c130f394ccdd236191603e5c}
+
+
+Definition at line 72 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!virtual\+\_\+cam@{virtual\+\_\+cam}}
+\index{virtual\+\_\+cam@{virtual\+\_\+cam}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{virtual\+\_\+cam}{virtual_cam}}]{\setlength{\rightskip}{0pt plus 5cm}psnr\+\_\+experiments.\+virtual\+\_\+cam}\hypertarget{namespacepsnr__experiments_ac86607a93b7487822749da9fa9a881c3}{}\label{namespacepsnr__experiments_ac86607a93b7487822749da9fa9a881c3}
+
+
+Definition at line 68 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!virtual\+\_\+x@{virtual\+\_\+x}}
+\index{virtual\+\_\+x@{virtual\+\_\+x}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{virtual\+\_\+x}{virtual_x}}]{\setlength{\rightskip}{0pt plus 5cm}psnr\+\_\+experiments.\+virtual\+\_\+x}\hypertarget{namespacepsnr__experiments_a7f575b8c058710f86762fea9a6a51fa0}{}\label{namespacepsnr__experiments_a7f575b8c058710f86762fea9a6a51fa0}
+
+
+Definition at line 71 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!virtual\+\_\+y@{virtual\+\_\+y}}
+\index{virtual\+\_\+y@{virtual\+\_\+y}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{virtual\+\_\+y}{virtual_y}}]{\setlength{\rightskip}{0pt plus 5cm}psnr\+\_\+experiments.\+virtual\+\_\+y}\hypertarget{namespacepsnr__experiments_aa8d539be966b440eb296d7ac86bebd0c}{}\label{namespacepsnr__experiments_aa8d539be966b440eb296d7ac86bebd0c}
+
+
+Definition at line 71 of file psnr\+\_\+experiments.\+py.
+
+\index{psnr\+\_\+experiments@{psnr\+\_\+experiments}!vsrs\+\_\+binary\+\_\+filename@{vsrs\+\_\+binary\+\_\+filename}}
+\index{vsrs\+\_\+binary\+\_\+filename@{vsrs\+\_\+binary\+\_\+filename}!psnr\+\_\+experiments@{psnr\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{vsrs\+\_\+binary\+\_\+filename}{vsrs_binary_filename}}]{\setlength{\rightskip}{0pt plus 5cm}psnr\+\_\+experiments.\+vsrs\+\_\+binary\+\_\+filename = sys.\+argv\mbox{[}1\mbox{]}}\hypertarget{namespacepsnr__experiments_a5deb1c458380e20e1f7ada545e800a33}{}\label{namespacepsnr__experiments_a5deb1c458380e20e1f7ada545e800a33}
+
+
+Definition at line 16 of file psnr\+\_\+experiments.\+py.
+

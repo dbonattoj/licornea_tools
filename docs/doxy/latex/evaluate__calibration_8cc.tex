@@ -1,0 +1,74 @@
+\hypertarget{evaluate__calibration_8cc}{}\section{src/calibration/evaluate\+\_\+calibration.cc File Reference}
+\label{evaluate__calibration_8cc}\index{src/calibration/evaluate\+\_\+calibration.\+cc@{src/calibration/evaluate\+\_\+calibration.\+cc}}
+{\ttfamily \#include \char`\"{}../lib/common.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/args.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/dataset.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/camera.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/misc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/image\+\_\+correspondence.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/feature\+\_\+points.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+{\ttfamily \#include $<$random$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+Include dependency graph for evaluate\+\_\+calibration.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate__calibration_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{evaluate__calibration_8cc_ac0f2228420376f4db7e1274f2b41667c}{main} (int argc, const char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr bool \hyperlink{evaluate__calibration_8cc_aa0809dffbdf183a6a189ebb277bf6866}{verbose} = true
+\item 
+constexpr int \hyperlink{evaluate__calibration_8cc_a1dbebbad74a7b91f7cbe0fcf0b474c14}{min\+\_\+features\+\_\+count} = 10
+\item 
+constexpr \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} \hyperlink{evaluate__calibration_8cc_adb7d99e285084558540b63401e58d871}{max\+\_\+reprojection\+\_\+error} = 100.\+0
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{evaluate\+\_\+calibration.\+cc@{evaluate\+\_\+calibration.\+cc}!main@{main}}
+\index{main@{main}!evaluate\+\_\+calibration.\+cc@{evaluate\+\_\+calibration.\+cc}}
+\subsubsection[{\texorpdfstring{main(int argc, const char $\ast$argv[])}{main(int argc, const char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{const char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{evaluate__calibration_8cc_ac0f2228420376f4db7e1274f2b41667c}{}\label{evaluate__calibration_8cc_ac0f2228420376f4db7e1274f2b41667c}
+
+
+Definition at line 19 of file evaluate\+\_\+calibration.\+cc.
+
+
+
+\subsection{Variable Documentation}
+\index{evaluate\+\_\+calibration.\+cc@{evaluate\+\_\+calibration.\+cc}!max\+\_\+reprojection\+\_\+error@{max\+\_\+reprojection\+\_\+error}}
+\index{max\+\_\+reprojection\+\_\+error@{max\+\_\+reprojection\+\_\+error}!evaluate\+\_\+calibration.\+cc@{evaluate\+\_\+calibration.\+cc}}
+\subsubsection[{\texorpdfstring{max\+\_\+reprojection\+\_\+error}{max_reprojection_error}}]{\setlength{\rightskip}{0pt plus 5cm}constexpr {\bf real} max\+\_\+reprojection\+\_\+error = 100.\+0}\hypertarget{evaluate__calibration_8cc_adb7d99e285084558540b63401e58d871}{}\label{evaluate__calibration_8cc_adb7d99e285084558540b63401e58d871}
+
+
+Definition at line 17 of file evaluate\+\_\+calibration.\+cc.
+
+\index{evaluate\+\_\+calibration.\+cc@{evaluate\+\_\+calibration.\+cc}!min\+\_\+features\+\_\+count@{min\+\_\+features\+\_\+count}}
+\index{min\+\_\+features\+\_\+count@{min\+\_\+features\+\_\+count}!evaluate\+\_\+calibration.\+cc@{evaluate\+\_\+calibration.\+cc}}
+\subsubsection[{\texorpdfstring{min\+\_\+features\+\_\+count}{min_features_count}}]{\setlength{\rightskip}{0pt plus 5cm}constexpr int min\+\_\+features\+\_\+count = 10}\hypertarget{evaluate__calibration_8cc_a1dbebbad74a7b91f7cbe0fcf0b474c14}{}\label{evaluate__calibration_8cc_a1dbebbad74a7b91f7cbe0fcf0b474c14}
+
+
+Definition at line 16 of file evaluate\+\_\+calibration.\+cc.
+
+\index{evaluate\+\_\+calibration.\+cc@{evaluate\+\_\+calibration.\+cc}!verbose@{verbose}}
+\index{verbose@{verbose}!evaluate\+\_\+calibration.\+cc@{evaluate\+\_\+calibration.\+cc}}
+\subsubsection[{\texorpdfstring{verbose}{verbose}}]{\setlength{\rightskip}{0pt plus 5cm}constexpr bool verbose = true}\hypertarget{evaluate__calibration_8cc_aa0809dffbdf183a6a189ebb277bf6866}{}\label{evaluate__calibration_8cc_aa0809dffbdf183a6a189ebb277bf6866}
+
+
+Definition at line 15 of file evaluate\+\_\+calibration.\+cc.
+

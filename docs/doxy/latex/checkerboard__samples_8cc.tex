@@ -1,0 +1,122 @@
+\hypertarget{checkerboard__samples_8cc}{}\section{src/kinect/checkerboard\+\_\+samples.cc File Reference}
+\label{checkerboard__samples_8cc}\index{src/kinect/checkerboard\+\_\+samples.\+cc@{src/kinect/checkerboard\+\_\+samples.\+cc}}
+{\ttfamily \#include \char`\"{}../lib/common.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/args.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/opencv.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/image\+\_\+io.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/misc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/obj\+\_\+img\+\_\+correspondence.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/viewer.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/live/grabber.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/live/checkerboard.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$string$>$}\\*
+Include dependency graph for checkerboard\+\_\+samples.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{checkerboard__samples_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{checkerboard__samples_8cc_ac3a4ee4eb7269085bc81245b4df5860f}{save\+\_\+correspondences\+\_\+set} ()
+\item 
+int \hyperlink{checkerboard__samples_8cc_ac0f2228420376f4db7e1274f2b41667c}{main} (int argc, const char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \hyperlink{structtlz_1_1checkerboard}{checkerboard} $>$ \hyperlink{checkerboard__samples_8cc_a00467e5d428be2381d4d9a41b1ad1ffb}{color\+\_\+chks}
+\item 
+std\+::vector$<$ \hyperlink{structtlz_1_1checkerboard}{checkerboard} $>$ \hyperlink{checkerboard__samples_8cc_a67010fa4a71db0b1273a7dedabb8a37e}{ir\+\_\+chks}
+\item 
+std\+::string \hyperlink{checkerboard__samples_8cc_a6c71000b535e65812d96eee3386307c4}{mode}
+\item 
+int \hyperlink{checkerboard__samples_8cc_a4407a60bc4387adae24cee658711f2d9}{cols}
+\item 
+int \hyperlink{checkerboard__samples_8cc_a061459acc9e078fa4699e0e349887215}{rows}
+\item 
+\hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} \hyperlink{checkerboard__samples_8cc_ac9c5e9ae84febda1283c11202619c086}{square\+\_\+width}
+\item 
+std\+::string \hyperlink{checkerboard__samples_8cc_a643e43bcb82c1502d8e7d85bd667a27c}{out\+\_\+cors\+\_\+set\+\_\+filename}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{checkerboard\+\_\+samples.\+cc@{checkerboard\+\_\+samples.\+cc}!main@{main}}
+\index{main@{main}!checkerboard\+\_\+samples.\+cc@{checkerboard\+\_\+samples.\+cc}}
+\subsubsection[{\texorpdfstring{main(int argc, const char $\ast$argv[])}{main(int argc, const char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{const char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{checkerboard__samples_8cc_ac0f2228420376f4db7e1274f2b41667c}{}\label{checkerboard__samples_8cc_ac0f2228420376f4db7e1274f2b41667c}
+
+
+Definition at line 48 of file checkerboard\+\_\+samples.\+cc.
+
+\index{checkerboard\+\_\+samples.\+cc@{checkerboard\+\_\+samples.\+cc}!save\+\_\+correspondences\+\_\+set@{save\+\_\+correspondences\+\_\+set}}
+\index{save\+\_\+correspondences\+\_\+set@{save\+\_\+correspondences\+\_\+set}!checkerboard\+\_\+samples.\+cc@{checkerboard\+\_\+samples.\+cc}}
+\subsubsection[{\texorpdfstring{save\+\_\+correspondences\+\_\+set()}{save_correspondences_set()}}]{\setlength{\rightskip}{0pt plus 5cm}void save\+\_\+correspondences\+\_\+set (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{checkerboard__samples_8cc_ac3a4ee4eb7269085bc81245b4df5860f}{}\label{checkerboard__samples_8cc_ac3a4ee4eb7269085bc81245b4df5860f}
+
+
+Definition at line 22 of file checkerboard\+\_\+samples.\+cc.
+
+
+
+\subsection{Variable Documentation}
+\index{checkerboard\+\_\+samples.\+cc@{checkerboard\+\_\+samples.\+cc}!color\+\_\+chks@{color\+\_\+chks}}
+\index{color\+\_\+chks@{color\+\_\+chks}!checkerboard\+\_\+samples.\+cc@{checkerboard\+\_\+samples.\+cc}}
+\subsubsection[{\texorpdfstring{color\+\_\+chks}{color_chks}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf checkerboard}$>$ color\+\_\+chks}\hypertarget{checkerboard__samples_8cc_a00467e5d428be2381d4d9a41b1ad1ffb}{}\label{checkerboard__samples_8cc_a00467e5d428be2381d4d9a41b1ad1ffb}
+
+
+Definition at line 14 of file checkerboard\+\_\+samples.\+cc.
+
+\index{checkerboard\+\_\+samples.\+cc@{checkerboard\+\_\+samples.\+cc}!cols@{cols}}
+\index{cols@{cols}!checkerboard\+\_\+samples.\+cc@{checkerboard\+\_\+samples.\+cc}}
+\subsubsection[{\texorpdfstring{cols}{cols}}]{\setlength{\rightskip}{0pt plus 5cm}int cols}\hypertarget{checkerboard__samples_8cc_a4407a60bc4387adae24cee658711f2d9}{}\label{checkerboard__samples_8cc_a4407a60bc4387adae24cee658711f2d9}
+
+
+Definition at line 16 of file checkerboard\+\_\+samples.\+cc.
+
+\index{checkerboard\+\_\+samples.\+cc@{checkerboard\+\_\+samples.\+cc}!ir\+\_\+chks@{ir\+\_\+chks}}
+\index{ir\+\_\+chks@{ir\+\_\+chks}!checkerboard\+\_\+samples.\+cc@{checkerboard\+\_\+samples.\+cc}}
+\subsubsection[{\texorpdfstring{ir\+\_\+chks}{ir_chks}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf checkerboard}$>$ ir\+\_\+chks}\hypertarget{checkerboard__samples_8cc_a67010fa4a71db0b1273a7dedabb8a37e}{}\label{checkerboard__samples_8cc_a67010fa4a71db0b1273a7dedabb8a37e}
+
+
+Definition at line 14 of file checkerboard\+\_\+samples.\+cc.
+
+\index{checkerboard\+\_\+samples.\+cc@{checkerboard\+\_\+samples.\+cc}!mode@{mode}}
+\index{mode@{mode}!checkerboard\+\_\+samples.\+cc@{checkerboard\+\_\+samples.\+cc}}
+\subsubsection[{\texorpdfstring{mode}{mode}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string mode}\hypertarget{checkerboard__samples_8cc_a6c71000b535e65812d96eee3386307c4}{}\label{checkerboard__samples_8cc_a6c71000b535e65812d96eee3386307c4}
+
+
+Definition at line 15 of file checkerboard\+\_\+samples.\+cc.
+
+\index{checkerboard\+\_\+samples.\+cc@{checkerboard\+\_\+samples.\+cc}!out\+\_\+cors\+\_\+set\+\_\+filename@{out\+\_\+cors\+\_\+set\+\_\+filename}}
+\index{out\+\_\+cors\+\_\+set\+\_\+filename@{out\+\_\+cors\+\_\+set\+\_\+filename}!checkerboard\+\_\+samples.\+cc@{checkerboard\+\_\+samples.\+cc}}
+\subsubsection[{\texorpdfstring{out\+\_\+cors\+\_\+set\+\_\+filename}{out_cors_set_filename}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string out\+\_\+cors\+\_\+set\+\_\+filename}\hypertarget{checkerboard__samples_8cc_a643e43bcb82c1502d8e7d85bd667a27c}{}\label{checkerboard__samples_8cc_a643e43bcb82c1502d8e7d85bd667a27c}
+
+
+Definition at line 19 of file checkerboard\+\_\+samples.\+cc.
+
+\index{checkerboard\+\_\+samples.\+cc@{checkerboard\+\_\+samples.\+cc}!rows@{rows}}
+\index{rows@{rows}!checkerboard\+\_\+samples.\+cc@{checkerboard\+\_\+samples.\+cc}}
+\subsubsection[{\texorpdfstring{rows}{rows}}]{\setlength{\rightskip}{0pt plus 5cm}int rows}\hypertarget{checkerboard__samples_8cc_a061459acc9e078fa4699e0e349887215}{}\label{checkerboard__samples_8cc_a061459acc9e078fa4699e0e349887215}
+
+
+Definition at line 17 of file checkerboard\+\_\+samples.\+cc.
+
+\index{checkerboard\+\_\+samples.\+cc@{checkerboard\+\_\+samples.\+cc}!square\+\_\+width@{square\+\_\+width}}
+\index{square\+\_\+width@{square\+\_\+width}!checkerboard\+\_\+samples.\+cc@{checkerboard\+\_\+samples.\+cc}}
+\subsubsection[{\texorpdfstring{square\+\_\+width}{square_width}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf real} square\+\_\+width}\hypertarget{checkerboard__samples_8cc_ac9c5e9ae84febda1283c11202619c086}{}\label{checkerboard__samples_8cc_ac9c5e9ae84febda1283c11202619c086}
+
+
+Definition at line 18 of file checkerboard\+\_\+samples.\+cc.
+

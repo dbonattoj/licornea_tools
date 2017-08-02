@@ -1,0 +1,11 @@
+<map id="src/kinect/lib/common.h" name="src/kinect/lib/common.h">
+<area shape="rect" id="node2" href="$depth__remapping_8cc.html" title="src/kinect/depth_remapping.cc" alt="" coords="5,87,205,114"/>
+<area shape="rect" id="node3" href="$depth__reprojection_8cc.html" title="src/kinect/depth_reprojection.cc" alt="" coords="230,87,437,114"/>
+<area shape="rect" id="node4" href="$depth__densify__fast_8cc.html" title="src/kinect/lib/densify\l/depth_densify_fast.cc" alt="" coords="461,80,616,121"/>
+<area shape="rect" id="node5" href="$depth__densify__mine_8cc.html" title="src/kinect/lib/densify\l/depth_densify_mine.cc" alt="" coords="640,80,800,121"/>
+<area shape="rect" id="node6" href="$depth__densify__splat_8cc.html" title="src/kinect/lib/densify\l/depth_densify_splat.cc" alt="" coords="824,80,984,121"/>
+<area shape="rect" id="node7" href="$kinect__remapping_8cc.html" title="src/kinect/lib/kinect\l_remapping.cc" alt="" coords="1009,80,1143,121"/>
+<area shape="rect" id="node8" href="$kinect__reprojection_8cc.html" title="src/kinect/lib/kinect\l_reprojection.cc" alt="" coords="1167,80,1302,121"/>
+<area shape="rect" id="node9" href="$checkerboard_8cc.html" title="src/kinect/lib/live\l/checkerboard.cc" alt="" coords="1327,80,1449,121"/>
+<area shape="rect" id="node10" href="$parallel__wall_8cc.html" title="src/kinect/parallel\l_wall.cc" alt="" coords="1474,80,1598,121"/>
+</map>

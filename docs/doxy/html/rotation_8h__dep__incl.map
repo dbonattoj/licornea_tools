@@ -1,0 +1,7 @@
+<map id="src/lib/rotation.h" name="src/lib/rotation.h">
+<area shape="rect" id="node2" href="$cg__generate__artificial_8cc.html" title="src/calibration/cg\l_generate_artificial.cc" alt="" coords="5,80,155,121"/>
+<area shape="rect" id="node3" href="$cg__rotation__from__depths_8cc.html" title="src/calibration/cg\l_rotation_from_depths.cc" alt="" coords="179,80,349,121"/>
+<area shape="rect" id="node4" href="$cg__rotation__from__fslopes_8cc.html" title="src/calibration/cg\l_rotation_from_fslopes.cc" alt="" coords="373,80,545,121"/>
+<area shape="rect" id="node5" href="$rotation_8cc.html" title="src/lib/rotation.cc" alt="" coords="569,87,692,114"/>
+<area shape="rect" id="node6" href="$cam__rotation_8cc.html" title="src/misc/cam_rotation.cc" alt="" coords="717,87,886,114"/>
+</map>

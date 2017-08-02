@@ -1,0 +1,7 @@
+<map id="src/calibration/lib/cg/references_grid.h" name="src/calibration/lib/cg/references_grid.h">
+<area shape="rect" id="node2" href="$cg__choose__refgrid_8cc.html" title="src/calibration/cg\l_choose_refgrid.cc" alt="" coords="5,95,137,136"/>
+<area shape="rect" id="node3" href="$cg__optical__flow__features_8cc.html" title="src/calibration/cg\l_optical_flow_features.cc" alt="" coords="162,95,333,136"/>
+<area shape="rect" id="node4" href="$cg__redistribute__cors_8cc.html" title="src/calibration/cg\l_redistribute_cors.cc" alt="" coords="357,95,500,136"/>
+<area shape="rect" id="node5" href="$cg__stitch__cameras_8cc.html" title="src/calibration/cg\l_stitch_cameras.cc" alt="" coords="523,95,659,136"/>
+<area shape="rect" id="node6" href="$references__grid_8cc.html" title="src/calibration/lib\l/cg/references_grid.cc" alt="" coords="684,95,835,136"/>
+</map>

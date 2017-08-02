@@ -1,0 +1,12 @@
+<map id="src/kinect/viewer.cc" name="src/kinect/viewer.cc">
+<area shape="rect" id="node2" href="$args_8h.html" title="../lib/args.h" alt="" coords="968,393,1055,420"/>
+<area shape="rect" id="node14" href="$viewer_8h.html" title="../lib/viewer.h" alt="" coords="645,393,745,420"/>
+<area shape="rect" id="node18" href="$image__io_8h.html" title="../lib/image_io.h" alt="" coords="351,393,466,420"/>
+<area shape="rect" id="node19" href="$filesystem_8h.html" title="../lib/filesystem.h" alt="" coords="1699,319,1822,345"/>
+<area shape="rect" id="node20" href="$grabber_8h.html" title="lib/live/grabber.h" alt="" coords="967,80,1085,107"/>
+<area shape="rect" id="node3" href="$lib_2common_8h.html" title="common.h" alt="" coords="461,468,543,495"/>
+<area shape="rect" id="node15" href="$opencv_8h.html" title="opencv.h" alt="" coords="362,468,437,495"/>
+<area shape="rect" id="node22" href="$freenect2_8h.html" title="../freenect2.h" alt="" coords="617,162,715,189"/>
+<area shape="rect" id="node24" href="$kinect__internal__parameters_8h.html" title="kinect_internal_parameters.h" alt="" coords="594,244,783,271"/>
+<area shape="rect" id="node25" href="$json_8h.html" title="../../lib/json.h" alt="" coords="807,319,906,345"/>
+</map>

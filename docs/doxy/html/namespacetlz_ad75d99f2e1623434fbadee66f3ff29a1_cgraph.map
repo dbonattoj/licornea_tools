@@ -1,0 +1,11 @@
+<map id="tlz::import_image_correspondences" name="tlz::import_image_correspondences">
+<area shape="rect" id="node2" href="$namespacetlz.html#ae11c827ac9e581f9d2f98c39aab3750d" title="tlz::file_name_extension" alt="" coords="317,5,480,32"/>
+<area shape="rect" id="node3" href="$namespacetlz.html#a24915249769d936c24ceb34f50b06104" title="tlz::decode_image_correspondences" alt="" coords="281,56,516,83"/>
+<area shape="rect" id="node9" href="$namespacetlz.html#aa1be9362f548fcf9378e1fc9074089c4" title="tlz::import_json_file" alt="" coords="331,107,466,133"/>
+<area shape="rect" id="node10" href="$namespacetlz.html#a2ec439452fda5eeb03f60715e50fa96a" title="tlz::import_binary\l_image_correspondences" alt="" coords="313,158,484,199"/>
+<area shape="rect" id="node4" href="$namespacetlz.html#a252af14b9b4ac6502d3e9c5dd8dc90b8" title="tlz::has" alt="" coords="1173,56,1239,83"/>
+<area shape="rect" id="node5" href="$namespacetlz.html#ab83b0eb933afca1abe8ccd3470207691" title="tlz::decode_image_correspondence\l_feature" alt="" coords="564,78,791,119"/>
+<area shape="rect" id="node6" href="$namespacetlz.html#a74e8454f97dace7cffb1afdb6d3ca87b" title="tlz::decode_view_index" alt="" coords="839,107,997,133"/>
+<area shape="rect" id="node7" href="$namespacetlz.html#ae8f9175a86bbe49ac0f4485d5db3080b" title="tlz::decode_feature\l_point" alt="" coords="851,158,985,199"/>
+<area shape="rect" id="node8" href="$namespacetlz.html#add846dc50c32dfb356cb1a7ac11d37ac" title="tlz::get_or" alt="" coords="1045,136,1125,163"/>
+</map>

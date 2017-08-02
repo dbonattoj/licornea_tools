@@ -1,0 +1,179 @@
+\hypertarget{structtlz_1_1checkerboard}{}\section{tlz\+:\+:checkerboard Struct Reference}
+\label{structtlz_1_1checkerboard}\index{tlz\+::checkerboard@{tlz\+::checkerboard}}
+
+
+{\ttfamily \#include $<$checkerboard.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structtlz_1_1checkerboard_a44b150a25091e74cfaec42635d392369}{checkerboard} ()=default
+\item 
+\hyperlink{structtlz_1_1checkerboard_ac9ccb989809aaf6c014effd0c130e5ff}{checkerboard} (int cols\+\_\+, int rows\+\_\+, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} square\+\_\+width\+\_\+, const std\+::vector$<$ \hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} $>$ \&corners\+\_\+)
+\item 
+\hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} \hyperlink{structtlz_1_1checkerboard_aa0961b41552bc73fc4f75d2dca128637}{corner} (int col, int row) const 
+\item 
+bool \hyperlink{structtlz_1_1checkerboard_af3b52bf7a7acd347ca098b534dbef0df}{is\+\_\+null} () const 
+\item 
+\hyperlink{structtlz_1_1checkerboard_a6ddadc2beababc24cbf12d8fb0124d02}{operator bool} () const 
+\item 
+std\+::size\+\_\+t \hyperlink{structtlz_1_1checkerboard_aefd2234a4be7f364920076cdd8a977f1}{corners\+\_\+count} () const 
+\item 
+std\+::vector$<$ cv\+::\+Point $>$ \hyperlink{structtlz_1_1checkerboard_a2684fe6c45bc112b0a5c3d6e833ba22e}{outer\+\_\+corners\+\_\+i} () const 
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{structtlz_1_1checkerboard_ac5b0100ef79d834843f1917818ea0551}{cols} = 0
+\item 
+int \hyperlink{structtlz_1_1checkerboard_ab24465de0c0363ea43cfb7a1c46ac888}{rows} = 0
+\item 
+\hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} \hyperlink{structtlz_1_1checkerboard_ad0ddf1ae750bd40ca7310a2552ea5a4f}{square\+\_\+width} = 0.\+0
+\item 
+std\+::vector$<$ \hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} $>$ \hyperlink{structtlz_1_1checkerboard_ae747cabacc7e1ff435bb968957687da6}{corners}
+\item 
+std\+::vector$<$ \hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} $>$ \hyperlink{structtlz_1_1checkerboard_a1cb1310cab61e136082911262d61f5c6}{outer\+\_\+corners}
+\item 
+cv\+::\+Rect \hyperlink{structtlz_1_1checkerboard_a106fabc127855bca2cef7feef3348f4b}{bounding\+\_\+rect}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 11 of file checkerboard.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{tlz\+::checkerboard@{tlz\+::checkerboard}!checkerboard@{checkerboard}}
+\index{checkerboard@{checkerboard}!tlz\+::checkerboard@{tlz\+::checkerboard}}
+\subsubsection[{\texorpdfstring{checkerboard()=default}{checkerboard()=default}}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::checkerboard\+::checkerboard (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [default]}}\hypertarget{structtlz_1_1checkerboard_a44b150a25091e74cfaec42635d392369}{}\label{structtlz_1_1checkerboard_a44b150a25091e74cfaec42635d392369}
+\index{tlz\+::checkerboard@{tlz\+::checkerboard}!checkerboard@{checkerboard}}
+\index{checkerboard@{checkerboard}!tlz\+::checkerboard@{tlz\+::checkerboard}}
+\subsubsection[{\texorpdfstring{checkerboard(int cols\+\_\+, int rows\+\_\+, real square\+\_\+width\+\_\+, const std\+::vector$<$ vec2 $>$ \&corners\+\_\+)}{checkerboard(int cols_, int rows_, real square_width_, const std::vector< vec2 > &corners_)}}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::checkerboard\+::checkerboard (
+\begin{DoxyParamCaption}
+\item[{int}]{cols\+\_\+, }
+\item[{int}]{rows\+\_\+, }
+\item[{{\bf real}}]{square\+\_\+width\+\_\+, }
+\item[{const std\+::vector$<$ {\bf vec2} $>$ \&}]{corners\+\_\+}
+\end{DoxyParamCaption}
+)}\hypertarget{structtlz_1_1checkerboard_ac9ccb989809aaf6c014effd0c130e5ff}{}\label{structtlz_1_1checkerboard_ac9ccb989809aaf6c014effd0c130e5ff}
+
+
+Definition at line 15 of file checkerboard.\+cc.
+
+
+
+\subsection{Member Function Documentation}
+\index{tlz\+::checkerboard@{tlz\+::checkerboard}!corner@{corner}}
+\index{corner@{corner}!tlz\+::checkerboard@{tlz\+::checkerboard}}
+\subsubsection[{\texorpdfstring{corner(int col, int row) const }{corner(int col, int row) const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf vec2} tlz\+::checkerboard\+::corner (
+\begin{DoxyParamCaption}
+\item[{int}]{col, }
+\item[{int}]{row}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{structtlz_1_1checkerboard_aa0961b41552bc73fc4f75d2dca128637}{}\label{structtlz_1_1checkerboard_aa0961b41552bc73fc4f75d2dca128637}
+
+
+Definition at line 22 of file checkerboard.\+h.
+
+\index{tlz\+::checkerboard@{tlz\+::checkerboard}!corners\+\_\+count@{corners\+\_\+count}}
+\index{corners\+\_\+count@{corners\+\_\+count}!tlz\+::checkerboard@{tlz\+::checkerboard}}
+\subsubsection[{\texorpdfstring{corners\+\_\+count() const }{corners_count() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::size\+\_\+t tlz\+::checkerboard\+::corners\+\_\+count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{structtlz_1_1checkerboard_aefd2234a4be7f364920076cdd8a977f1}{}\label{structtlz_1_1checkerboard_aefd2234a4be7f364920076cdd8a977f1}
+
+
+Definition at line 27 of file checkerboard.\+h.
+
+\index{tlz\+::checkerboard@{tlz\+::checkerboard}!is\+\_\+null@{is\+\_\+null}}
+\index{is\+\_\+null@{is\+\_\+null}!tlz\+::checkerboard@{tlz\+::checkerboard}}
+\subsubsection[{\texorpdfstring{is\+\_\+null() const }{is_null() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool tlz\+::checkerboard\+::is\+\_\+null (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{structtlz_1_1checkerboard_af3b52bf7a7acd347ca098b534dbef0df}{}\label{structtlz_1_1checkerboard_af3b52bf7a7acd347ca098b534dbef0df}
+
+
+Definition at line 24 of file checkerboard.\+h.
+
+\index{tlz\+::checkerboard@{tlz\+::checkerboard}!operator bool@{operator bool}}
+\index{operator bool@{operator bool}!tlz\+::checkerboard@{tlz\+::checkerboard}}
+\subsubsection[{\texorpdfstring{operator bool() const }{operator bool() const }}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::checkerboard\+::operator bool (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}\hypertarget{structtlz_1_1checkerboard_a6ddadc2beababc24cbf12d8fb0124d02}{}\label{structtlz_1_1checkerboard_a6ddadc2beababc24cbf12d8fb0124d02}
+
+
+Definition at line 25 of file checkerboard.\+h.
+
+\index{tlz\+::checkerboard@{tlz\+::checkerboard}!outer\+\_\+corners\+\_\+i@{outer\+\_\+corners\+\_\+i}}
+\index{outer\+\_\+corners\+\_\+i@{outer\+\_\+corners\+\_\+i}!tlz\+::checkerboard@{tlz\+::checkerboard}}
+\subsubsection[{\texorpdfstring{outer\+\_\+corners\+\_\+i() const }{outer_corners_i() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ cv\+::\+Point $>$ tlz\+::checkerboard\+::outer\+\_\+corners\+\_\+i (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{structtlz_1_1checkerboard_a2684fe6c45bc112b0a5c3d6e833ba22e}{}\label{structtlz_1_1checkerboard_a2684fe6c45bc112b0a5c3d6e833ba22e}
+
+
+Definition at line 41 of file checkerboard.\+cc.
+
+
+
+\subsection{Member Data Documentation}
+\index{tlz\+::checkerboard@{tlz\+::checkerboard}!bounding\+\_\+rect@{bounding\+\_\+rect}}
+\index{bounding\+\_\+rect@{bounding\+\_\+rect}!tlz\+::checkerboard@{tlz\+::checkerboard}}
+\subsubsection[{\texorpdfstring{bounding\+\_\+rect}{bounding_rect}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Rect tlz\+::checkerboard\+::bounding\+\_\+rect}\hypertarget{structtlz_1_1checkerboard_a106fabc127855bca2cef7feef3348f4b}{}\label{structtlz_1_1checkerboard_a106fabc127855bca2cef7feef3348f4b}
+
+
+Definition at line 17 of file checkerboard.\+h.
+
+\index{tlz\+::checkerboard@{tlz\+::checkerboard}!cols@{cols}}
+\index{cols@{cols}!tlz\+::checkerboard@{tlz\+::checkerboard}}
+\subsubsection[{\texorpdfstring{cols}{cols}}]{\setlength{\rightskip}{0pt plus 5cm}int tlz\+::checkerboard\+::cols = 0}\hypertarget{structtlz_1_1checkerboard_ac5b0100ef79d834843f1917818ea0551}{}\label{structtlz_1_1checkerboard_ac5b0100ef79d834843f1917818ea0551}
+
+
+Definition at line 12 of file checkerboard.\+h.
+
+\index{tlz\+::checkerboard@{tlz\+::checkerboard}!corners@{corners}}
+\index{corners@{corners}!tlz\+::checkerboard@{tlz\+::checkerboard}}
+\subsubsection[{\texorpdfstring{corners}{corners}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf vec2}$>$ tlz\+::checkerboard\+::corners}\hypertarget{structtlz_1_1checkerboard_ae747cabacc7e1ff435bb968957687da6}{}\label{structtlz_1_1checkerboard_ae747cabacc7e1ff435bb968957687da6}
+
+
+Definition at line 15 of file checkerboard.\+h.
+
+\index{tlz\+::checkerboard@{tlz\+::checkerboard}!outer\+\_\+corners@{outer\+\_\+corners}}
+\index{outer\+\_\+corners@{outer\+\_\+corners}!tlz\+::checkerboard@{tlz\+::checkerboard}}
+\subsubsection[{\texorpdfstring{outer\+\_\+corners}{outer_corners}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf vec2}$>$ tlz\+::checkerboard\+::outer\+\_\+corners}\hypertarget{structtlz_1_1checkerboard_a1cb1310cab61e136082911262d61f5c6}{}\label{structtlz_1_1checkerboard_a1cb1310cab61e136082911262d61f5c6}
+
+
+Definition at line 16 of file checkerboard.\+h.
+
+\index{tlz\+::checkerboard@{tlz\+::checkerboard}!rows@{rows}}
+\index{rows@{rows}!tlz\+::checkerboard@{tlz\+::checkerboard}}
+\subsubsection[{\texorpdfstring{rows}{rows}}]{\setlength{\rightskip}{0pt plus 5cm}int tlz\+::checkerboard\+::rows = 0}\hypertarget{structtlz_1_1checkerboard_ab24465de0c0363ea43cfb7a1c46ac888}{}\label{structtlz_1_1checkerboard_ab24465de0c0363ea43cfb7a1c46ac888}
+
+
+Definition at line 13 of file checkerboard.\+h.
+
+\index{tlz\+::checkerboard@{tlz\+::checkerboard}!square\+\_\+width@{square\+\_\+width}}
+\index{square\+\_\+width@{square\+\_\+width}!tlz\+::checkerboard@{tlz\+::checkerboard}}
+\subsubsection[{\texorpdfstring{square\+\_\+width}{square_width}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf real} tlz\+::checkerboard\+::square\+\_\+width = 0.\+0}\hypertarget{structtlz_1_1checkerboard_ad0ddf1ae750bd40ca7310a2552ea5a4f}{}\label{structtlz_1_1checkerboard_ad0ddf1ae750bd40ca7310a2552ea5a4f}
+
+
+Definition at line 14 of file checkerboard.\+h.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/kinect/lib/live/\hyperlink{checkerboard_8h}{checkerboard.\+h}\item 
+src/kinect/lib/live/\hyperlink{checkerboard_8cc}{checkerboard.\+cc}\end{DoxyCompactItemize}

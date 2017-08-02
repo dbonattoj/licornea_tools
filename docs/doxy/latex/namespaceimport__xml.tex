@@ -1,0 +1,178 @@
+\hypertarget{namespaceimport__xml}{}\section{import\+\_\+xml Namespace Reference}
+\label{namespaceimport__xml}\index{import\+\_\+xml@{import\+\_\+xml}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceimport__xml_a6b99a6d995ebfb9fbaea25e2270004a0}{usage\+\_\+fail} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespaceimport__xml_aaf3ac984b3bbe9ea024af43d503eb08d}{xml\+\_\+filename} = sys.\+argv\mbox{[}1\mbox{]}
+\item 
+\hyperlink{namespaceimport__xml_a307ad9a3391d6a9cb512087355ad9a0b}{output\+\_\+filename} = sys.\+argv\mbox{[}2\mbox{]}
+\item 
+\hyperlink{namespaceimport__xml_a9ddb8ad46de8d0512c0c33ecc57e3dc8}{root} = xml.\+etree.\+Element\+Tree.\+parse(\hyperlink{namespaceimport__xml_aaf3ac984b3bbe9ea024af43d503eb08d}{xml\+\_\+filename}).getroot()
+\item 
+list \hyperlink{namespaceimport__xml_acbf94a80402f1f3bc6edfcb26847857e}{output\+\_\+array} = \mbox{[}$\,$\mbox{]}
+\item 
+int \hyperlink{namespaceimport__xml_a6647320ea7243e814d6b6e5467401cb5}{index} = -\/1
+\item 
+\hyperlink{namespaceimport__xml_a62e884f4d6cb5ffb7aa2d54b47326879}{camera\+\_\+name} = camera.\+find(\textquotesingle{}name\textquotesingle{}).text
+\item 
+\hyperlink{namespaceimport__xml_afadf173b7511d8dc7f7421e25b7e5fe0}{K\+\_\+str} = camera.\+find(\textquotesingle{}\hyperlink{namespaceimport__xml_a114c9dbaec4f1a19d322303b9f40754e}{K}\textquotesingle{}).text
+\item 
+\hyperlink{namespaceimport__xml_ae9bd125b10e08d1149b3c7ca82baa85f}{Rt\+\_\+str} = camera.\+find(\textquotesingle{}\hyperlink{namespaceimport__xml_a8ee934fa632e40193dea858cced805a1}{Rt}\textquotesingle{}).text
+\item 
+\hyperlink{namespaceimport__xml_a114c9dbaec4f1a19d322303b9f40754e}{K} = re.\+findall(r\textquotesingle{}-\/?\mbox{[}0-\/9.\mbox{]}+\textquotesingle{}, \hyperlink{namespaceimport__xml_afadf173b7511d8dc7f7421e25b7e5fe0}{K\+\_\+str})
+\item 
+\hyperlink{namespaceimport__xml_a8ee934fa632e40193dea858cced805a1}{Rt} = re.\+findall(r\textquotesingle{}-\/?\mbox{[}0-\/9.\mbox{]}+\textquotesingle{}, \hyperlink{namespaceimport__xml_ae9bd125b10e08d1149b3c7ca82baa85f}{Rt\+\_\+str})
+\item 
+list \hyperlink{namespaceimport__xml_ab25ba10cad6227b6b27a86882644dbce}{output\+\_\+\+Rt}
+\item 
+list \hyperlink{namespaceimport__xml_a1993df83e9785cc32d460d46661f5ca7}{output\+\_\+K}
+\item 
+dictionary \hyperlink{namespaceimport__xml_a0efcba25cb78bff3cebf1a0d5e9e7818}{output\+\_\+camera}
+\item 
+\hyperlink{namespaceimport__xml_a03cb3f12d1861aaa30d97d1e6ba45c9e}{output} = open(\hyperlink{namespaceimport__xml_a307ad9a3391d6a9cb512087355ad9a0b}{output\+\_\+filename}, \textquotesingle{}w\textquotesingle{})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{import\+\_\+xml@{import\+\_\+xml}!usage\+\_\+fail@{usage\+\_\+fail}}
+\index{usage\+\_\+fail@{usage\+\_\+fail}!import\+\_\+xml@{import\+\_\+xml}}
+\subsubsection[{\texorpdfstring{usage\+\_\+fail()}{usage_fail()}}]{\setlength{\rightskip}{0pt plus 5cm}def import\+\_\+xml.\+usage\+\_\+fail (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceimport__xml_a6b99a6d995ebfb9fbaea25e2270004a0}{}\label{namespaceimport__xml_a6b99a6d995ebfb9fbaea25e2270004a0}
+
+
+Definition at line 5 of file import\+\_\+xml.\+py.
+
+
+
+\subsection{Variable Documentation}
+\index{import\+\_\+xml@{import\+\_\+xml}!camera\+\_\+name@{camera\+\_\+name}}
+\index{camera\+\_\+name@{camera\+\_\+name}!import\+\_\+xml@{import\+\_\+xml}}
+\subsubsection[{\texorpdfstring{camera\+\_\+name}{camera_name}}]{\setlength{\rightskip}{0pt plus 5cm}import\+\_\+xml.\+camera\+\_\+name = camera.\+find(\textquotesingle{}name\textquotesingle{}).text}\hypertarget{namespaceimport__xml_a62e884f4d6cb5ffb7aa2d54b47326879}{}\label{namespaceimport__xml_a62e884f4d6cb5ffb7aa2d54b47326879}
+
+
+Definition at line 25 of file import\+\_\+xml.\+py.
+
+\index{import\+\_\+xml@{import\+\_\+xml}!index@{index}}
+\index{index@{index}!import\+\_\+xml@{import\+\_\+xml}}
+\subsubsection[{\texorpdfstring{index}{index}}]{\setlength{\rightskip}{0pt plus 5cm}int import\+\_\+xml.\+index = -\/1}\hypertarget{namespaceimport__xml_a6647320ea7243e814d6b6e5467401cb5}{}\label{namespaceimport__xml_a6647320ea7243e814d6b6e5467401cb5}
+
+
+Definition at line 22 of file import\+\_\+xml.\+py.
+
+\index{import\+\_\+xml@{import\+\_\+xml}!K@{K}}
+\index{K@{K}!import\+\_\+xml@{import\+\_\+xml}}
+\subsubsection[{\texorpdfstring{K}{K}}]{\setlength{\rightskip}{0pt plus 5cm}list import\+\_\+xml.\+K = re.\+findall(r\textquotesingle{}-\/?\mbox{[}0-\/9.\mbox{]}+\textquotesingle{}, {\bf K\+\_\+str})}\hypertarget{namespaceimport__xml_a114c9dbaec4f1a19d322303b9f40754e}{}\label{namespaceimport__xml_a114c9dbaec4f1a19d322303b9f40754e}
+
+
+Definition at line 29 of file import\+\_\+xml.\+py.
+
+\index{import\+\_\+xml@{import\+\_\+xml}!K\+\_\+str@{K\+\_\+str}}
+\index{K\+\_\+str@{K\+\_\+str}!import\+\_\+xml@{import\+\_\+xml}}
+\subsubsection[{\texorpdfstring{K\+\_\+str}{K_str}}]{\setlength{\rightskip}{0pt plus 5cm}import\+\_\+xml.\+K\+\_\+str = camera.\+find(\textquotesingle{}{\bf K}\textquotesingle{}).text}\hypertarget{namespaceimport__xml_afadf173b7511d8dc7f7421e25b7e5fe0}{}\label{namespaceimport__xml_afadf173b7511d8dc7f7421e25b7e5fe0}
+
+
+Definition at line 26 of file import\+\_\+xml.\+py.
+
+\index{import\+\_\+xml@{import\+\_\+xml}!output@{output}}
+\index{output@{output}!import\+\_\+xml@{import\+\_\+xml}}
+\subsubsection[{\texorpdfstring{output}{output}}]{\setlength{\rightskip}{0pt plus 5cm}import\+\_\+xml.\+output = open({\bf output\+\_\+filename}, \textquotesingle{}w\textquotesingle{})}\hypertarget{namespaceimport__xml_a03cb3f12d1861aaa30d97d1e6ba45c9e}{}\label{namespaceimport__xml_a03cb3f12d1861aaa30d97d1e6ba45c9e}
+
+
+Definition at line 62 of file import\+\_\+xml.\+py.
+
+\index{import\+\_\+xml@{import\+\_\+xml}!output\+\_\+array@{output\+\_\+array}}
+\index{output\+\_\+array@{output\+\_\+array}!import\+\_\+xml@{import\+\_\+xml}}
+\subsubsection[{\texorpdfstring{output\+\_\+array}{output_array}}]{\setlength{\rightskip}{0pt plus 5cm}list import\+\_\+xml.\+output\+\_\+array = \mbox{[}$\,$\mbox{]}}\hypertarget{namespaceimport__xml_acbf94a80402f1f3bc6edfcb26847857e}{}\label{namespaceimport__xml_acbf94a80402f1f3bc6edfcb26847857e}
+
+
+Definition at line 20 of file import\+\_\+xml.\+py.
+
+\index{import\+\_\+xml@{import\+\_\+xml}!output\+\_\+camera@{output\+\_\+camera}}
+\index{output\+\_\+camera@{output\+\_\+camera}!import\+\_\+xml@{import\+\_\+xml}}
+\subsubsection[{\texorpdfstring{output\+\_\+camera}{output_camera}}]{\setlength{\rightskip}{0pt plus 5cm}dictionary import\+\_\+xml.\+output\+\_\+camera}\hypertarget{namespaceimport__xml_a0efcba25cb78bff3cebf1a0d5e9e7818}{}\label{namespaceimport__xml_a0efcba25cb78bff3cebf1a0d5e9e7818}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+1 = \{
+2         \textcolor{stringliteral}{'name'} : camera\_name,
+3         \textcolor{stringliteral}{'Rt'} : output\_Rt,
+4         \textcolor{stringliteral}{'K'} : output\_K
+5     \};
+\end{DoxyCode}
+
+
+Definition at line 54 of file import\+\_\+xml.\+py.
+
+\index{import\+\_\+xml@{import\+\_\+xml}!output\+\_\+filename@{output\+\_\+filename}}
+\index{output\+\_\+filename@{output\+\_\+filename}!import\+\_\+xml@{import\+\_\+xml}}
+\subsubsection[{\texorpdfstring{output\+\_\+filename}{output_filename}}]{\setlength{\rightskip}{0pt plus 5cm}import\+\_\+xml.\+output\+\_\+filename = sys.\+argv\mbox{[}2\mbox{]}}\hypertarget{namespaceimport__xml_a307ad9a3391d6a9cb512087355ad9a0b}{}\label{namespaceimport__xml_a307ad9a3391d6a9cb512087355ad9a0b}
+
+
+Definition at line 13 of file import\+\_\+xml.\+py.
+
+\index{import\+\_\+xml@{import\+\_\+xml}!output\+\_\+K@{output\+\_\+K}}
+\index{output\+\_\+K@{output\+\_\+K}!import\+\_\+xml@{import\+\_\+xml}}
+\subsubsection[{\texorpdfstring{output\+\_\+K}{output_K}}]{\setlength{\rightskip}{0pt plus 5cm}list import\+\_\+xml.\+output\+\_\+K}\hypertarget{namespaceimport__xml_a1993df83e9785cc32d460d46661f5ca7}{}\label{namespaceimport__xml_a1993df83e9785cc32d460d46661f5ca7}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+1 = [
+2         [K[0], K[1], K[2]],
+3         [K[3], K[4], K[5]],
+4         [K[6], K[7], K[8]]
+5     ];
+\end{DoxyCode}
+
+
+Definition at line 48 of file import\+\_\+xml.\+py.
+
+\index{import\+\_\+xml@{import\+\_\+xml}!output\+\_\+\+Rt@{output\+\_\+\+Rt}}
+\index{output\+\_\+\+Rt@{output\+\_\+\+Rt}!import\+\_\+xml@{import\+\_\+xml}}
+\subsubsection[{\texorpdfstring{output\+\_\+\+Rt}{output_Rt}}]{\setlength{\rightskip}{0pt plus 5cm}list import\+\_\+xml.\+output\+\_\+\+Rt}\hypertarget{namespaceimport__xml_ab25ba10cad6227b6b27a86882644dbce}{}\label{namespaceimport__xml_ab25ba10cad6227b6b27a86882644dbce}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+1 = [
+2         [Rt[0], Rt[1], Rt[2], Rt[3]],
+3         [Rt[4], Rt[5], Rt[6], Rt[7]],
+4         [Rt[8], Rt[9], Rt[10], Rt[11]],
+5         [0.0, 0.0, 0.0, 1.0]
+6     ];
+\end{DoxyCode}
+
+
+Definition at line 41 of file import\+\_\+xml.\+py.
+
+\index{import\+\_\+xml@{import\+\_\+xml}!root@{root}}
+\index{root@{root}!import\+\_\+xml@{import\+\_\+xml}}
+\subsubsection[{\texorpdfstring{root}{root}}]{\setlength{\rightskip}{0pt plus 5cm}import\+\_\+xml.\+root = xml.\+etree.\+Element\+Tree.\+parse({\bf xml\+\_\+filename}).getroot()}\hypertarget{namespaceimport__xml_a9ddb8ad46de8d0512c0c33ecc57e3dc8}{}\label{namespaceimport__xml_a9ddb8ad46de8d0512c0c33ecc57e3dc8}
+
+
+Definition at line 16 of file import\+\_\+xml.\+py.
+
+\index{import\+\_\+xml@{import\+\_\+xml}!Rt@{Rt}}
+\index{Rt@{Rt}!import\+\_\+xml@{import\+\_\+xml}}
+\subsubsection[{\texorpdfstring{Rt}{Rt}}]{\setlength{\rightskip}{0pt plus 5cm}list import\+\_\+xml.\+Rt = re.\+findall(r\textquotesingle{}-\/?\mbox{[}0-\/9.\mbox{]}+\textquotesingle{}, {\bf Rt\+\_\+str})}\hypertarget{namespaceimport__xml_a8ee934fa632e40193dea858cced805a1}{}\label{namespaceimport__xml_a8ee934fa632e40193dea858cced805a1}
+
+
+Definition at line 30 of file import\+\_\+xml.\+py.
+
+\index{import\+\_\+xml@{import\+\_\+xml}!Rt\+\_\+str@{Rt\+\_\+str}}
+\index{Rt\+\_\+str@{Rt\+\_\+str}!import\+\_\+xml@{import\+\_\+xml}}
+\subsubsection[{\texorpdfstring{Rt\+\_\+str}{Rt_str}}]{\setlength{\rightskip}{0pt plus 5cm}import\+\_\+xml.\+Rt\+\_\+str = camera.\+find(\textquotesingle{}{\bf Rt}\textquotesingle{}).text}\hypertarget{namespaceimport__xml_ae9bd125b10e08d1149b3c7ca82baa85f}{}\label{namespaceimport__xml_ae9bd125b10e08d1149b3c7ca82baa85f}
+
+
+Definition at line 27 of file import\+\_\+xml.\+py.
+
+\index{import\+\_\+xml@{import\+\_\+xml}!xml\+\_\+filename@{xml\+\_\+filename}}
+\index{xml\+\_\+filename@{xml\+\_\+filename}!import\+\_\+xml@{import\+\_\+xml}}
+\subsubsection[{\texorpdfstring{xml\+\_\+filename}{xml_filename}}]{\setlength{\rightskip}{0pt plus 5cm}import\+\_\+xml.\+xml\+\_\+filename = sys.\+argv\mbox{[}1\mbox{]}}\hypertarget{namespaceimport__xml_aaf3ac984b3bbe9ea024af43d503eb08d}{}\label{namespaceimport__xml_aaf3ac984b3bbe9ea024af43d503eb08d}
+
+
+Definition at line 12 of file import\+\_\+xml.\+py.
+

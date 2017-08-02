@@ -1,0 +1,8 @@
+<map id="src/calibration/lib/cg/feature_slopes.h" name="src/calibration/lib/cg/feature_slopes.h">
+<area shape="rect" id="node2" href="$cg__measure__optical__flow__slopes_8cc.html" title="src/calibration/cg\l_measure_optical_flow\l_slopes.cc" alt="" coords="5,95,160,151"/>
+<area shape="rect" id="node3" href="$cg__model__optical__flow__slopes_8cc.html" title="src/calibration/cg\l_model_optical_flow\l_slopes.cc" alt="" coords="185,95,325,151"/>
+<area shape="rect" id="node4" href="$cg__rotation__from__fslopes_8cc.html" title="src/calibration/cg\l_rotation_from_fslopes.cc" alt="" coords="349,102,521,143"/>
+<area shape="rect" id="node5" href="$cg__slopes__viewer_8cc.html" title="src/calibration/cg\l_slopes_viewer.cc" alt="" coords="545,102,676,143"/>
+<area shape="rect" id="node6" href="$cg__visualize__fslopes_8cc.html" title="src/calibration/cg\l_visualize_fslopes.cc" alt="" coords="700,102,847,143"/>
+<area shape="rect" id="node7" href="$feature__slopes_8cc.html" title="src/calibration/lib\l/cg/feature_slopes.cc" alt="" coords="871,102,1017,143"/>
+</map>

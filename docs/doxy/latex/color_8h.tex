@@ -1,0 +1,60 @@
+\hypertarget{color_8h}{}\section{src/lib/color.h File Reference}
+\label{color_8h}\index{src/lib/color.\+h@{src/lib/color.\+h}}
+{\ttfamily \#include $<$cstdint$>$}\\*
+{\ttfamily \#include \char`\"{}common.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}opencv.\+h\char`\"{}}\\*
+Include dependency graph for color.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{color_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{color_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtlz_1_1rgb__color}{tlz\+::rgb\+\_\+color}
+\begin{DoxyCompactList}\small\item\em R\+GB color, 8 bit. \end{DoxyCompactList}\item 
+struct \hyperlink{structtlz_1_1ycbcr__color}{tlz\+::ycbcr\+\_\+color}
+\begin{DoxyCompactList}\small\item\em Y\+Cb\+Cr color, 8 bit. \end{DoxyCompactList}\item 
+class \hyperlink{classcv_1_1DataType_3_1_1tlz_1_1rgb__color_01_4}{cv\+::\+Data\+Type$<$\+::tlz\+::rgb\+\_\+color $>$}
+\item 
+class \hyperlink{classcv_1_1DataType_3_1_1tlz_1_1ycbcr__color_01_4}{cv\+::\+Data\+Type$<$\+::tlz\+::ycbcr\+\_\+color $>$}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\item 
+ \hyperlink{namespacecv}{cv}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{namespacetlz_a3b289c9c41fe1cdab678e271b767f2f6}{tlz\+::operator==} (const rgb\+\_\+color \&a, const rgb\+\_\+color \&b)
+\item 
+bool \hyperlink{namespacetlz_a1f84bedb137fe608d5905ceaf50a07aa}{tlz\+::operator!=} (const rgb\+\_\+color \&a, const rgb\+\_\+color \&b)
+\item 
+bool \hyperlink{namespacetlz_a9c35341a5a9f3f96d3dc6f55314c4ae9}{tlz\+::operator==} (const ycbcr\+\_\+color \&a, const ycbcr\+\_\+color \&b)
+\item 
+bool \hyperlink{namespacetlz_a8c4e218d04c33edf551865f7d9450e85}{tlz\+::operator!=} (const ycbcr\+\_\+color \&a, const ycbcr\+\_\+color \&b)
+\item 
+{\footnotesize template$<$typename Output , typename Input $>$ }\\Output \hyperlink{namespacetlz_aa6d711844af32ad824b8011e0ef067e2}{tlz\+::color\+\_\+convert} (const Input \&)
+\begin{DoxyCompactList}\small\item\em Color conversion, specialized for different color formats. \end{DoxyCompactList}\item 
+{\footnotesize template$<$$>$ }\\rgb\+\_\+color \hyperlink{namespacetlz_ac5c70844f4828872cad9e450a78c0a98}{tlz\+::color\+\_\+convert} (const ycbcr\+\_\+color \&in)
+\item 
+{\footnotesize template$<$$>$ }\\ycbcr\+\_\+color \hyperlink{namespacetlz_aaf705a9e6c223c6e59eb6cc76aa3c30b}{tlz\+::color\+\_\+convert} (const rgb\+\_\+color \&in)
+\item 
+rgb\+\_\+color \hyperlink{namespacetlz_a06be464f6d4245b8c1b6c641b56a229b}{tlz\+::color\+\_\+blend} (const rgb\+\_\+color \&a, const rgb\+\_\+color \&b)
+\begin{DoxyCompactList}\small\item\em Color blend. \end{DoxyCompactList}\item 
+rgb\+\_\+color \hyperlink{namespacetlz_a87e0efc10449cdee59c0278e87a46c69}{tlz\+::color\+\_\+blend} (const rgb\+\_\+color \&a, real a\+\_\+weight, const rgb\+\_\+color \&b, real b\+\_\+weight)
+\end{DoxyCompactItemize}

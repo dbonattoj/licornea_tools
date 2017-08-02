@@ -1,0 +1,14 @@
+<map id="src/calibration/cg_choose_refgrid.cc" name="src/calibration/cg_choose_refgrid.cc">
+<area shape="rect" id="node7" href="$references__grid_8h.html" title="lib/cg/references_grid.h" alt="" coords="1189,95,1347,121"/>
+<area shape="rect" id="node8" href="$json_8h.html" title="../../../lib/json.h" alt="" coords="741,393,851,420"/>
+<area shape="rect" id="node16" href="$args_8h.html" title="args.h" alt="" coords="1011,468,1069,495"/>
+<area shape="rect" id="node19" href="$dataset_8h.html" title="../../lib/dataset.h" alt="" coords="669,244,787,271"/>
+<area shape="rect" id="node28" href="$filesystem_8h.html" title="../lib/filesystem.h" alt="" coords="1483,169,1605,196"/>
+<area shape="rect" id="node29" href="$image__io_8h.html" title="../lib/image_io.h" alt="" coords="223,319,337,345"/>
+<area shape="rect" id="node18" href="$image__correspondence_8h.html" title="../image_correspondence.h" alt="" coords="853,169,1032,196"/>
+<area shape="rect" id="node10" href="$lib_2common_8h.html" title="common.h" alt="" coords="265,543,348,569"/>
+<area shape="rect" id="node22" href="$intrinsics_8h.html" title="../../lib/intrinsics.h" alt="" coords="875,319,1002,345"/>
+<area shape="rect" id="node25" href="$feature__point_8h.html" title="feature_point.h" alt="" coords="413,319,521,345"/>
+<area shape="rect" id="node21" href="$border_8h.html" title="border.h" alt="" coords="680,319,749,345"/>
+<area shape="rect" id="node23" href="$opencv_8h.html" title="opencv.h" alt="" coords="456,393,531,420"/>
+</map>

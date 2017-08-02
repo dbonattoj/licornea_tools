@@ -1,0 +1,8 @@
+<map id="tlz::border::operator bool" name="tlz::border::operator bool">
+<area shape="rect" id="node2" href="$structtlz_1_1border.html#a6187b6ab499b6dc802e99244f7506def" title="tlz::border::is_none" alt="" coords="216,5,349,32"/>
+<area shape="rect" id="node3" href="$namespacetlz.html#a0f52424381098b5c19e34aef5da5232e" title="tlz::encode_border" alt="" coords="218,56,347,83"/>
+<area shape="rect" id="node4" href="$namespacetlz.html#a9517e892e5486b965a722d5589dc58c4" title="tlz::decode_border" alt="" coords="218,107,347,133"/>
+<area shape="rect" id="node7" href="$namespacetlz.html#a0b91e1131356fee9a4c7a72c3b398186" title="tlz::add_border" alt="" coords="229,157,337,184"/>
+<area shape="rect" id="node5" href="$namespacetlz.html#add846dc50c32dfb356cb1a7ac11d37ac" title="tlz::get_or" alt="" coords="397,107,477,133"/>
+<area shape="rect" id="node6" href="$namespacetlz.html#a252af14b9b4ac6502d3e9c5dd8dc90b8" title="tlz::has" alt="" coords="525,107,591,133"/>
+</map>

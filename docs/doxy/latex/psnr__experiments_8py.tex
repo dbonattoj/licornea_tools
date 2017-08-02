@@ -1,0 +1,59 @@
+\hypertarget{psnr__experiments_8py}{}\section{src/vsrs/psnr\+\_\+experiments.py File Reference}
+\label{psnr__experiments_8py}\index{src/vsrs/psnr\+\_\+experiments.\+py@{src/vsrs/psnr\+\_\+experiments.\+py}}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacepsnr__experiments}{psnr\+\_\+experiments}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespacepsnr__experiments_a71c162efb1f4c9ac9d416b0fe18fa166}{psnr\+\_\+experiments.\+usage\+\_\+fail} ()
+\item 
+def \hyperlink{namespacepsnr__experiments_a38a394d6318ffc25ddba2bb10a9016a7}{psnr\+\_\+experiments.\+run} (exp\+\_\+index, left\+\_\+cam, this\+\_\+cam, right\+\_\+cam)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespacepsnr__experiments_a5deb1c458380e20e1f7ada545e800a33}{psnr\+\_\+experiments.\+vsrs\+\_\+binary\+\_\+filename} = sys.\+argv\mbox{[}1\mbox{]}
+\item 
+\hyperlink{namespacepsnr__experiments_a0232c22d1dfe44a97729ae546b058128}{psnr\+\_\+experiments.\+parameters\+\_\+filename} = sys.\+argv\mbox{[}2\mbox{]}
+\item 
+\hyperlink{namespacepsnr__experiments_a32f07a4a298cf1838c1266dcbb7c768f}{psnr\+\_\+experiments.\+in\+\_\+experiments\+\_\+filename} = sys.\+argv\mbox{[}3\mbox{]}
+\item 
+\hyperlink{namespacepsnr__experiments_a2b33b493337c179f491d18d3a4febdbf}{psnr\+\_\+experiments.\+out\+\_\+results\+\_\+filename} = sys.\+argv\mbox{[}4\mbox{]}
+\item 
+\hyperlink{namespacepsnr__experiments_ad1579004777449df35b7cd0424133b10}{psnr\+\_\+experiments.\+datas} = Dataset(parameters\+\_\+filename)
+\item 
+\hyperlink{namespacepsnr__experiments_a493d7ff5bdc4bfa915290d691912964f}{psnr\+\_\+experiments.\+cameras\+\_\+filename} = os.\+path.\+join(os.\+path.\+dirname(out\+\_\+results\+\_\+filename), \char`\"{}vsrs\+\_\+cameras.\+txt\char`\"{})
+\item 
+\hyperlink{namespacepsnr__experiments_ae848e8dc4a88ad45dc8f4fc578a145a3}{psnr\+\_\+experiments.\+experiments} = json.\+load(f)
+\item 
+list \hyperlink{namespacepsnr__experiments_a6d491e2a38ac5e79f929cbe85e195d5f}{psnr\+\_\+experiments.\+experiments\+\_\+indexed} = \mbox{[}$\,$\mbox{]}
+\item 
+int \hyperlink{namespacepsnr__experiments_a95bd6fade9f6e50f91daf28b20ab6d33}{psnr\+\_\+experiments.\+n} = 0
+\item 
+list \hyperlink{namespacepsnr__experiments_a891f44706ebab018824dda78fa13840d}{psnr\+\_\+experiments.\+psnr\+\_\+results} = \mbox{[}None\mbox{]}$\ast$n
+\item 
+\hyperlink{namespacepsnr__experiments_ac658a4900340b7cee6bed9c8e0fafe26}{psnr\+\_\+experiments.\+exp\+\_\+index}
+\item 
+\hyperlink{namespacepsnr__experiments_a73bc4364dfa07a7d47d805235227b20b}{psnr\+\_\+experiments.\+left\+\_\+cam}
+\item 
+\hyperlink{namespacepsnr__experiments_ac86607a93b7487822749da9fa9a881c3}{psnr\+\_\+experiments.\+virtual\+\_\+cam}
+\item 
+\hyperlink{namespacepsnr__experiments_a920b8cd9a2b238288683cc42577e1e78}{psnr\+\_\+experiments.\+right\+\_\+cam}
+\item 
+\hyperlink{namespacepsnr__experiments_a6ba2472659fdf21533f42747332314d5}{psnr\+\_\+experiments.\+psnr} = psnr\+\_\+results\mbox{[}i\mbox{]}
+\item 
+\hyperlink{namespacepsnr__experiments_a8a6c602a87ff03d2d46adca89a1e40a6}{psnr\+\_\+experiments.\+left\+\_\+x}
+\item 
+\hyperlink{namespacepsnr__experiments_a42d4bc5bf8a4d16a6ad24adc915524c9}{psnr\+\_\+experiments.\+left\+\_\+y}
+\item 
+\hyperlink{namespacepsnr__experiments_a7f575b8c058710f86762fea9a6a51fa0}{psnr\+\_\+experiments.\+virtual\+\_\+x}
+\item 
+\hyperlink{namespacepsnr__experiments_aa8d539be966b440eb296d7ac86bebd0c}{psnr\+\_\+experiments.\+virtual\+\_\+y}
+\item 
+\hyperlink{namespacepsnr__experiments_abeb7ea20616f61e643624bf7cfea24c3}{psnr\+\_\+experiments.\+right\+\_\+x}
+\item 
+\hyperlink{namespacepsnr__experiments_a75d9f6e7c130f394ccdd236191603e5c}{psnr\+\_\+experiments.\+right\+\_\+y}
+\end{DoxyCompactItemize}

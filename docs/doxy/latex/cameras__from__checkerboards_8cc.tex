@@ -1,0 +1,70 @@
+\hypertarget{cameras__from__checkerboards_8cc}{}\section{src/calibration/cameras\+\_\+from\+\_\+checkerboards.cc File Reference}
+\label{cameras__from__checkerboards_8cc}\index{src/calibration/cameras\+\_\+from\+\_\+checkerboards.\+cc@{src/calibration/cameras\+\_\+from\+\_\+checkerboards.\+cc}}
+{\ttfamily \#include \char`\"{}../lib/common.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/args.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/json.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/camera.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/dataset.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/intrinsics.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/assert.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/opencv.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/image\+\_\+io.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/filesystem.\+h\char`\"{}}\\*
+Include dependency graph for cameras\+\_\+from\+\_\+checkerboards.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cameras__from__checkerboards_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \hyperlink{namespacetlz_ad0646d752ddb9d40d702d40cc6dc54a1}{vec3} $>$ \hyperlink{cameras__from__checkerboards_8cc_a1dd82540cd3fb4badc243bb1c26b50a8}{checkerboard\+\_\+world\+\_\+corners} (int \hyperlink{checkerboard__samples_8cc_a4407a60bc4387adae24cee658711f2d9}{cols}, int \hyperlink{checkerboard__samples_8cc_a061459acc9e078fa4699e0e349887215}{rows}, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} \hyperlink{checkerboard__samples_8cc_ac9c5e9ae84febda1283c11202619c086}{square\+\_\+width})
+\item 
+int \hyperlink{cameras__from__checkerboards_8cc_ac0f2228420376f4db7e1274f2b41667c}{main} (int argc, const char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const bool \hyperlink{cameras__from__checkerboards_8cc_a087685f54898c5180dd954bfc1e5fb1f}{verbose} = false
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{cameras\+\_\+from\+\_\+checkerboards.\+cc@{cameras\+\_\+from\+\_\+checkerboards.\+cc}!checkerboard\+\_\+world\+\_\+corners@{checkerboard\+\_\+world\+\_\+corners}}
+\index{checkerboard\+\_\+world\+\_\+corners@{checkerboard\+\_\+world\+\_\+corners}!cameras\+\_\+from\+\_\+checkerboards.\+cc@{cameras\+\_\+from\+\_\+checkerboards.\+cc}}
+\subsubsection[{\texorpdfstring{checkerboard\+\_\+world\+\_\+corners(int cols, int rows, real square\+\_\+width)}{checkerboard_world_corners(int cols, int rows, real square_width)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf vec3}$>$ checkerboard\+\_\+world\+\_\+corners (
+\begin{DoxyParamCaption}
+\item[{int}]{cols, }
+\item[{int}]{rows, }
+\item[{{\bf real}}]{square\+\_\+width}
+\end{DoxyParamCaption}
+)}\hypertarget{cameras__from__checkerboards_8cc_a1dd82540cd3fb4badc243bb1c26b50a8}{}\label{cameras__from__checkerboards_8cc_a1dd82540cd3fb4badc243bb1c26b50a8}
+
+
+Definition at line 17 of file cameras\+\_\+from\+\_\+checkerboards.\+cc.
+
+\index{cameras\+\_\+from\+\_\+checkerboards.\+cc@{cameras\+\_\+from\+\_\+checkerboards.\+cc}!main@{main}}
+\index{main@{main}!cameras\+\_\+from\+\_\+checkerboards.\+cc@{cameras\+\_\+from\+\_\+checkerboards.\+cc}}
+\subsubsection[{\texorpdfstring{main(int argc, const char $\ast$argv[])}{main(int argc, const char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{const char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{cameras__from__checkerboards_8cc_ac0f2228420376f4db7e1274f2b41667c}{}\label{cameras__from__checkerboards_8cc_ac0f2228420376f4db7e1274f2b41667c}
+
+
+Definition at line 25 of file cameras\+\_\+from\+\_\+checkerboards.\+cc.
+
+
+
+\subsection{Variable Documentation}
+\index{cameras\+\_\+from\+\_\+checkerboards.\+cc@{cameras\+\_\+from\+\_\+checkerboards.\+cc}!verbose@{verbose}}
+\index{verbose@{verbose}!cameras\+\_\+from\+\_\+checkerboards.\+cc@{cameras\+\_\+from\+\_\+checkerboards.\+cc}}
+\subsubsection[{\texorpdfstring{verbose}{verbose}}]{\setlength{\rightskip}{0pt plus 5cm}const bool verbose = false}\hypertarget{cameras__from__checkerboards_8cc_a087685f54898c5180dd954bfc1e5fb1f}{}\label{cameras__from__checkerboards_8cc_a087685f54898c5180dd954bfc1e5fb1f}
+
+
+Definition at line 14 of file cameras\+\_\+from\+\_\+checkerboards.\+cc.
+

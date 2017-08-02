@@ -1,0 +1,9 @@
+<map id="src/lib/io.h" name="src/lib/io.h">
+<area shape="rect" id="node2" href="$ply__exporter_8h.html" title="src/lib/ply_exporter.h" alt="" coords="274,80,417,107"/>
+<area shape="rect" id="node6" href="$io_8cc.html" title="src/lib/io.cc" alt="" coords="465,80,554,107"/>
+<area shape="rect" id="node7" href="$ply__importer_8h.html" title="src/lib/ply_importer.h" alt="" coords="626,80,769,107"/>
+<area shape="rect" id="node3" href="$depth__remapping_8cc.html" title="src/kinect/depth_remapping.cc" alt="" coords="5,155,205,181"/>
+<area shape="rect" id="node4" href="$depth__reprojection_8cc.html" title="src/kinect/depth_reprojection.cc" alt="" coords="230,155,437,181"/>
+<area shape="rect" id="node5" href="$ply__exporter_8cc.html" title="src/lib/ply_exporter.cc" alt="" coords="461,155,611,181"/>
+<area shape="rect" id="node8" href="$ply__importer_8cc.html" title="src/lib/ply_importer.cc" alt="" coords="635,155,786,181"/>
+</map>

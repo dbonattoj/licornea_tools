@@ -1,0 +1,156 @@
+\hypertarget{cg__rotation__from__depths_8cc}{}\section{src/calibration/cg\+\_\+rotation\+\_\+from\+\_\+depths.cc File Reference}
+\label{cg__rotation__from__depths_8cc}\index{src/calibration/cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{src/calibration/cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}}
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$cassert$>$}\\*
+{\ttfamily \#include \char`\"{}lib/image\+\_\+correspondence.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/feature\+\_\+point.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/args.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/rotation.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/misc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/json.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/intrinsics.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/assert.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/opencv.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/eigen.\+h\char`\"{}}\\*
+Include dependency graph for cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cg__rotation__from__depths_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{cg__rotation__from__depths_8cc_accaf68621975d8e498eecf14c24a24ec}{xy\+\_\+rotation} = \hyperlink{namespacetlz_ad0646d752ddb9d40d702d40cc6dc54a1}{vec3}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const \hyperlink{namespacetlz_ad0646d752ddb9d40d702d40cc6dc54a1}{vec3} \hyperlink{cg__rotation__from__depths_8cc_a5b57319a2fb3750b839043a88dfee1c5}{null\+\_\+vec3} (0.\+0, 0.\+0, 0.\+0)
+\item 
+\hyperlink{cg__rotation__from__depths_8cc_accaf68621975d8e498eecf14c24a24ec}{xy\+\_\+rotation} \hyperlink{cg__rotation__from__depths_8cc_a0912195dab0b58960e0b7c70a3272965}{estimate\+\_\+xy\+\_\+rotation} (const \hyperlink{namespacetlz_a6679497d5121f319147594e1f344ef57}{mat33} \&K\+\_\+inv, const \hyperlink{structtlz_1_1image__correspondence__feature}{image\+\_\+correspondence\+\_\+feature} \&feature)
+\item 
+\hyperlink{namespacetlz_a6679497d5121f319147594e1f344ef57}{mat33} \hyperlink{cg__rotation__from__depths_8cc_a49cc238fbfcdca86fd6d95ab89203f77}{xy\+\_\+rotation\+\_\+matrix} (const \hyperlink{cg__rotation__from__depths_8cc_accaf68621975d8e498eecf14c24a24ec}{xy\+\_\+rotation} \&normal)
+\item 
+\hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} \hyperlink{cg__rotation__from__depths_8cc_a3a7ae08da1a13219a928f046ead06a1e}{additional\+\_\+z\+\_\+rotation} (const \hyperlink{namespacetlz_a6679497d5121f319147594e1f344ef57}{mat33} \&K\+\_\+inv, const \hyperlink{namespacetlz_a6679497d5121f319147594e1f344ef57}{mat33} \&R\+\_\+xy, const \hyperlink{structtlz_1_1image__correspondence__feature}{image\+\_\+correspondence\+\_\+feature} \&feature)
+\item 
+int \hyperlink{cg__rotation__from__depths_8cc_ac0f2228420376f4db7e1274f2b41667c}{main} (int argc, const char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr bool \hyperlink{cg__rotation__from__depths_8cc_aa0809dffbdf183a6a189ebb277bf6866}{verbose} = true
+\item 
+constexpr int \hyperlink{cg__rotation__from__depths_8cc_a23254b41a9b8e2d6ed7b8efba3614150}{depth\+\_\+min\+\_\+views} = 100
+\item 
+constexpr int \hyperlink{cg__rotation__from__depths_8cc_a941861e1eb8c6d65b1eabe5578a6ed1f}{hslope\+\_\+min\+\_\+views} = 10
+\item 
+constexpr int \hyperlink{cg__rotation__from__depths_8cc_a792fca3f0283649557c57ad30a00a1cb}{vslope\+\_\+min\+\_\+views} = 10
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\index{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}!xy\+\_\+rotation@{xy\+\_\+rotation}}
+\index{xy\+\_\+rotation@{xy\+\_\+rotation}!cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}}
+\subsubsection[{\texorpdfstring{xy\+\_\+rotation}{xy_rotation}}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf xy\+\_\+rotation} =  {\bf vec3}}\hypertarget{cg__rotation__from__depths_8cc_accaf68621975d8e498eecf14c24a24ec}{}\label{cg__rotation__from__depths_8cc_accaf68621975d8e498eecf14c24a24ec}
+
+
+Definition at line 29 of file cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc.
+
+
+
+\subsection{Function Documentation}
+\index{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}!additional\+\_\+z\+\_\+rotation@{additional\+\_\+z\+\_\+rotation}}
+\index{additional\+\_\+z\+\_\+rotation@{additional\+\_\+z\+\_\+rotation}!cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}}
+\subsubsection[{\texorpdfstring{additional\+\_\+z\+\_\+rotation(const mat33 \&\+K\+\_\+inv, const mat33 \&\+R\+\_\+xy, const image\+\_\+correspondence\+\_\+feature \&feature)}{additional_z_rotation(const mat33 &K_inv, const mat33 &R_xy, const image_correspondence_feature &feature)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf real} additional\+\_\+z\+\_\+rotation (
+\begin{DoxyParamCaption}
+\item[{const {\bf mat33} \&}]{K\+\_\+inv, }
+\item[{const {\bf mat33} \&}]{R\+\_\+xy, }
+\item[{const {\bf image\+\_\+correspondence\+\_\+feature} \&}]{feature}
+\end{DoxyParamCaption}
+)}\hypertarget{cg__rotation__from__depths_8cc_a3a7ae08da1a13219a928f046ead06a1e}{}\label{cg__rotation__from__depths_8cc_a3a7ae08da1a13219a928f046ead06a1e}
+
+
+Definition at line 83 of file cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc.
+
+\index{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}!estimate\+\_\+xy\+\_\+rotation@{estimate\+\_\+xy\+\_\+rotation}}
+\index{estimate\+\_\+xy\+\_\+rotation@{estimate\+\_\+xy\+\_\+rotation}!cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}}
+\subsubsection[{\texorpdfstring{estimate\+\_\+xy\+\_\+rotation(const mat33 \&\+K\+\_\+inv, const image\+\_\+correspondence\+\_\+feature \&feature)}{estimate_xy_rotation(const mat33 &K_inv, const image_correspondence_feature &feature)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf xy\+\_\+rotation} estimate\+\_\+xy\+\_\+rotation (
+\begin{DoxyParamCaption}
+\item[{const {\bf mat33} \&}]{K\+\_\+inv, }
+\item[{const {\bf image\+\_\+correspondence\+\_\+feature} \&}]{feature}
+\end{DoxyParamCaption}
+)}\hypertarget{cg__rotation__from__depths_8cc_a0912195dab0b58960e0b7c70a3272965}{}\label{cg__rotation__from__depths_8cc_a0912195dab0b58960e0b7c70a3272965}
+
+
+Definition at line 31 of file cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc.
+
+\index{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}!main@{main}}
+\index{main@{main}!cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}}
+\subsubsection[{\texorpdfstring{main(int argc, const char $\ast$argv[])}{main(int argc, const char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{const char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{cg__rotation__from__depths_8cc_ac0f2228420376f4db7e1274f2b41667c}{}\label{cg__rotation__from__depths_8cc_ac0f2228420376f4db7e1274f2b41667c}
+
+
+Definition at line 124 of file cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc.
+
+\index{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}!null\+\_\+vec3@{null\+\_\+vec3}}
+\index{null\+\_\+vec3@{null\+\_\+vec3}!cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}}
+\subsubsection[{\texorpdfstring{null\+\_\+vec3(0.\+0, 0.\+0, 0.\+0)}{null_vec3(0.0, 0.0, 0.0)}}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf vec3} null\+\_\+vec3 (
+\begin{DoxyParamCaption}
+\item[{0.}]{0, }
+\item[{0.}]{0, }
+\item[{0.}]{0}
+\end{DoxyParamCaption}
+)}\hypertarget{cg__rotation__from__depths_8cc_a5b57319a2fb3750b839043a88dfee1c5}{}\label{cg__rotation__from__depths_8cc_a5b57319a2fb3750b839043a88dfee1c5}
+\index{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}!xy\+\_\+rotation\+\_\+matrix@{xy\+\_\+rotation\+\_\+matrix}}
+\index{xy\+\_\+rotation\+\_\+matrix@{xy\+\_\+rotation\+\_\+matrix}!cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}}
+\subsubsection[{\texorpdfstring{xy\+\_\+rotation\+\_\+matrix(const xy\+\_\+rotation \&normal)}{xy_rotation_matrix(const xy_rotation &normal)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mat33} xy\+\_\+rotation\+\_\+matrix (
+\begin{DoxyParamCaption}
+\item[{const {\bf xy\+\_\+rotation} \&}]{normal}
+\end{DoxyParamCaption}
+)}\hypertarget{cg__rotation__from__depths_8cc_a49cc238fbfcdca86fd6d95ab89203f77}{}\label{cg__rotation__from__depths_8cc_a49cc238fbfcdca86fd6d95ab89203f77}
+
+
+Definition at line 68 of file cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc.
+
+
+
+\subsection{Variable Documentation}
+\index{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}!depth\+\_\+min\+\_\+views@{depth\+\_\+min\+\_\+views}}
+\index{depth\+\_\+min\+\_\+views@{depth\+\_\+min\+\_\+views}!cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}}
+\subsubsection[{\texorpdfstring{depth\+\_\+min\+\_\+views}{depth_min_views}}]{\setlength{\rightskip}{0pt plus 5cm}constexpr int depth\+\_\+min\+\_\+views = 100}\hypertarget{cg__rotation__from__depths_8cc_a23254b41a9b8e2d6ed7b8efba3614150}{}\label{cg__rotation__from__depths_8cc_a23254b41a9b8e2d6ed7b8efba3614150}
+
+
+Definition at line 22 of file cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc.
+
+\index{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}!hslope\+\_\+min\+\_\+views@{hslope\+\_\+min\+\_\+views}}
+\index{hslope\+\_\+min\+\_\+views@{hslope\+\_\+min\+\_\+views}!cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}}
+\subsubsection[{\texorpdfstring{hslope\+\_\+min\+\_\+views}{hslope_min_views}}]{\setlength{\rightskip}{0pt plus 5cm}constexpr int hslope\+\_\+min\+\_\+views = 10}\hypertarget{cg__rotation__from__depths_8cc_a941861e1eb8c6d65b1eabe5578a6ed1f}{}\label{cg__rotation__from__depths_8cc_a941861e1eb8c6d65b1eabe5578a6ed1f}
+
+
+Definition at line 23 of file cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc.
+
+\index{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}!verbose@{verbose}}
+\index{verbose@{verbose}!cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}}
+\subsubsection[{\texorpdfstring{verbose}{verbose}}]{\setlength{\rightskip}{0pt plus 5cm}constexpr bool verbose = true}\hypertarget{cg__rotation__from__depths_8cc_aa0809dffbdf183a6a189ebb277bf6866}{}\label{cg__rotation__from__depths_8cc_aa0809dffbdf183a6a189ebb277bf6866}
+
+
+Definition at line 20 of file cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc.
+
+\index{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}!vslope\+\_\+min\+\_\+views@{vslope\+\_\+min\+\_\+views}}
+\index{vslope\+\_\+min\+\_\+views@{vslope\+\_\+min\+\_\+views}!cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc@{cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc}}
+\subsubsection[{\texorpdfstring{vslope\+\_\+min\+\_\+views}{vslope_min_views}}]{\setlength{\rightskip}{0pt plus 5cm}constexpr int vslope\+\_\+min\+\_\+views = 10}\hypertarget{cg__rotation__from__depths_8cc_a792fca3f0283649557c57ad30a00a1cb}{}\label{cg__rotation__from__depths_8cc_a792fca3f0283649557c57ad30a00a1cb}
+
+
+Definition at line 24 of file cg\+\_\+rotation\+\_\+from\+\_\+depths.\+cc.
+

@@ -1,0 +1,15 @@
+<map id="src/calibration/cg_rotation_from_depths.cc" name="src/calibration/cg_rotation_from_depths.cc">
+<area shape="rect" id="node8" href="$image__correspondence_8h.html" title="lib/image_correspondence.h" alt="" coords="547,95,731,121"/>
+<area shape="rect" id="node9" href="$json_8h.html" title="../../lib/json.h" alt="" coords="456,319,555,345"/>
+<area shape="rect" id="node18" href="$args_8h.html" title="args.h" alt="" coords="809,393,868,420"/>
+<area shape="rect" id="node23" href="$intrinsics_8h.html" title="../../lib/intrinsics.h" alt="" coords="801,169,927,196"/>
+<area shape="rect" id="node24" href="$opencv_8h.html" title="opencv.h" alt="" coords="1003,244,1077,271"/>
+<area shape="rect" id="node26" href="$feature__point_8h.html" title="feature_point.h" alt="" coords="185,244,293,271"/>
+<area shape="rect" id="node29" href="$rotation_8h.html" title="../lib/rotation.h" alt="" coords="43,319,149,345"/>
+<area shape="rect" id="node30" href="$misc_8h.html" title="../lib/misc.h" alt="" coords="1297,393,1388,420"/>
+<area shape="rect" id="node34" href="$assert_8h.html" title="../lib/assert.h" alt="" coords="1528,319,1627,345"/>
+<area shape="rect" id="node35" href="$eigen_8h.html" title="../lib/eigen.h" alt="" coords="1457,95,1551,121"/>
+<area shape="rect" id="node20" href="$dataset_8h.html" title="../../lib/dataset.h" alt="" coords="472,169,589,196"/>
+<area shape="rect" id="node11" href="$lib_2common_8h.html" title="common.h" alt="" coords="521,468,604,495"/>
+<area shape="rect" id="node22" href="$border_8h.html" title="border.h" alt="" coords="469,244,539,271"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="tlz::grabber::registration" name="tlz::grabber::registration">
+<area shape="rect" id="node2" href="$classtlz_1_1grabber.html#a22479c42efb500428a6178391d3e9611" title="tlz::grabber::internal\l_parameters" alt="" coords="232,5,369,47"/>
+<area shape="rect" id="node3" href="$classtlz_1_1grabber.html#a64e9af7d0c0e982539c7465f4c8c2755" title="tlz::grabber::get_color\l_frame" alt="" coords="227,71,375,112"/>
+<area shape="rect" id="node4" href="$classtlz_1_1grabber.html#a5b829552bf72ef9996dcb7d3a40f42d2" title="tlz::grabber::get_registered\l_color_frame" alt="" coords="212,136,389,177"/>
+<area shape="rect" id="node5" href="$classtlz_1_1grabber.html#ab0a7ab9197c8d2676a072c3f9eadd96d" title="tlz::grabber::get_ir\l_frame" alt="" coords="237,201,364,243"/>
+<area shape="rect" id="node6" href="$classtlz_1_1grabber.html#ac0436df6301b3b5773d06c499d946fbb" title="tlz::grabber::get_original\l_ir_frame" alt="" coords="220,267,381,308"/>
+<area shape="rect" id="node7" href="$classtlz_1_1grabber.html#a22caa426aef0275c5cdf9bfebe352940" title="tlz::grabber::get_depth\l_frame" alt="" coords="225,332,377,373"/>
+<area shape="rect" id="node8" href="$classtlz_1_1grabber.html#a0b1242b05d42416c5558bf31e5494dc2" title="tlz::grabber::get_bigdepth\l_frame" alt="" coords="216,397,385,439"/>
+</map>

@@ -1,0 +1,16 @@
+<map id="src/calibration/cg_stitch_cameras.cc" name="src/calibration/cg_stitch_cameras.cc">
+<area shape="rect" id="node2" href="$lib_2common_8h.html" title="../lib/common.h" alt="" coords="1632,557,1744,584"/>
+<area shape="rect" id="node11" href="$args_8h.html" title="../lib/args.h" alt="" coords="963,483,1050,509"/>
+<area shape="rect" id="node14" href="$json_8h.html" title="../lib/json.h" alt="" coords="1307,408,1394,435"/>
+<area shape="rect" id="node16" href="$camera_8h.html" title="../lib/camera.h" alt="" coords="551,326,657,353"/>
+<area shape="rect" id="node19" href="$dataset_8h.html" title="../lib/dataset.h" alt="" coords="1338,244,1443,271"/>
+<area shape="rect" id="node22" href="$intrinsics_8h.html" title="../lib/intrinsics.h" alt="" coords="895,244,1009,271"/>
+<area shape="rect" id="node25" href="$misc_8h.html" title="../lib/misc.h" alt="" coords="224,483,315,509"/>
+<area shape="rect" id="node29" href="$assert_8h.html" title="../lib/assert.h" alt="" coords="2033,169,2132,196"/>
+<area shape="rect" id="node30" href="$references__grid_8h.html" title="lib/cg/references_grid.h" alt="" coords="1095,95,1252,121"/>
+<area shape="rect" id="node34" href="$relative__camera__positions_8h.html" title="lib/cg/relative_camera\l_positions.h" alt="" coords="1801,319,1951,360"/>
+<area shape="rect" id="node21" href="$border_8h.html" title="border.h" alt="" coords="1337,326,1407,353"/>
+<area shape="rect" id="node23" href="$opencv_8h.html" title="opencv.h" alt="" coords="884,326,959,353"/>
+<area shape="rect" id="node31" href="$image__correspondence_8h.html" title="../image_correspondence.h" alt="" coords="1084,169,1263,196"/>
+<area shape="rect" id="node32" href="$feature__point_8h.html" title="feature_point.h" alt="" coords="1669,326,1777,353"/>
+</map>

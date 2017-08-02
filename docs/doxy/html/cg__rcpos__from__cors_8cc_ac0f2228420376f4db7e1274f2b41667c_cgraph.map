@@ -1,0 +1,51 @@
+<map id="main" name="main">
+<area shape="rect" id="node2" href="$namespacetlz.html#a3c03f5d9d6261ec2909938822fc47f8a" title="tlz::get_args" alt="" coords="162,21,257,48"/>
+<area shape="rect" id="node3" href="$namespacetlz.html#a91f1aec7120c97452c495ee447e56b57" title="tlz::dataset_arg" alt="" coords="421,5,533,32"/>
+<area shape="rect" id="node11" href="$namespacetlz.html#a11d8bb3ca89f4957bfde1cd0d5429a16" title="tlz::image_correspondences_arg" alt="" coords="104,123,315,149"/>
+<area shape="rect" id="node18" href="$namespacetlz.html#a170805c7a8ede64a93e0ee23196e5b7c" title="tlz::intrinsics_arg" alt="" coords="149,275,270,301"/>
+<area shape="rect" id="node20" href="$namespacetlz.html#a066563a26e2de02f215b179f3d3a53da" title="tlz::decode_mat" alt="" coords="699,419,813,445"/>
+<area shape="rect" id="node22" href="$namespacetlz.html#a35f9e03fa4fd9cec699f5fa27962400f" title="tlz::json_arg" alt="" coords="430,107,523,133"/>
+<area shape="rect" id="node23" href="$namespacetlz.html#a13d1bcc21c6eb46a1226f7cf943fcf72" title="tlz::straight_depths_arg" alt="" coords="130,224,289,251"/>
+<area shape="rect" id="node25" href="$namespacetlz.html#a65770a2c1ff57c5ae6542d4465a3d3f4" title="tlz::out_filename_arg" alt="" coords="685,469,827,496"/>
+<area shape="rect" id="node26" href="$namespacetlz.html#a4791154460ea7bf2fa5984b1748bc9d1" title="tlz::out_filename_opt_arg" alt="" coords="393,629,561,656"/>
+<area shape="rect" id="node29" href="$classtlz_1_1dataset.html#a3623ef5d2922b36ca94b4982ba17e9fe" title="tlz::dataset::is_2d" alt="" coords="146,477,273,504"/>
+<area shape="rect" id="node30" href="$structtlz_1_1distortion__parameters.html#a307fee036b04519d633fb8456899850c" title="tlz::distortion_parameters\l::is_none" alt="" coords="125,529,294,570"/>
+<area shape="rect" id="node31" href="$namespacetlz.html#ace8122bb9e3521f3fbaa00a88a1d5928" title="tlz::get_all_views" alt="" coords="148,595,271,621"/>
+<area shape="rect" id="node33" href="$namespacetlz.html#a4c8ba0cd4f8d2e01c0aa3c58056bd648" title="tlz::get_reference\l_views" alt="" coords="148,646,271,687"/>
+<area shape="rect" id="node34" href="$namespacetlz.html#abab56a7d5e8f6eba9520c66a15fafa6d" title="tlz::feature_points\l_for_view" alt="" coords="146,711,273,753"/>
+<area shape="rect" id="node35" href="$namespacetlz.html#a322d5c4e810a487f114fd4a5e7dcf826" title="tlz::short_feature_name" alt="" coords="130,777,289,804"/>
+<area shape="rect" id="node36" href="$namespacetlz.html#a1b96e05afba5d411f359ae7b873aa8fe" title="tlz::mul_h" alt="" coords="170,828,249,855"/>
+<area shape="rect" id="node37" href="$structtlz_1_1intrinsics.html#ad5875d6c77076468aebce0d88ef61c20" title="tlz::intrinsics::fx" alt="" coords="152,879,267,905"/>
+<area shape="rect" id="node38" href="$structtlz_1_1intrinsics.html#a52e02ae0e8bbea245fcced1c38964f29" title="tlz::intrinsics::fy" alt="" coords="152,929,267,956"/>
+<area shape="rect" id="node39" href="$namespacetlz.html#ae26f7675ecb867cba4f721a2533bceb6" title="tlz::image_correspondences\l_with_reference" alt="" coords="117,981,302,1022"/>
+<area shape="rect" id="node40" href="$namespacetlz.html#a318f0ec11ecbe39c32ad870473ea9c35" title="Compute square of a number. " alt="" coords="447,1232,506,1259"/>
+<area shape="rect" id="node44" href="$cg__rcpos__from__cors_8cc.html#a799a945b91cda6ec9cecb2b12d851c96" title="compute_target_camera\l_position" alt="" coords="128,1098,291,1139"/>
+<area shape="rect" id="node45" href="$structtlz_1_1relative__camera__positions.html#a6680a08e1b0fed188e74280cb4874db0" title="tlz::relative_camera\l_positions::position" alt="" coords="141,1163,277,1205"/>
+<area shape="rect" id="node46" href="$structtlz_1_1relative__camera__positions.html#abc210fc9594b475dcbbb8706e0122742" title="tlz::relative_camera\l_positions::to_target\l_reference_positions" alt="" coords="138,1228,281,1284"/>
+<area shape="rect" id="node47" href="$classtlz_1_1dataset.html#a8214662ec50b7214c1e5993185247a0a" title="tlz::dataset::indices" alt="" coords="141,1308,277,1335"/>
+<area shape="rect" id="node48" href="$namespacetlz.html#ab98de0b10e3e079dee189f81adc638a0" title="tlz::export_json_file" alt="" coords="409,275,544,301"/>
+<area shape="rect" id="node49" href="$namespacetlz.html#a6bfcea8cf5a5125db91b5f84542f8044" title="tlz::encode_relative\l_camera_positions" alt="" coords="142,1410,277,1451"/>
+<area shape="rect" id="node4" href="$namespacetlz.html#a634de7ca11e100e4a118dffe80376a75" title="tlz::in_filename_arg" alt="" coords="689,48,823,75"/>
+<area shape="rect" id="node5" href="$namespacetlz.html#a0621d598fb83b13bf028f3e6293d04f8" title="tlz::string_arg" alt="" coords="922,469,1023,496"/>
+<area shape="rect" id="node6" href="$namespacetlz.html#a780431daab8d2595372eacb43143b52d" title="tlz::args" alt="" coords="1113,469,1182,496"/>
+<area shape="rect" id="node8" href="$classtlz_1_1args__list.html#a38ad21acd64a4af98ffdf4a47837cdbe" title="tlz::args_list::usage_fail" alt="" coords="1271,545,1431,572"/>
+<area shape="rect" id="node10" href="$namespacetlz.html#abb019466ea9f56c0dab27e893d891837" title="tlz::file_exists" alt="" coords="921,149,1024,176"/>
+<area shape="rect" id="node7" href="$classtlz_1_1args__list.html#a73d99bc75998dc14607a3a372d28dc6d" title="tlz::args_list::next_arg" alt="" coords="1072,545,1223,572"/>
+<area shape="rect" id="node9" href="$namespacetlz.html#a8e4f8c8c2927bc4350de13bfa0f8f9e1" title="tlz::to_string" alt="" coords="1303,600,1398,627"/>
+<area shape="rect" id="node12" href="$namespacetlz.html#ad75d99f2e1623434fbadee66f3ff29a1" title="tlz::import_image_correspondences" alt="" coords="363,157,591,184"/>
+<area shape="rect" id="node13" href="$namespacetlz.html#ae11c827ac9e581f9d2f98c39aab3750d" title="tlz::file_name_extension" alt="" coords="675,267,837,293"/>
+<area shape="rect" id="node14" href="$namespacetlz.html#a24915249769d936c24ceb34f50b06104" title="tlz::decode_image_correspondences" alt="" coords="639,216,873,243"/>
+<area shape="rect" id="node16" href="$namespacetlz.html#aa1be9362f548fcf9378e1fc9074089c4" title="tlz::import_json_file" alt="" coords="689,99,823,125"/>
+<area shape="rect" id="node17" href="$namespacetlz.html#a2ec439452fda5eeb03f60715e50fa96a" title="tlz::import_binary\l_image_correspondences" alt="" coords="671,150,841,191"/>
+<area shape="rect" id="node15" href="$namespacetlz.html#a252af14b9b4ac6502d3e9c5dd8dc90b8" title="tlz::has" alt="" coords="940,317,1005,344"/>
+<area shape="rect" id="node19" href="$namespacetlz.html#a8cba4853d0d796a01c72f59f36f2a492" title="tlz::decode_intrinsics" alt="" coords="404,325,549,352"/>
+<area shape="rect" id="node21" href="$namespacetlz.html#add846dc50c32dfb356cb1a7ac11d37ac" title="tlz::get_or" alt="" coords="716,317,796,344"/>
+<area shape="rect" id="node24" href="$namespacetlz.html#a18ebdbd3058b74f2195388d86343b21d" title="tlz::decode_straight\l_depths" alt="" coords="409,209,545,250"/>
+<area shape="rect" id="node27" href="$classtlz_1_1args__list.html#a4aee93f4b0d9b5b4e7a5d13cb637337c" title="tlz::args_list::has\l_next_arg" alt="" coords="695,622,817,663"/>
+<area shape="rect" id="node28" href="$classtlz_1_1args__list.html#ae7c07d1c8f24c2aa4fe0ba68ec45d353" title="tlz::args_list::next\l_arg_is" alt="" coords="1084,597,1211,638"/>
+<area shape="rect" id="node32" href="$namespacetlz.html#a5649e44b2c9d8527dcdcc6282b4850c3" title="tlz::get_all_views_set" alt="" coords="403,579,551,605"/>
+<area shape="rect" id="node41" href="$namespacetlz.html#a643b2d03bd805fe78dcd684ef45e52fb" title="Clamp value between minimum and maximum value. " alt="" coords="717,1181,795,1208"/>
+<area shape="rect" id="node42" href="$namespacetlz.html#a4fe5757a830e199f84d229eee11f616e" title="Compute greatest common divisor of a and b. " alt="" coords="723,1232,789,1259"/>
+<area shape="rect" id="node43" href="$namespacetlz.html#aec6e2158ce198aa20a8493fde3d3b552" title="Compute least common multiple of a and b. " alt="" coords="723,1283,789,1309"/>
+<area shape="rect" id="node50" href="$namespacetlz.html#acf7ca4ee1b750cf31a40170bea887d46" title="tlz::encode_mat" alt="" coords="419,1417,534,1444"/>
+</map>

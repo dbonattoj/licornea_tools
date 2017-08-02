@@ -1,0 +1,64 @@
+\hypertarget{view__homography_8h}{}\section{src/lib/view\+\_\+homography.h File Reference}
+\label{view__homography_8h}\index{src/lib/view\+\_\+homography.\+h@{src/lib/view\+\_\+homography.\+h}}
+{\ttfamily \#include \char`\"{}common.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dataset.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}json.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}args.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}border.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$map$>$}\\*
+Include dependency graph for view\+\_\+homography.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{view__homography_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{view__homography_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtlz_1_1view__homography}{tlz\+::view\+\_\+homography}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{namespacetlz_abd9713860da221719662169bd1821a9d}{tlz\+::view\+\_\+homographies} = std\+::map$<$ view\+\_\+index, view\+\_\+homography $>$
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+json \hyperlink{namespacetlz_a1a6da36ecd0f152dec63f309b9cb9504}{tlz\+::encode\+\_\+view\+\_\+homography} (const view\+\_\+homography \&hom)
+\item 
+view\+\_\+homography \hyperlink{namespacetlz_acc042de1df74e590015a1efe234a338c}{tlz\+::decode\+\_\+view\+\_\+homography} (const json \&j\+\_\+hom)
+\item 
+json \hyperlink{namespacetlz_a421abcd03726bf6a47bd0c518260af77}{tlz\+::encode\+\_\+view\+\_\+homographies} (const view\+\_\+homographies \&homs)
+\item 
+view\+\_\+homographies \hyperlink{namespacetlz_a2b9ca660faf3db42377043477bcee30b}{tlz\+::decode\+\_\+view\+\_\+homographies} (const json \&j\+\_\+homs)
+\item 
+bool \hyperlink{namespacetlz_a85a6b8de7967e1850e339011044322c5}{tlz\+::is\+\_\+single\+\_\+view\+\_\+homography} (const json \&j)
+\item 
+real \hyperlink{namespacetlz_a34afcd6e35245c38371a50dfd9ab1971}{tlz\+::view\+\_\+homographies\+\_\+error} (const view\+\_\+homographies \&homs)
+\item 
+std\+::vector$<$ vec2 $>$ \hyperlink{namespacetlz_ab111b1a9325e29c39936e5d7443ade4d}{tlz\+::quadrilateral} (const view\+\_\+homography \&hom, real width, real height)
+\item 
+\hyperlink{view__distortion_8cc_ae411f3a1782e7245d23e7b4772e1a21f}{border} \hyperlink{namespacetlz_a55aaec653a81676fbd03d8eacef449f0}{tlz\+::maximal\+\_\+border} (const view\+\_\+homography \&hom, real width, real height)
+\item 
+\hyperlink{view__distortion_8cc_ae411f3a1782e7245d23e7b4772e1a21f}{border} \hyperlink{namespacetlz_ac1020fe4e88b99fc400ff61a0923ef49}{tlz\+::maximal\+\_\+border} (const view\+\_\+homographies \&homs, real width, real height)
+\item 
+view\+\_\+homography \hyperlink{namespacetlz_a3ac10800719e65de4ff54112b989a8a7}{tlz\+::homography\+\_\+arg} ()
+\item 
+view\+\_\+homographies \hyperlink{namespacetlz_a734b9ad6a1a4eff4fc7972ff6b8e0b76}{tlz\+::homographies\+\_\+arg} ()
+\end{DoxyCompactItemize}

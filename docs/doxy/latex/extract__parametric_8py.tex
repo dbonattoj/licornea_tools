@@ -1,0 +1,51 @@
+\hypertarget{extract__parametric_8py}{}\section{src/misc/extract\+\_\+parametric.py File Reference}
+\label{extract__parametric_8py}\index{src/misc/extract\+\_\+parametric.\+py@{src/misc/extract\+\_\+parametric.\+py}}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceextract__parametric}{extract\+\_\+parametric}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceextract__parametric_a1b3d46b1d3f50aea355472de9ccff6b6}{extract\+\_\+parametric.\+f} (t)
+\item 
+def \hyperlink{namespaceextract__parametric_ac0b8fb89e267229597be31a581bed247}{extract\+\_\+parametric.\+fig8} (t)
+\item 
+def \hyperlink{namespaceextract__parametric_a229310fc0ffe5974a869a3cc37a45c2f}{extract\+\_\+parametric.\+spiral} (t, n=4)
+\item 
+def \hyperlink{namespaceextract__parametric_ab09e962b23175c33ce7cfe2cd25dc7cd}{extract\+\_\+parametric.\+circle} (t)
+\item 
+def \hyperlink{namespaceextract__parametric_a5f451daddc29d4fc71f0f052868a62d4}{extract\+\_\+parametric.\+usage\+\_\+fail} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespaceextract__parametric_a0eb7a97525953d846466d58d2a35175b}{extract\+\_\+parametric.\+parameters\+\_\+filename} = sys.\+argv\mbox{[}1\mbox{]}
+\item 
+\hyperlink{namespaceextract__parametric_adf9a3c8f1bd35b8eaa0aab6093f1d2ef}{extract\+\_\+parametric.\+out\+\_\+dirname} = sys.\+argv\mbox{[}2\mbox{]}
+\item 
+\hyperlink{namespaceextract__parametric_ab661bcbac8504f589b9ee4d6ee638a6d}{extract\+\_\+parametric.\+frames} = int(sys.\+argv\mbox{[}3\mbox{]})
+\item 
+\hyperlink{namespaceextract__parametric_a80f2e013a61bda4d25d8f744afa104ff}{extract\+\_\+parametric.\+datas} = Dataset(parameters\+\_\+filename)
+\item 
+list \hyperlink{namespaceextract__parametric_a04c0fe150206be8c6736ad9452783f23}{extract\+\_\+parametric.\+images} = \mbox{[}$\,$\mbox{]}
+\item 
+\hyperlink{namespaceextract__parametric_a730b851f64e77467557fbc820239405a}{extract\+\_\+parametric.\+t} = frame/(frames -\/ 1.\+0)
+\item 
+\hyperlink{namespaceextract__parametric_ab6f1cb05726babc5a8a23423bb0771ea}{extract\+\_\+parametric.\+x}
+\item 
+\hyperlink{namespaceextract__parametric_a44dd9ad3fb87f7ac87bf947c21ccda51}{extract\+\_\+parametric.\+y}
+\item 
+\hyperlink{namespaceextract__parametric_a635ed12295f3ed674897db057b560da2}{extract\+\_\+parametric.\+x\+\_\+ind} = math.\+trunc(x $\ast$ (datas.\+x\+\_\+max() -\/ datas.\+x\+\_\+min()))
+\item 
+\hyperlink{namespaceextract__parametric_a4b52673e12fe50f676553f4375dbd97a}{extract\+\_\+parametric.\+y\+\_\+ind} = math.\+trunc(y $\ast$ (datas.\+y\+\_\+max() -\/ datas.\+y\+\_\+min()))
+\item 
+\hyperlink{namespaceextract__parametric_a71563aa31bfb99f2393aeadc66797e54}{extract\+\_\+parametric.\+view} = datas.\+view(x\+\_\+ind, y\+\_\+ind)
+\item 
+\hyperlink{namespaceextract__parametric_ab9475a5f123365a5a868b9481e87d163}{extract\+\_\+parametric.\+image\+\_\+filename} = view.\+image\+\_\+filename()
+\item 
+int \hyperlink{namespaceextract__parametric_a073b7ebc2ff68e243f2c5ea8b1c6061d}{extract\+\_\+parametric.\+out\+\_\+frame} = 0
+\item 
+\hyperlink{namespaceextract__parametric_a65e8dff0853e3524cad91838fcc80520}{extract\+\_\+parametric.\+out\+\_\+image\+\_\+filename} = os.\+path.\+join(out\+\_\+dirname, \char`\"{}frame\+\_\+\{\+:05d\}.\+png\char`\"{}.\+format(out\+\_\+frame))
+\end{DoxyCompactItemize}

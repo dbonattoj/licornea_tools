@@ -1,0 +1,43 @@
+\hypertarget{import__xml_8py}{}\section{src/camera/import\+\_\+xml.py File Reference}
+\label{import__xml_8py}\index{src/camera/import\+\_\+xml.\+py@{src/camera/import\+\_\+xml.\+py}}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceimport__xml}{import\+\_\+xml}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceimport__xml_a6b99a6d995ebfb9fbaea25e2270004a0}{import\+\_\+xml.\+usage\+\_\+fail} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespaceimport__xml_aaf3ac984b3bbe9ea024af43d503eb08d}{import\+\_\+xml.\+xml\+\_\+filename} = sys.\+argv\mbox{[}1\mbox{]}
+\item 
+\hyperlink{namespaceimport__xml_a307ad9a3391d6a9cb512087355ad9a0b}{import\+\_\+xml.\+output\+\_\+filename} = sys.\+argv\mbox{[}2\mbox{]}
+\item 
+\hyperlink{namespaceimport__xml_a9ddb8ad46de8d0512c0c33ecc57e3dc8}{import\+\_\+xml.\+root} = xml.\+etree.\+Element\+Tree.\+parse(xml\+\_\+filename).getroot()
+\item 
+list \hyperlink{namespaceimport__xml_acbf94a80402f1f3bc6edfcb26847857e}{import\+\_\+xml.\+output\+\_\+array} = \mbox{[}$\,$\mbox{]}
+\item 
+int \hyperlink{namespaceimport__xml_a6647320ea7243e814d6b6e5467401cb5}{import\+\_\+xml.\+index} = -\/1
+\item 
+\hyperlink{namespaceimport__xml_a62e884f4d6cb5ffb7aa2d54b47326879}{import\+\_\+xml.\+camera\+\_\+name} = camera.\+find(\textquotesingle{}name\textquotesingle{}).text
+\item 
+\hyperlink{namespaceimport__xml_afadf173b7511d8dc7f7421e25b7e5fe0}{import\+\_\+xml.\+K\+\_\+str} = camera.\+find(\textquotesingle{}K\textquotesingle{}).text
+\item 
+\hyperlink{namespaceimport__xml_ae9bd125b10e08d1149b3c7ca82baa85f}{import\+\_\+xml.\+Rt\+\_\+str} = camera.\+find(\textquotesingle{}Rt\textquotesingle{}).text
+\item 
+\hyperlink{namespaceimport__xml_a114c9dbaec4f1a19d322303b9f40754e}{import\+\_\+xml.\+K} = re.\+findall(r\textquotesingle{}-\/?\mbox{[}0-\/9.\mbox{]}+\textquotesingle{}, K\+\_\+str)
+\item 
+\hyperlink{namespaceimport__xml_a8ee934fa632e40193dea858cced805a1}{import\+\_\+xml.\+Rt} = re.\+findall(r\textquotesingle{}-\/?\mbox{[}0-\/9.\mbox{]}+\textquotesingle{}, Rt\+\_\+str)
+\item 
+list \hyperlink{namespaceimport__xml_ab25ba10cad6227b6b27a86882644dbce}{import\+\_\+xml.\+output\+\_\+\+Rt}
+\item 
+list \hyperlink{namespaceimport__xml_a1993df83e9785cc32d460d46661f5ca7}{import\+\_\+xml.\+output\+\_\+K}
+\item 
+dictionary \hyperlink{namespaceimport__xml_a0efcba25cb78bff3cebf1a0d5e9e7818}{import\+\_\+xml.\+output\+\_\+camera}
+\item 
+\hyperlink{namespaceimport__xml_a03cb3f12d1861aaa30d97d1e6ba45c9e}{import\+\_\+xml.\+output} = open(output\+\_\+filename, \textquotesingle{}w\textquotesingle{})
+\end{DoxyCompactItemize}

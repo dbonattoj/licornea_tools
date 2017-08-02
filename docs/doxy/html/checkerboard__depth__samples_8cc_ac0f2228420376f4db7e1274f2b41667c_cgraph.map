@@ -1,0 +1,33 @@
+<map id="main" name="main">
+<area shape="rect" id="node2" href="$namespacetlz.html#a3c03f5d9d6261ec2909938822fc47f8a" title="tlz::get_args" alt="" coords="147,5,241,32"/>
+<area shape="rect" id="node3" href="$namespacetlz.html#af0d1e8ba5b9f2dbc2b589afab3a21fc8" title="tlz::int_arg" alt="" coords="372,56,455,83"/>
+<area shape="rect" id="node7" href="$namespacetlz.html#a8e4f8c8c2927bc4350de13bfa0f8f9e1" title="tlz::to_string" alt="" coords="774,132,869,159"/>
+<area shape="rect" id="node8" href="$namespacetlz.html#a65770a2c1ff57c5ae6542d4465a3d3f4" title="tlz::out_filename_arg" alt="" coords="123,107,265,133"/>
+<area shape="rect" id="node10" href="$classtlz_1_1viewer.html#a2bf9d63d7a1a5ec4d5bdabc13d9ab688" title="tlz::viewer::add_int\l_slider" alt="" coords="128,209,260,250"/>
+<area shape="rect" id="node11" href="$classtlz_1_1grabber.html#a14d256bd7ef0af5be70f2bd7713a7e54" title="tlz::grabber::grab" alt="" coords="134,275,254,301"/>
+<area shape="rect" id="node12" href="$classtlz_1_1viewer.html#a0ad9ee28b8127c63b2886b04fb36e3dc" title="tlz::viewer::clear" alt="" coords="354,325,473,352"/>
+<area shape="rect" id="node15" href="$classtlz_1_1grabber.html#a22caa426aef0275c5cdf9bfebe352940" title="tlz::grabber::get_depth\l_frame" alt="" coords="118,529,270,570"/>
+<area shape="rect" id="node16" href="$classtlz_1_1grabber.html#ab0a7ab9197c8d2676a072c3f9eadd96d" title="tlz::grabber::get_ir\l_frame" alt="" coords="131,594,257,635"/>
+<area shape="rect" id="node17" href="$namespacetlz.html#abc33c7b74cbbd686b06228c1fdad9214" title="tlz::detect_ir_checkerboard" alt="" coords="105,660,283,687"/>
+<area shape="rect" id="node20" href="$namespacetlz.html#a6693dca816d6f48429d1c607ced26f3b" title="tlz::checkerboard_image\l_corners" alt="" coords="112,711,276,753"/>
+<area shape="rect" id="node21" href="$namespacetlz.html#a48aea98fe42d152179154953ece9b366" title="tlz::checkerboard_pixel\l_depth_samples" alt="" coords="116,829,272,870"/>
+<area shape="rect" id="node23" href="$classtlz_1_1viewer.html#a5f0412cff89a343ad52431689502389d" title="tlz::viewer::draw" alt="" coords="354,376,473,403"/>
+<area shape="rect" id="node24" href="$namespacetlz.html#a0ae3b183b2bd5a5074615f7eb2b7677d" title="tlz::visualize_checkerboard" alt="" coords="104,777,284,804"/>
+<area shape="rect" id="node25" href="$namespacetlz.html#ab1a9db5eb0f9631c1d0b88d38dee54c7" title="tlz::visualize_checkerboard\l_pixel_samples" alt="" coords="104,894,284,935"/>
+<area shape="rect" id="node26" href="$classtlz_1_1viewer.html#a6a59617413dc76948b6802399ddf555b" title="tlz::viewer::visualize\l_depth" alt="" coords="343,449,484,490"/>
+<area shape="rect" id="node27" href="$classtlz_1_1viewer.html#a7f8bb5582e18ad278881cc065d7c21fa" title="tlz::viewer::draw_depth" alt="" coords="115,427,273,453"/>
+<area shape="rect" id="node28" href="$classtlz_1_1viewer.html#ad4fda702b7c5af2cb0bb9bc3842113f3" title="tlz::viewer::draw_text" alt="" coords="121,960,267,987"/>
+<area shape="rect" id="node29" href="$classtlz_1_1grabber.html#a412843d3f5dbbcb179e5ae4709577b91" title="tlz::grabber::release" alt="" coords="125,1011,263,1037"/>
+<area shape="rect" id="node30" href="$classtlz_1_1viewer.html#aabb3cdde75783ed1a41801fb236bc50e" title="tlz::viewer::show" alt="" coords="133,1061,255,1088"/>
+<area shape="rect" id="node31" href="$namespacetlz.html#ab98de0b10e3e079dee189f81adc638a0" title="tlz::export_json_file" alt="" coords="127,1112,261,1139"/>
+<area shape="rect" id="node4" href="$namespacetlz.html#a780431daab8d2595372eacb43143b52d" title="tlz::args" alt="" coords="583,56,653,83"/>
+<area shape="rect" id="node5" href="$classtlz_1_1args__list.html#a73d99bc75998dc14607a3a372d28dc6d" title="tlz::args_list::next_arg" alt="" coords="543,107,693,133"/>
+<area shape="rect" id="node6" href="$classtlz_1_1args__list.html#a38ad21acd64a4af98ffdf4a47837cdbe" title="tlz::args_list::usage_fail" alt="" coords="741,81,901,108"/>
+<area shape="rect" id="node9" href="$namespacetlz.html#a0621d598fb83b13bf028f3e6293d04f8" title="tlz::string_arg" alt="" coords="363,107,464,133"/>
+<area shape="rect" id="node13" href="$classtlz_1_1viewer.html#af74a8aef9dde68eeff6b1e2561b39014" title="tlz::viewer::height" alt="" coords="555,325,681,352"/>
+<area shape="rect" id="node14" href="$classtlz_1_1viewer.html#acc43bf1dd1d0c3cdc35a948d4c194769" title="tlz::viewer::width" alt="" coords="557,376,679,403"/>
+<area shape="rect" id="node18" href="$structtlz_1_1checkerboard.html#a44b150a25091e74cfaec42635d392369" title="tlz::checkerboard::\lcheckerboard" alt="" coords="348,621,479,662"/>
+<area shape="rect" id="node19" href="$structtlz_1_1checkerboard.html#aa0961b41552bc73fc4f75d2dca128637" title="tlz::checkerboard::\lcorner" alt="" coords="348,686,479,727"/>
+<area shape="rect" id="node22" href="$structtlz_1_1checkerboard.html#a2684fe6c45bc112b0a5c3d6e833ba22e" title="tlz::checkerboard::\louter_corners_i" alt="" coords="348,799,479,841"/>
+<area shape="rect" id="node32" href="$namespacetlz.html#ae11c827ac9e581f9d2f98c39aab3750d" title="tlz::file_name_extension" alt="" coords="332,1112,495,1139"/>
+</map>

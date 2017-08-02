@@ -1,0 +1,37 @@
+\hypertarget{list__skip__n__experiments_8py}{}\section{src/vsrs/list\+\_\+skip\+\_\+n\+\_\+experiments.py File Reference}
+\label{list__skip__n__experiments_8py}\index{src/vsrs/list\+\_\+skip\+\_\+n\+\_\+experiments.\+py@{src/vsrs/list\+\_\+skip\+\_\+n\+\_\+experiments.\+py}}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacelist__skip__n__experiments}{list\+\_\+skip\+\_\+n\+\_\+experiments}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespacelist__skip__n__experiments_adbf12c996ca2ec1b450d3cefe10ab0c5}{list\+\_\+skip\+\_\+n\+\_\+experiments.\+usage\+\_\+fail} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespacelist__skip__n__experiments_ae7d7e751880714692ef0ba6f35163da3}{list\+\_\+skip\+\_\+n\+\_\+experiments.\+parameters\+\_\+filename} = sys.\+argv\mbox{[}1\mbox{]}
+\item 
+\hyperlink{namespacelist__skip__n__experiments_a2b0ba5c1eae77169da727be27ba77df8}{list\+\_\+skip\+\_\+n\+\_\+experiments.\+step} = int(sys.\+argv\mbox{[}2\mbox{]})
+\item 
+\hyperlink{namespacelist__skip__n__experiments_aa6076cc866fef80f0751f37c54685ea9}{list\+\_\+skip\+\_\+n\+\_\+experiments.\+out\+\_\+experiments\+\_\+filename} = sys.\+argv\mbox{[}3\mbox{]}
+\item 
+\hyperlink{namespacelist__skip__n__experiments_af39c9c5347aadcd2c36c72d00e858b4b}{list\+\_\+skip\+\_\+n\+\_\+experiments.\+limit} = None
+\item 
+\hyperlink{namespacelist__skip__n__experiments_a285dbe25dabb27c98c0c63029f52426a}{list\+\_\+skip\+\_\+n\+\_\+experiments.\+datas} = Dataset(parameters\+\_\+filename)
+\item 
+\hyperlink{namespacelist__skip__n__experiments_a940229173ead33055747748a2b74ee45}{list\+\_\+skip\+\_\+n\+\_\+experiments.\+experiments} = list()
+\item 
+\hyperlink{namespacelist__skip__n__experiments_a1469c5c024e30fd45f71256f1bf9de65}{list\+\_\+skip\+\_\+n\+\_\+experiments.\+min\+\_\+idx} = datas.\+x\+\_\+min()
+\item 
+int \hyperlink{namespacelist__skip__n__experiments_a9be0d16f00e062e89bbf05a8a5f2ded8}{list\+\_\+skip\+\_\+n\+\_\+experiments.\+max\+\_\+idx} = datas.\+x\+\_\+max()+1
+\item 
+\hyperlink{namespacelist__skip__n__experiments_a05955a8175ac6d7e387276a35b520b56}{list\+\_\+skip\+\_\+n\+\_\+experiments.\+x\+\_\+index\+\_\+step} = datas.\+x\+\_\+step()
+\item 
+\hyperlink{namespacelist__skip__n__experiments_aab171a1ef6dd6c7d8f5c64e74876f9ff}{list\+\_\+skip\+\_\+n\+\_\+experiments.\+left\+\_\+index} = min\+\_\+idx+((index -\/ min\+\_\+idx) // step)$\ast$step
+\item 
+\hyperlink{namespacelist__skip__n__experiments_ac819b38ecab50279acd6b6506889bf59}{list\+\_\+skip\+\_\+n\+\_\+experiments.\+right\+\_\+index} = left\+\_\+index+step
+\end{DoxyCompactItemize}

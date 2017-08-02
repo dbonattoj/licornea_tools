@@ -1,0 +1,31 @@
+\hypertarget{json_8cc}{}\section{src/lib/json.cc File Reference}
+\label{json_8cc}\index{src/lib/json.\+cc@{src/lib/json.\+cc}}
+{\ttfamily \#include \char`\"{}json.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}string.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$cstdint$>$}\\*
+Include dependency graph for json.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{json_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{namespacetlz_ab98de0b10e3e079dee189f81adc638a0}{tlz\+::export\+\_\+json\+\_\+file} (const json \&j, const std\+::string \&filename, bool compact)
+\item 
+json \hyperlink{namespacetlz_aa1be9362f548fcf9378e1fc9074089c4}{tlz\+::import\+\_\+json\+\_\+file} (const std\+::string \&filename)
+\item 
+cv\+::\+Mat\+\_\+$<$ real $>$ \hyperlink{namespacetlz_a066563a26e2de02f215b179f3d3a53da}{tlz\+::decode\+\_\+mat} (const json \&j)
+\item 
+json \hyperlink{namespacetlz_a7b27ca69fad329b4a00aceee41d2962b}{tlz\+::encode\+\_\+mat\+\_\+} (const cv\+::\+Mat\+\_\+$<$ real $>$ \&mat)
+\end{DoxyCompactItemize}

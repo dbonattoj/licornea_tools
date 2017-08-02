@@ -1,0 +1,20 @@
+<map id="src/kinect/lib/ir_to_color_sample.h" name="src/kinect/lib/ir_to_color_sample.h">
+<area shape="rect" id="node2" href="$kinect__reprojection_8h.html" title="src/kinect/lib/kinect\l_reprojection.h" alt="" coords="487,95,621,136"/>
+<area shape="rect" id="node9" href="$depth__densify_8h.html" title="src/kinect/lib/densify\l/depth_densify.h" alt="" coords="1075,95,1217,136"/>
+<area shape="rect" id="node18" href="$kinect__remapping_8h.html" title="src/kinect/lib/kinect\l_remapping.h" alt="" coords="1680,95,1815,136"/>
+<area shape="rect" id="node3" href="$checkerboard__color__depth_8cc.html" title="src/kinect/checkerboard\l_color_depth.cc" alt="" coords="653,184,815,225"/>
+<area shape="rect" id="node4" href="$depth__reprojection_8cc.html" title="src/kinect/depth_reprojection.cc" alt="" coords="839,191,1045,218"/>
+<area shape="rect" id="node5" href="$kinect__reprojection_8cc.html" title="src/kinect/lib/kinect\l_reprojection.cc" alt="" coords="5,184,140,225"/>
+<area shape="rect" id="node6" href="$parallel__wall_8cc.html" title="src/kinect/parallel\l_wall.cc" alt="" coords="331,184,455,225"/>
+<area shape="rect" id="node7" href="$remapping__viewer_8cc.html" title="src/kinect/remapping\l_viewer.cc" alt="" coords="164,184,307,225"/>
+<area shape="rect" id="node8" href="$reprojection__viewer_8cc.html" title="src/kinect/reprojection\l_viewer.cc" alt="" coords="479,184,629,225"/>
+<area shape="rect" id="node10" href="$depth__remapping_8cc.html" title="src/kinect/depth_remapping.cc" alt="" coords="1647,191,1847,218"/>
+<area shape="rect" id="node11" href="$depth__densify_8cc.html" title="src/kinect/lib/densify\l/depth_densify.cc" alt="" coords="1189,273,1332,315"/>
+<area shape="rect" id="node12" href="$depth__densify__mine_8h.html" title="src/kinect/lib/densify\l/depth_densify_mine.h" alt="" coords="1069,184,1223,225"/>
+<area shape="rect" id="node14" href="$depth__densify__splat_8h.html" title="src/kinect/lib/densify\l/depth_densify_splat.h" alt="" coords="1299,184,1452,225"/>
+<area shape="rect" id="node16" href="$depth__densify__fast_8h.html" title="src/kinect/lib/densify\l/depth_densify_fast.h" alt="" coords="1477,184,1623,225"/>
+<area shape="rect" id="node13" href="$depth__densify__mine_8cc.html" title="src/kinect/lib/densify\l/depth_densify_mine.cc" alt="" coords="1005,273,1165,315"/>
+<area shape="rect" id="node15" href="$depth__densify__splat_8cc.html" title="src/kinect/lib/densify\l/depth_densify_splat.cc" alt="" coords="1357,273,1517,315"/>
+<area shape="rect" id="node17" href="$depth__densify__fast_8cc.html" title="src/kinect/lib/densify\l/depth_densify_fast.cc" alt="" coords="1541,273,1695,315"/>
+<area shape="rect" id="node19" href="$kinect__remapping_8cc.html" title="src/kinect/lib/kinect\l_remapping.cc" alt="" coords="1872,184,2007,225"/>
+</map>

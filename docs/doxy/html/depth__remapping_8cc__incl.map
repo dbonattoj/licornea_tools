@@ -1,0 +1,16 @@
+<map id="src/kinect/depth_remapping.cc" name="src/kinect/depth_remapping.cc">
+<area shape="rect" id="node2" href="$args_8h.html" title="../lib/args.h" alt="" coords="246,319,333,345"/>
+<area shape="rect" id="node14" href="$point_8h.html" title="../lib/point.h" alt="" coords="1033,162,1124,189"/>
+<area shape="rect" id="node16" href="$opencv_8h.html" title="opencv.h" alt="" coords="739,319,813,345"/>
+<area shape="rect" id="node19" href="$ply__exporter_8h.html" title="../lib/ply_exporter.h" alt="" coords="1133,80,1267,107"/>
+<area shape="rect" id="node25" href="$image__io_8h.html" title="../lib/image_io.h" alt="" coords="441,244,556,271"/>
+<area shape="rect" id="node26" href="$depth__densify_8h.html" title="lib/densify/depth_densify.h" alt="" coords="138,244,315,271"/>
+<area shape="rect" id="node28" href="$kinect__internal__parameters_8h.html" title="lib/kinect_internal\l_parameters.h" alt="" coords="615,155,737,196"/>
+<area shape="rect" id="node31" href="$kinect__remapping_8h.html" title="lib/kinect_remapping.h" alt="" coords="785,80,937,107"/>
+<area shape="rect" id="node34" href="$kinect_2lib_2common_8h.html" title="lib/common.h" alt="" coords="1398,319,1498,345"/>
+<area shape="rect" id="node3" href="$lib_2common_8h.html" title="common.h" alt="" coords="1108,393,1191,420"/>
+<area shape="rect" id="node15" href="$color_8h.html" title="color.h" alt="" coords="987,244,1048,271"/>
+<area shape="rect" id="node21" href="$io_8h.html" title="io.h" alt="" coords="1288,319,1331,345"/>
+<area shape="rect" id="node27" href="$ir__to__color__sample_8h.html" title="../ir_to_color_sample.h" alt="" coords="509,319,664,345"/>
+<area shape="rect" id="node29" href="$json_8h.html" title="../../lib/json.h" alt="" coords="813,244,912,271"/>
+</map>

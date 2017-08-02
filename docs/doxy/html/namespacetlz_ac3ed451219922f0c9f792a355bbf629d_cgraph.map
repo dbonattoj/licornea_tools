@@ -1,0 +1,6 @@
+<map id="tlz::get_references_grid" name="tlz::get_references_grid">
+<area shape="rect" id="node2" href="$namespacetlz.html#a50da847dcfcd4a37035f36baf5658b0d" title="tlz::get_reference\l_views_set" alt="" coords="217,5,340,47"/>
+<area shape="rect" id="node3" href="$structtlz_1_1references__grid.html#a5b4c4debbacfe143fd93753c04d84bca" title="tlz::references_grid\l::rows" alt="" coords="212,71,345,112"/>
+<area shape="rect" id="node4" href="$structtlz_1_1references__grid.html#ac2d383bed7f034aa729ae386b689ad6d" title="tlz::references_grid\l::cols" alt="" coords="212,136,345,177"/>
+<area shape="rect" id="node5" href="$structtlz_1_1references__grid.html#a3ad2b6212dea0a1b71addfee4fc6bfba" title="tlz::references_grid\l::view" alt="" coords="212,201,345,243"/>
+</map>

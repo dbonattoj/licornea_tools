@@ -1,0 +1,65 @@
+\hypertarget{misc_8h}{}\section{src/lib/misc.h File Reference}
+\label{misc_8h}\index{src/lib/misc.\+h@{src/lib/misc.\+h}}
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$random$>$}\\*
+{\ttfamily \#include $<$memory$>$}\\*
+{\ttfamily \#include $<$type\+\_\+traits$>$}\\*
+{\ttfamily \#include \char`\"{}misc.\+tcc\char`\"{}}\\*
+Include dependency graph for misc.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{misc_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{misc_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{namespacetlz_ac874ea3afd9982e4ba55013615f44871}{tlz\+::default\+\_\+random\+\_\+engine} = std\+::mt19937
+\item 
+{\footnotesize template$<$typename... $>$ }\\using \hyperlink{namespacetlz_a7d87dc9fbb481b3af71497097f545493}{tlz\+::void\+\_\+t} = void
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Numeric $>$ }\\Numeric \hyperlink{namespacetlz_a318f0ec11ecbe39c32ad870473ea9c35}{tlz\+::sq} (Numeric n)
+\begin{DoxyCompactList}\small\item\em Compute square of a number. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename T2 , typename T3 $>$ }\\T \hyperlink{namespacetlz_a643b2d03bd805fe78dcd684ef45e52fb}{tlz\+::clamp} (T value, T2 minimum, T3 maximum)
+\begin{DoxyCompactList}\small\item\em Clamp {\ttfamily value} between {\ttfamily minimum} and {\ttfamily maximum} value. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\T \hyperlink{namespacetlz_a4fe5757a830e199f84d229eee11f616e}{tlz\+::gcd} (T a, T b)
+\begin{DoxyCompactList}\small\item\em Compute greatest common divisor of {\ttfamily a} and {\ttfamily b}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\T \hyperlink{namespacetlz_aec6e2158ce198aa20a8493fde3d3b552}{tlz\+::lcm} (T a, T b)
+\begin{DoxyCompactList}\small\item\em Compute least common multiple of {\ttfamily a} and {\ttfamily b}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\bool \hyperlink{namespacetlz_a8c93d873dafb82720113a1c31516e264}{tlz\+::is\+\_\+power\+\_\+of\+\_\+two} (T x)
+\begin{DoxyCompactList}\small\item\em Check if {\ttfamily x} is a power of 2. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename T2 $>$ }\\bool \hyperlink{namespacetlz_a7f6ddfeecf23b5d803f1e2a72f0db470}{tlz\+::is\+\_\+multiple\+\_\+of} (T x, T2 base)
+\begin{DoxyCompactList}\small\item\em Check if {\ttfamily x} is a multiple of {\ttfamily base}, including zero. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename T2 $>$ }\\bool \hyperlink{namespacetlz_a0d277a545c57a035169803cec14fce43}{tlz\+::is\+\_\+nonzero\+\_\+multiple\+\_\+of} (T x, T2 base)
+\begin{DoxyCompactList}\small\item\em Check if {\ttfamily x} is a non-\/zero multiple of {\ttfamily base}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\bool \hyperlink{namespacetlz_ac73d8d9d67bb9b8b86e5ab9aba237b2b}{tlz\+::is\+\_\+odd} (T x)
+\begin{DoxyCompactList}\small\item\em Check if {\ttfamily x} is odd. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\bool \hyperlink{namespacetlz_aaf42ace4147284abeb14e1f6ac5714a1}{tlz\+::is\+\_\+even} (T x)
+\begin{DoxyCompactList}\small\item\em Check if {\ttfamily x} is even. \end{DoxyCompactList}\item 
+default\+\_\+random\+\_\+engine \& \hyperlink{namespacetlz_ad5ec736865b759f4de6121e1e37b1f08}{tlz\+::random\+\_\+engine} ()
+\item 
+{\footnotesize template$<$typename T $>$ }\\T \hyperlink{namespacetlz_a157c283b272d104195c9b23633962106}{tlz\+::randint} (T a, T b)
+\item 
+{\footnotesize template$<$typename T $>$ }\\auto \hyperlink{namespacetlz_acca8d5c9592b305bbdceae72f9bc090f}{tlz\+::forward\+\_\+make\+\_\+shared} (T \&\&t)
+\begin{DoxyCompactList}\small\item\em Get {\ttfamily shared\+\_\+ptr} to new object copy-\/ or move-\/ constructed from {\itshape t}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\auto \hyperlink{namespacetlz_afe89777e09419d71a5ef64410a48ed1f}{tlz\+::forward\+\_\+make\+\_\+shared\+\_\+const} (T \&\&t)
+\begin{DoxyCompactList}\small\item\em Get {\ttfamily shared\+\_\+ptr} to new const object copy-\/ or move-\/ constructed from {\itshape t}. \end{DoxyCompactList}\end{DoxyCompactItemize}

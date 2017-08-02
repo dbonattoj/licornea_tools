@@ -1,0 +1,101 @@
+\hypertarget{view__distortion_8cc}{}\section{src/misc/view\+\_\+distortion.cc File Reference}
+\label{view__distortion_8cc}\index{src/misc/view\+\_\+distortion.\+cc@{src/misc/view\+\_\+distortion.\+cc}}
+{\ttfamily \#include \char`\"{}../lib/args.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/opencv.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/viewer.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/intrinsics.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$cstdlib$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+Include dependency graph for view\+\_\+distortion.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{view__distortion_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const cv\+::\+Vec3b \hyperlink{view__distortion_8cc_a83f48cf5e7d63121dd66e0baba366640}{marker\+\_\+color1} (255, 200, 200)
+\item 
+const cv\+::\+Vec3b \hyperlink{view__distortion_8cc_ad1a5651e01c1a4167ac8631507d895dd}{marker\+\_\+color2} (200, 200, 255)
+\item 
+int \hyperlink{view__distortion_8cc_ac0f2228420376f4db7e1274f2b41667c}{main} (int argc, const char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const int \hyperlink{view__distortion_8cc_aae6175072cad3fdf82e88f9ff1dc91f8}{max\+\_\+height} = 300
+\item 
+const int \hyperlink{view__distortion_8cc_a7591152226d9dc2688fbb2e1fb28e27c}{slider\+\_\+steps} = 1000
+\item 
+const \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} \hyperlink{view__distortion_8cc_ad0c0262dd05d48421f16b6d726466fac}{coeff\+\_\+abs\+\_\+max} = 0.\+4
+\item 
+const int \hyperlink{view__distortion_8cc_ae411f3a1782e7245d23e7b4772e1a21f}{border} = 20
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{view\+\_\+distortion.\+cc@{view\+\_\+distortion.\+cc}!main@{main}}
+\index{main@{main}!view\+\_\+distortion.\+cc@{view\+\_\+distortion.\+cc}}
+\subsubsection[{\texorpdfstring{main(int argc, const char $\ast$argv[])}{main(int argc, const char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{const char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{view__distortion_8cc_ac0f2228420376f4db7e1274f2b41667c}{}\label{view__distortion_8cc_ac0f2228420376f4db7e1274f2b41667c}
+
+
+Definition at line 20 of file view\+\_\+distortion.\+cc.
+
+\index{view\+\_\+distortion.\+cc@{view\+\_\+distortion.\+cc}!marker\+\_\+color1@{marker\+\_\+color1}}
+\index{marker\+\_\+color1@{marker\+\_\+color1}!view\+\_\+distortion.\+cc@{view\+\_\+distortion.\+cc}}
+\subsubsection[{\texorpdfstring{marker\+\_\+color1(255, 200, 200)}{marker_color1(255, 200, 200)}}]{\setlength{\rightskip}{0pt plus 5cm}const cv\+::\+Vec3b marker\+\_\+color1 (
+\begin{DoxyParamCaption}
+\item[{255}]{, }
+\item[{200}]{, }
+\item[{200}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{view__distortion_8cc_a83f48cf5e7d63121dd66e0baba366640}{}\label{view__distortion_8cc_a83f48cf5e7d63121dd66e0baba366640}
+\index{view\+\_\+distortion.\+cc@{view\+\_\+distortion.\+cc}!marker\+\_\+color2@{marker\+\_\+color2}}
+\index{marker\+\_\+color2@{marker\+\_\+color2}!view\+\_\+distortion.\+cc@{view\+\_\+distortion.\+cc}}
+\subsubsection[{\texorpdfstring{marker\+\_\+color2(200, 200, 255)}{marker_color2(200, 200, 255)}}]{\setlength{\rightskip}{0pt plus 5cm}const cv\+::\+Vec3b marker\+\_\+color2 (
+\begin{DoxyParamCaption}
+\item[{200}]{, }
+\item[{200}]{, }
+\item[{255}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{view__distortion_8cc_ad1a5651e01c1a4167ac8631507d895dd}{}\label{view__distortion_8cc_ad1a5651e01c1a4167ac8631507d895dd}
+
+
+\subsection{Variable Documentation}
+\index{view\+\_\+distortion.\+cc@{view\+\_\+distortion.\+cc}!border@{border}}
+\index{border@{border}!view\+\_\+distortion.\+cc@{view\+\_\+distortion.\+cc}}
+\subsubsection[{\texorpdfstring{border}{border}}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf border} = 20}\hypertarget{view__distortion_8cc_ae411f3a1782e7245d23e7b4772e1a21f}{}\label{view__distortion_8cc_ae411f3a1782e7245d23e7b4772e1a21f}
+
+
+Definition at line 17 of file view\+\_\+distortion.\+cc.
+
+\index{view\+\_\+distortion.\+cc@{view\+\_\+distortion.\+cc}!coeff\+\_\+abs\+\_\+max@{coeff\+\_\+abs\+\_\+max}}
+\index{coeff\+\_\+abs\+\_\+max@{coeff\+\_\+abs\+\_\+max}!view\+\_\+distortion.\+cc@{view\+\_\+distortion.\+cc}}
+\subsubsection[{\texorpdfstring{coeff\+\_\+abs\+\_\+max}{coeff_abs_max}}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf real} coeff\+\_\+abs\+\_\+max = 0.\+4}\hypertarget{view__distortion_8cc_ad0c0262dd05d48421f16b6d726466fac}{}\label{view__distortion_8cc_ad0c0262dd05d48421f16b6d726466fac}
+
+
+Definition at line 16 of file view\+\_\+distortion.\+cc.
+
+\index{view\+\_\+distortion.\+cc@{view\+\_\+distortion.\+cc}!max\+\_\+height@{max\+\_\+height}}
+\index{max\+\_\+height@{max\+\_\+height}!view\+\_\+distortion.\+cc@{view\+\_\+distortion.\+cc}}
+\subsubsection[{\texorpdfstring{max\+\_\+height}{max_height}}]{\setlength{\rightskip}{0pt plus 5cm}const int max\+\_\+height = 300}\hypertarget{view__distortion_8cc_aae6175072cad3fdf82e88f9ff1dc91f8}{}\label{view__distortion_8cc_aae6175072cad3fdf82e88f9ff1dc91f8}
+
+
+Definition at line 14 of file view\+\_\+distortion.\+cc.
+
+\index{view\+\_\+distortion.\+cc@{view\+\_\+distortion.\+cc}!slider\+\_\+steps@{slider\+\_\+steps}}
+\index{slider\+\_\+steps@{slider\+\_\+steps}!view\+\_\+distortion.\+cc@{view\+\_\+distortion.\+cc}}
+\subsubsection[{\texorpdfstring{slider\+\_\+steps}{slider_steps}}]{\setlength{\rightskip}{0pt plus 5cm}const int slider\+\_\+steps = 1000}\hypertarget{view__distortion_8cc_a7591152226d9dc2688fbb2e1fb28e27c}{}\label{view__distortion_8cc_a7591152226d9dc2688fbb2e1fb28e27c}
+
+
+Definition at line 15 of file view\+\_\+distortion.\+cc.
+

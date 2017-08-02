@@ -1,0 +1,7 @@
+<map id="tlz::estimate_checkerboard_extrinsics" name="tlz::estimate_checkerboard_extrinsics">
+<area shape="rect" id="node2" href="$namespacetlz.html#acc37da60bde41595da4139110c2d36e6" title="tlz::checkerboard_world\l_corners" alt="" coords="237,5,397,47"/>
+<area shape="rect" id="node3" href="$namespacetlz.html#a6693dca816d6f48429d1c607ced26f3b" title="tlz::checkerboard_image\l_corners" alt="" coords="235,71,399,112"/>
+<area shape="rect" id="node4" href="$structtlz_1_1checkerboard.html#aefd2234a4be7f364920076cdd8a977f1" title="tlz::checkerboard::\lcorners_count" alt="" coords="251,136,382,177"/>
+<area shape="rect" id="node6" href="$structtlz_1_1distortion__parameters.html#a96312c5d7baa4b7b1f2a76e9396037f8" title="tlz::distortion_parameters\l::cv_coeffs" alt="" coords="232,201,401,243"/>
+<area shape="rect" id="node5" href="$structtlz_1_1checkerboard.html#a2684fe6c45bc112b0a5c3d6e833ba22e" title="tlz::checkerboard::\louter_corners_i" alt="" coords="449,136,580,177"/>
+</map>

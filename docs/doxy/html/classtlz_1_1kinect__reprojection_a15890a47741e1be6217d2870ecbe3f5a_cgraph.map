@@ -1,0 +1,29 @@
+<map id="tlz::kinect_reprojection::reproject_points_ir_to_color" name="tlz::kinect_reprojection::reproject_points_ir_to_color">
+<area shape="rect" id="node2" href="$structtlz_1_1distortion__parameters.html#a96312c5d7baa4b7b1f2a76e9396037f8" title="tlz::distortion_parameters\l::cv_coeffs" alt="" coords="1129,54,1299,95"/>
+<area shape="rect" id="node3" href="$structtlz_1_1distortion__parameters.html#a307fee036b04519d633fb8456899850c" title="tlz::distortion_parameters\l::is_none" alt="" coords="1129,162,1299,203"/>
+<area shape="rect" id="node4" href="$namespacetlz.html#ab01b1e8009a6b2ae9fe0fd559de7dd20" title="tlz::distort_points" alt="" coords="243,169,365,196"/>
+<area shape="rect" id="node5" href="$namespacetlz.html#aa0b38daa346fbb57c8f6668de69ea2d1" title="tlz::distort_point" alt="" coords="413,245,528,272"/>
+<area shape="rect" id="node6" href="$structtlz_1_1intrinsics.html#acc9b666adbc970c279c56a4549cc90d5" title="tlz::intrinsics::cx" alt="" coords="576,144,695,171"/>
+<area shape="rect" id="node7" href="$structtlz_1_1intrinsics.html#ad5875d6c77076468aebce0d88ef61c20" title="tlz::intrinsics::fx" alt="" coords="578,195,693,221"/>
+<area shape="rect" id="node8" href="$structtlz_1_1intrinsics.html#af7acb0b51e36fbb45d73bc10efef7d25" title="tlz::intrinsics::cy" alt="" coords="576,347,695,373"/>
+<area shape="rect" id="node28" href="$structtlz_1_1intrinsics.html#a52e02ae0e8bbea245fcced1c38964f29" title="tlz::intrinsics::fy" alt="" coords="578,245,693,272"/>
+<area shape="rect" id="node9" href="$namespacetlz.html#a8cba4853d0d796a01c72f59f36f2a492" title="tlz::decode_intrinsics" alt="" coords="936,473,1081,500"/>
+<area shape="rect" id="node13" href="$namespacetlz.html#a46c3e46d56bc36cf6b1236522563bc4a" title="tlz::encode_intrinsics" alt="" coords="743,372,888,399"/>
+<area shape="rect" id="node16" href="$namespacetlz.html#a67f7411515a0538e3a39b9d0602ed854" title="tlz::undistort_point" alt="" coords="751,321,880,348"/>
+<area shape="rect" id="node17" href="$namespacetlz.html#a8b5e4acbb884887859e414ffe06a09f8" title="tlz::undistort_points" alt="" coords="941,271,1077,297"/>
+<area shape="rect" id="node18" href="$namespacetlz.html#a170805c7a8ede64a93e0ee23196e5b7c" title="tlz::intrinsics_arg" alt="" coords="755,423,876,449"/>
+<area shape="rect" id="node10" href="$namespacetlz.html#a066563a26e2de02f215b179f3d3a53da" title="tlz::decode_mat" alt="" coords="1157,575,1271,601"/>
+<area shape="rect" id="node11" href="$namespacetlz.html#a252af14b9b4ac6502d3e9c5dd8dc90b8" title="tlz::has" alt="" coords="1365,524,1431,551"/>
+<area shape="rect" id="node12" href="$namespacetlz.html#add846dc50c32dfb356cb1a7ac11d37ac" title="tlz::get_or" alt="" coords="1174,524,1254,551"/>
+<area shape="rect" id="node14" href="$namespacetlz.html#acf7ca4ee1b750cf31a40170bea887d46" title="tlz::encode_mat" alt="" coords="951,347,1066,373"/>
+<area shape="rect" id="node15" href="$namespacetlz.html#a7b27ca69fad329b4a00aceee41d2962b" title="tlz::encode_mat_" alt="" coords="1153,321,1275,348"/>
+<area shape="rect" id="node19" href="$namespacetlz.html#a35f9e03fa4fd9cec699f5fa27962400f" title="tlz::json_arg" alt="" coords="962,423,1055,449"/>
+<area shape="rect" id="node20" href="$namespacetlz.html#aa1be9362f548fcf9378e1fc9074089c4" title="tlz::import_json_file" alt="" coords="1147,372,1281,399"/>
+<area shape="rect" id="node21" href="$namespacetlz.html#a634de7ca11e100e4a118dffe80376a75" title="tlz::in_filename_arg" alt="" coords="1147,423,1281,449"/>
+<area shape="rect" id="node22" href="$namespacetlz.html#a0621d598fb83b13bf028f3e6293d04f8" title="tlz::string_arg" alt="" coords="1347,423,1449,449"/>
+<area shape="rect" id="node23" href="$namespacetlz.html#a780431daab8d2595372eacb43143b52d" title="tlz::args" alt="" coords="1538,372,1607,399"/>
+<area shape="rect" id="node25" href="$classtlz_1_1args__list.html#a38ad21acd64a4af98ffdf4a47837cdbe" title="tlz::args_list::usage_fail" alt="" coords="1696,473,1856,500"/>
+<area shape="rect" id="node27" href="$namespacetlz.html#abb019466ea9f56c0dab27e893d891837" title="tlz::file_exists" alt="" coords="1347,321,1449,348"/>
+<area shape="rect" id="node24" href="$classtlz_1_1args__list.html#a73d99bc75998dc14607a3a372d28dc6d" title="tlz::args_list::next_arg" alt="" coords="1497,423,1648,449"/>
+<area shape="rect" id="node26" href="$namespacetlz.html#a8e4f8c8c2927bc4350de13bfa0f8f9e1" title="tlz::to_string" alt="" coords="1729,423,1823,449"/>
+</map>

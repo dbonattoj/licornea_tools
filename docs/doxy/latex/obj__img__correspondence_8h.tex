@@ -1,0 +1,56 @@
+\hypertarget{obj__img__correspondence_8h}{}\section{src/lib/obj\+\_\+img\+\_\+correspondence.h File Reference}
+\label{obj__img__correspondence_8h}\index{src/lib/obj\+\_\+img\+\_\+correspondence.\+h@{src/lib/obj\+\_\+img\+\_\+correspondence.\+h}}
+{\ttfamily \#include $<$json.\+hpp$>$}\\*
+{\ttfamily \#include \char`\"{}json.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}opencv.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$array$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include \char`\"{}obj\+\_\+img\+\_\+correspondence.\+tcc\char`\"{}}\\*
+Include dependency graph for obj\+\_\+img\+\_\+correspondence.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{obj__img__correspondence_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{obj__img__correspondence_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtlz_1_1obj__img__correspondence}{tlz\+::obj\+\_\+img\+\_\+correspondence$<$ Obj\+\_\+count, Img\+\_\+count $>$}
+\item 
+struct \hyperlink{structtlz_1_1obj__img__correspondences__set__dim}{tlz\+::obj\+\_\+img\+\_\+correspondences\+\_\+set\+\_\+dim}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$std\+::size\+\_\+t Obj\+\_\+count, std\+::size\+\_\+t Img\+\_\+count$>$ }\\using \hyperlink{namespacetlz_a59fe514deacf47a3f4a14450a3752725}{tlz\+::obj\+\_\+img\+\_\+correspondences} = std\+::vector$<$ obj\+\_\+img\+\_\+correspondence$<$ Obj\+\_\+count, Img\+\_\+count $>$$>$
+\item 
+{\footnotesize template$<$std\+::size\+\_\+t Obj\+\_\+count, std\+::size\+\_\+t Img\+\_\+count$>$ }\\using \hyperlink{namespacetlz_a3dec48786e0f39d39c096eb127945c27}{tlz\+::obj\+\_\+img\+\_\+correspondences\+\_\+set} = std\+::vector$<$ obj\+\_\+img\+\_\+correspondences$<$ Obj\+\_\+count, Img\+\_\+count $>$$>$
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$std\+::size\+\_\+t Obj\+\_\+count, std\+::size\+\_\+t Img\+\_\+count$>$ }\\obj\+\_\+img\+\_\+correspondence$<$ Obj\+\_\+count, Img\+\_\+count $>$ \hyperlink{namespacetlz_aac861e973827974c2a38173ead0dcd70}{tlz\+::decode\+\_\+obj\+\_\+img\+\_\+correspondence} (const json \&)
+\item 
+{\footnotesize template$<$std\+::size\+\_\+t Obj\+\_\+count, std\+::size\+\_\+t Img\+\_\+count$>$ }\\json \hyperlink{namespacetlz_a6028c903330bbc199e3ca067cf3893cf}{tlz\+::encode\+\_\+obj\+\_\+img\+\_\+correspondence} (const obj\+\_\+img\+\_\+correspondence$<$ Obj\+\_\+count, Img\+\_\+count $>$ \&)
+\item 
+{\footnotesize template$<$std\+::size\+\_\+t Obj\+\_\+count, std\+::size\+\_\+t Img\+\_\+count$>$ }\\json \hyperlink{namespacetlz_ad1dd4f34c6ed90450cf085bc95f0a393}{tlz\+::encode\+\_\+obj\+\_\+img\+\_\+correspondences\+\_\+set} (const obj\+\_\+img\+\_\+correspondences\+\_\+set$<$ Obj\+\_\+count, Img\+\_\+count $>$ \&)
+\item 
+{\footnotesize template$<$std\+::size\+\_\+t Obj\+\_\+count, std\+::size\+\_\+t Img\+\_\+count$>$ }\\obj\+\_\+img\+\_\+correspondences\+\_\+set$<$ Obj\+\_\+count, Img\+\_\+count $>$ \hyperlink{namespacetlz_a702c94cfce75a8ea30c7e960c817ab24}{tlz\+::decode\+\_\+obj\+\_\+img\+\_\+correspondences\+\_\+set} (const json \&)
+\item 
+obj\+\_\+img\+\_\+correspondences\+\_\+set\+\_\+dim \hyperlink{namespacetlz_acac95b93493a5cbc6fb4717d68231a20}{tlz\+::decode\+\_\+obj\+\_\+img\+\_\+correspondences\+\_\+set\+\_\+dim} (const json \&j\+\_\+set)
+\end{DoxyCompactItemize}

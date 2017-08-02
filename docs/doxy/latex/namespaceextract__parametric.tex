@@ -1,0 +1,206 @@
+\hypertarget{namespaceextract__parametric}{}\section{extract\+\_\+parametric Namespace Reference}
+\label{namespaceextract__parametric}\index{extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceextract__parametric_a1b3d46b1d3f50aea355472de9ccff6b6}{f} (\hyperlink{namespaceextract__parametric_a730b851f64e77467557fbc820239405a}{t})
+\item 
+def \hyperlink{namespaceextract__parametric_ac0b8fb89e267229597be31a581bed247}{fig8} (\hyperlink{namespaceextract__parametric_a730b851f64e77467557fbc820239405a}{t})
+\item 
+def \hyperlink{namespaceextract__parametric_a229310fc0ffe5974a869a3cc37a45c2f}{spiral} (\hyperlink{namespaceextract__parametric_a730b851f64e77467557fbc820239405a}{t}, n=4)
+\item 
+def \hyperlink{namespaceextract__parametric_ab09e962b23175c33ce7cfe2cd25dc7cd}{circle} (\hyperlink{namespaceextract__parametric_a730b851f64e77467557fbc820239405a}{t})
+\item 
+def \hyperlink{namespaceextract__parametric_a5f451daddc29d4fc71f0f052868a62d4}{usage\+\_\+fail} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespaceextract__parametric_a0eb7a97525953d846466d58d2a35175b}{parameters\+\_\+filename} = sys.\+argv\mbox{[}1\mbox{]}
+\item 
+\hyperlink{namespaceextract__parametric_adf9a3c8f1bd35b8eaa0aab6093f1d2ef}{out\+\_\+dirname} = sys.\+argv\mbox{[}2\mbox{]}
+\item 
+\hyperlink{namespaceextract__parametric_ab661bcbac8504f589b9ee4d6ee638a6d}{frames} = int(sys.\+argv\mbox{[}3\mbox{]})
+\item 
+\hyperlink{namespaceextract__parametric_a80f2e013a61bda4d25d8f744afa104ff}{datas} = \hyperlink{classpylib_1_1dataset_1_1Dataset}{Dataset}(\hyperlink{namespaceextract__parametric_a0eb7a97525953d846466d58d2a35175b}{parameters\+\_\+filename})
+\item 
+list \hyperlink{namespaceextract__parametric_a04c0fe150206be8c6736ad9452783f23}{images} = \mbox{[}$\,$\mbox{]}
+\item 
+\hyperlink{namespaceextract__parametric_a730b851f64e77467557fbc820239405a}{t} = frame/(\hyperlink{namespaceextract__parametric_ab661bcbac8504f589b9ee4d6ee638a6d}{frames} -\/ 1.\+0)
+\item 
+\hyperlink{namespaceextract__parametric_ab6f1cb05726babc5a8a23423bb0771ea}{x}
+\item 
+\hyperlink{namespaceextract__parametric_a44dd9ad3fb87f7ac87bf947c21ccda51}{y}
+\item 
+\hyperlink{namespaceextract__parametric_a635ed12295f3ed674897db057b560da2}{x\+\_\+ind} = math.\+trunc(\hyperlink{namespaceextract__parametric_ab6f1cb05726babc5a8a23423bb0771ea}{x} $\ast$ (datas.\+x\+\_\+max() -\/ datas.\+x\+\_\+min()))
+\item 
+\hyperlink{namespaceextract__parametric_a4b52673e12fe50f676553f4375dbd97a}{y\+\_\+ind} = math.\+trunc(\hyperlink{namespaceextract__parametric_a44dd9ad3fb87f7ac87bf947c21ccda51}{y} $\ast$ (datas.\+y\+\_\+max() -\/ datas.\+y\+\_\+min()))
+\item 
+\hyperlink{namespaceextract__parametric_a71563aa31bfb99f2393aeadc66797e54}{view} = datas.\+view(\hyperlink{namespaceextract__parametric_a635ed12295f3ed674897db057b560da2}{x\+\_\+ind}, \hyperlink{namespaceextract__parametric_a4b52673e12fe50f676553f4375dbd97a}{y\+\_\+ind})
+\item 
+\hyperlink{namespaceextract__parametric_ab9475a5f123365a5a868b9481e87d163}{image\+\_\+filename} = view.\+image\+\_\+filename()
+\item 
+int \hyperlink{namespaceextract__parametric_a073b7ebc2ff68e243f2c5ea8b1c6061d}{out\+\_\+frame} = 0
+\item 
+\hyperlink{namespaceextract__parametric_a65e8dff0853e3524cad91838fcc80520}{out\+\_\+image\+\_\+filename} = os.\+path.\+join(\hyperlink{namespaceextract__parametric_adf9a3c8f1bd35b8eaa0aab6093f1d2ef}{out\+\_\+dirname}, \char`\"{}frame\+\_\+\{\+:05d\}.\+png\char`\"{}.\+format(out\+\_\+frame))
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!circle@{circle}}
+\index{circle@{circle}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{circle(t)}{circle(t)}}]{\setlength{\rightskip}{0pt plus 5cm}def extract\+\_\+parametric.\+circle (
+\begin{DoxyParamCaption}
+\item[{}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceextract__parametric_ab09e962b23175c33ce7cfe2cd25dc7cd}{}\label{namespaceextract__parametric_ab09e962b23175c33ce7cfe2cd25dc7cd}
+
+
+Definition at line 18 of file extract\+\_\+parametric.\+py.
+
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!f@{f}}
+\index{f@{f}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{f(t)}{f(t)}}]{\setlength{\rightskip}{0pt plus 5cm}def extract\+\_\+parametric.\+f (
+\begin{DoxyParamCaption}
+\item[{}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceextract__parametric_a1b3d46b1d3f50aea355472de9ccff6b6}{}\label{namespaceextract__parametric_a1b3d46b1d3f50aea355472de9ccff6b6}
+
+
+Definition at line 5 of file extract\+\_\+parametric.\+py.
+
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!fig8@{fig8}}
+\index{fig8@{fig8}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{fig8(t)}{fig8(t)}}]{\setlength{\rightskip}{0pt plus 5cm}def extract\+\_\+parametric.\+fig8 (
+\begin{DoxyParamCaption}
+\item[{}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceextract__parametric_ac0b8fb89e267229597be31a581bed247}{}\label{namespaceextract__parametric_ac0b8fb89e267229597be31a581bed247}
+
+
+Definition at line 8 of file extract\+\_\+parametric.\+py.
+
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!spiral@{spiral}}
+\index{spiral@{spiral}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{spiral(t, n=4)}{spiral(t, n=4)}}]{\setlength{\rightskip}{0pt plus 5cm}def extract\+\_\+parametric.\+spiral (
+\begin{DoxyParamCaption}
+\item[{}]{t, }
+\item[{}]{n = {\ttfamily 4}}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceextract__parametric_a229310fc0ffe5974a869a3cc37a45c2f}{}\label{namespaceextract__parametric_a229310fc0ffe5974a869a3cc37a45c2f}
+
+
+Definition at line 13 of file extract\+\_\+parametric.\+py.
+
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!usage\+\_\+fail@{usage\+\_\+fail}}
+\index{usage\+\_\+fail@{usage\+\_\+fail}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{usage\+\_\+fail()}{usage_fail()}}]{\setlength{\rightskip}{0pt plus 5cm}def extract\+\_\+parametric.\+usage\+\_\+fail (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceextract__parametric_a5f451daddc29d4fc71f0f052868a62d4}{}\label{namespaceextract__parametric_a5f451daddc29d4fc71f0f052868a62d4}
+
+
+Definition at line 24 of file extract\+\_\+parametric.\+py.
+
+
+
+\subsection{Variable Documentation}
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!datas@{datas}}
+\index{datas@{datas}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{datas}{datas}}]{\setlength{\rightskip}{0pt plus 5cm}extract\+\_\+parametric.\+datas = {\bf Dataset}({\bf parameters\+\_\+filename})}\hypertarget{namespaceextract__parametric_a80f2e013a61bda4d25d8f744afa104ff}{}\label{namespaceextract__parametric_a80f2e013a61bda4d25d8f744afa104ff}
+
+
+Definition at line 33 of file extract\+\_\+parametric.\+py.
+
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!frames@{frames}}
+\index{frames@{frames}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{frames}{frames}}]{\setlength{\rightskip}{0pt plus 5cm}extract\+\_\+parametric.\+frames = int(sys.\+argv\mbox{[}3\mbox{]})}\hypertarget{namespaceextract__parametric_ab661bcbac8504f589b9ee4d6ee638a6d}{}\label{namespaceextract__parametric_ab661bcbac8504f589b9ee4d6ee638a6d}
+
+
+Definition at line 31 of file extract\+\_\+parametric.\+py.
+
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!image\+\_\+filename@{image\+\_\+filename}}
+\index{image\+\_\+filename@{image\+\_\+filename}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{image\+\_\+filename}{image_filename}}]{\setlength{\rightskip}{0pt plus 5cm}extract\+\_\+parametric.\+image\+\_\+filename = view.\+image\+\_\+filename()}\hypertarget{namespaceextract__parametric_ab9475a5f123365a5a868b9481e87d163}{}\label{namespaceextract__parametric_ab9475a5f123365a5a868b9481e87d163}
+
+
+Definition at line 53 of file extract\+\_\+parametric.\+py.
+
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!images@{images}}
+\index{images@{images}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{images}{images}}]{\setlength{\rightskip}{0pt plus 5cm}list extract\+\_\+parametric.\+images = \mbox{[}$\,$\mbox{]}}\hypertarget{namespaceextract__parametric_a04c0fe150206be8c6736ad9452783f23}{}\label{namespaceextract__parametric_a04c0fe150206be8c6736ad9452783f23}
+
+
+Definition at line 36 of file extract\+\_\+parametric.\+py.
+
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!out\+\_\+dirname@{out\+\_\+dirname}}
+\index{out\+\_\+dirname@{out\+\_\+dirname}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{out\+\_\+dirname}{out_dirname}}]{\setlength{\rightskip}{0pt plus 5cm}extract\+\_\+parametric.\+out\+\_\+dirname = sys.\+argv\mbox{[}2\mbox{]}}\hypertarget{namespaceextract__parametric_adf9a3c8f1bd35b8eaa0aab6093f1d2ef}{}\label{namespaceextract__parametric_adf9a3c8f1bd35b8eaa0aab6093f1d2ef}
+
+
+Definition at line 30 of file extract\+\_\+parametric.\+py.
+
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!out\+\_\+frame@{out\+\_\+frame}}
+\index{out\+\_\+frame@{out\+\_\+frame}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{out\+\_\+frame}{out_frame}}]{\setlength{\rightskip}{0pt plus 5cm}int extract\+\_\+parametric.\+out\+\_\+frame = 0}\hypertarget{namespaceextract__parametric_a073b7ebc2ff68e243f2c5ea8b1c6061d}{}\label{namespaceextract__parametric_a073b7ebc2ff68e243f2c5ea8b1c6061d}
+
+
+Definition at line 59 of file extract\+\_\+parametric.\+py.
+
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!out\+\_\+image\+\_\+filename@{out\+\_\+image\+\_\+filename}}
+\index{out\+\_\+image\+\_\+filename@{out\+\_\+image\+\_\+filename}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{out\+\_\+image\+\_\+filename}{out_image_filename}}]{\setlength{\rightskip}{0pt plus 5cm}extract\+\_\+parametric.\+out\+\_\+image\+\_\+filename = os.\+path.\+join({\bf out\+\_\+dirname}, \char`\"{}frame\+\_\+\{\+:05d\}.\+png\char`\"{}.\+format(out\+\_\+frame))}\hypertarget{namespaceextract__parametric_a65e8dff0853e3524cad91838fcc80520}{}\label{namespaceextract__parametric_a65e8dff0853e3524cad91838fcc80520}
+
+
+Definition at line 62 of file extract\+\_\+parametric.\+py.
+
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!parameters\+\_\+filename@{parameters\+\_\+filename}}
+\index{parameters\+\_\+filename@{parameters\+\_\+filename}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{parameters\+\_\+filename}{parameters_filename}}]{\setlength{\rightskip}{0pt plus 5cm}extract\+\_\+parametric.\+parameters\+\_\+filename = sys.\+argv\mbox{[}1\mbox{]}}\hypertarget{namespaceextract__parametric_a0eb7a97525953d846466d58d2a35175b}{}\label{namespaceextract__parametric_a0eb7a97525953d846466d58d2a35175b}
+
+
+Definition at line 29 of file extract\+\_\+parametric.\+py.
+
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!t@{t}}
+\index{t@{t}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{t}{t}}]{\setlength{\rightskip}{0pt plus 5cm}extract\+\_\+parametric.\+t = frame/({\bf frames} -\/ 1.\+0)}\hypertarget{namespaceextract__parametric_a730b851f64e77467557fbc820239405a}{}\label{namespaceextract__parametric_a730b851f64e77467557fbc820239405a}
+
+
+Definition at line 40 of file extract\+\_\+parametric.\+py.
+
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!view@{view}}
+\index{view@{view}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{view}{view}}]{\setlength{\rightskip}{0pt plus 5cm}extract\+\_\+parametric.\+view = datas.\+view({\bf x\+\_\+ind}, {\bf y\+\_\+ind})}\hypertarget{namespaceextract__parametric_a71563aa31bfb99f2393aeadc66797e54}{}\label{namespaceextract__parametric_a71563aa31bfb99f2393aeadc66797e54}
+
+
+Definition at line 51 of file extract\+\_\+parametric.\+py.
+
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!x@{x}}
+\index{x@{x}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{x}{x}}]{\setlength{\rightskip}{0pt plus 5cm}extract\+\_\+parametric.\+x}\hypertarget{namespaceextract__parametric_ab6f1cb05726babc5a8a23423bb0771ea}{}\label{namespaceextract__parametric_ab6f1cb05726babc5a8a23423bb0771ea}
+
+
+Definition at line 42 of file extract\+\_\+parametric.\+py.
+
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!x\+\_\+ind@{x\+\_\+ind}}
+\index{x\+\_\+ind@{x\+\_\+ind}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{x\+\_\+ind}{x_ind}}]{\setlength{\rightskip}{0pt plus 5cm}extract\+\_\+parametric.\+x\+\_\+ind = math.\+trunc({\bf x} $\ast$ (datas.\+x\+\_\+max() -\/ datas.\+x\+\_\+min()))}\hypertarget{namespaceextract__parametric_a635ed12295f3ed674897db057b560da2}{}\label{namespaceextract__parametric_a635ed12295f3ed674897db057b560da2}
+
+
+Definition at line 44 of file extract\+\_\+parametric.\+py.
+
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!y@{y}}
+\index{y@{y}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{y}{y}}]{\setlength{\rightskip}{0pt plus 5cm}extract\+\_\+parametric.\+y}\hypertarget{namespaceextract__parametric_a44dd9ad3fb87f7ac87bf947c21ccda51}{}\label{namespaceextract__parametric_a44dd9ad3fb87f7ac87bf947c21ccda51}
+
+
+Definition at line 42 of file extract\+\_\+parametric.\+py.
+
+\index{extract\+\_\+parametric@{extract\+\_\+parametric}!y\+\_\+ind@{y\+\_\+ind}}
+\index{y\+\_\+ind@{y\+\_\+ind}!extract\+\_\+parametric@{extract\+\_\+parametric}}
+\subsubsection[{\texorpdfstring{y\+\_\+ind}{y_ind}}]{\setlength{\rightskip}{0pt plus 5cm}extract\+\_\+parametric.\+y\+\_\+ind = math.\+trunc({\bf y} $\ast$ (datas.\+y\+\_\+max() -\/ datas.\+y\+\_\+min()))}\hypertarget{namespaceextract__parametric_a4b52673e12fe50f676553f4375dbd97a}{}\label{namespaceextract__parametric_a4b52673e12fe50f676553f4375dbd97a}
+
+
+Definition at line 47 of file extract\+\_\+parametric.\+py.
+

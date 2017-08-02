@@ -1,0 +1,43 @@
+\hypertarget{json_8h}{}\section{src/lib/json.h File Reference}
+\label{json_8h}\index{src/lib/json.\+h@{src/lib/json.\+h}}
+{\ttfamily \#include $<$json.\+hpp$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include \char`\"{}common.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}args.\+h\char`\"{}}\\*
+Include dependency graph for json.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{json_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{namespacetlz_ac400657dfcddf6309a769aefc23eed0c}{tlz\+::json} = nlohmann\+::json
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{namespacetlz_ab98de0b10e3e079dee189f81adc638a0}{tlz\+::export\+\_\+json\+\_\+file} (const json \&j, const std\+::string \&filename, bool compact)
+\item 
+json \hyperlink{namespacetlz_aa1be9362f548fcf9378e1fc9074089c4}{tlz\+::import\+\_\+json\+\_\+file} (const std\+::string \&filename)
+\item 
+cv\+::\+Mat\+\_\+$<$ real $>$ \hyperlink{namespacetlz_a066563a26e2de02f215b179f3d3a53da}{tlz\+::decode\+\_\+mat} (const json \&j)
+\item 
+json \hyperlink{namespacetlz_a7b27ca69fad329b4a00aceee41d2962b}{tlz\+::encode\+\_\+mat\+\_\+} (const cv\+::\+Mat\+\_\+$<$ real $>$ \&mat)
+\item 
+{\footnotesize template$<$typename Mat $>$ }\\json \hyperlink{namespacetlz_acf7ca4ee1b750cf31a40170bea887d46}{tlz\+::encode\+\_\+mat} (const Mat \&mat)
+\item 
+bool \hyperlink{namespacetlz_a252af14b9b4ac6502d3e9c5dd8dc90b8}{tlz\+::has} (const json \&j, const std\+::string \&key)
+\item 
+{\footnotesize template$<$typename T $>$ }\\T \hyperlink{namespacetlz_add846dc50c32dfb356cb1a7ac11d37ac}{tlz\+::get\+\_\+or} (const json \&j, const std\+::string \&key, const T \&default\+\_\+value)
+\item 
+json \hyperlink{namespacetlz_a35f9e03fa4fd9cec699f5fa27962400f}{tlz\+::json\+\_\+arg} ()
+\end{DoxyCompactItemize}

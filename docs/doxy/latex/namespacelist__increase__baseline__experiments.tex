@@ -1,0 +1,144 @@
+\hypertarget{namespacelist__increase__baseline__experiments}{}\section{list\+\_\+increase\+\_\+baseline\+\_\+experiments Namespace Reference}
+\label{namespacelist__increase__baseline__experiments}\index{list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespacelist__increase__baseline__experiments_ab6e8c70a5b8849d747eddf268c077881}{usage\+\_\+fail} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespacelist__increase__baseline__experiments_a43bfd35e9474f9414c8c221dbb8b18c9}{parameters\+\_\+filename} = sys.\+argv\mbox{[}1\mbox{]}
+\item 
+\hyperlink{namespacelist__increase__baseline__experiments_a274e20da470f46ebffa430c90b7ff4f0}{center} = int(sys.\+argv\mbox{[}2\mbox{]})
+\item 
+\hyperlink{namespacelist__increase__baseline__experiments_aaff4f05a6526a72fb929368019ae7b5f}{max\+\_\+baseline} = int(sys.\+argv\mbox{[}3\mbox{]})
+\item 
+\hyperlink{namespacelist__increase__baseline__experiments_a5899ebc180d88f06ca89b5259654dc93}{out\+\_\+experiments\+\_\+filename} = sys.\+argv\mbox{[}4\mbox{]}
+\item 
+int \hyperlink{namespacelist__increase__baseline__experiments_a9ac4fa47a0cd897ac043a2c9cf9c49f9}{step} = 1
+\item 
+\hyperlink{namespacelist__increase__baseline__experiments_a2d9ca79006c2dc27d8ef72a04d6548ba}{datas} = \hyperlink{classpylib_1_1dataset_1_1Dataset}{Dataset}(\hyperlink{namespacelist__increase__baseline__experiments_a43bfd35e9474f9414c8c221dbb8b18c9}{parameters\+\_\+filename})
+\item 
+\hyperlink{namespacelist__increase__baseline__experiments_a4dabc376138c4323f09d61e391557377}{experiments} = list()
+\item 
+\hyperlink{namespacelist__increase__baseline__experiments_aeab9d1c4828670116525516b4c883fae}{min\+\_\+idx} = datas.\+x\+\_\+min()
+\item 
+int \hyperlink{namespacelist__increase__baseline__experiments_a20d2d54a7783f349843582188a006f5a}{max\+\_\+idx} = datas.\+x\+\_\+max()+1
+\item 
+\hyperlink{namespacelist__increase__baseline__experiments_ab2201bf911f43f516872f78b5863e3d8}{x\+\_\+index\+\_\+step} = datas.\+x\+\_\+step()
+\item 
+\hyperlink{namespacelist__increase__baseline__experiments_a9fb7aca9b2bd8442265f1658f525b0a6}{index} = \hyperlink{namespacelist__increase__baseline__experiments_a274e20da470f46ebffa430c90b7ff4f0}{center}
+\item 
+\hyperlink{namespacelist__increase__baseline__experiments_acbd3cf0e7ba4041d01c2360bd9e309be}{left\+\_\+index} = \hyperlink{namespacelist__increase__baseline__experiments_a9fb7aca9b2bd8442265f1658f525b0a6}{index}-\/rad
+\item 
+\hyperlink{namespacelist__increase__baseline__experiments_a64b7b40b41912296df3830ee6be178f8}{right\+\_\+index} = \hyperlink{namespacelist__increase__baseline__experiments_a9fb7aca9b2bd8442265f1658f525b0a6}{index}+rad
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}!usage\+\_\+fail@{usage\+\_\+fail}}
+\index{usage\+\_\+fail@{usage\+\_\+fail}!list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{usage\+\_\+fail()}{usage_fail()}}]{\setlength{\rightskip}{0pt plus 5cm}def list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+usage\+\_\+fail (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacelist__increase__baseline__experiments_ab6e8c70a5b8849d747eddf268c077881}{}\label{namespacelist__increase__baseline__experiments_ab6e8c70a5b8849d747eddf268c077881}
+
+
+Definition at line 5 of file list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+py.
+
+
+
+\subsection{Variable Documentation}
+\index{list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}!center@{center}}
+\index{center@{center}!list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{center}{center}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+center = int(sys.\+argv\mbox{[}2\mbox{]})}\hypertarget{namespacelist__increase__baseline__experiments_a274e20da470f46ebffa430c90b7ff4f0}{}\label{namespacelist__increase__baseline__experiments_a274e20da470f46ebffa430c90b7ff4f0}
+
+
+Definition at line 11 of file list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+py.
+
+\index{list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}!datas@{datas}}
+\index{datas@{datas}!list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{datas}{datas}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+datas = {\bf Dataset}({\bf parameters\+\_\+filename})}\hypertarget{namespacelist__increase__baseline__experiments_a2d9ca79006c2dc27d8ef72a04d6548ba}{}\label{namespacelist__increase__baseline__experiments_a2d9ca79006c2dc27d8ef72a04d6548ba}
+
+
+Definition at line 17 of file list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+py.
+
+\index{list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}!experiments@{experiments}}
+\index{experiments@{experiments}!list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{experiments}{experiments}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+experiments = list()}\hypertarget{namespacelist__increase__baseline__experiments_a4dabc376138c4323f09d61e391557377}{}\label{namespacelist__increase__baseline__experiments_a4dabc376138c4323f09d61e391557377}
+
+
+Definition at line 20 of file list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+py.
+
+\index{list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}!index@{index}}
+\index{index@{index}!list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{index}{index}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+index = {\bf center}}\hypertarget{namespacelist__increase__baseline__experiments_a9fb7aca9b2bd8442265f1658f525b0a6}{}\label{namespacelist__increase__baseline__experiments_a9fb7aca9b2bd8442265f1658f525b0a6}
+
+
+Definition at line 28 of file list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+py.
+
+\index{list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}!left\+\_\+index@{left\+\_\+index}}
+\index{left\+\_\+index@{left\+\_\+index}!list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{left\+\_\+index}{left_index}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+left\+\_\+index = {\bf index}-\/rad}\hypertarget{namespacelist__increase__baseline__experiments_acbd3cf0e7ba4041d01c2360bd9e309be}{}\label{namespacelist__increase__baseline__experiments_acbd3cf0e7ba4041d01c2360bd9e309be}
+
+
+Definition at line 29 of file list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+py.
+
+\index{list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}!max\+\_\+baseline@{max\+\_\+baseline}}
+\index{max\+\_\+baseline@{max\+\_\+baseline}!list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{max\+\_\+baseline}{max_baseline}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+max\+\_\+baseline = int(sys.\+argv\mbox{[}3\mbox{]})}\hypertarget{namespacelist__increase__baseline__experiments_aaff4f05a6526a72fb929368019ae7b5f}{}\label{namespacelist__increase__baseline__experiments_aaff4f05a6526a72fb929368019ae7b5f}
+
+
+Definition at line 12 of file list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+py.
+
+\index{list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}!max\+\_\+idx@{max\+\_\+idx}}
+\index{max\+\_\+idx@{max\+\_\+idx}!list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{max\+\_\+idx}{max_idx}}]{\setlength{\rightskip}{0pt plus 5cm}int list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+max\+\_\+idx = datas.\+x\+\_\+max()+1}\hypertarget{namespacelist__increase__baseline__experiments_a20d2d54a7783f349843582188a006f5a}{}\label{namespacelist__increase__baseline__experiments_a20d2d54a7783f349843582188a006f5a}
+
+
+Definition at line 24 of file list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+py.
+
+\index{list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}!min\+\_\+idx@{min\+\_\+idx}}
+\index{min\+\_\+idx@{min\+\_\+idx}!list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{min\+\_\+idx}{min_idx}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+min\+\_\+idx = datas.\+x\+\_\+min()}\hypertarget{namespacelist__increase__baseline__experiments_aeab9d1c4828670116525516b4c883fae}{}\label{namespacelist__increase__baseline__experiments_aeab9d1c4828670116525516b4c883fae}
+
+
+Definition at line 23 of file list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+py.
+
+\index{list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}!out\+\_\+experiments\+\_\+filename@{out\+\_\+experiments\+\_\+filename}}
+\index{out\+\_\+experiments\+\_\+filename@{out\+\_\+experiments\+\_\+filename}!list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{out\+\_\+experiments\+\_\+filename}{out_experiments_filename}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+out\+\_\+experiments\+\_\+filename = sys.\+argv\mbox{[}4\mbox{]}}\hypertarget{namespacelist__increase__baseline__experiments_a5899ebc180d88f06ca89b5259654dc93}{}\label{namespacelist__increase__baseline__experiments_a5899ebc180d88f06ca89b5259654dc93}
+
+
+Definition at line 13 of file list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+py.
+
+\index{list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}!parameters\+\_\+filename@{parameters\+\_\+filename}}
+\index{parameters\+\_\+filename@{parameters\+\_\+filename}!list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{parameters\+\_\+filename}{parameters_filename}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+parameters\+\_\+filename = sys.\+argv\mbox{[}1\mbox{]}}\hypertarget{namespacelist__increase__baseline__experiments_a43bfd35e9474f9414c8c221dbb8b18c9}{}\label{namespacelist__increase__baseline__experiments_a43bfd35e9474f9414c8c221dbb8b18c9}
+
+
+Definition at line 10 of file list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+py.
+
+\index{list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}!right\+\_\+index@{right\+\_\+index}}
+\index{right\+\_\+index@{right\+\_\+index}!list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{right\+\_\+index}{right_index}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+right\+\_\+index = {\bf index}+rad}\hypertarget{namespacelist__increase__baseline__experiments_a64b7b40b41912296df3830ee6be178f8}{}\label{namespacelist__increase__baseline__experiments_a64b7b40b41912296df3830ee6be178f8}
+
+
+Definition at line 30 of file list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+py.
+
+\index{list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}!step@{step}}
+\index{step@{step}!list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{step}{step}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+step = 1}\hypertarget{namespacelist__increase__baseline__experiments_a9ac4fa47a0cd897ac043a2c9cf9c49f9}{}\label{namespacelist__increase__baseline__experiments_a9ac4fa47a0cd897ac043a2c9cf9c49f9}
+
+
+Definition at line 14 of file list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+py.
+
+\index{list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}!x\+\_\+index\+\_\+step@{x\+\_\+index\+\_\+step}}
+\index{x\+\_\+index\+\_\+step@{x\+\_\+index\+\_\+step}!list\+\_\+increase\+\_\+baseline\+\_\+experiments@{list\+\_\+increase\+\_\+baseline\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{x\+\_\+index\+\_\+step}{x_index_step}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+x\+\_\+index\+\_\+step = datas.\+x\+\_\+step()}\hypertarget{namespacelist__increase__baseline__experiments_ab2201bf911f43f516872f78b5863e3d8}{}\label{namespacelist__increase__baseline__experiments_ab2201bf911f43f516872f78b5863e3d8}
+
+
+Definition at line 25 of file list\+\_\+increase\+\_\+baseline\+\_\+experiments.\+py.
+

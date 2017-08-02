@@ -1,0 +1,419 @@
+\hypertarget{classtlz_1_1dataset}{}\section{tlz\+:\+:dataset Class Reference}
+\label{classtlz_1_1dataset}\index{tlz\+::dataset@{tlz\+::dataset}}
+
+
+{\ttfamily \#include $<$dataset.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtlz_1_1dataset_aebc24cf832f868716dcc9be82b790af2}{dataset} (const std\+::string \&parameters\+\_\+filename)
+\item 
+bool \hyperlink{classtlz_1_1dataset_af8d9906e7734ce5ffafcdeabfa687b33}{is\+\_\+1d} () const 
+\item 
+bool \hyperlink{classtlz_1_1dataset_a3623ef5d2922b36ca94b4982ba17e9fe}{is\+\_\+2d} () const 
+\item 
+const \hyperlink{namespacetlz_ac400657dfcddf6309a769aefc23eed0c}{json} \& \hyperlink{classtlz_1_1dataset_ab14f5b1f18c0ab423c18270b7ca46bd2}{parameters} () const 
+\item 
+const \hyperlink{namespacetlz_ac400657dfcddf6309a769aefc23eed0c}{json} \& \hyperlink{classtlz_1_1dataset_aa1dfdec1ee0dc33a17499320b884d4d9}{operator\mbox{[}$\,$\mbox{]}} (const std\+::string \&key) const 
+\item 
+std\+::string \hyperlink{classtlz_1_1dataset_ab8608e42b4bceb12855fb676c725d9c5}{filepath} (const std\+::string \&relpath) const 
+\item 
+int \hyperlink{classtlz_1_1dataset_af0c29591daba3a3ed80f277cacb1856d}{image\+\_\+width} () const 
+\item 
+int \hyperlink{classtlz_1_1dataset_a85223a0a6c8e1de055f6e85589045e27}{image\+\_\+height} () const 
+\item 
+cv\+::\+Size \hyperlink{classtlz_1_1dataset_a7aecc40555a69a401c3d3b9c53025fcd}{image\+\_\+size} () const 
+\item 
+std\+::string \hyperlink{classtlz_1_1dataset_a647992aefd95764f55f8e4e1709ad97a}{cameras\+\_\+filename} () const 
+\item 
+int \hyperlink{classtlz_1_1dataset_a15180d3b04937d9f1c69041a220b943b}{x\+\_\+min} () const 
+\item 
+int \hyperlink{classtlz_1_1dataset_a7efef5473f244709a47ff506267652b1}{x\+\_\+step} () const 
+\item 
+int \hyperlink{classtlz_1_1dataset_a280e3ae6c4b37e1e18fabf00b70be20a}{x\+\_\+max} () const 
+\item 
+bool \hyperlink{classtlz_1_1dataset_a52d7087aa473ea89d7dceb8573fbb891}{x\+\_\+valid} (int x) const 
+\item 
+int \hyperlink{classtlz_1_1dataset_a5cb3c59b94a7ef95ca960f1fd54ac073}{x\+\_\+count} () const 
+\item 
+int \hyperlink{classtlz_1_1dataset_acff1e030f5c941654ea16f8061f49346}{x\+\_\+mid} () const 
+\item 
+std\+::vector$<$ int $>$ \hyperlink{classtlz_1_1dataset_a65be94a892ff59fd841da913a82e8473}{x\+\_\+indices} () const 
+\item 
+int \hyperlink{classtlz_1_1dataset_a3a77e1219653f07bef6ec7b08cbf7dcf}{y\+\_\+min} () const 
+\item 
+int \hyperlink{classtlz_1_1dataset_a95703f1285ba42a810d46644128daf9a}{y\+\_\+step} () const 
+\item 
+int \hyperlink{classtlz_1_1dataset_a6900b6a88a2ac1e23d1a51da20f650e4}{y\+\_\+max} () const 
+\item 
+bool \hyperlink{classtlz_1_1dataset_a9a73a6159ffd2559c604427280feb14f}{y\+\_\+valid} (int y) const 
+\item 
+int \hyperlink{classtlz_1_1dataset_a38f70e46d98245e355797dc60ec5c970}{y\+\_\+count} () const 
+\item 
+int \hyperlink{classtlz_1_1dataset_a1183ab5dd7eab8ff6478d9105dc5da19}{y\+\_\+mid} () const 
+\item 
+std\+::vector$<$ int $>$ \hyperlink{classtlz_1_1dataset_a0d129cd61ee21c60210640147cd139ae}{y\+\_\+indices} () const 
+\item 
+bool \hyperlink{classtlz_1_1dataset_acef78cfe5bb77142cbd71e420f36e48b}{valid} (\hyperlink{structtlz_1_1view__index}{view\+\_\+index}) const 
+\item 
+std\+::vector$<$ \hyperlink{structtlz_1_1view__index}{view\+\_\+index} $>$ \hyperlink{classtlz_1_1dataset_a8214662ec50b7214c1e5993185247a0a}{indices} () const 
+\item 
+\hyperlink{classtlz_1_1dataset__group}{dataset\+\_\+group} \hyperlink{classtlz_1_1dataset_ad7d438f87e20fd0a734aabff2e6d52a9}{group} (const std\+::string \&grp) const 
+\item 
+\hyperlink{classtlz_1_1dataset__view}{dataset\+\_\+view} \hyperlink{classtlz_1_1dataset_acbdb309b8dd22f687fff41f6e9ac6ed4}{view} (int x) const 
+\item 
+\hyperlink{classtlz_1_1dataset__view}{dataset\+\_\+view} \hyperlink{classtlz_1_1dataset_a066516e36938a8579945edcc59d25493}{view} (int x, int y) const 
+\item 
+\hyperlink{classtlz_1_1dataset__view}{dataset\+\_\+view} \hyperlink{classtlz_1_1dataset_a3eedfdf0dac9e02440bc3e903299b199}{view} (\hyperlink{structtlz_1_1view__index}{view\+\_\+index}) const 
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 73 of file dataset.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{tlz\+::dataset@{tlz\+::dataset}!dataset@{dataset}}
+\index{dataset@{dataset}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{dataset(const std\+::string \&parameters\+\_\+filename)}{dataset(const std::string &parameters_filename)}}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::dataset\+::dataset (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{parameters\+\_\+filename}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\hypertarget{classtlz_1_1dataset_aebc24cf832f868716dcc9be82b790af2}{}\label{classtlz_1_1dataset_aebc24cf832f868716dcc9be82b790af2}
+
+
+Definition at line 120 of file dataset.\+cc.
+
+
+
+\subsection{Member Function Documentation}
+\index{tlz\+::dataset@{tlz\+::dataset}!cameras\+\_\+filename@{cameras\+\_\+filename}}
+\index{cameras\+\_\+filename@{cameras\+\_\+filename}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{cameras\+\_\+filename() const }{cameras_filename() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string tlz\+::dataset\+::cameras\+\_\+filename (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a647992aefd95764f55f8e4e1709ad97a}{}\label{classtlz_1_1dataset_a647992aefd95764f55f8e4e1709ad97a}
+
+
+Definition at line 149 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!filepath@{filepath}}
+\index{filepath@{filepath}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{filepath(const std\+::string \&relpath) const }{filepath(const std::string &relpath) const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string tlz\+::dataset\+::filepath (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{relpath}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_ab8608e42b4bceb12855fb676c725d9c5}{}\label{classtlz_1_1dataset_ab8608e42b4bceb12855fb676c725d9c5}
+
+
+Definition at line 141 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!group@{group}}
+\index{group@{group}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{group(const std\+::string \&grp) const }{group(const std::string &grp) const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf dataset\+\_\+group} tlz\+::dataset\+::group (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{grp}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_ad7d438f87e20fd0a734aabff2e6d52a9}{}\label{classtlz_1_1dataset_ad7d438f87e20fd0a734aabff2e6d52a9}
+
+
+Definition at line 265 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!image\+\_\+height@{image\+\_\+height}}
+\index{image\+\_\+height@{image\+\_\+height}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{image\+\_\+height() const }{image_height() const }}]{\setlength{\rightskip}{0pt plus 5cm}int tlz\+::dataset\+::image\+\_\+height (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a85223a0a6c8e1de055f6e85589045e27}{}\label{classtlz_1_1dataset_a85223a0a6c8e1de055f6e85589045e27}
+
+
+Definition at line 157 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!image\+\_\+size@{image\+\_\+size}}
+\index{image\+\_\+size@{image\+\_\+size}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{image\+\_\+size() const }{image_size() const }}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Size tlz\+::dataset\+::image\+\_\+size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a7aecc40555a69a401c3d3b9c53025fcd}{}\label{classtlz_1_1dataset_a7aecc40555a69a401c3d3b9c53025fcd}
+
+
+Definition at line 161 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!image\+\_\+width@{image\+\_\+width}}
+\index{image\+\_\+width@{image\+\_\+width}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{image\+\_\+width() const }{image_width() const }}]{\setlength{\rightskip}{0pt plus 5cm}int tlz\+::dataset\+::image\+\_\+width (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_af0c29591daba3a3ed80f277cacb1856d}{}\label{classtlz_1_1dataset_af0c29591daba3a3ed80f277cacb1856d}
+
+
+Definition at line 153 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!indices@{indices}}
+\index{indices@{indices}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{indices() const }{indices() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ {\bf view\+\_\+index} $>$ tlz\+::dataset\+::indices (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a8214662ec50b7214c1e5993185247a0a}{}\label{classtlz_1_1dataset_a8214662ec50b7214c1e5993185247a0a}
+
+
+Definition at line 235 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!is\+\_\+1d@{is\+\_\+1d}}
+\index{is\+\_\+1d@{is\+\_\+1d}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{is\+\_\+1d() const }{is_1d() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool tlz\+::dataset\+::is\+\_\+1d (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_af8d9906e7734ce5ffafcdeabfa687b33}{}\label{classtlz_1_1dataset_af8d9906e7734ce5ffafcdeabfa687b33}
+
+
+Definition at line 133 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!is\+\_\+2d@{is\+\_\+2d}}
+\index{is\+\_\+2d@{is\+\_\+2d}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{is\+\_\+2d() const }{is_2d() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool tlz\+::dataset\+::is\+\_\+2d (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a3623ef5d2922b36ca94b4982ba17e9fe}{}\label{classtlz_1_1dataset_a3623ef5d2922b36ca94b4982ba17e9fe}
+
+
+Definition at line 137 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!operator\mbox{[}$\,$\mbox{]}@{operator[]}}
+\index{operator\mbox{[}$\,$\mbox{]}@{operator[]}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{operator[](const std\+::string \&key) const }{operator[](const std::string &key) const }}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf json}\& tlz\+::dataset\+::operator\mbox{[}$\,$\mbox{]} (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{key}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classtlz_1_1dataset_aa1dfdec1ee0dc33a17499320b884d4d9}{}\label{classtlz_1_1dataset_aa1dfdec1ee0dc33a17499320b884d4d9}
+
+
+Definition at line 87 of file dataset.\+h.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!parameters@{parameters}}
+\index{parameters@{parameters}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{parameters() const }{parameters() const }}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf json}\& tlz\+::dataset\+::parameters (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classtlz_1_1dataset_ab14f5b1f18c0ab423c18270b7ca46bd2}{}\label{classtlz_1_1dataset_ab14f5b1f18c0ab423c18270b7ca46bd2}
+
+
+Definition at line 86 of file dataset.\+h.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!valid@{valid}}
+\index{valid@{valid}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{valid(view\+\_\+index) const }{valid(view_index) const }}]{\setlength{\rightskip}{0pt plus 5cm}bool tlz\+::dataset\+::valid (
+\begin{DoxyParamCaption}
+\item[{{\bf view\+\_\+index}}]{idx}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_acef78cfe5bb77142cbd71e420f36e48b}{}\label{classtlz_1_1dataset_acef78cfe5bb77142cbd71e420f36e48b}
+
+
+Definition at line 231 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!view@{view}}
+\index{view@{view}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{view(int x) const }{view(int x) const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf dataset\+\_\+view} tlz\+::dataset\+::view (
+\begin{DoxyParamCaption}
+\item[{int}]{x}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_acbdb309b8dd22f687fff41f6e9ac6ed4}{}\label{classtlz_1_1dataset_acbdb309b8dd22f687fff41f6e9ac6ed4}
+
+
+Definition at line 243 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!view@{view}}
+\index{view@{view}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{view(int x, int y) const }{view(int x, int y) const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf dataset\+\_\+view} tlz\+::dataset\+::view (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a066516e36938a8579945edcc59d25493}{}\label{classtlz_1_1dataset_a066516e36938a8579945edcc59d25493}
+
+
+Definition at line 249 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!view@{view}}
+\index{view@{view}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{view(view\+\_\+index) const }{view(view_index) const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf dataset\+\_\+view} tlz\+::dataset\+::view (
+\begin{DoxyParamCaption}
+\item[{{\bf view\+\_\+index}}]{idx}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a3eedfdf0dac9e02440bc3e903299b199}{}\label{classtlz_1_1dataset_a3eedfdf0dac9e02440bc3e903299b199}
+
+
+Definition at line 255 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!x\+\_\+count@{x\+\_\+count}}
+\index{x\+\_\+count@{x\+\_\+count}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{x\+\_\+count() const }{x_count() const }}]{\setlength{\rightskip}{0pt plus 5cm}int tlz\+::dataset\+::x\+\_\+count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a5cb3c59b94a7ef95ca960f1fd54ac073}{}\label{classtlz_1_1dataset_a5cb3c59b94a7ef95ca960f1fd54ac073}
+
+
+Definition at line 182 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!x\+\_\+indices@{x\+\_\+indices}}
+\index{x\+\_\+indices@{x\+\_\+indices}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{x\+\_\+indices() const }{x_indices() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ int $>$ tlz\+::dataset\+::x\+\_\+indices (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a65be94a892ff59fd841da913a82e8473}{}\label{classtlz_1_1dataset_a65be94a892ff59fd841da913a82e8473}
+
+
+Definition at line 190 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!x\+\_\+max@{x\+\_\+max}}
+\index{x\+\_\+max@{x\+\_\+max}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{x\+\_\+max() const }{x_max() const }}]{\setlength{\rightskip}{0pt plus 5cm}int tlz\+::dataset\+::x\+\_\+max (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a280e3ae6c4b37e1e18fabf00b70be20a}{}\label{classtlz_1_1dataset_a280e3ae6c4b37e1e18fabf00b70be20a}
+
+
+Definition at line 169 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!x\+\_\+mid@{x\+\_\+mid}}
+\index{x\+\_\+mid@{x\+\_\+mid}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{x\+\_\+mid() const }{x_mid() const }}]{\setlength{\rightskip}{0pt plus 5cm}int tlz\+::dataset\+::x\+\_\+mid (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_acff1e030f5c941654ea16f8061f49346}{}\label{classtlz_1_1dataset_acff1e030f5c941654ea16f8061f49346}
+
+
+Definition at line 186 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!x\+\_\+min@{x\+\_\+min}}
+\index{x\+\_\+min@{x\+\_\+min}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{x\+\_\+min() const }{x_min() const }}]{\setlength{\rightskip}{0pt plus 5cm}int tlz\+::dataset\+::x\+\_\+min (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a15180d3b04937d9f1c69041a220b943b}{}\label{classtlz_1_1dataset_a15180d3b04937d9f1c69041a220b943b}
+
+
+Definition at line 165 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!x\+\_\+step@{x\+\_\+step}}
+\index{x\+\_\+step@{x\+\_\+step}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{x\+\_\+step() const }{x_step() const }}]{\setlength{\rightskip}{0pt plus 5cm}int tlz\+::dataset\+::x\+\_\+step (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a7efef5473f244709a47ff506267652b1}{}\label{classtlz_1_1dataset_a7efef5473f244709a47ff506267652b1}
+
+
+Definition at line 173 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!x\+\_\+valid@{x\+\_\+valid}}
+\index{x\+\_\+valid@{x\+\_\+valid}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{x\+\_\+valid(int x) const }{x_valid(int x) const }}]{\setlength{\rightskip}{0pt plus 5cm}bool tlz\+::dataset\+::x\+\_\+valid (
+\begin{DoxyParamCaption}
+\item[{int}]{x}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a52d7087aa473ea89d7dceb8573fbb891}{}\label{classtlz_1_1dataset_a52d7087aa473ea89d7dceb8573fbb891}
+
+
+Definition at line 178 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!y\+\_\+count@{y\+\_\+count}}
+\index{y\+\_\+count@{y\+\_\+count}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{y\+\_\+count() const }{y_count() const }}]{\setlength{\rightskip}{0pt plus 5cm}int tlz\+::dataset\+::y\+\_\+count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a38f70e46d98245e355797dc60ec5c970}{}\label{classtlz_1_1dataset_a38f70e46d98245e355797dc60ec5c970}
+
+
+Definition at line 221 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!y\+\_\+indices@{y\+\_\+indices}}
+\index{y\+\_\+indices@{y\+\_\+indices}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{y\+\_\+indices() const }{y_indices() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ int $>$ tlz\+::dataset\+::y\+\_\+indices (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a0d129cd61ee21c60210640147cd139ae}{}\label{classtlz_1_1dataset_a0d129cd61ee21c60210640147cd139ae}
+
+
+Definition at line 215 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!y\+\_\+max@{y\+\_\+max}}
+\index{y\+\_\+max@{y\+\_\+max}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{y\+\_\+max() const }{y_max() const }}]{\setlength{\rightskip}{0pt plus 5cm}int tlz\+::dataset\+::y\+\_\+max (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a6900b6a88a2ac1e23d1a51da20f650e4}{}\label{classtlz_1_1dataset_a6900b6a88a2ac1e23d1a51da20f650e4}
+
+
+Definition at line 201 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!y\+\_\+mid@{y\+\_\+mid}}
+\index{y\+\_\+mid@{y\+\_\+mid}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{y\+\_\+mid() const }{y_mid() const }}]{\setlength{\rightskip}{0pt plus 5cm}int tlz\+::dataset\+::y\+\_\+mid (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a1183ab5dd7eab8ff6478d9105dc5da19}{}\label{classtlz_1_1dataset_a1183ab5dd7eab8ff6478d9105dc5da19}
+
+
+Definition at line 226 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!y\+\_\+min@{y\+\_\+min}}
+\index{y\+\_\+min@{y\+\_\+min}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{y\+\_\+min() const }{y_min() const }}]{\setlength{\rightskip}{0pt plus 5cm}int tlz\+::dataset\+::y\+\_\+min (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a3a77e1219653f07bef6ec7b08cbf7dcf}{}\label{classtlz_1_1dataset_a3a77e1219653f07bef6ec7b08cbf7dcf}
+
+
+Definition at line 196 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!y\+\_\+step@{y\+\_\+step}}
+\index{y\+\_\+step@{y\+\_\+step}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{y\+\_\+step() const }{y_step() const }}]{\setlength{\rightskip}{0pt plus 5cm}int tlz\+::dataset\+::y\+\_\+step (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a95703f1285ba42a810d46644128daf9a}{}\label{classtlz_1_1dataset_a95703f1285ba42a810d46644128daf9a}
+
+
+Definition at line 206 of file dataset.\+cc.
+
+\index{tlz\+::dataset@{tlz\+::dataset}!y\+\_\+valid@{y\+\_\+valid}}
+\index{y\+\_\+valid@{y\+\_\+valid}!tlz\+::dataset@{tlz\+::dataset}}
+\subsubsection[{\texorpdfstring{y\+\_\+valid(int y) const }{y_valid(int y) const }}]{\setlength{\rightskip}{0pt plus 5cm}bool tlz\+::dataset\+::y\+\_\+valid (
+\begin{DoxyParamCaption}
+\item[{int}]{y}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1dataset_a9a73a6159ffd2559c604427280feb14f}{}\label{classtlz_1_1dataset_a9a73a6159ffd2559c604427280feb14f}
+
+
+Definition at line 211 of file dataset.\+cc.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\hyperlink{dataset_8h}{dataset.\+h}\item 
+src/lib/\hyperlink{dataset_8cc}{dataset.\+cc}\end{DoxyCompactItemize}

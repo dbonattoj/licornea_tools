@@ -1,0 +1,4 @@
+<map id="tlz::undistort_points" name="tlz::undistort_points">
+<area shape="rect" id="node2" href="$structtlz_1_1distortion__parameters.html#a307fee036b04519d633fb8456899850c" title="tlz::distortion_parameters\l::is_none" alt="" coords="189,5,359,47"/>
+<area shape="rect" id="node3" href="$structtlz_1_1distortion__parameters.html#a96312c5d7baa4b7b1f2a76e9396037f8" title="tlz::distortion_parameters\l::cv_coeffs" alt="" coords="189,71,359,112"/>
+</map>

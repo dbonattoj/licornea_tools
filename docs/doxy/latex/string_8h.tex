@@ -1,0 +1,55 @@
+\hypertarget{string_8h}{}\section{src/lib/string.h File Reference}
+\label{string_8h}\index{src/lib/string.\+h@{src/lib/string.\+h}}
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include \char`\"{}string.\+tcc\char`\"{}}\\*
+Include dependency graph for string.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{string_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{string_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{namespacetlz_ae11c827ac9e581f9d2f98c39aab3750d}{tlz\+::file\+\_\+name\+\_\+extension} (const std\+::string \&filename)
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::string \hyperlink{namespacetlz_a8e4f8c8c2927bc4350de13bfa0f8f9e1}{tlz\+::to\+\_\+string} (const T \&)
+\item 
+{\footnotesize template$<$typename T $>$ }\\T \hyperlink{namespacetlz_af4daa51f95e963823c59154331d953ba}{tlz\+::from\+\_\+string} (const std\+::string \&)
+\item 
+{\footnotesize template$<$typename It $>$ }\\std\+::string \hyperlink{namespacetlz_afe6e34b66575afebc47d3cfde0c20e88}{tlz\+::to\+\_\+string} (It begin, It end, const std\+::string \&separator=\char`\"{}, \char`\"{})
+\item 
+std\+::vector$<$ std\+::string $>$ \hyperlink{namespacetlz_a61f6a6d670ff102367298c39a1a3b0b4}{tlz\+::explode} (char separator, const std\+::string \&str)
+\item 
+std\+::string \hyperlink{namespacetlz_ab71086dd7f55579412df3bfecb2d0f53}{tlz\+::implode} (char separator, const std\+::vector$<$ std\+::string $>$ \&vec)
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::vector$<$ T $>$ \hyperlink{namespacetlz_adc43ea7837b728f3db6b23b816bbb67a}{tlz\+::explode\+\_\+from\+\_\+string} (char separator, const std\+::string \&)
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::string \hyperlink{namespacetlz_ac5a8e7492b29180b32e26501a54ff36c}{tlz\+::implode\+\_\+to\+\_\+string} (char separator, const std\+::vector$<$ T $>$ \&)
+\item 
+std\+::string \hyperlink{namespacetlz_a6745ce98447ef5d811fb6e80dbf5d468}{tlz\+::to\+\_\+lower} (const std\+::string \&s\+\_\+orig)
+\item 
+std\+::string \hyperlink{namespacetlz_a5bf364598fd30694e822107c0a265858}{tlz\+::to\+\_\+upper} (const std\+::string \&s\+\_\+orig)
+\item 
+std\+::string \hyperlink{namespacetlz_a02e2eaeb0698664d5ef0f1bbb7f0562c}{tlz\+::replace\+\_\+all} (const std\+::string \&subject\+\_\+orig, const std\+::string \&find, const std\+::string \&replace)
+\item 
+std\+::size\+\_\+t \hyperlink{namespacetlz_aa873e2e01e016be89be037ee4a677b40}{tlz\+::replace\+\_\+all\+\_\+inplace} (std\+::string \&subject, const std\+::string \&find, const std\+::string \&replace)
+\item 
+int \hyperlink{namespacetlz_ae5932564ec9a5798fa5dbfdd1ed411a1}{tlz\+::string\+\_\+hash} (const std\+::string \&str)
+\end{DoxyCompactItemize}

@@ -1,0 +1,131 @@
+\hypertarget{classtlz_1_1kinect__remapping}{}\section{tlz\+:\+:kinect\+\_\+remapping Class Reference}
+\label{classtlz_1_1kinect__remapping}\index{tlz\+::kinect\+\_\+remapping@{tlz\+::kinect\+\_\+remapping}}
+
+
+{\ttfamily \#include $<$kinect\+\_\+remapping.\+h$>$}
+
+
+
+Collaboration diagram for tlz\+:\+:kinect\+\_\+remapping\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{classtlz_1_1kinect__remapping__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Value $>$ }\\using \hyperlink{classtlz_1_1kinect__remapping_a10367314ff6c1cb5696f087454ec9f7f}{sample} = \hyperlink{structtlz_1_1ir__to__color__sample}{ir\+\_\+to\+\_\+color\+\_\+sample}$<$ Value $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtlz_1_1kinect__remapping_ad19de7f5c79b616ff9183bc3c918dba8}{kinect\+\_\+remapping} (const \hyperlink{structtlz_1_1kinect__internal__parameters}{kinect\+\_\+internal\+\_\+parameters} \&)
+\item 
+\hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} \hyperlink{classtlz_1_1kinect__remapping_a831ade1537415f733be62e7f606cbcb2}{distort\+\_\+ir} (\hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} undistorted) const 
+\item 
+\hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} \hyperlink{classtlz_1_1kinect__remapping_a3d6842deee81ce9d61b335a4b053337a}{undistort\+\_\+ir} (\hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} distorted) const 
+\item 
+\hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} \hyperlink{classtlz_1_1kinect__remapping_a0ab08ec0c7f71c5a7f6f7459d723affe}{map\+\_\+ir\+\_\+to\+\_\+color} (\hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} undistorted\+\_\+ir, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} ir\+\_\+z) const 
+\item 
+{\footnotesize template$<$typename Value , typename Depth $>$ }\\std\+::vector$<$ \hyperlink{classtlz_1_1kinect__remapping_a10367314ff6c1cb5696f087454ec9f7f}{sample}$<$ Value $>$ $>$ \hyperlink{classtlz_1_1kinect__remapping_ade5a57b1715a58352b9edc74b4a88f6b}{remap\+\_\+ir\+\_\+to\+\_\+color\+\_\+samples} (const cv\+::\+Mat\+\_\+$<$ Value $>$ \&distorted\+\_\+ir\+\_\+values, const cv\+::\+Mat\+\_\+$<$ Depth $>$ \&distorted\+\_\+ir\+\_\+z) const 
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structtlz_1_1kinect__internal__parameters}{kinect\+\_\+internal\+\_\+parameters} \hyperlink{classtlz_1_1kinect__remapping_a18032d6bb860fda0a2313818963b4ef6}{internal\+\_\+parameters\+\_\+}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 11 of file kinect\+\_\+remapping.\+h.
+
+
+
+\subsection{Member Typedef Documentation}
+\index{tlz\+::kinect\+\_\+remapping@{tlz\+::kinect\+\_\+remapping}!sample@{sample}}
+\index{sample@{sample}!tlz\+::kinect\+\_\+remapping@{tlz\+::kinect\+\_\+remapping}}
+\subsubsection[{\texorpdfstring{sample}{sample}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Value $>$ using {\bf tlz\+::kinect\+\_\+remapping\+::sample} =  {\bf ir\+\_\+to\+\_\+color\+\_\+sample}$<$Value$>$}\hypertarget{classtlz_1_1kinect__remapping_a10367314ff6c1cb5696f087454ec9f7f}{}\label{classtlz_1_1kinect__remapping_a10367314ff6c1cb5696f087454ec9f7f}
+
+
+Definition at line 23 of file kinect\+\_\+remapping.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{tlz\+::kinect\+\_\+remapping@{tlz\+::kinect\+\_\+remapping}!kinect\+\_\+remapping@{kinect\+\_\+remapping}}
+\index{kinect\+\_\+remapping@{kinect\+\_\+remapping}!tlz\+::kinect\+\_\+remapping@{tlz\+::kinect\+\_\+remapping}}
+\subsubsection[{\texorpdfstring{kinect\+\_\+remapping(const kinect\+\_\+internal\+\_\+parameters \&)}{kinect_remapping(const kinect_internal_parameters &)}}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::kinect\+\_\+remapping\+::kinect\+\_\+remapping (
+\begin{DoxyParamCaption}
+\item[{const {\bf kinect\+\_\+internal\+\_\+parameters} \&}]{internal}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\hypertarget{classtlz_1_1kinect__remapping_ad19de7f5c79b616ff9183bc3c918dba8}{}\label{classtlz_1_1kinect__remapping_ad19de7f5c79b616ff9183bc3c918dba8}
+
+
+Definition at line 12 of file kinect\+\_\+remapping.\+cc.
+
+
+
+\subsection{Member Function Documentation}
+\index{tlz\+::kinect\+\_\+remapping@{tlz\+::kinect\+\_\+remapping}!distort\+\_\+ir@{distort\+\_\+ir}}
+\index{distort\+\_\+ir@{distort\+\_\+ir}!tlz\+::kinect\+\_\+remapping@{tlz\+::kinect\+\_\+remapping}}
+\subsubsection[{\texorpdfstring{distort\+\_\+ir(vec2 undistorted) const }{distort_ir(vec2 undistorted) const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf vec2} tlz\+::kinect\+\_\+remapping\+::distort\+\_\+ir (
+\begin{DoxyParamCaption}
+\item[{{\bf vec2}}]{undistorted}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1kinect__remapping_a831ade1537415f733be62e7f606cbcb2}{}\label{classtlz_1_1kinect__remapping_a831ade1537415f733be62e7f606cbcb2}
+
+
+Definition at line 16 of file kinect\+\_\+remapping.\+cc.
+
+\index{tlz\+::kinect\+\_\+remapping@{tlz\+::kinect\+\_\+remapping}!map\+\_\+ir\+\_\+to\+\_\+color@{map\+\_\+ir\+\_\+to\+\_\+color}}
+\index{map\+\_\+ir\+\_\+to\+\_\+color@{map\+\_\+ir\+\_\+to\+\_\+color}!tlz\+::kinect\+\_\+remapping@{tlz\+::kinect\+\_\+remapping}}
+\subsubsection[{\texorpdfstring{map\+\_\+ir\+\_\+to\+\_\+color(vec2 undistorted\+\_\+ir, real ir\+\_\+z) const }{map_ir_to_color(vec2 undistorted_ir, real ir_z) const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf vec2} tlz\+::kinect\+\_\+remapping\+::map\+\_\+ir\+\_\+to\+\_\+color (
+\begin{DoxyParamCaption}
+\item[{{\bf vec2}}]{undistorted\+\_\+ir, }
+\item[{{\bf real}}]{ir\+\_\+z}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1kinect__remapping_a0ab08ec0c7f71c5a7f6f7459d723affe}{}\label{classtlz_1_1kinect__remapping_a0ab08ec0c7f71c5a7f6f7459d723affe}
+
+
+Definition at line 46 of file kinect\+\_\+remapping.\+cc.
+
+\index{tlz\+::kinect\+\_\+remapping@{tlz\+::kinect\+\_\+remapping}!remap\+\_\+ir\+\_\+to\+\_\+color\+\_\+samples@{remap\+\_\+ir\+\_\+to\+\_\+color\+\_\+samples}}
+\index{remap\+\_\+ir\+\_\+to\+\_\+color\+\_\+samples@{remap\+\_\+ir\+\_\+to\+\_\+color\+\_\+samples}!tlz\+::kinect\+\_\+remapping@{tlz\+::kinect\+\_\+remapping}}
+\subsubsection[{\texorpdfstring{remap\+\_\+ir\+\_\+to\+\_\+color\+\_\+samples(const cv\+::\+Mat\+\_\+$<$ Value $>$ \&distorted\+\_\+ir\+\_\+values, const cv\+::\+Mat\+\_\+$<$ Depth $>$ \&distorted\+\_\+ir\+\_\+z) const }{remap_ir_to_color_samples(const cv::Mat_< Value > &distorted_ir_values, const cv::Mat_< Depth > &distorted_ir_z) const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Value , typename Depth $>$ std\+::vector$<${\bf sample}$<$Value$>$ $>$ tlz\+::kinect\+\_\+remapping\+::remap\+\_\+ir\+\_\+to\+\_\+color\+\_\+samples (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat\+\_\+$<$ Value $>$ \&}]{distorted\+\_\+ir\+\_\+values, }
+\item[{const cv\+::\+Mat\+\_\+$<$ Depth $>$ \&}]{distorted\+\_\+ir\+\_\+z}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1kinect__remapping_ade5a57b1715a58352b9edc74b4a88f6b}{}\label{classtlz_1_1kinect__remapping_ade5a57b1715a58352b9edc74b4a88f6b}
+\index{tlz\+::kinect\+\_\+remapping@{tlz\+::kinect\+\_\+remapping}!undistort\+\_\+ir@{undistort\+\_\+ir}}
+\index{undistort\+\_\+ir@{undistort\+\_\+ir}!tlz\+::kinect\+\_\+remapping@{tlz\+::kinect\+\_\+remapping}}
+\subsubsection[{\texorpdfstring{undistort\+\_\+ir(vec2 distorted) const }{undistort_ir(vec2 distorted) const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf vec2} tlz\+::kinect\+\_\+remapping\+::undistort\+\_\+ir (
+\begin{DoxyParamCaption}
+\item[{{\bf vec2}}]{distorted}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1kinect__remapping_a3d6842deee81ce9d61b335a4b053337a}{}\label{classtlz_1_1kinect__remapping_a3d6842deee81ce9d61b335a4b053337a}
+
+
+Definition at line 31 of file kinect\+\_\+remapping.\+cc.
+
+
+
+\subsection{Member Data Documentation}
+\index{tlz\+::kinect\+\_\+remapping@{tlz\+::kinect\+\_\+remapping}!internal\+\_\+parameters\+\_\+@{internal\+\_\+parameters\+\_\+}}
+\index{internal\+\_\+parameters\+\_\+@{internal\+\_\+parameters\+\_\+}!tlz\+::kinect\+\_\+remapping@{tlz\+::kinect\+\_\+remapping}}
+\subsubsection[{\texorpdfstring{internal\+\_\+parameters\+\_\+}{internal_parameters_}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kinect\+\_\+internal\+\_\+parameters} tlz\+::kinect\+\_\+remapping\+::internal\+\_\+parameters\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{classtlz_1_1kinect__remapping_a18032d6bb860fda0a2313818963b4ef6}{}\label{classtlz_1_1kinect__remapping_a18032d6bb860fda0a2313818963b4ef6}
+
+
+Definition at line 13 of file kinect\+\_\+remapping.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/kinect/lib/\hyperlink{kinect__remapping_8h}{kinect\+\_\+remapping.\+h}\item 
+src/kinect/lib/\hyperlink{kinect__remapping_8cc}{kinect\+\_\+remapping.\+cc}\end{DoxyCompactItemize}

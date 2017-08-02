@@ -1,0 +1,131 @@
+\hypertarget{lib_2common_8h}{}\section{src/lib/common.h File Reference}
+\label{lib_2common_8h}\index{src/lib/common.\+h@{src/lib/common.\+h}}
+{\ttfamily \#include $<$cstddef$>$}\\*
+{\ttfamily \#include $<$cstdint$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$stdexcept$>$}\\*
+{\ttfamily \#include $<$utility$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$initializer\+\_\+list$>$}\\*
+{\ttfamily \#include $<$opencv2/core/core.\+hpp$>$}\\*
+Include dependency graph for common.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{lib_2common_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{lib_2common_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtlz_1_1index__2d}{tlz\+::index\+\_\+2d}
+\item 
+struct \hyperlink{structtlz_1_1view__index}{tlz\+::view\+\_\+index}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{lib_2common_8h_a1f2f3d792eafe0d068e4f8354e4164f1}{P\+O\+I\+N\+T\+\_\+\+C\+O\+N\+V\+E\+RT}(\+\_\+\+\_\+name\+\_\+\+\_\+,  \+\_\+\+\_\+in\+\_\+\+\_\+,  \+\_\+\+\_\+out\+\_\+\+\_\+,  \+\_\+\+\_\+expr\+\_\+\+\_\+)
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{tlz\+::real} = double
+\item 
+using \hyperlink{namespacetlz_afbec730d64767e794a689352d41b2b18}{tlz\+::byte} = std\+::uint8\+\_\+t
+\item 
+using \hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{tlz\+::vec2} = cv\+::\+Vec$<$ real, 2 $>$
+\item 
+using \hyperlink{namespacetlz_ad0646d752ddb9d40d702d40cc6dc54a1}{tlz\+::vec3} = cv\+::\+Vec$<$ real, 3 $>$
+\item 
+using \hyperlink{namespacetlz_a21f82d5e23125980dc143404656a5c90}{tlz\+::vec4} = cv\+::\+Vec$<$ real, 4 $>$
+\item 
+using \hyperlink{namespacetlz_a6679497d5121f319147594e1f344ef57}{tlz\+::mat33} = cv\+::\+Matx$<$ real, 3, 3 $>$
+\item 
+using \hyperlink{namespacetlz_a56693a40f2ef608241dddb9064281089}{tlz\+::mat44} = cv\+::\+Matx$<$ real, 4, 4 $>$
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+vec3 \hyperlink{namespacetlz_a1b96e05afba5d411f359ae7b873aa8fe}{tlz\+::mul\+\_\+h} (const mat44 \&mat, const vec3 \&vec)
+\item 
+vec2 \hyperlink{namespacetlz_ae11356c6c2cc4c93f6924ecf6798b723}{tlz\+::mul\+\_\+h} (const mat33 \&mat, const vec2 \&vec)
+\item 
+{\footnotesize template$<$typename In , typename Out , typename Func $>$ }\\std\+::vector$<$ Out $>$ \hyperlink{namespacetlz_aa4fb2ce44bd60f165cde6f239a061540}{tlz\+::point\+\_\+vec\+\_\+conv\+\_\+tpl} (const std\+::vector$<$ In $>$ \&in, Func func)
+\item 
+constexpr long double \hyperlink{namespacetlz_a529aabca4f85e8362770d8660b0092e8}{tlz\+::operator\char`\"{}\char`\"{}\+\_\+deg} (long double deg)
+\item 
+bool \hyperlink{namespacetlz_acfd8fa384ddfcd57b3ab814a2a9ac318}{tlz\+::operator==} (const index\+\_\+2d \&a, const index\+\_\+2d \&b)
+\item 
+bool \hyperlink{namespacetlz_a288025c8772d3d9a741922fc4e3e8095}{tlz\+::operator!=} (const index\+\_\+2d \&a, const index\+\_\+2d \&b)
+\item 
+bool \hyperlink{namespacetlz_afafc5b9d64375baf8489a097faeb47ec}{tlz\+::operator$<$} (const index\+\_\+2d \&a, const index\+\_\+2d \&b)
+\item 
+bool \hyperlink{namespacetlz_a022202525838cdfe499e6d27ed189dc2}{tlz\+::operator$<$=} (const index\+\_\+2d \&a, const index\+\_\+2d \&b)
+\item 
+bool \hyperlink{namespacetlz_a9350c25db5668e3720cbf3797a4c879c}{tlz\+::operator$>$} (const index\+\_\+2d \&a, const index\+\_\+2d \&b)
+\item 
+bool \hyperlink{namespacetlz_a37ad12663e6d510b2e739434681b9e59}{tlz\+::operator$>$=} (const index\+\_\+2d \&a, const index\+\_\+2d \&b)
+\item 
+std\+::string \hyperlink{namespacetlz_aadab29bdc80bc1d0ad6d3784dd427992}{tlz\+::encode\+\_\+view\+\_\+index} (view\+\_\+index idx)
+\item 
+view\+\_\+index \hyperlink{namespacetlz_a74e8454f97dace7cffb1afdb6d3ca87b}{tlz\+::decode\+\_\+view\+\_\+index} (const std\+::string \&key)
+\item 
+std\+::ostream \& \hyperlink{namespacetlz_ae05c31549882702b59b5eb314196d14c}{tlz\+::operator$<$$<$} (std\+::ostream \&, const view\+\_\+index \&)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr int \hyperlink{namespacetlz_ad1e3b7cf1657f9d2d03a6024cee9c829}{tlz\+::enter\+\_\+keycode} = 10
+\item 
+constexpr int \hyperlink{namespacetlz_a7ebc5d7ffd41d61b0d2ccda50d705fb4}{tlz\+::escape\+\_\+keycode} = 27
+\item 
+constexpr real \hyperlink{namespacetlz_ac4eee635011d10eb47adf9eba0e6b977}{tlz\+::pi} = 3.\+14159265358979323846
+\item 
+constexpr real \hyperlink{namespacetlz_a22c927109d829916d5b2a6ea5ee326f9}{tlz\+::deg\+\_\+per\+\_\+rad} = 180.\+0 / pi
+\item 
+constexpr real \hyperlink{namespacetlz_a79e0cbce3856b92202ca2107fb7e495d}{tlz\+::rad\+\_\+per\+\_\+deg} = pi / 180.\+0
+\item 
+constexpr real \hyperlink{namespacetlz_a2c17d7f52299e459ae627624a0b35176}{tlz\+::golden\+\_\+ratio} = 1.\+61803398874989484820
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{lib/common.\+h@{lib/common.\+h}!P\+O\+I\+N\+T\+\_\+\+C\+O\+N\+V\+E\+RT@{P\+O\+I\+N\+T\+\_\+\+C\+O\+N\+V\+E\+RT}}
+\index{P\+O\+I\+N\+T\+\_\+\+C\+O\+N\+V\+E\+RT@{P\+O\+I\+N\+T\+\_\+\+C\+O\+N\+V\+E\+RT}!lib/common.\+h@{lib/common.\+h}}
+\subsubsection[{\texorpdfstring{P\+O\+I\+N\+T\+\_\+\+C\+O\+N\+V\+E\+RT}{POINT_CONVERT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+O\+I\+N\+T\+\_\+\+C\+O\+N\+V\+E\+RT(
+\begin{DoxyParamCaption}
+\item[{}]{\+\_\+\+\_\+name\+\_\+\+\_\+, }
+\item[{}]{\+\_\+\+\_\+in\+\_\+\+\_\+, }
+\item[{}]{\+\_\+\+\_\+out\+\_\+\+\_\+, }
+\item[{}]{\+\_\+\+\_\+expr\+\_\+\+\_\+}
+\end{DoxyParamCaption}
+)}\hypertarget{lib_2common_8h_a1f2f3d792eafe0d068e4f8354e4164f1}{}\label{lib_2common_8h_a1f2f3d792eafe0d068e4f8354e4164f1}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keyword}{inline} \_\_out\_\_ \_\_name\_\_(\textcolor{keyword}{const} \_\_in\_\_& pt) \{ \(\backslash\)
+        return \_\_expr\_\_; \(\backslash\)
+    \} \(\backslash\)
+    inline std::vector<\_\_out\_\_> \_\_name\_\_(\textcolor{keyword}{const} std::vector<\_\_in\_\_>& pts) \{ \(\backslash\)
+        return point\_vec\_conv\_tpl<\_\_in\_\_, \_\_out\_\_>(pts, \textcolor{keyword}{static\_cast<}\_\_out\_\_(*)(\textcolor{keyword}{const }\_\_in\_\_&)\textcolor{keyword}{>}(&\_\_name\_\_));
+       \(\backslash\)
+    \}
+\end{DoxyCode}
+
+
+Definition at line 54 of file common.\+h.
+

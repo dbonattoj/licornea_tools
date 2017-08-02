@@ -1,0 +1,175 @@
+\hypertarget{assert_8h}{}\section{src/lib/assert.h File Reference}
+\label{assert_8h}\index{src/lib/assert.\+h@{src/lib/assert.\+h}}
+{\ttfamily \#include $<$stdexcept$>$}\\*
+Include dependency graph for assert.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=161pt]{assert_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{assert_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classtlz_1_1failed__assertion}{tlz\+::failed\+\_\+assertion}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{assert_8h_afed14ae0135b86efc152b51b8d13cfa3}{M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+Z\+E\+\_\+}(X)~\#X
+\item 
+\#define \hyperlink{assert_8h_a01ab7eed01b1fff65acbd29405d2575a}{M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+ZE}(X)~\hyperlink{assert_8h_afed14ae0135b86efc152b51b8d13cfa3}{M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+Z\+E\+\_\+}(X)
+\item 
+\#define \hyperlink{assert_8h_a499621ef00ce6b0e91702ed62ff4c7bd}{M\+F\+\_\+\+G\+E\+T\+\_\+\+N\+A\+R\+G\+\_\+\+M\+A\+C\+R\+O\+\_\+2}(\+\_\+1,  \+\_\+2,  N\+A\+ME, ...)~N\+A\+ME
+\item 
+\#define \hyperlink{assert_8h_a76eec6fbabf2a6c7fd2e6933fbc519b4}{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+\+M\+S\+G\+\_\+}(\+\_\+\+\_\+condition\+\_\+\+\_\+,  \+\_\+\+\_\+msg\+\_\+\+\_\+)~if(! (\+\_\+\+\_\+condition\+\_\+\+\_\+)) throw \+::\hyperlink{classtlz_1_1failed__assertion}{tlz\+::failed\+\_\+assertion}(\+\_\+\+\_\+msg\+\_\+\+\_\+ \char`\"{} at \char`\"{} \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+ \char`\"{}\+:\char`\"{} \hyperlink{assert_8h_a01ab7eed01b1fff65acbd29405d2575a}{M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+ZE}(\+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+))
+\item 
+\#define \hyperlink{assert_8h_a6de7c2d88620cc3ba72fa4845d79e42b}{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+M\+S\+G\+\_\+}(\+\_\+\+\_\+condition\+\_\+\+\_\+,  \+\_\+\+\_\+msg\+\_\+\+\_\+)~if(! (\+\_\+\+\_\+condition\+\_\+\+\_\+)) throw \+::\hyperlink{classtlz_1_1failed__assertion}{tlz\+::failed\+\_\+assertion}(\+\_\+\+\_\+msg\+\_\+\+\_\+ \char`\"{} at \char`\"{} \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+ \char`\"{}\+:\char`\"{} \hyperlink{assert_8h_a01ab7eed01b1fff65acbd29405d2575a}{M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+ZE}(\+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+))
+\item 
+\#define \hyperlink{assert_8h_a6c1c39d312129097936e6b9920f349fc}{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+}(\+\_\+\+\_\+condition\+\_\+\+\_\+)~\hyperlink{assert_8h_a6de7c2d88620cc3ba72fa4845d79e42b}{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+M\+S\+G\+\_\+}(\+\_\+\+\_\+condition\+\_\+\+\_\+, \char`\"{}`\char`\"{} \#\+\_\+\+\_\+condition\+\_\+\+\_\+ \char`\"{}`\char`\"{})
+\item 
+\#define \hyperlink{assert_8h_a51e499ae90fb240ac48a6ed9d46fb5fb}{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+}(\+\_\+\+\_\+condition\+\_\+\+\_\+)~\hyperlink{assert_8h_a76eec6fbabf2a6c7fd2e6933fbc519b4}{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+\+M\+S\+G\+\_\+}(\+\_\+\+\_\+condition\+\_\+\+\_\+, \char`\"{}`\char`\"{} \#\+\_\+\+\_\+condition\+\_\+\+\_\+ \char`\"{}`\char`\"{})
+\item 
+\#define \hyperlink{assert_8h_acd38db95358dea139a293e1f202f198a}{M\+F\+\_\+\+A\+S\+S\+E\+RT}(...)~\hyperlink{assert_8h_a499621ef00ce6b0e91702ed62ff4c7bd}{M\+F\+\_\+\+G\+E\+T\+\_\+\+N\+A\+R\+G\+\_\+\+M\+A\+C\+R\+O\+\_\+2}(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+, \hyperlink{assert_8h_a6de7c2d88620cc3ba72fa4845d79e42b}{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+M\+S\+G\+\_\+}, \hyperlink{assert_8h_a6c1c39d312129097936e6b9920f349fc}{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+}, I\+G\+N\+O\+RE)(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\item 
+\#define \hyperlink{assert_8h_ae11b7cfffd2238a10afa56bc78035927}{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+IT}(...)~\hyperlink{assert_8h_a499621ef00ce6b0e91702ed62ff4c7bd}{M\+F\+\_\+\+G\+E\+T\+\_\+\+N\+A\+R\+G\+\_\+\+M\+A\+C\+R\+O\+\_\+2}(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+, \hyperlink{assert_8h_a76eec6fbabf2a6c7fd2e6933fbc519b4}{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+\+M\+S\+G\+\_\+}, \hyperlink{assert_8h_a51e499ae90fb240ac48a6ed9d46fb5fb}{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+}, I\+G\+N\+O\+RE)(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\item 
+\#define \hyperlink{assert_8h_a4e2f1881bbe8c0a12fbc11d6788414bf}{Assert}~\hyperlink{assert_8h_acd38db95358dea139a293e1f202f198a}{M\+F\+\_\+\+A\+S\+S\+E\+RT}
+\item 
+\#define \hyperlink{assert_8h_a5fe4dba339a96d5e9a4f54564f54ebba}{Assert\+\_\+crit}~\hyperlink{assert_8h_ae11b7cfffd2238a10afa56bc78035927}{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+IT}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{assert.\+h@{assert.\+h}!Assert@{Assert}}
+\index{Assert@{Assert}!assert.\+h@{assert.\+h}}
+\subsubsection[{\texorpdfstring{Assert}{Assert}}]{\setlength{\rightskip}{0pt plus 5cm}\#define Assert~{\bf M\+F\+\_\+\+A\+S\+S\+E\+RT}}\hypertarget{assert_8h_a4e2f1881bbe8c0a12fbc11d6788414bf}{}\label{assert_8h_a4e2f1881bbe8c0a12fbc11d6788414bf}
+
+
+Definition at line 40 of file assert.\+h.
+
+\index{assert.\+h@{assert.\+h}!Assert\+\_\+crit@{Assert\+\_\+crit}}
+\index{Assert\+\_\+crit@{Assert\+\_\+crit}!assert.\+h@{assert.\+h}}
+\subsubsection[{\texorpdfstring{Assert\+\_\+crit}{Assert_crit}}]{\setlength{\rightskip}{0pt plus 5cm}\#define Assert\+\_\+crit~{\bf M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+IT}}\hypertarget{assert_8h_a5fe4dba339a96d5e9a4f54564f54ebba}{}\label{assert_8h_a5fe4dba339a96d5e9a4f54564f54ebba}
+
+
+Definition at line 45 of file assert.\+h.
+
+\index{assert.\+h@{assert.\+h}!M\+F\+\_\+\+A\+S\+S\+E\+RT@{M\+F\+\_\+\+A\+S\+S\+E\+RT}}
+\index{M\+F\+\_\+\+A\+S\+S\+E\+RT@{M\+F\+\_\+\+A\+S\+S\+E\+RT}!assert.\+h@{assert.\+h}}
+\subsubsection[{\texorpdfstring{M\+F\+\_\+\+A\+S\+S\+E\+RT}{MF_ASSERT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+F\+\_\+\+A\+S\+S\+E\+RT(
+\begin{DoxyParamCaption}
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~{\bf M\+F\+\_\+\+G\+E\+T\+\_\+\+N\+A\+R\+G\+\_\+\+M\+A\+C\+R\+O\+\_\+2}(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+, {\bf M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+M\+S\+G\+\_\+}, {\bf M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+}, I\+G\+N\+O\+RE)(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)}\hypertarget{assert_8h_acd38db95358dea139a293e1f202f198a}{}\label{assert_8h_acd38db95358dea139a293e1f202f198a}
+
+
+Definition at line 33 of file assert.\+h.
+
+\index{assert.\+h@{assert.\+h}!M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+@{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+}}
+\index{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+@{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+}!assert.\+h@{assert.\+h}}
+\subsubsection[{\texorpdfstring{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+}{MF_ASSERT_}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+(
+\begin{DoxyParamCaption}
+\item[{}]{\+\_\+\+\_\+condition\+\_\+\+\_\+}
+\end{DoxyParamCaption}
+)~{\bf M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+M\+S\+G\+\_\+}(\+\_\+\+\_\+condition\+\_\+\+\_\+, \char`\"{}`\char`\"{} \#\+\_\+\+\_\+condition\+\_\+\+\_\+ \char`\"{}`\char`\"{})}\hypertarget{assert_8h_a6c1c39d312129097936e6b9920f349fc}{}\label{assert_8h_a6c1c39d312129097936e6b9920f349fc}
+
+
+Definition at line 24 of file assert.\+h.
+
+\index{assert.\+h@{assert.\+h}!M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+IT@{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+IT}}
+\index{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+IT@{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+IT}!assert.\+h@{assert.\+h}}
+\subsubsection[{\texorpdfstring{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+IT}{MF_ASSERT_CRIT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+IT(
+\begin{DoxyParamCaption}
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~{\bf M\+F\+\_\+\+G\+E\+T\+\_\+\+N\+A\+R\+G\+\_\+\+M\+A\+C\+R\+O\+\_\+2}(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+, {\bf M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+\+M\+S\+G\+\_\+}, {\bf M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+}, I\+G\+N\+O\+RE)(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)}\hypertarget{assert_8h_ae11b7cfffd2238a10afa56bc78035927}{}\label{assert_8h_ae11b7cfffd2238a10afa56bc78035927}
+
+
+Definition at line 34 of file assert.\+h.
+
+\index{assert.\+h@{assert.\+h}!M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+@{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+}}
+\index{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+@{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+}!assert.\+h@{assert.\+h}}
+\subsubsection[{\texorpdfstring{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+}{MF_ASSERT_CRIT_}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+(
+\begin{DoxyParamCaption}
+\item[{}]{\+\_\+\+\_\+condition\+\_\+\+\_\+}
+\end{DoxyParamCaption}
+)~{\bf M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+\+M\+S\+G\+\_\+}(\+\_\+\+\_\+condition\+\_\+\+\_\+, \char`\"{}`\char`\"{} \#\+\_\+\+\_\+condition\+\_\+\+\_\+ \char`\"{}`\char`\"{})}\hypertarget{assert_8h_a51e499ae90fb240ac48a6ed9d46fb5fb}{}\label{assert_8h_a51e499ae90fb240ac48a6ed9d46fb5fb}
+
+
+Definition at line 25 of file assert.\+h.
+
+\index{assert.\+h@{assert.\+h}!M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+\+M\+S\+G\+\_\+@{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+\+M\+S\+G\+\_\+}}
+\index{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+\+M\+S\+G\+\_\+@{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+\+M\+S\+G\+\_\+}!assert.\+h@{assert.\+h}}
+\subsubsection[{\texorpdfstring{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+\+M\+S\+G\+\_\+}{MF_ASSERT_CRIT_MSG_}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+R\+I\+T\+\_\+\+M\+S\+G\+\_\+(
+\begin{DoxyParamCaption}
+\item[{}]{\+\_\+\+\_\+condition\+\_\+\+\_\+, }
+\item[{}]{\+\_\+\+\_\+msg\+\_\+\+\_\+}
+\end{DoxyParamCaption}
+)~if(! (\+\_\+\+\_\+condition\+\_\+\+\_\+)) throw \+::{\bf tlz\+::failed\+\_\+assertion}(\+\_\+\+\_\+msg\+\_\+\+\_\+ \char`\"{} at \char`\"{} \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+ \char`\"{}\+:\char`\"{} {\bf M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+ZE}(\+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+))}\hypertarget{assert_8h_a76eec6fbabf2a6c7fd2e6933fbc519b4}{}\label{assert_8h_a76eec6fbabf2a6c7fd2e6933fbc519b4}
+
+
+Definition at line 12 of file assert.\+h.
+
+\index{assert.\+h@{assert.\+h}!M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+M\+S\+G\+\_\+@{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+M\+S\+G\+\_\+}}
+\index{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+M\+S\+G\+\_\+@{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+M\+S\+G\+\_\+}!assert.\+h@{assert.\+h}}
+\subsubsection[{\texorpdfstring{M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+M\+S\+G\+\_\+}{MF_ASSERT_MSG_}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+F\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+M\+S\+G\+\_\+(
+\begin{DoxyParamCaption}
+\item[{}]{\+\_\+\+\_\+condition\+\_\+\+\_\+, }
+\item[{}]{\+\_\+\+\_\+msg\+\_\+\+\_\+}
+\end{DoxyParamCaption}
+)~if(! (\+\_\+\+\_\+condition\+\_\+\+\_\+)) throw \+::{\bf tlz\+::failed\+\_\+assertion}(\+\_\+\+\_\+msg\+\_\+\+\_\+ \char`\"{} at \char`\"{} \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+ \char`\"{}\+:\char`\"{} {\bf M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+ZE}(\+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+))}\hypertarget{assert_8h_a6de7c2d88620cc3ba72fa4845d79e42b}{}\label{assert_8h_a6de7c2d88620cc3ba72fa4845d79e42b}
+
+
+Definition at line 14 of file assert.\+h.
+
+\index{assert.\+h@{assert.\+h}!M\+F\+\_\+\+G\+E\+T\+\_\+\+N\+A\+R\+G\+\_\+\+M\+A\+C\+R\+O\+\_\+2@{M\+F\+\_\+\+G\+E\+T\+\_\+\+N\+A\+R\+G\+\_\+\+M\+A\+C\+R\+O\+\_\+2}}
+\index{M\+F\+\_\+\+G\+E\+T\+\_\+\+N\+A\+R\+G\+\_\+\+M\+A\+C\+R\+O\+\_\+2@{M\+F\+\_\+\+G\+E\+T\+\_\+\+N\+A\+R\+G\+\_\+\+M\+A\+C\+R\+O\+\_\+2}!assert.\+h@{assert.\+h}}
+\subsubsection[{\texorpdfstring{M\+F\+\_\+\+G\+E\+T\+\_\+\+N\+A\+R\+G\+\_\+\+M\+A\+C\+R\+O\+\_\+2}{MF_GET_NARG_MACRO_2}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+F\+\_\+\+G\+E\+T\+\_\+\+N\+A\+R\+G\+\_\+\+M\+A\+C\+R\+O\+\_\+2(
+\begin{DoxyParamCaption}
+\item[{}]{\+\_\+1, }
+\item[{}]{\+\_\+2, }
+\item[{}]{N\+A\+ME, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~N\+A\+ME}\hypertarget{assert_8h_a499621ef00ce6b0e91702ed62ff4c7bd}{}\label{assert_8h_a499621ef00ce6b0e91702ed62ff4c7bd}
+
+
+Definition at line 9 of file assert.\+h.
+
+\index{assert.\+h@{assert.\+h}!M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+ZE@{M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+ZE}}
+\index{M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+ZE@{M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+ZE}!assert.\+h@{assert.\+h}}
+\subsubsection[{\texorpdfstring{M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+ZE}{MF_STRINGIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+ZE(
+\begin{DoxyParamCaption}
+\item[{}]{X}
+\end{DoxyParamCaption}
+)~{\bf M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+Z\+E\+\_\+}(X)}\hypertarget{assert_8h_a01ab7eed01b1fff65acbd29405d2575a}{}\label{assert_8h_a01ab7eed01b1fff65acbd29405d2575a}
+
+
+Definition at line 7 of file assert.\+h.
+
+\index{assert.\+h@{assert.\+h}!M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+Z\+E\+\_\+@{M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+Z\+E\+\_\+}}
+\index{M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+Z\+E\+\_\+@{M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+Z\+E\+\_\+}!assert.\+h@{assert.\+h}}
+\subsubsection[{\texorpdfstring{M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+Z\+E\+\_\+}{MF_STRINGIZE_}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+F\+\_\+\+S\+T\+R\+I\+N\+G\+I\+Z\+E\+\_\+(
+\begin{DoxyParamCaption}
+\item[{}]{X}
+\end{DoxyParamCaption}
+)~\#X}\hypertarget{assert_8h_afed14ae0135b86efc152b51b8d13cfa3}{}\label{assert_8h_afed14ae0135b86efc152b51b8d13cfa3}
+
+
+Definition at line 6 of file assert.\+h.
+

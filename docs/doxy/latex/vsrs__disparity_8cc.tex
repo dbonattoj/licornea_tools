@@ -1,0 +1,99 @@
+\hypertarget{vsrs__disparity_8cc}{}\section{src/vsrs/vsrs\+\_\+disparity.cc File Reference}
+\label{vsrs__disparity_8cc}\index{src/vsrs/vsrs\+\_\+disparity.\+cc@{src/vsrs/vsrs\+\_\+disparity.\+cc}}
+{\ttfamily \#include \char`\"{}../lib/common.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/args.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$opencv2/opencv.\+hpp$>$}\\*
+{\ttfamily \#include $<$cstdlib$>$}\\*
+{\ttfamily \#include $<$cstdint$>$}\\*
+{\ttfamily \#include $<$cstring$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$stdexcept$>$}\\*
+Include dependency graph for vsrs\+\_\+disparity.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vsrs__disparity_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{vsrs__disparity_8cc_ae481341cfb6403843494cfdd000fcf1b}{append\+\_\+null\+\_\+tail} (std\+::ostream \&output, std\+::streamsize length)
+\item 
+void \hyperlink{vsrs__disparity_8cc_aaeecfa4f143fa01fed02306f743f729a}{export\+\_\+yuv\+\_\+disparity} (std\+::string filename, const cv\+::\+Mat\+\_\+$<$ uchar $>$ \&mat)
+\item 
+void \hyperlink{vsrs__disparity_8cc_a748ac887a557475a797e02a6419cfc6c}{export\+\_\+yuv\+\_\+disparity} (std\+::string filename, const cv\+::\+Mat\+\_\+$<$ ushort $>$ \&mat)
+\item 
+{\footnotesize template$<$typename Distance , typename Depth $>$ }\\void \hyperlink{vsrs__disparity_8cc_a6eea5435f7299b133ede175ec17681b0}{orthogonal\+\_\+distance\+\_\+to\+\_\+depth} (const cv\+::\+Mat\+\_\+$<$ Distance $>$ \&in\+\_\+z, cv\+::\+Mat\+\_\+$<$ Depth $>$ \&out\+\_\+d, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} d\+\_\+near, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} d\+\_\+far, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} z\+\_\+near, \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} z\+\_\+far)
+\item 
+int \hyperlink{vsrs__disparity_8cc_ac0f2228420376f4db7e1274f2b41667c}{main} (int argc, const char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{vsrs\+\_\+disparity.\+cc@{vsrs\+\_\+disparity.\+cc}!append\+\_\+null\+\_\+tail@{append\+\_\+null\+\_\+tail}}
+\index{append\+\_\+null\+\_\+tail@{append\+\_\+null\+\_\+tail}!vsrs\+\_\+disparity.\+cc@{vsrs\+\_\+disparity.\+cc}}
+\subsubsection[{\texorpdfstring{append\+\_\+null\+\_\+tail(std\+::ostream \&output, std\+::streamsize length)}{append_null_tail(std::ostream &output, std::streamsize length)}}]{\setlength{\rightskip}{0pt plus 5cm}void append\+\_\+null\+\_\+tail (
+\begin{DoxyParamCaption}
+\item[{std\+::ostream \&}]{output, }
+\item[{std\+::streamsize}]{length}
+\end{DoxyParamCaption}
+)}\hypertarget{vsrs__disparity_8cc_ae481341cfb6403843494cfdd000fcf1b}{}\label{vsrs__disparity_8cc_ae481341cfb6403843494cfdd000fcf1b}
+
+
+Definition at line 13 of file vsrs\+\_\+disparity.\+cc.
+
+\index{vsrs\+\_\+disparity.\+cc@{vsrs\+\_\+disparity.\+cc}!export\+\_\+yuv\+\_\+disparity@{export\+\_\+yuv\+\_\+disparity}}
+\index{export\+\_\+yuv\+\_\+disparity@{export\+\_\+yuv\+\_\+disparity}!vsrs\+\_\+disparity.\+cc@{vsrs\+\_\+disparity.\+cc}}
+\subsubsection[{\texorpdfstring{export\+\_\+yuv\+\_\+disparity(std\+::string filename, const cv\+::\+Mat\+\_\+$<$ uchar $>$ \&mat)}{export_yuv_disparity(std::string filename, const cv::Mat_< uchar > &mat)}}]{\setlength{\rightskip}{0pt plus 5cm}void export\+\_\+yuv\+\_\+disparity (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{filename, }
+\item[{const cv\+::\+Mat\+\_\+$<$ uchar $>$ \&}]{mat}
+\end{DoxyParamCaption}
+)}\hypertarget{vsrs__disparity_8cc_aaeecfa4f143fa01fed02306f743f729a}{}\label{vsrs__disparity_8cc_aaeecfa4f143fa01fed02306f743f729a}
+
+
+Definition at line 18 of file vsrs\+\_\+disparity.\+cc.
+
+\index{vsrs\+\_\+disparity.\+cc@{vsrs\+\_\+disparity.\+cc}!export\+\_\+yuv\+\_\+disparity@{export\+\_\+yuv\+\_\+disparity}}
+\index{export\+\_\+yuv\+\_\+disparity@{export\+\_\+yuv\+\_\+disparity}!vsrs\+\_\+disparity.\+cc@{vsrs\+\_\+disparity.\+cc}}
+\subsubsection[{\texorpdfstring{export\+\_\+yuv\+\_\+disparity(std\+::string filename, const cv\+::\+Mat\+\_\+$<$ ushort $>$ \&mat)}{export_yuv_disparity(std::string filename, const cv::Mat_< ushort > &mat)}}]{\setlength{\rightskip}{0pt plus 5cm}void export\+\_\+yuv\+\_\+disparity (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{filename, }
+\item[{const cv\+::\+Mat\+\_\+$<$ ushort $>$ \&}]{mat}
+\end{DoxyParamCaption}
+)}\hypertarget{vsrs__disparity_8cc_a748ac887a557475a797e02a6419cfc6c}{}\label{vsrs__disparity_8cc_a748ac887a557475a797e02a6419cfc6c}
+
+
+Definition at line 24 of file vsrs\+\_\+disparity.\+cc.
+
+\index{vsrs\+\_\+disparity.\+cc@{vsrs\+\_\+disparity.\+cc}!main@{main}}
+\index{main@{main}!vsrs\+\_\+disparity.\+cc@{vsrs\+\_\+disparity.\+cc}}
+\subsubsection[{\texorpdfstring{main(int argc, const char $\ast$argv[])}{main(int argc, const char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{const char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{vsrs__disparity_8cc_ac0f2228420376f4db7e1274f2b41667c}{}\label{vsrs__disparity_8cc_ac0f2228420376f4db7e1274f2b41667c}
+
+
+Definition at line 50 of file vsrs\+\_\+disparity.\+cc.
+
+\index{vsrs\+\_\+disparity.\+cc@{vsrs\+\_\+disparity.\+cc}!orthogonal\+\_\+distance\+\_\+to\+\_\+depth@{orthogonal\+\_\+distance\+\_\+to\+\_\+depth}}
+\index{orthogonal\+\_\+distance\+\_\+to\+\_\+depth@{orthogonal\+\_\+distance\+\_\+to\+\_\+depth}!vsrs\+\_\+disparity.\+cc@{vsrs\+\_\+disparity.\+cc}}
+\subsubsection[{\texorpdfstring{orthogonal\+\_\+distance\+\_\+to\+\_\+depth(const cv\+::\+Mat\+\_\+$<$ Distance $>$ \&in\+\_\+z, cv\+::\+Mat\+\_\+$<$ Depth $>$ \&out\+\_\+d, real d\+\_\+near, real d\+\_\+far, real z\+\_\+near, real z\+\_\+far)}{orthogonal_distance_to_depth(const cv::Mat_< Distance > &in_z, cv::Mat_< Depth > &out_d, real d_near, real d_far, real z_near, real z_far)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Distance , typename Depth $>$ void orthogonal\+\_\+distance\+\_\+to\+\_\+depth (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat\+\_\+$<$ Distance $>$ \&}]{in\+\_\+z, }
+\item[{cv\+::\+Mat\+\_\+$<$ Depth $>$ \&}]{out\+\_\+d, }
+\item[{{\bf real}}]{d\+\_\+near, }
+\item[{{\bf real}}]{d\+\_\+far, }
+\item[{{\bf real}}]{z\+\_\+near, }
+\item[{{\bf real}}]{z\+\_\+far}
+\end{DoxyParamCaption}
+)}\hypertarget{vsrs__disparity_8cc_a6eea5435f7299b133ede175ec17681b0}{}\label{vsrs__disparity_8cc_a6eea5435f7299b133ede175ec17681b0}
+
+
+Definition at line 33 of file vsrs\+\_\+disparity.\+cc.
+

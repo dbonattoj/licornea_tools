@@ -1,0 +1,272 @@
+\hypertarget{cg__optical__flow__cors_8cc}{}\section{src/calibration/cg\+\_\+optical\+\_\+flow\+\_\+cors.cc File Reference}
+\label{cg__optical__flow__cors_8cc}\index{src/calibration/cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{src/calibration/cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$utility$>$}\\*
+{\ttfamily \#include $<$random$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$mutex$>$}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$format.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}lib/feature\+\_\+points.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/image\+\_\+correspondence.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/args.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/json.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/filesystem.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/dataset.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/opencv.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/image\+\_\+io.\+h\char`\"{}}\\*
+Include dependency graph for cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cg__optical__flow__cors_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structflow__state}{flow\+\_\+state}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{cg__optical__flow__cors_8cc_a6258ed700e3c6a72bea008c969517380}{local\+\_\+feature\+\_\+index} = std\+::ptrdiff\+\_\+t
+\item 
+using \hyperlink{cg__optical__flow__cors_8cc_ad6505c2955c2d422bbd74512030f07b5}{correspondence\+\_\+key\+\_\+type} = std\+::pair$<$ \hyperlink{cg__optical__flow__cors_8cc_a6258ed700e3c6a72bea008c969517380}{local\+\_\+feature\+\_\+index}, \hyperlink{structtlz_1_1view__index}{view\+\_\+index} $>$
+\item 
+using \hyperlink{cg__optical__flow__cors_8cc_a29f859b0423599e0b1cfd02c70239d54}{correspondences\+\_\+type} = std\+::map$<$ \hyperlink{cg__optical__flow__cors_8cc_ad6505c2955c2d422bbd74512030f07b5}{correspondence\+\_\+key\+\_\+type}, \hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} $>$
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const cv\+::\+Size \hyperlink{cg__optical__flow__cors_8cc_a492b5585cab19e8dac1679b4b44a1e87}{horizontal\+\_\+optical\+\_\+flow\+\_\+window\+\_\+size} (20, 20)
+\item 
+const cv\+::\+Size \hyperlink{cg__optical__flow__cors_8cc_aa3aa33a3711a66a8f1c2b008580a75cb}{vertical\+\_\+optical\+\_\+flow\+\_\+window\+\_\+size} (20, 20)
+\item 
+\hyperlink{cg__optical__flow__cors_8cc_ad6505c2955c2d422bbd74512030f07b5}{correspondence\+\_\+key\+\_\+type} \hyperlink{cg__optical__flow__cors_8cc_aad55a4c6932ee6e724b8417ed09795d3}{cor\+\_\+key} (\hyperlink{cg__optical__flow__cors_8cc_a6258ed700e3c6a72bea008c969517380}{local\+\_\+feature\+\_\+index} i, const \hyperlink{structtlz_1_1view__index}{view\+\_\+index} \&idx)
+\item 
+void \hyperlink{cg__optical__flow__cors_8cc_aa5dfbbc67079c854cb58b99bb003aab9}{print\+\_\+flow\+\_\+indicator} (const \hyperlink{structtlz_1_1view__index}{view\+\_\+index} \&origin\+\_\+idx, const \hyperlink{structtlz_1_1view__index}{view\+\_\+index} \&dest\+\_\+idx)
+\item 
+void \hyperlink{cg__optical__flow__cors_8cc_a89184ca9fefae735b0f1f9824fb57543}{add\+\_\+correspondences} (\hyperlink{cg__optical__flow__cors_8cc_a29f859b0423599e0b1cfd02c70239d54}{correspondences\+\_\+type} \&cors, const \hyperlink{structflow__state}{flow\+\_\+state} \&state)
+\item 
+cv\+::\+Mat\+\_\+$<$ uchar $>$ \hyperlink{cg__optical__flow__cors_8cc_a1a3ce6b4daa6a5b861ab2085a6c3642c}{load\+\_\+image} (const \hyperlink{classtlz_1_1dataset__group}{dataset\+\_\+group} \&datag, const \hyperlink{structtlz_1_1view__index}{view\+\_\+index} \&idx, bool must\+\_\+exist)
+\item 
+\hyperlink{structflow__state}{flow\+\_\+state} \hyperlink{cg__optical__flow__cors_8cc_afb40806f0de30fe623408f5cf1f47465}{flow\+\_\+to} (\hyperlink{structflow__state}{flow\+\_\+state} \&origin\+\_\+state, \hyperlink{structtlz_1_1view__index}{view\+\_\+index} dest\+\_\+idx, const \hyperlink{classtlz_1_1dataset__group}{dataset\+\_\+group} \&datag, const cv\+::\+Size \&window\+\_\+size, bool may\+\_\+skip)
+\item 
+void \hyperlink{cg__optical__flow__cors_8cc_a70ffcab7e1297f10267d7faa691a68d4}{do\+\_\+horizontal\+\_\+optical\+\_\+flow} (\hyperlink{cg__optical__flow__cors_8cc_a29f859b0423599e0b1cfd02c70239d54}{correspondences\+\_\+type} \&cors, const \hyperlink{structtlz_1_1view__index}{view\+\_\+index} \&reference\+\_\+idx, const \hyperlink{structflow__state}{flow\+\_\+state} \&mid\+\_\+x\+\_\+state, const \hyperlink{classtlz_1_1dataset__group}{dataset\+\_\+group} \&datag, bool verb=false)
+\item 
+\hyperlink{cg__optical__flow__cors_8cc_a29f859b0423599e0b1cfd02c70239d54}{correspondences\+\_\+type} \hyperlink{cg__optical__flow__cors_8cc_a9475b79389eb81383d9aba46c336ae42}{do\+\_\+2d\+\_\+optical\+\_\+flow} (const \hyperlink{classtlz_1_1dataset__group}{dataset\+\_\+group} \&datag, const \hyperlink{structtlz_1_1view__index}{view\+\_\+index} \&reference\+\_\+idx, const std\+::vector$<$ \hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} $>$ \&reference\+\_\+points)
+\item 
+int \hyperlink{cg__optical__flow__cors_8cc_ac0f2228420376f4db7e1274f2b41667c}{main} (int argc, const char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr bool \hyperlink{cg__optical__flow__cors_8cc_aa0809dffbdf183a6a189ebb277bf6866}{verbose} = false
+\item 
+constexpr \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} \hyperlink{cg__optical__flow__cors_8cc_a9ad6cf65fc4b6cf075c3fe9b37307fa4}{max\+\_\+flow\+\_\+err} = 4.\+0
+\item 
+constexpr \hyperlink{namespacetlz_a15fd37cce97f2b8b606af18c2615f602}{real} \hyperlink{cg__optical__flow__cors_8cc_a1a25365904962bb617b9fe50579394cd}{min\+\_\+distance\+\_\+between\+\_\+features} = 60
+\item 
+constexpr int \hyperlink{cg__optical__flow__cors_8cc_ab00c1ed267bcfa69c72579c777057b74}{max\+\_\+pyramid\+\_\+level} = 3
+\item 
+int \hyperlink{cg__optical__flow__cors_8cc_a8df629bb2397577199ca365271520ec9}{horizontal\+\_\+outreach}
+\item 
+int \hyperlink{cg__optical__flow__cors_8cc_a088ed335b09a3f46d2fe31a254f4bf53}{vertical\+\_\+outreach}
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!correspondence\+\_\+key\+\_\+type@{correspondence\+\_\+key\+\_\+type}}
+\index{correspondence\+\_\+key\+\_\+type@{correspondence\+\_\+key\+\_\+type}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{correspondence\+\_\+key\+\_\+type}{correspondence_key_type}}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf correspondence\+\_\+key\+\_\+type} =  std\+::pair$<${\bf local\+\_\+feature\+\_\+index}, {\bf view\+\_\+index}$>$}\hypertarget{cg__optical__flow__cors_8cc_ad6505c2955c2d422bbd74512030f07b5}{}\label{cg__optical__flow__cors_8cc_ad6505c2955c2d422bbd74512030f07b5}
+
+
+Definition at line 58 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!correspondences\+\_\+type@{correspondences\+\_\+type}}
+\index{correspondences\+\_\+type@{correspondences\+\_\+type}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{correspondences\+\_\+type}{correspondences_type}}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf correspondences\+\_\+type} =  std\+::map$<${\bf correspondence\+\_\+key\+\_\+type}, {\bf vec2}$>$}\hypertarget{cg__optical__flow__cors_8cc_a29f859b0423599e0b1cfd02c70239d54}{}\label{cg__optical__flow__cors_8cc_a29f859b0423599e0b1cfd02c70239d54}
+
+
+Definition at line 59 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!local\+\_\+feature\+\_\+index@{local\+\_\+feature\+\_\+index}}
+\index{local\+\_\+feature\+\_\+index@{local\+\_\+feature\+\_\+index}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{local\+\_\+feature\+\_\+index}{local_feature_index}}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf local\+\_\+feature\+\_\+index} =  std\+::ptrdiff\+\_\+t}\hypertarget{cg__optical__flow__cors_8cc_a6258ed700e3c6a72bea008c969517380}{}\label{cg__optical__flow__cors_8cc_a6258ed700e3c6a72bea008c969517380}
+
+
+Definition at line 57 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+
+
+\subsection{Function Documentation}
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!add\+\_\+correspondences@{add\+\_\+correspondences}}
+\index{add\+\_\+correspondences@{add\+\_\+correspondences}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{add\+\_\+correspondences(correspondences\+\_\+type \&cors, const flow\+\_\+state \&state)}{add_correspondences(correspondences_type &cors, const flow_state &state)}}]{\setlength{\rightskip}{0pt plus 5cm}void add\+\_\+correspondences (
+\begin{DoxyParamCaption}
+\item[{{\bf correspondences\+\_\+type} \&}]{cors, }
+\item[{const {\bf flow\+\_\+state} \&}]{state}
+\end{DoxyParamCaption}
+)}\hypertarget{cg__optical__flow__cors_8cc_a89184ca9fefae735b0f1f9824fb57543}{}\label{cg__optical__flow__cors_8cc_a89184ca9fefae735b0f1f9824fb57543}
+
+
+Definition at line 78 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!cor\+\_\+key@{cor\+\_\+key}}
+\index{cor\+\_\+key@{cor\+\_\+key}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{cor\+\_\+key(local\+\_\+feature\+\_\+index i, const view\+\_\+index \&idx)}{cor_key(local_feature_index i, const view_index &idx)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf correspondence\+\_\+key\+\_\+type} cor\+\_\+key (
+\begin{DoxyParamCaption}
+\item[{{\bf local\+\_\+feature\+\_\+index}}]{i, }
+\item[{const {\bf view\+\_\+index} \&}]{idx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{cg__optical__flow__cors_8cc_aad55a4c6932ee6e724b8417ed09795d3}{}\label{cg__optical__flow__cors_8cc_aad55a4c6932ee6e724b8417ed09795d3}
+
+
+Definition at line 61 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!do\+\_\+2d\+\_\+optical\+\_\+flow@{do\+\_\+2d\+\_\+optical\+\_\+flow}}
+\index{do\+\_\+2d\+\_\+optical\+\_\+flow@{do\+\_\+2d\+\_\+optical\+\_\+flow}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{do\+\_\+2d\+\_\+optical\+\_\+flow(const dataset\+\_\+group \&datag, const view\+\_\+index \&reference\+\_\+idx, const std\+::vector$<$ vec2 $>$ \&reference\+\_\+points)}{do_2d_optical_flow(const dataset_group &datag, const view_index &reference_idx, const std::vector< vec2 > &reference_points)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf correspondences\+\_\+type} do\+\_\+2d\+\_\+optical\+\_\+flow (
+\begin{DoxyParamCaption}
+\item[{const {\bf dataset\+\_\+group} \&}]{datag, }
+\item[{const {\bf view\+\_\+index} \&}]{reference\+\_\+idx, }
+\item[{const std\+::vector$<$ {\bf vec2} $>$ \&}]{reference\+\_\+points}
+\end{DoxyParamCaption}
+)}\hypertarget{cg__optical__flow__cors_8cc_a9475b79389eb81383d9aba46c336ae42}{}\label{cg__optical__flow__cors_8cc_a9475b79389eb81383d9aba46c336ae42}
+
+
+Definition at line 207 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!do\+\_\+horizontal\+\_\+optical\+\_\+flow@{do\+\_\+horizontal\+\_\+optical\+\_\+flow}}
+\index{do\+\_\+horizontal\+\_\+optical\+\_\+flow@{do\+\_\+horizontal\+\_\+optical\+\_\+flow}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{do\+\_\+horizontal\+\_\+optical\+\_\+flow(correspondences\+\_\+type \&cors, const view\+\_\+index \&reference\+\_\+idx, const flow\+\_\+state \&mid\+\_\+x\+\_\+state, const dataset\+\_\+group \&datag, bool verb=false)}{do_horizontal_optical_flow(correspondences_type &cors, const view_index &reference_idx, const flow_state &mid_x_state, const dataset_group &datag, bool verb=false)}}]{\setlength{\rightskip}{0pt plus 5cm}void do\+\_\+horizontal\+\_\+optical\+\_\+flow (
+\begin{DoxyParamCaption}
+\item[{{\bf correspondences\+\_\+type} \&}]{cors, }
+\item[{const {\bf view\+\_\+index} \&}]{reference\+\_\+idx, }
+\item[{const {\bf flow\+\_\+state} \&}]{mid\+\_\+x\+\_\+state, }
+\item[{const {\bf dataset\+\_\+group} \&}]{datag, }
+\item[{bool}]{verb = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}\hypertarget{cg__optical__flow__cors_8cc_a70ffcab7e1297f10267d7faa691a68d4}{}\label{cg__optical__flow__cors_8cc_a70ffcab7e1297f10267d7faa691a68d4}
+
+
+Definition at line 172 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!flow\+\_\+to@{flow\+\_\+to}}
+\index{flow\+\_\+to@{flow\+\_\+to}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{flow\+\_\+to(flow\+\_\+state \&origin\+\_\+state, view\+\_\+index dest\+\_\+idx, const dataset\+\_\+group \&datag, const cv\+::\+Size \&window\+\_\+size, bool may\+\_\+skip)}{flow_to(flow_state &origin_state, view_index dest_idx, const dataset_group &datag, const cv::Size &window_size, bool may_skip)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf flow\+\_\+state} flow\+\_\+to (
+\begin{DoxyParamCaption}
+\item[{{\bf flow\+\_\+state} \&}]{origin\+\_\+state, }
+\item[{{\bf view\+\_\+index}}]{dest\+\_\+idx, }
+\item[{const {\bf dataset\+\_\+group} \&}]{datag, }
+\item[{const cv\+::\+Size \&}]{window\+\_\+size, }
+\item[{bool}]{may\+\_\+skip}
+\end{DoxyParamCaption}
+)}\hypertarget{cg__optical__flow__cors_8cc_afb40806f0de30fe623408f5cf1f47465}{}\label{cg__optical__flow__cors_8cc_afb40806f0de30fe623408f5cf1f47465}
+
+
+Definition at line 106 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!horizontal\+\_\+optical\+\_\+flow\+\_\+window\+\_\+size@{horizontal\+\_\+optical\+\_\+flow\+\_\+window\+\_\+size}}
+\index{horizontal\+\_\+optical\+\_\+flow\+\_\+window\+\_\+size@{horizontal\+\_\+optical\+\_\+flow\+\_\+window\+\_\+size}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{horizontal\+\_\+optical\+\_\+flow\+\_\+window\+\_\+size(20, 20)}{horizontal_optical_flow_window_size(20, 20)}}]{\setlength{\rightskip}{0pt plus 5cm}const cv\+::\+Size horizontal\+\_\+optical\+\_\+flow\+\_\+window\+\_\+size (
+\begin{DoxyParamCaption}
+\item[{20}]{, }
+\item[{20}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{cg__optical__flow__cors_8cc_a492b5585cab19e8dac1679b4b44a1e87}{}\label{cg__optical__flow__cors_8cc_a492b5585cab19e8dac1679b4b44a1e87}
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!load\+\_\+image@{load\+\_\+image}}
+\index{load\+\_\+image@{load\+\_\+image}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{load\+\_\+image(const dataset\+\_\+group \&datag, const view\+\_\+index \&idx, bool must\+\_\+exist)}{load_image(const dataset_group &datag, const view_index &idx, bool must_exist)}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Mat\+\_\+$<$uchar$>$ load\+\_\+image (
+\begin{DoxyParamCaption}
+\item[{const {\bf dataset\+\_\+group} \&}]{datag, }
+\item[{const {\bf view\+\_\+index} \&}]{idx, }
+\item[{bool}]{must\+\_\+exist}
+\end{DoxyParamCaption}
+)}\hypertarget{cg__optical__flow__cors_8cc_a1a3ce6b4daa6a5b861ab2085a6c3642c}{}\label{cg__optical__flow__cors_8cc_a1a3ce6b4daa6a5b861ab2085a6c3642c}
+
+
+Definition at line 89 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!main@{main}}
+\index{main@{main}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{main(int argc, const char $\ast$argv[])}{main(int argc, const char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{const char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{cg__optical__flow__cors_8cc_ac0f2228420376f4db7e1274f2b41667c}{}\label{cg__optical__flow__cors_8cc_ac0f2228420376f4db7e1274f2b41667c}
+
+
+Definition at line 283 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!print\+\_\+flow\+\_\+indicator@{print\+\_\+flow\+\_\+indicator}}
+\index{print\+\_\+flow\+\_\+indicator@{print\+\_\+flow\+\_\+indicator}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{print\+\_\+flow\+\_\+indicator(const view\+\_\+index \&origin\+\_\+idx, const view\+\_\+index \&dest\+\_\+idx)}{print_flow_indicator(const view_index &origin_idx, const view_index &dest_idx)}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+flow\+\_\+indicator (
+\begin{DoxyParamCaption}
+\item[{const {\bf view\+\_\+index} \&}]{origin\+\_\+idx, }
+\item[{const {\bf view\+\_\+index} \&}]{dest\+\_\+idx}
+\end{DoxyParamCaption}
+)}\hypertarget{cg__optical__flow__cors_8cc_aa5dfbbc67079c854cb58b99bb003aab9}{}\label{cg__optical__flow__cors_8cc_aa5dfbbc67079c854cb58b99bb003aab9}
+
+
+Definition at line 66 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!vertical\+\_\+optical\+\_\+flow\+\_\+window\+\_\+size@{vertical\+\_\+optical\+\_\+flow\+\_\+window\+\_\+size}}
+\index{vertical\+\_\+optical\+\_\+flow\+\_\+window\+\_\+size@{vertical\+\_\+optical\+\_\+flow\+\_\+window\+\_\+size}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{vertical\+\_\+optical\+\_\+flow\+\_\+window\+\_\+size(20, 20)}{vertical_optical_flow_window_size(20, 20)}}]{\setlength{\rightskip}{0pt plus 5cm}const cv\+::\+Size vertical\+\_\+optical\+\_\+flow\+\_\+window\+\_\+size (
+\begin{DoxyParamCaption}
+\item[{20}]{, }
+\item[{20}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{cg__optical__flow__cors_8cc_aa3aa33a3711a66a8f1c2b008580a75cb}{}\label{cg__optical__flow__cors_8cc_aa3aa33a3711a66a8f1c2b008580a75cb}
+
+
+\subsection{Variable Documentation}
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!horizontal\+\_\+outreach@{horizontal\+\_\+outreach}}
+\index{horizontal\+\_\+outreach@{horizontal\+\_\+outreach}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{horizontal\+\_\+outreach}{horizontal_outreach}}]{\setlength{\rightskip}{0pt plus 5cm}int horizontal\+\_\+outreach}\hypertarget{cg__optical__flow__cors_8cc_a8df629bb2397577199ca365271520ec9}{}\label{cg__optical__flow__cors_8cc_a8df629bb2397577199ca365271520ec9}
+
+
+Definition at line 54 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!max\+\_\+flow\+\_\+err@{max\+\_\+flow\+\_\+err}}
+\index{max\+\_\+flow\+\_\+err@{max\+\_\+flow\+\_\+err}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{max\+\_\+flow\+\_\+err}{max_flow_err}}]{\setlength{\rightskip}{0pt plus 5cm}constexpr {\bf real} max\+\_\+flow\+\_\+err = 4.\+0}\hypertarget{cg__optical__flow__cors_8cc_a9ad6cf65fc4b6cf075c3fe9b37307fa4}{}\label{cg__optical__flow__cors_8cc_a9ad6cf65fc4b6cf075c3fe9b37307fa4}
+
+
+Definition at line 24 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!max\+\_\+pyramid\+\_\+level@{max\+\_\+pyramid\+\_\+level}}
+\index{max\+\_\+pyramid\+\_\+level@{max\+\_\+pyramid\+\_\+level}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{max\+\_\+pyramid\+\_\+level}{max_pyramid_level}}]{\setlength{\rightskip}{0pt plus 5cm}constexpr int max\+\_\+pyramid\+\_\+level = 3}\hypertarget{cg__optical__flow__cors_8cc_ab00c1ed267bcfa69c72579c777057b74}{}\label{cg__optical__flow__cors_8cc_ab00c1ed267bcfa69c72579c777057b74}
+
+
+Definition at line 26 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!min\+\_\+distance\+\_\+between\+\_\+features@{min\+\_\+distance\+\_\+between\+\_\+features}}
+\index{min\+\_\+distance\+\_\+between\+\_\+features@{min\+\_\+distance\+\_\+between\+\_\+features}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{min\+\_\+distance\+\_\+between\+\_\+features}{min_distance_between_features}}]{\setlength{\rightskip}{0pt plus 5cm}constexpr {\bf real} min\+\_\+distance\+\_\+between\+\_\+features = 60}\hypertarget{cg__optical__flow__cors_8cc_a1a25365904962bb617b9fe50579394cd}{}\label{cg__optical__flow__cors_8cc_a1a25365904962bb617b9fe50579394cd}
+
+
+Definition at line 25 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!verbose@{verbose}}
+\index{verbose@{verbose}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{verbose}{verbose}}]{\setlength{\rightskip}{0pt plus 5cm}constexpr bool verbose = false}\hypertarget{cg__optical__flow__cors_8cc_aa0809dffbdf183a6a189ebb277bf6866}{}\label{cg__optical__flow__cors_8cc_aa0809dffbdf183a6a189ebb277bf6866}
+
+
+Definition at line 22 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+
+\index{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}!vertical\+\_\+outreach@{vertical\+\_\+outreach}}
+\index{vertical\+\_\+outreach@{vertical\+\_\+outreach}!cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc@{cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc}}
+\subsubsection[{\texorpdfstring{vertical\+\_\+outreach}{vertical_outreach}}]{\setlength{\rightskip}{0pt plus 5cm}int vertical\+\_\+outreach}\hypertarget{cg__optical__flow__cors_8cc_a088ed335b09a3f46d2fe31a254f4bf53}{}\label{cg__optical__flow__cors_8cc_a088ed335b09a3f46d2fe31a254f4bf53}
+
+
+Definition at line 55 of file cg\+\_\+optical\+\_\+flow\+\_\+cors.\+cc.
+

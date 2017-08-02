@@ -1,0 +1,110 @@
+\hypertarget{classtlz_1_1args__list}{}\section{tlz\+:\+:args\+\_\+list Class Reference}
+\label{classtlz_1_1args__list}\index{tlz\+::args\+\_\+list@{tlz\+::args\+\_\+list}}
+
+
+{\ttfamily \#include $<$args.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtlz_1_1args__list_a4e338506c7dc38f0a215097e204f31cf}{args\+\_\+list} (int argc, const char $\ast$argv\mbox{[}$\,$\mbox{]}, const std\+::string \&usage)
+\item 
+void \hyperlink{classtlz_1_1args__list_a38ad21acd64a4af98ffdf4a47837cdbe}{usage\+\_\+fail} (const std\+::string \&error=\char`\"{}\char`\"{}) const 
+\item 
+bool \hyperlink{classtlz_1_1args__list_ae7c07d1c8f24c2aa4fe0ba68ec45d353}{next\+\_\+arg\+\_\+is} (const std\+::string \&val) const 
+\item 
+bool \hyperlink{classtlz_1_1args__list_a4aee93f4b0d9b5b4e7a5d13cb637337c}{has\+\_\+next\+\_\+arg} () const 
+\item 
+const char $\ast$ \hyperlink{classtlz_1_1args__list_a73d99bc75998dc14607a3a372d28dc6d}{next\+\_\+arg} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::unique\+\_\+ptr$<$ \hyperlink{classtlz_1_1args__list}{args\+\_\+list} $>$ \hyperlink{classtlz_1_1args__list_a0617ca3169bfad6933b84514c4fee4ea}{instance} = std\+::unique\+\_\+ptr$<$\hyperlink{classtlz_1_1args__list}{args\+\_\+list}$>$()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 11 of file args.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{tlz\+::args\+\_\+list@{tlz\+::args\+\_\+list}!args\+\_\+list@{args\+\_\+list}}
+\index{args\+\_\+list@{args\+\_\+list}!tlz\+::args\+\_\+list@{tlz\+::args\+\_\+list}}
+\subsubsection[{\texorpdfstring{args\+\_\+list(int argc, const char $\ast$argv[], const std\+::string \&usage)}{args_list(int argc, const char *argv[], const std::string &usage)}}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::args\+\_\+list\+::args\+\_\+list (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{const char $\ast$}]{argv\mbox{[}$\,$\mbox{]}, }
+\item[{const std\+::string \&}]{usage}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1args__list_a4e338506c7dc38f0a215097e204f31cf}{}\label{classtlz_1_1args__list_a4e338506c7dc38f0a215097e204f31cf}
+
+
+Definition at line 64 of file args.\+cc.
+
+
+
+\subsection{Member Function Documentation}
+\index{tlz\+::args\+\_\+list@{tlz\+::args\+\_\+list}!has\+\_\+next\+\_\+arg@{has\+\_\+next\+\_\+arg}}
+\index{has\+\_\+next\+\_\+arg@{has\+\_\+next\+\_\+arg}!tlz\+::args\+\_\+list@{tlz\+::args\+\_\+list}}
+\subsubsection[{\texorpdfstring{has\+\_\+next\+\_\+arg() const }{has_next_arg() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool tlz\+::args\+\_\+list\+::has\+\_\+next\+\_\+arg (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1args__list_a4aee93f4b0d9b5b4e7a5d13cb637337c}{}\label{classtlz_1_1args__list_a4aee93f4b0d9b5b4e7a5d13cb637337c}
+
+
+Definition at line 90 of file args.\+cc.
+
+\index{tlz\+::args\+\_\+list@{tlz\+::args\+\_\+list}!next\+\_\+arg@{next\+\_\+arg}}
+\index{next\+\_\+arg@{next\+\_\+arg}!tlz\+::args\+\_\+list@{tlz\+::args\+\_\+list}}
+\subsubsection[{\texorpdfstring{next\+\_\+arg()}{next_arg()}}]{\setlength{\rightskip}{0pt plus 5cm}const char $\ast$ tlz\+::args\+\_\+list\+::next\+\_\+arg (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1args__list_a73d99bc75998dc14607a3a372d28dc6d}{}\label{classtlz_1_1args__list_a73d99bc75998dc14607a3a372d28dc6d}
+
+
+Definition at line 78 of file args.\+cc.
+
+\index{tlz\+::args\+\_\+list@{tlz\+::args\+\_\+list}!next\+\_\+arg\+\_\+is@{next\+\_\+arg\+\_\+is}}
+\index{next\+\_\+arg\+\_\+is@{next\+\_\+arg\+\_\+is}!tlz\+::args\+\_\+list@{tlz\+::args\+\_\+list}}
+\subsubsection[{\texorpdfstring{next\+\_\+arg\+\_\+is(const std\+::string \&val) const }{next_arg_is(const std::string &val) const }}]{\setlength{\rightskip}{0pt plus 5cm}bool tlz\+::args\+\_\+list\+::next\+\_\+arg\+\_\+is (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{val}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1args__list_ae7c07d1c8f24c2aa4fe0ba68ec45d353}{}\label{classtlz_1_1args__list_ae7c07d1c8f24c2aa4fe0ba68ec45d353}
+
+
+Definition at line 84 of file args.\+cc.
+
+\index{tlz\+::args\+\_\+list@{tlz\+::args\+\_\+list}!usage\+\_\+fail@{usage\+\_\+fail}}
+\index{usage\+\_\+fail@{usage\+\_\+fail}!tlz\+::args\+\_\+list@{tlz\+::args\+\_\+list}}
+\subsubsection[{\texorpdfstring{usage\+\_\+fail(const std\+::string \&error="""") const }{usage_fail(const std::string &error="") const }}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::args\+\_\+list\+::usage\+\_\+fail (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{error = {\ttfamily \char`\"{}\char`\"{}}}
+\end{DoxyParamCaption}
+) const}\hypertarget{classtlz_1_1args__list_a38ad21acd64a4af98ffdf4a47837cdbe}{}\label{classtlz_1_1args__list_a38ad21acd64a4af98ffdf4a47837cdbe}
+
+
+Definition at line 72 of file args.\+cc.
+
+
+
+\subsection{Member Data Documentation}
+\index{tlz\+::args\+\_\+list@{tlz\+::args\+\_\+list}!instance@{instance}}
+\index{instance@{instance}!tlz\+::args\+\_\+list@{tlz\+::args\+\_\+list}}
+\subsubsection[{\texorpdfstring{instance}{instance}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::unique\+\_\+ptr$<$ {\bf args\+\_\+list} $>$ tlz\+::args\+\_\+list\+::instance = std\+::unique\+\_\+ptr$<${\bf args\+\_\+list}$>$()\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{classtlz_1_1args__list_a0617ca3169bfad6933b84514c4fee4ea}{}\label{classtlz_1_1args__list_a0617ca3169bfad6933b84514c4fee4ea}
+
+
+Definition at line 19 of file args.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/\hyperlink{args_8h}{args.\+h}\item 
+src/lib/\hyperlink{args_8cc}{args.\+cc}\end{DoxyCompactItemize}

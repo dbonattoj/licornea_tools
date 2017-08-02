@@ -1,0 +1,18 @@
+<map id="src/kinect/depth_reprojection.cc" name="src/kinect/depth_reprojection.cc">
+<area shape="rect" id="node2" href="$args_8h.html" title="../lib/args.h" alt="" coords="806,408,893,435"/>
+<area shape="rect" id="node14" href="$point_8h.html" title="../lib/point.h" alt="" coords="367,251,457,278"/>
+<area shape="rect" id="node16" href="$opencv_8h.html" title="opencv.h" alt="" coords="555,408,629,435"/>
+<area shape="rect" id="node19" href="$ply__exporter_8h.html" title="../lib/ply_exporter.h" alt="" coords="159,162,292,189"/>
+<area shape="rect" id="node25" href="$image__io_8h.html" title="../lib/image_io.h" alt="" coords="237,333,352,360"/>
+<area shape="rect" id="node26" href="$kinect__reprojection_8h.html" title="lib/kinect_reprojection.h" alt="" coords="951,80,1110,107"/>
+<area shape="rect" id="node34" href="$depth__densify_8h.html" title="lib/densify/depth_densify.h" alt="" coords="1309,333,1486,360"/>
+<area shape="rect" id="node35" href="$kinect__internal__parameters_8h.html" title="lib/kinect_internal\l_parameters.h" alt="" coords="1036,244,1159,285"/>
+<area shape="rect" id="node36" href="$kinect_2lib_2common_8h.html" title="lib/common.h" alt="" coords="1638,408,1738,435"/>
+<area shape="rect" id="node3" href="$lib_2common_8h.html" title="common.h" alt="" coords="1115,483,1197,509"/>
+<area shape="rect" id="node15" href="$color_8h.html" title="color.h" alt="" coords="755,333,816,360"/>
+<area shape="rect" id="node21" href="$io_8h.html" title="io.h" alt="" coords="131,408,173,435"/>
+<area shape="rect" id="node27" href="$kinect__reprojection__parameters_8h.html" title="kinect_reprojection\l_parameters.h" alt="" coords="724,155,855,196"/>
+<area shape="rect" id="node31" href="$ir__to__color__sample_8h.html" title="ir_to_color_sample.h" alt="" coords="1217,408,1359,435"/>
+<area shape="rect" id="node28" href="$json_8h.html" title="../../lib/json.h" alt="" coords="941,333,1040,360"/>
+<area shape="rect" id="node30" href="$intrinsics_8h.html" title="../../lib/intrinsics.h" alt="" coords="834,251,961,278"/>
+</map>

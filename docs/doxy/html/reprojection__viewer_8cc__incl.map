@@ -1,0 +1,18 @@
+<map id="src/kinect/reprojection_viewer.cc" name="src/kinect/reprojection_viewer.cc">
+<area shape="rect" id="node2" href="$lib_2common_8h.html" title="../lib/common.h" alt="" coords="2149,483,2261,509"/>
+<area shape="rect" id="node11" href="$args_8h.html" title="../lib/args.h" alt="" coords="1680,408,1767,435"/>
+<area shape="rect" id="node14" href="$opencv_8h.html" title="../lib/opencv.h" alt="" coords="2461,408,2565,435"/>
+<area shape="rect" id="node16" href="$json_8h.html" title="../lib/json.h" alt="" coords="2045,333,2132,360"/>
+<area shape="rect" id="node18" href="$intrinsics_8h.html" title="../lib/intrinsics.h" alt="" coords="2039,259,2154,285"/>
+<area shape="rect" id="node19" href="$misc_8h.html" title="../lib/misc.h" alt="" coords="209,408,299,435"/>
+<area shape="rect" id="node23" href="$viewer_8h.html" title="../lib/viewer.h" alt="" coords="460,333,560,360"/>
+<area shape="rect" id="node25" href="$grabber_8h.html" title="lib/live/grabber.h" alt="" coords="1041,95,1158,121"/>
+<area shape="rect" id="node34" href="$checkerboard_8h.html" title="lib/live/checkerboard.h" alt="" coords="1722,95,1874,121"/>
+<area shape="rect" id="node37" href="$kinect__reprojection__parameters_8h.html" title="lib/kinect_reprojection\l_parameters.h" alt="" coords="2185,169,2333,211"/>
+<area shape="rect" id="node38" href="$kinect__reprojection_8h.html" title="lib/kinect_reprojection.h" alt="" coords="2460,95,2619,121"/>
+<area shape="rect" id="node43" href="$depth__densify_8h.html" title="lib/densify/depth_densify.h" alt="" coords="2156,333,2333,360"/>
+<area shape="rect" id="node27" href="$freenect2_8h.html" title="../freenect2.h" alt="" coords="1323,177,1422,203"/>
+<area shape="rect" id="node29" href="$kinect__internal__parameters_8h.html" title="kinect_internal_parameters.h" alt="" coords="1578,259,1767,285"/>
+<area shape="rect" id="node39" href="$color_8h.html" title="../../lib/color.h" alt="" coords="2737,333,2840,360"/>
+<area shape="rect" id="node40" href="$ir__to__color__sample_8h.html" title="ir_to_color_sample.h" alt="" coords="2293,408,2436,435"/>
+</map>

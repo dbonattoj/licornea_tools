@@ -1,0 +1,14 @@
+<map id="src/kinect/lib/live/grabber.h" name="src/kinect/lib/live/grabber.h">
+<area shape="rect" id="node2" href="$checkerboard__color__depth_8cc.html" title="src/kinect/checkerboard\l_color_depth.cc" alt="" coords="5,95,167,136"/>
+<area shape="rect" id="node3" href="$checkerboard__depth__parallel_8cc.html" title="src/kinect/checkerboard\l_depth_parallel.cc" alt="" coords="191,95,352,136"/>
+<area shape="rect" id="node4" href="$checkerboard__depth__samples_8cc.html" title="src/kinect/checkerboard\l_depth_samples.cc" alt="" coords="376,95,537,136"/>
+<area shape="rect" id="node5" href="$checkerboard__depth__viewer_8cc.html" title="src/kinect/checkerboard\l_depth_viewer.cc" alt="" coords="561,95,723,136"/>
+<area shape="rect" id="node6" href="$checkerboard__samples_8cc.html" title="src/kinect/checkerboard\l_samples.cc" alt="" coords="747,95,908,136"/>
+<area shape="rect" id="node7" href="$color__intrinsic__reprojection_8cc.html" title="src/kinect/color_intrinsic\l_reprojection.cc" alt="" coords="933,95,1095,136"/>
+<area shape="rect" id="node8" href="$ir__distortion__viewer_8cc.html" title="src/kinect/ir_distortion\l_viewer.cc" alt="" coords="1120,95,1271,136"/>
+<area shape="rect" id="node9" href="$ir__intrinsic__reprojection_8cc.html" title="src/kinect/ir_intrinsic\l_reprojection.cc" alt="" coords="1295,95,1437,136"/>
+<area shape="rect" id="node10" href="$parallel__wall_8cc.html" title="src/kinect/parallel\l_wall.cc" alt="" coords="1461,95,1585,136"/>
+<area shape="rect" id="node11" href="$remapping__viewer_8cc.html" title="src/kinect/remapping\l_viewer.cc" alt="" coords="1609,95,1752,136"/>
+<area shape="rect" id="node12" href="$reprojection__viewer_8cc.html" title="src/kinect/reprojection\l_viewer.cc" alt="" coords="1776,95,1927,136"/>
+<area shape="rect" id="node13" href="$kinect_2viewer_8cc.html" title="src/kinect/viewer.cc" alt="" coords="1951,102,2090,129"/>
+</map>

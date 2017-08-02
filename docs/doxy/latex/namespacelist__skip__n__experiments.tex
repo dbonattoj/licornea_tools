@@ -1,0 +1,126 @@
+\hypertarget{namespacelist__skip__n__experiments}{}\section{list\+\_\+skip\+\_\+n\+\_\+experiments Namespace Reference}
+\label{namespacelist__skip__n__experiments}\index{list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespacelist__skip__n__experiments_adbf12c996ca2ec1b450d3cefe10ab0c5}{usage\+\_\+fail} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespacelist__skip__n__experiments_ae7d7e751880714692ef0ba6f35163da3}{parameters\+\_\+filename} = sys.\+argv\mbox{[}1\mbox{]}
+\item 
+\hyperlink{namespacelist__skip__n__experiments_a2b0ba5c1eae77169da727be27ba77df8}{step} = int(sys.\+argv\mbox{[}2\mbox{]})
+\item 
+\hyperlink{namespacelist__skip__n__experiments_aa6076cc866fef80f0751f37c54685ea9}{out\+\_\+experiments\+\_\+filename} = sys.\+argv\mbox{[}3\mbox{]}
+\item 
+\hyperlink{namespacelist__skip__n__experiments_af39c9c5347aadcd2c36c72d00e858b4b}{limit} = None
+\item 
+\hyperlink{namespacelist__skip__n__experiments_a285dbe25dabb27c98c0c63029f52426a}{datas} = \hyperlink{classpylib_1_1dataset_1_1Dataset}{Dataset}(\hyperlink{namespacelist__skip__n__experiments_ae7d7e751880714692ef0ba6f35163da3}{parameters\+\_\+filename})
+\item 
+\hyperlink{namespacelist__skip__n__experiments_a940229173ead33055747748a2b74ee45}{experiments} = list()
+\item 
+\hyperlink{namespacelist__skip__n__experiments_a1469c5c024e30fd45f71256f1bf9de65}{min\+\_\+idx} = datas.\+x\+\_\+min()
+\item 
+int \hyperlink{namespacelist__skip__n__experiments_a9be0d16f00e062e89bbf05a8a5f2ded8}{max\+\_\+idx} = datas.\+x\+\_\+max()+1
+\item 
+\hyperlink{namespacelist__skip__n__experiments_a05955a8175ac6d7e387276a35b520b56}{x\+\_\+index\+\_\+step} = datas.\+x\+\_\+step()
+\item 
+\hyperlink{namespacelist__skip__n__experiments_aab171a1ef6dd6c7d8f5c64e74876f9ff}{left\+\_\+index} = \hyperlink{namespacelist__skip__n__experiments_a1469c5c024e30fd45f71256f1bf9de65}{min\+\_\+idx}+((index -\/ \hyperlink{namespacelist__skip__n__experiments_a1469c5c024e30fd45f71256f1bf9de65}{min\+\_\+idx}) // \hyperlink{namespacelist__skip__n__experiments_a2b0ba5c1eae77169da727be27ba77df8}{step})$\ast$\hyperlink{namespacelist__skip__n__experiments_a2b0ba5c1eae77169da727be27ba77df8}{step}
+\item 
+\hyperlink{namespacelist__skip__n__experiments_ac819b38ecab50279acd6b6506889bf59}{right\+\_\+index} = \hyperlink{namespacelist__skip__n__experiments_aab171a1ef6dd6c7d8f5c64e74876f9ff}{left\+\_\+index}+\hyperlink{namespacelist__skip__n__experiments_a2b0ba5c1eae77169da727be27ba77df8}{step}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}!usage\+\_\+fail@{usage\+\_\+fail}}
+\index{usage\+\_\+fail@{usage\+\_\+fail}!list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{usage\+\_\+fail()}{usage_fail()}}]{\setlength{\rightskip}{0pt plus 5cm}def list\+\_\+skip\+\_\+n\+\_\+experiments.\+usage\+\_\+fail (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacelist__skip__n__experiments_adbf12c996ca2ec1b450d3cefe10ab0c5}{}\label{namespacelist__skip__n__experiments_adbf12c996ca2ec1b450d3cefe10ab0c5}
+
+
+Definition at line 5 of file list\+\_\+skip\+\_\+n\+\_\+experiments.\+py.
+
+
+
+\subsection{Variable Documentation}
+\index{list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}!datas@{datas}}
+\index{datas@{datas}!list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{datas}{datas}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+skip\+\_\+n\+\_\+experiments.\+datas = {\bf Dataset}({\bf parameters\+\_\+filename})}\hypertarget{namespacelist__skip__n__experiments_a285dbe25dabb27c98c0c63029f52426a}{}\label{namespacelist__skip__n__experiments_a285dbe25dabb27c98c0c63029f52426a}
+
+
+Definition at line 16 of file list\+\_\+skip\+\_\+n\+\_\+experiments.\+py.
+
+\index{list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}!experiments@{experiments}}
+\index{experiments@{experiments}!list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{experiments}{experiments}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+skip\+\_\+n\+\_\+experiments.\+experiments = list()}\hypertarget{namespacelist__skip__n__experiments_a940229173ead33055747748a2b74ee45}{}\label{namespacelist__skip__n__experiments_a940229173ead33055747748a2b74ee45}
+
+
+Definition at line 19 of file list\+\_\+skip\+\_\+n\+\_\+experiments.\+py.
+
+\index{list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}!left\+\_\+index@{left\+\_\+index}}
+\index{left\+\_\+index@{left\+\_\+index}!list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{left\+\_\+index}{left_index}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+skip\+\_\+n\+\_\+experiments.\+left\+\_\+index = {\bf min\+\_\+idx}+((index -\/ {\bf min\+\_\+idx}) // {\bf step})$\ast${\bf step}}\hypertarget{namespacelist__skip__n__experiments_aab171a1ef6dd6c7d8f5c64e74876f9ff}{}\label{namespacelist__skip__n__experiments_aab171a1ef6dd6c7d8f5c64e74876f9ff}
+
+
+Definition at line 27 of file list\+\_\+skip\+\_\+n\+\_\+experiments.\+py.
+
+\index{list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}!limit@{limit}}
+\index{limit@{limit}!list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{limit}{limit}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+skip\+\_\+n\+\_\+experiments.\+limit = None}\hypertarget{namespacelist__skip__n__experiments_af39c9c5347aadcd2c36c72d00e858b4b}{}\label{namespacelist__skip__n__experiments_af39c9c5347aadcd2c36c72d00e858b4b}
+
+
+Definition at line 13 of file list\+\_\+skip\+\_\+n\+\_\+experiments.\+py.
+
+\index{list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}!max\+\_\+idx@{max\+\_\+idx}}
+\index{max\+\_\+idx@{max\+\_\+idx}!list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{max\+\_\+idx}{max_idx}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+skip\+\_\+n\+\_\+experiments.\+max\+\_\+idx = datas.\+x\+\_\+max()+1}\hypertarget{namespacelist__skip__n__experiments_a9be0d16f00e062e89bbf05a8a5f2ded8}{}\label{namespacelist__skip__n__experiments_a9be0d16f00e062e89bbf05a8a5f2ded8}
+
+
+Definition at line 22 of file list\+\_\+skip\+\_\+n\+\_\+experiments.\+py.
+
+\index{list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}!min\+\_\+idx@{min\+\_\+idx}}
+\index{min\+\_\+idx@{min\+\_\+idx}!list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{min\+\_\+idx}{min_idx}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+skip\+\_\+n\+\_\+experiments.\+min\+\_\+idx = datas.\+x\+\_\+min()}\hypertarget{namespacelist__skip__n__experiments_a1469c5c024e30fd45f71256f1bf9de65}{}\label{namespacelist__skip__n__experiments_a1469c5c024e30fd45f71256f1bf9de65}
+
+
+Definition at line 21 of file list\+\_\+skip\+\_\+n\+\_\+experiments.\+py.
+
+\index{list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}!out\+\_\+experiments\+\_\+filename@{out\+\_\+experiments\+\_\+filename}}
+\index{out\+\_\+experiments\+\_\+filename@{out\+\_\+experiments\+\_\+filename}!list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{out\+\_\+experiments\+\_\+filename}{out_experiments_filename}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+skip\+\_\+n\+\_\+experiments.\+out\+\_\+experiments\+\_\+filename = sys.\+argv\mbox{[}3\mbox{]}}\hypertarget{namespacelist__skip__n__experiments_aa6076cc866fef80f0751f37c54685ea9}{}\label{namespacelist__skip__n__experiments_aa6076cc866fef80f0751f37c54685ea9}
+
+
+Definition at line 12 of file list\+\_\+skip\+\_\+n\+\_\+experiments.\+py.
+
+\index{list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}!parameters\+\_\+filename@{parameters\+\_\+filename}}
+\index{parameters\+\_\+filename@{parameters\+\_\+filename}!list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{parameters\+\_\+filename}{parameters_filename}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+skip\+\_\+n\+\_\+experiments.\+parameters\+\_\+filename = sys.\+argv\mbox{[}1\mbox{]}}\hypertarget{namespacelist__skip__n__experiments_ae7d7e751880714692ef0ba6f35163da3}{}\label{namespacelist__skip__n__experiments_ae7d7e751880714692ef0ba6f35163da3}
+
+
+Definition at line 10 of file list\+\_\+skip\+\_\+n\+\_\+experiments.\+py.
+
+\index{list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}!right\+\_\+index@{right\+\_\+index}}
+\index{right\+\_\+index@{right\+\_\+index}!list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{right\+\_\+index}{right_index}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+skip\+\_\+n\+\_\+experiments.\+right\+\_\+index = {\bf left\+\_\+index}+{\bf step}}\hypertarget{namespacelist__skip__n__experiments_ac819b38ecab50279acd6b6506889bf59}{}\label{namespacelist__skip__n__experiments_ac819b38ecab50279acd6b6506889bf59}
+
+
+Definition at line 28 of file list\+\_\+skip\+\_\+n\+\_\+experiments.\+py.
+
+\index{list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}!step@{step}}
+\index{step@{step}!list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{step}{step}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+skip\+\_\+n\+\_\+experiments.\+step = int(sys.\+argv\mbox{[}2\mbox{]})}\hypertarget{namespacelist__skip__n__experiments_a2b0ba5c1eae77169da727be27ba77df8}{}\label{namespacelist__skip__n__experiments_a2b0ba5c1eae77169da727be27ba77df8}
+
+
+Definition at line 11 of file list\+\_\+skip\+\_\+n\+\_\+experiments.\+py.
+
+\index{list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}!x\+\_\+index\+\_\+step@{x\+\_\+index\+\_\+step}}
+\index{x\+\_\+index\+\_\+step@{x\+\_\+index\+\_\+step}!list\+\_\+skip\+\_\+n\+\_\+experiments@{list\+\_\+skip\+\_\+n\+\_\+experiments}}
+\subsubsection[{\texorpdfstring{x\+\_\+index\+\_\+step}{x_index_step}}]{\setlength{\rightskip}{0pt plus 5cm}list\+\_\+skip\+\_\+n\+\_\+experiments.\+x\+\_\+index\+\_\+step = datas.\+x\+\_\+step()}\hypertarget{namespacelist__skip__n__experiments_a05955a8175ac6d7e387276a35b520b56}{}\label{namespacelist__skip__n__experiments_a05955a8175ac6d7e387276a35b520b56}
+
+
+Definition at line 23 of file list\+\_\+skip\+\_\+n\+\_\+experiments.\+py.
+

@@ -1,0 +1,145 @@
+\hypertarget{structtlz_1_1relative__camera__positions}{}\section{tlz\+:\+:relative\+\_\+camera\+\_\+positions Struct Reference}
+\label{structtlz_1_1relative__camera__positions}\index{tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}}
+
+
+{\ttfamily \#include $<$relative\+\_\+camera\+\_\+positions.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{structtlz_1_1relative__camera__positions_ae555c11fb699f3f9259a580f7e993020}{reference\+\_\+view\+\_\+index} = \hyperlink{structtlz_1_1view__index}{view\+\_\+index}
+\item 
+using \hyperlink{structtlz_1_1relative__camera__positions_a8af150a7c8a06957851bd43e08aa4891}{target\+\_\+view\+\_\+index} = \hyperlink{structtlz_1_1view__index}{view\+\_\+index}
+\item 
+using \hyperlink{structtlz_1_1relative__camera__positions_a131cad34840b596589a44dfdc079ff6c}{key\+\_\+type} = std\+::pair$<$ \hyperlink{structtlz_1_1relative__camera__positions_ae555c11fb699f3f9259a580f7e993020}{reference\+\_\+view\+\_\+index}, \hyperlink{structtlz_1_1relative__camera__positions_a8af150a7c8a06957851bd43e08aa4891}{target\+\_\+view\+\_\+index} $>$
+\item 
+using \hyperlink{structtlz_1_1relative__camera__positions_add616a43c418d61c9945d71ac7d403de}{reference\+\_\+target\+\_\+positions\+\_\+type} = std\+::map$<$ \hyperlink{structtlz_1_1relative__camera__positions_ae555c11fb699f3f9259a580f7e993020}{reference\+\_\+view\+\_\+index}, std\+::vector$<$ std\+::pair$<$ \hyperlink{structtlz_1_1relative__camera__positions_a8af150a7c8a06957851bd43e08aa4891}{target\+\_\+view\+\_\+index}, \hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} $>$$>$$>$
+\item 
+using \hyperlink{structtlz_1_1relative__camera__positions_a22e8f4b822109a48c870edb85d37a24b}{target\+\_\+reference\+\_\+positions\+\_\+type} = std\+::map$<$ \hyperlink{structtlz_1_1relative__camera__positions_a8af150a7c8a06957851bd43e08aa4891}{target\+\_\+view\+\_\+index}, std\+::vector$<$ std\+::pair$<$ \hyperlink{structtlz_1_1relative__camera__positions_ae555c11fb699f3f9259a580f7e993020}{reference\+\_\+view\+\_\+index}, \hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} $>$$>$$>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structtlz_1_1relative__camera__positions_add616a43c418d61c9945d71ac7d403de}{reference\+\_\+target\+\_\+positions\+\_\+type} \hyperlink{structtlz_1_1relative__camera__positions_a210689e9345a5fea8e61f026db619c8b}{to\+\_\+reference\+\_\+target\+\_\+positions} () const 
+\item 
+\hyperlink{structtlz_1_1relative__camera__positions_a22e8f4b822109a48c870edb85d37a24b}{target\+\_\+reference\+\_\+positions\+\_\+type} \hyperlink{structtlz_1_1relative__camera__positions_abc210fc9594b475dcbbb8706e0122742}{to\+\_\+target\+\_\+reference\+\_\+positions} () const 
+\item 
+\hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} \& \hyperlink{structtlz_1_1relative__camera__positions_a6680a08e1b0fed188e74280cb4874db0}{position} (const \hyperlink{structtlz_1_1relative__camera__positions_ae555c11fb699f3f9259a580f7e993020}{reference\+\_\+view\+\_\+index} \&ref\+\_\+idx, const \hyperlink{structtlz_1_1relative__camera__positions_a8af150a7c8a06957851bd43e08aa4891}{target\+\_\+view\+\_\+index} \&target\+\_\+idx)
+\item 
+const \hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} \& \hyperlink{structtlz_1_1relative__camera__positions_ad28a823f9de71b5b7924bbe68741dfab}{position} (const \hyperlink{structtlz_1_1relative__camera__positions_ae555c11fb699f3f9259a580f7e993020}{reference\+\_\+view\+\_\+index} \&ref\+\_\+idx, const \hyperlink{structtlz_1_1relative__camera__positions_a8af150a7c8a06957851bd43e08aa4891}{target\+\_\+view\+\_\+index} \&target\+\_\+idx) const 
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::map$<$ \hyperlink{structtlz_1_1relative__camera__positions_a131cad34840b596589a44dfdc079ff6c}{key\+\_\+type}, \hyperlink{namespacetlz_ae192989bfbe6c700ac84d2a8cf05ebb4}{vec2} $>$ \hyperlink{structtlz_1_1relative__camera__positions_ab580107ab7895b831d9fac57bd84c324}{positions}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 12 of file relative\+\_\+camera\+\_\+positions.\+h.
+
+
+
+\subsection{Member Typedef Documentation}
+\index{tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}!key\+\_\+type@{key\+\_\+type}}
+\index{key\+\_\+type@{key\+\_\+type}!tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}}
+\subsubsection[{\texorpdfstring{key\+\_\+type}{key_type}}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf tlz\+::relative\+\_\+camera\+\_\+positions\+::key\+\_\+type} =  std\+::pair$<${\bf reference\+\_\+view\+\_\+index}, {\bf target\+\_\+view\+\_\+index}$>$}\hypertarget{structtlz_1_1relative__camera__positions_a131cad34840b596589a44dfdc079ff6c}{}\label{structtlz_1_1relative__camera__positions_a131cad34840b596589a44dfdc079ff6c}
+
+
+Definition at line 15 of file relative\+\_\+camera\+\_\+positions.\+h.
+
+\index{tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}!reference\+\_\+target\+\_\+positions\+\_\+type@{reference\+\_\+target\+\_\+positions\+\_\+type}}
+\index{reference\+\_\+target\+\_\+positions\+\_\+type@{reference\+\_\+target\+\_\+positions\+\_\+type}!tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}}
+\subsubsection[{\texorpdfstring{reference\+\_\+target\+\_\+positions\+\_\+type}{reference_target_positions_type}}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf tlz\+::relative\+\_\+camera\+\_\+positions\+::reference\+\_\+target\+\_\+positions\+\_\+type} =  std\+::map$<${\bf reference\+\_\+view\+\_\+index}, std\+::vector$<$std\+::pair$<${\bf target\+\_\+view\+\_\+index}, {\bf vec2}$>$$>$$>$}\hypertarget{structtlz_1_1relative__camera__positions_add616a43c418d61c9945d71ac7d403de}{}\label{structtlz_1_1relative__camera__positions_add616a43c418d61c9945d71ac7d403de}
+
+
+Definition at line 17 of file relative\+\_\+camera\+\_\+positions.\+h.
+
+\index{tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}!reference\+\_\+view\+\_\+index@{reference\+\_\+view\+\_\+index}}
+\index{reference\+\_\+view\+\_\+index@{reference\+\_\+view\+\_\+index}!tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}}
+\subsubsection[{\texorpdfstring{reference\+\_\+view\+\_\+index}{reference_view_index}}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf tlz\+::relative\+\_\+camera\+\_\+positions\+::reference\+\_\+view\+\_\+index} =  {\bf view\+\_\+index}}\hypertarget{structtlz_1_1relative__camera__positions_ae555c11fb699f3f9259a580f7e993020}{}\label{structtlz_1_1relative__camera__positions_ae555c11fb699f3f9259a580f7e993020}
+
+
+Definition at line 13 of file relative\+\_\+camera\+\_\+positions.\+h.
+
+\index{tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}!target\+\_\+reference\+\_\+positions\+\_\+type@{target\+\_\+reference\+\_\+positions\+\_\+type}}
+\index{target\+\_\+reference\+\_\+positions\+\_\+type@{target\+\_\+reference\+\_\+positions\+\_\+type}!tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}}
+\subsubsection[{\texorpdfstring{target\+\_\+reference\+\_\+positions\+\_\+type}{target_reference_positions_type}}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf tlz\+::relative\+\_\+camera\+\_\+positions\+::target\+\_\+reference\+\_\+positions\+\_\+type} =  std\+::map$<${\bf target\+\_\+view\+\_\+index}, std\+::vector$<$std\+::pair$<${\bf reference\+\_\+view\+\_\+index}, {\bf vec2}$>$$>$$>$}\hypertarget{structtlz_1_1relative__camera__positions_a22e8f4b822109a48c870edb85d37a24b}{}\label{structtlz_1_1relative__camera__positions_a22e8f4b822109a48c870edb85d37a24b}
+
+
+Definition at line 18 of file relative\+\_\+camera\+\_\+positions.\+h.
+
+\index{tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}!target\+\_\+view\+\_\+index@{target\+\_\+view\+\_\+index}}
+\index{target\+\_\+view\+\_\+index@{target\+\_\+view\+\_\+index}!tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}}
+\subsubsection[{\texorpdfstring{target\+\_\+view\+\_\+index}{target_view_index}}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf tlz\+::relative\+\_\+camera\+\_\+positions\+::target\+\_\+view\+\_\+index} =  {\bf view\+\_\+index}}\hypertarget{structtlz_1_1relative__camera__positions_a8af150a7c8a06957851bd43e08aa4891}{}\label{structtlz_1_1relative__camera__positions_a8af150a7c8a06957851bd43e08aa4891}
+
+
+Definition at line 14 of file relative\+\_\+camera\+\_\+positions.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\index{tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}!position@{position}}
+\index{position@{position}!tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}}
+\subsubsection[{\texorpdfstring{position(const reference\+\_\+view\+\_\+index \&ref\+\_\+idx, const target\+\_\+view\+\_\+index \&target\+\_\+idx)}{position(const reference_view_index &ref_idx, const target_view_index &target_idx)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf vec2}\& tlz\+::relative\+\_\+camera\+\_\+positions\+::position (
+\begin{DoxyParamCaption}
+\item[{const {\bf reference\+\_\+view\+\_\+index} \&}]{ref\+\_\+idx, }
+\item[{const {\bf target\+\_\+view\+\_\+index} \&}]{target\+\_\+idx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{structtlz_1_1relative__camera__positions_a6680a08e1b0fed188e74280cb4874db0}{}\label{structtlz_1_1relative__camera__positions_a6680a08e1b0fed188e74280cb4874db0}
+
+
+Definition at line 25 of file relative\+\_\+camera\+\_\+positions.\+h.
+
+\index{tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}!position@{position}}
+\index{position@{position}!tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}}
+\subsubsection[{\texorpdfstring{position(const reference\+\_\+view\+\_\+index \&ref\+\_\+idx, const target\+\_\+view\+\_\+index \&target\+\_\+idx) const }{position(const reference_view_index &ref_idx, const target_view_index &target_idx) const }}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf vec2}\& tlz\+::relative\+\_\+camera\+\_\+positions\+::position (
+\begin{DoxyParamCaption}
+\item[{const {\bf reference\+\_\+view\+\_\+index} \&}]{ref\+\_\+idx, }
+\item[{const {\bf target\+\_\+view\+\_\+index} \&}]{target\+\_\+idx}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{structtlz_1_1relative__camera__positions_ad28a823f9de71b5b7924bbe68741dfab}{}\label{structtlz_1_1relative__camera__positions_ad28a823f9de71b5b7924bbe68741dfab}
+
+
+Definition at line 27 of file relative\+\_\+camera\+\_\+positions.\+h.
+
+\index{tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}!to\+\_\+reference\+\_\+target\+\_\+positions@{to\+\_\+reference\+\_\+target\+\_\+positions}}
+\index{to\+\_\+reference\+\_\+target\+\_\+positions@{to\+\_\+reference\+\_\+target\+\_\+positions}!tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}}
+\subsubsection[{\texorpdfstring{to\+\_\+reference\+\_\+target\+\_\+positions() const }{to_reference_target_positions() const }}]{\setlength{\rightskip}{0pt plus 5cm}auto tlz\+::relative\+\_\+camera\+\_\+positions\+::to\+\_\+reference\+\_\+target\+\_\+positions (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{structtlz_1_1relative__camera__positions_a210689e9345a5fea8e61f026db619c8b}{}\label{structtlz_1_1relative__camera__positions_a210689e9345a5fea8e61f026db619c8b}
+
+
+Definition at line 23 of file relative\+\_\+camera\+\_\+positions.\+cc.
+
+\index{tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}!to\+\_\+target\+\_\+reference\+\_\+positions@{to\+\_\+target\+\_\+reference\+\_\+positions}}
+\index{to\+\_\+target\+\_\+reference\+\_\+positions@{to\+\_\+target\+\_\+reference\+\_\+positions}!tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}}
+\subsubsection[{\texorpdfstring{to\+\_\+target\+\_\+reference\+\_\+positions() const }{to_target_reference_positions() const }}]{\setlength{\rightskip}{0pt plus 5cm}auto tlz\+::relative\+\_\+camera\+\_\+positions\+::to\+\_\+target\+\_\+reference\+\_\+positions (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{structtlz_1_1relative__camera__positions_abc210fc9594b475dcbbb8706e0122742}{}\label{structtlz_1_1relative__camera__positions_abc210fc9594b475dcbbb8706e0122742}
+
+
+Definition at line 35 of file relative\+\_\+camera\+\_\+positions.\+cc.
+
+
+
+\subsection{Member Data Documentation}
+\index{tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}!positions@{positions}}
+\index{positions@{positions}!tlz\+::relative\+\_\+camera\+\_\+positions@{tlz\+::relative\+\_\+camera\+\_\+positions}}
+\subsubsection[{\texorpdfstring{positions}{positions}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::map$<${\bf key\+\_\+type}, {\bf vec2}$>$ tlz\+::relative\+\_\+camera\+\_\+positions\+::positions}\hypertarget{structtlz_1_1relative__camera__positions_ab580107ab7895b831d9fac57bd84c324}{}\label{structtlz_1_1relative__camera__positions_ab580107ab7895b831d9fac57bd84c324}
+
+
+Definition at line 20 of file relative\+\_\+camera\+\_\+positions.\+h.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/calibration/lib/cg/\hyperlink{relative__camera__positions_8h}{relative\+\_\+camera\+\_\+positions.\+h}\item 
+src/calibration/lib/cg/\hyperlink{relative__camera__positions_8cc}{relative\+\_\+camera\+\_\+positions.\+cc}\end{DoxyCompactItemize}

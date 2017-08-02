@@ -1,0 +1,204 @@
+\hypertarget{classtlz_1_1grabber}{}\section{tlz\+:\+:grabber Class Reference}
+\label{classtlz_1_1grabber}\index{tlz\+::grabber@{tlz\+::grabber}}
+
+
+{\ttfamily \#include $<$grabber.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{classtlz_1_1grabber_a52a1a6be5144a2985397431f66427f0c}{frame\+\_\+type\+\_\+value} \{ \\*
+\hyperlink{classtlz_1_1grabber_a52a1a6be5144a2985397431f66427f0ca8dfcdc862beb43d63a391cee678ae0b7}{color} = 1$<$$<$0, 
+\hyperlink{classtlz_1_1grabber_a52a1a6be5144a2985397431f66427f0cadc2bdd14f9e504fa0d8dc3da41df69a3}{registered\+\_\+color} = 1$<$$<$1, 
+\hyperlink{classtlz_1_1grabber_a52a1a6be5144a2985397431f66427f0ca9fb1f55fe880a3eee634e02d509048b2}{depth} = 1$<$$<$2, 
+\hyperlink{classtlz_1_1grabber_a52a1a6be5144a2985397431f66427f0ca37703dee7885ad239262f3b4dadab1e9}{bigdepth} = 1$<$$<$3, 
+\\*
+\hyperlink{classtlz_1_1grabber_a52a1a6be5144a2985397431f66427f0caed13499938172b3f78d3444b93a25d0f}{ir} = 1$<$$<$4
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtlz_1_1grabber_a0f65e0b0cec49add57f0a8b1621a0432}{grabber} (int frame\+\_\+types)
+\item 
+\hyperlink{classtlz_1_1grabber_a8812abd452276a357fce55cff4716ddf}{$\sim$grabber} ()
+\item 
+bool \hyperlink{classtlz_1_1grabber_a14d256bd7ef0af5be70f2bd7713a7e54}{grab} ()
+\item 
+void \hyperlink{classtlz_1_1grabber_a412843d3f5dbbcb179e5ae4709577b91}{release} ()
+\item 
+libfreenect2\+::\+Freenect2 \& \hyperlink{classtlz_1_1grabber_a4e74eda0f21e088b4e41c7008661dba8}{context} ()
+\item 
+libfreenect2\+::\+Freenect2\+Device \& \hyperlink{classtlz_1_1grabber_ab490d6360e17972b0ef7248602c52f04}{device} ()
+\item 
+libfreenect2\+::\+Registration \& \hyperlink{classtlz_1_1grabber_af2f88b4d5534f61eca78cfbad2b02dd7}{registration} ()
+\item 
+\hyperlink{structtlz_1_1kinect__internal__parameters}{kinect\+\_\+internal\+\_\+parameters} \hyperlink{classtlz_1_1grabber_a22479c42efb500428a6178391d3e9611}{internal\+\_\+parameters} ()
+\item 
+cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \hyperlink{classtlz_1_1grabber_a64e9af7d0c0e982539c7465f4c8c2755}{get\+\_\+color\+\_\+frame} ()
+\item 
+cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \hyperlink{classtlz_1_1grabber_a5b829552bf72ef9996dcb7d3a40f42d2}{get\+\_\+registered\+\_\+color\+\_\+frame} ()
+\item 
+cv\+::\+Mat\+\_\+$<$ uchar $>$ \hyperlink{classtlz_1_1grabber_ab0a7ab9197c8d2676a072c3f9eadd96d}{get\+\_\+ir\+\_\+frame} (float min\+\_\+ir=0, float max\+\_\+ir=0xffff, bool undistorted=false)
+\item 
+cv\+::\+Mat\+\_\+$<$ ushort $>$ \hyperlink{classtlz_1_1grabber_ac0436df6301b3b5773d06c499d946fbb}{get\+\_\+original\+\_\+ir\+\_\+frame} (bool undistorted=false)
+\item 
+cv\+::\+Mat\+\_\+$<$ float $>$ \hyperlink{classtlz_1_1grabber_a22caa426aef0275c5cdf9bfebe352940}{get\+\_\+depth\+\_\+frame} (bool undistorted=false)
+\item 
+cv\+::\+Mat\+\_\+$<$ float $>$ \hyperlink{classtlz_1_1grabber_a0b1242b05d42416c5558bf31e5494dc2}{get\+\_\+bigdepth\+\_\+frame} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 18 of file grabber.\+h.
+
+
+
+\subsection{Member Enumeration Documentation}
+\index{tlz\+::grabber@{tlz\+::grabber}!frame\+\_\+type\+\_\+value@{frame\+\_\+type\+\_\+value}}
+\index{frame\+\_\+type\+\_\+value@{frame\+\_\+type\+\_\+value}!tlz\+::grabber@{tlz\+::grabber}}
+\subsubsection[{\texorpdfstring{frame\+\_\+type\+\_\+value}{frame_type_value}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf tlz\+::grabber\+::frame\+\_\+type\+\_\+value}}\hypertarget{classtlz_1_1grabber_a52a1a6be5144a2985397431f66427f0c}{}\label{classtlz_1_1grabber_a52a1a6be5144a2985397431f66427f0c}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{color@{color}!tlz\+::grabber@{tlz\+::grabber}}\index{tlz\+::grabber@{tlz\+::grabber}!color@{color}}\item[{\em 
+color\hypertarget{classtlz_1_1grabber_a52a1a6be5144a2985397431f66427f0ca8dfcdc862beb43d63a391cee678ae0b7}{}\label{classtlz_1_1grabber_a52a1a6be5144a2985397431f66427f0ca8dfcdc862beb43d63a391cee678ae0b7}
+}]\index{registered\+\_\+color@{registered\+\_\+color}!tlz\+::grabber@{tlz\+::grabber}}\index{tlz\+::grabber@{tlz\+::grabber}!registered\+\_\+color@{registered\+\_\+color}}\item[{\em 
+registered\+\_\+color\hypertarget{classtlz_1_1grabber_a52a1a6be5144a2985397431f66427f0cadc2bdd14f9e504fa0d8dc3da41df69a3}{}\label{classtlz_1_1grabber_a52a1a6be5144a2985397431f66427f0cadc2bdd14f9e504fa0d8dc3da41df69a3}
+}]\index{depth@{depth}!tlz\+::grabber@{tlz\+::grabber}}\index{tlz\+::grabber@{tlz\+::grabber}!depth@{depth}}\item[{\em 
+depth\hypertarget{classtlz_1_1grabber_a52a1a6be5144a2985397431f66427f0ca9fb1f55fe880a3eee634e02d509048b2}{}\label{classtlz_1_1grabber_a52a1a6be5144a2985397431f66427f0ca9fb1f55fe880a3eee634e02d509048b2}
+}]\index{bigdepth@{bigdepth}!tlz\+::grabber@{tlz\+::grabber}}\index{tlz\+::grabber@{tlz\+::grabber}!bigdepth@{bigdepth}}\item[{\em 
+bigdepth\hypertarget{classtlz_1_1grabber_a52a1a6be5144a2985397431f66427f0ca37703dee7885ad239262f3b4dadab1e9}{}\label{classtlz_1_1grabber_a52a1a6be5144a2985397431f66427f0ca37703dee7885ad239262f3b4dadab1e9}
+}]\index{ir@{ir}!tlz\+::grabber@{tlz\+::grabber}}\index{tlz\+::grabber@{tlz\+::grabber}!ir@{ir}}\item[{\em 
+ir\hypertarget{classtlz_1_1grabber_a52a1a6be5144a2985397431f66427f0caed13499938172b3f78d3444b93a25d0f}{}\label{classtlz_1_1grabber_a52a1a6be5144a2985397431f66427f0caed13499938172b3f78d3444b93a25d0f}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 20 of file grabber.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{tlz\+::grabber@{tlz\+::grabber}!grabber@{grabber}}
+\index{grabber@{grabber}!tlz\+::grabber@{tlz\+::grabber}}
+\subsubsection[{\texorpdfstring{grabber(int frame\+\_\+types)}{grabber(int frame_types)}}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::grabber\+::grabber (
+\begin{DoxyParamCaption}
+\item[{int}]{frame\+\_\+types}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\hypertarget{classtlz_1_1grabber_a0f65e0b0cec49add57f0a8b1621a0432}{}\label{classtlz_1_1grabber_a0f65e0b0cec49add57f0a8b1621a0432}
+\index{tlz\+::grabber@{tlz\+::grabber}!````~grabber@{$\sim$grabber}}
+\index{````~grabber@{$\sim$grabber}!tlz\+::grabber@{tlz\+::grabber}}
+\subsubsection[{\texorpdfstring{$\sim$grabber()}{~grabber()}}]{\setlength{\rightskip}{0pt plus 5cm}tlz\+::grabber\+::$\sim$grabber (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1grabber_a8812abd452276a357fce55cff4716ddf}{}\label{classtlz_1_1grabber_a8812abd452276a357fce55cff4716ddf}
+
+
+\subsection{Member Function Documentation}
+\index{tlz\+::grabber@{tlz\+::grabber}!context@{context}}
+\index{context@{context}!tlz\+::grabber@{tlz\+::grabber}}
+\subsubsection[{\texorpdfstring{context()}{context()}}]{\setlength{\rightskip}{0pt plus 5cm}libfreenect2\+::\+Freenect2\& tlz\+::grabber\+::context (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classtlz_1_1grabber_a4e74eda0f21e088b4e41c7008661dba8}{}\label{classtlz_1_1grabber_a4e74eda0f21e088b4e41c7008661dba8}
+
+
+Definition at line 53 of file grabber.\+h.
+
+\index{tlz\+::grabber@{tlz\+::grabber}!device@{device}}
+\index{device@{device}!tlz\+::grabber@{tlz\+::grabber}}
+\subsubsection[{\texorpdfstring{device()}{device()}}]{\setlength{\rightskip}{0pt plus 5cm}libfreenect2\+::\+Freenect2\+Device\& tlz\+::grabber\+::device (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classtlz_1_1grabber_ab490d6360e17972b0ef7248602c52f04}{}\label{classtlz_1_1grabber_ab490d6360e17972b0ef7248602c52f04}
+
+
+Definition at line 54 of file grabber.\+h.
+
+\index{tlz\+::grabber@{tlz\+::grabber}!get\+\_\+bigdepth\+\_\+frame@{get\+\_\+bigdepth\+\_\+frame}}
+\index{get\+\_\+bigdepth\+\_\+frame@{get\+\_\+bigdepth\+\_\+frame}!tlz\+::grabber@{tlz\+::grabber}}
+\subsubsection[{\texorpdfstring{get\+\_\+bigdepth\+\_\+frame()}{get_bigdepth_frame()}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Mat\+\_\+$<$float$>$ tlz\+::grabber\+::get\+\_\+bigdepth\+\_\+frame (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1grabber_a0b1242b05d42416c5558bf31e5494dc2}{}\label{classtlz_1_1grabber_a0b1242b05d42416c5558bf31e5494dc2}
+\index{tlz\+::grabber@{tlz\+::grabber}!get\+\_\+color\+\_\+frame@{get\+\_\+color\+\_\+frame}}
+\index{get\+\_\+color\+\_\+frame@{get\+\_\+color\+\_\+frame}!tlz\+::grabber@{tlz\+::grabber}}
+\subsubsection[{\texorpdfstring{get\+\_\+color\+\_\+frame()}{get_color_frame()}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Mat\+\_\+$<$cv\+::\+Vec3b$>$ tlz\+::grabber\+::get\+\_\+color\+\_\+frame (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1grabber_a64e9af7d0c0e982539c7465f4c8c2755}{}\label{classtlz_1_1grabber_a64e9af7d0c0e982539c7465f4c8c2755}
+\index{tlz\+::grabber@{tlz\+::grabber}!get\+\_\+depth\+\_\+frame@{get\+\_\+depth\+\_\+frame}}
+\index{get\+\_\+depth\+\_\+frame@{get\+\_\+depth\+\_\+frame}!tlz\+::grabber@{tlz\+::grabber}}
+\subsubsection[{\texorpdfstring{get\+\_\+depth\+\_\+frame(bool undistorted=false)}{get_depth_frame(bool undistorted=false)}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Mat\+\_\+$<$float$>$ tlz\+::grabber\+::get\+\_\+depth\+\_\+frame (
+\begin{DoxyParamCaption}
+\item[{bool}]{undistorted = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1grabber_a22caa426aef0275c5cdf9bfebe352940}{}\label{classtlz_1_1grabber_a22caa426aef0275c5cdf9bfebe352940}
+\index{tlz\+::grabber@{tlz\+::grabber}!get\+\_\+ir\+\_\+frame@{get\+\_\+ir\+\_\+frame}}
+\index{get\+\_\+ir\+\_\+frame@{get\+\_\+ir\+\_\+frame}!tlz\+::grabber@{tlz\+::grabber}}
+\subsubsection[{\texorpdfstring{get\+\_\+ir\+\_\+frame(float min\+\_\+ir=0, float max\+\_\+ir=0xffff, bool undistorted=false)}{get_ir_frame(float min_ir=0, float max_ir=0xffff, bool undistorted=false)}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Mat\+\_\+$<$uchar$>$ tlz\+::grabber\+::get\+\_\+ir\+\_\+frame (
+\begin{DoxyParamCaption}
+\item[{float}]{min\+\_\+ir = {\ttfamily 0}, }
+\item[{float}]{max\+\_\+ir = {\ttfamily 0xffff}, }
+\item[{bool}]{undistorted = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1grabber_ab0a7ab9197c8d2676a072c3f9eadd96d}{}\label{classtlz_1_1grabber_ab0a7ab9197c8d2676a072c3f9eadd96d}
+\index{tlz\+::grabber@{tlz\+::grabber}!get\+\_\+original\+\_\+ir\+\_\+frame@{get\+\_\+original\+\_\+ir\+\_\+frame}}
+\index{get\+\_\+original\+\_\+ir\+\_\+frame@{get\+\_\+original\+\_\+ir\+\_\+frame}!tlz\+::grabber@{tlz\+::grabber}}
+\subsubsection[{\texorpdfstring{get\+\_\+original\+\_\+ir\+\_\+frame(bool undistorted=false)}{get_original_ir_frame(bool undistorted=false)}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Mat\+\_\+$<$ushort$>$ tlz\+::grabber\+::get\+\_\+original\+\_\+ir\+\_\+frame (
+\begin{DoxyParamCaption}
+\item[{bool}]{undistorted = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1grabber_ac0436df6301b3b5773d06c499d946fbb}{}\label{classtlz_1_1grabber_ac0436df6301b3b5773d06c499d946fbb}
+\index{tlz\+::grabber@{tlz\+::grabber}!get\+\_\+registered\+\_\+color\+\_\+frame@{get\+\_\+registered\+\_\+color\+\_\+frame}}
+\index{get\+\_\+registered\+\_\+color\+\_\+frame@{get\+\_\+registered\+\_\+color\+\_\+frame}!tlz\+::grabber@{tlz\+::grabber}}
+\subsubsection[{\texorpdfstring{get\+\_\+registered\+\_\+color\+\_\+frame()}{get_registered_color_frame()}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Mat\+\_\+$<$cv\+::\+Vec3b$>$ tlz\+::grabber\+::get\+\_\+registered\+\_\+color\+\_\+frame (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1grabber_a5b829552bf72ef9996dcb7d3a40f42d2}{}\label{classtlz_1_1grabber_a5b829552bf72ef9996dcb7d3a40f42d2}
+\index{tlz\+::grabber@{tlz\+::grabber}!grab@{grab}}
+\index{grab@{grab}!tlz\+::grabber@{tlz\+::grabber}}
+\subsubsection[{\texorpdfstring{grab()}{grab()}}]{\setlength{\rightskip}{0pt plus 5cm}bool tlz\+::grabber\+::grab (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1grabber_a14d256bd7ef0af5be70f2bd7713a7e54}{}\label{classtlz_1_1grabber_a14d256bd7ef0af5be70f2bd7713a7e54}
+\index{tlz\+::grabber@{tlz\+::grabber}!internal\+\_\+parameters@{internal\+\_\+parameters}}
+\index{internal\+\_\+parameters@{internal\+\_\+parameters}!tlz\+::grabber@{tlz\+::grabber}}
+\subsubsection[{\texorpdfstring{internal\+\_\+parameters()}{internal_parameters()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kinect\+\_\+internal\+\_\+parameters} tlz\+::grabber\+::internal\+\_\+parameters (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1grabber_a22479c42efb500428a6178391d3e9611}{}\label{classtlz_1_1grabber_a22479c42efb500428a6178391d3e9611}
+\index{tlz\+::grabber@{tlz\+::grabber}!registration@{registration}}
+\index{registration@{registration}!tlz\+::grabber@{tlz\+::grabber}}
+\subsubsection[{\texorpdfstring{registration()}{registration()}}]{\setlength{\rightskip}{0pt plus 5cm}libfreenect2\+::\+Registration\& tlz\+::grabber\+::registration (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classtlz_1_1grabber_af2f88b4d5534f61eca78cfbad2b02dd7}{}\label{classtlz_1_1grabber_af2f88b4d5534f61eca78cfbad2b02dd7}
+
+
+Definition at line 55 of file grabber.\+h.
+
+\index{tlz\+::grabber@{tlz\+::grabber}!release@{release}}
+\index{release@{release}!tlz\+::grabber@{tlz\+::grabber}}
+\subsubsection[{\texorpdfstring{release()}{release()}}]{\setlength{\rightskip}{0pt plus 5cm}void tlz\+::grabber\+::release (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtlz_1_1grabber_a412843d3f5dbbcb179e5ae4709577b91}{}\label{classtlz_1_1grabber_a412843d3f5dbbcb179e5ae4709577b91}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/kinect/lib/live/\hyperlink{grabber_8h}{grabber.\+h}\end{DoxyCompactItemize}

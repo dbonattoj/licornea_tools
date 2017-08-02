@@ -1,0 +1,82 @@
+\hypertarget{checkerboard__color__depth_8cc}{}\section{src/kinect/checkerboard\+\_\+color\+\_\+depth.cc File Reference}
+\label{checkerboard__color__depth_8cc}\index{src/kinect/checkerboard\+\_\+color\+\_\+depth.\+cc@{src/kinect/checkerboard\+\_\+color\+\_\+depth.\+cc}}
+{\ttfamily \#include \char`\"{}../lib/common.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/args.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/opencv.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/intrinsics.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/misc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../lib/viewer.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/live/grabber.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/live/checkerboard.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/kinect\+\_\+reprojection.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib/densify/depth\+\_\+densify.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+Include dependency graph for checkerboard\+\_\+color\+\_\+depth.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{checkerboard__color__depth_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56}{depth\+\_\+mode} \{ \\*
+\hyperlink{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56a919c8b643b7133116b02fc0d9bb7df3f}{depth\+\_\+mode\+::original}, 
+\hyperlink{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56a3c7e38476ce9c1eeb0dca1cc9037c1a9}{depth\+\_\+mode\+::reprojected}, 
+\hyperlink{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56a34097e52550378ea9b6483da9efa49fe}{depth\+\_\+mode\+::reprojected\+\_\+no\+\_\+iroff}, 
+\hyperlink{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56a919c8b643b7133116b02fc0d9bb7df3f}{depth\+\_\+mode\+::original}, 
+\\*
+\hyperlink{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56a3c7e38476ce9c1eeb0dca1cc9037c1a9}{depth\+\_\+mode\+::reprojected}, 
+\hyperlink{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56a95456e7506a8c9c04e3bdffd78da1cae}{depth\+\_\+mode\+::difference}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{checkerboard__color__depth_8cc_ac0f2228420376f4db7e1274f2b41667c}{main} (int argc, const char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{Enumeration Type Documentation}
+\index{checkerboard\+\_\+color\+\_\+depth.\+cc@{checkerboard\+\_\+color\+\_\+depth.\+cc}!depth\+\_\+mode@{depth\+\_\+mode}}
+\index{depth\+\_\+mode@{depth\+\_\+mode}!checkerboard\+\_\+color\+\_\+depth.\+cc@{checkerboard\+\_\+color\+\_\+depth.\+cc}}
+\subsubsection[{\texorpdfstring{depth\+\_\+mode}{depth_mode}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf depth\+\_\+mode}\hspace{0.3cm}{\ttfamily [strong]}}\hypertarget{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56}{}\label{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{original@{original}!checkerboard\+\_\+color\+\_\+depth.\+cc@{checkerboard\+\_\+color\+\_\+depth.\+cc}}\index{checkerboard\+\_\+color\+\_\+depth.\+cc@{checkerboard\+\_\+color\+\_\+depth.\+cc}!original@{original}}\item[{\em 
+original\hypertarget{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56a919c8b643b7133116b02fc0d9bb7df3f}{}\label{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56a919c8b643b7133116b02fc0d9bb7df3f}
+}]\index{reprojected@{reprojected}!checkerboard\+\_\+color\+\_\+depth.\+cc@{checkerboard\+\_\+color\+\_\+depth.\+cc}}\index{checkerboard\+\_\+color\+\_\+depth.\+cc@{checkerboard\+\_\+color\+\_\+depth.\+cc}!reprojected@{reprojected}}\item[{\em 
+reprojected\hypertarget{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56a3c7e38476ce9c1eeb0dca1cc9037c1a9}{}\label{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56a3c7e38476ce9c1eeb0dca1cc9037c1a9}
+}]\index{reprojected\+\_\+no\+\_\+iroff@{reprojected\+\_\+no\+\_\+iroff}!checkerboard\+\_\+color\+\_\+depth.\+cc@{checkerboard\+\_\+color\+\_\+depth.\+cc}}\index{checkerboard\+\_\+color\+\_\+depth.\+cc@{checkerboard\+\_\+color\+\_\+depth.\+cc}!reprojected\+\_\+no\+\_\+iroff@{reprojected\+\_\+no\+\_\+iroff}}\item[{\em 
+reprojected\+\_\+no\+\_\+iroff\hypertarget{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56a34097e52550378ea9b6483da9efa49fe}{}\label{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56a34097e52550378ea9b6483da9efa49fe}
+}]\index{original@{original}!checkerboard\+\_\+color\+\_\+depth.\+cc@{checkerboard\+\_\+color\+\_\+depth.\+cc}}\index{checkerboard\+\_\+color\+\_\+depth.\+cc@{checkerboard\+\_\+color\+\_\+depth.\+cc}!original@{original}}\item[{\em 
+original\hypertarget{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56a919c8b643b7133116b02fc0d9bb7df3f}{}\label{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56a919c8b643b7133116b02fc0d9bb7df3f}
+}]\index{reprojected@{reprojected}!checkerboard\+\_\+color\+\_\+depth.\+cc@{checkerboard\+\_\+color\+\_\+depth.\+cc}}\index{checkerboard\+\_\+color\+\_\+depth.\+cc@{checkerboard\+\_\+color\+\_\+depth.\+cc}!reprojected@{reprojected}}\item[{\em 
+reprojected\hypertarget{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56a3c7e38476ce9c1eeb0dca1cc9037c1a9}{}\label{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56a3c7e38476ce9c1eeb0dca1cc9037c1a9}
+}]\index{difference@{difference}!checkerboard\+\_\+color\+\_\+depth.\+cc@{checkerboard\+\_\+color\+\_\+depth.\+cc}}\index{checkerboard\+\_\+color\+\_\+depth.\+cc@{checkerboard\+\_\+color\+\_\+depth.\+cc}!difference@{difference}}\item[{\em 
+difference\hypertarget{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56a95456e7506a8c9c04e3bdffd78da1cae}{}\label{checkerboard__color__depth_8cc_a969bdfae470f2a50d7544231ff467f56a95456e7506a8c9c04e3bdffd78da1cae}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 17 of file checkerboard\+\_\+color\+\_\+depth.\+cc.
+
+
+
+\subsection{Function Documentation}
+\index{checkerboard\+\_\+color\+\_\+depth.\+cc@{checkerboard\+\_\+color\+\_\+depth.\+cc}!main@{main}}
+\index{main@{main}!checkerboard\+\_\+color\+\_\+depth.\+cc@{checkerboard\+\_\+color\+\_\+depth.\+cc}}
+\subsubsection[{\texorpdfstring{main(int argc, const char $\ast$argv[])}{main(int argc, const char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{const char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{checkerboard__color__depth_8cc_ac0f2228420376f4db7e1274f2b41667c}{}\label{checkerboard__color__depth_8cc_ac0f2228420376f4db7e1274f2b41667c}
+
+
+Definition at line 23 of file checkerboard\+\_\+color\+\_\+depth.\+cc.
+

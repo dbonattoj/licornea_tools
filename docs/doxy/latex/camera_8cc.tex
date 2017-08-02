@@ -1,0 +1,35 @@
+\hypertarget{camera_8cc}{}\section{src/lib/camera.cc File Reference}
+\label{camera_8cc}\index{src/lib/camera.\+cc@{src/lib/camera.\+cc}}
+{\ttfamily \#include \char`\"{}camera.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}json.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$iomanip$>$}\\*
+{\ttfamily \#include $<$iterator$>$}\\*
+Include dependency graph for camera.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{camera_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+camera\+\_\+array \hyperlink{namespacetlz_a8d445609e681336909da63eb443186b4}{tlz\+::decode\+\_\+cameras} (const json \&j\+\_\+cams)
+\item 
+void \hyperlink{namespacetlz_a445f7e177edcda36ece43a5fcd78615f}{tlz\+::export\+\_\+cameras\+\_\+file} (const camera\+\_\+array \&cameras, const std\+::string \&filename)
+\item 
+camera\+\_\+array \hyperlink{namespacetlz_aa5e0f8e51747ba6008a12ea8942ad9f7}{tlz\+::cameras\+\_\+arg} ()
+\item 
+std\+::map$<$ std\+::string, camera $>$ \hyperlink{namespacetlz_a5472d5ad8c55959e7d55be8551f53706}{tlz\+::cameras\+\_\+map} (const camera\+\_\+array \&arr)
+\item 
+intrinsics \hyperlink{namespacetlz_af042832f21784a7cb232f62d3b507006}{tlz\+::to\+\_\+undistorted\+\_\+intrinsics} (const camera \&cam, int width, int height)
+\item 
+void \hyperlink{namespacetlz_a5b28f7b4a28b81d7562b9cf661f1e745}{tlz\+::export\+\_\+cameras\+\_\+file} (const std\+::string \&filename, const std\+::map$<$ std\+::string, camera $>$ \&map)
+\end{DoxyCompactItemize}

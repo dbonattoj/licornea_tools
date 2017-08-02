@@ -1,0 +1,5 @@
+<map id="estimate_xy_rotation" name="estimate_xy_rotation">
+<area shape="rect" id="node2" href="$namespacetlz.html#a029afc2252e5ecc8a0f98a571aa33a0a" title="tlz::to_eigen" alt="" coords="203,5,297,32"/>
+<area shape="rect" id="node3" href="$cg__rotation__from__depths_8cc.html#a5b57319a2fb3750b839043a88dfee1c5" title="null_vec3" alt="" coords="211,56,289,83"/>
+<area shape="rect" id="node4" href="$namespacetlz.html#ab9c83b575db6f56c83d8d1cb6309c0bc" title="tlz::from_eigen" alt="" coords="196,107,304,133"/>
+</map>

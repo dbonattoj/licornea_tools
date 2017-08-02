@@ -1,0 +1,8 @@
+<map id="src/lib/point.h" name="src/lib/point.h">
+<area shape="rect" id="node2" href="$depth__remapping_8cc.html" title="src/kinect/depth_remapping.cc" alt="" coords="5,155,205,181"/>
+<area shape="rect" id="node3" href="$ply__exporter_8h.html" title="src/lib/ply_exporter.h" alt="" coords="257,80,399,107"/>
+<area shape="rect" id="node4" href="$depth__reprojection_8cc.html" title="src/kinect/depth_reprojection.cc" alt="" coords="405,155,611,181"/>
+<area shape="rect" id="node6" href="$ply__importer_8h.html" title="src/lib/ply_importer.h" alt="" coords="615,80,758,107"/>
+<area shape="rect" id="node5" href="$ply__exporter_8cc.html" title="src/lib/ply_exporter.cc" alt="" coords="230,155,381,181"/>
+<area shape="rect" id="node7" href="$ply__importer_8cc.html" title="src/lib/ply_importer.cc" alt="" coords="635,155,786,181"/>
+</map>

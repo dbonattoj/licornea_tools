@@ -1,0 +1,61 @@
+\hypertarget{eigen_8h}{}\section{src/lib/eigen.h File Reference}
+\label{eigen_8h}\index{src/lib/eigen.\+h@{src/lib/eigen.\+h}}
+{\ttfamily \#include \char`\"{}common.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$Eigen/\+Core$>$}\\*
+{\ttfamily \#include $<$Eigen/\+Eigen$>$}\\*
+{\ttfamily \#include $<$opencv2/core/eigen.\+hpp$>$}\\*
+Include dependency graph for eigen.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eigen_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{eigen_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{namespacetlz_a5be0c2718335705e53acaa3de54120a1}{tlz\+::\+Eigen\+\_\+mat\+XX} = Eigen\+::\+Matrix$<$ real, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic $>$
+\item 
+{\footnotesize template$<$std\+::size\+\_\+t Cols$>$ }\\using \hyperlink{namespacetlz_ac64657248b5121a45ab176d28045b323}{tlz\+::\+Eigen\+\_\+mat\+Xn} = Eigen\+::\+Matrix$<$ real, Eigen\+::\+Dynamic, Cols $>$
+\item 
+{\footnotesize template$<$std\+::size\+\_\+t Rows$>$ }\\using \hyperlink{namespacetlz_a103ecb11ac4d0ca5c9acecd23adf1c4b}{tlz\+::\+Eigen\+\_\+matnX} = Eigen\+::\+Matrix$<$ real, Rows, Eigen\+::\+Dynamic $>$
+\item 
+{\footnotesize template$<$std\+::size\+\_\+t Rows, std\+::size\+\_\+t Cols$>$ }\\using \hyperlink{namespacetlz_a524ba0d1429b56ff27b8f86c218f9dff}{tlz\+::\+Eigen\+\_\+mat} = Eigen\+::\+Matrix$<$ real, Rows, Cols $>$
+\item 
+using \hyperlink{namespacetlz_afee79ad04dc384cb36b98f258f24d8cd}{tlz\+::\+Eigen\+\_\+mat33} = Eigen\+\_\+mat$<$ 3, 3 $>$
+\item 
+using \hyperlink{namespacetlz_adf3b774ce3c9b66055cfa9ca2aca5bbd}{tlz\+::\+Eigen\+\_\+mat22} = Eigen\+\_\+mat$<$ 2, 2 $>$
+\item 
+using \hyperlink{namespacetlz_aab627ce949ee3307a5bef93980c4a8df}{tlz\+::\+Eigen\+\_\+vecX} = Eigen\+::\+Matrix$<$ real, Eigen\+::\+Dynamic, 1 $>$
+\item 
+{\footnotesize template$<$std\+::size\+\_\+t Rows$>$ }\\using \hyperlink{namespacetlz_a2956723eeab1e0b07f733e404d96e20e}{tlz\+::\+Eigen\+\_\+vec} = Eigen\+::\+Matrix$<$ real, Rows, 1 $>$
+\item 
+using \hyperlink{namespacetlz_a0d9cceede7be35e19a7173494ca6fb91}{tlz\+::\+Eigen\+\_\+vec3} = Eigen\+\_\+vec$<$ 3 $>$
+\item 
+using \hyperlink{namespacetlz_a3c87ebfa36baeec6f6b28dd9f3911556}{tlz\+::\+Eigen\+\_\+vec2} = Eigen\+\_\+vec$<$ 2 $>$
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$int Rows, int Cols$>$ }\\Eigen\+\_\+mat$<$ Rows, Cols $>$ \hyperlink{namespacetlz_a029afc2252e5ecc8a0f98a571aa33a0a}{tlz\+::to\+\_\+eigen} (const cv\+::\+Matx$<$ real, Rows, Cols $>$ \&cv\+\_\+mat)
+\item 
+{\footnotesize template$<$int Rows$>$ }\\Eigen\+\_\+vec$<$ Rows $>$ \hyperlink{namespacetlz_ae59e2cb22a4d3ae9c8bffa491bc4eb98}{tlz\+::to\+\_\+eigen} (const cv\+::\+Vec$<$ real, Rows $>$ \&cv\+\_\+vec)
+\item 
+{\footnotesize template$<$std\+::size\+\_\+t Rows, std\+::size\+\_\+t Cols$>$ }\\cv\+::\+Matx$<$ real, Rows, Cols $>$ \hyperlink{namespacetlz_ab9c83b575db6f56c83d8d1cb6309c0bc}{tlz\+::from\+\_\+eigen} (const Eigen\+\_\+mat$<$ Rows, Cols $>$ \&eigen\+\_\+mat)
+\item 
+{\footnotesize template$<$int Rows$>$ }\\cv\+::\+Vec$<$ real, Rows $>$ \hyperlink{namespacetlz_acd150013511be65f596e45a980758a08}{tlz\+::from\+\_\+eigen} (const Eigen\+\_\+vec$<$ Rows $>$ \&eigen\+\_\+vec)
+\end{DoxyCompactItemize}

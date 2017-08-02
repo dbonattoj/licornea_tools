@@ -1,0 +1,11 @@
+<map id="src/kinect/lib/kinect_reprojection_parameters.h" name="src/kinect/lib/kinect_reprojection_parameters.h">
+<area shape="rect" id="node2" href="$calibrate__color__ir__reprojection_8cc.html" title="src/kinect/calibrate\l_color_ir_reprojection.cc" alt="" coords="386,95,549,136"/>
+<area shape="rect" id="node3" href="$kinect__reprojection_8h.html" title="src/kinect/lib/kinect\l_reprojection.h" alt="" coords="573,95,708,136"/>
+<area shape="rect" id="node7" href="$parallel__wall_8cc.html" title="src/kinect/parallel\l_wall.cc" alt="" coords="747,184,871,225"/>
+<area shape="rect" id="node9" href="$reprojection__viewer_8cc.html" title="src/kinect/reprojection\l_viewer.cc" alt="" coords="895,184,1045,225"/>
+<area shape="rect" id="node10" href="$kinect__reprojection__parameters_8cc.html" title="src/kinect/lib/kinect\l_reprojection_parameters.cc" alt="" coords="875,95,1062,136"/>
+<area shape="rect" id="node4" href="$checkerboard__color__depth_8cc.html" title="src/kinect/checkerboard\l_color_depth.cc" alt="" coords="331,184,492,225"/>
+<area shape="rect" id="node5" href="$depth__reprojection_8cc.html" title="src/kinect/depth_reprojection.cc" alt="" coords="516,191,723,218"/>
+<area shape="rect" id="node6" href="$kinect__reprojection_8cc.html" title="src/kinect/lib/kinect\l_reprojection.cc" alt="" coords="5,184,140,225"/>
+<area shape="rect" id="node8" href="$remapping__viewer_8cc.html" title="src/kinect/remapping\l_viewer.cc" alt="" coords="164,184,307,225"/>
+</map>

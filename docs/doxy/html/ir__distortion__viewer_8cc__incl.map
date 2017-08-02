@@ -1,0 +1,11 @@
+<map id="src/kinect/ir_distortion_viewer.cc" name="src/kinect/ir_distortion_viewer.cc">
+<area shape="rect" id="node2" href="$args_8h.html" title="../lib/args.h" alt="" coords="878,408,965,435"/>
+<area shape="rect" id="node14" href="$intrinsics_8h.html" title="../lib/intrinsics.h" alt="" coords="1307,259,1421,285"/>
+<area shape="rect" id="node17" href="$json_8h.html" title="json.h" alt="" coords="393,333,450,360"/>
+<area shape="rect" id="node19" href="$viewer_8h.html" title="../lib/viewer.h" alt="" coords="1254,408,1354,435"/>
+<area shape="rect" id="node21" href="$grabber_8h.html" title="lib/live/grabber.h" alt="" coords="565,95,683,121"/>
+<area shape="rect" id="node25" href="$kinect__internal__parameters_8h.html" title="kinect_internal_parameters.h" alt="" coords="195,259,384,285"/>
+<area shape="rect" id="node3" href="$lib_2common_8h.html" title="common.h" alt="" coords="475,483,557,509"/>
+<area shape="rect" id="node15" href="$opencv_8h.html" title="opencv.h" alt="" coords="1364,483,1439,509"/>
+<area shape="rect" id="node23" href="$freenect2_8h.html" title="../freenect2.h" alt="" coords="387,177,485,203"/>
+</map>

@@ -1,0 +1,47 @@
+\hypertarget{io_8cc}{}\section{src/lib/io.cc File Reference}
+\label{io_8cc}\index{src/lib/io.\+cc@{src/lib/io.\+cc}}
+{\ttfamily \#include \char`\"{}io.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$istream$>$}\\*
+{\ttfamily \#include $<$ostream$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$stdexcept$>$}\\*
+{\ttfamily \#include $<$cstdint$>$}\\*
+{\ttfamily \#include $<$type\+\_\+traits$>$}\\*
+{\ttfamily \#include $<$cctype$>$}\\*
+Include dependency graph for io.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{io_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+line\+\_\+delimitor \hyperlink{namespacetlz_ab101d0ce024c59a97e86f22ae025b073}{tlz\+::detect\+\_\+line\+\_\+delimitor} (std\+::istream \&, std\+::size\+\_\+t max\+\_\+offset=512)
+\begin{DoxyCompactList}\small\item\em Detects line delimitor used in given file. \end{DoxyCompactList}\item 
+void \hyperlink{namespacetlz_a539629dfec76af8b466f904f4b44163f}{tlz\+::read\+\_\+line} (std\+::istream \&str, std\+::string \&line, line\+\_\+delimitor ld)
+\item 
+void \hyperlink{namespacetlz_ad751f045b05eab91faec1abdc6c1848f}{tlz\+::skip\+\_\+line} (std\+::istream \&str, line\+\_\+delimitor ld)
+\item 
+void \hyperlink{namespacetlz_a4e9cdc9ca668d5050a9dfbfd7d60437d}{tlz\+::write\+\_\+line} (std\+::ostream \&str, const std\+::string \&line, line\+\_\+delimitor ld)
+\item 
+void \hyperlink{namespacetlz_ab1d9ef738ca24791409c5af520dff3e6}{tlz\+::end\+\_\+line} (std\+::ostream \&str, line\+\_\+delimitor ld)
+\item 
+void \hyperlink{namespacetlz_ad134248963f7c5229eb03a238cb88b17}{tlz\+::flip\+\_\+endianness} (byte $\ast$data, std\+::size\+\_\+t sz)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const line\+\_\+delimitor \hyperlink{namespacetlz_a14b9a0ef3891454f12df2edd33c54305}{tlz\+::default\+\_\+line\+\_\+delimitor} = line\+\_\+delimitor\+::\+LF
+\item 
+const bool \hyperlink{namespacetlz_a9cd815775329b5fc67db8e70937b5df5}{tlz\+::host\+\_\+has\+\_\+iec559\+\_\+float}
+\item 
+const bool \hyperlink{namespacetlz_a042151a8f7bfa1208c9be493b4d40e2c}{tlz\+::host\+\_\+is\+\_\+little\+\_\+endian} = check\+\_\+host\+\_\+little\+\_\+endian\+\_\+()
+\end{DoxyCompactItemize}

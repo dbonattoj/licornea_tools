@@ -1,0 +1,39 @@
+\hypertarget{feature__slopes_8cc}{}\section{src/calibration/lib/cg/feature\+\_\+slopes.cc File Reference}
+\label{feature__slopes_8cc}\index{src/calibration/lib/cg/feature\+\_\+slopes.\+cc@{src/calibration/lib/cg/feature\+\_\+slopes.\+cc}}
+{\ttfamily \#include \char`\"{}feature\+\_\+slopes.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../../../lib/random\+\_\+color.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../../../lib/assert.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../../../lib/string.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+Include dependency graph for feature\+\_\+slopes.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{feature__slopes_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacetlz}{tlz}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+feature\+\_\+slopes \hyperlink{namespacetlz_a3f97cf7f503f586ab7cfa5175b5a5bf2}{tlz\+::decode\+\_\+feature\+\_\+slopes} (const json \&j\+\_\+fslopes)
+\item 
+bool \hyperlink{namespacetlz_a3fe6565d9058a6aacef917e7229daa27}{tlz\+::has\+\_\+feature\+\_\+slopes} (const json \&j\+\_\+fslopes)
+\item 
+json \hyperlink{namespacetlz_a96def3742b2e93e5d1da90d6083d670c}{tlz\+::encode\+\_\+feature\+\_\+slopes} (const feature\+\_\+slopes \&fslopes)
+\item 
+real \hyperlink{namespacetlz_ab937f017b3638fd7ae21499b9ecc3688}{tlz\+::model\+\_\+horizontal\+\_\+slope} (const vec2 \&undistorted\+\_\+point, const mat33 \&K, const mat33 \&R)
+\item 
+real \hyperlink{namespacetlz_ad9e6861d0c3fa74ca4a44f379cea8d31}{tlz\+::model\+\_\+vertical\+\_\+slope} (const vec2 \&undistorted\+\_\+point, const mat33 \&K, const mat33 \&R)
+\item 
+cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \hyperlink{namespacetlz_a504e67ffe264bacc884eb904ec814a80}{tlz\+::visualize\+\_\+feature\+\_\+slopes} (const feature\+\_\+slopes \&fslopes, const cv\+::\+Mat\+\_\+$<$ cv\+::\+Vec3b $>$ \&back\+\_\+img, int width, real exaggeration, int thickness, const \hyperlink{view__distortion_8cc_ae411f3a1782e7245d23e7b4772e1a21f}{border} \&bord)
+\item 
+feature\+\_\+slopes \hyperlink{namespacetlz_a0469df7eb30e593fb04a10aed9fbfec2}{tlz\+::merge\+\_\+multiview\+\_\+feature\+\_\+slopes} (const feature\+\_\+slopes \&a, const feature\+\_\+slopes \&b)
+\item 
+feature\+\_\+slopes \hyperlink{namespacetlz_a063febb60aec45ac8c7f3b33179f00be}{tlz\+::feature\+\_\+slopes\+\_\+arg} ()
+\end{DoxyCompactItemize}
