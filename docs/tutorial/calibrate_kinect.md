@@ -2,7 +2,7 @@
 
 The tools in `kinect/` can be used to calibrate the intrinsic and reprojection parameters of a **Kinect v2**. Its depth map is take using an IR (infra-red) camera, that has a lower resolution, and a different camera pose. Reprojection is the mapping of pixels from the depth/IR image onto pixels of the color camera.
 
-The method provided by Freenect2 (and the Microsoft SDK) only maps pixel positions. It is not meant use the resulting remapped depth map, as depth map of the color image: Depth values are slightly incorrect because they are unchanged, and still represent distances from the IR sensor. And they have a slight absolute offset.
+The method provided by Freenect2 (and the Microsoft SDK) only maps pixel positions. It is not meant to use the remapped depth image, as depth map of the color image: Depth values are slightly incorrect because they are unchanged, and still represent distances from the IR sensor. And they have a slight absolute offset.
 
 This calibration takes this into account. It estimates an intrinsic matrix with distortion for the color and the IR camera, a rigid transformation matrix between them, and optionally a depth offset model on the input and/or output depth map. It is done using checkerboard calibration patterns.
 
