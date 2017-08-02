@@ -2,8 +2,6 @@
 
 The tools consists of several small command-line programs written in C++ and Python. Installation compiles the C++ programs, and copies the binary along with the Python scripts into the installation directory.
 
-# Installation
-
 ## Requirements
 All of C++ programs require [**OpenCV**](http://opencv.org) to be installed on the system.
 
@@ -11,11 +9,11 @@ The programs that operate with the **Kinect v2** require [**libfreenect2**](http
 
 To enable parallelization in the C++ programs, the compiler must support [**OpenMP**](https://en.wikipedia.org/wiki/OpenMP). If it is not available, the programs cannot run parallelized.
 
-For the parallelization of the Python batch progresses, the Python extension [**joblib**](https://pypi.python.org/pypi/joblib) must be installed. (Using `pip`, for example.)
+For the parallelization of the Python batch progresses, the Python extension [**joblib**](https://pythonhosted.org/joblib/) must be installed. (Using `pip`, for example.)
 
 Building is done with [**CMake**](https://cmake.org). The C++ programs require a C++14 compatible compiler. It has been tested with a recent version of Clang++/LLVM on Linux. Other than the C++ standard library, and some external libraries that are included with the source code, there are no additional dependencies.
 
-## Building
+## Installation
 This is the installation on Linux / macOS. On Windows, Visual Studio project files can be generated with CMake instead.
 
 1. Install CMake and OpenCV on the system.
@@ -28,12 +26,12 @@ This is the installation on Linux / macOS. On Windows, Visual Studio project fil
 8. Make sure that all dependencies of the installed programs are available. Each subdirectories must contain a copy/symlink of `pylib/`, and the OpenCV shared libraries/DLLs must be linked properly.
 
 
-# Usage
+## Usage
 The programs should be used only from the installed `bin/` directory. The Python scripts cannot be called from their source files in `src/`. They rely on their libraries to be available in the right location, and some call other tools that must be in the same directories.
 
 Each tool can be run from the command line, like for example
 
-    $ camera/export_mpeg ~/data/1234/cams.json ~/data/1234/vsrs_cams.txt
+    camera/export_mpeg ~/data/1234/cams.json ~/data/1234/vsrs_cams.txt
 
 When called with no arguments, it displays a usage notice like
 

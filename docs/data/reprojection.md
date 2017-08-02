@@ -10,3 +10,4 @@ Consists of:
 - _Optional_: 2D polynomial model of absolute depth offset in IR camera space
 - _Optional_: 2D polynomial model of absolute depth offset in reprojected color camera space
 
+See the [calibration tutorial](../tutorial/calibrate_kinect.html) for more information.

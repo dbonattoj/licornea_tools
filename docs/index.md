@@ -6,10 +6,14 @@ The programs are organized into categories, in the different subdirectories `vsr
 
 Click links on left sidebar to see the documentation for the programs.
 
-## Information
+## Tutorials
 
-- [**Installation and usage**](installation.html) - How to build, install and execute the tools
-- [**CG report**](cg.pdf) - Method and tutorial of camera grid calibration
+- [**Installation and usage**](installation.html) - Build, install and execute the tools
+- [**Camera grid calibration**](cg.pdf) - Calibration of camera poses on frontal plane using optical flow (report)
+- [**Kinect calibration**](tutorial/calibrate_kinect.html) - Calibrate Kinect intrinsics and reprojection
+- [**Import from Kinect**](tutorial/import_from_kinect.html) - Import dataset from Kinect
+- [**Export to VSRS**](tutorial/export_to_vsrs.html) - Export dataset to VSRS
+- [**Run VSRS experiments**](tutorial/vsrs_experiments.html) - Run VSRS and evaluate results
 
 ## Tools categories
 - **[Calibration](#calibration)** -
@@ -42,6 +46,7 @@ Various other tools.
 - [**View homographies**](data/view_homography.html) - Homography matrices to apply to images
 
 ## More
+- [**Implementation details**](implementation.html) - Information about the C++ and Python implementations
 - [**Epipolar lines report**](epipolar.pdf) - How to compute epipolar lines from camera parameters
 - [**Epipolar sketch**](epipolar_sketch/index.html) - Interactive sketch showing epipolar lines
 

@@ -10,4 +10,6 @@
 /.idea/
 /parallel_wall_indep/
 *.pyc
-
+/docs/_site/
+/docs/Gemfile
+/docs/Gemfile.lock
