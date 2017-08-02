@@ -46,9 +46,7 @@ int main(int argc, const char* argv[]) {
 	vec3 out_translation;
 	auto color_distortion_coeffs = color_intr.distortion.cv_coeffs();
 	auto ir_distortion_coeffs = ir_intr.distortion.cv_coeffs();
-	
-	#define TERM_FIRST 1
-	
+		
 	cv::TermCriteria term(cv::TermCriteria::COUNT | cv::TermCriteria::EPS, 100, DBL_EPSILON);
 	real reproj_error = cv::stereoCalibrate(
 		object_points,
@@ -63,7 +61,7 @@ int main(int argc, const char* argv[]) {
 		out_translation,
 		cv::noArray(),
 		cv::noArray(),
-		#if TERM_FIRST
+		#if CV_VERSION_MAJOR < 3
 		term,
 		cv::CALIB_FIX_INTRINSIC
 		#else

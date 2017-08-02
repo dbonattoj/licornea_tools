@@ -34,6 +34,10 @@ struct target_camera_position_result {
 	vec2 position = vec2(0.0, 0.0);
 	real variance = NAN;
 	
+	target_camera_position_result() = default;
+	target_camera_position_result(const vec2& pos, real var) :
+		position(pos), variance(var) { }
+	
 	explicit operator bool () const { return ! std::isnan(variance); }
 };
 target_camera_position_result compute_target_camera_position(const std::map<std::string, vec2>& samples) {	
@@ -53,7 +57,7 @@ target_camera_position_result compute_target_camera_position(const std::map<std:
 	real stddev = std::sqrt(variance);
 	if(stddev > maximal_position_stddev) return target_camera_position_result();
 	
-	return target_camera_position_result{mean, variance};
+	return target_camera_position_result(mean, variance);
 }
 
 

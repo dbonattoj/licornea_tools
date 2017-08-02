@@ -40,7 +40,7 @@ int main(int argc, const char* argv[]) {
 	
 	#pragma omp parallel for
 	for(std::ptrdiff_t i = 0; i < indices.size(); ++i) {
-		if(i++ % 100 == 0) {
+		if(i % 100 == 0) {
 			#pragma omp critical
 			std::cout << i << " of " << datas.indices().size() << std::endl;
 		} else {

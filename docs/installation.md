@@ -14,16 +14,27 @@ For the parallelization of the Python batch progresses, the Python extension [**
 Building is done with [**CMake**](https://cmake.org). The C++ programs require a C++14 compatible compiler. It has been tested with a recent version of Clang++/LLVM on Linux. Other than the C++ standard library, and some external libraries that are included with the source code, there are no additional dependencies.
 
 ## Installation
-This is the installation on Linux / macOS. On Windows, Visual Studio project files can be generated with CMake instead.
 
+### On Linux or macOS
 1. Install CMake and OpenCV on the system.
 2. (Optional) Install libfreenect2. It needs to be compiled from source. When building libfreenect2 with its CMake script, `CMAKE_INSTALL_PREFIX` needs to be set to `path/to/licornea_tools/external/freenect2`. `make install` then copies its library and header files into that directory, where the `licornea_tools` CMake script will find them.
-3. Go to `licornea_tools/` top left directory.
+3. Go to `licornea_tools/` directory.
 4. `mkdir build; cd build`
 5. `cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../bin ..`. If libfreenect2 was installed, also pass `-DWITH_LIBFREENECT2=ON`. Possibly the OpenCV installation directory also needs to be adjusted using `-DOpenCV_DIR=...` (or similar depending on system).
-6. Build using `make`. There may be some warnings, and some errors that need to be fixed in the code if compiling with a diffent platform/compiler. There may be `rpath` issues on macOS. On windows, use `...`
+6. Build using `make`. There may be some warnings, and some errors that need to be fixed in the code if compiling with a diffent platform/compiler. There may be `rpath` issues on macOS.
 7. Install using `make install`. The tools will be installed in `licornea_tools/bin`, Python scripts (copies) along with executables, in their subdirectories.
-8. Make sure that all dependencies of the installed programs are available. Each subdirectories must contain a copy/symlink of `pylib/`, and the OpenCV shared libraries/DLLs must be linked properly.
+8. Make sure that the executables are properly linked. Each subdirectory must contain a symlink to `bin/pylib/`, and they must link to the shared libraries in `bin/lib/`, and OpenCV, etc.
+
+### On Windows
+1. Install CMake, OpenCV and Visual Studio C++ on the system. Use a command prompt that gives access to the native Visual Studio tools, for example "MSBuild Command Prompt for VS2015".
+2. (Optional) Install libfreenect2. It needs to be compiled from source. When building libfreenect2 with its CMake script, `CMAKE_INSTALL_PREFIX` needs to be set to `path/to/licornea_tools/external/freenect2`.
+3. Go to `licornea_tools/` directory.
+4. `mkdir build; cd build`
+5. `cmake -G "Visual Studio 14 2015 Win64" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=..\bin -DOpenCV_DIR=... ..`. If libfreenect2 was installed, also pass `-DWITH_LIBFREENECT2=ON`. `OpenCV_DIR` needs to be set to the root directory of the OpenCV installation. Possibly use another version of Visual Studio as generator.
+6. Add the OpenCV `bin\` directory to the system-wide `PATH` environment variable, as prompted by the CMake output.
+7. Build using `cmake --build . --config Release --target ALL_BUILD`.
+8. Install using `cmake --build . --config Release --target INSTALL`.
+9. Make sure that the executables are properly linked. Each subdirectory must contain a copy of `pylib/`, and the DLLs for `common_lib` and the for category.
 
 
 ## Usage
@@ -31,7 +42,11 @@ The programs should be used only from the installed `bin/` directory. The Python
 
 Each tool can be run from the command line, like for example
 
-    camera/export_mpeg ~/data/1234/cams.json ~/data/1234/vsrs_cams.txt
+    camera/export_mpeg cams.json vsrs_cams.txt
+    
+On Windows it would be
+
+    camera\export_mpeg.exe cams.json vsrs_cams.txt
 
 When called with no arguments, it displays a usage notice like
 

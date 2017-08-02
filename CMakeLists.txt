@@ -5,10 +5,9 @@ set(CMAKE_CXX_STANDARD 14)
 
 
 set(CMAKE_SKIP_BUILD_RPATH FALSE)
-set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib/")
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-
 
 # OpenCV
 find_package(OpenCV REQUIRED)
@@ -41,37 +40,46 @@ include_directories(SYSTEM src/external/include)
 include_directories(SYSTEM src/external/fmt)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-
+	add_compile_options(/wd4244 /wd4018 /wd4267 /wd4800 /wd4996 /wd4305)
 else()
 	add_compile_options(-Wall -Wextra -Wno-sign-compare)
 endif()
+
+add_definitions(-DFMT_HEADER_ONLY) # works cross-platform
 
 
 
 # Common library
 file(GLOB_RECURSE COMMON_LIB_SRC "src/lib/*.cc")
-add_library(common_lib SHARED ${COMMON_LIB_SRC} "src/external/fmt/format.cc")
-
+add_library(common_lib SHARED ${COMMON_LIB_SRC})
 target_link_libraries(common_lib ${OpenCV_LIBRARIES})
-install(TARGETS common_lib DESTINATION "lib/")
+set_target_properties(common_lib PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 
 
-# Python library install
-install(
-	DIRECTORY "src/lib/pylib"
-	DESTINATION "./lib"
-	PATTERN "*.py"
-)
+if(NOT WIN32)
+	install(TARGETS common_lib DESTINATION "lib/")
+
+	install(
+		DIRECTORY "src/lib/pylib"
+		DESTINATION "./lib"
+		PATTERN "*.py"
+	)
+endif()
 
 
 # Marco to link pylib/ into subdirectories
-function(install_pylib_link section)
+function(install_section_libraries section)
+	# Link pylib/ into subdirectories
 	if(WIN32)
 		install(
 			DIRECTORY "src/lib/pylib"
 			DESTINATION "${section}"
 			PATTERN "*.py"
-		)	
+		)
+		install(TARGETS common_lib DESTINATION "${section}/")
+		if(TARGET "${section}_lib")
+			install(TARGETS "${section}_lib" DESTINATION "${section}/")
+		endif()
 	else()
 		install(
 			CODE "execute_process( \
@@ -81,6 +89,9 @@ function(install_pylib_link section)
 				${section}/pylib \
 			)"
 		)
+		if(TARGET "${section}_lib")
+			install(TARGETS "${section}_lib" DESTINATION "lib/")
+		endif()
 	endif()
 endfunction(install_pylib_link)
 
@@ -103,8 +114,8 @@ endmacro()
 file(GLOB_RECURSE CALIBRATION_LIB_SRC "src/calibration/lib/*.cc")
 add_library(calibration_lib SHARED ${CALIBRATION_LIB_SRC})
 target_link_libraries(calibration_lib common_lib)
-install(TARGETS calibration_lib DESTINATION "lib/")
-install_pylib_link(calibration)
+set_target_properties(calibration_lib PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+install_section_libraries(calibration)
 
 program(cors_info calibration calibration_lib)
 program(calibrate_intrinsics calibration calibration_lib)
@@ -120,12 +131,12 @@ program(cg_model_optical_flow_slopes calibration calibration_lib)
 program(cg_visualize_fslopes calibration calibration_lib)
 program(cg_generate_artificial calibration calibration_lib)
 program(cg_rotation_from_fslopes calibration calibration_lib)
-program(cg_rotation_from_depths calibration calibration_lib)
+#program(cg_rotation_from_depths calibration calibration_lib)
 program(cg_slopes_viewer calibration calibration_lib)
 program(cg_cors_viewer_f calibration calibration_lib)
 program(cg_cors_viewer_v calibration calibration_lib)
 program(cg_straight_depths_from_depths calibration calibration_lib)
-program(cg_straight_depths_from_disparity calibration calibration_lib)
+#program(cg_straight_depths_from_disparity calibration calibration_lib)
 program(cg_filter_features calibration calibration_lib)
 program(cg_optical_flow_features calibration calibration_lib)
 program(cg_choose_refgrid calibration calibration_lib)
@@ -145,8 +156,8 @@ program(cameras_from_checkerboards calibration calibration_lib)
 file(GLOB_RECURSE CAMERA_LIB_SRC "src/camera/lib/*.cc")
 add_library(camera_lib SHARED ${CAMERA_LIB_SRC})
 target_link_libraries(camera_lib common_lib)
-install(TARGETS camera_lib DESTINATION "lib/")
-install_pylib_link(camera)
+set_target_properties(camera_lib PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+install_section_libraries(camera)
 
 program(export_mpeg camera camera_lib)
 program(import_mpeg camera camera_lib)
@@ -164,8 +175,8 @@ target_link_libraries(kinect_lib common_lib)
 if(WITH_LIBFREENECT2)
 	target_link_libraries(kinect_lib ${FREENECT2_LIBRARY})
 endif()
-install(TARGETS kinect_lib DESTINATION "lib/")
-install_pylib_link(kinect)
+set_target_properties(kinect_lib PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+install_section_libraries(kinect)
 
 program(depth_reprojection kinect kinect_lib)
 program(depth_remapping kinect kinect_lib)
@@ -193,7 +204,7 @@ endif()
 
 
 # Dataset
-install_pylib_link(dataset)
+install_section_libraries(dataset)
 
 program(view_dataset dataset)
 program(duplicates dataset)
@@ -204,7 +215,7 @@ py_program(flip dataset)
 
 
 # VSRS
-install_pylib_link(vsrs)
+install_section_libraries(vsrs)
 
 program(vsrs_disparity vsrs)
 py_program(export_for_vsrs vsrs)
@@ -219,7 +230,7 @@ py_program(list_parametric_experiments vsrs)
 
 
 # Misc
-install_pylib_link(misc)
+install_section_libraries(misc)
 
 program(psnr misc)
 program(view_depth misc)
