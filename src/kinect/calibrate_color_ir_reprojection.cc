@@ -46,7 +46,8 @@ int main(int argc, const char* argv[]) {
 	vec3 out_translation;
 	auto color_distortion_coeffs = color_intr.distortion.cv_coeffs();
 	auto ir_distortion_coeffs = ir_intr.distortion.cv_coeffs();
-		
+	
+	
 	cv::TermCriteria term(cv::TermCriteria::COUNT | cv::TermCriteria::EPS, 100, DBL_EPSILON);
 	real reproj_error = cv::stereoCalibrate(
 		object_points,
@@ -61,17 +62,16 @@ int main(int argc, const char* argv[]) {
 		out_translation,
 		cv::noArray(),
 		cv::noArray(),
-		#if CV_VERSION_MAJOR < 3
-		term,
-		cv::CALIB_FIX_INTRINSIC
-		#else
+		#ifdef HAVE_OPENCV3
 		cv::CALIB_FIX_INTRINSIC,
 		term 
+		#else
+		term,
+		cv::CALIB_FIX_INTRINSIC
 		#endif
 	);
 	
-	#undef TERM_FIRST
-	
+		
 	{
 		vec3 rotation_vec;
 		cv::Rodrigues(out_rotation, rotation_vec);

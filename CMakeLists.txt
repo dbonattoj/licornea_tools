@@ -93,7 +93,7 @@ function(install_section_libraries section)
 			install(TARGETS "${section}_lib" DESTINATION "lib/")
 		endif()
 	endif()
-endfunction(install_pylib_link)
+endfunction(install_section_libraries)
 
 # Macro to build+install C++ programs
 function(program name section)
