@@ -117,13 +117,13 @@ The reprojection parameters can also include a polynomial depth offset. It is a 
 
 With a checkerboard and the Kinect connected, run
 
-   kinect/checkerboard_depth_viewer cols rows square_width ir_intr.json
+    kinect/checkerboard_depth_viewer cols rows square_width ir_intr.json
 
 It detects the checkerboard on the IR image, and compares measured depth in it (from the depth map), to calculated values (from the checkerboard geometry). They should be the same. It not it is (partially) because of the absolute offset in the Kinect's depth.
 
 To take samples of the depth offset, use
 
-   kinect/checkerboard_depth_samples cols rows chk_samples.json
+    kinect/checkerboard_depth_samples cols rows chk_samples.json
 
 Take many samples, with the checkerboard at different positions and depths. It should always be kept more or less parallel to the Kinect.
 
