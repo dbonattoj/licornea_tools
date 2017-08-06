@@ -12,4 +12,6 @@ The [dataset parameters](../../data/dataset.html) must contain `image_filename_f
 
 The program will for each view index in the dataset (1D or 2D), read the input image and depth files, and write YUV image and disparity files into the path from the `vsrs` group.
 
+If the option `16_bit_disparity` in the `vsrs` group is set to `true`, then 16 bit disparity maps are generated. If not (by default) they are 8 bit.
+
 Depth maps are converted to YUV disparity maps using [vsrs/vsrs\_disparity](vsrs_disparity.html), with the `z_far` and `z_near` values from the dataset parameters. Images are converted from the original files to YUV420 files using [tools/misc/yuv\_export](../misc/yuv_export.html). The batch process can be parallelized.
