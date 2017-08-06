@@ -18,6 +18,7 @@ struct camera {
 	
 	mat44 extrinsic() const;
 	mat44 extrinsic_inv() const;
+	void set_extrinsic(const mat44&);
 	
 	vec3 position() const;
 };

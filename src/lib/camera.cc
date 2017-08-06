@@ -43,6 +43,14 @@ mat44 camera::extrinsic_inv() const {
 }
 
 
+void camera::set_extrinsic(const mat44& ex) {
+	for(int i = 0; i < 3; ++i) for(int j = 0; j < 3; ++j)
+		rotation(i, j) = ex(i, j);
+	for(int i = 0; i < 3; ++i)
+		translation[i] = ex(i, 3);
+}
+
+
 
 vec3 camera::position() const {
 	return rotation.t() * translation;

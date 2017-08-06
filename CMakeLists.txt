@@ -163,6 +163,8 @@ program(export_mpeg camera camera_lib)
 program(import_mpeg camera camera_lib)
 program(transform camera camera_lib)
 program(visualize camera camera_lib)
+program(merge_cameras camera camera_lib)
+program(restrict_cameras camera camera_lib)
 
 py_program(import_xml camera)
 py_program(import_matlab camera)

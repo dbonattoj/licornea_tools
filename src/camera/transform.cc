@@ -10,19 +10,18 @@
 using namespace tlz;
 
 [[noreturn]] void usage_fail() {
-	std::cout << "usage: transform in_cameras.json out_cameras.json/none/replace operation\n";
-	std::cout << "operations: Rt2MPEG: standard extrinsic matrix to MPEG convention\n";
-	std::cout << "            MPEG2Rt: MPEG convention to standard extrinsic matrix\n";
-	std::cout << "            flip_t: flip sign of translation vectors\n";
-	std::cout << "            scale old new: adapt intrinsic matrix for image scale from old to new\n";
-	std::cout << "                           (old/new = pixel length of same segment in old and new image)\n";
-	std::cout << "            border [old] new: adapt intrinsic matrix for image border change from old to new\n";
-	std::cout << "                              (old/new = border.json file. if no old, assumed old border is zero)\n";
-	std::cout << "            rename cam_{} [offset=0] [factor=1]: rename according to format, with arg = offset + factor*index\n";
-	std::cout << "            head n: Only n first cameras\n";
-	std::cout << "            tail n: Only n last cameras\n";
-	std::cout << "            nop: No change, just rewrite the cameras file\n";
-	std::cout << std::endl;
+	std::cout << "usage: transform in_cameras.json out_cameras.json/none/replace operation\n"
+		<< "            MPEG2Rt: MPEG convention to standard extrinsic matrix\n"
+		<< "            flip_t: flip sign of translation vectors\n"
+		<< "            scale old new: adapt intrinsic matrix for image scale from old to new\n"
+		<< "                           (old/new = pixel length of same segment in old and new image)\n"
+		<< "            border [old] new: adapt intrinsic matrix for image border change from old to new\n"
+		<< "                              (old/new = border.json file. if no old, assumed old border is zero)\n"
+		<< "            rename cam_{} [offset=0] [factor=1]: rename according to format, with arg = offset + factor*index\n"
+		<< "            head n: Only n first cameras\n"
+		<< "            tail n: Only n last cameras\n"
+		<< "            nop: No change, just rewrite the cameras file\n"
+		<< std::endl;
 	std::exit(1);
 }
 
@@ -94,7 +93,7 @@ int main(int argc, const char* argv[]) {
 			if(argc <= 4) usage_fail();
 			int n = std::atoi(argv[4]);
 			skip = (index < in_cameras.size() - n);
-			
+		
 		} else if(operation == "nop") {
 			// no change
 			
