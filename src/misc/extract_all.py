@@ -7,7 +7,7 @@ def usage_fail():
 	print("usage: {} parameters.json out_dirname/\n".format(sys.argv[0]))
 	sys.exit(1)
 
-if len(sys.argv) <= 3: usage_fail()
+if len(sys.argv) <= 2: usage_fail()
 parameters_filename = sys.argv[1]
 out_dirname = sys.argv[2]
 
@@ -23,4 +23,3 @@ for x in datas.x_indices():
 	out_frame = out_frame + 1
 	out_image_filename = os.path.join(out_dirname, "frame_{:05d}.png".format(out_frame))
 	shutil.copyfile(image_filename, out_image_filename)
-	print("{} of {}".format(out_frame+1,len(images)))
