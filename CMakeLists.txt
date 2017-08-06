@@ -248,3 +248,4 @@ program(yuv_import misc)
 program(yuv_export misc)
 
 py_program(extract_parametric misc)
+py_program(extract_all misc)
