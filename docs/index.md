@@ -49,5 +49,5 @@ Various other tools.
 - [**Implementation details**](implementation.html) - Information about the C++ and Python implementations
 - [**Epipolar lines report**](epipolar.pdf) - How to compute epipolar lines from camera parameters
 - [**Epipolar sketch**](epipolar_sketch/index.html) - Interactive sketch showing epipolar lines
-- [**FTV state of the art**](ftv.pdf) - Report about FTV state of the art, (20 Frbruary 2016)
+- [**FTV state of the art**](ftv.pdf) - Report about FTV state of the art (20 February 2016)
 - [**Doxygen documentation**](doxy/html/annotated.html) - Doxygen documentation of C++ source code
