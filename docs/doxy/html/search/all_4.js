@@ -40,7 +40,7 @@ var searchData=
   ['escape_5fkeycode',['escape_keycode',['../namespacetlz.html#a7ebc5d7ffd41d61b0d2ccda50d705fb4',1,'tlz']]],
   ['estimate_5fcheckerboard_5fextrinsics',['estimate_checkerboard_extrinsics',['../namespacetlz.html#ac176ab31932290f05fb3c647f8ecdd85',1,'tlz']]],
   ['estimate_5frelative_5fscale',['estimate_relative_scale',['../cg__straight__depths__from__disparity_8cc.html#a4f882a50925fe8d08a6837020bdbd420',1,'cg_straight_depths_from_disparity.cc']]],
-  ['estimate_5frelative_5fscale_5fresult',['estimate_relative_scale_result',['../structestimate__relative__scale__result.html',1,'']]],
+  ['estimate_5frelative_5fscale_5fresult',['estimate_relative_scale_result',['../structestimate__relative__scale__result.html',1,'estimate_relative_scale_result'],['../structestimate__relative__scale__result.html#a68471a6950d8171beda2a5c46e4aed58',1,'estimate_relative_scale_result::estimate_relative_scale_result()=default'],['../structestimate__relative__scale__result.html#a0ffd575ec80f76fd41108c733b289c60',1,'estimate_relative_scale_result::estimate_relative_scale_result(real sc, real w)']]],
   ['estimate_5fxy_5frotation',['estimate_xy_rotation',['../cg__rotation__from__depths_8cc.html#a0912195dab0b58960e0b7c70a3272965',1,'cg_rotation_from_depths.cc']]],
   ['evaluate_5fcalibration_2ecc',['evaluate_calibration.cc',['../evaluate__calibration_8cc.html',1,'']]],
   ['explode',['explode',['../namespacetlz.html#a61f6a6d670ff102367298c39a1a3b0b4',1,'tlz']]],

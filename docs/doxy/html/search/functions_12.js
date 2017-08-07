@@ -5,6 +5,7 @@ var searchData=
   ['save_5fir',['save_ir',['../namespacetlz.html#a118330168f0a4fa1217373190a9e6018',1,'tlz']]],
   ['save_5ftexture',['save_texture',['../namespacetlz.html#abef378599dee0140819b796094d46e0f',1,'tlz']]],
   ['set',['set',['../classtlz_1_1dataset__view.html#a13ceac1cdda5daa960ba25d5bd8802a4',1,'tlz::dataset_view::set()'],['../classtlz_1_1dataset__group.html#a4cc740eed6929b9f06a2157120740a7f',1,'tlz::dataset_group::set()']]],
+  ['set_5fextrinsic',['set_extrinsic',['../structtlz_1_1camera.html#ac170395ef972c44379a9dcce661b1847',1,'tlz::camera']]],
   ['set_5fnon_5fnull',['set_non_null',['../structtlz_1_1point__xyz.html#a667ff7532d7de663907ea34b3338cbf2',1,'tlz::point_xyz']]],
   ['set_5fnull',['set_null',['../structtlz_1_1point__xyz.html#aa168b2b19af27325f70653b7bba338f2',1,'tlz::point_xyz']]],
   ['set_5fposition',['set_position',['../structtlz_1_1point__xyz.html#a139f2232abea0da278b0e7a94ccbdf23',1,'tlz::point_xyz']]],

@@ -2,7 +2,8 @@ var searchData=
 [
   ['target_5fcamera_5fposition_5fresult',['target_camera_position_result',['../structtarget__camera__position__result.html#af3a7af786df9768f6c6eed9397255139',1,'target_camera_position_result::target_camera_position_result()=default'],['../structtarget__camera__position__result.html#a2bef2bba908a455f291d42e4a0e04378',1,'target_camera_position_result::target_camera_position_result(const vec2 &amp;pos, real var)']]],
   ['tell',['tell',['../classtlz_1_1ply__importer.html#a1b181b2af7d2ba5624c1f076a84ce3fd',1,'tlz::ply_importer']]],
-  ['to_5feigen',['to_eigen',['../namespacetlz.html#a029afc2252e5ecc8a0f98a571aa33a0a',1,'tlz::to_eigen(const cv::Matx&lt; real, Rows, Cols &gt; &amp;cv_mat)'],['../namespacetlz.html#ae59e2cb22a4d3ae9c8bffa491bc4eb98',1,'tlz::to_eigen(const cv::Vec&lt; real, Rows &gt; &amp;cv_vec)']]],
+  ['to_5feigen',['to_eigen',['../namespacetlz.html#ae59e2cb22a4d3ae9c8bffa491bc4eb98',1,'tlz']]],
+  ['to_5feigen_5fmat',['to_eigen_mat',['../namespacetlz.html#ade8defb32aafaf166c303f8a816c482c',1,'tlz']]],
   ['to_5feuler',['to_euler',['../namespacetlz.html#ad15709c59127deda12dbfd6bc4518a07',1,'tlz']]],
   ['to_5ffreenect2',['to_freenect2',['../namespacetlz.html#a6f3975e223ba94b96abba39598db17af',1,'tlz']]],
   ['to_5flower',['to_lower',['../namespacetlz.html#a6745ce98447ef5d811fb6e80dbf5d468',1,'tlz']]],
