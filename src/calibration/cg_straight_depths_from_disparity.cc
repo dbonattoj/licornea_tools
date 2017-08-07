@@ -58,6 +58,9 @@ struct estimate_relative_scale_result {
 	real scale = NAN;
 	real weight = 0.0;
 	
+	estimate_relative_scale_result() = default;
+	estimate_relative_scale_result(real sc, real w) : scale(sc), weight(w) { }
+	
 	explicit operator bool () const { return ! std::isnan(scale); }
 };
 estimate_relative_scale_result estimate_relative_scale(
@@ -158,7 +161,7 @@ estimate_relative_scale_result estimate_relative_scale(
 	
 	real weight = (center_view ? 10.0 : 1.0) * 1.0/sq(error);
 	
-	return estimate_relative_scale_result {scale, weight};
+	return estimate_relative_scale_result(scale, weight);
 }
 
 

@@ -21,7 +21,7 @@ using Eigen_vec3 = Eigen_vec<3>;
 using Eigen_vec2 = Eigen_vec<2>;
 
 template<int Rows, int Cols>
-Eigen_mat<Rows, Cols> to_eigen(const cv::Matx<real, Rows, Cols>& cv_mat) {
+Eigen_mat<Rows, Cols> to_eigen_mat(const cv::Matx<real, Rows, Cols>& cv_mat) {
 	Eigen_mat<Rows, Cols> eigen_mat;
 	for(std::ptrdiff_t i = 0; i < Rows; ++i) for(std::ptrdiff_t j = 0; j < Cols; ++j) eigen_mat(i, j) = cv_mat(i, j);
 	return eigen_mat;
@@ -36,7 +36,7 @@ Eigen_vec<Rows> to_eigen(const cv::Vec<real, Rows>& cv_vec) {
 
 
 template<std::size_t Rows, std::size_t Cols>
-cv::Matx<real, Rows, Cols> from_eigen(const Eigen_mat<Rows, Cols>& eigen_mat) {
+cv::Matx<real, Rows, Cols> from_eigen_mat(const Eigen_mat<Rows, Cols>& eigen_mat) {
 	cv::Matx<real, Rows, Cols> cv_mat;
 	for(std::ptrdiff_t i = 0; i < Rows; ++i) for(std::ptrdiff_t j = 0; j < Cols; ++j) cv_mat(i, j) = eigen_mat(i, j);
 	return cv_mat;

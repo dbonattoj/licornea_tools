@@ -38,7 +38,7 @@ xy_rotation estimate_xy_rotation(const mat33& K_inv, const image_correspondence_
 		if(fpoint.depth == 0.0) continue;
 		
 		Eigen_vec3 i_h = Eigen_vec3(fpoint.position[0], fpoint.position[1], 1.0) * fpoint.depth;
-		Eigen_vec3 v = to_eigen(K_inv) * i_h;
+		Eigen_vec3 v = to_eigen_mat(K_inv) * i_h;
 		v_points.push_back(v);
 		v_mean += v;
 	}
@@ -61,7 +61,7 @@ xy_rotation estimate_xy_rotation(const mat33& K_inv, const image_correspondence_
 	Eigen_vec3 normal(U(0,2), U(1,2), U(2,2));
 	if(normal[2] < 0.0) normal = -normal;
 	
-	return from_eigen(normal);
+	return from_eigen<3>(normal);
 }
 
 
